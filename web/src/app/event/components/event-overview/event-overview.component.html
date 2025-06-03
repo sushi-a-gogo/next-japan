@@ -1,0 +1,16 @@
+<section>
+  <header #description>Description</header>
+  <main class="pre-wrap">{{ event()?.fullDescription }}</main>
+</section>
+<section>
+  <header #locations>Locations</header>
+  <main>
+    <app-location-overview></app-location-overview>
+  </main>
+</section>
+<section>
+  <header #coordinators>Event Coordinators</header>
+  <main>
+    <app-coordinator-overview />
+  </main>
+</section>

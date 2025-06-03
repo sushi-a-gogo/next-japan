@@ -1,0 +1,34 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+.event-client-org {
+  padding: 2px 0;
+}
+
+.label-small {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: map.get(var.$colors, inactive);
+}
+
+.divider {
+  padding: 0 5px;
+  color: map.get(var.$colors, inactive);
+  &:before {
+    content: "\007c";
+  }
+}
+
+a {
+  color: map.get(var.$colors, inactive);
+  text-decoration: none;
+
+  &.event {
+    color: var(--bright-blue-sky);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

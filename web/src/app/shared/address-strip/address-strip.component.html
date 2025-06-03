@@ -1,0 +1,23 @@
+<i class="i_pin"></i>
+<div>
+  <div class="address">
+    @if(address) {
+    {{ address }}
+    @if(showDirections()) {
+    <a class="get-directions desktop" [href]="place" target="_blank">
+      Directions
+    </a>
+    } } @else {
+    <span class="app-text-inactive"> Address not available. </span>
+    }
+  </div>
+  @if(notes()) {
+  <div class="notes break-word">
+    {{ notes() }}
+  </div>
+  } @if(address && showDirections()) {
+  <a class="get-directions mobile" [href]="place" target="_blank">
+    Directions
+  </a>
+  }
+</div>

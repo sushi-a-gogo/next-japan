@@ -1,0 +1,10 @@
+<div>
+  {{ startDate() | date : "EEEE, MMMM d, yyyy" }}
+</div>
+<div class="time">
+  <div>
+    {{ startDate() | date : "h:mma" | lowercase }} -
+    {{ endDate() | date : "h:mma" | lowercase }}
+  </div>
+  <div>{{ opportunity().timeZoneAbbreviation }}</div>
+</div>

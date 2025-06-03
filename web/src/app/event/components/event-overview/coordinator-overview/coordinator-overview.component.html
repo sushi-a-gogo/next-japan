@@ -1,0 +1,21 @@
+@for(coordinator of eventCoordinators(); track coordinator.imageId) {
+<div class="coordinator-row">
+  <div>
+    <div class="profile-image-container">
+      <app-avatar [avatar]="coordinator" [size]="64"></app-avatar>
+    </div>
+  </div>
+  <div class="coordinator-column">
+    <span class="break-word">
+      {{ coordinator.firstName }} {{ coordinator.lastName }}
+    </span>
+    <a
+      class="email"
+      [href]="'mailto: ' + coordinator.email"
+      [title]="coordinator.email"
+    >
+      Contact Me
+    </a>
+  </div>
+</div>
+} @empty { There are no Coordinators for this Event. }

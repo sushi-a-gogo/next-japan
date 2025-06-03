@@ -1,0 +1,68 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+.banner-container {
+  width: 100%;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.banner-bar {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  padding-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.banner-title {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 45px;
+  margin-bottom: 10px;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: 225px;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+}
+
+.event-desc {
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 10px;
+
+  .locations-count {
+    opacity: 0;
+    transition: opacity 0.25s;
+
+    &.open {
+      opacity: 1;
+    }
+  }
+}
+
+@media (min-width: var.$screen-sm) {
+  .banner-bar {
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+  }
+}

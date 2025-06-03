@@ -1,0 +1,34 @@
+<button
+  aria-label="Account"
+  type="button"
+  class="profile-button"
+  [matMenuTriggerFor]="userMenu"
+  mat-ripple
+  matTooltip="Account"
+>
+  <app-avatar [avatar]="userProfile()!" [size]="48"></app-avatar>
+</button>
+<mat-menu
+  #userMenu="matMenu"
+  [hasBackdrop]="true"
+  backdropClass="notification-backdrop"
+>
+  <header>
+    <span> {{ userProfile()?.firstName }} {{ userProfile()?.lastName }} </span>
+  </header>
+  <button mat-menu-item (click)="openUserProfile()">
+    <div class="menu-item">
+      <span class="material-icons">description</span>
+      View Profile
+    </div>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <div class="menu-item">
+      <span class="material-icons">logout</span>
+      Sign Out
+    </div>
+  </button>
+</mat-menu>
+@if(showUserProfile()) {
+<app-user-profile (close)="closeUserProfile()"></app-user-profile>
+}

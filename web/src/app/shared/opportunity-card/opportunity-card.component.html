@@ -1,0 +1,20 @@
+<section>
+  <header class="event-title break-word">
+    {{ opportunity().locationName }}
+  </header>
+  <main>
+    <app-event-breadcrumb [data]="opportunity()"></app-event-breadcrumb>
+    <div class="location-address">
+      <app-address-strip
+        [location]="opportunity()"
+        [showDirections]="showDirections()"
+        [notes]="opportunity().locationNotes"
+      ></app-address-strip>
+    </div>
+    <div>
+      <app-opportunity-label
+        [opportunity]="opportunity()"
+      ></app-opportunity-label>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,118 @@
+<app-modal class="dialog" (close)="close.emit(true)">
+  <header class="dialog">
+    <span>My Profile</span>
+    <button
+      aria-label="Close dialog"
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="closeProfile()"
+    >
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+  <main class="dialog">
+    <div class="profile" [class.disabled]="busy">
+      <app-avatar [avatar]="userProfile()!" [size]="80"></app-avatar>
+      @if(profileForm) {
+      <form [formGroup]="profileForm" class="app-form">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input
+            type="text"
+            matInput
+            required
+            name="firstName"
+            formControlName="firstName"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input
+            type="text"
+            matInput
+            required
+            name="lastName"
+            formControlName="lastName"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" matInput name="email" formControlName="email" />
+        </mat-form-field>
+        <div class="form-pair">
+          <mat-form-field class="phone">
+            <mat-label>Phone</mat-label>
+            <input
+              type="text"
+              matInput
+              name="phone"
+              formControlName="phone"
+              autocomplete="off"
+            />
+            @if(profileForm.hasError('requiredPhone')) {
+            <mat-hint>
+              <span class="phone-required">
+                * A phone number is required.
+              </span>
+            </mat-hint>
+            }
+            <mat-error
+              ><span class="small"
+                >Enter phone in format: +12223335555</span
+              ></mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="contact">
+            <mat-label>Preferred Contact Method</mat-label>
+            <mat-select formControlName="preferredContactMethod">
+              @for(contactMethod of contactMethods; track contactMethod.value) {
+              <mat-option [value]="contactMethod.value">
+                {{ contactMethod.viewValue }}
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        @if('phone' === profileForm.get('preferredContactMethod')?.value) {
+        <div #disclaimer class="disclaimer">
+          <p>
+            By choosing <em>Phone</em> as my preferred contact method, I agree
+            to receive recurring automated text messages (e.g. account
+            notifications) at the phone number provided. MSG & data rates may
+            apply. MSG frequency varies. To opt out of receiving text messages,
+            choose another preferred contact method in your user profile.
+          </p>
+          View our
+          <a href="https://www.google.com" target="_blank">Terms of Service</a>
+          and
+          <a href="https://www.google.com" target="_blank">Privacy Policy</a>.
+        </div>
+
+        }
+      </form>
+      }
+    </div>
+  </main>
+  <footer class="dialog">
+    <button
+      type="button"
+      class="app-button dialog-button app-button-cancel"
+      matRipple
+      (click)="closeProfile()"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="app-button dialog-button app-button-save"
+      matRipple
+      (click)="saveProfile()"
+      [disabled]="profileForm.pristine || !profileForm.valid"
+    >
+      Save
+    </button>
+  </footer>
+</app-modal>

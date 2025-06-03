@@ -1,0 +1,11 @@
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selector {
+  align-self: flex-end;
+}

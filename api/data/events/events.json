@@ -1,0 +1,20 @@
+[
+  {
+    "eventId": 1,
+    "eventTitle": "Mount Fuji Retreat",
+    "description": "Explore the beauty of Mount Fuji and enjoy an evening of fun and food with friends and family! We will have a bonfire, games, and more.",
+    "imageId": "events/fuji.png"
+  },
+  {
+    "eventId": 2,
+    "eventTitle": "Explore Kinkaku-ji",
+    "description": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family! We will have a bonfire, games, and more.",
+    "imageId": "events/kinkakuji.webp"
+  },
+  {
+    "eventId": 3,
+    "eventTitle": "Campfire Cookout",
+    "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
+    "imageId": "events/campfire.png"
+  }
+]

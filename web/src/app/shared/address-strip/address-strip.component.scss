@@ -1,0 +1,57 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 700;
+}
+
+.i_pin {
+  align-self: flex-start;
+  font-size: 22px;
+  line-height: 22px;
+
+  color: map.get(var.$colors, red-torii-gate);
+}
+
+a.get-directions {
+  font-size: 12px;
+  line-height: 19px;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--bright-blue-sky);
+
+  &.desktop {
+    display: none;
+  }
+
+  &:hover {
+    text-decoration: underline 1px;
+    text-underline-offset: 1px;
+  }
+}
+
+.notes {
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 400;
+}
+
+@media (min-width: 600px) {
+  a.get-directions {
+    &.mobile {
+      display: none;
+    }
+
+    &.desktop {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}

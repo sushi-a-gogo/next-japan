@@ -1,0 +1,166 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: block;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 10px;
+
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #fff;
+  border-radius: 4px;
+
+  &.collapsed {
+    border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  }
+
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 1;
+    transition: 0.25s;
+    gap: 5px;
+    cursor: pointer;
+    border: 1px solid map.get(var.$colors, section-medium-gray);
+    border-radius: 3px;
+    color: #000;
+    background-color: map.get(var.$colors, section-light-gray);
+    height: 36px;
+
+    .desktop {
+      display: none;
+    }
+
+    .material-icons {
+      transition-duration: 0.33s;
+      transition-property: transform;
+
+      &.mobile {
+        font-weight: 700;
+      }
+    }
+
+    &:hover {
+      filter: brightness(94%);
+    }
+
+    &.busy {
+      opacity: 0.75;
+    }
+
+    &.expanded {
+      .material-icons {
+        transition-duration: 0.25s;
+        transition-property: transform;
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.location-address {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expansion-panel {
+  //margin-bottom: 10px;
+  opacity: 0;
+  border-radius: 12px;
+  padding: 5px 10px;
+  background: #fcfcfc; // map.get(var.$colors, section-light-gray);
+  border: 1px solid map.get(var.$colors, light-gray-accent);
+
+  &.open {
+    opacity: 1;
+  }
+}
+
+.accordion-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  padding: 15px 0;
+
+  &:first-child {
+    padding: 10px 0 15px 0;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid map.get(var.$colors, light-gray-accent);
+  }
+
+  &:last-child {
+    padding-bottom: 10px;
+  }
+}
+
+.waiver-required {
+  margin-top: 15px;
+  margin-left: -25px; // gets around the mat-accordion '2.5rem' padding-left
+}
+
+.message {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+
+  .material-icons {
+    color: map.get(var.$colors, inactive);
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+@media (min-width: 600px) {
+  header {
+    button {
+      padding-left: 10px;
+
+      .material-icons.mobile {
+        display: none;
+      }
+
+      .desktop {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 19px;
+      }
+    }
+  }
+
+  .accordion-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 4px;
+
+    &:first-child {
+      padding: 10px;
+      padding-top: 5px;
+    }
+
+    &:last-child {
+      padding-bottom: 5px;
+    }
+  }
+}

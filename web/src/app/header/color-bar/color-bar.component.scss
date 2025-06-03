@@ -1,0 +1,13 @@
+@use "variables.scss" as var;
+
+:host {
+  display: block;
+  width: 100%;
+  height: var.$color-bar-height;
+  background: linear-gradient(
+    to right,
+    var(--bright-blue-sky),
+    #33c1e7,
+    #66d4ef
+  );
+}

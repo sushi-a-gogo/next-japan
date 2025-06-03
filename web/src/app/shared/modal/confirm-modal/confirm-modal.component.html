@@ -1,0 +1,13 @@
+<app-modal (close)="onDialogClose()">
+  <div class="error">
+    <h2>{{ headerText() }}</h2>
+    <p>{{ message() }}</p>
+
+    <div class="confirmation-actions">
+      <button class="button" (click)="onDialogClose()">
+        I think I changed my mind...
+      </button>
+      <button class="button" (click)="onConfirm()">Okay</button>
+    </div>
+  </div>
+</app-modal>

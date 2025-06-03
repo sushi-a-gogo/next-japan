@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+.navbar-panels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #fff;
+  color: map.get(var.$colors, dark-label);
+
+  width: 100%;
+  //max-width: var.$max-page-width;
+}
+
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: var.$user-header-height;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    li {
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      border-bottom: 3px solid white;
+      color: map.get(var.$colors, dark-label);
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+        text-decoration-thickness: 1px;
+      }
+    }
+  }
+}
+
+.panel-overview {
+  flex: 1;
+}
+
+.panel-opportunities {
+  display: none;
+  width: 360px;
+}
+
+@media (min-width: 992px) {
+  nav {
+    ul {
+      gap: 40px;
+      justify-content: flex-start;
+    }
+  }
+
+  .panel-overview {
+    border-right: 1px solid map.get(var.$colors, light-gray-accent);
+  }
+
+  .panel-opportunities {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    width: 420px;
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 1200px) {
+  .panel-opportunities {
+    width: 430px;
+  }
+}

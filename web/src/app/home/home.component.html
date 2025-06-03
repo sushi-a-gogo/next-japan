@@ -1,0 +1,34 @@
+@if(loading) {
+<app-loading-spinner></app-loading-spinner>
+}
+<div class="organization-page" [class.open]="!loading">
+  @if(org) {
+  <article class="content-container">
+    <header>
+      <app-org-banner [org]="org!"></app-org-banner>
+    </header>
+    <main>
+      <section>
+        <div class="flex-content organization-info">
+          <div class="info-title break-word">
+            {{ org.infoTitle }}
+          </div>
+          <div class="info-description break-word pre-wrap">
+            {{ org.infoDescription }}
+          </div>
+        </div>
+      </section>
+      @if(events().length) {
+      <section>
+        <div class="flex-content">
+          <app-event-carousel
+            [events]="events()"
+            [opportunities]="opportunities()"
+          ></app-event-carousel>
+        </div>
+      </section>
+      }
+    </main>
+  </article>
+  }
+</div>

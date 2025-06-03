@@ -1,0 +1,57 @@
+@use "sass:map";
+@use "sass:color";
+@use "variables.scss" as var;
+
+:host {
+  font-weight: 600;
+  letter-spacing: -0.06px;
+  padding: 4px 16px;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  background: map.get(var.$colors, section-light-gray);
+  color: map.get(var.$colors, dark-label);
+
+  .material-icons {
+    display: none;
+  }
+
+  &.registered {
+    //background: lighten(map.get(var.$colors, base-color), 40%);
+    //color: map.get(var.$colors, base-color);
+    background: color.scale(
+      map.get(var.$colors, bright-blue-sky),
+      $lightness: 85%
+    );
+    color: color.scale(
+      map.get(var.$colors, bright-green-grass),
+      $lightness: -40%
+    );
+    color: var(--navy-blue-mountain);
+
+    .material-icons.registered {
+      display: inline-block;
+    }
+  }
+
+  &.requested {
+    background: color.scale(
+      map.get(var.$colors, light-yellow-stars),
+      $lightness: 50%
+    );
+    color: color.scale(
+      map.get(var.$colors, vivid-yellow-text),
+      $lightness: -60%
+    );
+    background: lighten(map.get(var.$colors, bright-green-grass), 30%);
+    color: darken(map.get(var.$colors, bright-green-grass), 40%);
+
+    .material-icons.requested {
+      display: inline-block;
+    }
+  }
+}

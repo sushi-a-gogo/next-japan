@@ -1,0 +1,29 @@
+<div class="event-footer" [class.visible]="selected().length > 0">
+  <button
+    type="button"
+    matRipple
+    class="app-button mobile"
+    [disabled]="selected().length === 0"
+    (click)="openRegistrationDialog()"
+  >
+    Tap to Register
+  </button>
+  <div class="desktop">
+    @if(selected().length) {
+    <div>
+      You have selected {{ selected().length }}
+      {{ selected().length === 1 ? " opportunity." : " opportunities." }}
+    </div>
+    <div>
+      <button
+        type="button"
+        matRipple
+        class="app-button"
+        (click)="openRegistrationDialog()"
+      >
+        Register
+      </button>
+    </div>
+    }
+  </div>
+</div>

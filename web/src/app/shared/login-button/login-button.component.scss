@@ -1,0 +1,26 @@
+button {
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 0;
+  border: 0;
+  padding: 12px;
+  color: #fff;
+  background-color: transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.get-started {
+  width: 95px;
+  background-color: #4479c8;
+}
+
+.sign-in {
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1.5px;
+  }
+}

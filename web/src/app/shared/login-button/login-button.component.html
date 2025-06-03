@@ -1,0 +1,6 @@
+@if(signup()) {
+<button mat-ripple class="get-started" (click)="login()">Get Started</button>
+} @else {
+<button mat-ripple class="sign-in" (click)="login()">Sign In</button>
+
+}

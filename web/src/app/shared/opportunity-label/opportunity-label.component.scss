@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 600;
+}
+
+.i_clock {
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--bright-blue-sky);
+  align-self: flex-start;
+}
+
+.notes {
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 400;
+  color: map.get(var.$colors, dark-label);
+}

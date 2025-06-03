@@ -1,0 +1,11 @@
+@if(locations().length) {
+<!-- locations loop -->
+@for(location of locations(); track location.locationId) {
+<app-location-expansion-panel
+  [location]="location"
+></app-location-expansion-panel>
+}
+<!-- locations loop ends -->
+} @else {
+<div class="no-locations">There are no Locations for this Event.</div>
+}

@@ -1,0 +1,26 @@
+<div class="header-content" [style.backgroundImage]="bannerImageBackground">
+  <div class="content">
+    <div class="content-top">
+      <nav>
+        <ul>
+          @if(!auth.isAuthenticated()) {
+          <li class="org-logo">
+            <app-logo />
+          </li>
+          <li class="login">
+            <app-login-button></app-login-button>
+            <app-login-button [signup]="true"></app-login-button>
+          </li>
+          }
+        </ul>
+      </nav>
+      <div class="title break-word">{{ org().bannerTitle }}</div>
+      <div class="subtitle break-word">{{ org().bannerSubTitle }}</div>
+    </div>
+    <div class="content-bottom">
+      <div class="description break-word pre-wrap">
+        {{ org().bannerDescription }}
+      </div>
+    </div>
+  </div>
+</div>

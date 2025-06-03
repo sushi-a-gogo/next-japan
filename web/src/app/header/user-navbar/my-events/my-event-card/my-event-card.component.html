@@ -1,0 +1,10 @@
+<app-opportunity-card
+  [opportunity]="event()"
+  [showDirections]="true"
+></app-opportunity-card>
+<div class="actions">
+  <app-registration-status-label
+    [class]="event().status"
+    [status]="event().status"
+  />
+</div>

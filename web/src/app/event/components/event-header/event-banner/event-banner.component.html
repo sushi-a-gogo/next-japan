@@ -1,0 +1,30 @@
+<div class="banner-container" [style.backgroundImage]="backgroundImage()">
+  <div class="banner-bar">
+    <div>
+      <div class="banner-title break-word">
+        {{ event()?.eventTitle }}
+      </div>
+      <div class="event-desc">
+        @if(event()?.minDate) {
+        <mat-icon>event_note</mat-icon>
+        <span>{{ event()?.minDate | date }}</span>
+        @if(multiDayEvent()) { -
+        <span>{{ event()?.maxDate | date }}</span>
+        } } @else {
+        <mat-icon>event_note</mat-icon>
+        Coming Soon }
+      </div>
+      <div class="event-desc">
+        <mat-icon>place</mat-icon>
+        <div class="locations-count" [class.open]="eventLocations().length">
+          {{ eventLocations().length | displayCount }}
+          @if(eventLocations().length !== 1) {
+          <span>Locations</span>
+          } @else {
+          <span>Location</span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

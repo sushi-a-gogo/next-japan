@@ -1,0 +1,175 @@
+/* You can add global styles to this file, and also import other style files */
+@use "sass:map";
+@use "variables.scss" as var;
+@use "mat-variables.scss" as mat-var;
+@use "./styles/themes/default-theme.scss" as *;
+@use "./styles/icons.scss" as *;
+@use "app-buttons.scss" as *;
+@use "app-material-overrides.scss" as *;
+
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container,
+.cdk-overlay-connected-position-bounding-box {
+  z-index: 9999 !important;
+}
+
+html {
+  //font-size: 10px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var.$app-font;
+  font-size: 16px;
+  color: #000;
+  overscroll-behavior: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+//body:has(.cdk-overlay-container:not(:empty)),
+body.no-scroll,
+body:has(.dialog) {
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.global-scroll-block {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+/* GOOGLE MAPS */
+.gm-style,
+.poi-info-window div,
+.poi-info-window a {
+  font-family: var.$app-font;
+}
+
+.event-title {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 700;
+  color: #000;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
+.app-text-inactive {
+  color: map.get(var.$colors, inactive);
+}
+
+.app-dialog {
+  padding: 24px;
+  padding-top: 18px;
+
+  .dialog-close {
+    margin-right: -14px;
+  }
+}
+
+.content-container {
+  max-width: var.$max-page-width;
+}
+
+header.dialog {
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main.dialog {
+  flex: 1;
+  overflow: auto;
+}
+
+footer.dialog {
+  width: 100%;
+  padding-top: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.notification-banner {
+  padding: 24px;
+  border: 1px solid map.get(var.$colors, light-gray-accent);
+  background-color: map.get(var.$colors, section-gray);
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mat-tab-hide-tabs {
+  .mat-mdc-tab-header {
+    display: none;
+  }
+}
+
+.app-accordion.mat-accordion > .mat-expansion-panel {
+  border: 0;
+  box-shadow: none;
+}
+
+.app-accordion.mat-accordion .mat-expansion-panel-content {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: #000;
+}
+
+.app-accordion.mat-accordion
+  .mat-expansion-panel-content
+  > .mat-expansion-panel-body {
+  padding: 0;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.25s;
+
+  &.open {
+    opacity: 1;
+  }
+}
+
+.cdk-overlay-pane {
+  .mat-mdc-menu-panel.notification-panel {
+    max-width: none;
+    padding: 5px 0 15px 0;
+    background-color: white;
+  }
+}

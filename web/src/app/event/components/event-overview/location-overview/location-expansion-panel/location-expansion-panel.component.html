@@ -1,0 +1,46 @@
+<header [class.collapsed]="!accordion.expanded">
+  <div class="location-address">
+    <div class="event-title">{{ location().name }}</div>
+    <app-address-strip
+      [location]="location()"
+      [showDirections]="true"
+    ></app-address-strip>
+  </div>
+  <div>
+    <button
+      aria-label="Open Panel"
+      type="button"
+      matRipple
+      (click)="selectLocation()"
+      [class.busy]="loading()"
+      [class.expanded]="accordion.expanded"
+    >
+      <span class="material-icons mobile">expand_more</span>
+      <div class="desktop">
+        <span> View Opportunities </span>
+        <span class="material-icons">arrow_drop_down</span>
+      </div>
+    </button>
+  </div>
+</header>
+<mat-accordion class="app-accordion">
+  <mat-expansion-panel #accordion>
+    <ng-template matExpansionPanelContent>
+      <div class="expansion-panel" [class.open]="accordion.expanded">
+        @for(opportunity of opportunities(); track opportunity.opportunityId) {
+        <div class="accordion-card">
+          <app-opportunity-label
+            [opportunity]="opportunity"
+          ></app-opportunity-label>
+          <app-opportunity-selector [opportunity]="opportunity" />
+        </div>
+        } @empty {
+        <div class="message">
+          <span class="material-icons">schedule</span>
+          No opportunities at this location.
+        </div>
+        }
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

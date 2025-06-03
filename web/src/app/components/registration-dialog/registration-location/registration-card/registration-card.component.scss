@@ -1,0 +1,46 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  min-height: 40px;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #fff;
+  transition: 0.25s ease-in-out;
+  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+
+  &.removed {
+    opacity: 0;
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    line-height: 0;
+    overflow: hidden;
+  }
+}
+
+.action-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-button-select {
+  padding: 0 10px;
+}
+
+@media (min-width: 600px) {
+  :host {
+    gap: 40px;
+  }
+
+  .app-button-select {
+    padding: 0 15px;
+  }
+}

@@ -1,0 +1,82 @@
+@use "sass:map";
+@use "sass:color";
+@use "variables.scss" as var;
+
+.event-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(
+    180deg,
+    map.get(var.$colors, navy-blue-mountain) 0%,
+    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -10%) 100%
+  );
+  color: white;
+
+  opacity: 0;
+  transition: opacity 0.25s;
+
+  &.visible {
+    opacity: 1;
+    z-index: 102;
+    height: 80px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+}
+
+.app-button {
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    map.get(var.$colors, navy-blue-mountain) 0%,
+    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -8%) 100%
+  );
+
+  &.mobile {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      map.get(var.$colors, navy-blue-mountain) 0%,
+      color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -8%)
+        100%
+    );
+  }
+}
+
+.desktop {
+  display: none;
+}
+
+@media (min-width: var.$screen-sm) {
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: var.$max-page-width;
+  }
+
+  .app-button {
+    padding: 10px 30px;
+    color: var(--navy-blue-mountain);
+    border: 1px solid var(--navy-blue-mountain);
+    background: white;
+  }
+}

@@ -1,0 +1,5 @@
+<div class="backdrop" [class.open]="open()" (click)="onClose()">
+  <div class="dialog" (click)="onClick($event)">
+    <ng-content />
+  </div>
+</div>

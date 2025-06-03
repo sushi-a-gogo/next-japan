@@ -1,0 +1,39 @@
+<button
+  #matMenuTrigger
+  type="button"
+  aria-label="Notifications"
+  class="app-button flex-button notification-button"
+  matTooltip="Notifications"
+  [matMenuTriggerFor]="notificationMenu"
+  (menuOpened)="menuToggle(true)"
+  (menuClosed)="menuToggle(false)"
+>
+  <img src="assets/images/bell.svg" />
+  <span class="badge" [class.visible]="unreadNotificationCount() > 0">{{
+    unreadNotificationCount()
+  }}</span>
+</button>
+<mat-menu
+  #notificationMenu="matMenu"
+  [hasBackdrop]="true"
+  backdropClass="notification-backdrop"
+  class="notification-panel"
+>
+  <div class="menu-title">
+    Notifications
+    <button
+      aria-label="Clear notifications"
+      mat-icon-button
+      matTooltip="Clear notifications"
+    >
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  @for(notification of notifications(); track notification.notificationId) {
+  <button mat-menu-item (click)="markAsReadAndNavigate(notification)">
+    <app-notification-card [notification]="notification" />
+  </button>
+  } @empty {
+  <div class="no-notifications">You don't have any notifications.</div>
+  }
+</mat-menu>

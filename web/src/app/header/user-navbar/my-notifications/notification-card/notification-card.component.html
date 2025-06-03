@@ -1,0 +1,20 @@
+<div class="icon">
+  <img [src]="imageSrc" alt="Event Image" />
+</div>
+<section>
+  <header>
+    <span class="title">
+      {{ notification().title }}
+      <span class="time">
+        {{ notification().eventDate | date : "fullDate" }}
+        ({{ notification().eventTimeZone }})
+      </span>
+    </span>
+    <span class="time">{{
+      notification().notificationDate | date : "shortTime"
+    }}</span>
+  </header>
+  <main>
+    {{ notification().message }}
+  </main>
+</section>

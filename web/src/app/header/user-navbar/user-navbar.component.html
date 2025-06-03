@@ -1,0 +1,46 @@
+<nav [class.open]="userProfile()">
+  @if(userProfile()) {
+  <ul>
+    <li class="image">
+      <a class="app-button logo" routerLink="/home">
+        <app-logo [imageOnly]="true" [size]="54" />
+      </a>
+    </li>
+    <li>
+      <button
+        type="button"
+        class="app-button"
+        matRipple
+        (click)="openMyEvents()"
+      >
+        My Events
+      </button>
+    </li>
+    <li>
+      <button
+        type="button"
+        class="app-button"
+        matRipple
+        (click)="openMyDreams()"
+      >
+        My Dreams
+      </button>
+    </li>
+    <li class="spacer"></li>
+    <li class="notifications">
+      <app-my-notifications />
+    </li>
+    <li class="image">
+      <app-user-menu (signout)="logout()" />
+    </li>
+  </ul>
+
+  }
+</nav>
+@if(showUserProfile()) {
+<app-user-profile (close)="closeUserProfile()"></app-user-profile>
+} @else if(showMyEvents()) {
+<app-my-events (close)="closeMyEvents()"></app-my-events>
+} @else if(showMyDreamEvents()) {
+<app-my-dream-events (close)="closeMyDreams()"></app-my-dream-events>
+}

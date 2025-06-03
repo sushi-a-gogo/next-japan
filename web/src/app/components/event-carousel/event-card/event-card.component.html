@@ -1,0 +1,38 @@
+<div class="card-container">
+  <button type="button" (click)="goToEvent()" class="border-box">
+    <div class="image-container">
+      @if(imageSrc) {
+      <img alt="Event Image" [src]="imageSrc" />
+      } @else {
+      <img
+        alt="Event Image Not Available"
+        class="no-image"
+        src="assets/images/no-image.png"
+      />
+      }
+    </div>
+    <div class="card-body">
+      <div
+        class="title multi-line-box break-word"
+        matTooltipShowDelay="750"
+        matTooltipClass="app-tooltip"
+      >
+        {{ event().eventTitle || "Title Not Available" }}
+      </div>
+      <div class="description multi-line-box break-word">
+        {{ event().description }}
+      </div>
+      <div class="upcoming">
+        @if(event().nextOpportunity) {
+        <div>
+          <div class="banner">Next Opportunity</div>
+          <app-opportunity-date
+            [opportunity]="event().nextOpportunity!"
+            layout="center"
+          ></app-opportunity-date>
+        </div>
+        }
+      </div>
+    </div>
+  </button>
+</div>

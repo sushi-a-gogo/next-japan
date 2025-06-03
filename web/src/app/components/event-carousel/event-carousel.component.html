@@ -1,0 +1,44 @@
+<div class="event-carousel">
+  <div class="controls">
+    <button
+      type="button"
+      class="app-icon-button transparent"
+      matRipple
+      (click)="showPrevSlide()"
+      [disabled]="carouselIndex === 0"
+    >
+      <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+  </div>
+  <mat-tab-group [selectedIndex]="carouselIndex" class="mat-tab-hide-tabs">
+    @for(slide of slides; track slide.events[0]?.eventId) {
+    <mat-tab>
+      <ng-template matTabContent>
+        <div class="carousel-slide">
+          @for(event of slide.events; track event?.eventId) {
+          <div class="event-card">
+            @if(event) {
+            <app-event-card
+              [event]="event"
+              [openInNewTab]="openInNewTab()"
+            ></app-event-card>
+            }
+          </div>
+          }
+        </div>
+      </ng-template>
+    </mat-tab>
+    }
+  </mat-tab-group>
+  <div class="controls">
+    <button
+      type="button"
+      class="app-icon-button transparent"
+      matRipple
+      (click)="showNextSlide()"
+      [disabled]="carouselIndex === slides.length - 1"
+    >
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>

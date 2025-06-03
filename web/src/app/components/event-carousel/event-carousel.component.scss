@@ -1,0 +1,41 @@
+@use "src/styles/variables.scss" as var;
+
+.event-carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.controls {
+  align-self: center;
+
+  button {
+    width: 40px;
+    height: 40px;
+
+    &:disabled {
+      opacity: 0;
+    }
+  }
+}
+
+.carousel-slide {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+}
+
+.event-card {
+  width: 273px;
+  height: 462px;
+}
+
+@media (min-width: 600px) {
+  .event-card {
+    width: 313px;
+  }
+}

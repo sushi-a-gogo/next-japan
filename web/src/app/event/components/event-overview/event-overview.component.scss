@@ -1,0 +1,32 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  padding: 0 10px;
+  padding-bottom: 80px;
+  flex: 1;
+}
+
+header {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  margin: 24px 0 6px 0;
+  text-align: left;
+  scroll-margin-top: 105px;
+  color: var(--dark-brown-tree);
+}
+
+@media (min-width: 992px) {
+  :host {
+    border-right: 1px solid map.get(var.$colors, light-gray-accent);
+  }
+}
+
+@media (min-width: var.$max-page-width) {
+  :host {
+    padding: 0;
+    padding-bottom: 80px;
+    padding-right: 20px;
+  }
+}

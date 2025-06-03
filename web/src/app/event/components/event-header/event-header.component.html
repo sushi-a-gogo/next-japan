@@ -1,0 +1,28 @@
+<div class="background-overlay">
+  <div class="header-content">
+    @if(!isAuthenticated()) {
+    <div class="event-nav">
+      <nav>
+        <ul>
+          <li class="org-logo">
+            <a routerLink="/home" class="logo-container org-name break-word">
+              <img
+                [src]="
+                  'assets/images/' + organizationInformation()?.logoImageId
+                "
+                [alt]="organizationInformation()!.name"
+              />
+              {{ organizationInformation()!.name }}
+            </a>
+          </li>
+          <li class="login">
+            <app-login-button></app-login-button>
+            <app-login-button [signup]="true"></app-login-button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    }
+    <app-event-banner></app-event-banner>
+  </div>
+</div>

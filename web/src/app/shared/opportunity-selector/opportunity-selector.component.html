@@ -1,0 +1,49 @@
+@if(isAuthenticated()) { @if(status()) {
+<div class="status">
+  <app-registration-status-label [class]="status()" [status]="status()!" />
+</div>
+} @else {
+<div [class.mobile-checkbox]="mobileStyle() === 'checkbox'">
+  @if(selected()) {
+  <button
+    type="button"
+    matRipple
+    class="app-button app-button-select flex-button selected"
+    (click)="selectOpportunity()"
+  >
+    <span class="material-icons">done</span>
+    <span class="button-text">Selected</span>
+  </button>
+  } @else {
+  <!-- Not Selected -->
+  @if(conflicted()) {
+  <button type="button" class="app-button inactive" disabled="disabled">
+    <span class="button-text">{{ conflicted() ? "Conflict" : "Select" }}</span>
+  </button>
+  } @else {
+  <button
+    type="button"
+    matRipple
+    class="app-button flex-button app-button-select"
+    (click)="selectOpportunity()"
+    [disabled]="status()"
+  >
+    Select
+  </button>
+  } }
+</div>
+} } @else {
+<div
+  [class.mobile-checkbox]="mobileStyle() === 'checkbox'"
+  matTooltip="Please sign in to register for an event."
+  matTooltipPosition="left"
+  matTooltipShowDelay="250"
+  matTooltipClass="app-tooltip"
+>
+  <button type="button" class="app-button inactive" disabled="disabled">
+    <i class="i_check"></i>
+    <span class="button-text">{{ conflicted() ? "Conflict" : "Select" }}</span>
+  </button>
+</div>
+
+}

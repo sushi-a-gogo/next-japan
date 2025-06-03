@@ -1,0 +1,128 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+.card-container {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  padding-top: 0;
+}
+
+button {
+  font-family: var.$app-font;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 1px solid map.get(var.$colors, default-gray);
+  border-radius: 3px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  transition: 0.25s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+    background-color: map.get(var.$colors, section-gray);
+    border-color: map.get(var.$colors, light-gray-accent);
+
+    .image-container {
+      img {
+        filter: brightness(85%);
+
+        &.no-image {
+          filter: brightness(95%);
+        }
+      }
+    }
+  }
+}
+
+.image-container {
+  width: 100%;
+  height: 180px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: transparent;
+  overflow: hidden;
+  padding: 3px;
+
+  img {
+    border-radius: 3px;
+    border-top-right-radius: 3px;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    vertical-align: top;
+    transition: 0.25s;
+  }
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 14px;
+  width: 100%;
+  padding: 20px;
+  padding-bottom: 32px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  overflow: hidden;
+}
+
+.multi-line-box {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  text-align: left;
+
+  &.description {
+    white-space: pre-wrap;
+  }
+}
+
+.title {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 700;
+
+  &.multi-line-box {
+    max-height: 63px;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+}
+
+.description {
+  font-size: 14px;
+  line-height: 19px;
+
+  &.multi-line-box {
+    max-height: 76px;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+  }
+}
+
+.upcoming {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  .banner {
+    font-weight: 700;
+  }
+}

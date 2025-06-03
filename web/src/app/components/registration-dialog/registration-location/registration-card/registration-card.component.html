@@ -1,0 +1,17 @@
+<app-opportunity-label
+  [opportunity]="opportunity()"
+  [iconColor]="removed ? '#ababab' : undefined"
+/>
+@if(allowRemoval()) {
+<div class="action-box">
+  <button
+    type="button"
+    matRipple
+    class="app-button app-button-select"
+    (click)="removeSelection()"
+    [disabled]="removed"
+  >
+    Remove
+  </button>
+</div>
+}

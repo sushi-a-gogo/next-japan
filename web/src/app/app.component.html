@@ -1,0 +1,15 @@
+<div class="app-container" [class.user]="!!userProfile()">
+  <app-header />
+  <main>
+    @if(showRegistrationDialog()) {
+    <app-registration-dialog (close)="closeRegistrationDialog()" />
+    }
+    <section class="router-outlet">
+      <router-outlet />
+    </section>
+  </main>
+  <footer>
+    <app-footer />
+    <app-opportunity-request-footer />
+  </footer>
+</div>
