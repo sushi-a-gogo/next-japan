@@ -34,7 +34,7 @@ export class EventPageComponent implements OnChanges {
   hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => this.event()?.imageId ?
-    `url('${environment.apiUri}/${this.event()!.imageId}')` : `url('assets/images/event-banner-default.png')`
+    `url('${environment.apiUri}/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
   );
 
   ngOnChanges(changes: SimpleChanges): void {

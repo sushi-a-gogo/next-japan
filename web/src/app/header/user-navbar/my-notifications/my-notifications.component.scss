@@ -16,16 +16,28 @@
     height: 26px;
     width: 26px;
   }
-}
 
-.app-button:hover {
-  background-color: map.get(var.$colors, section-medium-gray);
+  &.clear-button {
+    height: 32px;
+    width: 80px;
+    border-radius: 24px;
+    color: map.get(var.$colors, darkest-gray);
+    background-color: #fff; //   map.get(var.$colors, section-light-gray);
+    opacity: 0;
+    transition: 0.25s;
+    font-size: 14px;
+
+    &.open {
+      opacity: 1;
+    }
+  }
 }
 
 .menu-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 48px;
   gap: 32px;
   min-width: 320px;
   max-width: 94vw;
@@ -34,10 +46,14 @@
   line-height: 24px;
   font-weight: 600;
   padding: 0 16px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 
   button {
-    background-color: map.get(var.$colors, light-gray-accent);
+    background-color: map.get(var.$colors, section-medium-gray);
+
+    &:hover {
+      background-color: map.get(var.$colors, light-gray-accent);
+    }
   }
 }
 
@@ -69,4 +85,10 @@
 .no-notifications {
   width: 100%;
   padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .menu-title {
+    min-width: 400px;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -17,6 +17,7 @@ export class MyNotificationsComponent {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
   unreadNotificationCount = this.notificationService.unreadNotificationCount;
+  showClearAll = signal<boolean>(false);
 
   notifications = computed(() => this.notificationService.notifications().filter((n) => !n.isRead));
 
@@ -24,6 +25,7 @@ export class MyNotificationsComponent {
     if (isOpen) {
       document.body.classList.add('no-scroll');
     } else {
+      this.showClearAll.set(false);
       document.body.classList.remove('no-scroll');
     }
   }
@@ -31,6 +33,18 @@ export class MyNotificationsComponent {
   markAsReadAndNavigate(notification: NotificationDetail) {
     this.notificationService.markAsRead(notification.notificationId);
     this.router.navigate([`/event/${notification.eventId}`]);
+  }
+
+  markAllAsRead(e: any) {
+    e.stopPropagation();
+    this.showClearAll.set(false);
+  }
+
+  clickX(e: any) {
+    if (this.notifications().length) {
+      e.stopPropagation();
+      this.showClearAll.set(true);
+    }
   }
 
 }

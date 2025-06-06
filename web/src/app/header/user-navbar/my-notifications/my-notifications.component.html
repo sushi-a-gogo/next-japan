@@ -20,14 +20,27 @@
   class="notification-panel"
 >
   <div class="menu-title">
-    Notifications
+    <span>Notifications</span>
+    @if(!showClearAll()) {
     <button
-      aria-label="Clear notifications"
+      class="icon-button"
+      [class.open]="!showClearAll()"
       mat-icon-button
-      matTooltip="Clear notifications"
+      (click)="clickX($event)"
     >
       <span class="material-icons">close</span>
     </button>
+    } @else {
+    <button
+      class="app-button app-button-default clear-button"
+      [class.open]="showClearAll()"
+      aria-label="Clear all notifications"
+      (click)="markAllAsRead($event)"
+    >
+      Clear
+    </button>
+
+    }
   </div>
   @for(notification of notifications(); track notification.notificationId) {
   <button mat-menu-item (click)="markAsReadAndNavigate(notification)">

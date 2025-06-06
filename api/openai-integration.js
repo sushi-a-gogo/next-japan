@@ -25,7 +25,7 @@ router.post("/generate-content", async (req, res) => {
     }
 
     // Construct text prompt
-    const textPrompt = `Generate creative text based on these parameters: ${JSON.stringify(
+    const textPrompt = `Generate creative text describing a day long special event in Japan based on these parameters: ${JSON.stringify(
       promptParams
     )}. User input: ${customText}`;
 
@@ -35,7 +35,8 @@ router.post("/generate-content", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are a creative assistant generating engaging text.",
+          content:
+            "You are a creative assistant generating engaging text for a Japanese travel agency.",
         },
         { role: "user", content: textPrompt },
       ],

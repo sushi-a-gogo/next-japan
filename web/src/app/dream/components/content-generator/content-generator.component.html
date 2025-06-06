@@ -1,3 +1,6 @@
+@if(busy()) {
+<app-loading-spinner [delay]="250" />
+}
 <form (ngSubmit)="generateContent()">
   <mat-form-field subscriptSizing="dynamic">
     <mat-label>Destination</mat-label>
@@ -19,9 +22,9 @@
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
     <mat-label>Attitude</mat-label>
-    <mat-select [(ngModel)]="params.attitude" name="attitude">
-      @for (attitude of attitudes; track $index) {
-      <mat-option [value]="attitude">{{ attitude | titlecase }}</mat-option>
+    <mat-select [(ngModel)]="params.mood" name="mood">
+      @for (mood of moods; track $index) {
+      <mat-option [value]="mood">{{ mood | titlecase }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -32,10 +35,6 @@
       <mat-option value="realistic">Realistic</mat-option>
     </mat-select>
   </mat-form-field>
-  <!-- <select [(ngModel)]="params.style" name="style">
-    <option value="cartoon">Cartoon</option>
-    <option value="realistic">Realistic</option>
-  </select> -->
   <mat-form-field subscriptSizing="dynamic">
     <mat-label>Enter text</mat-label>
     <textarea
@@ -47,19 +46,12 @@
     ></textarea>
   </mat-form-field>
   <div style="flex: 1"></div>
-  <!-- <input [(ngModel)]="customText" name="customText" placeholder="Enter text" /> -->
   <button class="app-button app-button-save" type="submit">Generate</button>
 </form>
 <div class="results">
-  <div class="fade-in" [class.open]="dreamEvent()">
+  <div class="fade-in" [class.open]="dreamEvent() && !busy()">
     @if(dreamEvent()) {
     <app-dream-banner [dreamEvent]="dreamEvent()!" [imageUrl]="imageUrl" />
     }
   </div>
-  <!-- <div class="fade-in" [class.open]="!!generatedText">{{ generatedText }}</div>
-  <div class="fade-in image-container" [class.open]="!!imageUrl">
-    @if(imageUrl) {
-    <img [src]="imageUrl" alt="Generated Image" />
-    }
-  </div> -->
 </div>

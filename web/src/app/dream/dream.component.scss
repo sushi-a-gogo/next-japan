@@ -63,10 +63,11 @@ header {
   border-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: color.scale(
-    map.get(var.$colors, bright-blue-sky),
-    $lightness: -10%
-  );
+  // background-color: color.scale(
+  //   map.get(var.$colors, bright-blue-sky),
+  //   $lightness: -10%
+  // );
+  background: rgba($color: #0f2b56, $alpha: 0.4);
 
   h2 {
     margin: 0;
@@ -115,7 +116,16 @@ footer {
 
 @media (min-width: var.$max-page-width) {
   .background-overlay {
-    padding: 0 60px;
+    padding: 0;
+    top: auto;
+    bottom: 0;
+  }
+
+  .splash {
+    height: 120px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 30px;
   }
 
   main {
