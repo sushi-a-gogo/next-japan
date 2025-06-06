@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--app-height));
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+header {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+footer {
+  //margin-top: 10px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  background-color: var(--white-snow-cap);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.app-button {
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: 0.25s;
+
+  &.user {
+    &:hover:not(.selected) {
+      background-color: var(--creamy-white-clouds);
+    }
+  }
+}
+
+.flex-button {
+  justify-content: flex-start;
+}
+
+.app-button.selected {
+  background-color: #dedede;
+}

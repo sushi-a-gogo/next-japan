@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { UserProfileService } from './user-profile.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,9 @@ export class AuthMockService {
   isAuthenticated = this.authenticated.asReadonly();
   isAuthenticated$ = toObservable(this.authenticated);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, userService: UserProfileService) {
+    userService.setUserProfile$(0).pipe(takeUntilDestroyed()).subscribe();
+  }
 
   loginWithRedirect(options: any) {
     this.router.navigate([options.appState.target || '/']).then(() => {

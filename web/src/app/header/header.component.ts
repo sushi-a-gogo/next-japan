@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { ColorBarComponent } from "./color-bar/color-bar.component";
 import { UserNavbarComponent } from "./user-navbar/user-navbar.component";
 
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     this.auth.isAuthenticated$.pipe(
       switchMap((authenticated) => {
         if (authenticated) {
-          return this.userProfileService.getUserProfile$();
+          return of(this.userProfileService.userProfile());
         }
         return this.userProfileService.clearUserProfile();
       }), takeUntilDestroyed(this.destroyRef)

@@ -5,6 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { NotificationDetail } from '@app/models/notification-detail.model';
 import { NotificationService } from '@app/services/notification.service';
+import { UserProfileService } from '@app/services/user-profile.service';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
 @Component({
@@ -16,10 +17,11 @@ import { NotificationCardComponent } from "./notification-card/notification-card
 export class MyNotificationsComponent {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
-  unreadNotificationCount = this.notificationService.unreadNotificationCount;
-  showClearAll = signal<boolean>(false);
+  private userService = inject(UserProfileService);
+  private user = this.userService.userProfile;
 
-  notifications = computed(() => this.notificationService.notifications().filter((n) => !n.isRead));
+  showClearAll = signal<boolean>(false);
+  notifications = computed(() => this.notificationService.notifications().filter((n) => n.userId === this.user()?.userId && !n.isRead));
 
   menuToggle(isOpen: boolean) {
     if (isOpen) {

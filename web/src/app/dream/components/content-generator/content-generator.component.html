@@ -47,9 +47,19 @@
   <button class="app-button app-button-save" type="submit">Generate</button>
 </form>
 <div class="results">
-  <div class="fade-in" [class.open]="dreamEvent() && !busy()">
-    @if(dreamEvent()) {
+  <div class="fade-in" [class.open]="generatedText && !busy()">
+    @if(generatedText) {
     <app-dream-banner [dreamEvent]="dreamEvent()!" [imageUrl]="imageUrl" />
     }
   </div>
+  @if(!generatedText) {
+  <div class="no-results flex-row">
+    <img src="assets/images/photo.svg" alt="A blank photo" />
+    @if(busy()) {
+    <span>Loading...this may take a few minutes.</span>
+    } @else {
+    <span>Your dream event will appear here!</span>
+    }
+  </div>
+  }
 </div>

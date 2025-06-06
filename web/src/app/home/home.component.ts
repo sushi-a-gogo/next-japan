@@ -1,9 +1,9 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { EventCarouselComponent } from "@app/components/event-carousel/event-carousel.component";
 import { EventData } from '@app/event/models/event-data.model';
 import { EventOpportunity } from '@app/event/models/event-opportunity.model';
+import { EventCarouselComponent } from "@app/home/event-carousel/event-carousel.component";
 import { ApiResult } from '@app/models/api-result.model';
 import { OrganizationEvents } from '@app/models/organization-events.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';

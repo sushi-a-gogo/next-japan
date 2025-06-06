@@ -10,7 +10,6 @@ import { ApiResult } from '@app/models/api-result.model';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { of, switchMap } from 'rxjs';
 import { AvatarComponent } from "../../../shared/avatar/avatar.component";
 import { ModalComponent } from "../../../shared/modal/modal.component";
 import { UserProfileForm } from './user-profile.form';
@@ -59,15 +58,6 @@ export class UserProfileComponent implements OnInit {
     };
 
     const saveProfile$ = this.userProfileService.updateProfile$(newProfile).pipe(
-      switchMap((res) => {
-        if (this.imageData && !res.hasError) {
-          return this.imageData.image
-            ? this.userProfileService.updateProfileImage$(this.imageData)
-            : this.userProfileService.deleteProfileImage$();
-        }
-
-        return of(res);
-      }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((res: ApiResult) => {
       if (!res?.hasError) {

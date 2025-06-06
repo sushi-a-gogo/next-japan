@@ -9,8 +9,8 @@
   (menuClosed)="menuToggle(false)"
 >
   <img src="assets/images/bell.svg" />
-  <span class="badge" [class.visible]="unreadNotificationCount() > 0">{{
-    unreadNotificationCount()
+  <span class="badge" [class.visible]="notifications().length > 0">{{
+    notifications().length
   }}</span>
 </button>
 <mat-menu

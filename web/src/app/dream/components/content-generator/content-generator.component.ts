@@ -29,13 +29,14 @@ export class ContentGeneratorComponent {
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
   moods = ['excited', 'serene', 'curious', 'terrified'];
   palettes = ['earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
-  destinations = ['Mt. Fuji', 'Torii gate', 'cherry blossoms', 'trains', 'traditional buildings'];
+  destinations = ['Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama'];
 
   dreamEvent = signal<EventData | null>({ eventId: 0, imageId: '', eventTitle: 'My Dream Event', description: '' });
   private openAiService = inject(OpenAiService);
 
   generateContent() {
     this.busy.set(true);
+    this.generatedText = '';
     return;
     // setTimeout(() => {
     //   this.busy.set(false);

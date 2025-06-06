@@ -5,6 +5,7 @@ import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { RegistrationService } from '@app/services/registration.service';
 import { SelectionService } from '@app/services/selection.service';
+import { UserProfileService } from '@app/services/user-profile.service';
 import { RegistrationStatusLabelComponent } from "../registration-status-label/registration-status-label.component";
 
 @Component({
@@ -17,12 +18,14 @@ export class OpportunitySelectorComponent {
   private auth = inject(AuthMockService);
   private registrationService = inject(RegistrationService);
   private selectionService = inject(SelectionService);
+  private userService = inject(UserProfileService);
 
   opportunity = input.required<EventOpportunity>();
   mobileStyle = input<'checkbox' | 'button'>('button');
 
   isAuthenticated = this.auth.isAuthenticated;
   disableCheckForConflict = input<boolean>(false);
+  private user = this.userService.userProfile;
 
   selected = computed(() => {
     const selections = this.selectionService.selectedOpportunities();
@@ -31,7 +34,7 @@ export class OpportunitySelectorComponent {
   });
 
   status = computed(() => {
-    const registration = this.registrationService.registrations().find((r) => r.opportunityId === this.opportunity().opportunityId);
+    const registration = this.registrationService.registrations().find((r) => r.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
     if (!registration) {
       return null;
     }

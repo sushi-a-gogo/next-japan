@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventData } from '@app/event/models/event-data.model';
 import { environment } from '@environments/environment';
-import { OpportunityDateComponent } from "../../opportunity-date/opportunity-date.component";
+import { OpportunityDateComponent } from "../../../components/opportunity-date/opportunity-date.component";
 
 @Component({
   selector: 'app-event-card',

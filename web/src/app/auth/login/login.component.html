@@ -1,1 +1,34 @@
+@if(busy()) {
 <app-loading-spinner></app-loading-spinner>
+}
+<app-modal>
+  <div class="flex-column">
+    <header>Select a user:</header>
+    <main>
+      <ul class="flex-column">
+        @for(user of users; track user.userId) {
+        <li>
+          <button
+            class="app-button flex-button user"
+            [class.selected]="selectedUserId() === user.userId"
+            (click)="select(user.userId)"
+          >
+            <app-avatar [size]="48" [avatar]="user" />
+            <span>{{ user.firstName }} {{ user.lastName }}</span>
+          </button>
+        </li>
+        }
+      </ul>
+    </main>
+    <footer class="flex-column">
+      <button
+        class="app-button app-button-save"
+        (click)="signin()"
+        [disabled]="!selectedUserId()"
+      >
+        Sign in
+      </button>
+      <a routerLink="/home" class="app-button app-button-cancel">Cancel</a>
+    </footer>
+  </div>
+</app-modal>

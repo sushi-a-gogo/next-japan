@@ -1,30 +1,28 @@
-<div class="organization-page">
-  @if(org) {
-  <article class="content-container">
-    <header>
-      <app-org-banner [org]="org!"></app-org-banner>
-    </header>
-    <main>
-      <section>
-        <div class="flex-content organization-info">
-          <div class="info-title break-word">
-            {{ org.infoTitle }}
-          </div>
-          <div class="info-description break-word pre-wrap">
-            {{ org.infoDescription }}
-          </div>
+@if(org) {
+<article class="content-container">
+  <header>
+    <app-org-banner [org]="org!"></app-org-banner>
+  </header>
+  <main>
+    <section>
+      <div class="flex-content organization-info">
+        <div class="info-title break-word">
+          {{ org.infoTitle }}
         </div>
-      </section>
-      <section>
-        <div class="flex-content">
-          <app-event-carousel
-            [events]="events()"
-            [opportunities]="opportunities()"
-            [class.open]="loaded()"
-          ></app-event-carousel>
+        <div class="info-description break-word pre-wrap">
+          {{ org.infoDescription }}
         </div>
-      </section>
-    </main>
-  </article>
-  }
-</div>
+      </div>
+    </section>
+    <section>
+      <div class="flex-content">
+        <app-event-carousel
+          [events]="events()"
+          [opportunities]="opportunities()"
+          [class.open]="loaded()"
+        ></app-event-carousel>
+      </div>
+    </section>
+  </main>
+</article>
+}
