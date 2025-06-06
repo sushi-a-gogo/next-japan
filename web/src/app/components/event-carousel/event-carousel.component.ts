@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,7 @@ const EventCarouselBreakpoints = {
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss'
 })
-export class EventCarouselComponent implements OnInit {
+export class EventCarouselComponent implements OnInit, OnChanges {
   events = input<EventData[]>([]);
   opportunities = input<EventOpportunity[]>([]);
 
@@ -40,11 +40,6 @@ export class EventCarouselComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.events().forEach((event) => {
-      const eventOpportunities = this.opportunities().filter((o) => o.eventId === event.eventId).sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-      event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
-    });
-
     this.breakpointObserver
       .observe([EventCarouselBreakpoints.small, EventCarouselBreakpoints.medium, EventCarouselBreakpoints.large])
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -59,6 +54,14 @@ export class EventCarouselComponent implements OnInit {
           }
         }
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.events().forEach((event) => {
+      const eventOpportunities = this.opportunities().filter((o) => o.eventId === event.eventId).sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+      event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+    });
+    this.configureSlides();
   }
 
   showPrevSlide() {

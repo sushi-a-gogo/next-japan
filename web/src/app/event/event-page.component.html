@@ -1,3 +1,6 @@
+@if(!loaded()) {
+<app-loading-spinner [delay]="1000" />
+}
 <article [class.open]="loaded()">
   @if(hasError()) {
   <app-page-error

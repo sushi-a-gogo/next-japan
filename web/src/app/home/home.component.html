@@ -1,7 +1,4 @@
-@if(loading) {
-<app-loading-spinner></app-loading-spinner>
-}
-<div class="organization-page" [class.open]="!loading">
+<div class="organization-page">
   @if(org) {
   <article class="content-container">
     <header>
@@ -18,16 +15,15 @@
           </div>
         </div>
       </section>
-      @if(events().length) {
       <section>
         <div class="flex-content">
           <app-event-carousel
             [events]="events()"
             [opportunities]="opportunities()"
+            [class.open]="loaded()"
           ></app-event-carousel>
         </div>
       </section>
-      }
     </main>
   </article>
   }

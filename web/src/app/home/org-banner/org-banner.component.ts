@@ -21,7 +21,7 @@ export class OrgBannerComponent {
 
   get bannerImageBackground() {
     return this.org().bannerImageId
-      ? `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('/assets/images/${this.org().bannerImageId}')`
+      ? `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url('/assets/images/${this.org().bannerImageId}')`
       : undefined;
   }
 

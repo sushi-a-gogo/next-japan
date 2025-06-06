@@ -24,7 +24,7 @@ Whether you're looking to relax in nature, make new friends, or try something ne
 
 Space is limited, so sign up today to reserve your spot at this unique Mount Fuji gathering! Don't miss this opportunity to create lasting memories in one of Japan's most beautiful and culturally rich locations.`;
 
-const imageId = 'events/fuji.png';
+const imageId = 'fuji.png';
 
 const eventCoordinators: EventCoordinator[] = [
   {
@@ -78,5 +78,6 @@ export const eventInformation1: EventInformation = {
   eventCoordinators,
   locations,
   imageId,
+  imagePos: 'top',
   ...tz,
 };

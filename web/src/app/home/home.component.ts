@@ -8,13 +8,12 @@ import { ApiResult } from '@app/models/api-result.model';
 import { OrganizationEvents } from '@app/models/organization-events.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { OrganizationService } from '@app/services/organization.service';
-import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { of, switchMap } from 'rxjs';
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [LoadingSpinnerComponent, OrgBannerComponent, EventCarouselComponent],
+  imports: [OrgBannerComponent, EventCarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -24,7 +23,7 @@ export class HomeComponent implements OnInit {
   org?: OrganizationInformation;
   events = signal<EventData[]>([]);
   opportunities = signal<EventOpportunity[]>([]);
-  loading = false;
+  loaded = signal<boolean>(false);
 
   constructor(private title: Title,
     private organizationService: OrganizationService,
@@ -43,6 +42,7 @@ export class HomeComponent implements OnInit {
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((res: ApiResult) => {
+      this.loaded.set(true);
       if (!res.hasError) {
         const orgEvents = res.retVal as OrganizationEvents;
         this.events.set(orgEvents.events);

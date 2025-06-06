@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { ApiResult } from '@app/models/api-result.model';
 import { UserProfile } from '@models/user-profile.model';
 import { catchError, delay, Observable, of, tap, throwError } from 'rxjs';
-import { DUMMY_USER } from 'src/data/users/default-user';
+import { DUMMY_USERS } from 'src/data/users/default-user';
 import { AppImageData } from '../models/app-image-data.model';
 
 @Injectable({
@@ -18,9 +18,11 @@ export class UserProfileService {
   }
 
   getUserProfile$(): Observable<ApiResult> {
+    const index = Math.floor(Math.random() * DUMMY_USERS.length);
+    const selected = DUMMY_USERS[index];
     const res: ApiResult = {
       hasError: false,
-      retVal: DUMMY_USER,
+      retVal: selected,
     };
     return of(res).pipe(
       tap((res) => {

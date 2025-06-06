@@ -69,12 +69,42 @@ textarea {
   color: #000;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+
+  &.space-between {
+    justify-content: space-between;
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &.center {
+    align-items: center;
+  }
+}
+
 .break-word {
   word-break: break-word;
 }
 
 .pre-wrap {
   white-space: pre-wrap;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.25s;
+
+  &.open {
+    opacity: 1;
+  }
 }
 
 .app-text-inactive {

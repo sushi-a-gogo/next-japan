@@ -6,6 +6,7 @@ import { EventService } from '@app/event/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { environment } from '@environments/environment';
 import { forkJoin } from 'rxjs';
+import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -13,7 +14,7 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent, EventOpportunitiesComponent],
+  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent, EventOpportunitiesComponent, LoadingSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
@@ -23,12 +24,12 @@ export class EventPageComponent implements OnChanges {
   private destroyRef = inject(DestroyRef);
   private event = this.eventService.event;
 
-  isAuthenticated = this.auth.isAuthenticated;
   eventId = input.required<string>();
+
+  isAuthenticated = this.auth.isAuthenticated;
 
   title = inject(Title);
   focusChild: string | null = null;
-
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
@@ -38,6 +39,7 @@ export class EventPageComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const id = Number(this.eventId());
+    this.loaded.set(false);
     forkJoin([this.eventService.getEvent$(id), this.eventService.getEventLocations$(id)])
       .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([event]) => {
         this.title.setTitle(event?.eventTitle || 'No event');

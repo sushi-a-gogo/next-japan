@@ -6,7 +6,7 @@ import { Component, HostListener, input, OnInit } from '@angular/core';
   styleUrls: [],
 })
 export class DottedBgComponent implements OnInit {
-  fill = input<string>('#0f2b56');
+  fill = input<string>('#00aeef');
   viewBox?: string;
   rectWidth = 0;
   rectHeight = 0;

@@ -1,0 +1,51 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.app-button {
+  border-radius: 6px;
+  font-weight: 600;
+  height: 48px;
+}
+
+.results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.image-container {
+  max-height: 400px;
+  overflow: hidden;
+  flex: 1;
+  border-radius: 12px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    //flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  form {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

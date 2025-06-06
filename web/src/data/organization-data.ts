@@ -10,7 +10,7 @@ export const organization = {
   showEventViewer: true,
   showEventCalendar: true,
   showUpcomingOpportunities: true,
-  bannerImageId: 'orgs/tokyo.jpg',
+  bannerImageId: 'orgs/tokyo.png',
   bannerDescription: 'Prepare for your next adventure on the island of Japan.',
   bannerSubTitle: 'Make Your Experience Unforgettable',
   bannerTitle: 'Your Japanese Adventure Awaits',

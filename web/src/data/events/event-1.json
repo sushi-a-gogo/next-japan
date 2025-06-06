@@ -23,7 +23,6 @@
     {
       "eventId": 1,
       "locationId": 1,
-      "eventLocationId": 1,
       "name": "Mt.Fuji Camp & Glamp",
       "addressLine1": "2533-1 Oishi",
       "city": "Yamanashi",
@@ -35,7 +34,6 @@
     {
       "eventId": 1,
       "locationId": 2,
-      "eventLocationId": 2,
       "name": "Fujimibashi Mount Fuji Viewing Platform",
       "addressLine1": "Minamitsuru District",
       "city": "Kawaguchi",
@@ -46,6 +44,7 @@
     }
   ],
   "imageId": "events/fuji.png",
+  "imagePos": "top",
   "timeZone": "Asia/Tokyo",
   "timeZoneAbbreviation": "JST",
   "timeZoneOffset": 9

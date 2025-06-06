@@ -23,7 +23,6 @@
     {
       "eventId": 2,
       "locationId": 3,
-      "eventLocationId": 3,
       "name": "Rokuon-ji Kinkaku (Golden Pavilion)",
       "addressLine1": "1 Kinkakujicho, Kita Ward",
       "city": "Kyoto",
@@ -35,7 +34,6 @@
     {
       "eventId": 2,
       "locationId": 4,
-      "eventLocationId": 4,
       "name": "South Pond Remains",
       "addressLine1": "1 Kinkakujicho, Kita Ward",
       "city": "Kyoto",
@@ -45,7 +43,7 @@
       "longitude": 135.72867446836977
     }
   ],
-  "imageId": "events/kinkakuji.webp",
+  "imageId": "events/golden.png",
   "timeZone": "Asia/Tokyo",
   "timeZoneAbbreviation": "JST",
   "timeZoneOffset": 9

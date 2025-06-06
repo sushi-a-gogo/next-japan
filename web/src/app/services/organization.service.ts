@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { EventData } from '@app/event/models/event-data.model';
 import { OrganizationEvents } from '@app/models/organization-events.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
+import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { catchError, delay, map, Observable, of, throwError } from 'rxjs';
 import { ApiResult } from 'src/app/models/api-result.model';
 import { DUMMY_EVENTS } from 'src/data/dummy-events';
@@ -30,7 +31,8 @@ export class OrganizationService {
   }
 
   getEvents$() {
-    return this.http.get<{ events: EventData[] }>(`http://localhost:3000/all-events`).pipe(
+    return this.http.get<{ events: EventData[] }>(`http://localhost:3000/events`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getEvents'),
       map((resp) => ({ events: resp.events, upcomingOpportunities: DUMMY_OPPORTUNITIES })),
       map((result) => ({
         hasError: false,

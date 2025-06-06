@@ -1,0 +1,65 @@
+<form (ngSubmit)="generateContent()">
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Destination</mat-label>
+    <mat-select [(ngModel)]="params.destination" name="destination">
+      @for (destination of destinations; track $index) {
+      <mat-option [value]="destination">{{
+        destination | titlecase
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Tone</mat-label>
+    <mat-select [(ngModel)]="params.tone" name="tone">
+      @for (tone of tones; track $index) {
+      <mat-option [value]="tone">{{ tone | titlecase }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Attitude</mat-label>
+    <mat-select [(ngModel)]="params.attitude" name="attitude">
+      @for (attitude of attitudes; track $index) {
+      <mat-option [value]="attitude">{{ attitude | titlecase }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Image Style</mat-label>
+    <mat-select [(ngModel)]="params.style" name="style">
+      <mat-option value="cartoon">Cartoon</mat-option>
+      <mat-option value="realistic">Realistic</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <select [(ngModel)]="params.style" name="style">
+    <option value="cartoon">Cartoon</option>
+    <option value="realistic">Realistic</option>
+  </select> -->
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Enter text</mat-label>
+    <textarea
+      matInput
+      cdkTextareaAutosize=""
+      [(ngModel)]="customText"
+      name="customText"
+      placeholder="Enter text"
+    ></textarea>
+  </mat-form-field>
+  <div style="flex: 1"></div>
+  <!-- <input [(ngModel)]="customText" name="customText" placeholder="Enter text" /> -->
+  <button class="app-button app-button-save" type="submit">Generate</button>
+</form>
+<div class="results">
+  <div class="fade-in" [class.open]="dreamEvent()">
+    @if(dreamEvent()) {
+    <app-dream-banner [dreamEvent]="dreamEvent()!" [imageUrl]="imageUrl" />
+    }
+  </div>
+  <!-- <div class="fade-in" [class.open]="!!generatedText">{{ generatedText }}</div>
+  <div class="fade-in image-container" [class.open]="!!imageUrl">
+    @if(imageUrl) {
+    <img [src]="imageUrl" alt="Generated Image" />
+    }
+  </div> -->
+</div>

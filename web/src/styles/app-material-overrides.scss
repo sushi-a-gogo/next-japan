@@ -1,6 +1,15 @@
 @use "sass:map";
 
 @use "variables.scss" as var;
+@use "@angular/material" as mat;
+
+.blue-spin {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--bright-blue-sky),
+    )
+  );
+}
 
 // -------------- //
 // mat-form-field //
@@ -178,10 +187,6 @@
   .mdc-checkbox--selected
   ~ .mdc-checkbox__ripple {
   background: #0aa2ff;
-}
-
-.mat-mdc-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: #0aa2ff;
 }
 
 // --------- //

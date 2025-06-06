@@ -22,7 +22,7 @@ As evening approaches, gather around a bonfire for storytelling, live music, and
 
 All activities are family-friendly and suitable for both locals and visitors. Don’t miss this unique opportunity to connect with others, learn about Japanese culture, and create lasting memories at the Golden Pavilion!`;
 
-const imageId = 'events/kinkakuji.webp';
+const imageId = 'golden.png';
 
 const eventCoordinators: EventCoordinator[] = [
   {

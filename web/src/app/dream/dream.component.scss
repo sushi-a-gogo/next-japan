@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:map";
 @use "variables.scss" as var;
 
 .page {
@@ -5,15 +7,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100%;
+}
+
+article {
+  width: 100%;
 }
 
 header {
   width: 100%;
   position: relative;
 
-  height: 275px;
+  height: 280px;
   overflow: hidden;
 }
 
@@ -45,20 +50,23 @@ header {
 .header-content {
   color: #fff;
   width: 100%;
-  max-width: var.$max-page-width;
-  padding-top: 61px;
+  padding-top: 24px;
 }
 
 .splash {
   color: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0;
   padding: 20px;
-  height: 216px;
+  border-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: var(--navy-blue-mountain);
+  background-color: color.scale(
+    map.get(var.$colors, bright-blue-sky),
+    $lightness: -10%
+  );
 
   h2 {
     margin: 0;
@@ -68,16 +76,10 @@ header {
 main {
   flex: 1;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: stretch;
-  padding: 0 10px;
 
-  .content {
-    flex: 1;
-    width: 100%;
-    max-width: var.$max-page-width;
+  section {
+    //width: 100%;
+    padding: 20px;
   }
 }
 
@@ -85,16 +87,14 @@ footer {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   header {
-    height: 200px;
-    .background-overlay {
-      padding: 0 100px;
-    }
+    height: 216px;
   }
+}
 
+@media (min-width: 820px) {
   .header-content {
-    max-width: var.$max-page-width;
     padding-top: 51px;
   }
 
@@ -102,19 +102,25 @@ footer {
     color: #fff;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    padding: 20px;
-    height: 154px;
+    height: 170px;
+    border-radius: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: var(--navy-blue-mountain);
 
     h2 {
       margin: 0;
     }
   }
+}
+
+@media (min-width: var.$max-page-width) {
+  .background-overlay {
+    padding: 0 60px;
+  }
 
   main {
-    padding: 0 100px;
+    section {
+      padding: 20px 0;
+    }
   }
 }

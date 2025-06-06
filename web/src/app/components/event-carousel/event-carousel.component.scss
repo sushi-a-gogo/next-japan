@@ -1,11 +1,18 @@
 @use "src/styles/variables.scss" as var;
 
-.event-carousel {
+:host {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
+  opacity: 0;
+  transition: opacity 0.25s;
+  min-height: 542px;
+
+  &.open {
+    opacity: 1;
+  }
 }
 
 .controls {

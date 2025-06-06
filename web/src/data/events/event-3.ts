@@ -50,7 +50,7 @@ We look forward to seeing you at the Campfire Cookout!
 
 For questions or special accommodations, please contact our event coordinators.
 `;
-const imageId = 'events/campfire.png';
+const imageId = 'campfire.png';
 
 const eventCoordinators: EventCoordinator[] = [
   {
