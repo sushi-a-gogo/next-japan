@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
+import fs from "fs";
+import fetch from "node-fetch";
 import OpenAI from "openai";
+import path from "path";
 
 dotenv.config();
 
@@ -59,8 +62,18 @@ router.post("/generate-content", async (req, res) => {
     });
     const imageUrl = imageResponse.data[0].url;
 
+    // Download and save image locally
+    const imageName = `image-${Date.now()}.png`;
+    const imagePath = path.join("public/images", imageName);
+    const response = await fetch(imageUrl);
+    const buffer = await response.buffer();
+    fs.writeFileSync(imagePath, buffer);
+
+    // Return local image URL
+    const localImageUrl = `/images/${imageName}`; // Serve from your Express static folder
+
     // Return both text and image to front-end
-    res.json({ text: generatedText, imageUrl });
+    res.json({ text: generatedText, imageUrl: localImageUrl });
   } catch (error) {
     console.error("Error with OpenAI API:", error);
     res.status(500).json({ error: "Failed to generate content" });

@@ -22,7 +22,7 @@ export class EventCardComponent implements OnInit {
   ngOnInit() {
     this.routerLink = `/event/${this.event().eventId}`;
     if (this.event().imageId) {
-      this.imageSrc = `${environment.apiUri}/${this.event().imageId}`;
+      this.imageSrc = `${environment.apiUri}/images/${this.event().imageId}`;
     }
   }
 

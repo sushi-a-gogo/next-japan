@@ -145,5 +145,51 @@
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9
+  },
+  {
+    "eventId": 4,
+    "eventTitle": "Training Day",
+    "description": "Experience a magical train journey through Japan's scenic landscapes, inspired by the enchanting worlds of Studio Ghibli.",
+    "fullDescription": "In the heart of Japan, where the mountains whisper ancient secrets and the cherry blossoms dance in the gentle breeze, lies a world waiting to be discovered by train. These locomotives, not mere machines, but gentle giants of iron and steam, glide gracefully through the landscape, weaving a tapestry of memories and dreams. Imagine embarking on a journey where each station is a gateway to a different realm, much like stepping into a Studio Ghibli film. The train whistles softly, echoing the calls of distant spirits, as it winds through mist-laden valleys and over bridges suspended above crystalline rivers. Outside your window, rice paddies stretch like green quilts, and forests of cedar and pine stand like silent sentinels, guardians of time's passage.",
+    "eventCoordinators": [
+      {
+        "eventId": 4,
+        "firstName": "Poyi",
+        "lastName": "Joiri",
+        "email": "xx@yy.zz",
+        "imageId": "avatars/avatar-3.jpg"
+      },
+      {
+        "eventId": 4,
+        "firstName": "Mya",
+        "lastName": "Ashford",
+        "email": "xx@yy.zz",
+        "imageId": "avatars/avatar-1.jpg"
+      },
+      {
+        "eventId": 4,
+        "firstName": "Tlu",
+        "lastName": "Marks",
+        "email": "xx@yy.zz",
+        "imageId": "avatars/avatar-2.jpg"
+      }
+    ],
+    "locations": [
+      {
+        "eventId": 4,
+        "locationId": 5,
+        "name": "Kikugahama Beach",
+        "addressLine1": "Historical Landmark",
+        "city": "Hagi",
+        "state": "Japan",
+        "zip": "758-0057",
+        "latitude": 34.417891070193804,
+        "longitude": 131.3878227526694
+      }
+    ],
+    "imageId": "train.png",
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9
   }
 ]

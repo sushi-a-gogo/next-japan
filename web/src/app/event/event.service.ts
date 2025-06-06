@@ -92,7 +92,7 @@ export class EventService {
   getEventDateRange$(event: EventInformation): Observable<ApiResult> {
     const opportunities = DUMMY_OPPORTUNITIES.filter((opp) => opp.eventId === event.eventId).sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
     if (!opportunities.length) {
-      return of({ hasError: true, retVal: null });
+      return of({ retVal: { event } });
     }
 
     const res: ApiResult = {

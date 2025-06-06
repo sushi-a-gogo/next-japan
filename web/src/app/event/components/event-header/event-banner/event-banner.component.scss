@@ -48,15 +48,6 @@
   justify-content: flex-start;
   gap: 10px;
   padding-top: 10px;
-
-  .locations-count {
-    opacity: 0;
-    transition: opacity 0.25s;
-
-    &.open {
-      opacity: 1;
-    }
-  }
 }
 
 @media (min-width: var.$screen-sm) {

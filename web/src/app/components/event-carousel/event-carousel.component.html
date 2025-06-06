@@ -10,11 +10,11 @@
   </button>
 </div>
 <mat-tab-group [selectedIndex]="carouselIndex" class="mat-tab-hide-tabs">
-  @for(slide of slides; track slide.events[0]?.eventId) {
+  @for(slide of slides; track $index) {
   <mat-tab>
     <ng-template matTabContent>
       <div class="carousel-slide">
-        @for(event of slide.events; track event?.eventId) {
+        @for(event of slide.events; track $index) {
         <div class="event-card">
           @if(event) {
           <app-event-card

@@ -18,7 +18,7 @@ export class EventBannerComponent {
   eventLocations = this.eventService.eventLocations;
 
   backgroundImage = computed(() => this.event()?.imageId ?
-    `url('${environment.apiUri}/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
+    `url('${environment.apiUri}/images/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
   );
 
   //'event-banner-default.png';

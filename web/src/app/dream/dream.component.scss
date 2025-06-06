@@ -18,7 +18,7 @@ header {
   width: 100%;
   position: relative;
 
-  height: 280px;
+  min-height: 240px;
   overflow: hidden;
 }
 
@@ -51,6 +51,8 @@ header {
 .header-content {
   color: #fff;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .splash {
@@ -85,7 +87,9 @@ footer {
 
 @media (min-width: 600px) {
   header {
-    height: 216px;
+    min-height: 200px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 }
 
@@ -116,9 +120,8 @@ footer {
     padding: 0;
   }
 
-  .splash {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  header {
+    min-height: 180px;
   }
 
   main {

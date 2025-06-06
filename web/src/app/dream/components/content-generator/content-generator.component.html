@@ -29,23 +29,21 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Image Style</mat-label>
+    <mat-label>Preview Image Style</mat-label>
     <mat-select [(ngModel)]="params.style" name="style">
       <mat-option value="cartoon">Cartoon</mat-option>
       <mat-option value="realistic">Realistic</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Enter special text</mat-label>
-    <textarea
+    <mat-label>Enter any special text</mat-label>
+    <input
       matInput
-      cdkTextareaAutosize=""
       [(ngModel)]="customText"
       name="customText"
       placeholder="Enter text"
-    ></textarea>
+    />
   </mat-form-field>
-  <div style="flex: 1"></div>
   <button class="app-button app-button-save" type="submit">Generate</button>
 </form>
 <div class="results">

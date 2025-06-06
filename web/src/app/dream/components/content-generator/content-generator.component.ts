@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { EventData } from '@app/event/models/event-data.model';
 import { OpenAiService } from '@app/services/open-ai.service';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
+import { environment } from '@environments/environment';
 import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
 
 @Component({
@@ -35,6 +36,7 @@ export class ContentGeneratorComponent {
 
   generateContent() {
     this.busy.set(true);
+    return;
     // setTimeout(() => {
     //   this.busy.set(false);
     //   this.imageUrl = 'assets/images/orgs/tokyo.jpg';
@@ -53,7 +55,7 @@ export class ContentGeneratorComponent {
     this.openAiService.generateContent(params, this.customText).subscribe({
       next: (response) => {
         this.generatedText = response.text;
-        this.imageUrl = response.imageUrl;
+        this.imageUrl = `${environment.apiUri}/${response.imageUrl}`;
         this.dreamEvent.update((prev) => ({ ...prev!, description: response.text }))
         this.busy.set(false);
       },

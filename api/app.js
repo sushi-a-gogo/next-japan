@@ -9,20 +9,11 @@ import openAiRouter from "./openai-integration.js"; // Adjust path if needed
 const app = express();
 dotenv.config();
 
-app.use(express.static("images"));
-//app.use(bodyParser.json());
+app.use(express.static("public"));
 app.use(express.json()); // Parse JSON bodies
 
 // CORS
 app.use(cors());
-
-//app.use((req, res, next) => {
-//res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
-//res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-//next();
-//});
 
 // Mount the OpenAI router
 app.use("/api", openAiRouter);

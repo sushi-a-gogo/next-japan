@@ -18,16 +18,16 @@
         <mat-icon>event_note</mat-icon>
         Coming Soon }
       </div>
-      <div class="event-desc">
+      <div class="event-desc fade-in" [class.open]="eventLocations().length">
         <mat-icon>place</mat-icon>
-        <div class="locations-count" [class.open]="eventLocations().length">
+        <span>
           {{ eventLocations().length | displayCount }}
           @if(eventLocations().length !== 1) {
           <span>Locations</span>
           } @else {
           <span>Location</span>
           }
-        </div>
+        </span>
       </div>
     </div>
   </div>

@@ -16,5 +16,11 @@
     "eventTitle": "Campfire Cookout",
     "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
     "imageId": "campfire.png"
+  },
+  {
+    "eventId": 4,
+    "eventTitle": "Training Day",
+    "description": "Experience a magical train journey through Japan's scenic landscapes, inspired by the enchanting worlds of Studio Ghibli.",
+    "imageId": "train.png"
   }
 ]

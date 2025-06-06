@@ -5,7 +5,7 @@ import { PageErrorComponent } from '@app/components/page-error/page-error.compon
 import { EventService } from '@app/event/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { environment } from '@environments/environment';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, of } from 'rxjs';
 import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
@@ -34,14 +34,17 @@ export class EventPageComponent implements OnChanges {
   hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => this.event()?.imageId ?
-    `url('${environment.apiUri}/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
+    `url('${environment.apiUri}/images/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
   );
 
   ngOnChanges(changes: SimpleChanges): void {
     const id = Number(this.eventId());
     this.loaded.set(false);
     forkJoin([this.eventService.getEvent$(id), this.eventService.getEventLocations$(id)])
-      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([event]) => {
+      .pipe(catchError((e) => {
+        this.hasError.set(true)
+        return of([null]);
+      }), takeUntilDestroyed(this.destroyRef)).subscribe(([event]) => {
         this.title.setTitle(event?.eventTitle || 'No event');
         this.hasError.set(!event);
         this.loaded.set(true);

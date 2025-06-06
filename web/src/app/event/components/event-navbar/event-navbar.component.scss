@@ -53,14 +53,16 @@ nav {
   width: 360px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   nav {
     ul {
       gap: 40px;
       justify-content: flex-start;
     }
   }
+}
 
+@media (min-width: 992px) {
   .panel-overview {
     border-right: 1px solid map.get(var.$colors, light-gray-accent);
   }

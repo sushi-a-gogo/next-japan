@@ -17,6 +17,10 @@
     width: 26px;
   }
 
+  &:hover {
+    background-color: map.get(var.$colors, light-gray-accent);
+  }
+
   &.clear-button {
     height: 32px;
     width: 80px;
