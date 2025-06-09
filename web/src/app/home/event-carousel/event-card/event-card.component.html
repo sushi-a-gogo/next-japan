@@ -2,7 +2,12 @@
   <button type="button" (click)="goToEvent()" class="border-box">
     <div class="image-container">
       @if(imageSrc) {
-      <img alt="Event Image" [src]="imageSrc" />
+      <img
+        alt="Event Image"
+        [ngSrc]="imageSrc"
+        [width]="event().image.width"
+        [height]="event().image.height"
+      />
       } @else {
       <img
         alt="Event Image Not Available"

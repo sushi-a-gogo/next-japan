@@ -1,17 +1,8 @@
 import { EventCoordinator } from '@app/event/models/event-coordinator.model';
 import { EventInformation } from '@app/event/models/event-information.model';
 import { EventLocation } from '@app/event/models/event-location.model';
-import { organization } from '../organization-data';
 
 const eventId = 3;
-
-const org = {
-  organizationId: organization.organizationId,
-  clientId: organization.clientId,
-  organizationName: organization.name,
-  logoImageId: organization.logoImageId,
-  clientName: organization.clientName,
-};
 
 const tz = {
   timeZone: 'Asia/Tokyo',
@@ -50,7 +41,12 @@ We look forward to seeing you at the Campfire Cookout!
 
 For questions or special accommodations, please contact our event coordinators.
 `;
-const imageId = 'campfire.png';
+const image = {
+  id: 'campfire.png',
+  height: 1536,
+  width: 1024
+
+};
 
 const eventCoordinators: EventCoordinator[] = [
   {
@@ -58,24 +54,33 @@ const eventCoordinators: EventCoordinator[] = [
     firstName: 'Poyi',
     lastName: 'Joiri',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-3.jpg'
-
+    image: {
+      id: "avatars/avatar-3.jpg",
+      width: 255,
+      height: 255
+    }
   },
   {
     eventId,
     firstName: 'Mya',
     lastName: 'Ashford',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-1.jpg'
-
+    image: {
+      id: "avatars/avatar-1.jpg",
+      width: 255,
+      height: 255
+    }
   },
   {
     eventId,
     firstName: 'Tlu',
     lastName: 'Marks',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-2.jpg'
-
+    image: {
+      id: "avatars/avatar-2.jpg",
+      width: 255,
+      height: 255
+    }
   },
 ];
 
@@ -100,6 +105,6 @@ export const eventInformation3: EventInformation = {
   fullDescription,
   eventCoordinators,
   locations,
-  imageId,
+  image,
   ...tz
 };

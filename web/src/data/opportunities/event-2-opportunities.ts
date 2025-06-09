@@ -6,14 +6,14 @@ const event = eventInformation2;
 const eventId = event.eventId;
 const eventTitle = event.eventTitle;
 const description = event.description;
-const imageId = event.imageId;
+const image = event.image;
 const locations = event.locations!;
 const tz = timeZone;
 
 const opportunities: EventOpportunity[] = [
   {
     eventId,
-    imageId,
+    image,
     opportunityId: 3,
     eventTitle,
     description,
@@ -32,7 +32,7 @@ const opportunities: EventOpportunity[] = [
   },
   {
     eventId,
-    imageId,
+    image,
     eventTitle,
     description,
     opportunityId: 4,

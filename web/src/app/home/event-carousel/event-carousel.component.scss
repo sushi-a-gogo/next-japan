@@ -37,12 +37,18 @@
 }
 
 .event-card {
-  width: 273px;
+  width: 235px;
   height: 462px;
+}
+
+@media (min-width: 400px) {
+  .event-card {
+    width: 275px;
+  }
 }
 
 @media (min-width: 600px) {
   .event-card {
-    width: 313px;
+    width: 320px;
   }
 }

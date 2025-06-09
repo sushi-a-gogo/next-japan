@@ -22,7 +22,13 @@ As evening approaches, gather around a bonfire for storytelling, live music, and
 
 All activities are family-friendly and suitable for both locals and visitors. Don’t miss this unique opportunity to connect with others, learn about Japanese culture, and create lasting memories at the Golden Pavilion!`;
 
-const imageId = 'golden.png';
+const image = {
+  id: 'golden.png',
+  height: 1024,
+  width: 1536
+
+};
+
 
 const eventCoordinators: EventCoordinator[] = [
   {
@@ -30,16 +36,22 @@ const eventCoordinators: EventCoordinator[] = [
     firstName: 'Poyi',
     lastName: 'Joiri',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-3.jpg'
-
+    image: {
+      id: "avatars/avatar-3.jpg",
+      width: 255,
+      height: 255
+    }
   },
   {
     eventId,
     firstName: 'Tlu',
     lastName: 'Marks',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-2.jpg'
-
+    image: {
+      id: "avatars/avatar-2.jpg",
+      width: 255,
+      height: 255
+    }
   },
 ];
 
@@ -75,6 +87,6 @@ export const eventInformation2: EventInformation = {
   fullDescription,
   eventCoordinators,
   locations,
-  imageId,
+  image,
   ...tz,
 };

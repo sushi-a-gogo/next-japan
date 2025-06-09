@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AppImageData } from '@app/models/app-image-data.model';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -11,8 +12,8 @@ export class OpenAiService {
 
   constructor(private http: HttpClient) { }
 
-  generateContent(params: any, text: string): Observable<{ text: string; imageUrl: string }> {
-    return this.http.post<{ text: string; imageUrl: string }>(`${this.uri}/generate-content`, {
+  generateContent(params: any, text: string): Observable<{ text: string; image: AppImageData }> {
+    return this.http.post<{ text: string; image: AppImageData }>(`${this.uri}/generate-content`, {
       promptParams: params,
       customText: text,
     });

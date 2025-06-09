@@ -1,4 +1,5 @@
 @use "variables.scss" as var;
+
 :host {
   display: block;
   width: 100%;
@@ -22,11 +23,8 @@
 
 nav {
   width: 100%;
-  min-height: 64px;
   display: flex;
   align-items: center;
-  min-height: 64px;
-  padding: 0 10px;
 
   ul {
     margin: 0;
@@ -45,39 +43,15 @@ nav {
       text-align: center;
     }
 
-    li.org-logo {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0;
-      gap: 10px;
-      height: 64px;
-      padding: 5px 0;
-
-      .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        height: 100%;
-        overflow: hidden;
-      }
-
-      .org-name {
-        font-weight: 700;
-      }
-
-      img {
-        object-fit: contain;
-        width: auto;
-        max-width: 150px;
-        height: 100%;
-      }
+    li.org-logo:hover {
+      transition: 0.25s;
+      background-color: rgba(0, 0, 0, 0.2);
     }
 
     li.login {
       justify-self: flex-end;
       flex: 1;
-      padding: 0;
+      padding: 0 12px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -93,8 +67,12 @@ a {
   line-height: 19px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: var.$max-page-width) {
   nav {
-    padding: 0;
+    ul {
+      li.login {
+        padding: 0;
+      }
+    }
   }
 }

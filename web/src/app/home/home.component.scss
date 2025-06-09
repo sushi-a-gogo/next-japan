@@ -7,11 +7,20 @@
   align-items: center;
 }
 
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  background-size: cover;
 }
 
 main {
@@ -21,7 +30,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 10px;
+  padding: 20px;
   padding-bottom: 0;
 }
 
@@ -53,8 +62,8 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
-  padding: 1px 2px;
+  gap: 10px;
+  padding: 10px 20px;
   text-align: center;
 
   .info-title {
@@ -77,7 +86,7 @@ section {
 
   .organization-info {
     gap: 2px;
-    padding: 4px 2px;
+    padding: 40px 20px;
 
     .info-title {
       font-size: 28px;

@@ -55,7 +55,7 @@ export class NotificationService {
       eventTimeZone: reg.timeZoneAbbreviation,
       userId: reg.userId,
       eventId: reg.eventId,
-      imageId: reg.imageId,
+      image: reg.image,
       title: reg.eventTitle,
       message,
     };

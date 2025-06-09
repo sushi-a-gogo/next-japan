@@ -25,11 +25,11 @@
     //color: map.get(var.$colors, base-color);
     background: color.scale(
       map.get(var.$colors, bright-blue-sky),
-      $lightness: 85%
+      $lightness: 70%
     );
     color: color.scale(
       map.get(var.$colors, bright-green-grass),
-      $lightness: -40%
+      $lightness: -66%
     );
     color: var(--navy-blue-mountain);
 
@@ -40,15 +40,15 @@
 
   &.requested {
     background: color.scale(
-      map.get(var.$colors, light-yellow-stars),
-      $lightness: 50%
+      map.get(var.$colors, bright-green-grass),
+      $lightness: 70%
     );
     color: color.scale(
-      map.get(var.$colors, vivid-yellow-text),
-      $lightness: -60%
+      map.get(var.$colors, bright-green-grass),
+      $lightness: -66%
     );
-    background: lighten(map.get(var.$colors, bright-green-grass), 30%);
-    color: darken(map.get(var.$colors, bright-green-grass), 40%);
+    //background: lighten(map.get(var.$colors, bright-green-grass), 30%);
+    //color: darken(map.get(var.$colors, bright-green-grass), 40%);
 
     .material-icons.requested {
       display: inline-block;

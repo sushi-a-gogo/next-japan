@@ -1,26 +1,8 @@
 <div class="avatar-container" [style]="styleCss">
-  <!-- avatarImageData -->
-  @if (avatarImageData) {
-  <!-- image -->
-  @if(avatarImageData.image) {
   <img
-    [src]="
-      'data:' + avatarImageData.imageType + ';base64,' + avatarImageData.image
-    "
+    [ngSrc]="imageIdSrc()"
     [alt]="altText"
+    [width]="avatar().image.width"
+    [height]="avatar().image.height"
   />
-
-  } @else {
-  <img [src]="defaultAvatarImage" [alt]="altText" />
-  }
-  <!-- avatarImageData -->
-  } @else {
-  <!-- image id-->
-  @if(imageIdSrc) {
-  <img [src]="imageIdSrc" [alt]="altText" />
-  } @else {
-  <img [src]="defaultAvatarImage" [alt]="altText" />
-  }
-  <!-- image id-->
-  }
 </div>

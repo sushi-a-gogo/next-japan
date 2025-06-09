@@ -1,5 +1,10 @@
 <div class="icon">
-  <img [src]="imageSrc" alt="Event Image" />
+  <img
+    [ngSrc]="imageSrc"
+    [width]="notification().image.width"
+    [height]="notification().image.height"
+    alt="Event Image"
+  />
 </div>
 <section>
   <header>

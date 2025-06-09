@@ -7,17 +7,27 @@
     "eventCoordinators": [
       {
         "eventId": 1,
+        "eventCoordinatorId": 11,
         "firstName": "Mya",
         "lastName": "Ashford",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-1.jpg"
+        "image": {
+          "id": "avatars/avatar-1.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 1,
+        "eventCoordinatorId": 22,
         "firstName": "Tlu",
         "lastName": "Marks",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-2.jpg"
+        "image": {
+          "id": "avatars/avatar-2.jpg",
+          "width": 512,
+          "height": 842
+        }
       }
     ],
     "locations": [
@@ -44,7 +54,12 @@
         "longitude": 138.76978589528957
       }
     ],
-    "imageId": "fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "imagePos": "top",
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
@@ -58,17 +73,27 @@
     "eventCoordinators": [
       {
         "eventId": 2,
+        "eventCoordinatorId": 33,
         "firstName": "Poyi",
         "lastName": "Joiri",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-3.jpg"
+        "image": {
+          "id": "avatars/avatar-3.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 2,
+        "eventCoordinatorId": 22,
         "firstName": "Tlu",
         "lastName": "Marks",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-2.jpg"
+        "image": {
+          "id": "avatars/avatar-2.jpg",
+          "width": 512,
+          "height": 842
+        }
       }
     ],
     "locations": [
@@ -95,7 +120,11 @@
         "longitude": 135.72867446836977
       }
     ],
-    "imageId": "golden.png",
+    "image": {
+      "id": "golden.png",
+      "width": 1536,
+      "height": 1024
+    },
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9
@@ -108,24 +137,39 @@
     "eventCoordinators": [
       {
         "eventId": 3,
+        "eventCoordinatorId": 33,
         "firstName": "Poyi",
         "lastName": "Joiri",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-3.jpg"
+        "image": {
+          "id": "avatars/avatar-3.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 3,
+        "eventCoordinatorId": 11,
         "firstName": "Mya",
         "lastName": "Ashford",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-1.jpg"
+        "image": {
+          "id": "avatars/avatar-1.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 3,
+        "eventCoordinatorId": 22,
         "firstName": "Tlu",
         "lastName": "Marks",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-2.jpg"
+        "image": {
+          "id": "avatars/avatar-2.jpg",
+          "width": 512,
+          "height": 842
+        }
       }
     ],
     "locations": [
@@ -141,7 +185,12 @@
         "longitude": 131.3878227526694
       }
     ],
-    "imageId": "campfire.png",
+    "image": {
+      "id": "campfire.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "bottom"
+    },
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9
@@ -154,24 +203,39 @@
     "eventCoordinators": [
       {
         "eventId": 4,
+        "eventCoordinatorId": 33,
         "firstName": "Poyi",
         "lastName": "Joiri",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-3.jpg"
+        "image": {
+          "id": "avatars/avatar-3.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 4,
+        "eventCoordinatorId": 11,
         "firstName": "Mya",
         "lastName": "Ashford",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-1.jpg"
+        "image": {
+          "id": "avatars/avatar-1.jpg",
+          "width": 255,
+          "height": 255
+        }
       },
       {
         "eventId": 4,
+        "eventCoordinatorId": 22,
         "firstName": "Tlu",
         "lastName": "Marks",
         "email": "xx@yy.zz",
-        "imageId": "avatars/avatar-2.jpg"
+        "image": {
+          "id": "avatars/avatar-2.jpg",
+          "width": 512,
+          "height": 842
+        }
       }
     ],
     "locations": [
@@ -187,7 +251,11 @@
         "longitude": 131.3878227526694
       }
     ],
-    "imageId": "train.png",
+    "image": {
+      "id": "train.png",
+      "width": 1024,
+      "height": 1024
+    },
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9

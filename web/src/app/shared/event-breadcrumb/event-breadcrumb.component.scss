@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "variables.scss" as var;
 
 .event-client-org {
@@ -8,7 +9,7 @@
 .label-small {
   font-size: 12px;
   line-height: 16px;
-  font-weight: 400;
+  font-weight: 600;
   color: map.get(var.$colors, inactive);
 }
 
@@ -25,7 +26,7 @@ a {
   text-decoration: none;
 
   &.event {
-    color: var(--bright-blue-sky);
+    color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
   }
 
   &:hover {

@@ -1,5 +1,6 @@
 <button
   #matMenuTrigger
+  aria-label="Notification Center"
   type="button"
   aria-label="Notifications"
   class="app-button flex-button notification-button"
@@ -8,7 +9,7 @@
   (menuOpened)="menuToggle(true)"
   (menuClosed)="menuToggle(false)"
 >
-  <img src="assets/images/bell.svg" />
+  <img src="assets/images/bell.svg" alt="A bell" width="21.27" height="26" />
   <span class="badge" [class.visible]="notifications().length > 0">{{
     notifications().length
   }}</span>

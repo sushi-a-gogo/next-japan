@@ -59,6 +59,7 @@ export class RegistrationService {
       status: RegistrationStatus.Requested,
     }
 
+    const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 60_000; // random between 2 and 10 minutes in ms
     setTimeout(() => {
       this.registrationSignal.update((prev) =>
         prev.map((reg) => {
@@ -74,7 +75,7 @@ export class RegistrationService {
           return reg;
         })
       );
-    }, 120000);
+    }, delayMs);
 
     return of(registration).pipe(delay(250), tap(() => {
       this.registrationSignal.update((prev) => [...prev, registration]);

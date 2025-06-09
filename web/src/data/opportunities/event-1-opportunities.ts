@@ -6,7 +6,7 @@ const event = eventInformation1;
 const eventId = event.eventId;
 const eventTitle = event.eventTitle;
 const description = event.description;
-const imageId = event.imageId;
+const image = event.image;
 const locations = event.locations!;
 const tz = timeZone;
 
@@ -15,7 +15,7 @@ const opportunities: EventOpportunity[] = [
     eventId,
     eventTitle,
     description,
-    imageId,
+    image,
     opportunityId: 1,
     locationId: locations[0].locationId,
     locationName: locations[0].name,
@@ -33,7 +33,7 @@ const opportunities: EventOpportunity[] = [
   },
   {
     eventId,
-    imageId,
+    image,
     opportunityId: 100,
     description,
     eventTitle,
@@ -52,7 +52,7 @@ const opportunities: EventOpportunity[] = [
   },
   {
     eventId,
-    imageId,
+    image,
     eventTitle,
     description,
     opportunityId: 2,
@@ -71,7 +71,7 @@ const opportunities: EventOpportunity[] = [
   },
   {
     eventId,
-    imageId,
+    image,
     eventTitle,
     description,
     opportunityId: 200,
@@ -90,7 +90,7 @@ const opportunities: EventOpportunity[] = [
   },
   {
     eventId,
-    imageId,
+    image,
     eventTitle,
     description,
     opportunityId: 201,

@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventService } from '@app/event/event.service';
+import { FooterComponent } from '@app/footer/footer.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { environment } from '@environments/environment';
 import { catchError, forkJoin, of } from 'rxjs';
@@ -14,7 +15,7 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent, EventOpportunitiesComponent, LoadingSpinnerComponent],
+  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent, EventOpportunitiesComponent, LoadingSpinnerComponent, FooterComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
@@ -33,8 +34,8 @@ export class EventPageComponent implements OnChanges {
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
-  backgroundImage = computed(() => this.event()?.imageId ?
-    `url('${environment.apiUri}/images/${this.event()!.imageId}')` : `url('assets/images/orgs/tokyo.jpg')`
+  backgroundImage = computed(() => this.event()?.image.id ?
+    `url('${environment.apiUri}/images/${this.event()!.image.id}')` : `url('assets/images/orgs/tokyo.jpg')`
   );
 
   ngOnChanges(changes: SimpleChanges): void {

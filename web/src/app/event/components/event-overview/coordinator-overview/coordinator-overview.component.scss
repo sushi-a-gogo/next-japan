@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "variables.scss" as var;
 
 :host {
@@ -63,7 +64,8 @@ a.email {
   text-decoration: none;
   font-size: 12px;
   line-height: 19px;
-  color: var(--bright-blue-sky);
+  font-weight: 600;
+  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
 
   &:hover {
     text-decoration: underline 1px;

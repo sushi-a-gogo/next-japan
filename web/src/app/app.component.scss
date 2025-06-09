@@ -3,17 +3,15 @@
 .app-container {
   height: var(--app-height);
   display: grid;
-  grid-template-rows: [header-row] var.$color-bar-height [main-row] auto [footer-row] 240px;
+  grid-template-rows: [header-row] var.$color-bar-height [main-row] auto;
   grid-template-areas:
     "header"
-    "main"
-    "footer";
+    "main";
   transition: 0.25s ease-in-out;
   &.user {
     grid-template-rows:
       [header-row] calc(var.$color-bar-height + var.$user-header-height)
-      [main-row] auto
-      [footer-row] 240px;
+      [main-row] auto;
   }
 }
 
@@ -24,29 +22,21 @@ main {
   justify-content: center;
 }
 
-footer {
-  grid-area: footer;
-}
-
 .router-outlet {
   width: 100%;
 }
 
 @media (min-width: 600px) {
   .app-container {
-    grid-template-rows: [header-row] var.$color-bar-height [main-row] auto [footer-row] 265px;
+    grid-template-rows: [header-row] var.$color-bar-height [main-row] auto;
     &.user {
       grid-template-rows:
         [header-row] calc(var.$color-bar-height + var.$user-header-height)
-        [main-row] auto
-        [footer-row] 265px;
+        [main-row] auto;
     }
   }
 
   main {
     padding: 0;
-  }
-
-  .router-outlet {
   }
 }

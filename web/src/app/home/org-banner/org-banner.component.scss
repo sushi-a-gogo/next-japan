@@ -6,161 +6,116 @@
   width: 100%;
 }
 
+.background-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  backdrop-filter: brightness(80%) blur(5px);
+  filter: blur(0.01px) grayscale(0.001);
+}
+
 .header-content {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  position: relative;
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .content {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: stretch;
+  align-items: center;
+  color: #fff;
+  padding: 48px 24px;
   backdrop-filter: brightness(75%);
-  min-height: 282px;
 }
 
-.content-top {
-  color: #fff;
-  width: 100%;
-  padding: 0 24px;
-
-  nav {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-    min-height: 64px;
-
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      li {
-        display: list-item;
-        text-align: center;
-      }
-
-      li.org-logo {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 0;
-        gap: 10px;
-        height: 64px;
-        padding: 5px 0;
-        font-size: 14px;
-        line-height: 19px;
-
-        .logo-container {
-          height: 100%;
-          text-decoration: none;
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
-        .org-name {
-          display: none;
-          font-weight: 700;
-        }
-
-        img {
-          object-fit: contain;
-          width: auto;
-          max-width: 150px;
-          height: 100%;
-          opacity: 0.85;
-        }
-      }
-
-      li.login {
-        justify-self: flex-end;
-        flex: 1;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 10px;
-      }
-    }
-  }
-
-  .title {
-    font-size: 32px;
-    line-height: 40px;
-    font-weight: 700;
-  }
-
-  .subtitle {
-    font-size: 24px;
-    line-height: 28px;
-    font-weight: 400;
-  }
+.flex-column {
+  gap: 20px;
 }
 
 .content-bottom {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 24px;
-  color: #fff;
+}
 
-  .description {
-    margin-bottom: 10px;
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  ul {
+    margin: 0;
+    padding: 5px 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    li {
+      display: list-item;
+      text-align: center;
+    }
+
+    li.login {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
   }
 }
 
+.title {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
 @media (min-width: 600px) {
-  .content {
-    min-height: 400px;
-  }
-
-  .content-top {
-    padding: 0 30px;
-
-    nav {
-      margin-bottom: 30px;
-
-      ul {
-        li.org-logo {
-          .org-name {
-            display: list-item;
-          }
+  nav {
+    ul {
+      li.org-logo {
+        .org-name {
+          display: list-item;
         }
       }
     }
-
-    .title {
-      font-size: 60px;
-      line-height: 60px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 34px;
-      line-height: 34px;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
   }
 
-  .content-bottom {
-    padding: 15px 30px;
+  .content.authenticated {
+    padding: 84px 24px;
+  }
 
-    .description {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 26px;
-    }
+  .title {
+    font-size: 60px;
+    line-height: 60px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .description {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
   }
 }

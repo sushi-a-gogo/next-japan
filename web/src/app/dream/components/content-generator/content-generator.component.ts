@@ -31,17 +31,17 @@ export class ContentGeneratorComponent {
   palettes = ['earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
   destinations = ['Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama'];
 
-  dreamEvent = signal<EventData | null>({ eventId: 0, imageId: '', eventTitle: 'My Dream Event', description: '' });
+  dreamEvent = signal<EventData | null>({ eventId: 0, image: { id: '', width: 0, height: 0 }, eventTitle: 'My Dream Event', description: '' });
   private openAiService = inject(OpenAiService);
 
   generateContent() {
     this.busy.set(true);
     this.generatedText = '';
-    return;
+    //return;
     // setTimeout(() => {
     //   this.busy.set(false);
     //   this.imageUrl = 'assets/images/orgs/tokyo.jpg';
-    //   this.dreamEvent.set({ eventId: 0, imageId: '', eventTitle: 'My Dream Event', description: '' });
+    //   this.dreamEvent.set({ eventId: 0, image: { id: '', width: 1024, height: 1024 }, eventTitle: 'My Dream Event', description: '' });
     // }, 1000);
     //return;
 
@@ -56,7 +56,7 @@ export class ContentGeneratorComponent {
     this.openAiService.generateContent(params, this.customText).subscribe({
       next: (response) => {
         this.generatedText = response.text;
-        this.imageUrl = `${environment.apiUri}/${response.imageUrl}`;
+        this.imageUrl = `${environment.apiUri}/images/${response.image.id}`;
         this.dreamEvent.update((prev) => ({ ...prev!, description: response.text }))
         this.busy.set(false);
       },

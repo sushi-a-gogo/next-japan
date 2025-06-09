@@ -1,3 +1,5 @@
+import { AppImageData } from "./app-image-data.model";
+
 export interface Avatar {
-  imageId?: string;
+  image: AppImageData;
 }

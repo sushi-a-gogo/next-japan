@@ -1,4 +1,6 @@
 export interface AppImageData {
-  image?: string;
-  imageType?: string;
+  id: string,
+  width: number,
+  height: number,
+  position?: string
 }

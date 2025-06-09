@@ -1,8 +1,11 @@
-<div
-  class="banner-container"
-  [style.backgroundImage]="backgroundImage()"
-  [style.backgroundPosition]="event()?.imagePos"
->
+<div class="banner-container">
+  <img
+    [ngSrc]="backgroundImage()"
+    [alt]="event()?.description"
+    fill
+    priority
+    [style.objectPosition]="event()?.image?.position"
+  />
   <div class="banner-bar">
     <div>
       <div class="banner-title break-word">

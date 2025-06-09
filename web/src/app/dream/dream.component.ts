@@ -1,11 +1,12 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { FooterComponent } from '@app/footer/footer.component';
 import { OpenAiService } from '@app/services/open-ai.service';
 import { ContentGeneratorComponent } from "./components/content-generator/content-generator.component";
 import { DottedBgComponent } from "./components/dotted-bg/dotted-bg.component";
 
 @Component({
   selector: 'app-dream',
-  imports: [DottedBgComponent, ContentGeneratorComponent],
+  imports: [DottedBgComponent, ContentGeneratorComponent, FooterComponent],
   templateUrl: './dream.component.html',
   styleUrl: './dream.component.scss'
 })

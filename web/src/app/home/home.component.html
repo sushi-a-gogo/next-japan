@@ -1,9 +1,16 @@
-@if(org) {
-<article class="content-container">
-  <header>
+@if(hasError()) {
+<app-page-error
+  errorTitle="Site not available."
+  errorMessage="We're sorry. The page could not be loaded."
+></app-page-error>
+}
+
+<article class="fade-in" [class.open]="!!org">
+  @if(org) {
+  <header [style.backgroundImage]="backgroundImage">
     <app-org-banner [org]="org!"></app-org-banner>
   </header>
-  <main>
+  <main class="content-container">
     <section>
       <div class="flex-content organization-info">
         <div class="info-title break-word">
@@ -14,15 +21,20 @@
         </div>
       </div>
     </section>
-    <section>
+    <section class="fade-in" [class.open]="loaded()">
       <div class="flex-content">
+        @if(events().length) {
         <app-event-carousel
           [events]="events()"
           [opportunities]="opportunities()"
           [class.open]="loaded()"
         ></app-event-carousel>
+        }
       </div>
     </section>
   </main>
+  <footer>
+    <app-footer />
+  </footer>
+  }
 </article>
-}

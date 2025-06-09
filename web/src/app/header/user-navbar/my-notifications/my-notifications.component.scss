@@ -7,15 +7,10 @@
 }
 
 .app-button {
-  height: 48px;
-  width: 48px;
-  min-width: 48px;
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
   border-radius: 100%;
-
-  img {
-    height: 26px;
-    width: 26px;
-  }
 
   &:hover {
     background-color: map.get(var.$colors, light-gray-accent);
@@ -89,6 +84,14 @@
 .no-notifications {
   width: 100%;
   padding: 20px;
+}
+
+@media (min-width: 375px) {
+  .app-button {
+    height: 48px;
+    width: 48px;
+    min-width: 48px;
+  }
 }
 
 @media (min-width: 768px) {

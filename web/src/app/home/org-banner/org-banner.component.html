@@ -1,25 +1,30 @@
-<div class="header-content" [style.backgroundImage]="bannerImageBackground">
-  <div class="content">
-    <div class="content-top">
-      <nav>
-        <ul>
-          @if(!auth.isAuthenticated()) {
-          <li class="org-logo">
-            <app-logo />
-          </li>
-          <li class="login">
-            <app-login-button></app-login-button>
-            <app-login-button [signup]="true"></app-login-button>
-          </li>
-          }
-        </ul>
-      </nav>
-      <div class="title break-word">{{ org().bannerTitle }}</div>
-      <div class="subtitle break-word">{{ org().bannerSubTitle }}</div>
-    </div>
-    <div class="content-bottom">
-      <div class="description break-word pre-wrap">
-        {{ org().bannerDescription }}
+<div class="background-overlay">
+  @if(!auth.isAuthenticated()) {
+  <nav class="content-container">
+    <ul>
+      <li>
+        <app-logo [size]="94" />
+      </li>
+      <li class="login">
+        <app-login-button></app-login-button>
+        <app-login-button [signup]="true"></app-login-button>
+      </li>
+    </ul>
+  </nav>
+  }
+  <div class="header-content content-container">
+    <img [ngSrc]="bannerImage()" fill priority alt="Tokyo at night" />
+    <div class="content" [class.authenticated]="auth.isAuthenticated()">
+      <div class="flex-column">
+        <div class="content-top">
+          <div class="title break-word">{{ org().bannerTitle }}</div>
+          <div class="subtitle break-word">{{ org().bannerSubTitle }}</div>
+        </div>
+        <div class="content-bottom">
+          <div class="description break-word pre-wrap">
+            {{ org().bannerDescription }}
+          </div>
+        </div>
       </div>
     </div>
   </div>

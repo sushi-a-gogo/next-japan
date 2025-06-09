@@ -73,7 +73,11 @@ router.post("/generate-content", async (req, res) => {
     const localImageUrl = `/images/${imageName}`; // Serve from your Express static folder
 
     // Return both text and image to front-end
-    res.json({ text: generatedText, imageUrl: localImageUrl });
+    res.json({
+      text: generatedText,
+      imageUrl: localImageUrl,
+      image: { id: imageName, width: 1024, height: 1024 },
+    });
   } catch (error) {
     console.error("Error with OpenAI API:", error);
     res.status(500).json({ error: "Failed to generate content" });

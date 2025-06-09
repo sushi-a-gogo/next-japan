@@ -1,8 +1,9 @@
+import { AppImageData } from "./app-image-data.model";
 
 export interface NotificationDetail {
   notificationId: number;
   notificationDate: Date;
-  imageId: string;
+  image: AppImageData;
   title: string;
   message: string;
   userId: number;

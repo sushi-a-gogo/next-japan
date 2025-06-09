@@ -6,13 +6,7 @@
         <ul>
           <li class="org-logo">
             <a routerLink="/home" class="logo-container org-name break-word">
-              <img
-                [src]="
-                  'assets/images/' + organizationInformation()?.logoImageId
-                "
-                [alt]="organizationInformation()!.name"
-              />
-              {{ organizationInformation()!.name }}
+              <app-logo [size]="94" />
             </a>
           </li>
           <li class="login">

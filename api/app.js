@@ -68,6 +68,13 @@ app.post("/generate-image", async (req, res) => {
   }
 });
 
+app.get("/organization", async (req, res) => {
+  //return res.status(500).json();
+  const fileContent = await fs.readFile("./data/organization.json");
+  const data = JSON.parse(fileContent);
+  res.status(200).json({ data });
+});
+
 app.get("/events", async (req, res) => {
   //return res.status(500).json();
   const fileContent = await fs.readFile("./data/events/events.json");

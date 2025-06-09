@@ -1,9 +1,9 @@
 <nav [class.open]="userProfile()">
   @if(userProfile()) {
   <ul>
-    <li class="image">
+    <li>
       <a class="app-button logo" routerLink="/home">
-        <app-logo [imageOnly]="true" [size]="54" />
+        <app-logo [imageOnly]="true" [size]="92" />
       </a>
     </li>
     <li>
@@ -13,7 +13,8 @@
         matRipple
         (click)="openMyEvents()"
       >
-        My Events
+        <span class="text-condensed">Events</span>
+        <span class="text">My Events</span>
       </button>
     </li>
     <li>
@@ -23,7 +24,8 @@
         matRipple
         (click)="openMyDreams()"
       >
-        Dream Events
+        <span class="text-condensed">Dreams</span>
+        <span class="text">Dream Events</span>
       </button>
     </li>
     <li class="spacer"></li>

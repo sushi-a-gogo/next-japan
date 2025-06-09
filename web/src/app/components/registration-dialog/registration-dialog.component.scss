@@ -53,23 +53,23 @@ footer {
     width: 48px;
     height: 48px;
     border-radius: 100%;
-    border: 1px solid
-      color.scale(map.get(var.$colors, vivid-yellow-text), $lightness: -60%);
+    //background: lighten(map.get(var.$colors, bright-green-grass), 30%);
     background: color.scale(
-      map.get(var.$colors, light-yellow-stars),
-      $lightness: 50%
+      map.get(var.$colors, bright-green-grass),
+      $lightness: 70%
     );
-    background: lighten(map.get(var.$colors, bright-green-grass), 30%);
-    border: 1px solid darken(map.get(var.$colors, bright-green-grass), 40%);
+    //border: 1px solid darken(map.get(var.$colors, bright-green-grass), 40%);
+    border: 1px solid
+      color.scale(map.get(var.$colors, bright-green-grass), $lightness: -66%);
   }
 
   .material-icons {
     font-size: 32px;
     font-weight: 500;
     color: color.scale(
-      map.get(var.$colors, vivid-yellow-text),
-      $lightness: -60%
+      map.get(var.$colors, bright-green-grass),
+      $lightness: -66%
     );
-    color: darken(map.get(var.$colors, bright-green-grass), 40%);
+    //color: darken(map.get(var.$colors, bright-green-grass), 40%);
   }
 }

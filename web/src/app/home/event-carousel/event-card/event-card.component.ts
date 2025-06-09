@@ -1,12 +1,13 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OpportunityDateComponent } from "@app/components/opportunity-date/opportunity-date.component";
 import { EventData } from '@app/event/models/event-data.model';
 import { environment } from '@environments/environment';
-import { OpportunityDateComponent } from "../../../components/opportunity-date/opportunity-date.component";
 
 @Component({
   selector: 'app-event-card',
-  imports: [OpportunityDateComponent],
+  imports: [NgOptimizedImage, OpportunityDateComponent],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.scss'
 })
@@ -21,9 +22,7 @@ export class EventCardComponent implements OnInit {
 
   ngOnInit() {
     this.routerLink = `/event/${this.event().eventId}`;
-    if (this.event().imageId) {
-      this.imageSrc = `${environment.apiUri}/images/${this.event().imageId}`;
-    }
+    this.imageSrc = `${environment.apiUri}/images/${this.event().image.id}`;
   }
 
 

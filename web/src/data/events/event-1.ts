@@ -24,7 +24,13 @@ Whether you're looking to relax in nature, make new friends, or try something ne
 
 Space is limited, so sign up today to reserve your spot at this unique Mount Fuji gathering! Don't miss this opportunity to create lasting memories in one of Japan's most beautiful and culturally rich locations.`;
 
-const imageId = 'fuji.png';
+const image = {
+  id: 'fuji.png',
+  height: 1024,
+  width: 1536,
+  position: "top"
+};
+
 
 const eventCoordinators: EventCoordinator[] = [
   {
@@ -32,16 +38,22 @@ const eventCoordinators: EventCoordinator[] = [
     firstName: 'Mya',
     lastName: 'Ashford',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-1.jpg'
-
+    image: {
+      id: "avatars/avatar-1.jpg",
+      width: 255,
+      height: 255
+    }
   },
   {
     eventId,
     firstName: 'Tlu',
     lastName: 'Marks',
     email: 'xx@yy.zz',
-    imageId: 'avatars/avatar-2.jpg'
-
+    image: {
+      id: "avatars/avatar-2.jpg",
+      width: 255,
+      height: 255
+    }
   },
 ];
 
@@ -77,7 +89,6 @@ export const eventInformation1: EventInformation = {
   fullDescription,
   eventCoordinators,
   locations,
-  imageId,
-  imagePos: 'top',
+  image,
   ...tz,
 };
