@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use "sass:map";
+@use "sass:color";
+
 @use "variables.scss" as var;
 @use "mat-variables.scss" as mat-var;
 @use "./styles/themes/default-theme.scss" as *;
@@ -62,11 +64,19 @@ textarea {
   font-family: var.$app-font;
 }
 
-.event-title {
-  font-size: 16px;
-  line-height: 19px;
+.title-text {
+  font-size: 18px;
+  line-height: 24px;
   font-weight: 700;
-  color: #000;
+}
+
+.mini-text {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.link-text {
+  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -45%);
 }
 
 .flex-row {

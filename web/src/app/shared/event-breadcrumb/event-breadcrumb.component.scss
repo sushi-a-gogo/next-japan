@@ -7,8 +7,8 @@
 }
 
 .label-small {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 600;
   color: map.get(var.$colors, inactive);
 }
@@ -22,12 +22,10 @@
 }
 
 a {
-  color: map.get(var.$colors, inactive);
-  text-decoration: none;
-
-  &.event {
-    color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
+  &.inactive {
+    color: map.get(var.$colors, dark-gray);
   }
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;

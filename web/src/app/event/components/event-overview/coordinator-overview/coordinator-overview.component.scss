@@ -63,9 +63,8 @@ a.email {
   display: inline-block;
   text-decoration: none;
   font-size: 12px;
-  line-height: 19px;
+  line-height: 16px;
   font-weight: 600;
-  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
 
   &:hover {
     text-decoration: underline 1px;

@@ -20,8 +20,6 @@
 }
 
 .notes {
-  font-size: 14px;
-  line-height: 19px;
-  font-weight: 400;
   color: map.get(var.$colors, dark-label);
+  font-weight: 500;
 }

@@ -5,9 +5,9 @@ export const DUMMY_USERS: UserProfile[] = [
     userId: 1,
     addressLine1: '99 Ranch Rd',
     image: {
-      id: "avatars/mister.png",
-      width: 1024,
-      height: 1024
+      id: "mister.png",
+      width: 256,
+      height: 256
     },
     city: 'Lazytown',
     email: 'riuchi.takayama@studio-gh.mov',
@@ -22,9 +22,9 @@ export const DUMMY_USERS: UserProfile[] = [
     userId: 2,
     addressLine1: '99 Ranch Rd',
     image: {
-      id: "avatars/miss.png",
-      width: 1024,
-      height: 1024
+      id: "miss.png",
+      width: 256,
+      height: 256
     },
     city: 'Lazytown',
     email: 'kiki.takayama@studio-gh.mov',

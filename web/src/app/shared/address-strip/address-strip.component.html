@@ -4,7 +4,11 @@
     @if(address) {
     {{ address }}
     @if(showDirections()) {
-    <a class="get-directions desktop" [href]="place" target="_blank">
+    <a
+      class="get-directions mini-text link-text desktop"
+      [href]="place"
+      target="_blank"
+    >
       Directions
     </a>
     } } @else {
@@ -16,7 +20,11 @@
     {{ notes() }}
   </div>
   } @if(address && showDirections()) {
-  <a class="get-directions mobile" [href]="place" target="_blank">
+  <a
+    class="get-directions mini-text link-text mobile"
+    [href]="place"
+    target="_blank"
+  >
     Directions
   </a>
   }

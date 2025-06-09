@@ -13,7 +13,10 @@ export class AvatarComponent implements OnInit {
   avatar = input.required<Avatar>();
   @Input() size: number = 33;
   @Input() altText = 'Avatar';
-  imageIdSrc = computed(() => `${environment.apiUri}/images/${this.avatar().image.id}`);
+  imageIdSrc = computed(() => {
+    const image = this.avatar().image;
+    return `${environment.apiUri}/resize/${image.width}/${image.height}/${image.id}`;
+  });
   defaultAvatarImage = 'assets/images/head.png';
   styleCss: any;
 

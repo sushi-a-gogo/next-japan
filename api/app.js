@@ -4,7 +4,13 @@ import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import openAiRouter from "./openai-integration.js"; // Adjust path if needed
+import path from "node:path";
+import { dirname } from "path";
+import sharp from "sharp";
+import { fileURLToPath } from "url";
+
+import openAiRouter from "./openai-integration.js";
+//import validateImagePath from "./validateImagePath.js";
 
 const app = express();
 dotenv.config();
@@ -17,6 +23,63 @@ app.use(cors());
 
 // Mount the OpenAI router
 app.use("/api", openAiRouter);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const originalDir = path.join(__dirname, "public", "images");
+const cacheDir = path.join(__dirname, "cache", "resized");
+
+function validateImagePath(imageName) {
+  // Only allow basic safe filenames (no slashes or directory traversal)
+  return /^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|webp)$/i.test(imageName);
+}
+
+// Route: /resize/:width/:height/:imageName
+app.get("/resize/:width/:height/:imageName", async (req, res) => {
+  const { width, height, imageName } = req.params;
+
+  // Validate filename
+  if (!validateImagePath(imageName)) {
+    return res.status(400).send("Invalid image name");
+  }
+
+  const ext = path.extname(imageName);
+  const baseName = path.basename(imageName, ext);
+  const cachedFileName = `${width}x${height}-${baseName}.webp`;
+  const cachedPath = path.join(cacheDir, cachedFileName);
+  const originalPath = path.join(originalDir, imageName);
+
+  try {
+    // Check if cached image exists
+    try {
+      const stat = await fs.stat(cachedPath);
+      if (stat.isFile()) {
+        res.set("Content-Type", "image/webp");
+        return res.sendFile(cachedPath);
+      }
+    } catch (_) {
+      // Cache miss – continue
+    }
+
+    // Check original image exists
+    await fs.access(originalPath);
+
+    // Resize
+    const resizedBuffer = await sharp(originalPath)
+      .resize(parseInt(width), parseInt(height))
+      .toFormat("webp")
+      .toBuffer();
+
+    // Save resized version to cache
+    await fs.writeFile(cachedPath, resizedBuffer);
+
+    res.set("Content-Type", "image/webp");
+    res.send(resizedBuffer);
+  } catch (err) {
+    console.error("Image processing error:", err.message);
+    res.status(404).send("Image not found or could not be processed");
+  }
+});
 
 app.post("/generate-image", async (req, res) => {
   const { prompt } = req.body;

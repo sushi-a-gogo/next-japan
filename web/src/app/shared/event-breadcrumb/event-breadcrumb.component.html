@@ -1,7 +1,11 @@
 <div class="event-client-org label-small">
-  <a [routerLink]="eventRouterLink" class="event break-word" mat-dialog-close>
+  <a
+    [routerLink]="eventRouterLink"
+    class="link-text break-word"
+    mat-dialog-close
+  >
     {{ data().eventTitle }}
   </a>
   <span class="divider"></span>
-  <a [routerLink]="landingPageRouterLink" mat-dialog-close> Next Japan </a>
+  <a [routerLink]="landingPageRouterLink" class="inactive"> Next Japan </a>
 </div>

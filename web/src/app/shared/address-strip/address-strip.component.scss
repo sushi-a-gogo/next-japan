@@ -22,11 +22,8 @@
 }
 
 a.get-directions {
-  font-size: 12px;
-  line-height: 19px;
   font-weight: 600;
   text-decoration: underline;
-  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
 
   &.desktop {
     display: none;
