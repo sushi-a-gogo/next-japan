@@ -32,12 +32,32 @@
     }
   },
   {
-    "eventId": 4,
-    "eventTitle": "Training Day",
-    "description": "Experience a magical train journey through Japan's scenic landscapes, inspired by the enchanting worlds of Studio Ghibli.",
+    "eventId": 6,
+    "eventTitle": "Himeji Castle Magic",
+    "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
     "image": {
-      "id": "train.png",
+      "id": "image-1749505320732.png",
       "width": 1024,
+      "height": 1024
+    }
+  },
+  {
+    "eventId": 7,
+    "eventTitle": "Yokohama Discovery",
+    "description": "Discover Yokohama with your family, exploring tranquil gardens, fun museums, and scenic waterfronts for a day of adventure and relaxation.",
+    "image": {
+      "id": "image-1749564533439.png",
+      "width": 1792,
+      "height": 1024
+    }
+  },
+  {
+    "eventId": 8,
+    "eventTitle": "Kyoto Under the Stars",
+    "description": "Embark on a magical day in Kyoto, exploring ancient shrines, bamboo groves, and ending with a starlit family night of wonder.",
+    "image": {
+      "id": "image-1749583877312.png",
+      "width": 1792,
       "height": 1024
     }
   }

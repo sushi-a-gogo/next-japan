@@ -1,9 +1,9 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OpportunityDateComponent } from "@app/components/opportunity-date/opportunity-date.component";
 import { EventData } from '@app/event/models/event-data.model';
-import { environment } from '@environments/environment';
+import { ImageService } from '@app/services/image.service';
 
 @Component({
   selector: 'app-event-card',
@@ -12,17 +12,22 @@ import { environment } from '@environments/environment';
   styleUrl: './event-card.component.scss'
 })
 export class EventCardComponent implements OnInit {
+  private imageService = inject(ImageService);
+
   event = input.required<EventData>();
+  resizedImage = computed(() => {
+    return this.imageService.resizeImage(this.event().image, 384, 256);
+  });
+
   openInNewTab = input<boolean>(false);
 
-  imageSrc?: string;
+
   routerLink: string = '';
 
   private router = inject(Router);
 
   ngOnInit() {
     this.routerLink = `/event/${this.event().eventId}`;
-    this.imageSrc = `${environment.apiUri}/images/${this.event().image.id}`;
   }
 
 

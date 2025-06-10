@@ -5,7 +5,7 @@ import { PageErrorComponent } from '@app/components/page-error/page-error.compon
 import { EventService } from '@app/event/event.service';
 import { FooterComponent } from '@app/footer/footer.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { environment } from '@environments/environment';
+import { ImageService } from '@app/services/image.service';
 import { catchError, forkJoin, of } from 'rxjs';
 import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
@@ -22,6 +22,8 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
 export class EventPageComponent implements OnChanges {
   private auth = inject(AuthMockService);
   private eventService = inject(EventService);
+  private imageService = inject(ImageService);
+
   private destroyRef = inject(DestroyRef);
   private event = this.eventService.event;
 
@@ -34,9 +36,13 @@ export class EventPageComponent implements OnChanges {
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
-  backgroundImage = computed(() => this.event()?.image.id ?
-    `url('${environment.apiUri}/images/${this.event()!.image.id}')` : `url('assets/images/orgs/tokyo.jpg')`
-  );
+  backgroundImage = computed(() => {
+    if (this.event()) {
+      const resizedImage = this.imageService.resizeImage(this.event()!.image, 384, 256);
+      return `url('${resizedImage.src}')`;
+    }
+    return undefined;
+  });
 
   ngOnChanges(changes: SimpleChanges): void {
     const id = Number(this.eventId());

@@ -2,14 +2,13 @@ import { Component, HostListener, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { OpportunityRequestFooterComponent } from "./components/opportunity-request-footer/opportunity-request-footer.component";
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
-import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from './header/header.component';
 import { SelectionService } from './services/selection.service';
 import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, OpportunityRequestFooterComponent, RegistrationDialogComponent],
+  imports: [RouterOutlet, HeaderComponent, OpportunityRequestFooterComponent, RegistrationDialogComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,11 +1,16 @@
 <div class="banner-container">
+  @if(resizedImage()) {
   <img
-    [ngSrc]="backgroundImage()"
+    [ngSrc]="resizedImage()!.src"
     [alt]="event()?.description"
+    class="fade-in"
+    [class.open]="imageLoaded()"
     fill
     priority
     [style.objectPosition]="event()?.image?.position"
+    (load)="onImageLoad()"
   />
+  }
   <div class="banner-bar">
     <div>
       <div class="banner-title break-word">
@@ -18,8 +23,17 @@
         @if(multiDayEvent()) { -
         <span>{{ event()?.maxDate | date }}</span>
         } } @else {
-        <mat-icon>event_note</mat-icon>
-        Coming Soon }
+        <div class="flex-column">
+          <div class="flex-row">
+            <!-- <mat-icon>article</mat-icon> -->
+            {{ event()?.description }}
+          </div>
+          <div class="flex-row">
+            <mat-icon>event_note</mat-icon>
+            Coming Soon
+          </div>
+        </div>
+        }
       </div>
       <div class="event-desc fade-in" [class.open]="eventLocations().length">
         <mat-icon>place</mat-icon>

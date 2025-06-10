@@ -32,6 +32,7 @@ export class EventService {
   constructor() { }
 
   getEvent$(eventId: number): Observable<EventInformation | null> {
+    this.eventSignal.set(null);
     if (!eventId) {
       return of(null);
     }

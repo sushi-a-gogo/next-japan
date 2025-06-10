@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppImageData } from '@app/models/app-image-data.model';
+import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -16,7 +17,9 @@ export class OpenAiService {
     return this.http.post<{ text: string; image: AppImageData }>(`${this.uri}/generate-content`, {
       promptParams: params,
       customText: text,
-    });
+    }).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "openAI:generateContent")
+    );
   }
 
   generateImage(prompt: string) {

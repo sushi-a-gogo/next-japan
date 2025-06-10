@@ -9,8 +9,8 @@ import { EventCarouselComponent } from "@app/home/event-carousel/event-carousel.
 import { ApiResult } from '@app/models/api-result.model';
 import { OrganizationEvents } from '@app/models/organization-events.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
+import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
-import { environment } from '@environments/environment';
 import { of, switchMap } from 'rxjs';
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
@@ -21,6 +21,7 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  private imageService = inject(ImageService);
   private destroyRef = inject(DestroyRef);
 
   org?: OrganizationInformation;
@@ -44,7 +45,9 @@ export class HomeComponent implements OnInit {
 
         this.org = res.retVal as OrganizationInformation;
         this.title.setTitle(`${this.org.name}`);
-        this.backgroundImage = `url('${environment.apiUri}/images/${this.org.image.id}')`;
+
+        const resizedImage = this.imageService.resizeImage(this.org.image, 384, 256);
+        this.backgroundImage = `url('${resizedImage.src}')`;
         return this.organizationService.getEvents$();
       }),
       takeUntilDestroyed(this.destroyRef)

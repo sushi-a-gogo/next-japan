@@ -1,4 +1,11 @@
+@use "sass:map";
+@use "sass:color";
+@use "variables.scss" as var;
+
 :host {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 form {
@@ -6,7 +13,6 @@ form {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  margin-bottom: 20px;
 }
 
 .app-button {
@@ -24,11 +30,18 @@ form {
 
 .no-results {
   background-color: var(--creamy-white-clouds);
-  gap: 10px;
-  padding: 20px;
-  border-radius: 4px;
+  background: color.scale(
+    map.get(var.$colors, bright-blue-sky),
+    $lightness: 85%
+  );
+  color: var(--navy-blue-mountain);
+  border-radius: 10px;
   border: 1px solid #dedede;
+  border-color: var(--bright-blue-sky);
+  gap: 10px;
+  padding: 0 20px;
   margin-bottom: 400px;
+  height: 100px;
 }
 
 .image-container {

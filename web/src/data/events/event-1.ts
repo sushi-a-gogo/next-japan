@@ -39,7 +39,7 @@ const eventCoordinators: EventCoordinator[] = [
     lastName: 'Ashford',
     email: 'xx@yy.zz',
     image: {
-      id: "avatars/avatar-1.jpg",
+      id: "avatars/avatar_1.jpg",
       width: 255,
       height: 255
     }
@@ -50,7 +50,7 @@ const eventCoordinators: EventCoordinator[] = [
     lastName: 'Marks',
     email: 'xx@yy.zz',
     image: {
-      id: "avatars/avatar-2.jpg",
+      id: "avatars/avatar_2.jpg",
       width: 255,
       height: 255
     }

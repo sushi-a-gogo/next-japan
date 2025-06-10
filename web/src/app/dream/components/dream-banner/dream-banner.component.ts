@@ -1,18 +1,19 @@
-import { Component, computed, input } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
 import { EventData } from '@app/event/models/event-data.model';
+import { ImageService } from '@app/services/image.service';
 
 @Component({
   selector: 'app-dream-banner',
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './dream-banner.component.html',
   styleUrl: './dream-banner.component.scss'
 })
 export class DreamBannerComponent {
+  private imageService = inject(ImageService);
+
   dreamEvent = input.required<EventData>()
   imageUrl = input<string | null>(null);
 
-  backgroundImage = computed(() => this.imageUrl() ?
-    `url('${this.imageUrl()}')` : `url('assets/images/orgs/tokyo.jpg')`
-  );
-
+  resizedImage = computed(() => this.imageService.resizeImage(this.dreamEvent().image, this.dreamEvent().image.width, this.dreamEvent().image.height));
 }

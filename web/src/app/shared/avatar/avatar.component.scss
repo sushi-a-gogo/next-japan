@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
-.avatar-container {
+.avatar_container {
   border-radius: 50%;
   background-color: map.get(var.$colors, section-medium-gray);
 

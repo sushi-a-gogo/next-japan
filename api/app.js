@@ -81,6 +81,38 @@ app.get("/resize/:width/:height/:imageName", async (req, res) => {
   }
 });
 
+// DELETE /cache?age=3600  (age in seconds, optional)
+app.delete("/cache", async (req, res) => {
+  const maxAgeSeconds = parseInt(req.query.age, 10) || null;
+
+  try {
+    const files = await fs.readdir(cacheDir);
+
+    const now = Date.now();
+    let deleted = 0;
+
+    for (const file of files) {
+      const filePath = path.join(cacheDir, file);
+
+      try {
+        const stat = await fs.stat(filePath);
+
+        if (!maxAgeSeconds || now - stat.mtimeMs > maxAgeSeconds * 1000) {
+          await fs.unlink(filePath);
+          deleted++;
+        }
+      } catch (err) {
+        console.warn(`Could not delete file ${file}:`, err.message);
+      }
+    }
+
+    res.json({ success: true, deleted });
+  } catch (err) {
+    console.error("Failed to purge cache:", err);
+    res.status(500).send("Failed to purge cache");
+  }
+});
+
 app.post("/generate-image", async (req, res) => {
   const { prompt } = req.body;
   console.log("Prompt received:", prompt);

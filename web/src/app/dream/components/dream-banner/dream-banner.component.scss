@@ -9,21 +9,26 @@
 }
 
 .banner-container {
+  position: relative;
   width: 100%;
-  height: 600px;
+  //min-height: 1200px;
+  border: 1px solid var(--navy-blue-mountain);
+
+  img {
+    object-fit: cover;
+  }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .banner-bar {
+  z-index: 1;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.6);
   padding: 10px;
   padding-bottom: 20px;
+  margin-top: 480px;
 
   display: flex;
   flex-direction: column;
@@ -67,6 +72,9 @@
 }
 
 @media (min-width: var.$screen-sm) {
+  .banner-container {
+    // min-height: 800px;
+  }
   .banner-bar {
     flex-direction: row;
     align-items: center;

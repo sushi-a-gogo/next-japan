@@ -1,10 +1,11 @@
-<div class="banner-container" [style.backgroundImage]="backgroundImage()">
+<div class="banner-container">
+  <img [ngSrc]="resizedImage().src" priority fill alt="Event image." />
   <div class="banner-bar">
     <div>
       <div class="banner-title break-word">
         {{ dreamEvent().eventTitle }}
       </div>
-      <p>{{ dreamEvent().description }}</p>
+      <p class="pre-wrap">{{ dreamEvent().description }}</p>
       <div class="event-desc">
         <span class="material-icons">event_note</span>
         Coming Soon

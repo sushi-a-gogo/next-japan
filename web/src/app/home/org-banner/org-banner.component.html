@@ -14,12 +14,12 @@
   }
   <div class="header-content content-container">
     <img [ngSrc]="bannerImage()" fill priority alt="Tokyo at night" />
+    <div class="content-top">
+      <div class="title break-word">{{ org().bannerTitle }}</div>
+      <div class="subtitle break-word">{{ org().bannerSubTitle }}</div>
+    </div>
     <div class="content" [class.authenticated]="auth.isAuthenticated()">
       <div class="flex-column">
-        <div class="content-top">
-          <div class="title break-word">{{ org().bannerTitle }}</div>
-          <div class="subtitle break-word">{{ org().bannerSubTitle }}</div>
-        </div>
         <div class="content-bottom">
           <div class="description break-word pre-wrap">
             {{ org().bannerDescription }}

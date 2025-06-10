@@ -19,8 +19,10 @@ import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent {
+  private openAiService = inject(OpenAiService);
+
   busy = signal<boolean>(false);
-  params = { destination: 'Mt. Fuji', style: 'cartoon', tone: 'adventurous', mood: 'excited' }; // Default params
+  params = { destination: 'Mt. Fuji', style: 'cartoon', tone: 'adventurous', mood: 'excited', palette: 'warm glowing tones together with bright pastels' }; // Default params
   customText = '';
   generatedText = '';
   imageUrl = '';
@@ -28,11 +30,10 @@ export class ContentGeneratorComponent {
 
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
   moods = ['excited', 'serene', 'curious', 'terrified'];
-  palettes = ['earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
+  palettes = ['warm earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
   destinations = ['Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama'];
 
   dreamEvent = signal<EventData | null>({ eventId: 0, image: { id: '', width: 0, height: 0 }, eventTitle: 'My Dream Event', description: '' });
-  private openAiService = inject(OpenAiService);
 
   generateContent() {
     this.busy.set(true);
@@ -49,15 +50,11 @@ export class ContentGeneratorComponent {
 
 
 
-    const params = {
-      ...this.params,
-      style: this.params.style === 'cartoon' ? 'Studio Ghibli' : this.params.style
-    };
-    this.openAiService.generateContent(params, this.customText).subscribe({
+    this.openAiService.generateContent(this.params, this.customText).subscribe({
       next: (response) => {
         this.generatedText = response.text;
         this.imageUrl = `${environment.apiUri}/images/${response.image.id}`;
-        this.dreamEvent.update((prev) => ({ ...prev!, description: response.text }))
+        this.dreamEvent.update((prev) => ({ ...prev!, description: response.text, image: response.image }))
         this.busy.set(false);
       },
       error: (err) => console.error('Error:', err),

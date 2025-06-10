@@ -27,10 +27,25 @@ router.post("/generate-content", async (req, res) => {
         .json({ error: "Missing promptParams or customText" });
     }
 
+    const style =
+      promptParams.style === "cartoon"
+        ? "Studio Ghibli-inspired"
+        : "photo realistic";
+    const palette = promptParams.palette;
+    promptParams.style = undefined;
+    promptParams.palette = undefined;
+
+    const imagePrompt = `Create an image in a '${style}' style using a
+    color palette of ${palette}, incorporating '${customText}',
+    and common Ghibli themes and based on these parameters: ${JSON.stringify(
+      promptParams
+    )}`;
+
     // Construct text prompt
-    const textPrompt = `Generate creative text describing a day long special event in Japan based on these parameters: ${JSON.stringify(
+    const textPrompt = `Generate creative text describing a day long special event in Japan using 200 words or less and based on these parameters: ${JSON.stringify(
       promptParams
     )}. User input: ${customText}`;
+    console.log("Call OpenAI Chat API for text: " + textPrompt);
 
     // Call OpenAI Chat API for text
     const textResponse = await openai.chat.completions.create({
@@ -43,22 +58,23 @@ router.post("/generate-content", async (req, res) => {
         },
         { role: "user", content: textPrompt },
       ],
-      max_tokens: 150,
+      max_tokens: 512, // Increased to allow for longer responses
       temperature: 0.7,
     });
     const generatedText = textResponse.choices[0].message.content;
 
     // Construct image prompt
-    const imagePrompt = `Create an image based on: ${customText} with style: ${
-      promptParams.style || "realistic"
-    }`;
+    // const imagePrompt = `Create an image based on: ${customText} with style: ${
+    //   imageStyle || "realistic"
+    // }`;
+    console.log("Call OpenAI Chat API for image: " + imagePrompt);
 
     // Call OpenAI Image API (DALL·E)
     const imageResponse = await openai.images.generate({
       model: "dall-e-3",
       prompt: imagePrompt,
       n: 1,
-      size: "1024x1024",
+      size: "1792x1024",
     });
     const imageUrl = imageResponse.data[0].url;
 
@@ -66,7 +82,8 @@ router.post("/generate-content", async (req, res) => {
     const imageName = `image-${Date.now()}.png`;
     const imagePath = path.join("public/images", imageName);
     const response = await fetch(imageUrl);
-    const buffer = await response.buffer();
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
     fs.writeFileSync(imagePath, buffer);
 
     // Return local image URL
@@ -76,7 +93,7 @@ router.post("/generate-content", async (req, res) => {
     res.json({
       text: generatedText,
       imageUrl: localImageUrl,
-      image: { id: imageName, width: 1024, height: 1024 },
+      image: { id: imageName, width: 1792, height: 1024 },
     });
   } catch (error) {
     console.error("Error with OpenAI API:", error);

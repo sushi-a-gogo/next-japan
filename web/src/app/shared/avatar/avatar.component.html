@@ -1,8 +1,8 @@
-<div class="avatar-container" [style]="styleCss">
+<div class="avatar_container" [style]="styleCss">
   <img
-    [ngSrc]="imageIdSrc()"
+    [ngSrc]="resizedImage().src"
     [alt]="altText"
-    [width]="avatar().image.width"
-    [height]="avatar().image.height"
+    [width]="resizedImage().image.width"
+    [height]="resizedImage().image.height"
   />
 </div>
