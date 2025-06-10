@@ -199,7 +199,7 @@
     "eventId": 6,
     "eventTitle": "Himeji Castle Magic",
     "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
-    "fullDescription": "Embark on a magical day-long adventure at the enchanting Himeji Castle, where time seems to pause, allowing fathers and daughters to savor every serene moment together.\n\nThe day begins with the first light of dawn painting the castle's white walls with a gentle golden hue, creating a picture-perfect start to your journey.\n\nAs you wander through the castle's historic corridors, listen to whispers of ancient tales that echo softly through the air, each stone and beam a storyteller of its own. Feel the serenity envelop you both as you ascend to the castle’s summit, where breathtaking views stretch far beyond the horizon.\n\nIn the lush gardens below, partake in a traditional tea ceremony as cherry blossoms flutter like delicate confetti, creating a magical setting that feels like a scene from a fairytale. Share a moment of quiet reflection by the tranquil koi pond, where the gentle ripples mirror the bond between a father and daughter.\n\nAs twilight descends, the castle is bathed in a soft, ethereal glow. Stroll hand in hand along the illuminated paths, your hearts full of cherished memories. Today at Himeji Castle, the magic of history and the serenity of nature unite to create an unforgettable father-daughter experience.",
+    "fullDescription": "Step back in time with your family to the ethereal beauty of Himeji Castle for a day-long event that whispers tales from centuries past. As the morning sun gently bathes the pristine white walls of this UNESCO World Heritage Site, embark on a serene journey through history. The castle grounds, cloaked in the amber hues of autumn, create a perfect backdrop for treasured family moments.\n\nBegin your day wandering the tranquil gardens, where cherry blossom trees cradle memories of samurai and empresses. Participate in a traditional tea ceremony that invites you to savor the delicate flavors of matcha while reflecting on the elegance of yesteryears. As you explore the labyrinthine corridors and the towering keeps, tales of courage and honor echo softly, igniting imaginations both young and old.\n\nAt midday, enjoy a family picnic under ancient wisteria vines, where the gentle rustle of leaves tells stories of generations gone by. As the day wanes, gather for a lantern-lit walk around the moat, the castle’s reflection dancing serenely on the water’s surface. Let this day at Himeji Castle be a cherished chapter in your family's book of memories, a nostalgic embrace of Japan's timeless serenity.",
     "eventCoordinators": [
       {
         "eventId": 6,
@@ -240,8 +240,8 @@
     ],
     "locations": [],
     "image": {
-      "id": "image-1749505320732.png",
-      "width": 1024,
+      "id": "image-1749590171785.png",
+      "width": 1792,
       "height": 1024
     },
     "timeZone": "Asia/Tokyo",
