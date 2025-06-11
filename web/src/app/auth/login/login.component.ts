@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
@@ -11,7 +11,7 @@ import { ModalComponent } from "../../shared/modal/modal.component";
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, LoadingSpinnerComponent, AvatarComponent, ModalComponent],
+  imports: [LoadingSpinnerComponent, AvatarComponent, ModalComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
