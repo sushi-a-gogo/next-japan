@@ -37,6 +37,10 @@ export class LoginComponent {
     });
   }
 
+  cancel() {
+    this.auth.authenticationStop();
+  }
+
   select(userId: number) {
     if (userId !== this.selectedUserId()) {
       this.selectedUserId.set(userId);
@@ -48,9 +52,7 @@ export class LoginComponent {
   signin() {
     this.userService.setUserProfile$(this.selectedUserId()).pipe(
       switchMap((user) => {
-        this.auth.loginWithRedirect({
-          appState: { target: 'home' },
-        });
+        this.auth.login();
         return of(user);
       }),
       takeUntilDestroyed(this.destroyRef)).subscribe();

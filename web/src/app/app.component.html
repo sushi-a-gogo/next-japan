@@ -4,6 +4,8 @@
   <main>
     @if(showRegistrationDialog()) {
     <app-registration-dialog (close)="closeRegistrationDialog()" />
+    } @if(isAuthenticating()) {
+    <app-login />
     }
     <section class="router-outlet">
       <router-outlet />

@@ -39,6 +39,7 @@ export class MyNotificationsComponent {
 
   markAllAsRead(e: any) {
     e.stopPropagation();
+    this.notificationService.markAllAsRead();
     this.showClearAll.set(false);
   }
 

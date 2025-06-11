@@ -38,7 +38,7 @@ export class UserNavbarComponent {
   showMyDreamEvents = signal(false);
 
   logout() {
-    const returnTo = 'home';
+    const returnTo = this.router.url;
     const queryParams = { returnTo: returnTo };
     this.router.navigate(['logout'], {
       queryParams: queryParams,

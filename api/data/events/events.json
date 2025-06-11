@@ -36,7 +36,7 @@
     "eventTitle": "Himeji Castle Magic",
     "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
     "image": {
-      "id": "image-1749590171785.png",
+      "id": "himeji.png",
       "width": 1792,
       "height": 1024
     }
@@ -46,7 +46,7 @@
     "eventTitle": "Yokohama Discovery",
     "description": "Discover Yokohama with your family, exploring tranquil gardens, fun museums, and scenic waterfronts for a day of adventure and relaxation.",
     "image": {
-      "id": "image-1749564533439.png",
+      "id": "yokohama.png",
       "width": 1792,
       "height": 1024
     }
@@ -56,7 +56,7 @@
     "eventTitle": "Kyoto Under the Stars",
     "description": "Embark on a magical day in Kyoto, exploring ancient shrines, bamboo groves, and ending with a starlit family night of wonder.",
     "image": {
-      "id": "image-1749583877312.png",
+      "id": "kyoto.png",
       "width": 1792,
       "height": 1024
     }

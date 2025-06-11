@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
@@ -27,7 +28,8 @@ export const routes: Routes = [
   },
   {
     path: 'dream',
-    loadChildren: () => import('./dream/dream.routes').then((mod) => mod.dreamRoutes)
+    loadChildren: () => import('./dream/dream.routes').then((mod) => mod.dreamRoutes),
+    canActivate: [authGuard]
   },
 
 ];

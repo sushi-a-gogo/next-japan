@@ -41,7 +41,17 @@ export class NotificationService {
         return n;
       })
     });
+  }
 
+  markAllAsRead() {
+    this.notificationSignal.update((prev) => {
+      return prev.map((n) => {
+        return {
+          ...n,
+          isRead: true
+        }
+      })
+    });
   }
 
   sendRegistrationNotification(reg: EventRegistration) {

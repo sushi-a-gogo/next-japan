@@ -28,7 +28,14 @@
       >
         Sign in
       </button>
-      <a routerLink="/home" class="app-button app-button-cancel">Cancel</a>
+      <button
+        type="button"
+        class="app-button dialog-button app-button-cancel"
+        matRipple
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
     </footer>
   </div>
 </app-modal>
