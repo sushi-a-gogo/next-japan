@@ -1,13 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { EventData } from '@app/event/models/event-data.model';
-import { OrganizationEvents } from '@app/models/organization-events.model';
+import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { catchError, delay, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { ApiResult } from 'src/app/models/api-result.model';
-import { DUMMY_EVENTS } from 'src/data/dummy-events';
-import { DUMMY_OPPORTUNITIES } from 'src/data/dummy-opps';
 
 @Injectable({
   providedIn: 'root',
@@ -40,28 +38,29 @@ export class OrganizationService {
   getEvents$() {
     return this.http.get<{ events: EventData[] }>(`http://localhost:3000/events`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getEvents'),
-      map((resp) => ({ events: resp.events, upcomingOpportunities: DUMMY_OPPORTUNITIES })),
-      map((result) => ({
-        hasError: false,
-        retVal: result,
-      })),
+      map((resp) => {
+        return {
+          retVal: resp.events,
+        };
+      }),
       catchError((e) => {
         return throwError(() => new Error('Error fetching events.'));
       }),
     );
   }
 
-  getOrganizationEvents$() {
-    const result: OrganizationEvents = {
-      events: DUMMY_EVENTS,
-      upcomingOpportunities: DUMMY_OPPORTUNITIES,
-    };
-
-    const res: ApiResult = {
-      hasError: false,
-      retVal: result,
-    };
-    return of(res).pipe(delay(100));
+  getNextOpportunities$() {
+    return this.http.get<{ opportunities: EventOpportunity[] }>(`http://localhost:3000/opportunities`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getNextOpportunities'),
+      map((resp) => {
+        return {
+          retVal: resp.opportunities,
+        };
+      }),
+      catchError((e) => {
+        return throwError(() => new Error('Error fetching events.'));
+      }),
+    );
   }
 
 

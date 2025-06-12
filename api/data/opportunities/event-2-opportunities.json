@@ -1,7 +1,11 @@
 [
   {
     "eventId": 2,
-    "imageId": "events/kinkakuji.webp",
+    "image": {
+      "id": "golden.png",
+      "width": 1536,
+      "height": 1024
+    },
     "opportunityId": 3,
     "eventTitle": "Explore Kinkaku-ji",
     "locationId": 3,
@@ -18,11 +22,16 @@
     "longitude": 135.72843306957876,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "Guided tours available in English and Japanese. Don't forget your camera for this unforgettable Kyoto landmark."
   },
   {
     "eventId": 2,
-    "imageId": "events/kinkakuji.webp",
+    "image": {
+      "id": "golden.png",
+      "width": 1536,
+      "height": 1024
+    },
     "eventTitle": "Explore Kinkaku-ji",
     "opportunityId": 4,
     "locationId": 4,
@@ -39,6 +48,7 @@
     "longitude": 135.72867446836977,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "This area offers a quieter perspective of the temple grounds and is perfect for reflection or sketching the scenery."
   }
 ]

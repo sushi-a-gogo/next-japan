@@ -2,7 +2,12 @@
   {
     "eventId": 1,
     "eventTitle": "Mount Fuji Retreat",
-    "imageId": "events/fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "opportunityId": 1,
     "locationId": 1,
     "eventLocationId": 1,
@@ -23,7 +28,12 @@
   },
   {
     "eventId": 1,
-    "imageId": "events/fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "opportunityId": 100,
     "eventTitle": "Mount Fuji Retreat",
     "locationId": 1,
@@ -40,11 +50,17 @@
     "longitude": 138.74085199321922,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "Relax by Mt. Fuji in July with fresh air and green views."
   },
   {
     "eventId": 1,
-    "imageId": "events/fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "eventTitle": "Mount Fuji Retreat",
     "opportunityId": 2,
     "locationId": 2,
@@ -61,11 +77,17 @@
     "longitude": 138.76978589528957,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "Parking is available at the viewing platform."
   },
   {
     "eventId": 1,
-    "imageId": "events/fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "eventTitle": "Mount Fuji Retreat",
     "opportunityId": 200,
     "locationId": 2,
@@ -82,11 +104,17 @@
     "longitude": 138.76978589528957,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "Enjoy sunrise views and bring a camera for photos."
   },
   {
     "eventId": 1,
-    "imageId": "events/fuji.png",
+    "image": {
+      "id": "fuji.png",
+      "width": 1536,
+      "height": 1024,
+      "position": "top"
+    },
     "eventTitle": "Mount Fuji Retreat",
     "opportunityId": 201,
     "locationId": 2,
@@ -103,6 +131,7 @@
     "longitude": 138.76978589528957,
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
-    "timeZoneOffset": 9
+    "timeZoneOffset": 9,
+    "notes": "Experience the early autumn colors and cool mountain breeze."
   }
 ]

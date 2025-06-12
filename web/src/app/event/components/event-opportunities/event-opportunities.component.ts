@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { EventService } from '@app/event/event.service';
 import { EventOpportunityComponent } from "./event-opportunity/event-opportunity.component";
 
@@ -10,5 +10,5 @@ import { EventOpportunityComponent } from "./event-opportunity/event-opportunity
 })
 export class EventOpportunitiesComponent {
   private eventService = inject(EventService);
-  opportunities = this.eventService.eventOpportunities;
+  opportunities = computed(() => this.eventService.eventOpportunities().sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1).slice(0, 3));
 }

@@ -23,7 +23,7 @@
 
 a {
   &.inactive {
-    color: map.get(var.$colors, dark-gray);
+    color: map.get(var.$colors, dark-label);
   }
   text-decoration: none;
 

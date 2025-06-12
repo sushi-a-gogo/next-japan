@@ -21,8 +21,4 @@ export class OpenAiService {
       debug(RxJsLoggingLevel.DEBUG, "openAI:generateContent")
     );
   }
-
-  generateImage(prompt: string) {
-    return this.http.post<{ imageUrl: string }>(`${environment.apiUri}/generate-image`, { prompt });
-  }
 }

@@ -9,6 +9,10 @@ export class ImageService {
 
   constructor() { }
 
+  backgroundImageUrl(imageId: string) {
+    return `url('${environment.apiUri}/images/${imageId}')`;
+  }
+
   resizeImage(image: AppImageData, width: number, height: number) {
     const resizedImage = {
       ...image,
@@ -16,7 +20,7 @@ export class ImageService {
       height
     };
 
-    return { image: resizedImage, src: `${environment.apiUri}/resize/${width}/${height}/${image.id}` }
+    return { image: resizedImage, src: `${environment.apiUri}/api/image/resize/${width}/${height}/${image.id}` }
 
   }
 }

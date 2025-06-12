@@ -47,7 +47,7 @@ export class EventPageComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const id = Number(this.eventId());
     this.loaded.set(false);
-    forkJoin([this.eventService.getEvent$(id), this.eventService.getEventLocations$(id)])
+    forkJoin([this.eventService.getEvent$(id), this.eventService.getEventOpportunities$(id)])
       .pipe(catchError((e) => {
         this.hasError.set(true)
         return of([null]);

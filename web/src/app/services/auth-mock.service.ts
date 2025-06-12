@@ -7,7 +7,7 @@ import { UserProfileService } from './user-profile.service';
   providedIn: 'root',
 })
 export class AuthMockService {
-  private authenticated = signal<boolean>(false);
+  private authenticated = signal<boolean>(true);
   isAuthenticated = this.authenticated.asReadonly();
   isAuthenticated$ = toObservable(this.authenticated);
 

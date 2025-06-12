@@ -35,11 +35,11 @@
         </div>
         }
       </div>
-      <div class="event-desc fade-in" [class.open]="eventLocations().length">
+      <div class="event-desc fade-in" [class.open]="locationCount()">
         <mat-icon>place</mat-icon>
         <span>
-          {{ eventLocations().length | displayCount }}
-          @if(eventLocations().length !== 1) {
+          {{ locationCount() | displayCount }}
+          @if(locationCount() !== 1) {
           <span>Locations</span>
           } @else {
           <span>Location</span>

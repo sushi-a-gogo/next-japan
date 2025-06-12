@@ -7,7 +7,6 @@ import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { FooterComponent } from '@app/footer/footer.component';
 import { EventCarouselComponent } from "@app/home/event-carousel/event-carousel.component";
 import { ApiResult } from '@app/models/api-result.model';
-import { OrganizationEvents } from '@app/models/organization-events.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
@@ -50,12 +49,14 @@ export class HomeComponent implements OnInit {
         this.backgroundImage = `url('${resizedImage.src}')`;
         return this.organizationService.getEvents$();
       }),
+      switchMap((res) => {
+        this.events.set(res.retVal);
+        return this.organizationService.getNextOpportunities$();
+      }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((res: ApiResult) => {
       if (!res.hasError) {
-        const orgEvents = res.retVal as OrganizationEvents;
-        this.events.set(orgEvents.events);
-        this.opportunities.set(orgEvents.upcomingOpportunities);
+        this.opportunities.set(res.retVal);
       }
       this.loaded.set(true);
     });

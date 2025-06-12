@@ -1,16 +1,11 @@
 import fs from "node:fs/promises";
 
-import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import path from "node:path";
-import { dirname } from "path";
-import sharp from "sharp";
-import { fileURLToPath } from "url";
 
+import imageResizeRouter from "./image-resize.js";
 import openAiRouter from "./openai-integration.js";
-//import validateImagePath from "./validateImagePath.js";
 
 const app = express();
 dotenv.config();
@@ -20,154 +15,67 @@ app.use(express.json()); // Parse JSON bodies
 
 // CORS
 app.use(cors());
+// app.use(
+//   cors({
+//     origin: "https://your-angular-app.vercel.app",
+//   })
+// );
 
 // Mount the OpenAI router
 app.use("/api", openAiRouter);
+// Mount the image resize router
+app.use("/api/image", imageResizeRouter);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const originalDir = path.join(__dirname, "public", "images");
-const cacheDir = path.join(__dirname, "cache", "resized");
+async function readOpportunities(eventId) {
+  const files = [
+    "event-1-opportunities.json",
+    "event-2-opportunities.json",
+    "event-3-opportunities.json",
+  ];
 
-function validateImagePath(imageName) {
-  // Only allow basic safe filenames (no slashes or directory traversal)
-  return /^[a-zA-Z0-9_\-\.]+\.(png|jpg|jpeg|webp)$/i.test(imageName);
-}
-
-// Route: /resize/:width/:height/:imageName
-app.get("/resize/:width/:height/:imageName", async (req, res) => {
-  const { width, height, imageName } = req.params;
-
-  // Validate filename
-  if (!validateImagePath(imageName)) {
-    return res.status(400).send("Invalid image name");
+  let opportunities = [];
+  for (let i = 0; i < files.length; i++) {
+    const fileContent = await fs.readFile(`./data/opportunities/${files[i]}`);
+    const eventOpportunities = JSON.parse(fileContent);
+    opportunities = [...opportunities, ...eventOpportunities];
   }
 
-  const ext = path.extname(imageName);
-  const baseName = path.basename(imageName, ext);
-  const cachedFileName = `${width}x${height}-${baseName}.webp`;
-  const cachedPath = path.join(cacheDir, cachedFileName);
-  const originalPath = path.join(originalDir, imageName);
-
-  try {
-    // Check if cached image exists
-    try {
-      const stat = await fs.stat(cachedPath);
-      if (stat.isFile()) {
-        res.set("Content-Type", "image/webp");
-        return res.sendFile(cachedPath);
-      }
-    } catch (_) {
-      // Cache miss – continue
-    }
-
-    // Check original image exists
-    await fs.access(originalPath);
-
-    // Resize
-    const resizedBuffer = await sharp(originalPath)
-      .resize(parseInt(width), parseInt(height))
-      .toFormat("webp")
-      .toBuffer();
-
-    // Save resized version to cache
-    await fs.writeFile(cachedPath, resizedBuffer);
-
-    res.set("Content-Type", "image/webp");
-    res.send(resizedBuffer);
-  } catch (err) {
-    console.error("Image processing error:", err.message);
-    res.status(404).send("Image not found or could not be processed");
-  }
-});
-
-// DELETE /cache?age=3600  (age in seconds, optional)
-app.delete("/cache", async (req, res) => {
-  const maxAgeSeconds = parseInt(req.query.age, 10) || null;
-
-  try {
-    const files = await fs.readdir(cacheDir);
-
-    const now = Date.now();
-    let deleted = 0;
-
-    for (const file of files) {
-      const filePath = path.join(cacheDir, file);
-
-      try {
-        const stat = await fs.stat(filePath);
-
-        if (!maxAgeSeconds || now - stat.mtimeMs > maxAgeSeconds * 1000) {
-          await fs.unlink(filePath);
-          deleted++;
-        }
-      } catch (err) {
-        console.warn(`Could not delete file ${file}:`, err.message);
-      }
-    }
-
-    res.json({ success: true, deleted });
-  } catch (err) {
-    console.error("Failed to purge cache:", err);
-    res.status(500).send("Failed to purge cache");
-  }
-});
-
-app.post("/generate-image", async (req, res) => {
-  const { prompt } = req.body;
-  console.log("Prompt received:", prompt);
-  console.log(
-    "API key:",
-    process.env.OPENAI_API_KEY ? "Key present" : "Key missing"
+  opportunities.sort((a, b) =>
+    new Date(a.startDate) < new Date(b.startDate) ? -1 : 1
   );
 
-  if (!prompt || typeof prompt !== "string" || prompt.trim() === "") {
-    return res
-      .status(400)
-      .json({ error: "Prompt is required and must be a non-empty string" });
+  if (eventId) {
+    return opportunities.filter((opp) => opp.eventId === eventId);
   }
 
-  try {
-    const requestBody = {
-      model: "dall-e-3",
-      prompt: prompt.trim(),
-      n: 1,
-      size: "1024x1024",
-      response_format: "url",
-    };
-    console.log("Request body:", JSON.stringify(requestBody, null, 2));
-
-    const response = await axios.post(
-      "https://api.openai.com/v1/images/generations",
-      requestBody,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const imageUrl = response.data.data[0].url;
-    res.json({ imageUrl });
-  } catch (error) {
-    console.error(
-      "Error response:",
-      JSON.stringify(error.response?.data, null, 2)
-    );
-    console.error("Error message:", error.message);
-    console.error("Status code:", error.response?.status);
-    res.status(error.response?.status || 500).json({
-      error: error.response?.data?.error || "Image generation failed",
-    });
-  }
-});
+  return opportunities;
+}
 
 app.get("/organization", async (req, res) => {
   //return res.status(500).json();
   const fileContent = await fs.readFile("./data/organization.json");
   const data = JSON.parse(fileContent);
   res.status(200).json({ data });
+});
+
+app.get("/opportunities", async (req, res) => {
+  const files = [
+    "event-1-opportunities.json",
+    "event-2-opportunities.json",
+    "event-3-opportunities.json",
+  ];
+
+  const nextOpportunities = [];
+  for (let i = 0; i < files.length; i++) {
+    const fileContent = await fs.readFile(`./data/opportunities/${files[i]}`);
+    const eventOpportunities = JSON.parse(fileContent);
+    eventOpportunities.sort((a, b) =>
+      new Date(a.startDate) < new Date(b.startDate) ? -1 : 1
+    );
+    nextOpportunities.push(eventOpportunities[0]);
+  }
+
+  return res.status(200).json({ opportunities: nextOpportunities });
 });
 
 app.get("/events", async (req, res) => {
@@ -183,13 +91,26 @@ app.get("/event/:id", async (req, res) => {
   const eventId = Number(req.params.id);
   const fileContent = await fs.readFile("./data/events/full-events.json");
   const events = JSON.parse(fileContent);
+  const eventOpportunities = await readOpportunities(eventId);
 
   const index = events.findIndex((event) => event.eventId === eventId);
-  if (index >= 0) {
-    return res.status(200).json({ event: events[index] });
+  if (index === -1) {
+    return res.status(404).json("I dont have that");
   }
 
-  res.status(404).json("I dont have that");
+  const event = events[index];
+  if (eventOpportunities.length) {
+    event.minDate = eventOpportunities[0].startDate;
+    event.maxDate = eventOpportunities[eventOpportunities.length - 1].startDate;
+  }
+
+  res.status(200).json({ event });
+});
+
+app.get("/event/:id/opportunities", async (req, res) => {
+  const eventId = Number(req.params.id);
+  const eventOpportunities = await readOpportunities(eventId);
+  return res.status(200).json({ eventOpportunities });
 });
 
 // 404

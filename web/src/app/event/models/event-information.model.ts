@@ -5,8 +5,7 @@ import { EventLocation } from './event-location.model';
 export interface EventInformation extends EventData {
   eventCoordinators: EventCoordinator[];
   fullDescription?: string;
-  locations?: EventLocation[];
-  eventPreviewUrl?: string;
+  locations: EventLocation[];
   minDate?: string;
   maxDate?: string;
 

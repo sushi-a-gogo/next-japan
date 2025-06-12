@@ -23,7 +23,7 @@
     </section>
     <section class="fade-in" [class.open]="loaded()">
       <div class="flex-content">
-        @if(events().length) {
+        @if(loaded() && events().length) {
         <app-event-carousel
           [events]="events()"
           [opportunities]="opportunities()"
