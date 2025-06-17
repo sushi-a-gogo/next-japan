@@ -1,6 +1,7 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./auth/login/login.component";
+import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { OpportunityRequestFooterComponent } from "./components/opportunity-request-footer/opportunity-request-footer.component";
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 import { HeaderComponent } from './header/header.component';
@@ -10,7 +11,7 @@ import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, OpportunityRequestFooterComponent, RegistrationDialogComponent, LoginComponent],
+  imports: [RouterOutlet, HeaderComponent, OpportunityRequestFooterComponent, RegistrationDialogComponent, LoginComponent, ErrorBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

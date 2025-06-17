@@ -7,9 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { EventData } from '@app/event/models/event-data.model';
+import { ImageService } from '@app/services/image.service';
 import { OpenAiService } from '@app/services/open-ai.service';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
-import { environment } from '@environments/environment';
 import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
 
 @Component({
@@ -20,24 +20,27 @@ import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
 })
 export class ContentGeneratorComponent {
   private openAiService = inject(OpenAiService);
+  private imageService = inject(ImageService);
 
   busy = signal<boolean>(false);
+  error = signal<string | null>(null);
+
   params = { destination: 'Mt. Fuji', style: 'cartoon', tone: 'adventurous', mood: 'excited', palette: 'warm glowing tones together with bright pastels' }; // Default params
   customText = '';
-  generatedText = '';
-  imageUrl = '';
+  storyBookBackground = this.imageService.backgroundImageUrl('storybook.png');
 
 
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
   moods = ['excited', 'serene', 'curious', 'terrified'];
   palettes = ['warm earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
-  destinations = ['Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama'];
+  destinations = ['Kinkaku-ji', 'Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
 
-  dreamEvent = signal<EventData | null>({ eventId: 0, image: { id: '', width: 0, height: 0 }, eventTitle: 'My Dream Event', description: '' });
+  dreamEvent = signal<EventData | null>(null);
 
   generateContent() {
+    this.dreamEvent.set(null);
     this.busy.set(true);
-    this.generatedText = '';
+    this.error.set(null);
     //return;
     // setTimeout(() => {
     //   this.busy.set(false);
@@ -51,13 +54,21 @@ export class ContentGeneratorComponent {
 
 
     this.openAiService.generateContent(this.params, this.customText).subscribe({
-      next: (response) => {
-        this.generatedText = response.text;
-        this.imageUrl = `${environment.apiUri}/images/${response.image.id}`;
-        this.dreamEvent.update((prev) => ({ ...prev!, description: response.text, image: response.image }))
+      next: (aiEvent) => {
+        const event: EventData = {
+          eventId: 0,
+          eventTitle: 'My Dream Event',
+          image: aiEvent.image,
+          description: aiEvent.text,
+
+        }
+        this.dreamEvent.set(event)
+      },
+      error: (e) => {
+        this.error.set(e.message);
         this.busy.set(false);
       },
-      error: (err) => console.error('Error:', err),
+      complete: () => this.busy.set(false)
     });
   }
 

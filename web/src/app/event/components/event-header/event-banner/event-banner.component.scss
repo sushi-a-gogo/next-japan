@@ -8,9 +8,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 
   img {
     object-fit: cover;
@@ -21,7 +18,7 @@
 
 .banner-bar {
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 10px;
   padding-bottom: 20px;
 

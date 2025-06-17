@@ -14,7 +14,11 @@ app.use(express.static("public"));
 app.use(express.json()); // Parse JSON bodies
 
 // CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.ANGULAR_APP_URI, // Set in .env file
+  })
+);
 // app.use(
 //   cors({
 //     origin: "https://your-angular-app.vercel.app",

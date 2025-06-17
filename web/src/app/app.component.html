@@ -1,6 +1,5 @@
 <div class="app-container" [class.user]="!!userProfile()">
   <app-header />
-  <app-opportunity-request-footer />
   <main>
     @if(showRegistrationDialog()) {
     <app-registration-dialog (close)="closeRegistrationDialog()" />
@@ -12,3 +11,5 @@
     </section>
   </main>
 </div>
+<app-error-bar />
+<app-opportunity-request-footer />

@@ -11,6 +11,15 @@
   );
 }
 
+:root {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: var(--vivid-yellow-text),
+      supporting-text-weight: 400,
+      container-color: var(--red-torii-gate),
+    )
+  );
+}
 // -------------- //
 // mat-form-field //
 // -------------- //

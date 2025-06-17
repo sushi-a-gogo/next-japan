@@ -1,6 +1,5 @@
 import { effect, ElementRef, inject, Injectable, signal } from '@angular/core';
 import { EventRegistration } from '@app/event/models/event-registration.model';
-import { ApiResult } from '@models/api-result.model';
 import { NotificationDetail } from '@models/notification-detail.model';
 import { map, Observable, of, Subject } from 'rxjs';
 import { DateTimeService } from './date-time.service';
@@ -80,8 +79,7 @@ export class NotificationService {
 
   getUnreadNotificationCount$() {
     return this.getNotifications$().pipe(
-      map((res) => {
-        const notifications = res.retVal;
+      map((notifications) => {
         const count = notifications.filter((n: NotificationDetail) => !n.isRead).length;
         this.unreadNotificationCountSignal.set(count);
         return count;
@@ -90,11 +88,7 @@ export class NotificationService {
   }
 
   getNotifications$() {
-    const res: ApiResult = {
-      hasError: false,
-      retVal: this.notificationSignal(),
-    };
-    return of(res);
+    return of(this.notificationSignal());
   }
 
   getNotification$(notificationId: number) {

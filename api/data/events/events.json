@@ -4,10 +4,9 @@
     "eventTitle": "Mount Fuji Retreat",
     "description": "Explore the beauty of Mount Fuji and enjoy an evening of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
-      "height": 1024,
-      "position": "top"
+      "height": 1024
     }
   },
   {
@@ -15,20 +14,19 @@
     "eventTitle": "Explore Kinkaku-ji",
     "description": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
-      "id": "golden.png",
+      "id": "golden-sunset.png",
       "width": 1536,
       "height": 1024
     }
   },
   {
     "eventId": 3,
-    "eventTitle": "Campfire Cookout",
+    "eventTitle": "Kikugahama Beach Cookout",
     "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
     "image": {
-      "id": "campfire.png",
+      "id": "cookout.png",
       "width": 1536,
-      "height": 1024,
-      "position": "bottom"
+      "height": 1024
     }
   },
   {
@@ -36,7 +34,7 @@
     "eventTitle": "Himeji Castle Magic",
     "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
     "image": {
-      "id": "himeji.png",
+      "id": "himeji-lights.png",
       "width": 1792,
       "height": 1024
     }

@@ -71,6 +71,7 @@
     justify-content: space-between;
     width: 100%;
     max-width: var.$max-page-width;
+    padding: 0 20px;
   }
 
   .app-button {
@@ -78,5 +79,11 @@
     color: var(--navy-blue-mountain);
     border: 1px solid var(--navy-blue-mountain);
     background: white;
+  }
+}
+
+@media (min-width: var.$max-page-width) {
+  .desktop {
+    padding: 0;
   }
 }

@@ -1,24 +1,27 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AppImageData } from '@app/models/app-image-data.model';
+import { inject, Injectable } from '@angular/core';
+import { AiEvent } from '@app/event/models/ai-event.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OpenAiService {
   private uri = `${environment.apiUri}/api`;
+  private errorService = inject(ErrorService);
 
   constructor(private http: HttpClient) { }
 
-  generateContent(params: any, text: string): Observable<{ text: string; image: AppImageData }> {
-    return this.http.post<{ text: string; image: AppImageData }>(`${this.uri}/generate-content`, {
+  generateContent(params: any, text: string): Observable<AiEvent> {
+    return this.http.post<AiEvent>(`${this.uri}/generate-content`, {
       promptParams: params,
       customText: text,
     }).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "openAI:generateContent")
+      debug(RxJsLoggingLevel.DEBUG, "openAI:generateContent"),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching result from Open AI', true))
     );
   }
 }

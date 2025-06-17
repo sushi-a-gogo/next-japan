@@ -3,7 +3,7 @@
     "eventId": 3,
     "eventTitle": "Campfire Cookout",
     "image": {
-      "id": "campfire.png",
+      "id": "cookout.png",
       "width": 1536,
       "height": 1024,
       "position": "bottom"
@@ -30,7 +30,7 @@
     "eventId": 3,
     "eventTitle": "Campfire Cookout",
     "image": {
-      "id": "campfire.png",
+      "id": "cookout.png",
       "width": 1536,
       "height": 1024,
       "position": "bottom"

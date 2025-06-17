@@ -44,7 +44,7 @@ export class OpportunitySelectorComponent {
 
   conflicted = computed(() => {
     if (this.isAuthenticated() && !this.status() && !this.disableCheckForConflict()) {
-      return this.selectionService.checkForConflict(this.opportunity()) || this.registrationService.checkForConflict(this.opportunity());
+      return this.selectionService.checkForConflict(this.opportunity()) || this.registrationService.checkForConflict(this.opportunity(), this.user()!.userId);
     }
     return false;
   });

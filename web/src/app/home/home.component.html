@@ -3,12 +3,14 @@
   errorTitle="Site not available."
   errorMessage="We're sorry. The page could not be loaded."
 ></app-page-error>
-}
-
+<footer>
+  <app-footer />
+</footer>
+} @else {
 <article class="fade-in" [class.open]="!!org">
   @if(org) {
   <header [style.backgroundImage]="backgroundImage">
-    <app-org-banner [org]="org!"></app-org-banner>
+    <app-org-banner [org]="org!" [image]="bannerImage!"></app-org-banner>
   </header>
   <main class="content-container">
     <section>
@@ -38,3 +40,5 @@
   </footer>
   }
 </article>
+
+}

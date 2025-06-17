@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { ApiResult } from '@app/models/api-result.model';
 import { UserProfile } from '@models/user-profile.model';
 import { catchError, delay, Observable, of, tap, throwError } from 'rxjs';
 import { DUMMY_USERS } from 'src/data/users/default-user';
@@ -23,25 +22,20 @@ export class UserProfileService {
     }
 
     const selected = DUMMY_USERS[index];
-    const res: ApiResult = {
-      hasError: false,
-      retVal: selected,
-    };
-
-    return of(res).pipe(
-      tap((res) => {
-        const userProfile = res.hasError ? null : res.retVal;
+    return of(selected).pipe(
+      tap((profile) => {
+        const userProfile = profile
         this.user.set(userProfile);
       })
     );
 
   }
 
-  updateProfile$(userProfile: UserProfile): Observable<ApiResult> {
+  updateProfile$(userProfile: UserProfile): Observable<UserProfile> {
     const prevUser = this.user();
     this.user.set(userProfile);
 
-    return of({}).pipe(delay(100), catchError((err) => {
+    return of(userProfile).pipe(delay(100), catchError((err) => {
       this.user.set(prevUser);
       return throwError(() => new Error('User update failed.'))
     }));

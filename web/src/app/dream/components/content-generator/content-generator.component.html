@@ -44,24 +44,21 @@
   <button class="app-button app-button-save" type="submit">Generate</button>
 </form>
 <div>
-  <div class="results">
-    <div class="fade-in" [class.open]="generatedText && !busy()">
-      @if(generatedText) {
-      <app-dream-banner [dreamEvent]="dreamEvent()!" [imageUrl]="imageUrl" />
-      }
-    </div>
-  </div>
-  @if(!generatedText) {
+  @if(!dreamEvent()) {
   <div class="no-results flex-row">
-    <img src="assets/images/photo.svg" alt="A blank photo" />
     @if(busy()) {
+    <img src="assets/images/photo.svg" alt="A blank photo" />
     <span>Loading...this may take a few minutes.</span>
+    <app-loading-spinner [delay]="250" />
     } @else {
+    <img src="assets/images/photo.svg" alt="A blank photo" />
     <span>Your dream event will appear here!</span>
     }
   </div>
   }
+  <app-dream-banner
+    [dreamEvent]="dreamEvent()"
+    class="fade-in"
+    [class.open]="!error() && !busy()"
+  />
 </div>
-@if(busy()) {
-<app-loading-spinner [delay]="250" />
-}

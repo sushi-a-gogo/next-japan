@@ -19,13 +19,13 @@ button {
 .get-started {
   background-color: rgba(
     $color: map.get(var.$colors, bright-blue-sky),
-    $alpha: 0.5
+    $alpha: 0.66
   );
 
   &:hover {
     background-color: rgba(
       $color: map.get(var.$colors, bright-blue-sky),
-      $alpha: 0.6
+      $alpha: 0.9
     );
   }
 }

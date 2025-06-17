@@ -1,8 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { EventRegistration, RegistrationStatus } from '@app/event/models/event-registration.model';
-import { ApiResult } from '@app/models/api-result.model';
-import { concatMap, delay, from, map, Observable, of, tap, toArray } from 'rxjs';
+import { concatMap, delay, from, Observable, of, tap, toArray } from 'rxjs';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -17,21 +16,18 @@ export class RegistrationService {
   private id = 0;
 
 
-  requestOpportunities$(opportunities: EventOpportunity[], userId: number): Observable<ApiResult> {
+  requestOpportunities$(opportunities: EventOpportunity[], userId: number): Observable<EventRegistration[]> {
     return from(opportunities).pipe(
       concatMap((opportunity) => this.addRegistration$(opportunity, userId)),
-      toArray(),
-      map((items) => {
-        return { retVal: items };
-      })
+      toArray()
     );
   }
 
-  checkForConflict(opp: EventOpportunity) {
+  checkForConflict(opp: EventOpportunity, userId: number) {
     const selectedStartTime = new Date(opp.startDate);
     const selectedEndTime = new Date(opp.endDate);
 
-    const items = [...this.registrations()];
+    const items = this.registrations().filter((r) => r.userId === userId);
     const conflicted = items.filter((s) => {
       if (s.opportunityId !== opp.opportunityId) {
         const startTime = new Date(s.startDate);

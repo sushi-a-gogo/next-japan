@@ -63,10 +63,15 @@ nav {
           background-color: map.get(var.$colors, section-medium-gray);
         }
       }
+
+      &:last-child {
+        padding-right: 10px;
+      }
     }
 
     li.spacer {
-      display: none;
+      flex: 1;
+      //display: none;
     }
   }
 }
@@ -83,6 +88,10 @@ nav {
   .text-condensed {
     display: none;
   }
+
+  ul {
+    gap: 10px;
+  }
 }
 
 @media (min-width: 600px) {
@@ -90,6 +99,7 @@ nav {
     max-width: var.$max-page-width;
 
     ul {
+      gap: 16px;
       li {
         .app-button {
           padding: 0 20px;

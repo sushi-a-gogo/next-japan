@@ -1,11 +1,12 @@
+@if(dreamEvent()) {
 <div class="banner-container">
-  <img [ngSrc]="resizedImage().src" priority fill alt="Event image." />
+  <img [ngSrc]="resizedImage()!.src" priority fill alt="Event image." />
   <div class="banner-bar">
     <div>
       <div class="banner-title break-word">
-        {{ dreamEvent().eventTitle }}
+        {{ dreamEvent()!.eventTitle }}
       </div>
-      <p class="pre-wrap">{{ dreamEvent().description }}</p>
+      <p class="pre-wrap">{{ dreamEvent()!.description }}</p>
       <div class="event-desc">
         <span class="material-icons">event_note</span>
         Coming Soon
@@ -13,3 +14,11 @@
     </div>
   </div>
 </div>
+}
+
+<!-- @else {
+<div class="no-results flex-row">
+  <img src="assets/images/photo.svg" alt="A blank photo" />
+  <span>Your dream event will appear here!</span>
+</div>
+} -->

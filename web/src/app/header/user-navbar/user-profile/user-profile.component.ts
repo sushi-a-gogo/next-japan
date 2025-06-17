@@ -6,7 +6,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ApiResult } from '@app/models/api-result.model';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
@@ -59,11 +58,11 @@ export class UserProfileComponent implements OnInit {
 
     const saveProfile$ = this.userProfileService.updateProfile$(newProfile).pipe(
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((res: ApiResult) => {
-      if (!res?.hasError) {
-        this.closeProfile();
-      }
-    });;
+    ).subscribe({
+      next: () => { },
+      error: () => { },
+      complete: () => this.closeProfile()
+    });
   }
 
   closeProfile() {

@@ -12,8 +12,14 @@ import { ImageService } from '@app/services/image.service';
 export class DreamBannerComponent {
   private imageService = inject(ImageService);
 
-  dreamEvent = input.required<EventData>()
-  imageUrl = input<string | null>(null);
+  dreamEvent = input<EventData | null>(null)
 
-  resizedImage = computed(() => this.imageService.resizeImage(this.dreamEvent().image, this.dreamEvent().image.width, this.dreamEvent().image.height));
+  resizedImage = computed(() => {
+    if (!this.dreamEvent()) {
+      return null;
+    }
+
+    const image = this.dreamEvent()!.image;
+    return this.imageService.resizeImage(image, image.width, image.height)
+  });
 }

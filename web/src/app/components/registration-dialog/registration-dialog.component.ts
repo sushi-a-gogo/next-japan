@@ -96,13 +96,9 @@ export class RegistrationDialogComponent implements OnInit {
     const requests = this.selected();
     const userID = this.userProfileService.userProfile()!.userId;
     return this.registrationService.requestOpportunities$(requests, userID).pipe(
-      switchMap((res) => {
-        if (res.hasError) {
-          return of(false);
-        }
-
-        const registrations = res.retVal.map((reg: EventRegistration) => requests.find((s) => s.opportunityId === reg.opportunityId)!);
-        return of(registrations.length > 0);
+      switchMap((registrations) => {
+        const success = registrations.map((reg: EventRegistration) => requests.find((s) => s.opportunityId === reg.opportunityId)!);
+        return of(success.length > 0);
       })
     );
   }

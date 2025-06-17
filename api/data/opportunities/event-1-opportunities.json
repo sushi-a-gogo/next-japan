@@ -3,7 +3,7 @@
     "eventId": 1,
     "eventTitle": "Mount Fuji Retreat",
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
       "height": 1024,
       "position": "top"
@@ -12,8 +12,8 @@
     "locationId": 1,
     "eventLocationId": 1,
     "locationName": "Mt.Fuji Camp & Glamp",
-    "startDate": "2025-06-21T00:00:00",
-    "endDate": "2025-06-21T12:00:00",
+    "startDate": "2025-10-21T00:00:00",
+    "endDate": "2025-10-21T12:00:00",
     "name": "Mt.Fuji Camp & Glamp",
     "addressLine1": "2533-1 Oishi",
     "city": "Yamanashi",
@@ -29,7 +29,7 @@
   {
     "eventId": 1,
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
       "height": 1024,
       "position": "top"
@@ -39,8 +39,8 @@
     "locationId": 1,
     "eventLocationId": 1,
     "locationName": "Mt.Fuji Camp & Glamp",
-    "startDate": "2025-07-21T00:00:00",
-    "endDate": "2025-07-21T12:00:00",
+    "startDate": "2025-11-21T00:00:00",
+    "endDate": "2025-11-21T12:00:00",
     "name": "Mt.Fuji Camp & Glamp",
     "addressLine1": "2533-1 Oishi",
     "city": "Yamanashi",
@@ -51,12 +51,12 @@
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9,
-    "notes": "Relax by Mt. Fuji in July with fresh air and green views."
+    "notes": "Relax by Mt. Fuji with fresh air and spectacular views."
   },
   {
     "eventId": 1,
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
       "height": 1024,
       "position": "top"
@@ -66,8 +66,8 @@
     "locationId": 2,
     "eventLocationId": 2,
     "locationName": "Fujimibashi Mount Fuji Viewing Platform",
-    "startDate": "2025-06-21T00:00:00",
-    "endDate": "2025-06-21T12:00:00",
+    "startDate": "2025-10-21T00:00:00",
+    "endDate": "2025-10-21T12:00:00",
     "name": "Fujimibashi Mount Fuji Viewing Platform",
     "addressLine1": "Minamitsuru District",
     "city": "Kawaguchi",
@@ -83,7 +83,7 @@
   {
     "eventId": 1,
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
       "height": 1024,
       "position": "top"
@@ -93,8 +93,8 @@
     "locationId": 2,
     "eventLocationId": 2,
     "locationName": "Fujimibashi Mount Fuji Viewing Platform",
-    "startDate": "2025-08-01T01:00:00",
-    "endDate": "2025-08-01T12:00:00",
+    "startDate": "2025-12-01T01:00:00",
+    "endDate": "2025-12-01T12:00:00",
     "name": "Fujimibashi Mount Fuji Viewing Platform",
     "addressLine1": "Minamitsuru District",
     "city": "Kawaguchi",
@@ -110,7 +110,7 @@
   {
     "eventId": 1,
     "image": {
-      "id": "fuji.png",
+      "id": "fuji-snow.png",
       "width": 1536,
       "height": 1024,
       "position": "top"
@@ -120,8 +120,8 @@
     "locationId": 2,
     "eventLocationId": 2,
     "locationName": "Fujimibashi Mount Fuji Viewing Platform",
-    "startDate": "2025-09-11T01:00:00",
-    "endDate": "2025-09-11T12:00:00",
+    "startDate": "2025-12-11T01:00:00",
+    "endDate": "2025-12-11T12:00:00",
     "name": "Fujimibashi Mount Fuji Viewing Platform",
     "addressLine1": "Minamitsuru District",
     "city": "Kawaguchi",
