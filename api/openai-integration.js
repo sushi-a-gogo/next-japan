@@ -16,6 +16,9 @@ const openai = new OpenAI({
 
 // POST endpoint to handle text and image generation
 router.post("/generate-content", async (req, res) => {
+  //await new Promise((resolve) => setTimeout(resolve, 3000));
+  //return res.status(500).json({ error: "Failed to generate content" });
+
   try {
     // Expecting params and custom text from Angular front-end
     const { promptParams, customText } = req.body;
@@ -28,21 +31,19 @@ router.post("/generate-content", async (req, res) => {
     }
 
     const style =
-      promptParams.style === "cartoon"
-        ? "Studio Ghibli-inspired"
-        : "photo realistic";
+      promptParams.style === "cartoon" ? "Studio Ghibli" : "photo realistic";
     const palette = promptParams.palette;
     promptParams.style = undefined;
     promptParams.palette = undefined;
 
-    const imagePrompt = `Create an image in a '${style}' style using a
-    color palette of ${palette}, incorporating '${customText}',
-    and common Ghibli themes and based on these parameters: ${JSON.stringify(
+    const imagePrompt = `Create an image in a cel-shaded, anime, '${style}' style,
+    using a color palette of ${palette},
+    and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
       promptParams
     )}`;
 
     // Construct text prompt
-    const textPrompt = `Generate creative text describing a day long special event in Japan using 200 words or less and based on these parameters: ${JSON.stringify(
+    const textPrompt = `Generate creative text describing a day long special event in Japan using 100 words or less and based on these parameters: ${JSON.stringify(
       promptParams
     )}. User input: ${customText}`;
     console.log("Call OpenAI Chat API for text: " + textPrompt);
@@ -100,5 +101,37 @@ router.post("/generate-content", async (req, res) => {
     res.status(500).json({ error: "Failed to generate content" });
   }
 });
+
+function createGhibliStylePrompt({
+  destination,
+  tone,
+  mood,
+  subject = "a father and daughter",
+}) {
+  return `
+An anime-style digital painting inspired by Studio Ghibli films like "My Neighbor Totoro" and "Kiki's Delivery Service".
+
+Style:
+- Hand-drawn, painterly textures.
+- cel-shaded, anime-style
+- Bright pastels and warm glowing light.
+- Stylized backgrounds with whimsical fantasy elements.
+- Soft shading, simple shapes, expressive character faces.
+
+Scene:
+- ${subject} at ${destination}, with a ${tone} and ${mood} feeling.
+- Include iconic Japanese nature: cherry blossoms, rolling hills, clear sky, gentle breeze.
+
+Characters:
+- Similar character design to those seen in Studio Ghibli films.
+
+Visual feel:
+- Avoid realism or photorealistic textures.
+- Avoid close-up or foreground characters
+- Avoid harsh lighting or contrast
+- Emulate animation cels or watercolor backgrounds.
+- Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+`.trim();
+}
 
 export default router;

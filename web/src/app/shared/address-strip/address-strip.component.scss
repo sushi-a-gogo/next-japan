@@ -25,6 +25,10 @@ a.get-directions {
   font-weight: 600;
   text-decoration: underline;
 
+  .inactive {
+    color: map.get(var.$colors, inactive);
+  }
+
   &.desktop {
     display: none;
   }

@@ -33,7 +33,7 @@ export class ContentGeneratorComponent {
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
   moods = ['excited', 'serene', 'curious', 'terrified'];
   palettes = ['warm earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
-  destinations = ['Kinkaku-ji', 'Mt. Fuji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
+  destinations = ['Kinkaku-ji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Mt. Fuji', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
 
   dreamEvent = signal<EventData | null>(null);
 
@@ -41,19 +41,8 @@ export class ContentGeneratorComponent {
     this.dreamEvent.set(null);
     this.busy.set(true);
     this.error.set(null);
-    //return;
-    // setTimeout(() => {
-    //   this.busy.set(false);
-    //   this.imageUrl = 'assets/images/orgs/tokyo.jpg';
-    //   this.dreamEvent.set({ eventId: 0, image: { id: '', width: 1024, height: 1024 }, eventTitle: 'My Dream Event', description: '' });
-    // }, 1000);
-    //return;
 
-    //In the heart of Japan, where the mountains whisper ancient secrets and the cherry blossoms dance in the gentle breeze, lies a world waiting to be discovered by train. These locomotives, not mere machines, but gentle giants of iron and steam, glide gracefully through the landscape, weaving a tapestry of memories and dreams. Imagine embarking on a journey where each station is a gateway to a different realm, much like stepping into a Studio Ghibli film. The train whistles softly, echoing the calls of distant spirits, as it winds through mist-laden valleys and over bridges suspended above crystalline rivers. Outside your window, rice paddies stretch like green quilts, and forests of cedar and pine stand like silent sentinels, guardians of time's passage.
-
-
-
-    this.openAiService.generateContent(this.params, this.customText).subscribe({
+    this.openAiService.generateContent(this.params, this.customText || 'happy').subscribe({
       next: (aiEvent) => {
         const event: EventData = {
           eventId: 0,

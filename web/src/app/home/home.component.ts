@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventData } from '@app/event/models/event-data.model';
 import { EventOpportunity } from '@app/event/models/event-opportunity.model';
@@ -20,8 +20,12 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  private imageService = inject(ImageService);
+  private title = inject(Title);
+  private meta = inject(Meta);
   private destroyRef = inject(DestroyRef);
+
+  private imageService = inject(ImageService);
+  private organizationService = inject(OrganizationService);
 
   org?: OrganizationInformation;
   events = signal<EventData[]>([]);
@@ -31,10 +35,6 @@ export class HomeComponent implements OnInit {
   hasError = signal<boolean>(false);
 
   backgroundImage = "";// `url('/assets/images/orgs/tokyo.png')`;
-
-  constructor(private title: Title,
-    private organizationService: OrganizationService,
-  ) { }
 
   ngOnInit(): void {
     const observables = {
@@ -47,8 +47,6 @@ export class HomeComponent implements OnInit {
     ).subscribe({
       next: (res) => {
         this.org = res.org;
-        this.title.setTitle(`${this.org.name}`);
-
 
         const index = res.events.length > 0 ? Math.floor(Math.random() * res.events.length) : 0;
         this.bannerImage = this.org.image;// res.events[index].image;
@@ -57,6 +55,16 @@ export class HomeComponent implements OnInit {
 
         this.events.set(res.events);
         this.opportunities.set(res.opportunities);
+
+        this.title.setTitle(`${this.org.name}`);
+        // Set meta tags
+        this.meta.updateTag({ name: 'description', content: this.org.infoDescription });
+
+        // Open Graph meta tags
+        this.meta.updateTag({ property: 'og:title', content: this.org.name });
+        this.meta.updateTag({ property: 'og:description', content: this.org.infoDescription });
+        this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+        this.meta.updateTag({ property: 'og:url', content: window.location.href });
       },
       error: () => {
         this.loaded.set(true);

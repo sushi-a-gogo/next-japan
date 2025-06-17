@@ -1,6 +1,6 @@
 import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventService } from '@app/event/event.service';
 import { FooterComponent } from '@app/footer/footer.component';
@@ -20,6 +20,9 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
   styleUrl: './event-page.component.scss'
 })
 export class EventPageComponent implements OnChanges {
+  private title = inject(Title);
+  private meta = inject(Meta);
+
   private auth = inject(AuthMockService);
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
@@ -31,7 +34,6 @@ export class EventPageComponent implements OnChanges {
 
   isAuthenticated = this.auth.isAuthenticated;
 
-  title = inject(Title);
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
@@ -52,7 +54,23 @@ export class EventPageComponent implements OnChanges {
         this.hasError.set(true)
         return of([null]);
       }), takeUntilDestroyed(this.destroyRef)).subscribe(([event]) => {
-        this.title.setTitle(event?.eventTitle || 'No event');
+        const eventTitle = event?.eventTitle || 'Event Not Found';
+        const description = event?.description || 'Event Not Found';
+        const image = event ? this.imageService.resizeImage(event?.image, 384, 256) : null;
+
+        this.title.setTitle(eventTitle);
+
+        // Set meta tags
+        this.meta.updateTag({ name: 'description', content: description });
+
+        // Open Graph meta tags
+        this.meta.updateTag({ property: 'og:title', content: eventTitle });
+        this.meta.updateTag({ property: 'og:description', content: description });
+        if (image) {
+          this.meta.updateTag({ property: 'og:image', content: image.src });
+        }
+        this.meta.updateTag({ property: 'og:url', content: window.location.href });
+
         this.hasError.set(!event);
         this.loaded.set(true);
       })
