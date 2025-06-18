@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
-import fs from "node:fs/promises";
+import * as fs from "fs/promises";
 import path from "node:path";
 import { dirname } from "path";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
+import { CACHE_DIRECTORY } from "../utils/paths.js";
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const originalDir = path.resolve(__dirname, "..", "public", "images");
-const cacheDir = path.resolve(__dirname, "..", "cache", "resized");
+const cacheDir = CACHE_DIRECTORY; // path.resolve(__dirname, "..", "tmp", "cache", "resized");
 
 function validateImagePath(imageName) {
   // Only allow basic safe filenames (no slashes or directory traversal)
@@ -27,6 +28,17 @@ router.get("/resize/:width/:height/:imageName", async (req, res) => {
   // Validate filename
   if (!validateImagePath(imageName)) {
     return res.status(400).send("Invalid image name");
+  }
+
+  try {
+    // Create folder if it doesn't exist
+    await fs.mkdir(cacheDir, { recursive: true });
+  } catch (error) {
+    if (error.code !== "EEXIST") {
+      // Rethrow if error is not "folder already exists"
+      console.error("Failed to create cache directory:", error);
+      throw new Error("Cache directory creation failed");
+    }
   }
 
   const ext = path.extname(imageName);

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/dist/next-japan/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/next-japan/index.html"
+    }
+  ]
+}
