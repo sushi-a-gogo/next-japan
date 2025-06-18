@@ -4,6 +4,7 @@ import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { ErrorService } from '@app/services/error.service';
 import { UtilService } from '@app/services/util.service';
+import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { EventInformation } from './models/event-information.model';
@@ -23,8 +24,7 @@ export class EventService {
 
   private errorService = inject(ErrorService);
   private util = inject(UtilService);
-
-  constructor() { }
+  private apiUri = `${environment.apiUri}/event`;
 
   getEvent$(eventId: number): Observable<EventInformation | null> {
     this.eventSignal.set(null);
@@ -64,14 +64,14 @@ export class EventService {
   }
 
   private getEventById$(id: number) {
-    return this.http.get<{ event: EventInformation }>(`http://localhost:3000/event/${id}`).pipe(
+    return this.http.get<{ event: EventInformation }>(`${this.apiUri}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getEvent'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching event.'))
     );
   }
 
   private getOpportunities$(eventId: number) {
-    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`http://localhost:3000/event/${eventId}/opportunities`).pipe(
+    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUri}/${eventId}/opportunities`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getOpportunities'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
     );
