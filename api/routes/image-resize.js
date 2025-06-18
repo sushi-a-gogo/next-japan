@@ -12,8 +12,8 @@ const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const originalDir = path.join(__dirname, "public", "images");
-const cacheDir = path.join(__dirname, "cache", "resized");
+const originalDir = path.resolve(__dirname, "..", "public", "images");
+const cacheDir = path.resolve(__dirname, "..", "cache", "resized");
 
 function validateImagePath(imageName) {
   // Only allow basic safe filenames (no slashes or directory traversal)

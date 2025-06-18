@@ -12,11 +12,11 @@ const apiLimiter = rateLimit({
   },
 });
 
-import eventRouter from "./event.js";
-import imageResizeRouter from "./image-resize.js";
-import openAiRouter from "./openai-integration.js";
-import organizationRouter from "./organization.js";
-import userRouter from "./user.js";
+import eventRouter from "./routes/event.js";
+import imageResizeRouter from "./routes/image-resize.js";
+import openAiRouter from "./routes/openai-integration.js";
+import organizationRouter from "./routes/organization.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 dotenv.config();
@@ -42,7 +42,7 @@ app.use("/api/user", userRouter);
 
 // Mount the OpenAI router
 app.use("/api/ai", openAiRouter);
-app.use("/api/ai", apiLimiter); // Apply only to routes starting with /api/ai
+app.use("/api/ai", apiLimiter);
 
 // 404
 app.use((req, res, next) => {

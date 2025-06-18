@@ -20,7 +20,13 @@ async function readOpportunities(eventId) {
 
   let opportunities = [];
   for (let i = 0; i < files.length; i++) {
-    const filePath = path.resolve(__dirname, "data", "opportunities", files[i]);
+    const filePath = path.resolve(
+      __dirname,
+      "..",
+      "data",
+      "opportunities",
+      files[i]
+    );
     const fileContent = await fs.readFile(filePath, "utf-8");
     const eventOpportunities = JSON.parse(fileContent);
     opportunities = [...opportunities, ...eventOpportunities];
@@ -42,6 +48,7 @@ router.get("/:id", async (req, res) => {
 
   const filePath = path.resolve(
     __dirname,
+    "..",
     "data",
     "events",
     "full-events.json"

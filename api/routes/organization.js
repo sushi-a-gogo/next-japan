@@ -13,8 +13,7 @@ const __dirname = path.dirname(__filename);
 
 router.get("/info", async (req, res) => {
   //return res.status(500).json();
-  const filePath = path.resolve(__dirname, "data", "organization.json");
-
+  const filePath = path.resolve(__dirname, "..", "data", "organization.json");
   const fileContent = await fs.readFile(filePath, "utf-8");
   const data = JSON.parse(fileContent);
   res.status(200).json({ data });
@@ -29,7 +28,13 @@ router.get("/opportunities", async (req, res) => {
 
   const nextOpportunities = [];
   for (let i = 0; i < files.length; i++) {
-    const filePath = path.resolve(__dirname, "data", "opportunities", files[i]);
+    const filePath = path.resolve(
+      __dirname,
+      "..",
+      "data",
+      "opportunities",
+      files[i]
+    );
     const fileContent = await fs.readFile(filePath, "utf-8");
     const eventOpportunities = JSON.parse(fileContent);
     eventOpportunities.sort((a, b) =>
@@ -43,7 +48,13 @@ router.get("/opportunities", async (req, res) => {
 
 router.get("/events", async (req, res) => {
   //return res.status(500).json();
-  const filePath = path.resolve(__dirname, "data", "events", "events.json");
+  const filePath = path.resolve(
+    __dirname,
+    "..",
+    "data",
+    "events",
+    "events.json"
+  );
   const fileContent = await fs.readFile(filePath, "utf-8");
   const data = JSON.parse(fileContent);
 
