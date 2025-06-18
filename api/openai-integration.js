@@ -40,7 +40,8 @@ router.post("/generate-content", async (req, res) => {
     using a color palette of ${palette},
     and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
       promptParams
-    )}`;
+    )}.
+    The image should not contain any text.`;
 
     // Construct text prompt
     const textPrompt = `Generate creative text describing a day long special event in Japan using 100 words or less and based on these parameters: ${JSON.stringify(

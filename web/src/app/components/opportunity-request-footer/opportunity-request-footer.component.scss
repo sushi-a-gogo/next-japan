@@ -17,7 +17,7 @@
   background: linear-gradient(
     180deg,
     map.get(var.$colors, navy-blue-mountain) 0%,
-    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -10%) 100%
+    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -20%) 100%
   );
   color: white;
 

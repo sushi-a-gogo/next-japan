@@ -1,7 +1,5 @@
 <header>
-  <div class="dotted-svg-container">
-    <app-dotted-bg class="dotted-svg"></app-dotted-bg>
-  </div>
+  <img [ngSrc]="backgroundImageSrc" alt="A dream" fill priority />
   <div class="background-overlay">
     <div class="header-content">
       <div class="splash content-container">
@@ -14,6 +12,12 @@
           interests, our AI suggests personalized destinations, activities, and
           experiences, making it easy to create a truly unforgettable trip
           tailored just for you.
+        </div>
+        <div class="full-text">
+          Whether you're seeking cultural adventures, culinary delights, or
+          hidden gems off the beaten path, our platform provides expert
+          recommendations and flexible planning tools to ensure your journey is
+          seamless and inspiring.
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./auth/login/login.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
@@ -16,10 +16,6 @@ import { UserProfileService } from './services/user-profile.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  @HostListener('window:resize', ['$event']) onResize(event: any) {
-    this.configureAppHeight();
-  }
-
   title = 'next-japan';
 
   private authService = inject(AuthMockService);
@@ -32,13 +28,12 @@ export class AppComponent {
   showRegistrationDialog = this.selectionService.showRegistrationDialog;
 
   constructor() {
-    this.configureAppHeight();
+    afterNextRender(this.configureAppHeight);
   }
 
   closeRegistrationDialog() {
     this.selectionService.hideRegistration();
   }
-
 
   private configureAppHeight(): void {
     const appHeight = () => {
@@ -46,7 +41,7 @@ export class AppComponent {
       doc.style.setProperty('--app-height', `${window.innerHeight}px`);
     };
 
-    window.addEventListener('--app-height', appHeight);
+    window.addEventListener('resize', appHeight);
     appHeight();
   }
 }

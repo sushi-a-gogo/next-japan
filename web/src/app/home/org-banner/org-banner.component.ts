@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
@@ -11,7 +11,8 @@ import { AppLogoComponent } from "../../shared/app-logo/app-logo.component";
   selector: 'app-org-banner',
   imports: [NgOptimizedImage, LoginButtonComponent, AppLogoComponent],
   templateUrl: './org-banner.component.html',
-  styleUrl: './org-banner.component.scss'
+  styleUrl: './org-banner.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrgBannerComponent {
   org = input.required<OrganizationInformation>();
@@ -25,5 +26,4 @@ export class OrgBannerComponent {
       ? `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url('/assets/images/${this.org().image.id}')`
       : undefined;
   }
-
 }

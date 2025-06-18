@@ -1,43 +1,67 @@
-import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { UserProfile } from '@models/user-profile.model';
 import { catchError, delay, Observable, of, tap, throwError } from 'rxjs';
-import { DUMMY_USERS } from 'src/data/users/default-user';
+import { AuthMockService } from './auth-mock.service';
+import { ErrorService } from './error.service';
+import { StorageService } from './storage.service';
+
+const LOCAL_STORAGE_KEY = 'nextjp.user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProfileService {
+  private http = inject(HttpClient);
+  private authService = inject(AuthMockService);
+  private errorService = inject(ErrorService);
+  private localStorage = inject(StorageService);
+
   private user = signal<UserProfile | null>(null);
   userProfile = this.user.asReadonly();
 
-  clearUserProfile() {
-    this.user.set(null);
-    return of({});
+
+  constructor() {
+    afterNextRender(() => {
+      const savedUser = this.localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (savedUser) {
+        this.user.set(JSON.parse(savedUser));
+        this.authService.login();
+      }
+    });
   }
 
-  setUserProfile$(userId: number) {
-    let index = DUMMY_USERS.findIndex((u: UserProfile) => u.userId === userId);
-    if (index === -1) {
-      index = Math.floor(Math.random() * DUMMY_USERS.length);
-    }
-
-    const selected = DUMMY_USERS[index];
-    return of(selected).pipe(
-      tap((profile) => {
-        const userProfile = profile
-        this.user.set(userProfile);
-      })
+  getUser$(id: number) {
+    return this.http.get<{ user: UserProfile }>(`http://localhost:3000/api/user/${id}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getUser'),
+      tap((resp) => {
+        this.setUser(resp.user);
+      }),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching user.', true))
     );
-
   }
 
   updateProfile$(userProfile: UserProfile): Observable<UserProfile> {
     const prevUser = this.user();
-    this.user.set(userProfile);
+    this.setUser(userProfile);
 
     return of(userProfile).pipe(delay(100), catchError((err) => {
-      this.user.set(prevUser);
+      this.setUser(prevUser);
       return throwError(() => new Error('User update failed.'))
     }));
+  }
+
+  clearUserProfile() {
+    this.setUser(null);
+  }
+
+  private setUser(user: UserProfile | null) {
+    this.user.set(user);
+    if (user) {
+      this.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
+    } else {
+      this.localStorage.removeItem(LOCAL_STORAGE_KEY)
+    }
   }
 }

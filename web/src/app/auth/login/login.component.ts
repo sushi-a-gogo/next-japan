@@ -50,7 +50,7 @@ export class LoginComponent {
   }
 
   signin() {
-    this.userService.setUserProfile$(this.selectedUserId()).pipe(
+    this.userService.getUser$(this.selectedUserId()).pipe(
       switchMap((user) => {
         this.auth.login();
         return of(user);

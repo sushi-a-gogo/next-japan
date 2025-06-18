@@ -6,6 +6,7 @@ import express from "express";
 
 import imageResizeRouter from "./image-resize.js";
 import openAiRouter from "./openai-integration.js";
+import userRouter from "./user.js";
 
 const app = express();
 dotenv.config();
@@ -19,16 +20,13 @@ app.use(
     origin: process.env.ANGULAR_APP_URI, // Set in .env file
   })
 );
-// app.use(
-//   cors({
-//     origin: "https://your-angular-app.vercel.app",
-//   })
-// );
 
 // Mount the OpenAI router
 app.use("/api", openAiRouter);
 // Mount the image resize router
 app.use("/api/image", imageResizeRouter);
+// Mount the user router
+app.use("/api/user", userRouter);
 
 async function readOpportunities(eventId) {
   const files = [

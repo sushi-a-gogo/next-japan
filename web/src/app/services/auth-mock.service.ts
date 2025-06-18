@@ -1,21 +1,19 @@
 import { Injectable, signal } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { UserProfileService } from './user-profile.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthMockService {
-  private authenticated = signal<boolean>(true);
+  private authenticated = signal<boolean>(false);
   isAuthenticated = this.authenticated.asReadonly();
   isAuthenticated$ = toObservable(this.authenticated);
 
   private authenticating = signal<boolean>(false);
   isAuthenticating = this.authenticating.asReadonly();
 
-  constructor(private router: Router, userService: UserProfileService) {
-    userService.setUserProfile$(0).pipe(takeUntilDestroyed()).subscribe();
+  constructor(private router: Router) {
   }
 
   authenticationStart() {
