@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
+import { environment } from '@environments/environment';
 import { UserProfile } from '@models/user-profile.model';
-import { catchError, delay, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
 import { StorageService } from './storage.service';
@@ -18,6 +19,8 @@ export class UserProfileService {
   private errorService = inject(ErrorService);
   private localStorage = inject(StorageService);
 
+  private apiUri = `${environment.apiUri}/api/user`;
+
   private user = signal<UserProfile | null>(null);
   userProfile = this.user.asReadonly();
 
@@ -32,8 +35,16 @@ export class UserProfileService {
     });
   }
 
+  getUsers$() {
+    return this.http.get<{ users: UserProfile[] }>(`${this.apiUri}/list`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getUsers'),
+      map((resp) => resp.users),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching users.', true))
+    );
+  }
+
   getUser$(id: number) {
-    return this.http.get<{ user: UserProfile }>(`http://localhost:3000/api/user/${id}`).pipe(
+    return this.http.get<{ user: UserProfile }>(`${this.apiUri}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getUser'),
       tap((resp) => {
         this.setUser(resp.user);

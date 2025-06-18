@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
@@ -15,15 +15,10 @@ import { AppLogoComponent } from "../../shared/app-logo/app-logo.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrgBannerComponent {
+  private auth = inject(AuthMockService);
+
+  isAuthenticated = this.auth.isAuthenticated;
   org = input.required<OrganizationInformation>();
   image = input.required<AppImageData>();
   bannerImage = computed(() => `${environment.apiUri}/images/${this.image().id}`);
-
-  constructor(public auth: AuthMockService) { }
-
-  get bannerImageBackground() {
-    return this.org()
-      ? `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url('/assets/images/${this.org().image.id}')`
-      : undefined;
-  }
 }

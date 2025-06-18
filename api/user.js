@@ -6,6 +6,12 @@ dotenv.config();
 
 const router = express.Router();
 
+router.get("/list", async (req, res) => {
+  const fileContent = await fs.readFile("./data/users/default-users.json");
+  const users = JSON.parse(fileContent);
+  res.status(200).json({ users });
+});
+
 router.get("/:id", async (req, res) => {
   const userId = Number(req.params.id);
   const fileContent = await fs.readFile("./data/users/default-users.json");

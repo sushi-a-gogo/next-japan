@@ -1,11 +1,10 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { UserProfile } from '@app/models/user-profile.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
 import { of, switchMap } from 'rxjs';
-import { DUMMY_USERS } from 'src/data/users/default-user';
 import { AvatarComponent } from "../../shared/avatar/avatar.component";
 import { ModalComponent } from "../../shared/modal/modal.component";
 
@@ -15,26 +14,21 @@ import { ModalComponent } from "../../shared/modal/modal.component";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  private route = inject(ActivatedRoute);
+export class LoginComponent implements OnInit {
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
   private destroyRef = inject(DestroyRef);
 
-  users = DUMMY_USERS;
+  users = signal<UserProfile[]>([]);
   selectedUserId = signal<number>(0);
   busy = signal<boolean>(false);
+  loaded = signal(false);
 
   ngOnInit(): void {
-    return;
-    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
-      const returnTo = decodeURIComponent(params['returnTo'] || 'home');
-      const authorizationParams = params['signup'] ? { screen_hint: 'signup' } : {};
-      this.auth.loginWithRedirect({
-        appState: { target: returnTo },
-        authorizationParams: authorizationParams,
-      });
-    });
+    this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((users) => {
+      this.users.set(users);
+      this.loaded.set(true);
+    })
   }
 
   cancel() {

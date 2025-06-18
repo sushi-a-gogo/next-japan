@@ -5,8 +5,8 @@
   <div class="flex-column">
     <header>Choose an account:</header>
     <main>
-      <ul class="flex-column">
-        @for(user of users; track user.userId) {
+      <ul class="flex-column fade-in" [class.open]="loaded()">
+        @for(user of users(); track user.userId) {
         <li>
           <button
             class="app-button flex-button user"

@@ -1,5 +1,5 @@
 <div class="background-overlay">
-  @if(!auth.isAuthenticated()) {
+  @if(!isAuthenticated()) {
   <nav class="content-container">
     <ul>
       <li>
@@ -18,7 +18,7 @@
       <!-- <div class="title break-word">{{ org().bannerTitle }}</div>
       <div class="subtitle break-word">{{ org().bannerSubTitle }}</div> -->
     </div>
-    <div class="content" [class.authenticated]="auth.isAuthenticated()">
+    <div class="content" [class.authenticated]="isAuthenticated()">
       <div class="flex-column">
         <div class="content-bottom">
           <div class="subtitle">{{ org().bannerTitle }}</div>

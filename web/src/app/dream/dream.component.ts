@@ -5,11 +5,10 @@ import { FooterComponent } from '@app/footer/footer.component';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { ContentGeneratorComponent } from "./components/content-generator/content-generator.component";
-import { DottedBgComponent } from "./components/dotted-bg/dotted-bg.component";
 
 @Component({
   selector: 'app-dream',
-  imports: [NgOptimizedImage, DottedBgComponent, ContentGeneratorComponent, FooterComponent],
+  imports: [NgOptimizedImage, ContentGeneratorComponent, FooterComponent],
   templateUrl: './dream.component.html',
   styleUrl: './dream.component.scss'
 })
