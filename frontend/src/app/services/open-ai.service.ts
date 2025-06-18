@@ -10,7 +10,7 @@ import { ErrorService } from './error.service';
   providedIn: 'root'
 })
 export class OpenAiService {
-  private uri = `${environment.apiUri}/api/ai`;
+  private uri = `${environment.apiUrl}/api/ai`;
   private errorService = inject(ErrorService);
 
   constructor(private http: HttpClient) { }

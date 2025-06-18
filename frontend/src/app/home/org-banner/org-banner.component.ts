@@ -20,5 +20,5 @@ export class OrgBannerComponent {
   isAuthenticated = this.auth.isAuthenticated;
   org = input.required<OrganizationInformation>();
   image = input.required<AppImageData>();
-  bannerImage = computed(() => `${environment.apiUri}/images/${this.image().id}`);
+  bannerImage = computed(() => `${environment.apiUrl}/images/${this.image().id}`);
 }

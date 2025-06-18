@@ -18,7 +18,7 @@ export class OrganizationService {
   private organizationInformationSignal = signal<OrganizationInformation | null>(null);
   organizationInformation = this.organizationInformationSignal.asReadonly();
 
-  private apiUri = `${environment.apiUri}/api/organization`;
+  private apiUri = `${environment.apiUrl}/api/organization`;
 
   getOrganizationInfo$(): Observable<OrganizationInformation> {
     return this.http.get<{ data: OrganizationInformation }>(`${this.apiUri}/info`).pipe(

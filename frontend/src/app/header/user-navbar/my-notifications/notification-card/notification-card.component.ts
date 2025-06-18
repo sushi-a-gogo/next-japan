@@ -21,7 +21,7 @@ export class NotificationCardComponent {
 
   get imageSrc() {
     return this.notification().image
-      ? `${environment.apiUri}/images/${this.notification().image.id}`
+      ? `${environment.apiUrl}/images/${this.notification().image.id}`
       : 'assets/images/notification-default.png';
   }
 

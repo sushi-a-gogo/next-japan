@@ -19,7 +19,7 @@ export class UserProfileService {
   private errorService = inject(ErrorService);
   private localStorage = inject(StorageService);
 
-  private apiUri = `${environment.apiUri}/api/user`;
+  private apiUri = `${environment.apiUrl}/api/user`;
 
   private user = signal<UserProfile | null>(null);
   userProfile = this.user.asReadonly();

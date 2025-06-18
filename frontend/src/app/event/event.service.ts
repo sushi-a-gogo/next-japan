@@ -24,7 +24,7 @@ export class EventService {
 
   private errorService = inject(ErrorService);
   private util = inject(UtilService);
-  private apiUri = `${environment.apiUri}/api/event`;
+  private apiUri = `${environment.apiUrl}/api/event`;
 
   getEvent$(eventId: number): Observable<EventInformation | null> {
     this.eventSignal.set(null);
