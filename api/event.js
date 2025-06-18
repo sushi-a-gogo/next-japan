@@ -2,9 +2,14 @@ import dotenv from "dotenv";
 import express from "express";
 import fs from "node:fs/promises";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
 dotenv.config();
 
 const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function readOpportunities(eventId) {
   const files = [
@@ -15,7 +20,8 @@ async function readOpportunities(eventId) {
 
   let opportunities = [];
   for (let i = 0; i < files.length; i++) {
-    const fileContent = await fs.readFile(`./data/opportunities/${files[i]}`);
+    const filePath = path.resolve(__dirname, "data", "opportunities", files[i]);
+    const fileContent = await fs.readFile(filePath, "utf-8");
     const eventOpportunities = JSON.parse(fileContent);
     opportunities = [...opportunities, ...eventOpportunities];
   }
@@ -33,7 +39,14 @@ async function readOpportunities(eventId) {
 
 router.get("/:id", async (req, res) => {
   const eventId = Number(req.params.id);
-  const fileContent = await fs.readFile("./data/events/full-events.json");
+
+  const filePath = path.resolve(
+    __dirname,
+    "data",
+    "events",
+    "full-events.json"
+  );
+  const fileContent = await fs.readFile(filePath, "utf-8");
   const events = JSON.parse(fileContent);
   const eventOpportunities = await readOpportunities(eventId);
 
