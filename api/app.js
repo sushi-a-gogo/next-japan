@@ -1,6 +1,16 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import rateLimit from "express-rate-limit";
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // limit each IP to 20 requests per windowMs
+  message: {
+    status: 429,
+    error: "Too many requests. Please try again later.",
+  },
+});
 
 import eventRouter from "./event.js";
 import imageResizeRouter from "./image-resize.js";
@@ -29,8 +39,10 @@ app.use("/api/event", eventRouter);
 app.use("/api/image", imageResizeRouter);
 // Mount the user router
 app.use("/api/user", userRouter);
+
 // Mount the OpenAI router
 app.use("/api/ai", openAiRouter);
+app.use("/api/ai", apiLimiter); // Apply only to routes starting with /api/ai
 
 // 404
 app.use((req, res, next) => {
