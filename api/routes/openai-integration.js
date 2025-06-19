@@ -30,17 +30,27 @@ router.post("/generate-content", async (req, res) => {
         .json({ error: "Missing promptParams or customText" });
     }
 
+    if (!(await isPromptSafe(customText))) {
+      throw new Error(
+        "Prompt violates content guidelines. Please use appropriate language."
+      );
+    }
+
     const style =
-      promptParams.style === "cartoon" ? "Studio Ghibli" : "photo realistic";
+      promptParams.style === "cartoon"
+        ? "cel-shaded, anime"
+        : "photo realistic";
     const palette = promptParams.palette;
     promptParams.style = undefined;
     promptParams.palette = undefined;
 
-    const imagePrompt = `Create an image in a cel-shaded, anime, '${style}' style,
+    const imagePrompt = `Create an image in a cel-shaded, '${style}' style,
     using a color palette of ${palette},
     and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
       promptParams
     )}.
+    Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
+    adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
     The image should not contain any text.`;
 
     // Construct text prompt
@@ -102,6 +112,11 @@ router.post("/generate-content", async (req, res) => {
     res.status(500).json({ error: "Failed to generate content" });
   }
 });
+
+async function isPromptSafe(userPrompt) {
+  const moderation = await openai.moderations.create({ input: userPrompt });
+  return !moderation.results[0].flagged;
+}
 
 function createGhibliStylePrompt({
   destination,
