@@ -1,6 +1,6 @@
-@if(busy()) {
+@defer () { @if(busy()) {
 <app-loading-spinner></app-loading-spinner>
-}
+} }
 <app-modal>
   <div class="flex-column">
     <header>Choose an account:</header>

@@ -5,17 +5,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 
   font-size: 14px;
   line-height: 19px;
   font-weight: 600;
 }
 
-.i_clock {
-  font-size: 16px;
-  line-height: 19px;
+.material-icons {
   color: var(--bright-blue-sky);
+  //font-weight: 600;
   align-self: flex-start;
 }
 

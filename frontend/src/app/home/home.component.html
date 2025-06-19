@@ -25,13 +25,15 @@
     </section>
     <section class="fade-in" [class.open]="loaded()">
       <div class="flex-content">
-        @if(loaded() && events().length) {
+        @if(loaded() && events().length) { @defer (on viewport) {
         <app-event-carousel
           [events]="events()"
           [opportunities]="opportunities()"
           [class.open]="loaded()"
         ></app-event-carousel>
-        }
+        } @placeholder {
+        <p>Loading...</p>
+        } }
       </div>
     </section>
   </main>
