@@ -1,6 +1,7 @@
 {
   "version": 2,
   "framework": "angular",
+  "devCommand": "cd frontend && ng serve --port $PORT",
   "builds": [
     {
       "src": "frontend/dist/next-japan/**",
