@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vendia/serverless-express": "^4.12.6",
     "axios": "^1.9.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

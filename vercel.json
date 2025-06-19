@@ -1,28 +1,12 @@
 {
   "version": 2,
-  "framework": "angular",
-  "devCommand": "cd frontend && ng serve --port $PORT",
-  "builds": [
-    {
-      "src": "frontend/dist/next-japan/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/app.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/app.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/next-japan/$1"
-    }
-  ],
-  "buildCommand": "cd frontend && npm install && ng build --prod",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "installCommand": "cd frontend && npm install",
   "outputDirectory": "frontend/dist/next-japan",
-  "installCommand": "cd frontend && npm install"
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
 }

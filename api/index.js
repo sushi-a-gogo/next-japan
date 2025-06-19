@@ -1,48 +1,44 @@
+import serverlessExpress from "@vendia/serverless-express";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
-
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // limit each IP to 20 requests per windowMs
-  message: {
-    status: 429,
-    error: "Too many requests. Please try again later.",
-  },
-});
-
 import eventRouter from "./routes/event.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import openAiRouter from "./routes/openai-integration.js";
 import organizationRouter from "./routes/organization.js";
 import userRouter from "./routes/user.js";
 
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // Limit each IP to 20 requests
+  message: {
+    status: 429,
+    error: "Too many requests. Please try again later.",
+  },
+});
+
 const app = express();
 dotenv.config();
 
-app.use(express.static("public"));
+//app.use(express.static("public"));
 app.use(express.json()); // Parse JSON bodies
 
 // CORS
 app.use(
   cors({
-    origin: process.env.ANGULAR_APP_URI, // Set in .env file
+    origin: process.env.ANGULAR_APP_URI, // Set in .env
   })
 );
 
-// Mount the organization router
+// Mount routers
 app.use("/api/organization", organizationRouter);
-// Mount the event router
 app.use("/api/event", eventRouter);
-// Mount the image resize router
 app.use("/api/image", imageResizeRouter);
-// Mount the user router
 app.use("/api/user", userRouter);
 
-// Mount the OpenAI router
-app.use("/api/ai", openAiRouter);
 app.use("/api/ai", apiLimiter);
+app.use("/api/ai", openAiRouter);
 
 // 404
 app.use((req, res, next) => {
@@ -52,8 +48,9 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "404 - Not Found" });
 });
 
-const PORT = process.env.PORT || 3000;
+const handler = serverlessExpress({ app });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export const handlerForVercel = handler;
+export default handler;
+
+export { app };

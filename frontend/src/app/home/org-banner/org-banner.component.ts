@@ -4,7 +4,6 @@ import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { LoginButtonComponent } from '@app/shared/login-button/login-button.component';
-import { environment } from '@environments/environment';
 import { AppLogoComponent } from "../../shared/app-logo/app-logo.component";
 
 @Component({
@@ -20,5 +19,5 @@ export class OrgBannerComponent {
   isAuthenticated = this.auth.isAuthenticated;
   org = input.required<OrganizationInformation>();
   image = input.required<AppImageData>();
-  bannerImage = computed(() => `${environment.apiUrl}/images/${this.image().id}`);
+  bannerImage = computed(() => `assets/images/tokyo-day.webp`);
 }
