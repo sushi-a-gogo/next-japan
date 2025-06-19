@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "framework": "angular",
   "builds": [
     {
       "src": "frontend/dist/next-japan/**",
@@ -17,7 +18,10 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/dist/next-japan/index.html"
+      "dest": "/frontend/dist/next-japan/$1"
     }
-  ]
+  ],
+  "buildCommand": "cd frontend && ng build --prod",
+  "outputDirectory": "frontend/dist/next-japan",
+  "installCommand": "cd frontend && npm install"
 }
