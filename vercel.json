@@ -23,6 +23,5 @@
   ],
   "buildCommand": "cd frontend && npm install && ng build --prod",
   "outputDirectory": "frontend/dist/next-japan",
-  "installCommand": "cd frontend && npm install",
-  "rootDirectory": "frontend"
+  "installCommand": "cd frontend && npm install"
 }
