@@ -10,6 +10,7 @@ import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
+import { environment } from '@environments/environment';
 import { forkJoin } from 'rxjs';
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
   backgroundImage = "";// `url('/assets/images/orgs/tokyo.png')`;
 
   ngOnInit(): void {
+    console.log('PROD API URL:', environment.apiUrl);
     const observables = {
       org: this.organizationService.getOrganizationInfo$(),
       events: this.organizationService.getEvents$(),
