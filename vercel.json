@@ -19,10 +19,8 @@
       "dest": "/api/index.js"
     },
     {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
+      "headers": { "cache-control": "public, max-age=0, must-revalidate" },
       "dest": "/frontend/dist/next-japan-web/browser/index.html"
     }
   ]
