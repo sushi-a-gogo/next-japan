@@ -19,6 +19,7 @@ const apiLimiter = rateLimit({
 
 const app = express();
 dotenv.config();
+console.log("CORS origin:", process.env.ANGULAR_APP_URI);
 
 app.use(express.json()); // Parse JSON bodies
 
