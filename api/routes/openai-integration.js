@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Initialize OpenAI with your API key (store securely in env vars)
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Set in .env file
+  apiKey: process.env.OPENAI_API_KEY || "[API_KEY]", // Set in .env file
 });
 
 // POST endpoint to handle text and image generation

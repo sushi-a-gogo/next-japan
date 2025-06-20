@@ -1,4 +1,3 @@
-import serverlessExpress from "@vendia/serverless-express";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -21,7 +20,6 @@ const apiLimiter = rateLimit({
 const app = express();
 dotenv.config();
 
-//app.use(express.static("public"));
 app.use(express.json()); // Parse JSON bodies
 
 // CORS
@@ -32,13 +30,17 @@ app.use(
 );
 
 // Mount routers
-app.use("/api/organization", organizationRouter);
-app.use("/api/event", eventRouter);
-app.use("/api/image", imageResizeRouter);
-app.use("/api/user", userRouter);
+app.use("/organization", organizationRouter);
+app.use("/event", eventRouter);
+app.use("/image", imageResizeRouter);
+app.use("/user", userRouter);
 
-app.use("/api/ai", apiLimiter);
-app.use("/api/ai", openAiRouter);
+app.use("/ai", apiLimiter);
+app.use("/ai", openAiRouter);
+
+app.get("api/ping", (req, res) => {
+  res.json({ msg: "API is alive" });
+});
 
 // 404
 app.use((req, res, next) => {
@@ -48,9 +50,7 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "404 - Not Found" });
 });
 
-const handler = serverlessExpress({ app });
-
-export const handlerForVercel = handler;
-export default handler;
+//const handler = serverlessExpress({ app });
+export default app;
 
 export { app };
