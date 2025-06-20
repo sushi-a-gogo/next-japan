@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   envName: 'production',
-  apiUrl: 'http://[APP_PRODUCTION_URL]',
+  apiUrl: 'https://next-japan-api.onrender.com',
 };
