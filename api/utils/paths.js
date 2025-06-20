@@ -6,7 +6,7 @@ export const EVENTS_FULL_JSON = resolveRoot(
   "events",
   "full-events.json"
 );
-export const USERS_JSON = resolveRoot("data", "users", "users.json");
+export const USERS_JSON = resolveRoot("data", "users", "default-users.json");
 export const OPPORTUNITIES_JSON = [
   resolveRoot("data", "opportunities", "event-1-opportunities.json"),
   resolveRoot("data", "opportunities", "event-2-opportunities.json"),
