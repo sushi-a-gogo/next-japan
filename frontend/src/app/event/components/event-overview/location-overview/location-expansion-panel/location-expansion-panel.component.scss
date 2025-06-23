@@ -36,7 +36,7 @@ header {
     color: #000;
     background-color: map.get(var.$colors, section-light-gray);
     height: 36px;
-    white-space: nowrapO;
+    white-space: nowrap;
 
     .desktop {
       display: none;

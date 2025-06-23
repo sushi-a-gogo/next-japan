@@ -50,21 +50,21 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         const org = res.org;
 
-        this.bannerImage = org.image;// res.events[index].image;
-        const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
-
         this.events.set(res.events);
         this.opportunities.set(res.opportunities);
 
-        this.title.setTitle(`${this.org.name}`);
+        this.title.setTitle(`${org.name}`);
         // Set meta tags
         this.meta.updateTag({ name: 'description', content: org.infoDescription });
 
         // Open Graph meta tags
         this.meta.updateTag({ property: 'og:title', content: this.org.name });
         this.meta.updateTag({ property: 'og:description', content: org.infoDescription });
-        this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
         this.meta.updateTag({ property: 'og:url', content: window.location.href });
+
+        this.bannerImage = org.image;// res.events[index].image;
+        const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
+        this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
       },
       error: () => {
         this.loaded.set(true);

@@ -121,8 +121,8 @@ textarea {
 .content-container {
   max-width: var.$max-page-width;
 
-  @media (width: var.$max-page-width) {
-    max-width: calc(var.$max-page-width - 40px);
+  @media (width: 1024px) {
+    max-width: 1000px;
   }
 }
 
