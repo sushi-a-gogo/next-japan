@@ -1,11 +1,11 @@
 import { Component, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
 
 @Component({
   selector: 'app-login-button',
-  imports: [MatRippleModule],
+  imports: [RouterLink, MatRippleModule],
   templateUrl: './login-button.component.html',
   styleUrl: './login-button.component.scss'
 })
