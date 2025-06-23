@@ -6,6 +6,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/event/models/event-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OpenAiService } from '@app/services/open-ai.service';
@@ -14,7 +15,7 @@ import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent, LoadingSpinnerComponent],
+  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent, LoadingSpinnerComponent],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })

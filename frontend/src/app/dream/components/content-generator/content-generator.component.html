@@ -41,7 +41,14 @@
       placeholder="Enter text"
     />
   </mat-form-field>
-  <button class="app-button app-button-save" type="submit">Generate</button>
+  <button
+    class="app-button app-button-save"
+    type="submit"
+    disabled
+    matTooltip="Open AI access is currently locked. Please try again later."
+  >
+    Generate
+  </button>
 </form>
 <div>
   @if(!dreamEvent()) {
