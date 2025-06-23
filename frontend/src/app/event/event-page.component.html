@@ -1,5 +1,5 @@
 @if(!loaded()) {
-<app-loading-spinner [delay]="1000" />
+<app-page-load-spinner [delay]="1000" />
 }
 <article [class.open]="loaded()">
   @if(hasError()) {

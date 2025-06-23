@@ -1,8 +1,6 @@
 <!-- load spinner-->
 @if(!loaded()) {
-<app-page-load-spinner>
-  <h2 class="loading-message">Loading...please wait.</h2>
-</app-page-load-spinner>
+<app-page-load-spinner />
 }
 <!-- error -->
 @if(hasError()) {
@@ -33,7 +31,7 @@
       <div class="flex-content">
         @if(events().length) {
         <!-- defer -->
-        @defer (on viewport) {
+        @defer () {
         <app-event-carousel
           [events]="events()"
           [opportunities]="opportunities()"

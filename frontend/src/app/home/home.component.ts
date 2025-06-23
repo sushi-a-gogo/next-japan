@@ -11,7 +11,7 @@ import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { environment } from '@environments/environment';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log('PROD API URL:', environment.apiUrl);
     const observables = {
-      org: this.organizationService.getOrganizationInfo$(),
+      org: this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$(),
       events: this.organizationService.getEvents$(),
       opportunities: this.organizationService.getNextOpportunities$(),
     };

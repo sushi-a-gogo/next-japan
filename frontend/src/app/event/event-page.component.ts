@@ -6,8 +6,8 @@ import { EventService } from '@app/event/event.service';
 import { FooterComponent } from '@app/footer/footer.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { ImageService } from '@app/services/image.service';
+import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { catchError, forkJoin, of } from 'rxjs';
-import { LoadingSpinnerComponent } from "../shared/loading-spinner/loading-spinner.component";
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -15,7 +15,8 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent, EventOpportunitiesComponent, LoadingSpinnerComponent, FooterComponent],
+  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent,
+    EventOpportunitiesComponent, FooterComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
