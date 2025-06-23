@@ -59,7 +59,7 @@ nav {
           background-color: transparent;
         }
 
-        &:hover {
+        &:hover:not(:focus) {
           background-color: map.get(var.$colors, section-medium-gray);
         }
       }
