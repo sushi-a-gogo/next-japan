@@ -1,9 +1,10 @@
 :host {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   width: 100%;
-  height: calc(var(--app-height));
+  height: 100%;
   z-index: 10000;
   display: flex;
   flex-direction: column;
