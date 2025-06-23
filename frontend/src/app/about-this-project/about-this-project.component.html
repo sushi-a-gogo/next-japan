@@ -1,0 +1,63 @@
+<img class="background" [ngSrc]="backgroundImage.src" fill priority />
+<div class="content">
+  @if(!isAuthenticated()) {
+  <app-navbar />
+  } @else {
+  <div></div>
+  }
+  <article
+    class="flex-column content-container"
+    [style.backgroundImage]="backgroundImage.src"
+  >
+    <header>👨‍💻 About This Project</header>
+    <main>
+      <div>
+        Next Japan is a full-stack portfolio project built by me (Joe Svatek) to
+        showcase real-world engineering capabilities. It simulates an imaginary
+        world inspired by Japanese Anime, allowing imaginary users to register
+        for special events hosted at various locales in Japan.
+      </div>
+      Created entirely from scratch using:
+
+      <ul>
+        <li>
+          <span>⚙️</span> Angular v20 with modular routing, components, and
+          services
+        </li>
+        <li><span>🌐</span> Node.js + Express backend hosted on Render</li>
+        <li>
+          <span>📡</span> RESTful API with rate limiting, CORS handling, and
+          mocked JSON data
+        </li>
+        <li>
+          <span>🤖</span> Integration with the OpenAI API for enhanced features
+        </li>
+        <li>
+          <span>☁️</span> Cloud deployment with cold start loading overlay
+        </li>
+        <li>
+          <span>🧪</span> Environment-specific configs, error handling, and
+          responsive UI
+        </li>
+      </ul>
+
+      <ul>
+        <!-- <li><span>💻</span> View Source on GitHub</li> -->
+        <li>
+          <span>📄</span> View
+          <a
+            href="/assets/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            My Resume
+          </a>
+        </li>
+        <li>
+          <span>📧</span> Contact:
+          <a href="mailto: joe.svatek@icloud.com">Joe Svatek</a>
+        </li>
+      </ul>
+    </main>
+  </article>
+</div>

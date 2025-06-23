@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AboutThisProjectComponent } from './about-this-project/about-this-project.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { authGuard } from './guards/auth.guard';
@@ -17,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent
+  },
+  {
+    path: 'about-this-project',
+    component: AboutThisProjectComponent
   },
   {
     path: 'home',

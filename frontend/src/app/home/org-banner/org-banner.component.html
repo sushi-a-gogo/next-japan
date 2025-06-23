@@ -1,16 +1,6 @@
 <div class="background-overlay">
   @if(!isAuthenticated()) {
-  <nav class="content-container">
-    <ul>
-      <li>
-        <app-logo [size]="94" />
-      </li>
-      <li class="login">
-        <app-login-button></app-login-button>
-        <app-login-button [signup]="true"></app-login-button>
-      </li>
-    </ul>
-  </nav>
+  <app-navbar />
   }
   <div class="header-content content-container">
     <img [ngSrc]="bannerImage" fill priority alt="Tokyo at night" />
