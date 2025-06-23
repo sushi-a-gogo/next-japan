@@ -3,7 +3,7 @@
   <app-registration-status-label [class]="status()" [status]="status()!" />
 </div>
 } @else {
-<div [class.mobile-checkbox]="mobileStyle() === 'checkbox'">
+<div>
   @if(selected()) {
   <button
     type="button"
@@ -34,7 +34,6 @@
 </div>
 } } @else {
 <div
-  [class.mobile-checkbox]="mobileStyle() === 'checkbox'"
   matTooltip="Please sign in to register for an event."
   matTooltipPosition="left"
   matTooltipShowDelay="250"

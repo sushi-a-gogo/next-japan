@@ -9,15 +9,3 @@
 .selector {
   align-self: flex-end;
 }
-
-@media (min-width: 992px) {
-  .selector {
-    padding-right: 10px;
-  }
-}
-
-@media (min-width: calc(var.$max-page-width + 10px)) {
-  .selectOor {
-    padding-right: 0;
-  }
-}

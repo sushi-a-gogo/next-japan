@@ -50,8 +50,8 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         const org = res.org;
 
-        this.events.set(res.events);
         this.opportunities.set(res.opportunities);
+        this.events.set(res.events);
 
         this.title.setTitle(`${org.name}`);
         // Set meta tags

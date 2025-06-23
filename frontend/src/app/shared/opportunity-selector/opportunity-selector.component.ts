@@ -21,7 +21,6 @@ export class OpportunitySelectorComponent {
   private userService = inject(UserProfileService);
 
   opportunity = input.required<EventOpportunity>();
-  mobileStyle = input<'checkbox' | 'button'>('button');
 
   isAuthenticated = this.auth.isAuthenticated;
   disableCheckForConflict = input<boolean>(false);

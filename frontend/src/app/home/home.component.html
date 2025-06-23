@@ -4,13 +4,15 @@
 }
 <!-- error -->
 @if(hasError()) {
-<app-page-error
-  errorTitle="Site not available."
-  errorMessage="We're sorry. The page could not be loaded."
-></app-page-error>
-<footer>
-  <app-footer />
-</footer>
+<article>
+  <app-page-error
+    errorTitle="Site not available."
+    errorMessage="We're sorry. The page could not be loaded."
+  ></app-page-error>
+  <footer>
+    <app-footer />
+  </footer>
+</article>
 } @else {
 <article>
   <header [style.backgroundImage]="backgroundImage">
