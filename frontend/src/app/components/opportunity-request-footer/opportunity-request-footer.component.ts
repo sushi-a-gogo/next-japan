@@ -2,6 +2,7 @@ import { Component, effect, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { NavigationStart, Router } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { DialogService } from '@app/services/dialog.service';
 import { SelectionService } from '@app/services/selection.service';
 import { filter, Subject, takeUntil } from 'rxjs';
 
@@ -14,6 +15,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 export class OpportunityRequestFooterComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private auth = inject(AuthMockService);
+  private dialogService = inject(DialogService);
   private selectionService = inject(SelectionService);
   private destroyed$ = new Subject<void>();
 
@@ -47,6 +49,6 @@ export class OpportunityRequestFooterComponent implements OnInit, OnDestroy {
   }
 
   openRegistrationDialog() {
-    this.selectionService.showRegistration();
+    this.dialogService.showRegistrationDialog();
   }
 }

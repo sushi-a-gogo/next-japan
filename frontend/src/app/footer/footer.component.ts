@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { DialogService } from '@app/services/dialog.service';
 import { AppLogoComponent } from "../shared/app-logo/app-logo.component";
 
 @Component({
@@ -12,6 +13,7 @@ import { AppLogoComponent } from "../shared/app-logo/app-logo.component";
 export class FooterComponent {
   private router = inject(Router);
   private auth = inject(AuthMockService);
+  private dialogService = inject(DialogService);
 
   isAuthenticated = this.auth.isAuthenticated;
 
@@ -23,6 +25,7 @@ export class FooterComponent {
 
   openAboutDialog($event: any) {
     $event.preventDefault();
+    this.dialogService.showAboutDialog();
     //this.dialog.open(AboutDialogComponent, {
     //...dialogConfig,
     //restoreFocus: false,

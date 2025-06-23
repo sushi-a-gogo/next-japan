@@ -1,0 +1,45 @@
+<app-modal (close)="close.emit(true)">
+  <header class="dialog">
+    <span>About this App</span>
+    <button
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="close.emit(true)"
+    >
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+  <main class="dialog">
+    <strong>👋 Welcome to "Next Japan"</strong>
+    <p>
+      A full-stack demo app which exists in an imaginary world inspired by
+      Japanese Anime, allowing imaginary users to sign up for special events
+      hosted at various locales in Japan. This is a self-built portfolio project
+      by Joe Svatek, showcasing modern full-stack engineering with:
+    </p>
+    <ul>
+      <li>🧩 Angular v20 frontend</li>
+      <li>🚀 Node.js + Express backend</li>
+      <li>☁️ Live deployment on Render (free tier) with cold start handling</li>
+      <li>🤖 OpenAI API integration for smart content features</li>
+      <li>
+        ⚙️ Full environment config, CORS handling, and simulated data APIs
+      </li>
+    </ul>
+    <p>
+      ⏳ <strong>Note:</strong> Initial load may take up to a minute due to
+      free-tier backend startup. A loading screen will appear during this time.
+    </p>
+  </main>
+  <footer class="dialog">
+    <button
+      type="button"
+      matRipple
+      class="app-button dialog-button app-button-cancel"
+      (click)="close.emit(true)"
+    >
+      OK
+    </button>
+  </footer>
+</app-modal>

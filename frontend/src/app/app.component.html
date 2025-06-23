@@ -1,17 +1,18 @@
 <div class="app-container" [class.user]="!!userProfile()">
   <app-header />
   <main>
-    @if(showRegistrationDialog()) {
-    <app-registration-dialog (close)="closeRegistrationDialog()" />
-    } @if(isAuthenticating()) {
-    <app-login />
-    }
     <section class="router-outlet">
       <router-outlet />
     </section>
   </main>
 </div>
-@defer () {
+@defer () { @if(showDialog() === 'about') {
+<app-about (close)="closeDialog()" />
+} @if(showDialog() === 'registration') {
+<app-registration-dialog (close)="closeDialog()" />
+} @if(isAuthenticating()) {
+<app-login />
+}
 <app-error-bar />
 <app-opportunity-request-footer />
 }

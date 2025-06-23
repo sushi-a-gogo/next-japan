@@ -8,22 +8,10 @@ export class SelectionService {
   private selected = signal<EventOpportunity[]>([]);
   selectedOpportunities = this.selected.asReadonly();
 
-  private showRegistrationDialogSignal = signal<boolean>(false);
-  showRegistrationDialog = this.showRegistrationDialogSignal.asReadonly();
-
-
   constructor() { }
 
   get selectedCount() {
     return this.selected().length;
-  }
-
-  showRegistration() {
-    this.showRegistrationDialogSignal.set(true);
-  }
-
-  hideRegistration() {
-    this.showRegistrationDialogSignal.set(false);
   }
 
   checkForConflict(opportunity: EventOpportunity) {

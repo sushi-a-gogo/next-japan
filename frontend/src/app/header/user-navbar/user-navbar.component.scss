@@ -58,10 +58,6 @@ nav {
           padding: 0;
           background-color: transparent;
         }
-
-        &:hover:not(:focus) {
-          background-color: map.get(var.$colors, section-medium-gray);
-        }
       }
 
       &:last-child {
@@ -103,6 +99,10 @@ nav {
       li {
         .app-button {
           padding: 0 20px;
+
+          &:hover {
+            background-color: map.get(var.$colors, section-medium-gray);
+          }
         }
       }
 

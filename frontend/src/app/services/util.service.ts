@@ -5,7 +5,6 @@ import { MapLocation } from '@app/models/map-location.model';
   providedIn: 'root',
 })
 export class UtilService {
-
   getEventDisplayAddress(location: MapLocation) {
     const address: string[] = [];
     if (!!location.addressLine1) {
