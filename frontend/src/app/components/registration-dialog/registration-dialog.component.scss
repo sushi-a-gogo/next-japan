@@ -21,11 +21,12 @@
   }
 }
 
-main {
+main.dialog {
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 180px;
 }
 
 footer {
