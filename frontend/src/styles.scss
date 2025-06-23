@@ -120,6 +120,10 @@ textarea {
 
 .content-container {
   max-width: var.$max-page-width;
+
+  @media (width: var.$max-page-width) {
+    max-width: calc(var.$max-page-width - 40px);
+  }
 }
 
 header.dialog {

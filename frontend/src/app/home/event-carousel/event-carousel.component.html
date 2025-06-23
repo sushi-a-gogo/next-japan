@@ -2,7 +2,7 @@
   <button
     aria-label="Show Previous Slide"
     type="button"
-    class="app-icon-button transparent"
+    class="app-icon-button"
     matRipple
     (click)="showPrevSlide()"
     [disabled]="carouselIndex === 0"
@@ -32,7 +32,7 @@
   <button
     aria-label="Show Next Slide"
     type="button"
-    class="app-icon-button transparent"
+    class="app-icon-button"
     matRipple
     (click)="showNextSlide()"
     [disabled]="carouselIndex === slides.length - 1"

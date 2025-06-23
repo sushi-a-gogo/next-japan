@@ -1,6 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { AppImageData } from '@app/models/app-image-data.model';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { LoginButtonComponent } from '@app/shared/login-button/login-button.component';
@@ -17,7 +16,6 @@ export class OrgBannerComponent {
   private auth = inject(AuthMockService);
 
   isAuthenticated = this.auth.isAuthenticated;
-  org = input.required<OrganizationInformation>();
-  image = input.required<AppImageData>();
-  bannerImage = computed(() => `assets/images/tokyo-day.webp`);
+  org = input<OrganizationInformation | null>(null);
+  bannerImage = `assets/images/tokyo-day.webp`;
 }

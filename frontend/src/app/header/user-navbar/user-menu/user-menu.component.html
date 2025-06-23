@@ -16,10 +16,21 @@
   <header>
     <span> {{ userProfile()?.firstName }} {{ userProfile()?.lastName }} </span>
   </header>
+  <button
+    type="button"
+    class="app-button"
+    mat-menu-item
+    (click)="openMyEvents()"
+  >
+    <div class="menu-item">
+      <span class="material-icons">event_available</span>
+      My Events
+    </div>
+  </button>
   <button mat-menu-item (click)="openUserProfile()">
     <div class="menu-item">
       <span class="material-icons">description</span>
-      View Profile
+      My Profile
     </div>
   </button>
   <button mat-menu-item (click)="logout()">
@@ -31,4 +42,6 @@
 </mat-menu>
 @if(showUserProfile()) {
 <app-user-profile (close)="closeUserProfile()"></app-user-profile>
+} @if(showMyEvents()) {
+<app-my-events (close)="closeMyEvents()"></app-my-events>
 }

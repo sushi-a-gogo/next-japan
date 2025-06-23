@@ -7,26 +7,9 @@
       </a>
     </li>
     <li>
-      <button
-        type="button"
-        class="app-button"
-        matRipple
-        (click)="openMyEvents()"
-      >
-        <span class="text-condensed">Events</span>
-        <span class="text">My Events</span>
-      </button>
-    </li>
-    <li>
-      <button
-        type="button"
-        class="app-button"
-        matRipple
-        (click)="openMyDreams()"
-      >
-        <span class="text-condensed">Dreams</span>
-        <span class="text">Dream Events</span>
-      </button>
+      <a type="button" class="app-button" matRipple routerLink="./dream">
+        AI Event Builder
+      </a>
     </li>
     <li class="spacer"></li>
     <li class="notifications">
@@ -35,16 +18,14 @@
       }
     </li>
     <li class="image">
+      @defer () {
       <app-user-menu (signout)="logout()" />
+      }
     </li>
   </ul>
 
   }
 </nav>
-@defer () { @if(showUserProfile()) {
-<app-user-profile (close)="closeUserProfile()"></app-user-profile>
-} @else if(showMyEvents()) {
-<app-my-events (close)="closeMyEvents()"></app-my-events>
-} @else if(showMyDreamEvents()) {
+@if(showMyDreamEvents()) {
 <app-my-dream-events (close)="closeMyDreams()"></app-my-dream-events>
-} }
+}

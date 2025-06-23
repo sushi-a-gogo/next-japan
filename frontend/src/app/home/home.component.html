@@ -1,3 +1,10 @@
+<!-- load spinner-->
+@if(!loaded()) {
+<app-page-load-spinner>
+  <h2 class="loading-message">Loading...please wait.</h2>
+</app-page-load-spinner>
+}
+<!-- error -->
 @if(hasError()) {
 <app-page-error
   errorTitle="Site not available."
@@ -7,32 +14,33 @@
   <app-footer />
 </footer>
 } @else {
-<article class="fade-in" [class.open]="!!org">
-  @if(org) {
+<article>
   <header [style.backgroundImage]="backgroundImage">
-    <app-org-banner [org]="org!" [image]="bannerImage!"></app-org-banner>
+    <app-org-banner [org]="org()"></app-org-banner>
   </header>
-  <main class="content-container">
+  <main class="content-container fade-in" [class.open]="loaded()">
     <section>
       <div class="flex-content organization-info">
         <div class="info-title break-word">
-          {{ org.infoTitle }}
+          {{ org()?.infoTitle }}
         </div>
         <div class="info-description break-word pre-wrap">
-          {{ org.infoDescription }}
+          {{ org()?.infoDescription }}
         </div>
       </div>
     </section>
-    <section class="fade-in" [class.open]="loaded()">
+    <section>
       <div class="flex-content">
-        @if(loaded() && events().length) { @defer (on viewport) {
+        @if(events().length) {
+        <!-- defer -->
+        @defer (on viewport) {
         <app-event-carousel
           [events]="events()"
           [opportunities]="opportunities()"
           [class.open]="loaded()"
         ></app-event-carousel>
         } @placeholder {
-        <p>Loading...</p>
+        <p>Loading events...</p>
         } }
       </div>
     </section>
@@ -40,7 +48,5 @@
   <footer>
     <app-footer />
   </footer>
-  }
 </article>
-
 }

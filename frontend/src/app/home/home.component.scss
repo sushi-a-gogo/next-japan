@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.loading-message {
+  color: #fff;
+}
+
 article {
   display: flex;
   flex-direction: column;
@@ -55,6 +59,7 @@ section {
 
 .flex-content {
   width: 100%;
+  text-align: center;
 }
 
 .organization-info {

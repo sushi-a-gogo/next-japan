@@ -7,16 +7,16 @@ import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { FooterComponent } from '@app/footer/footer.component';
 import { EventCarouselComponent } from "@app/home/event-carousel/event-carousel.component";
 import { AppImageData } from '@app/models/app-image-data.model';
-import { OrganizationInformation } from '@app/models/organization-information.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
+import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { environment } from '@environments/environment';
 import { forkJoin } from 'rxjs';
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [FooterComponent, PageErrorComponent, OrgBannerComponent, EventCarouselComponent],
+  imports: [FooterComponent, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -28,14 +28,14 @@ export class HomeComponent implements OnInit {
   private imageService = inject(ImageService);
   private organizationService = inject(OrganizationService);
 
-  org?: OrganizationInformation;
+  org = this.organizationService.organizationInformation;
   events = signal<EventData[]>([]);
   opportunities = signal<EventOpportunity[]>([]);
   bannerImage?: AppImageData;
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
-  backgroundImage = "";// `url('/assets/images/orgs/tokyo.png')`;
+  backgroundImage = "url('/assets/images/tokyo-day.webp')";
 
   ngOnInit(): void {
     console.log('PROD API URL:', environment.apiUrl);
@@ -48,23 +48,21 @@ export class HomeComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
-        this.org = res.org;
+        const org = res.org;
 
-        const index = res.events.length > 0 ? Math.floor(Math.random() * res.events.length) : 0;
-        this.bannerImage = this.org.image;// res.events[index].image;
+        this.bannerImage = org.image;// res.events[index].image;
         const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
-        this.backgroundImage = `url('${resizedImage.src}')`;
 
         this.events.set(res.events);
         this.opportunities.set(res.opportunities);
 
         this.title.setTitle(`${this.org.name}`);
         // Set meta tags
-        this.meta.updateTag({ name: 'description', content: this.org.infoDescription });
+        this.meta.updateTag({ name: 'description', content: org.infoDescription });
 
         // Open Graph meta tags
         this.meta.updateTag({ property: 'og:title', content: this.org.name });
-        this.meta.updateTag({ property: 'og:description', content: this.org.infoDescription });
+        this.meta.updateTag({ property: 'og:description', content: org.infoDescription });
         this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
         this.meta.updateTag({ property: 'og:url', content: window.location.href });
       },

@@ -6,15 +6,13 @@ import { Router, RouterLink } from '@angular/router';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { AppLogoComponent } from "../../shared/app-logo/app-logo.component";
 import { MyDreamEventsComponent } from "./my-dream-events/my-dream-events.component";
-import { MyEventsComponent } from "./my-events/my-events.component";
 import { MyNotificationsComponent } from "./my-notifications/my-notifications.component";
 import { UserMenuComponent } from "./user-menu/user-menu.component";
-import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @Component({
   selector: 'app-user-navbar',
   imports: [RouterLink, MatMenuModule, MatTooltipModule,
-    MatRippleModule, UserProfileComponent, MyEventsComponent,
+    MatRippleModule,
     MyNotificationsComponent, AppLogoComponent, UserMenuComponent, MyDreamEventsComponent],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.scss'
@@ -33,8 +31,6 @@ export class UserNavbarComponent {
     return '';
   });
 
-  showUserProfile = signal(false);
-  showMyEvents = signal(false);
   showMyDreamEvents = signal(false);
 
   logout() {
@@ -45,22 +41,6 @@ export class UserNavbarComponent {
     });
   }
 
-  openUserProfile() {
-    this.showUserProfile.set(true);
-    // Implement logic to open user profile
-  }
-
-  closeUserProfile() {
-    this.showUserProfile.set(false);
-  }
-
-  openMyEvents() {
-    this.showMyEvents.set(true);
-  }
-
-  closeMyEvents() {
-    this.showMyEvents.set(false);
-  }
 
   openMyDreams() {
     this.showMyDreamEvents.set(true);
