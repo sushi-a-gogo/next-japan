@@ -11,10 +11,11 @@ Goals
 - Optimize for cold-start latency and client-side routing
 
 Tech Stack
+
 Layer Tools Used
--Frontend Angular v20, Angular Router, Angular Material
--Backend Node.js, Express, serverless-style API design
--Hosting Render (static + web service)
--Integration OpenAI API (text generation, assistant logic)
--Data Source Simulated API with local JSON file mock data
--Environment .env variables, prod/staging configs, CORS, rate limiting
+- Frontend Angular v20, Angular Router, Angular Material
+- Backend Node.js, Express, serverless-style API design
+- Hosting Render (static + web service)
+- Integration OpenAI API (text generation, assistant logic)
+- Data Source Simulated API with local JSON file mock data
+- Environment .env variables, prod/staging configs, CORS, rate limiting
