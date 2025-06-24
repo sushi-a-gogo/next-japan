@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { EventOpportunity } from '@app/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { AddressStripComponent } from "../address-strip/address-strip.component";
 import { EventBreadcrumbComponent } from "../event-breadcrumb/event-breadcrumb.component";
 import { OpportunityLabelComponent } from "../opportunity-label/opportunity-label.component";

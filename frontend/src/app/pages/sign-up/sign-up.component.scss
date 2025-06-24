@@ -1,0 +1,213 @@
+@use "sass:color";
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+img.background {
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+article {
+  margin: 40px 0;
+  padding: 0 20px 40px 20px;
+  z-index: 1;
+  border-radius: 16px;
+  width: 100%;
+  background: rgba($color: #fff, $alpha: 0.75);
+}
+
+ul.plan-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  li.plan-item {
+    flex: 1 1 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border: 1px solid map.get(var.$colors, section-medium-gray);
+    background-color: map.get(var.$colors, section-gray);
+    border-radius: 10px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    .flex-column {
+      flex: 1;
+      gap: 0;
+    }
+
+    padding-bottom: 4px;
+
+    // Optional: add margin or padding as needed
+  }
+
+  // 2 columns ≥ 600px
+  @media (min-width: 600px) {
+    li.plan-item {
+      flex: 1 1 240px;
+      min-width: 240px;
+      max-width: calc(50% - 8px);
+    }
+  }
+
+  // 3 columns ≥ 900px
+  @media (min-width: 900px) {
+    li.plan-item {
+      max-width: calc(33.333% - 10.67px);
+    }
+  }
+
+  // 4 columns ≥ 1200px
+  @media (min-width: 1200px) {
+    li.plan-item {
+      max-width: calc(25% - 12px);
+    }
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #fff;
+  padding: 12px 12px;
+  width: 100%;
+  height: 48px;
+}
+
+div.flex-column {
+  padding: 10px;
+}
+
+.description {
+  font-weight: 500;
+}
+
+.benefits {
+  flex: 1;
+  color: map.get(var.$colors, dark-label);
+  font-weight: 600;
+
+  ul {
+    margin: 0;
+    padding: 16px 16px;
+    list-style: disc;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+.pricing-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+
+  > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+.pricing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  font-weight: 700;
+
+  .tier {
+    font-weight: 400;
+    flex-basis: 25%;
+  }
+}
+
+.app-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  height: 48px;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.disclaimer {
+  font-weight: 500;
+}
+
+.pink {
+  background-color: map.get(var.$colors, pink-cherry-blossoms);
+
+  &:hover:not(:disabled) {
+    background-color: color.scale(
+      map.get(var.$colors, pink-cherry-blossoms),
+      $lightness: -5%
+    );
+  }
+}
+
+.brown {
+  background-color: map.get(var.$colors, dark-brown-tree);
+
+  &:hover:not(:disabled) {
+    background-color: color.scale(
+      map.get(var.$colors, dark-brown-tree),
+      $lightness: -5%
+    );
+  }
+}
+
+.yellow {
+  background-color: color.scale(
+    map.get(var.$colors, vivid-yellow-text),
+    $lightness: -25%
+  );
+  &:hover:not(:disabled) {
+    background-color: color.scale(
+      map.get(var.$colors, vivid-yellow-text),
+      $lightness: -40%
+    );
+  }
+}
+
+.green {
+  background-color: map.get(var.$colors, bright-green-grass);
+
+  &:hover:not(:disabled) {
+    background-color: color.scale(
+      map.get(var.$colors, bright-green-grass),
+      $lightness: -5%
+    );
+  }
+}
+
+.blue {
+  background-color: map.get(var.$colors, bright-blue-sky);
+
+  &:hover:not(:disabled) {
+    background-color: color.scale(
+      map.get(var.$colors, bright-blue-sky),
+      $lightness: -5%
+    );
+  }
+}

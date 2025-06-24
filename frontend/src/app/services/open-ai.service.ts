@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AiEvent } from '@app/event/models/ai-event.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
+import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { environment } from '@environments/environment';
 import { catchError, Observable } from 'rxjs';
 import { ErrorService } from './error.service';

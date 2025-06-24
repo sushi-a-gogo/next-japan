@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { EventOpportunity } from '@app/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { DateLabelComponent } from "../date-label/date-label.component";
 
 @Component({

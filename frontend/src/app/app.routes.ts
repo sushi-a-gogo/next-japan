@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AboutThisProjectComponent } from './about-this-project/about-this-project.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { authGuard } from './guards/auth.guard';
-import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -30,16 +30,16 @@ export const routes: Routes = [
   },
   {
     path: 'event',
-    loadChildren: () => import('./event/event.routes').then((mod) => mod.eventRoutes)
+    loadChildren: () => import('./pages/event/event.routes').then((mod) => mod.eventRoutes)
   },
   {
     path: 'dream',
-    loadChildren: () => import('./dream/dream.routes').then((mod) => mod.dreamRoutes),
+    loadChildren: () => import('./pages/dream/dream.routes').then((mod) => mod.dreamRoutes),
     canActivate: [authGuard]
   },
   {
     path: 'signup',
-    loadChildren: () => import('./sign-up/sign-up.routes').then((mod) => mod.signUpRoutes),
+    loadChildren: () => import('./pages/sign-up/sign-up.routes').then((mod) => mod.signUpRoutes),
   },
   { path: '**', component: NotFoundComponent },
 

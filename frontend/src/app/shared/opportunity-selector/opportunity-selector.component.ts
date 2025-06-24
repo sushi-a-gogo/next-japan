@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { EventOpportunity } from '@app/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { RegistrationService } from '@app/services/registration.service';
 import { SelectionService } from '@app/services/selection.service';

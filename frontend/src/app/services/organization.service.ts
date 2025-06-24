@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { EventData } from '@app/event/models/event-data.model';
-import { EventOpportunity } from '@app/event/models/event-opportunity.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
+import { EventData } from '@app/pages/event/models/event-data.model';
+import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { environment } from '@environments/environment';
 import { catchError, map, Observable } from 'rxjs';
 import { ErrorService } from './error.service';

@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { AuthMockService } from './services/auth-mock.service';
 import { UserProfileService } from './services/user-profile.service';
 
