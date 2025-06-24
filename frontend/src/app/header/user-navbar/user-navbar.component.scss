@@ -101,7 +101,9 @@ nav {
           padding: 0 20px;
 
           &:hover {
-            background-color: map.get(var.$colors, section-medium-gray);
+            @media (pointer: fine) {
+              background-color: map.get(var.$colors, section-medium-gray);
+            }
           }
         }
       }
