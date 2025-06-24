@@ -9,7 +9,6 @@ import { Component, computed, input } from '@angular/core';
 })
 export class AppLogoComponent {
   size = input<number>(48);
-  imageOnly = input<boolean>(true);
   style = computed(() => ({ width: `${this.size()}px`, height: `${this.size}px` }));
 
 }

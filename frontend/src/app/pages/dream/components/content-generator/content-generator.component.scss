@@ -43,9 +43,9 @@ form {
   border: 1px solid
     color.scale(map.get(var.$colors, bright-blue-sky), $lightness: 50%);
 
-  img {
-    border-radius: 6px;
-    overflow: hidden;
+  .icon {
+    font-size: 24px;
+    line-height: 1;
   }
 
   &.error {

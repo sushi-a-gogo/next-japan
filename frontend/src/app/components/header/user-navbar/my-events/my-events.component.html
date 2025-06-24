@@ -13,7 +13,10 @@
   </header>
   <main class="dialog" #main>
     @if(events().length === 0) {
-    <div class="no-events">No events found.</div>
+    <div class="no-events">
+      You haven't registered for any events yet.<br />
+      Start planning your next adventure and your events will appear here!
+    </div>
     } @else { @for(event of events(); track event.startDate) {
     <app-my-event-card [event]="event" />
     } }

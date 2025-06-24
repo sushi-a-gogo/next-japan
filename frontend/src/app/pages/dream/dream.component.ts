@@ -1,8 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { AppImageData } from '@app/models/app-image-data.model';
-import { ImageService } from '@app/services/image.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
 import { ContentGeneratorComponent } from "./components/content-generator/content-generator.component";
 
@@ -13,16 +11,8 @@ import { ContentGeneratorComponent } from "./components/content-generator/conten
   styleUrl: './dream.component.scss'
 })
 export class DreamComponent implements OnInit {
-  backgroundImage: AppImageData = { id: 'dream.png', width: 1536, height: 1024 };
-  backgroundImageSrc: string;
-
   private title = inject(Title);
   private meta = inject(Meta);
-  private imageService = inject(ImageService);
-
-  constructor() {
-    this.backgroundImageSrc = this.imageService.resizeImage(this.backgroundImage, 1536, 1024).src;
-  }
 
   ngOnInit(): void {
     this.title.setTitle('Next Japan Dream Events');
