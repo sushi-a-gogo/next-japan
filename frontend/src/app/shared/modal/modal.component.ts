@@ -1,6 +1,6 @@
 import { Component, DestroyRef, HostListener, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
@@ -25,13 +25,16 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
+      filter((e) => e instanceof NavigationStart),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         if (this.initialized) {
           this.onClose();
         }
-        this.initialized = true;
       });
+
+    setTimeout(() => {
+      this.initialized = true;
+    }, 250)
   }
 
   @HostListener('document:keydown', ['$event'])
