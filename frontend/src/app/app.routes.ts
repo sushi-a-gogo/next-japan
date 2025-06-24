@@ -29,6 +29,14 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'legal',
+    loadChildren: () => import('./pages/legal/legal.routes').then((mod) => mod.routes)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./pages/sign-up/sign-up.routes').then((mod) => mod.signUpRoutes),
+  },
+  {
     path: 'event',
     loadChildren: () => import('./pages/event/event.routes').then((mod) => mod.eventRoutes)
   },
@@ -36,10 +44,6 @@ export const routes: Routes = [
     path: 'dream',
     loadChildren: () => import('./pages/dream/dream.routes').then((mod) => mod.dreamRoutes),
     canActivate: [authGuard]
-  },
-  {
-    path: 'signup',
-    loadChildren: () => import('./pages/sign-up/sign-up.routes').then((mod) => mod.signUpRoutes),
   },
   { path: '**', component: NotFoundComponent },
 

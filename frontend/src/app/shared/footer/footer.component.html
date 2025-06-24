@@ -6,22 +6,17 @@
     <nav>
       <ul>
         <li>
-          <a routerLink="home">Privacy Policy</a>
+          <a routerLink="/legal/privacy">Privacy Policy</a>
         </li>
         <li>
-          <a routerLink="home">Terms of Service</a>
+          <a routerLink="/legal/tos">Terms of Service</a>
         </li>
         <li>
-          <a routerLink="home">Cookies</a>
+          <a routerLink="/legal/cookies">Cookies</a>
         </li>
         <li>
-          <a routerLink="home">Acceptable Use</a>
+          <a routerLink="/legal/acceptable-use">Acceptable Use</a>
         </li>
-        @if(isAuthenticated()) {
-        <li>
-          <a routerLink="/legal/delete-my-data">Delete my Data</a>
-        </li>
-        }
         <li>
           <a href="" (click)="openAboutDialog($event)">About</a>
         </li>

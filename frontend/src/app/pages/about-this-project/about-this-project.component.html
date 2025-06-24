@@ -1,14 +1,11 @@
-<img class="background" [ngSrc]="backgroundImage.src" fill priority />
+<img class="background" ngSrc="assets/images/about.webp" fill priority />
 <div class="content">
   @if(!isAuthenticated()) {
   <app-navbar />
   } @else {
   <div></div>
   }
-  <article
-    class="flex-column content-container"
-    [style.backgroundImage]="backgroundImage.src"
-  >
+  <article class="flex-column content-container">
     <header>👨‍💻 About This Project</header>
     <main>
       <div>

@@ -6,6 +6,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
@@ -15,7 +16,8 @@ import { UserProfileForm } from './user-profile.form';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule, MatFormFieldModule, MatSelectModule, ModalComponent, AvatarComponent],
+  imports: [RouterLink, ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule,
+    MatFormFieldModule, MatSelectModule, ModalComponent, AvatarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
