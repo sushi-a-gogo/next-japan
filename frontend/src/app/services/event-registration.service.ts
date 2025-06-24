@@ -7,7 +7,7 @@ import { NotificationService } from './notification.service';
 @Injectable({
   providedIn: 'root',
 })
-export class RegistrationService {
+export class EventRegistrationService {
   private notificationService = inject(NotificationService);
 
   private registrationSignal = signal<EventRegistration[]>([]);

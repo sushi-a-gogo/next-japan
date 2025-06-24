@@ -1,7 +1,7 @@
 import { Component, computed, inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { RegistrationService } from '@app/services/registration.service';
+import { EventRegistrationService } from '@app/services/event-registration.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { MyEventCardComponent } from "./my-event-card/my-event-card.component";
@@ -13,7 +13,7 @@ import { MyEventCardComponent } from "./my-event-card/my-event-card.component";
   styleUrl: './my-events.component.scss'
 })
 export class MyEventsComponent {
-  private registrationService = inject(RegistrationService);
+  private registrationService = inject(EventRegistrationService);
   private userService = inject(UserProfileService);
   private user = this.userService.userProfile;
 

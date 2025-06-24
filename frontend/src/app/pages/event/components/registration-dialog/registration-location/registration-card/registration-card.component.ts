@@ -1,6 +1,6 @@
 import { Component, inject, input, output } from '@angular/core';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
-import { SelectionService } from '@app/services/selection.service';
+import { EventSelectionService } from '@app/services/event-selection.service';
 import { OpportunityLabelComponent } from "@shared/opportunity-label/opportunity-label.component";
 
 @Component({
@@ -10,7 +10,7 @@ import { OpportunityLabelComponent } from "@shared/opportunity-label/opportunity
   styleUrl: './registration-card.component.scss'
 })
 export class RegistrationCardComponent {
-  private selectionService = inject(SelectionService);
+  private selectionService = inject(EventSelectionService);
 
   opportunity = input.required<EventOpportunity>();
   allowRemoval = input<boolean>(false);

@@ -4,7 +4,7 @@ import { EventOpportunity } from '@app/pages/event/models/event-opportunity.mode
 @Injectable({
   providedIn: 'root',
 })
-export class SelectionService {
+export class EventSelectionService {
   private selected = signal<EventOpportunity[]>([]);
   selectedOpportunities = this.selected.asReadonly();
 
