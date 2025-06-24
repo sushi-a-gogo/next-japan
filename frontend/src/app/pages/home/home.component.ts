@@ -9,7 +9,6 @@ import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { environment } from '@environments/environment';
 import { forkJoin, of } from 'rxjs';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
@@ -38,7 +37,6 @@ export class HomeComponent implements OnInit {
   backgroundImage = "url('/assets/images/tokyo-day.webp')";
 
   ngOnInit(): void {
-    console.log('PROD API URL:', environment.apiUrl);
     const observables = {
       org: this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$(),
       events: this.organizationService.getEvents$(),

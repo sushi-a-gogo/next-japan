@@ -4,8 +4,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { AvatarComponent } from "@app/shared/avatar/avatar.component";
-import { MyEventsComponent } from "../my-events/my-events.component";
-import { UserProfileComponent } from "../user-profile/user-profile.component";
+import { MyEventsComponent } from "./my-events/my-events.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @Component({
   selector: 'app-user-menu',
