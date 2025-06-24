@@ -64,6 +64,12 @@
     display: none;
   }
 
+  .event-footer.visible {
+    font-size: 22px;
+    line-height: 28px;
+    height: 120px;
+  }
+
   .desktop {
     display: flex;
     flex-direction: row;

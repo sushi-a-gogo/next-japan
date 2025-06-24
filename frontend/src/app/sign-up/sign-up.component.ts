@@ -1,12 +1,11 @@
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ImageService } from '@app/services/image.service';
-import { NavbarComponent } from "../components/navbar/navbar.component";
 import { plans } from './subscription-plan.model';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [NgOptimizedImage, CurrencyPipe, NavbarComponent],
+  imports: [NgOptimizedImage, CurrencyPipe],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })

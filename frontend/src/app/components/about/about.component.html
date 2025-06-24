@@ -1,11 +1,12 @@
-<app-modal (close)="close.emit(true)">
+@if(showDialog()) {
+<app-modal (close)="close()">
   <header class="dialog">
     <span>About this App</span>
     <button
       type="button"
       class="dialog-close"
       mat-icon-button
-      (click)="close.emit(true)"
+      (click)="close()"
     >
       <span class="material-icons">close</span>
     </button>
@@ -42,9 +43,10 @@
       type="button"
       matRipple
       class="app-button dialog-button app-button-cancel"
-      (click)="close.emit(true)"
+      (click)="close()"
     >
       OK
     </button>
   </footer>
 </app-modal>
+}

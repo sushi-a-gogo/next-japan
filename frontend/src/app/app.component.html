@@ -6,13 +6,8 @@
     </section>
   </main>
 </div>
-@defer () { @if(showDialog() === 'about') {
-<app-about (close)="closeDialog()" />
-} @if(showDialog() === 'registration') {
-<app-registration-dialog (close)="closeDialog()" />
-} @if(isAuthenticating()) {
-<app-login />
-}
+<app-about />
 <app-error-bar />
-<app-opportunity-request-footer />
-}
+@defer () { @if(isAuthenticating()) {
+<app-login />
+} }

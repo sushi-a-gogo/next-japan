@@ -2,12 +2,15 @@ import { Component, computed, DestroyRef, inject, input, OnChanges, signal, Simp
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
+import { RegistrationDialogComponent } from "@app/components/registration-dialog/registration-dialog.component";
 import { EventService } from '@app/event/event.service';
 import { FooterComponent } from '@app/footer/footer.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { catchError, forkJoin, of } from 'rxjs';
+import { OpportunityRequestFooterComponent } from "../components/opportunity-request-footer/opportunity-request-footer.component";
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -16,7 +19,7 @@ import { EventOverviewComponent } from "./components/event-overview/event-overvi
 @Component({
   selector: 'app-event-page',
   imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent,
-    EventOpportunitiesComponent, FooterComponent, PageLoadSpinnerComponent],
+    EventOpportunitiesComponent, FooterComponent, PageLoadSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
@@ -25,6 +28,8 @@ export class EventPageComponent implements OnChanges {
   private meta = inject(Meta);
 
   private auth = inject(AuthMockService);
+  private dialogService = inject(DialogService);
+
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
 
@@ -46,6 +51,8 @@ export class EventPageComponent implements OnChanges {
     }
     return undefined;
   });
+
+  showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
   ngOnChanges(changes: SimpleChanges): void {
     const id = Number(this.eventId());
@@ -82,6 +89,10 @@ export class EventPageComponent implements OnChanges {
     setTimeout(() => {
       this.focusChild = null;
     }, 250);
+  }
+
+  closeRegistrationDialog() {
+    this.dialogService.closeDialog('registration');
   }
 
 }

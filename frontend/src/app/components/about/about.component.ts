@@ -1,7 +1,8 @@
-import { Component, output } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
+import { DialogService } from '@app/services/dialog.service';
 import { ModalComponent } from "../../shared/modal/modal.component";
 
 @Component({
@@ -11,6 +12,15 @@ import { ModalComponent } from "../../shared/modal/modal.component";
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
-  close = output<boolean>();
+  private dialogService = inject(DialogService);
+
+  showDialog = computed(() => {
+    console.log(this.dialogService.showDialog());
+    return this.dialogService.showDialog() === 'about';
+  });
+
+  close() {
+    this.dialogService.closeDialog('about');
+  }
 
 }
