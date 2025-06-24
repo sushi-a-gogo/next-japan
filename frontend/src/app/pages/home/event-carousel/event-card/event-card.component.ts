@@ -30,7 +30,6 @@ export class EventCardComponent implements OnInit {
     this.routerLink = `/event/${this.event().eventId}`;
   }
 
-
   goToEvent() {
     if (this.openInNewTab()) {
       window.open(this.routerLink, `_blank`);

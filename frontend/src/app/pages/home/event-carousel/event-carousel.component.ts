@@ -54,19 +54,14 @@ export class EventCarouselComponent implements OnInit, OnChanges {
           }
         }
       });
+    this.configureEvents();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     const changed = changes['events'];
     if (changed && !changed.firstChange) {
-      this.events().forEach((event) => {
-        const eventOpportunities = this.opportunities()
-          .filter((o) => o.eventId === event.eventId)
-          .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-
-        event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
-      });
-      this.configureSlides();
+      this.configureEvents();
     }
   }
 
@@ -76,6 +71,18 @@ export class EventCarouselComponent implements OnInit, OnChanges {
 
   showNextSlide() {
     this.carouselIndex = this.carouselIndex + 1;
+  }
+
+  private configureEvents() {
+    this.events().forEach((event) => {
+      const eventOpportunities = this.opportunities()
+        .filter((o) => o.eventId === event.eventId)
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
+      event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+    });
+    this.configureSlides();
+
   }
 
   private configureSlides() {
