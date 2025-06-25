@@ -2,8 +2,8 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventInformation } from '@app/pages/event/models/event-information.model';
-import { OpportunityDateComponent } from "@app/pages/home/event-carousel/event-card/opportunity-date/opportunity-date.component";
 import { ImageService } from '@app/services/image.service';
+import { OpportunityDateComponent } from "@app/shared/opportunity-date/opportunity-date.component";
 
 @Component({
   selector: 'app-search-card',

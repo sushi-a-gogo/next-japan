@@ -31,11 +31,12 @@ header {
     transition: 0.25s;
     gap: 5px;
     cursor: pointer;
-    border: 1px solid map.get(var.$colors, dark-gray);
+    border: 1px solid map.get(var.$colors, section-medium-gray);
     border-radius: 100%;
     color: #000;
     background-color: map.get(var.$colors, section-light-gray);
-    height: 48px;
+    height: 42px;
+    width: 42px;
     white-space: nowrap;
 
     .desktop {
@@ -134,6 +135,7 @@ header {
     button {
       padding-left: 10px;
       border-radius: 3px;
+      width: auto;
 
       .material-icons.mobile {
         display: none;

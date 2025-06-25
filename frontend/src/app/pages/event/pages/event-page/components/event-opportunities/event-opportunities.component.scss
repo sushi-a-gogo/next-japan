@@ -10,35 +10,41 @@ main {
   padding: 20px 0;
   background-color: #fff;
   padding-bottom: 80px;
+}
 
-  .opportunity-cards {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+.opportunity-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
 
-    .opportunity-card {
-      width: 100%;
-      border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
-      padding: 10px;
-      padding-right: 0;
-      padding-bottom: 20px;
-      margin-bottom: 10px;
+.opportunity-card {
+  width: 100%;
+  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  padding: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
 
-      &:first-child {
-        padding-top: 0;
-      }
-    }
+  &:first-child {
+    padding-top: 0;
   }
+}
 
-  .message {
-    padding: 10px;
-  }
+.message {
+  padding: 10px;
 }
 
 @media (min-width: 992px) {
   :host {
     display: block;
     width: 430px;
+  }
+}
+
+@media (min-width: var.$max-page-width) {
+  .opportunity-card {
+    padding-right: 0;
   }
 }
