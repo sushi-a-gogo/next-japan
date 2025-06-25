@@ -16,5 +16,5 @@ export class OrgBannerComponent {
 
   isAuthenticated = this.auth.isAuthenticated;
   org = input<OrganizationInformation | null>(null);
-  bannerImage = `assets/images/tokyo-day.webp`;
+  bannerImage = `assets/images/tokyo-night.webp`;
 }

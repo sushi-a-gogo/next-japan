@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
-  backgroundImage = "url('/assets/images/tokyo-day.webp')";
+  backgroundImage = "url('/assets/images/tokyo-night.webp')";
 
   ngOnInit(): void {
     const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
