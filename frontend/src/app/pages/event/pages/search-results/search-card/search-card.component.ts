@@ -15,15 +15,12 @@ export class SearchCardComponent implements OnInit {
   private imageService = inject(ImageService);
 
   event = input.required<EventInformation>();
+  query = input<string>();
   resizedImage = computed(() => {
     return this.imageService.resizeImage(this.event().image, 192, 128);
   });
 
-  openInNewTab = input<boolean>(false);
-
-
   routerLink: string = '';
-
   private router = inject(Router);
 
   ngOnInit() {
@@ -31,11 +28,7 @@ export class SearchCardComponent implements OnInit {
   }
 
   goToEvent() {
-    if (this.openInNewTab()) {
-      window.open(this.routerLink, `_blank`);
-    } else {
-      this.router.navigate([this.routerLink]);
-    }
+    this.router.navigate([this.routerLink], { queryParams: { q: this.query() } });
   }
 
 }

@@ -31,7 +31,8 @@ export class SearchAutocompleteComponent implements OnInit {
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        this.searchQuery.setValue(this.route.snapshot.queryParams['q'], { emitEvent: false });
+        const query = this.route.snapshot.queryParams['q'];
+        this.searchQuery.setValue(query, { emitEvent: false });
         this.filteredEvents = [];
       });
 

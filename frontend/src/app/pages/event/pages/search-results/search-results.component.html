@@ -7,11 +7,18 @@
     </small>
     <span class="title">Results</span>
   </header>
+  @if(events().length) {
   <small class="hint">Check each event page for other opportunities.</small>
+  } @else {
+  <span>
+    No events matched your search. Please try different keywords or check your
+    spelling.
+  </span>
+  }
   <ul>
     @for(event of events(); track event.eventId) {
     <li>
-      <app-search-card [event]="event" />
+      <app-search-card [event]="event" [query]="q()" />
     </li>
     }
   </ul>
