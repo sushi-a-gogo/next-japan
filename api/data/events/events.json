@@ -58,5 +58,15 @@
       "width": 1792,
       "height": 1024
     }
+  },
+  {
+    "eventId": 9,
+    "eventTitle": "Tower Records Deep Dive",
+    "description": "Spend an exciting day exploring Tower Records in Tokyo, discovering new music, exclusive releases, and enjoying the vibrant atmosphere of one of the city's most iconic music stores.",
+    "image": {
+      "id": "tower-records.png",
+      "width": 1792,
+      "height": 1024
+    }
   }
 ]

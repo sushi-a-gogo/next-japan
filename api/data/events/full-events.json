@@ -59,7 +59,6 @@
       "width": 1536,
       "height": 1024
     },
-    "imagePos": "top",
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9
@@ -297,6 +296,35 @@
     "locations": [],
     "image": {
       "id": "kyoto-night.png",
+      "width": 1792,
+      "height": 1024
+    },
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9
+  },
+  {
+    "eventId": 9,
+    "eventTitle": "Tower Records Deep Dive",
+    "description": "Spend an exciting day exploring Tower Records in Tokyo, discovering new music, exclusive releases, and enjoying the vibrant atmosphere of one of the city's most iconic music stores.",
+    "fullDescription": "Dive into the vibrant world of music at Tower Records in Tokyo, one of the city's most iconic destinations for music lovers of all ages! This immersive event invites you and your family to explore the legendary multi-story store, where every floor offers a new adventure and discovery.\n\nBegin your day with a guided tour of Tower Records, learning about its rich history and its role in shaping Tokyo's music scene. Browse through an extensive collection of CDs, vinyl records, and exclusive Japanese releases—perfect for collectors and casual fans alike. Our knowledgeable staff will be on hand to recommend hidden gems and help you find your next favorite artist.\n\nParticipate in interactive workshops where you can try your hand at DJing, remixing tracks, or designing your own album cover. For younger guests, there are music-themed games and scavenger hunts throughout the store, making the experience fun and engaging for the whole family.\n\nEnjoy live performances by local bands and up-and-coming artists on the in-store stage, and take part in Q&A sessions to learn more about the creative process behind the music. Don’t miss the exclusive listening booths, where you can preview new releases and rare tracks in a cozy, soundproof environment.\n\nRefuel at the Tower Records Café, offering a menu inspired by popular Japanese and international artists. Savor themed snacks and drinks while soaking in the lively atmosphere and chatting with fellow music enthusiasts.\n\nAs the day winds down, join us for a special meet-and-greet with guest musicians, where you can get autographs and take photos to remember your visit. Whether you’re a lifelong music fan or just curious to explore, Tower Records Deep Dive promises a day of discovery, creativity, and connection in the heart of Tokyo’s music culture.\n\nAll ages and experience levels are welcome. Come ready to listen, learn, and celebrate the universal language of music!",
+    "eventCoordinators": [
+      {
+        "eventId": 7,
+        "eventCoordinatorId": 33,
+        "firstName": "Poyi",
+        "lastName": "Joiri",
+        "email": "xx@yy.zz",
+        "image": {
+          "id": "avatar_3.jpg",
+          "width": 255,
+          "height": 255
+        }
+      }
+    ],
+    "locations": [],
+    "image": {
+      "id": "tower-records.png",
       "width": 1792,
       "height": 1024
     },

@@ -1,0 +1,52 @@
+[
+  {
+    "eventId": 9,
+    "eventTitle": "Tower Records Deep Dive",
+    "image": {
+      "id": "tower-records.png",
+      "width": 1536,
+      "height": 1024
+    },
+    "opportunityId": 5,
+    "locationId": 5,
+    "eventLocationId": 5,
+    "locationName": "Kikugahama Beach",
+    "startDate": "2025-07-21T08:00:00",
+    "endDate": "2025-07-21T14:00:00",
+    "name": "Kikugahama Beach",
+    "addressLine1": "Historical Landmark",
+    "city": "Hagi",
+    "state": "Japan",
+    "zip": "758-0057",
+    "latitude": 34.417891070193804,
+    "longitude": 131.3878227526694,
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "Gather around the campfire for a cookout by the sea. Bring a blanket for extra comfort."
+  },
+  {
+    "eventId": 9,
+    "eventTitle": "Tower Records Deep Dive",
+    "image": {
+      "width": 1536,
+      "height": 1024
+    },
+    "opportunityId": 6,
+    "locationId": 101,
+    "locationName": "Tower Records",
+    "startDate": "2025-10-01T08:00:00",
+    "endDate": "2025-10-01T14:00:00",
+    "name": "Tower Records",
+    "addressLine1": "1 Chome-22-14 Jinnan",
+    "city": "Shibuya City",
+    "state": "Tokyo",
+    "zip": "150-0041",
+    "latitude": 35.661777,
+    "longitude": 139.698289,
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "Explore the iconic Tower Records, discover rare music finds, and enjoy exclusive in-store events."
+  }
+]
