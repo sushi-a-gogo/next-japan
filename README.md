@@ -5,7 +5,7 @@ integration, and cloud deployment — all wrapped in a playful, visually engagin
 
 Goals
 - Demonstrate Angular v20 component-driven development
-- Learn 'modern' reactive angular programming using signals, computed and effect
+- Learn 'modern' reactive angular programming techniques: signals, computed() and effect()
 - Implement a real-world REST API with Express
 - Deploy both frontend and backend to the cloud (Render)
 - Integrate OpenAI API to enhance interactivity
