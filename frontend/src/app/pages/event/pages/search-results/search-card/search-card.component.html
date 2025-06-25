@@ -1,7 +1,6 @@
 <div class="card-container">
   <button type="button" (click)="goToEvent()" class="border-box">
     <div class="image-container">
-      @if(resizedImage()) {
       <img
         alt="Event Image"
         priority
@@ -9,13 +8,6 @@
         [width]="resizedImage().image.width"
         [height]="resizedImage().image.height"
       />
-      } @else {
-      <img
-        alt="Event Image Not Available"
-        class="no-image"
-        src="assets/images/no-image.png"
-      />
-      }
     </div>
     <div class="card-body">
       <div

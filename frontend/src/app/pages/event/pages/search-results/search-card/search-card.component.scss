@@ -41,21 +41,17 @@ button {
 .image-container {
   width: 192px;
   height: 128px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-radius: 3px;
   background-color: var(--creamy-white-clouds);
   background: url("/assets/images/no-image.png");
   background-size: cover;
   overflow: hidden;
-  padding: 3px;
 
   img {
     border-radius: 3px;
-    border-top-right-radius: 3px;
     object-fit: fill;
     height: 100%;
     width: 100%;
-    vertical-align: top;
     transition: 0.25s;
   }
 }
