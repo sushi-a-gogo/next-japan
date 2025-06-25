@@ -1,0 +1,30 @@
+<form class="search-container" (ngSubmit)="search()">
+  <mat-form-field
+    appearance="outline"
+    subscriptSizing="dynamic"
+    class="compact-form-field"
+  >
+    <!-- <mat-label>Search Events</mat-label> -->
+    <input
+      matInput
+      #autocompleteInput="matAutocompleteTrigger"
+      type="text"
+      aria-label="Event Search"
+      placeholder="Search Events"
+      [formControl]="searchQuery"
+      [matAutocomplete]="auto"
+      class="example-input"
+    />
+    <button matSuffix mat-icon-button>
+      <span class="material-icons">search</span>
+    </button>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onOptionSelected($event)"
+    >
+      @for (event of filteredEvents; track event.eventId) {
+      <mat-option [value]="event.eventTitle">{{ event.eventTitle }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

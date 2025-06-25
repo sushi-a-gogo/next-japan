@@ -1,11 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, DestroyRef, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { OrganizationService } from '@app/services/organization.service';
+import { forkJoin } from 'rxjs';
 import { EventCardComponent } from "./event-card/event-card.component";
 
 const EventCarouselBreakpoints = {
@@ -20,11 +22,11 @@ const EventCarouselBreakpoints = {
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss'
 })
-export class EventCarouselComponent implements OnInit, OnChanges {
-  events = input<EventData[]>([]);
-  opportunities = input<EventOpportunity[]>([]);
+export class EventCarouselComponent implements OnInit {
+  events = signal<EventData[]>([]);
+  loaded = signal<boolean>(false);
+  hasError = signal<boolean>(false);
 
-  openInNewTab = input<boolean>(false);
   carouselIndex = 0;
   slides: { events: (EventData | null)[] }[] = [];
 
@@ -36,6 +38,7 @@ export class EventCarouselComponent implements OnInit, OnChanges {
     [EventCarouselBreakpoints.large, 3],
   ]);
 
+  private organizationService = inject(OrganizationService);
   private breakpointObserver = inject(BreakpointObserver);
   private destroyRef = inject(DestroyRef);
 
@@ -54,15 +57,26 @@ export class EventCarouselComponent implements OnInit, OnChanges {
           }
         }
       });
-    this.configureEvents();
 
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const changed = changes['events'];
-    if (changed && !changed.firstChange) {
-      this.configureEvents();
-    }
+    const observables = {
+      events: this.organizationService.getEvents$(),
+      opportunities: this.organizationService.getNextOpportunities$(),
+    };
+    forkJoin(observables).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: (res) => {
+        this.events.set(res.events);
+        this.configureEvents(res.opportunities);
+      },
+      error: () => {
+        this.loaded.set(true);
+        this.hasError.set(true);
+      },
+      complete: () => {
+        this.loaded.set(true);
+      }
+    });
   }
 
   showPrevSlide() {
@@ -73,16 +87,16 @@ export class EventCarouselComponent implements OnInit, OnChanges {
     this.carouselIndex = this.carouselIndex + 1;
   }
 
-  private configureEvents() {
+  private configureEvents(opportunities: EventOpportunity[]) {
     this.events().forEach((event) => {
-      const eventOpportunities = this.opportunities()
+      const eventOpportunities = opportunities
         .filter((o) => o.eventId === event.eventId)
         .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 
       event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
     });
-    this.configureSlides();
 
+    this.configureSlides();
   }
 
   private configureSlides() {

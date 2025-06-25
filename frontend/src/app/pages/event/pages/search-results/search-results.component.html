@@ -1,0 +1,21 @@
+<div class="content-container flex-column fade-in" [class.open]="loaded()">
+  <header class="flex-column">
+    <small
+      >{{ events().length }}
+      {{ events().length === 1 ? "result" : "results" }} for
+      <span class="hilite">"{{ q() }}"</span>
+    </small>
+    <span class="title">Results</span>
+  </header>
+  <small class="hint">Check each event page for other opportunities.</small>
+  <ul>
+    @for(event of events(); track event.eventId) {
+    <li>
+      <app-search-card [event]="event" />
+    </li>
+    }
+  </ul>
+</div>
+<footer>
+  <app-footer />
+</footer>

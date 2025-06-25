@@ -3,13 +3,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
-import { EventData } from '@app/pages/event/models/event-data.model';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { forkJoin, of } from 'rxjs';
+import { of } from 'rxjs';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
@@ -28,8 +26,6 @@ export class HomeComponent implements OnInit {
   private organizationService = inject(OrganizationService);
 
   org = this.organizationService.organizationInformation;
-  events = signal<EventData[]>([]);
-  opportunities = signal<EventOpportunity[]>([]);
   bannerImage?: AppImageData;
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
@@ -37,20 +33,12 @@ export class HomeComponent implements OnInit {
   backgroundImage = "url('/assets/images/tokyo-day.webp')";
 
   ngOnInit(): void {
-    const observables = {
-      org: this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$(),
-      events: this.organizationService.getEvents$(),
-      opportunities: this.organizationService.getNextOpportunities$(),
-    };
-    forkJoin(observables).pipe(
+    const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
+
+    org$.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (res) => {
-        const org = res.org;
-
-        this.opportunities.set(res.opportunities);
-        this.events.set(res.events);
-
+      next: (org) => {
         this.title.setTitle(`${org.name}`);
         // Set meta tags
         this.meta.updateTag({ name: 'description', content: org.infoDescription });

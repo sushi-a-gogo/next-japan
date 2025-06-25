@@ -7,6 +7,7 @@ import { UtilService } from '@app/services/util.service';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { EventData } from './models/event-data.model';
 import { EventInformation } from './models/event-information.model';
 
 @Injectable()
@@ -24,7 +25,21 @@ export class EventService {
 
   private errorService = inject(ErrorService);
   private util = inject(UtilService);
-  private apiUri = `${environment.apiUrl}/api/event`;
+  private apiUrl = `${environment.apiUrl}/api/event`;
+
+  searchEvents$(query: string): Observable<EventData[]> {
+    return this.http.get<EventInformation[]>(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'searchEvents'),
+      map(events => events.slice(0, 5)) // Limit to 5 suggestions
+    );
+  }
+
+  searchFullEvents(query: string): Observable<EventInformation[]> {
+    return this.http.get<EventInformation[]>(`${this.apiUrl}/search?v=1&q=${encodeURIComponent(query)}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'searchFullEvents'),
+      map(events => events.slice(0, 10)) // Limit to 10 suggestions
+    );
+  }
 
   getEvent$(eventId: number): Observable<EventInformation | null> {
     this.eventSignal.set(null);
@@ -64,14 +79,14 @@ export class EventService {
   }
 
   private getEventById$(id: number) {
-    return this.http.get<{ event: EventInformation }>(`${this.apiUri}/${id}`).pipe(
+    return this.http.get<{ event: EventInformation }>(`${this.apiUrl}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getEvent'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching event.'))
     );
   }
 
   private getOpportunities$(eventId: number) {
-    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUri}/${eventId}/opportunities`).pipe(
+    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUrl}/${eventId}/opportunities`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getOpportunities'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
     );

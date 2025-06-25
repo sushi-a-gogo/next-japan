@@ -1,0 +1,60 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.content-container {
+  padding: 10px 20px;
+  width: 100%;
+}
+
+header {
+  .title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+  }
+}
+
+footer {
+  width: 100%;
+}
+
+.hilite {
+  color: var(--bright-blue-sky);
+  font-weight: 700;
+  font-size: larger;
+}
+
+.hint {
+  color: map.get(var.$colors, dark-label);
+  font-weight: 500;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  li:not(:last-child) {
+    border-bottom: 1px solid map.get(var.$colors, default-gray);
+  }
+}
+
+@media (min-width: 600px) {
+  ul {
+    gap: 20px;
+    width: 70%;
+  }
+}

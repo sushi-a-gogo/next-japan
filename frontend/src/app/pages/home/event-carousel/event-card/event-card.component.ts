@@ -19,11 +19,7 @@ export class EventCardComponent implements OnInit {
     return this.imageService.resizeImage(this.event().image, 384, 256);
   });
 
-  openInNewTab = input<boolean>(false);
-
-
   routerLink: string = '';
-
   private router = inject(Router);
 
   ngOnInit() {
@@ -31,10 +27,6 @@ export class EventCardComponent implements OnInit {
   }
 
   goToEvent() {
-    if (this.openInNewTab()) {
-      window.open(this.routerLink, `_blank`);
-    } else {
-      this.router.navigate([this.routerLink]);
-    }
+    this.router.navigate([this.routerLink]);
   }
 }

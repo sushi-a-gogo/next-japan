@@ -1,0 +1,22 @@
+// File: src/styles/themes/next-japan-theme.scss
+
+@use "@angular/material" as mat;
+@use "sass:map";
+@use "./next-japan_theme-colors.scss" as colors;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: colors.$primary-palette,
+        tertiary: colors.$tertiary-palette,
+      ),
+      typography: (
+        plain-family:
+          'Source Sans Pro, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+      ),
+      density: 0,
+    )
+  );
+}

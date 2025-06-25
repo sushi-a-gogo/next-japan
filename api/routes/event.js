@@ -1,7 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
 import fs from "node:fs/promises";
-import { EVENTS_FULL_JSON, OPPORTUNITIES_JSON } from "../utils/paths.js";
+import {
+  EVENTS_FULL_JSON,
+  EVENTS_JSON,
+  OPPORTUNITIES_JSON,
+} from "../utils/paths.js";
 
 dotenv.config();
 
@@ -27,6 +31,31 @@ async function readOpportunities(eventId) {
 
   return opportunities;
 }
+
+router.get("/search", async (req, res) => {
+  const query = req.query.q?.toLowerCase() || "";
+  const verbose = req.query.v?.toLowerCase() || "";
+  const fileContent = await fs.readFile(EVENTS_FULL_JSON, "utf-8");
+  const fullEvents = JSON.parse(fileContent);
+  const filteredEvents = fullEvents.filter(
+    (event) =>
+      event.eventTitle.toLowerCase().includes(query) ||
+      event.description.toLowerCase().includes(query) ||
+      event.fullDescription.toLowerCase().includes(query)
+  );
+
+  if (verbose === "1") {
+    res.json(filteredEvents);
+  } else {
+    const content = await fs.readFile(EVENTS_JSON, "utf-8");
+    const events = JSON.parse(content);
+    res.json(
+      events.filter(
+        (e) => !!filteredEvents.find((fe) => e.eventId === fe.eventId)
+      )
+    );
+  }
+});
 
 router.get("/:id", async (req, res) => {
   const eventId = Number(req.params.id);

@@ -10,7 +10,7 @@
   transition: 0.25s ease-in-out;
   &.user {
     grid-template-rows:
-      [header-row] calc(var.$color-bar-height + var.$user-header-height)
+      [header-row] calc(var.$color-bar-height + var.$user-header-height-mobile)
       [main-row] auto;
   }
 }

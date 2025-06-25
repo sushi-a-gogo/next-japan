@@ -31,17 +31,12 @@
     </section>
     <section>
       <div class="flex-content">
-        @if(events().length) {
         <!-- defer -->
         @defer () {
-        <app-event-carousel
-          [events]="events()"
-          [opportunities]="opportunities()"
-          [class.open]="loaded()"
-        ></app-event-carousel>
+        <app-event-carousel></app-event-carousel>
         } @placeholder {
         <p>Loading events...</p>
-        } }
+        }
       </div>
     </section>
   </main>

@@ -1,0 +1,25 @@
+@use "@angular/material" as mat;
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+form {
+  width: 100%;
+}
+
+.compact-form-field {
+  width: 100%;
+  background-color: #d9e4ee; // map.get(var.$colors, section-medium-gray);
+  @include mat.form-field-density(-4);
+}
+
+.search-container {
+  padding: 10px;
+}
+.search-field {
+  width: 300px;
+}

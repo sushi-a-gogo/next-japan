@@ -1,26 +1,27 @@
+@use "sass:map";
 @use "src/styles/variables.scss" as var;
 
-:host {
+section {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  opacity: 0;
-  transition: opacity 0.25s;
   min-height: 542px;
-
-  &.open {
-    opacity: 1;
-  }
 }
 
 .controls {
   align-self: center;
 
   button {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+
+    background-color: map.get(var.$colors, section-gray);
+
+    &:hover {
+      background-color: map.get(var.$colors, section-medium-gray);
+    }
 
     &:disabled {
       opacity: 0;

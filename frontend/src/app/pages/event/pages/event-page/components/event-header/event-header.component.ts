@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { OrganizationService } from '@app/services/organization.service';
-import { NavbarComponent } from "../../../../components/navbar/navbar.component";
+import { NavbarComponent } from "../../../../../../components/navbar/navbar.component";
 import { EventBannerComponent } from "./event-banner/event-banner.component";
 
 @Component({
