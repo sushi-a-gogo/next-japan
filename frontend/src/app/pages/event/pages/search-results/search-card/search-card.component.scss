@@ -39,11 +39,13 @@ button {
 }
 
 .image-container {
-  width: auto;
-  height: auto;
+  width: 192px;
+  height: 128px;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  background-color: transparent;
+  background-color: var(--creamy-white-clouds);
+  background: url("/assets/images/no-image.png");
+  background-size: cover;
   overflow: hidden;
   padding: 3px;
 
