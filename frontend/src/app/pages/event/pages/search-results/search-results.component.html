@@ -1,3 +1,8 @@
+<!-- load spinner-->
+@if(!loaded()) {
+<app-page-load-spinner />
+}
+
 <div class="content-container flex-column fade-in" [class.open]="loaded()">
   <header class="flex-column">
     <small
