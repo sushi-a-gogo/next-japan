@@ -23,7 +23,7 @@ function validateImagePath(imageName) {
 
 // Route: /resize/:width/:height/:imageName
 router.get("/resize/:width/:height/:imageName", async (req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  //await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { width, height, imageName } = req.params;
 
