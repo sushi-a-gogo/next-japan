@@ -1,0 +1,62 @@
+[
+  {
+    "locationId": 1,
+    "locationName": "Mt.Fuji Camp & Glamp",
+    "addressLine1": "2533-1 Oishi",
+    "city": "Yamanashi",
+    "state": "Japan",
+    "zip": "401-0305",
+    "latitude": 35.53679643728625,
+    "longitude": 138.74085199321922
+  },
+  {
+    "locationId": 2,
+    "locationName": "Fujimibashi Mount Fuji Viewing Platform",
+    "addressLine1": "Minamitsuru District",
+    "city": "Kawaguchi",
+    "state": "Japan",
+    "zip": "401-0304",
+    "latitude": 35.541875726481244,
+    "longitude": 138.76978589528957
+  },
+  {
+    "locationId": 3,
+    "locationName": "Rokuon-ji Kinkaku (Golden Pavilion)",
+    "addressLine1": "1 Kinkakujicho, Kita Ward",
+    "city": "Kyoto",
+    "state": "Japan",
+    "zip": "603-8361",
+    "latitude": 35.03962471760949,
+    "longitude": 135.72843306957876
+  },
+  {
+    "locationId": 4,
+    "locationName": "South Pond Remains",
+    "addressLine1": "1 Kinkakujicho, Kita Ward",
+    "city": "Kyoto",
+    "state": "Japan",
+    "zip": "603-8361",
+    "latitude": 35.038772637050386,
+    "longitude": 135.72867446836977
+  },
+  {
+    "locationId": 5,
+    "locationName": "Kikugahama Beach",
+    "addressLine1": "Historical Landmark",
+    "city": "Hagi",
+    "state": "Japan",
+    "zip": "758-0057",
+    "latitude": 34.417891070193804,
+    "longitude": 131.3878227526694
+  },
+  {
+    "locationId": 6,
+    "locationName": "Tower Records",
+    "addressLine1": "1 Chome-22-14 Jinnan",
+    "city": "Shibuya City",
+    "state": "Tokyo",
+    "zip": "150-0041",
+    "latitude": 35.661777,
+    "longitude": 139.698289
+  }
+]

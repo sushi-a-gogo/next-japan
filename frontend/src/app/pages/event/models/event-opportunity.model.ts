@@ -6,9 +6,6 @@ export interface EventOpportunity extends CalendarDate, MapLocation {
   opportunityId: number;
   eventId: number;
   eventTitle: string;
-  description: string;
   image: AppImageData,
-  locationName: string;
-  locationNotes?: string;
   notes?: string;
 }

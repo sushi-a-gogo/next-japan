@@ -54,9 +54,9 @@ export class RegistrationDialogComponent implements OnInit {
       } else {
         location = {
           locationId: opportunity.locationId,
-          name: opportunity.locationName,
-          notes: opportunity.locationNotes,
-          eventId: 0,
+          locationName: opportunity.locationName,
+          locationNotes: opportunity.locationNotes,
+          //eventId: 0,
           addressLine1: opportunity.addressLine1,
           city: opportunity.city,
           state: opportunity.state,

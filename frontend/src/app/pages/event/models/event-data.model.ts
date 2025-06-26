@@ -6,5 +6,5 @@ export interface EventData {
   eventTitle: string;
   description: string;
   image: AppImageData,
-  nextOpportunity?: CalendarDate;
+  nextOpportunityDate?: CalendarDate;
 }

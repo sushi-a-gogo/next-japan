@@ -28,11 +28,11 @@
         {{ event().description }}
       </div>
       <div class="upcoming">
-        @if(event().nextOpportunity) {
+        @if(event().nextOpportunityDate) {
         <div>
           <div class="banner">Next Opportunity</div>
           <app-opportunity-date
-            [opportunity]="event().nextOpportunity!"
+            [opportunity]="event().nextOpportunityDate!"
           ></app-opportunity-date>
         </div>
         }

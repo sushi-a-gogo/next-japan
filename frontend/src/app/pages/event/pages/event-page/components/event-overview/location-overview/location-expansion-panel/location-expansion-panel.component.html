@@ -1,6 +1,6 @@
 <header [class.collapsed]="!accordion.expanded">
   <div class="location-address">
-    <div class="title-text">{{ location().name }}</div>
+    <div class="title-text">{{ location().locationName }}</div>
     <app-address-strip
       [location]="location()"
       [showDirections]="true"

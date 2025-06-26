@@ -41,7 +41,7 @@ export class SearchResultsComponent implements OnChanges {
         const events = res.events;
         events.forEach((event) => {
           const opportunities = res.opportunities.sort(this.sortByDate).filter((o) => o.eventId === event.eventId);
-          event.nextOpportunity = opportunities.length ? opportunities[0] : undefined;
+          event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
         });
         this.events.set(events);
       },

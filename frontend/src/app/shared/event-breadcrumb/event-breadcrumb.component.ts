@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EventData } from '@app/pages/event/models/event-data.model';
+import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 
 @Component({
   selector: 'app-event-breadcrumb',
@@ -9,7 +9,7 @@ import { EventData } from '@app/pages/event/models/event-data.model';
   styleUrl: './event-breadcrumb.component.scss'
 })
 export class EventBreadcrumbComponent implements OnInit {
-  data = input.required<EventData>();
+  data = input.required<EventOpportunity>();
   eventRouterLink!: string;
   landingPageRouterLink!: string;
   clientPageRouterLink!: string;

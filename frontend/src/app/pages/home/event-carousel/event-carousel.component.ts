@@ -93,7 +93,7 @@ export class EventCarouselComponent implements OnInit {
         .filter((o) => o.eventId === event.eventId)
         .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 
-      event.nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+      event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
     });
 
     this.configureSlides();
