@@ -8,6 +8,11 @@ import openAiRouter from "./routes/openai-integration.js";
 import organizationRouter from "./routes/organization.js";
 import userRouter from "./routes/user.js";
 
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err.stack);
+  process.exit(1); // Exits the process, triggering Render restart if needed
+});
+
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20, // Limit each IP to 20 requests
@@ -51,5 +56,11 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "404 - Not Found" });
 });
 
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Global error:", err.stack);
+  res.status(500).json({ error: "Something went wrong" });
+});
+
 export default app;
-export { app };
+//export { app };
