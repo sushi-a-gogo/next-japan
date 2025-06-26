@@ -30,14 +30,16 @@ export class EventService {
   searchEvents$(query: string): Observable<EventData[]> {
     return this.http.get<EventInformation[]>(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'searchEvents'),
-      map(events => events.slice(0, 5)) // Limit to 5 suggestions
+      map(events => events.slice(0, 5)), // Limit to 5 suggestions
+      catchError((e) => this.errorService.handleError(e, 'Error searching event.'))
     );
   }
 
   searchFullEvents(query: string): Observable<EventInformation[]> {
     return this.http.get<EventInformation[]>(`${this.apiUrl}/search?v=1&q=${encodeURIComponent(query)}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'searchFullEvents'),
-      map(events => events.slice(0, 10)) // Limit to 10 suggestions
+      map(events => events.slice(0, 10)), // Limit to 10 suggestions
+      catchError((e) => this.errorService.handleError(e, 'Error searching event.'))
     );
   }
 

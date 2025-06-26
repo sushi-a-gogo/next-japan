@@ -9,7 +9,9 @@
         [height]="resizedImage().image.height"
       />
     </div>
-    <div class="card-body">
+  </button>
+  <div class="card-body">
+    <div>
       <div
         class="title break-word"
         matTooltipShowDelay="750"
@@ -20,17 +22,16 @@
       <div class="description break-word">
         {{ event().description }}
       </div>
-      <div class="upcoming">
-        @if(event().nextOpportunity) {
-        <div>
-          <div class="banner">Next Opportunity</div>
-          <app-opportunity-date
-            [opportunity]="event().nextOpportunity!"
-            layout="center"
-          ></app-opportunity-date>
-        </div>
-        }
+    </div>
+    @if(event().nextOpportunity) {
+    <div>
+      <strong>Next Opportunity</strong>
+      <div class="description">
+        <app-opportunity-date
+          [opportunity]="event().nextOpportunity!"
+        ></app-opportunity-date>
       </div>
     </div>
-  </button>
+    }
+  </div>
 </div>

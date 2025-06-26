@@ -4,22 +4,22 @@
 }
 
 <div class="content-container flex-column fade-in" [class.open]="loaded()">
-  <header class="flex-column">
+  <header>
     <small
       >{{ events().length }}
       {{ events().length === 1 ? "result" : "results" }} for
       <span class="hilite">"{{ q() }}"</span>
     </small>
-    <span class="title">Results</span>
+    <div class="title">Results</div>
+    @if(events().length) {
+    <small class="hint">Check each event page for other opportunities.</small>
+    } @else {
+    <span>
+      No events matched your search. Please try different keywords or check your
+      spelling.
+    </span>
+    }
   </header>
-  @if(events().length) {
-  <small class="hint">Check each event page for other opportunities.</small>
-  } @else {
-  <span>
-    No events matched your search. Please try different keywords or check your
-    spelling.
-  </span>
-  }
   <ul>
     @for(event of events(); track event.eventId) {
     <li>

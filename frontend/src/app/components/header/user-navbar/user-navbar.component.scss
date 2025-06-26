@@ -47,7 +47,7 @@ li {
   .app-button {
     //height: 100%;
     //width: 100%;
-    background-color: #fff;
+    background-color: transparent;
     padding: 0 20px;
     white-space: nowrap;
     transition: 0.25s;
@@ -58,7 +58,6 @@ li {
     &.logo:active,
     &.logo:focus {
       padding: 0;
-      background-color: transparent;
       border-radius: 0;
     }
 

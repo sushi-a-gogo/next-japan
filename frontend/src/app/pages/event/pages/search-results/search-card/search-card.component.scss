@@ -1,25 +1,20 @@
 @use "sass:map";
+@use "sass:color";
 @use "variables.scss" as var;
 
 .card-container {
-  height: 100%;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 button {
-  //font-family: var.$app-font;
-  height: 100%;
-  width: 100%;
   padding: 0;
   margin: 0;
   border: 0;
   color: #000;
   transition: 0.25s ease-in-out;
   background-color: white;
-
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
 
   &:hover {
     cursor: pointer;
@@ -28,7 +23,7 @@ button {
 
     .image-container {
       img {
-        //filter: brightness(85%);
+        filter: brightness(85%);
 
         &.no-image {
           filter: brightness(95%);
@@ -65,65 +60,30 @@ button {
   gap: 14px;
   width: 100%;
   padding: 10px 0;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
   overflow: hidden;
   text-align: left;
-}
-
-.multi-line-box {
-  -webkit-box-orient: vertical;
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  text-align: left;
-
-  &.description {
-    white-space: pre-wrap;
-  }
 }
 
 .title {
   font-size: 18px;
-  line-height: 21px;
+  line-height: 24px;
   font-weight: 700;
-
-  &.multi-line-box {
-    max-height: 63px;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-  }
 }
 
 .description {
   font-size: 14px;
   line-height: 19px;
-
-  &.multi-line-box {
-    max-height: 76px;
-    line-clamp: 4;
-    -webkit-line-clamp: 4;
-  }
 }
 
-.upcoming {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-
-  .banner {
-    font-weight: 700;
-  }
+strong {
+  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
 }
 
 @media (min-width: 600px) {
-  button {
+  .card-container {
     flex-direction: row;
     align-items: center;
-    gap: 10px;
-    padding: 20px 0;
+    gap: 24px;
+    //padding: 20px 0;
   }
 }
