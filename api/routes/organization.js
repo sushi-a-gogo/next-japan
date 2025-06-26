@@ -17,9 +17,14 @@ router.get("/info", async (req, res) => {
   //return res.status(500).json();
 
   //await new Promise((resolve) => setTimeout(resolve, 15000));
-  const fileContent = await fs.readFile(ORGANIZATION_JSON, "utf-8");
-  const data = JSON.parse(fileContent);
-  res.status(200).json({ data });
+  try {
+    const fileContent = await fs.readFile(ORGANIZATION_JSON, "utf-8");
+    const data = JSON.parse(fileContent);
+    res.status(200).json({ data });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json();
+  }
 });
 
 router.get("/opportunities", async (req, res) => {
