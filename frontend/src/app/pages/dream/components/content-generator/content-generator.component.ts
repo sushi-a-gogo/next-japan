@@ -26,14 +26,14 @@ export class ContentGeneratorComponent {
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  params = { destination: 'Mt. Fuji', style: 'cartoon', tone: 'adventurous', mood: 'excited', palette: 'warm glowing tones together with bright pastels' }; // Default params
+  params = { destination: 'Mt. Fuji', tone: 'adventurous', mood: 'excited', season: 'Summer' }; // Default params
   customText = '';
   storyBookBackground = this.imageService.backgroundImageUrl('storybook.png');
 
 
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
   moods = ['excited', 'serene', 'curious', 'terrified'];
-  palettes = ['warm earth tones', 'bright pastels', 'traditional Japanese colors like indigo, vermilion, etc.'];
+  seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
   destinations = ['Kinkaku-ji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Mt. Fuji', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
 
   dreamEvent = signal<EventData | null>(null);

@@ -3,7 +3,10 @@
 
 .avatar_container {
   border-radius: 50%;
-  background-color: map.get(var.$colors, section-medium-gray);
+  background-color: var(--creamy-white-clouds);
+  background: url("/assets/images/no-image.png");
+  background-size: cover;
+  background-position: center;
 
   display: flex;
   align-items: center;

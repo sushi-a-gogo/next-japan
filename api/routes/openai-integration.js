@@ -36,23 +36,6 @@ router.post("/generate-content", async (req, res) => {
       );
     }
 
-    const style =
-      promptParams.style === "cartoon"
-        ? "cel-shaded, anime"
-        : "photo realistic";
-    const palette = promptParams.palette;
-    promptParams.style = undefined;
-    promptParams.palette = undefined;
-
-    const imagePrompt = `Create an image in a cel-shaded, '${style}' style,
-    using a color palette of ${palette},
-    and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
-      promptParams
-    )}.
-    Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
-    adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
-    The image should not contain any text.`;
-
     // Construct text prompt
     const textPrompt = `Generate creative text describing a day long special event in Japan using 100 words or less and based on these parameters: ${JSON.stringify(
       promptParams
@@ -76,9 +59,14 @@ router.post("/generate-content", async (req, res) => {
     const generatedText = textResponse.choices[0].message.content;
 
     // Construct image prompt
-    // const imagePrompt = `Create an image based on: ${customText} with style: ${
-    //   imageStyle || "realistic"
-    // }`;
+    const imagePrompt = `Create an image in a cel-shaded, anime style,
+    using a color palette of warm glowing tones together with bright pastels,
+    and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
+      promptParams
+    )}.
+    Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
+    adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
+    The image should not contain any text.`;
     console.log("Call OpenAI Chat API for image: " + imagePrompt);
 
     // Call OpenAI Image API (DALL·E)

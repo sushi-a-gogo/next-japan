@@ -13,6 +13,6 @@ import { plans } from './subscription-plan.model';
 export class SignUpComponent {
   private imageService = inject(ImageService);
 
-  backgroundImage = this.imageService.resizeImage({ id: 'about.png', width: 1536, height: 1024 }, 1536, 1024);
+  backgroundImage = this.imageService.resizeImage({ id: 'about.png', width: 1792, height: 1024 }, 1792, 1024);
   plans = plans;
 }

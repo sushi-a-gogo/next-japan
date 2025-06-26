@@ -19,6 +19,9 @@
   height: 48px;
   overflow: hidden;
   flex-shrink: 0;
+  background: url("/assets/images/no-image.png");
+  background-size: cover;
+  background-position: center;
 
   img {
     display: block;

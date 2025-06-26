@@ -58,5 +58,15 @@
     "zip": "150-0041",
     "latitude": 35.661777,
     "longitude": 139.698289
+  },
+  {
+    "locationId": 7,
+    "locationName": "Zojoji Temple",
+    "addressLine1": "4 Chome-7-35 Shibakoen",
+    "city": "Minato City",
+    "state": "Tokyo",
+    "zip": "105-0011",
+    "latitude": 35.65858,
+    "longitude": 139.749478
   }
 ]

@@ -5,7 +5,7 @@
     "description": "Explore the beauty of Mount Fuji and enjoy an evening of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
       "id": "fuji-snow.png",
-      "width": 1536,
+      "width": 1792,
       "height": 1024
     },
     "fullDescription": "Join us for a special event at the base of Mount Fuji! Experience the breathtaking scenery of Japan's most iconic mountain while connecting with friends, family, and fellow adventurers.\n\nThe event begins with a warm welcome and refreshments featuring local specialties. Settle in and enjoy the stunning views of Mount Fuji as you prepare for a day filled with fun and engaging activities.\n\nStart the morning with an optional group yoga session overlooking the mountain, followed by a guided nature walk through nearby scenic trails. Our expert guides will share fascinating insights into the region's unique flora, fauna, and geological history.\n\nAfter the walk, participate in hands-on workshops such as Japanese calligraphy, origami, or a cooking demonstration where you'll learn to prepare authentic dishes using fresh, local ingredients. For those seeking adventure, try mountain biking or canoeing on a nearby lake.\n\nAs the event draws to a close, gather around a cozy bonfire for storytelling, live acoustic music, and marshmallow roasting. Enjoy a delicious meal featuring a rotating menu of Japanese and international cuisine, with vegetarian and vegan options available.\n\nWhether you're looking to relax in nature, make new friends, or try something new, this Mount Fuji event offers something for everyone. Our friendly staff and experienced coordinators are dedicated to making your experience safe, enjoyable, and memorable.\n\nSpace is limited, so sign up today to reserve your spot at this unique Mount Fuji gathering! Don't miss this opportunity to create lasting memories in one of Japan's most beautiful and culturally rich locations.",
@@ -43,7 +43,7 @@
     "description": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
       "id": "golden-sunset.png",
-      "width": 1536,
+      "width": 1792,
       "height": 1024
     },
     "fullDescription": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family!\n\nJoin us for an immersive experience at one of Japan’s most iconic landmarks. The day begins with a guided tour of Kinkaku-ji, where you’ll learn about its rich history, stunning architecture, and the legends surrounding this UNESCO World Heritage Site. Marvel at the shimmering gold leaf exterior reflecting in the tranquil pond, and stroll through the beautifully landscaped gardens filled with seasonal flowers and ancient trees.\n\nAfter the tour, participate in a traditional Japanese tea ceremony in a nearby teahouse, where you can savor matcha and local sweets while enjoying views of the pavilion. For those interested in culture, we offer hands-on workshops in calligraphy and origami, as well as a kimono dress-up experience with photo opportunities.\n\nLunch will feature a variety of Japanese dishes, including vegetarian and vegan options, served picnic-style in the gardens. In the afternoon, join group games and scavenger hunts designed for all ages, or relax by the South Pond and take in the peaceful scenery.\n\nAs evening approaches, gather around a bonfire for storytelling, live music, and marshmallow roasting. Our event coordinators will share fascinating tales about Kyoto’s history and the significance of Kinkaku-ji. The day concludes with a lantern release, symbolizing good wishes and new friendships.\n\nAll activities are family-friendly and suitable for both locals and visitors. Don’t miss this unique opportunity to connect with others, learn about Japanese culture, and create lasting memories at the Golden Pavilion!",
@@ -81,7 +81,7 @@
     "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
     "image": {
       "id": "cookout.png",
-      "width": 1536,
+      "width": 1792,
       "height": 1024
     },
     "fullDescription": "Join us for an unforgettable evening at the Cookout on the stunning sands of Kikugahama Beach! This event is perfect for families, friends, and anyone looking to enjoy the great outdoors in a fun and welcoming atmosphere.\n\nAs the sun sets over the Sea of Japan, gather around a roaring bonfire and savor delicious campfire-cooked meals, including freshly grilled seafood, local vegetables, and classic s'mores. Our team will provide all the necessary equipment and ingredients, so all you need to bring is your enthusiasm and appetite!\n\nThroughout the night, enjoy a variety of beach games and activities suitable for all ages, such as beach volleyball, sandcastle building contests, and scavenger hunts. There will also be live acoustic music performances by local artists, creating the perfect backdrop for a relaxing and memorable evening.\n\nFor those interested in learning new skills, we will host interactive workshops on outdoor cooking techniques, fire safety, and sustainable beach practices. Our friendly event coordinators will be on hand to ensure everyone has a safe and enjoyable experience.\n\nSpace is limited to maintain a cozy and intimate setting, so be sure to sign up early. Don’t miss this chance to connect with your community, make new friends, and create lasting memories under the stars at Kikugahama Beach!\n\nEvent Highlights:\n- Bonfire and campfire-cooked dinner\n- Beach games and contests\n- Live music performances\n- Outdoor cooking and safety workshops\n- Family-friendly activities\n- Beautiful seaside location\n\nWhat to Bring:\n- Comfortable beachwear and a light jacket\n- Reusable water bottle\n- Blanket or beach chair (optional)\n\nWe look forward to seeing you at the Campfire Cookout!\n\nFor questions or special accommodations, please contact our event coordinators.\n",
@@ -252,5 +252,31 @@
       }
     ],
     "locations": [6]
+  },
+  {
+    "eventId": 10,
+    "eventTitle": "Autumn Nostalgia Festival",
+    "description": "Experience the charm of old Tokyo at the Autumn Nostalgia Festival at Tokyo Tower. Enjoy vintage exhibits, classic films, and traditional street foods as the city glows with autumn colors. Live performances and guided tours bring the spirit of the past to life.",
+    "image": {
+      "id": "tokyo-tower.png",
+      "width": 1792,
+      "height": 1024
+    },
+    "fullDescription": "Step back in time this fall at Tokyo Tower's enchanting \"Autumn Nostalgia Festival.\" As golden leaves dance in the gentle breeze, explore vintage Tokyo through curated exhibits and classic film screenings. Savor traditional street foods, their aromas mingling with crisp autumn air. Ascend the tower at sunset, where the cityscape glows with a warm, amber hue, reminiscent of bygone days. Curiosity piqued, join guided tours revealing secrets of Tokyo's storied past. As twilight descends, live performances echo the melodies of old, leaving you with a lingering sense of wonder and a heart full of cherished memories.",
+    "eventCoordinators": [
+      {
+        "eventId": 7,
+        "eventCoordinatorId": 33,
+        "firstName": "Poyi",
+        "lastName": "Joiri",
+        "email": "xx@yy.zz",
+        "image": {
+          "id": "avatar_3.jpg",
+          "width": 255,
+          "height": 255
+        }
+      }
+    ],
+    "locations": [7]
   }
 ]

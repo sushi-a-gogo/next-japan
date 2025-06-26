@@ -26,10 +26,11 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
-    <mat-label>Preview Image Style</mat-label>
-    <mat-select [(ngModel)]="params.style" name="style">
-      <mat-option value="cartoon">Cartoon</mat-option>
-      <mat-option value="realistic">Realistic</mat-option>
+    <mat-label>Time of Year</mat-label>
+    <mat-select [(ngModel)]="params.season" name="style">
+      @for (season of seasons; track $index) {
+      <mat-option [value]="season">{{ season }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
@@ -44,7 +45,6 @@
   <button
     class="app-button app-button-save"
     type="submit"
-    disabled
     matTooltip="Open AI access is currently locked. Please try again later."
   >
     Generate
