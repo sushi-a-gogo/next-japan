@@ -1,3 +1,6 @@
+@if(!ready()) {
+<app-spin-up />
+} @else {
 <div class="app-container" [class.user]="!!userProfile()">
   <app-header />
   <main>
@@ -8,6 +11,6 @@
 </div>
 <app-about />
 <app-error-bar />
-@defer () { @if(isAuthenticating()) {
+@if(isAuthenticating()) {
 <app-login />
 } }

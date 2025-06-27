@@ -45,6 +45,7 @@ app.use("/api/ai", apiLimiter);
 app.use("/api/ai", openAiRouter);
 
 app.get("/api/ping", (req, res) => {
+  console.log("Ping received, instance awake:", new Date());
   res.json({ msg: "API is alive" });
 });
 

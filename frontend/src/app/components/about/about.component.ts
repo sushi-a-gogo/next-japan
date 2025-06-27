@@ -15,7 +15,6 @@ export class AboutComponent {
   private dialogService = inject(DialogService);
 
   showDialog = computed(() => {
-    console.log(this.dialogService.showDialog());
     return this.dialogService.showDialog() === 'about';
   });
 
