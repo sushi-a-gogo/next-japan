@@ -13,7 +13,7 @@
   </header>
   <main class="dialog">
     <div class="profile" [class.disabled]="busy">
-      <app-avatar [avatar]="userProfile()!" [size]="80"></app-avatar>
+      <app-user-avatar [user]="userProfile()!" [size]="80" />
       @if(profileForm) {
       <form [formGroup]="profileForm" class="app-form">
         <mat-form-field>

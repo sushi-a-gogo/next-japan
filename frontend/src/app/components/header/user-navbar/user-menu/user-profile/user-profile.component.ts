@@ -10,14 +10,14 @@ import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { AvatarComponent } from "@shared/avatar/avatar.component";
+import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { ModalComponent } from "@shared/modal/modal.component";
 import { UserProfileForm } from './user-profile.form';
 
 @Component({
   selector: 'app-user-profile',
   imports: [RouterLink, ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule,
-    MatFormFieldModule, MatSelectModule, ModalComponent, AvatarComponent],
+    MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })

@@ -3,13 +3,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { AvatarComponent } from "@app/shared/avatar/avatar.component";
+import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { MyEventsComponent } from "./my-events/my-events.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 @Component({
   selector: 'app-user-menu',
-  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, AvatarComponent, UserProfileComponent, MyEventsComponent],
+  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserProfileComponent, MyEventsComponent, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss'
 })

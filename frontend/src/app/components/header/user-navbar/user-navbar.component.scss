@@ -99,44 +99,30 @@ li.desktop {
   .mobile {
     display: none;
   }
-}
 
-@media (min-width: 400px) {
-  .text {
-    display: inline-block;
-  }
-
-  .text-condensed {
-    display: none;
-  }
-
-  ul {
-    gap: 10px;
-  }
-}
-
-@media (min-width: 600px) {
   nav {
     max-width: var.$max-page-width;
 
     &.open {
       height: var.$user-header-height;
     }
+  }
 
-    ul {
-      li {
-        .app-button {
-          &:hover {
-            @media (pointer: fine) {
-              background-color: map.get(var.$colors, section-medium-gray);
-            }
-          }
+  ul {
+    gap: 10px;
+  }
+
+  li {
+    .app-button {
+      &:hover {
+        @media (pointer: fine) {
+          background-color: map.get(var.$colors, section-medium-gray);
         }
       }
-
-      li.spacer {
-        display: none;
-      }
     }
+  }
+
+  li.spacer {
+    display: none;
   }
 }

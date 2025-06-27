@@ -1,0 +1,18 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+.user_initials {
+  border-radius: 100%;
+  background-color: var(--pink-cherry-blossoms);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 1px;
+  font-weight: 700;
+}

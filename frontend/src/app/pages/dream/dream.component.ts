@@ -15,7 +15,7 @@ export class DreamComponent implements OnInit {
   private meta = inject(Meta);
 
   ngOnInit(): void {
-    this.title.setTitle('Next Japan Dream Events');
+    this.title.setTitle('Next Japan AI');
 
     // Set meta tags
     const description = 'This page leverages advanced AI technology to help you design your ideal Japanese vacation event.';

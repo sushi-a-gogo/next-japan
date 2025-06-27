@@ -1,0 +1,5 @@
+@if(user().image.id) {
+<app-avatar [avatar]="user()" [size]="size()" />
+} @else {
+<div class="user_initials" [style]="styleCss()">{{ initials() }}</div>
+}
