@@ -1,4 +1,4 @@
-<img class="background" ngSrc="assets/images/about.webp" fill priority />
+<img class="background" [ngSrc]="image().src" fill priority />
 <div class="content">
   @if(!isAuthenticated()) {
   <app-navbar />
@@ -25,6 +25,10 @@
         <li>
           <span>📡</span> RESTful API with rate limiting, CORS handling, and
           mocked JSON data
+        </li>
+        <li>
+          <span>🌐</span> Cloudflare Images integration for optimized, globally
+          cached image delivery
         </li>
         <li>
           <span>🤖</span> Integration with the OpenAI API for enhanced features

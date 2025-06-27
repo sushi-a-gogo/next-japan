@@ -3,8 +3,9 @@
   "name": "Next Japan",
   "image": {
     "id": "tokyo-night.png",
-    "width": 1536,
-    "height": 1024
+    "cloudfareImageId": "d3734dbe-2b91-4728-331e-f78c8284a500",
+    "width": 1366,
+    "height": 768
   },
   "bannerDescription": "Prepare for your next adventure on the island of Japan. Discover hidden gems, vibrant culture, and unforgettable experiences. Let us guide you to the best that Japan has to offer. Whether you are a first-time visitor or a seasoned traveler, our curated experiences are designed to inspire and delight. Join a community of explorers and create memories that will last a lifetime.",
   "bannerSubTitle": "Make Your Experience Unforgettable",

@@ -3,7 +3,9 @@
   <app-navbar />
   }
   <div class="header-content content-container">
-    <img [ngSrc]="bannerImage" fill priority alt="Tokyo at night" />
+    @if(bannerImage()) {
+    <img [ngSrc]="bannerImage()!.src" fill priority alt="Tokyo at night" />
+    }
     <div class="content-top"></div>
     <div class="content-bottom fade-in" [class.open]="!!org()">
       <div class="subtitle">{{ org()?.bannerTitle }}</div>

@@ -1,7 +1,10 @@
 <div class="container fade-in" [class.open]="visible()">
+  <img class="background" [ngSrc]="image().src" fill priority />
+  @if(visible()) {
   <app-page-load-spinner />
   <p>
     ⏳ Note: Initial load may take up to a minute due to free-tier backend
     startup. This loading screen will appear during this time.
   </p>
+  }
 </div>

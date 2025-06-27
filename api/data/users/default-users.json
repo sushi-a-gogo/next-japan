@@ -2,7 +2,12 @@
   {
     "userId": 1,
     "addressLine1": "99 Ranch Rd",
-    "image": { "id": "mister.png", "width": 256, "height": 256 },
+    "image": {
+      "id": "mister.png",
+      "cloudfareImageId": "ca9021ca-3957-49aa-a38c-6ea964927f00",
+      "width": 1366,
+      "height": 768
+    },
     "city": "Lazytown",
     "email": "riuchi.takayama@studio-gh.mov",
     "firstName": "Riuchi",
@@ -15,7 +20,12 @@
   {
     "userId": 2,
     "addressLine1": "99 Ranch Rd",
-    "image": { "id": "miss.png", "width": 256, "height": 256 },
+    "image": {
+      "id": "miss.png",
+      "cloudfareImageId": "ba52dd44-f513-46d7-88a8-58f681701f00",
+      "width": 1366,
+      "height": 768
+    },
     "city": "Lazytown",
     "email": "kiki.takayama@studio-gh.mov",
     "firstName": "Kikituyima",

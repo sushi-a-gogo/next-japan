@@ -14,6 +14,10 @@ export class ImageService {
   }
 
   resizeImage(image: AppImageData, width: number, height: number) {
+    if (image.cloudfareImageId) {
+      return this.resizeCloudfareImage(image, width, height);
+    }
+
     const resizedImage = {
       ...image,
       width,
@@ -21,6 +25,18 @@ export class ImageService {
     };
 
     return { image: resizedImage, src: `${environment.apiUrl}/api/image/resize/${width}/${height}/${image.id}` }
+  }
+
+  resizeCloudfareImage(image: AppImageData, width: number, height: number) {
+    const resizedImage = {
+      ...image,
+      width,
+      height
+    };
+    const src = `${environment.cloudfareUrl}/${environment.cloudfareAccountHash}/${image.cloudfareImageId}` +
+      `/public?w=${width}&h=${height}&format=webp&quality=100`
+
+    return { image: resizedImage, src }
 
   }
 }

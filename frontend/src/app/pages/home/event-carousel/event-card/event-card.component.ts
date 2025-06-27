@@ -16,7 +16,7 @@ export class EventCardComponent implements OnInit {
 
   event = input.required<EventData>();
   resizedImage = computed(() => {
-    return this.imageService.resizeImage(this.event().image, 384, 256);
+    return this.imageService.resizeImage(this.event().image, 448, 256);
   });
 
   routerLink: string = '';

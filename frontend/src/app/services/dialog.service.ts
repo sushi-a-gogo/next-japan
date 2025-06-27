@@ -5,7 +5,7 @@ import { Injectable, signal } from '@angular/core';
 })
 export class DialogService {
 
-  private showDialogSignal = signal<string>('about');
+  private showDialogSignal = signal<string>('');
   showDialog = this.showDialogSignal.asReadonly();
 
   showAboutDialog() {

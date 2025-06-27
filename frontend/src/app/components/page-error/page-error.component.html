@@ -1,10 +1,5 @@
 <div class="page-error">
-  <img
-    ngSrc="assets/images/error.webp"
-    alt="An image of sadness"
-    fill
-    priority
-  />
+  <img [ngSrc]="image().src" alt="An image of sadness" fill priority />
 
   <div class="error-content">
     <span class="material-icons"> crisis_alert </span>

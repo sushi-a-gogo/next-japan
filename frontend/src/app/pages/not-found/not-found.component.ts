@@ -9,5 +9,4 @@ import { FooterComponent } from "@app/shared/footer/footer.component";
   styleUrl: './not-found.component.scss'
 })
 export class NotFoundComponent {
-
 }

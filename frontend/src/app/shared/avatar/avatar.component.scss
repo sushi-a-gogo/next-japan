@@ -3,7 +3,6 @@
 
 .avatar_container {
   border-radius: 50%;
-  background-color: var(--creamy-white-clouds);
   background: url("/assets/images/no-image.png");
   background-size: cover;
   background-position: center;
@@ -19,5 +18,6 @@
     width: 100%;
     border-radius: 50%;
     vertical-align: top;
+    background-color: var(--creamy-white-clouds);
   }
 }

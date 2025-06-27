@@ -15,7 +15,7 @@
 </article>
 } @else {
 <article>
-  <header [style.backgroundImage]="backgroundImage">
+  <header [style.backgroundImage]="backgroundImage()">
     <app-org-banner [org]="org()"></app-org-banner>
   </header>
   <main class="content-container fade-in" [class.open]="org()">

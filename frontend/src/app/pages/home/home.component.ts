@@ -1,8 +1,7 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
-import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
@@ -26,11 +25,18 @@ export class HomeComponent implements OnInit {
   private organizationService = inject(OrganizationService);
 
   org = this.organizationService.organizationInformation;
-  bannerImage?: AppImageData;
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
-  backgroundImage = "url('/assets/images/tokyo-night.webp')";
+  backgroundImage = computed(() => {
+    if (this.org()) {
+      const resizedImage = this.imageService.resizeImage(this.org()!.image, 384, 256);
+      this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+      return `url('${resizedImage.src}')`;
+    }
+
+    return undefined;
+  });
 
   ngOnInit(): void {
     const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
@@ -48,9 +54,8 @@ export class HomeComponent implements OnInit {
         this.meta.updateTag({ property: 'og:description', content: org.infoDescription });
         this.meta.updateTag({ property: 'og:url', content: window.location.href });
 
-        this.bannerImage = org.image;// res.events[index].image;
-        const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
-        this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+        //this.bannerImage = org.image;// res.events[index].image;
+        //const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
       },
       error: () => {
         this.loaded.set(true);
