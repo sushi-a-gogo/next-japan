@@ -32,9 +32,9 @@
     <section>
       <div class="flex-content">
         <!-- defer -->
-        @defer () {
+        @defer () { @if(loaded()) {
         <app-event-carousel></app-event-carousel>
-        } @placeholder {
+        } } @placeholder {
         <p>Loading events...</p>
         }
       </div>
