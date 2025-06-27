@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import dotenv from "dotenv";
 import express from "express";
 import * as fs from "fs/promises";
@@ -24,7 +25,6 @@ function validateImagePath(imageName) {
 // Route: /resize/:width/:height/:imageName
 router.get("/resize/:width/:height/:imageName", async (req, res) => {
   //await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const { width, height, imageName } = req.params;
 
   // Validate filename
@@ -65,15 +65,20 @@ router.get("/resize/:width/:height/:imageName", async (req, res) => {
     await fs.access(originalPath);
 
     // Resize
-    const resizedBuffer = await sharp(originalPath)
-      .resize(parseInt(width), parseInt(height))
-      .toFormat("webp")
-      .toBuffer();
+    const { resizedBuffer, etag } = await processAndGenerateEtag(
+      originalPath,
+      width,
+      height
+    );
 
     // Save resized version to cache
     await fs.writeFile(cachedPath, resizedBuffer);
 
-    res.set("Content-Type", "image/webp");
+    res.set({
+      "Content-Type": "image/webp",
+      "Cache-Control": "public, max-age=2592000", // 30 days
+      ETag: etag,
+    });
     res.send(resizedBuffer);
   } catch (err) {
     console.error("Image processing error:", err.message);
@@ -112,5 +117,15 @@ router.delete("/cache", async (req, res) => {
     res.status(500).send("Failed to purge cache");
   }
 });
+
+async function processAndGenerateEtag(originalPath, width, height) {
+  const resizedBuffer = await sharp(originalPath)
+    .resize(parseInt(width), parseInt(height))
+    .toFormat("webp")
+    .toBuffer();
+
+  const etag = crypto.createHash("md5").update(resizedBuffer).digest("hex");
+  return { resizedBuffer, etag };
+}
 
 export default router;
