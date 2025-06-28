@@ -7,7 +7,7 @@
     <img [ngSrc]="bannerImage()!.src" fill priority alt="Tokyo at night" />
     }
     <div class="content-top"></div>
-    <div class="content-bottom fade-in" [class.open]="!!org()">
+    <div class="content-bottom">
       <div class="subtitle">{{ org()?.bannerTitle }}</div>
       <div class="description break-word pre-wrap">
         {{ org()?.bannerDescription }}

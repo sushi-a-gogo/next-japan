@@ -27,7 +27,7 @@ header {
   background-color: #fff;
   position: sticky;
   top: var.$color-bar-height;
-  z-index: 100; // position navbar above google-map + calendar
+  z-index: 99;
   width: 100%;
   display: flex;
   justify-content: center;
