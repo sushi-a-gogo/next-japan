@@ -1,6 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { AppImageData } from '@app/models/app-image-data.model';
+import { ImageService } from '@app/services/image.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
 import { ContentGeneratorComponent } from "./components/content-generator/content-generator.component";
 
@@ -11,6 +13,18 @@ import { ContentGeneratorComponent } from "./components/content-generator/conten
   styleUrl: './dream.component.scss'
 })
 export class DreamComponent implements OnInit {
+  private imageService = inject(ImageService);
+  private aiImage: AppImageData = {
+    id: "ai.png",
+    cloudfareImageId: "22d97aa6-85ed-4713-d256-6a0bf903af00",
+    width: 768,
+    height: 1366
+  };
+
+  image = computed(() => {
+    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
+  });
+
   private title = inject(Title);
   private meta = inject(Meta);
 
