@@ -1,15 +1,23 @@
-import { Injectable, signal } from '@angular/core';
+import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
+  private storage = inject(StorageService);
 
-  private showDialogSignal = signal<string>('about');
+  private showDialogSignal = signal<string>('');
   showDialog = this.showDialogSignal.asReadonly();
 
-  showAboutDialog() {
-    this.showDialogSignal.set('about');
+  constructor() {
+    afterNextRender(() => {
+      const savedUser = this.storage.session.getItem('nextjp');
+      if (!savedUser) {
+        this.storage.session.setItem('nextjp', '1');
+        this.showDialogSignal.set('about');
+      }
+    });
   }
 
   showRegistrationDialog() {

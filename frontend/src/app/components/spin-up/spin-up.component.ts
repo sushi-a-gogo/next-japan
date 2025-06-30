@@ -30,7 +30,6 @@ export class SpinUpComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.visible.set(true);
-      this.dialogService.showAboutDialog();
     }, 250);
   }
 

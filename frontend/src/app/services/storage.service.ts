@@ -5,13 +5,15 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
   providedIn: 'root'
 })
 export class StorageService {
-  private storage: Storage | undefined;
+  private _local: Storage;
+  private _session: Storage;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-      this.storage = localStorage;
+      this._local = localStorage;
+      this._session = sessionStorage;
     } else {
-      this.storage = {
+      this._local = {
         length: 0,
         clear: () => { },
         getItem: () => null,
@@ -19,18 +21,17 @@ export class StorageService {
         removeItem: () => { },
         setItem: () => { }
       };
+      this._session = {
+        ...this._local
+      }
     }
   }
 
-  getItem(key: string): string | null {
-    return this.storage?.getItem(key) || null;
+  get local() {
+    return this._local;
   }
 
-  setItem(key: string, value: string): void {
-    this.storage?.setItem(key, value);
-  }
-
-  removeItem(key: string): void {
-    this.storage?.removeItem(key);
+  get session() {
+    return this._session;
   }
 }

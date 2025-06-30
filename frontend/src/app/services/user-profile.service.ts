@@ -17,17 +17,16 @@ export class UserProfileService {
   private http = inject(HttpClient);
   private authService = inject(AuthMockService);
   private errorService = inject(ErrorService);
-  private localStorage = inject(StorageService);
+  private storage = inject(StorageService);
 
   private apiUri = `${environment.apiUrl}/api/user`;
 
   private user = signal<UserProfile | null>(null);
   userProfile = this.user.asReadonly();
 
-
   constructor() {
     afterNextRender(() => {
-      const savedUser = this.localStorage.getItem(LOCAL_STORAGE_KEY);
+      const savedUser = this.storage.local.getItem(LOCAL_STORAGE_KEY);
       if (savedUser) {
         this.user.set(JSON.parse(savedUser));
         this.authService.login();
@@ -70,9 +69,9 @@ export class UserProfileService {
   private setUser(user: UserProfile | null) {
     this.user.set(user);
     if (user) {
-      this.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
+      this.storage.local.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
     } else {
-      this.localStorage.removeItem(LOCAL_STORAGE_KEY)
+      this.storage.local.removeItem(LOCAL_STORAGE_KEY)
     }
   }
 }
