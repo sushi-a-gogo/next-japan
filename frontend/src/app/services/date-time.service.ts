@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { LocationTimeZone } from 'src/app/models/location-time-zone.model';
 
@@ -6,6 +7,10 @@ import { LocationTimeZone } from 'src/app/models/location-time-zone.model';
 })
 export class DateTimeService {
   private readonly locale = 'en-US'; // locale code for the locale format rules to use
+
+  formatDateAsString(date: Date, format: string) {
+    return formatDate(date, format, this.locale);
+  }
 
   adjustDateToTimeZoneOffset(dateString: string, location: LocationTimeZone) {
     const date = new Date(dateString);
