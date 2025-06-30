@@ -1,6 +1,5 @@
 @if(!ready()) {
 <app-spin-up />
-<app-about />
 } @else {
 <div class="app-container" [class.user]="!!userProfile()">
   <app-header />
@@ -14,3 +13,4 @@
 @if(isAuthenticating()) {
 <app-login />
 } }
+<app-about />
