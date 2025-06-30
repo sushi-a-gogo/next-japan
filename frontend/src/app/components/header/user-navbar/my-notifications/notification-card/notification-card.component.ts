@@ -16,7 +16,7 @@ export class NotificationCardComponent {
   notification = input.required<NotificationDetail>();
 
   resizedImage = computed(() => {
-    return this.imageService.resizeImage(this.notification().image, 80, 80);
+    return this.imageService.resizeImage(this.notification().image, 84, 48);
   });
 
   get imageSrc() {

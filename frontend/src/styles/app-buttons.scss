@@ -32,8 +32,13 @@
 
   &:disabled {
     cursor: default;
-    background-color: #0000001f;
-    color: #00000042;
+    opacity: 0.5;
+
+    &.inactive {
+      opacity: 1;
+      background-color: #0000001f;
+      color: #00000042;
+    }
   }
 }
 

@@ -1,13 +1,13 @@
 <button
-  #matMenuTrigger
+  #notificationMenuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="notificationMenu"
+  (menuOpened)="menuToggle(true)"
+  (menuClosed)="menuToggle(false)"
   aria-label="Notification Center"
   type="button"
   aria-label="Notifications"
   class="app-button flex-button notification-button"
   matTooltip="Notifications"
-  [matMenuTriggerFor]="notificationMenu"
-  (menuOpened)="menuToggle(true)"
-  (menuClosed)="menuToggle(false)"
 >
   <img src="assets/images/bell.svg" alt="A bell" width="21.27" height="26" />
   <span class="badge" [class.visible]="notifications().length > 0">{{
@@ -22,26 +22,15 @@
 >
   <div class="menu-title">
     <span>Notifications</span>
-    @if(!showClearAll()) {
     <button
-      class="icon-button"
-      [class.open]="!showClearAll()"
+      class="close-button"
       mat-icon-button
       (click)="clickX($event)"
+      [class.clear-all]="showClearAll()"
     >
+      <span class="button-text">Clear</span>
       <span class="material-icons">close</span>
     </button>
-    } @else {
-    <button
-      class="app-button app-button-default clear-button"
-      [class.open]="showClearAll()"
-      aria-label="Clear all notifications"
-      (click)="markAllAsRead($event)"
-    >
-      Clear
-    </button>
-
-    }
   </div>
   @for(notification of notifications(); track notification.notificationId) {
   <button mat-menu-item (click)="markAsReadAndNavigate(notification)">
