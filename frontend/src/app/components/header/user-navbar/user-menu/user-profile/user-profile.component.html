@@ -15,7 +15,7 @@
     <div class="profile" [class.disabled]="busy">
       <app-user-avatar [user]="userProfile()!" [size]="80" />
       @if(profileForm) {
-      <form [formGroup]="profileForm" class="app-form">
+      <form [formGroup]="profileForm">
         <mat-form-field>
           <mat-label>First Name</mat-label>
           <input
