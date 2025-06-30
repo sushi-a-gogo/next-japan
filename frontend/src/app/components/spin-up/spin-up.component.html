@@ -1,6 +1,6 @@
 <div class="container fade-in" [class.open]="visible()">
-  <img class="background" [ngSrc]="image().src" fill priority />
   @if(visible()) {
+  <img class="background" [ngSrc]="image().src" fill priority />
   <app-page-load-spinner />
   }
 </div>
