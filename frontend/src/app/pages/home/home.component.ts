@@ -1,7 +1,10 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
+import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { FooterComponent } from '@app/shared/footer/footer.component';
@@ -12,7 +15,7 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [FooterComponent, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
+  imports: [RouterLink, NgOptimizedImage, FooterComponent, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -23,6 +26,18 @@ export class HomeComponent implements OnInit {
 
   private imageService = inject(ImageService);
   private organizationService = inject(OrganizationService);
+
+  private aiImage: AppImageData = {
+    id: "ai-banner.png",
+    cloudfareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
+    width: 1366,
+    height: 768
+  };
+
+  aiBackgroundImage = computed(() => {
+    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
+  });
+
 
   org = this.organizationService.organizationInformation;
   loaded = signal<boolean>(false);

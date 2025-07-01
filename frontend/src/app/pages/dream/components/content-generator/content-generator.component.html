@@ -54,7 +54,7 @@
   @if(!dreamEvent()) {
   <div class="no-results flex-row">
     @if(busy()) {
-    <img src="assets/images/photo.svg" alt="A blank photo" />
+    <span class="icon">🚀</span>
     <span>Loading...this may take a few minutes.</span>
     <app-loading-spinner [delay]="250" />
     } @else {

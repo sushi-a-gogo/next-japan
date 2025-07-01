@@ -15,8 +15,8 @@ import { ContentGeneratorComponent } from "./components/content-generator/conten
 export class DreamComponent implements OnInit {
   private imageService = inject(ImageService);
   private aiImage: AppImageData = {
-    id: "ai.png",
-    cloudfareImageId: "22d97aa6-85ed-4713-d256-6a0bf903af00",
+    id: "ai-banner.png",
+    cloudfareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
     width: 768,
     height: 1366
   };
