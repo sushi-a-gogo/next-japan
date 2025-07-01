@@ -3,7 +3,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventService } from '@app/pages/event/event.service';
 import { EventInformation } from '@app/pages/event/models/event-information.model';
 import { OrganizationService } from '@app/services/organization.service';
-import { FooterComponent } from "@shared/footer/footer.component";
 import { PageLoadSpinnerComponent } from "@shared/page-load-spinner/page-load-spinner.component";
 import { forkJoin } from 'rxjs';
 import { EventOpportunity } from '../../models/event-opportunity.model';
@@ -11,7 +10,7 @@ import { SearchCardComponent } from "./search-card/search-card.component";
 
 @Component({
   selector: 'app-search-results',
-  imports: [FooterComponent, SearchCardComponent, PageLoadSpinnerComponent],
+  imports: [SearchCardComponent, PageLoadSpinnerComponent],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss'
 })
