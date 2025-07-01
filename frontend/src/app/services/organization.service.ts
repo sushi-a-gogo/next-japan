@@ -5,7 +5,7 @@ import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { environment } from '@environments/environment';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -43,6 +43,15 @@ export class OrganizationService {
   }
 
   getNextOpportunities$(): Observable<EventOpportunity[]> {
+    return this.http.get<{ opportunities: EventOpportunity[] }>(`${this.apiUri}/opportunities`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getNextOpportunities'),
+      map((resp) => resp.opportunities),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
+    );
+  }
+
+  getCalendarEvents$(isoFirstDay: string, isoLastDay: string): Observable<EventOpportunity[]> {
+    return of([]);
     return this.http.get<{ opportunities: EventOpportunity[] }>(`${this.apiUri}/opportunities`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getNextOpportunities'),
       map((resp) => resp.opportunities),

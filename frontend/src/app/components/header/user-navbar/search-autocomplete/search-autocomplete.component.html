@@ -2,18 +2,20 @@
   <mat-form-field
     appearance="outline"
     subscriptSizing="dynamic"
-    class="compact-form-field"
+    class="compact-form-field fade-in"
+    [class.open]="visible"
   >
     <input
       type="text"
       aria-label="Event Search"
       placeholder="Search Events"
       matInput
+      #searchInput
       #autocompleteInput="matAutocompleteTrigger"
       [formControl]="searchQuery"
       [matAutocomplete]="auto"
     />
-    <button matSuffix mat-icon-button>
+    <button matPrefix mat-icon-button>
       <span class="material-icons">search</span>
     </button>
     <mat-autocomplete

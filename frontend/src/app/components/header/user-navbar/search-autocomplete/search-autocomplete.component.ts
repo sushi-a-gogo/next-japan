@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, viewChild } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -6,39 +6,72 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { EventService } from '@app/pages/event/event.service';
 import { EventData } from '@app/pages/event/models/event-data.model';
-import { debounceTime, filter, switchMap } from 'rxjs';
+import { EventSearchService } from '@app/services/event-search.service';
+import { debounceTime, filter, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search-autocomplete',
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './search-autocomplete.component.html',
   styleUrl: './search-autocomplete.component.scss',
-  providers: [EventService]
 })
 export class SearchAutocompleteComponent implements OnInit {
-  searchQuery = new FormControl('');
+  searchQuery = new FormControl({ value: '', disabled: true });
   filteredEvents: EventData[] = [];
+  selectedValue?: string;
+  visible = false;
 
+  private searchInput = viewChild<ElementRef>('searchInput');
   private trigger = viewChild<MatAutocompleteTrigger>('autocompleteInput');
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
-  private eventService = inject(EventService);
+  private eventSearchService = inject(EventSearchService);
+
+  constructor() {
+    effect(() => {
+      const enabled = this.eventSearchService.searchMode();
+      if (enabled) {
+        setTimeout(() => {
+          this.searchQuery.enable({ emitEvent: false });
+          this.searchInput()?.nativeElement.focus();
+          this.visible = true;
+        }, 200);
+      } else {
+        this.visible = false;
+        setTimeout(() => {
+          this.searchQuery.disable({ emitEvent: false });
+          this.searchQuery.setValue('', { emitEvent: false });
+          this.filteredEvents = [];
+          setTimeout(() => {
+            this.selectedValue = undefined;
+          }, 200);
+        }, 200);
+      }
+    })
+  }
 
   ngOnInit() {
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
         const query = this.route.snapshot.queryParams['q'];
-        this.searchQuery.setValue(query, { emitEvent: false });
-        this.filteredEvents = [];
+        if (query) {
+          this.searchQuery.setValue(query, { emitEvent: false });
+          this.filteredEvents = [];
+        } else {
+          if (this.visible) {
+            this.eventSearchService.toggleSearchMode();
+          }
+        }
       });
 
     this.searchQuery.valueChanges.pipe(
       debounceTime(300),
-      switchMap(query => this.eventService.searchEvents$(query || '')),
+      filter(() => !this.selectedValue),
+      tap((query) => console.log('Search: ' + query)),
+      switchMap(query => query ? this.eventSearchService.searchEvents$(query) : of([])),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(events => {
       this.filteredEvents = events;
@@ -50,16 +83,12 @@ export class SearchAutocompleteComponent implements OnInit {
     this.router.navigate([`/event/search`], { queryParams: { q: this.searchQuery.value } });
   }
 
-  onSearchInput() {
-    // Optional: Add logic for input changes if needed
-  }
-
   onOptionSelected(event: any) {
-    const val = event.option.value;
-    const selectedEvent = this.filteredEvents.find(e => e.eventTitle === val);
+    this.selectedValue = event.option.value;
+    console.log('onOptionSelected: ' + this.selectedValue);
+    const selectedEvent = this.filteredEvents.find(e => e.eventTitle === this.selectedValue);
     if (selectedEvent) {
-      // Navigate to event page or handle selection
-      console.log('Selected:', selectedEvent);
+      // Navigate to event page
       this.router.navigate([`/event/${selectedEvent.eventId}`]);
     }
   }

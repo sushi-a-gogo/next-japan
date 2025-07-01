@@ -3,14 +3,35 @@
 .app-container {
   height: var(--app-height);
   display: grid;
-  grid-template-rows: [header-row] var.$color-bar-height [main-row] auto;
+  grid-template-rows: [header-row] 0 [main-row] auto;
   grid-template-areas:
     "header"
     "main";
   transition: 0.25s ease-in-out;
   &.user {
     grid-template-rows:
-      [header-row] calc(var.$color-bar-height + var.$user-header-height-mobile)
+      [header-row] calc(var.$color-bar-height + var.$user-header-height)
+      [main-row] auto;
+
+    &.search-mode {
+      grid-template-rows:
+        [header-row] calc(
+          var.$color-bar-height + var.$user-header-height +
+            var.$user-header-height
+        )
+        [main-row] auto;
+    }
+  }
+  grid-template-rows:
+    [header-row] calc(var.$color-bar-height + var.$user-header-height)
+    [main-row] auto;
+
+  &.search-mode {
+    grid-template-rows:
+      [header-row] calc(
+        var.$color-bar-height + var.$user-header-height +
+          var.$user-header-height
+      )
       [main-row] auto;
   }
 }
@@ -27,15 +48,6 @@ main {
 }
 
 @media (min-width: 600px) {
-  .app-container {
-    grid-template-rows: [header-row] var.$color-bar-height [main-row] auto;
-    &.user {
-      grid-template-rows:
-        [header-row] calc(var.$color-bar-height + var.$user-header-height)
-        [main-row] auto;
-    }
-  }
-
   main {
     padding: 0;
   }

@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SpinUpComponent } from "./components/spin-up/spin-up.component";
 import { ApiSpinUpService } from './services/api-spinup.service';
 import { AuthMockService } from './services/auth-mock.service';
+import { EventSearchService } from './services/event-search.service';
 import { UserProfileService } from './services/user-profile.service';
 
 @Component({
@@ -19,6 +20,9 @@ import { UserProfileService } from './services/user-profile.service';
 })
 export class AppComponent implements OnInit {
   title = 'next-japan';
+
+  private eventSearch = inject(EventSearchService);
+  inSearchMode = this.eventSearch.searchMode;
 
   private spinUp = inject(ApiSpinUpService);
 

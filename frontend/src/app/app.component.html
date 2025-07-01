@@ -1,7 +1,11 @@
 @if(!ready()) {
 <app-spin-up />
 } @else {
-<div class="app-container" [class.user]="!!userProfile()">
+<div
+  class="app-container"
+  [class.user]="!!userProfile()"
+  [class.search-mode]="inSearchMode()"
+>
   <app-header />
   <main>
     <section class="router-outlet">

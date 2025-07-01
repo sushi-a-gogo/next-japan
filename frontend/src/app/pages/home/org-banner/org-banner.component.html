@@ -1,7 +1,4 @@
 <div class="background-overlay">
-  @if(!isAuthenticated()) {
-  <app-navbar />
-  }
   <div class="header-content content-container">
     @if(bannerImage()) {
     <img [ngSrc]="bannerImage()!.src" fill priority alt="Tokyo at night" />

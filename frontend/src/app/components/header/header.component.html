@@ -1,4 +1,8 @@
 <header>
-  <app-user-navbar></app-user-navbar>
-  <app-color-bar></app-color-bar>
+  @if(isAuthenticated()) {
+  <app-user-navbar />
+  } @else {
+  <app-navbar />
+  }
+  <app-color-bar />
 </header>

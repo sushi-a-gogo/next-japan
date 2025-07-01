@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthMockService } from '@app/services/auth-mock.service';
+import { NavbarComponent } from "../navbar/navbar.component";
 import { ColorBarComponent } from "./color-bar/color-bar.component";
 import { UserNavbarComponent } from "./user-navbar/user-navbar.component";
 
 @Component({
   selector: 'app-header',
-  imports: [UserNavbarComponent, ColorBarComponent],
+  imports: [UserNavbarComponent, ColorBarComponent, NavbarComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  private authService = inject(AuthMockService);
+  isAuthenticated = this.authService.isAuthenticated;
 }
