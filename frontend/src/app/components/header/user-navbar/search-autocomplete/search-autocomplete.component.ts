@@ -52,7 +52,12 @@ export class SearchAutocompleteComponent implements OnInit {
         this.visible = false;
         setTimeout(() => {
           this.searchQuery.disable({ emitEvent: false });
-          this.searchQuery.setValue('', { emitEvent: false });
+          const query = this.route.snapshot.queryParams['q'];
+          if (query) {
+            this.searchQuery.setValue(query, { emitEvent: false });
+          } else {
+            this.searchQuery.setValue('', { emitEvent: false });
+          }
           this.filteredEvents = [];
           setTimeout(() => {
             this.selectedValue = undefined;
@@ -66,14 +71,8 @@ export class SearchAutocompleteComponent implements OnInit {
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        const query = this.route.snapshot.queryParams['q'];
-        if (query) {
-          this.searchQuery.setValue(query, { emitEvent: false });
-          this.filteredEvents = [];
-        } else {
-          if (this.visible) {
-            this.eventSearchService.toggleSearchMode();
-          }
+        if (this.visible) {
+          this.eventSearchService.toggleSearchMode();
         }
       });
 

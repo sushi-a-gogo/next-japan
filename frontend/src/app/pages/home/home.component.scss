@@ -10,16 +10,17 @@ article {
   height: 100%;
 }
 
-header {
+article > header {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   background-size: cover;
 }
 
-main {
+article > main.content-container {
   flex: 1;
   width: 100%;
 
@@ -30,11 +31,11 @@ main {
   padding-bottom: 0;
 }
 
-main > section:last-child {
+article > main.content-container > section:last-child {
   margin-bottom: 30px;
 }
 
-footer {
+article > footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +73,6 @@ section {
 }
 
 .image-content {
-  padding: 48px 24px;
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -80,23 +80,42 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
+  height: 512px;
+  background-position: top;
+
   img {
     //opacity: 0.5;
-    filter: brightness(50%);
+    //filter: brightness(50%);
     object-fit: cover;
     object-position: top;
+    background-position: top;
+  }
+
+  .text-content {
+    padding: 18px 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  main.content {
+    max-width: 800px;
+    font-size: 14px;
+  }
+
+  footer {
+    padding-top: 10px;
   }
 }
 
 .headline {
-  font-size: 34px;
+  font-size: 24px;
   line-height: 1.07143;
   font-weight: 700;
   letter-spacing: -0.005em;
 }
 
 .subhead {
-  font-size: 28px;
+  font-size: 18px;
   line-height: 1.14286;
   font-weight: 400;
   letter-spacing: 0.007em;
@@ -104,18 +123,17 @@ section {
 
 a.app-button {
   font-size: 18px;
-  width: 50%;
+  //width: 50%;
   border-radius: 4px;
 }
 
 @media (min-width: 600px) {
-  main {
+  article > main {
     padding: 0;
     padding-top: 48px;
-    //gap: 48px;
   }
 
-  main > section:last-child {
+  article > main > section:last-child {
     margin-bottom: 76px;
   }
 

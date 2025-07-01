@@ -38,24 +38,27 @@
     </section>
     <section class="image-content">
       <img [ngSrc]="aiBackgroundImage().src" alt="A dream" fill priority />
-      <div class="flex-content flex-column center">
-        <div class="headline">AI Event Builder</div>
-        <div class="subhead">Smart Event Design</div>
-        <div class="subhead">Design and customize events effortlessly.</div>
-        <p>
+      <div class="text-content flex-content flex-column center">
+        <header>
+          <div class="headline">AI Event Builder</div>
+          <div class="subhead">Design and customize events effortlessly.</div>
+        </header>
+        <main class="content">
           Our AI Event Designer is currently in beta and available for you to
           test drive. Experience how artificial intelligence can help you design
           and customize events quickly and effortlessly. Try it now and share
           your feedback to help us improve!
-        </p>
-        <a
-          class="app-button app-button-save"
-          aria-label="Learn more about our AI Event Designer"
-          type="button"
-          routerLink="./dream"
-        >
-          <strong>Learn More</strong>
-        </a>
+        </main>
+        <footer>
+          <a
+            class="app-button app-button-save"
+            aria-label="Learn more about our AI Event Designer"
+            type="button"
+            routerLink="./dream"
+          >
+            <strong>Learn More</strong>
+          </a>
+        </footer>
       </div>
     </section>
   </main>
