@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, ElementRef, inject, OnInit, viewChild } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -17,6 +17,16 @@ import { debounceTime, filter, of, switchMap, tap } from 'rxjs';
   styleUrl: './search-autocomplete.component.scss',
 })
 export class SearchAutocompleteComponent implements OnInit {
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      if (this.visible) {
+        this.eventSearchService.toggleSearchMode();
+      }
+    }
+  }
+
   searchQuery = new FormControl({ value: '', disabled: true });
   filteredEvents: EventData[] = [];
   selectedValue?: string;

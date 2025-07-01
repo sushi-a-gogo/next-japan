@@ -51,7 +51,7 @@ nav {
     li.login {
       justify-self: flex-end;
       flex: 1;
-      padding: 0 12px;
+      padding-right: 10px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -61,16 +61,21 @@ nav {
 }
 
 button.transparent {
-  border-radius: 24px;
+  border-radius: 4px;
+  padding: 0 10px;
+  min-width: 40px;
+  background-color: rgba(0, 0, 0, 0.05);
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  //color: var(--light-yellow-stars);
 }
 
 .text {
-  //font-weight: 600;
+  display: none;
+}
+
+@media (min-width: 430px) {
 }
 
 @media (min-width: 600px) {
@@ -78,14 +83,10 @@ button.transparent {
   .search-autocomplete {
     max-width: var.$max-page-width;
   }
-}
-
-@media (min-width: var.$max-page-width) {
-  nav {
-    ul {
-      li.login {
-        padding: 0;
-      }
-    }
+  .text {
+    display: inline;
+  }
+  button.transparent {
+    padding: 0 20px;
   }
 }
