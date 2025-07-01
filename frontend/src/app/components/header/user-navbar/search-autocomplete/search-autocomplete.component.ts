@@ -45,6 +45,10 @@ export class SearchAutocompleteComponent implements OnInit {
       if (enabled) {
         setTimeout(() => {
           this.searchQuery.enable({ emitEvent: false });
+          const query = this.route.snapshot.queryParams['q'];
+          if (query) {
+            this.searchQuery.setValue(query, { emitEvent: false });
+          }
           this.searchInput()?.nativeElement.focus();
           this.visible = true;
         }, 200);
@@ -52,12 +56,7 @@ export class SearchAutocompleteComponent implements OnInit {
         this.visible = false;
         setTimeout(() => {
           this.searchQuery.disable({ emitEvent: false });
-          const query = this.route.snapshot.queryParams['q'];
-          if (query) {
-            this.searchQuery.setValue(query, { emitEvent: false });
-          } else {
-            this.searchQuery.setValue('', { emitEvent: false });
-          }
+          this.searchQuery.setValue('', { emitEvent: false });
           this.filteredEvents = [];
           setTimeout(() => {
             this.selectedValue = undefined;
