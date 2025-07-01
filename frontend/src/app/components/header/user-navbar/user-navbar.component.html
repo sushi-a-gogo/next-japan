@@ -22,8 +22,10 @@
     </li> -->
     <li>
       <button
+        aria-label="Search Events"
         type="button"
-        class="app-button flex-button transparent strong"
+        class="app-button flex-button transparent"
+        [class.active]="inSearchMode()"
         (click)="toggleSearchPanel()"
       >
         <span class="material-icons">search</span>

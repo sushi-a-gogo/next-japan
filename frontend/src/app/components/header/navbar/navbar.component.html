@@ -1,4 +1,3 @@
-@if(!userProfile()) {
 <nav class="open" [class.search-mode]="inSearchMode()">
   <ul>
     <li class="org-logo">
@@ -8,6 +7,7 @@
     </li>
     <li>
       <button
+        aria-label="Search Events"
         type="button"
         class="app-button flex-button transparent strong"
         (click)="toggleSearchPanel()"
@@ -23,4 +23,3 @@
   </ul>
   <app-search-autocomplete class="search-autocomplete" />
 </nav>
-}

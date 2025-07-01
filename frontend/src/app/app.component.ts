@@ -50,6 +50,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  toggleSearchMode() {
+    this.eventSearch.toggleSearchMode();
+  }
+
   private configureAppHeight(): void {
     const appHeight = () => {
       const doc = document.documentElement;

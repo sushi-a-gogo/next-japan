@@ -1,7 +1,7 @@
 @defer () { @if(busy()) {
 <app-loading-spinner></app-loading-spinner>
 } }
-<app-modal>
+<app-modal (close)="cancel()">
   <div class="flex-column">
     <header>Choose an account:</header>
     <main>

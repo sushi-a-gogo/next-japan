@@ -15,21 +15,15 @@
 }
 
 nav {
-  opacity: 0;
   height: var.$user-header-height;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: var.$user-header-height;
   transition: 0.25s ease-in-out;
 
-  &.open {
-    opacity: 1;
-
-    &.search-mode {
-      height: calc(var.$user-header-height + var.$user-header-height);
-    }
+  &.search-mode {
+    height: calc(var.$user-header-height + var.$user-header-height);
   }
 
   ul {

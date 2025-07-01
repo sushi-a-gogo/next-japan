@@ -2,6 +2,8 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 import { routes } from './app.routes';
 
 const scrollConfig: InMemoryScrollingOptions = {
@@ -14,6 +16,7 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(

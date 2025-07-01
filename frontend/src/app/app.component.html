@@ -12,6 +12,11 @@
       <router-outlet />
     </section>
   </main>
+  <div
+    class="backdrop"
+    [class.open]="inSearchMode()"
+    (click)="toggleSearchMode()"
+  ></div>
 </div>
 <app-error-bar />
 @if(isAuthenticating()) {

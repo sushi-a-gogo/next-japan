@@ -1,13 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { NavbarComponent } from "@app/components/navbar/navbar.component";
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { ImageService } from '@app/services/image.service';
 
 @Component({
   selector: 'app-org-banner',
-  imports: [NgOptimizedImage, NavbarComponent],
+  imports: [NgOptimizedImage],
   templateUrl: './org-banner.component.html',
   styleUrl: './org-banner.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
