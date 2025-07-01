@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "sass:map";
 @use "variables.scss" as var;
 
@@ -20,7 +21,7 @@ article > header {
   background-size: cover;
 }
 
-article > main.content-container {
+article > main {
   flex: 1;
   width: 100%;
 
@@ -31,7 +32,7 @@ article > main.content-container {
   padding-bottom: 0;
 }
 
-article > main.content-container > section:last-child {
+article > main > section:last-child {
   margin-bottom: 30px;
 }
 
@@ -121,10 +122,22 @@ section {
   letter-spacing: 0.007em;
 }
 
-a.app-button {
+a.app-button.app-button-save {
   font-size: 18px;
+  height: 48px;
   //width: 50%;
   border-radius: 4px;
+  background: color.scale(
+    map.get(var.$colors, bright-blue-sky),
+    $lightness: -20%
+  );
+
+  &:hover {
+    background: color.scale(
+      map.get(var.$colors, bright-blue-sky),
+      $lightness: -30%
+    );
+  }
 }
 
 @media (min-width: 600px) {
@@ -134,7 +147,7 @@ a.app-button {
   }
 
   article > main > section:last-child {
-    margin-bottom: 76px;
+    margin-bottom: 100px;
   }
 
   .organization-info {

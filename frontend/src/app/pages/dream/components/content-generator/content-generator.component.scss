@@ -15,10 +15,14 @@ form {
   width: 100%;
 }
 
-.app-button {
+.app-button.app-button-save {
   border-radius: 6px;
   font-weight: 600;
   height: 48px;
+  background: color.scale(
+    map.get(var.$colors, navy-blue-mountain),
+    $lightness: 10%
+  );
 }
 
 .results {
@@ -29,19 +33,12 @@ form {
 }
 
 .no-results {
-  color: var(--navy-blue-mountain);
-  border-radius: 10px;
+  //color: var(--creamy-white-clouds);
+  border-radius: 4px;
   gap: 10px;
   padding: 20px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left;
-  background: color.scale(
-    map.get(var.$colors, bright-blue-sky),
-    $lightness: 85%
-  );
-  border: 1px solid
-    color.scale(map.get(var.$colors, bright-blue-sky), $lightness: 50%);
+  background: #d9e4ee;
+  border: 1px solid map.get(var.$colors, dark-label);
 
   .icon {
     font-size: 24px;
