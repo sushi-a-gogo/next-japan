@@ -77,9 +77,9 @@ export class SearchAutocompleteComponent implements OnInit {
 
     this.searchQuery.valueChanges.pipe(
       debounceTime(300),
-      filter(() => !this.selectedValue),
+      filter((query) => !this.selectedValue),
       tap((query) => console.log('Search: ' + query)),
-      switchMap(query => query ? this.eventSearchService.searchEvents$(query) : of([])),
+      switchMap(query => query && query!.length > 2 ? this.eventSearchService.searchEvents$(query) : of([])),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(events => {
       this.filteredEvents = events;
