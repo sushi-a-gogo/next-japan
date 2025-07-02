@@ -14,6 +14,22 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "[API_KEY]", // Set in .env file
 });
 
+const providers = {
+  openai: {
+    client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "[API_KEY]" }),
+    model: "gpt-4o-mini", // ...or 'gpt-3.5-turbo' for cost savings
+    imageModel: "dall-e-3",
+  },
+  grok: {
+    client: new OpenAI({
+      apiKey: process.env.XAI_API_KEY || "[API_KEY]",
+      baseURL: "https://api.x.ai/v1", // Override for Grok
+    }),
+    model: "grok-3", // Adjust based on xAI docs
+    imageModel: "grok-2-image-1212", //"grok-2-image",
+  },
+};
+
 // POST endpoint to handle text and image generation
 router.post("/generate-content", async (req, res) => {
   //await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -21,7 +37,7 @@ router.post("/generate-content", async (req, res) => {
 
   try {
     // Expecting params and custom text from Angular front-end
-    const { promptParams, customText } = req.body;
+    const { promptParams, customText, aiProvider } = req.body;
 
     // Validate input
     if (!promptParams || !customText) {
@@ -36,27 +52,15 @@ router.post("/generate-content", async (req, res) => {
       );
     }
 
+    const providerKey = aiProvider || "OpenAI";
+    const provider = providers[providerKey.toLowerCase()];
+    console.log("Selected provider" + providerKey);
+
     // Construct text prompt
     const textPrompt = `Generate creative text describing a day long special event in Japan using 100 words or less and based on these parameters: ${JSON.stringify(
       promptParams
     )}. User input: ${customText}`;
-    console.log("Call OpenAI Chat API for text: " + textPrompt);
-
-    // Call OpenAI Chat API for text
-    const textResponse = await openai.chat.completions.create({
-      model: "gpt-4o", // Or 'gpt-3.5-turbo' for cost savings
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a creative assistant generating engaging text for a Japanese travel agency.",
-        },
-        { role: "user", content: textPrompt },
-      ],
-      max_tokens: 512, // Increased to allow for longer responses
-      temperature: 0.7,
-    });
-    const generatedText = textResponse.choices[0].message.content;
+    console.log(`Call ${providerKey} Chat API for text: ` + textPrompt);
 
     // Construct image prompt
     const imagePrompt = `Create an image in a cel-shaded, anime style,
@@ -66,18 +70,19 @@ router.post("/generate-content", async (req, res) => {
     )}.
     Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
     adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
-    The image should not contain any text.`;
-    console.log("Call OpenAI Chat API for image: " + imagePrompt);
+    Avoid close-up or foreground characters.
+    Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+    The image should not contain any text or symbols.`;
+    console.log(`Call ${providerKey} API for image: ` + imagePrompt);
 
-    // Call OpenAI Image API (DALL·E)
-    const imageResponse = await openai.images.generate({
-      model: "dall-e-3",
-      prompt: imagePrompt,
-      n: 1,
-      size: "1792x1024",
-    });
+    const imageResponse = await getImageResultFromAI(provider, imagePrompt);
+    // Call AI API for text
+    const textResponse = await getTextResultFromAI(provider, textPrompt);
+    const generatedText = textResponse.choices[0].message.content;
+
+    // Call AI Image API
+    //const imageResponse = await getImageResultFromAI(provider, imagePrompt);
     const imageUrl = imageResponse.data[0].url;
-
     // Download and save image locally
     const imageName = `image-${Date.now()}.png`;
     const imagePath = path.join("public/images", imageName);
@@ -96,7 +101,7 @@ router.post("/generate-content", async (req, res) => {
       image: { id: imageName, width: 1792, height: 1024 },
     });
   } catch (error) {
-    console.error("Error with OpenAI API:", error);
+    console.error("Error with AI API:", error);
     res.status(500).json({ error: "Failed to generate content" });
   }
 });
@@ -104,6 +109,38 @@ router.post("/generate-content", async (req, res) => {
 async function isPromptSafe(userPrompt) {
   const moderation = await openai.moderations.create({ input: userPrompt });
   return !moderation.results[0].flagged;
+}
+
+async function getTextResultFromAI(provider, prompt) {
+  const textResponse = await provider.client.chat.completions.create({
+    model: provider.model,
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a creative assistant generating engaging text for a Japanese travel agency.",
+      },
+      { role: "user", content: prompt },
+    ],
+    max_tokens: 512, // Increased to allow for longer responses
+    temperature: 0.7,
+  });
+  return textResponse;
+}
+
+async function getImageResultFromAI(provider, prompt) {
+  const requestParams = {
+    model: provider.imageModel,
+    prompt,
+    n: 1,
+  };
+
+  if (provider.imageModel === "dall-e-3") {
+    requestParams.size = "1792x1024";
+  }
+
+  const imageResponse = await provider.client.images.generate(requestParams);
+  return imageResponse;
 }
 
 function createGhibliStylePrompt({

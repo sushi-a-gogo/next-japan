@@ -28,7 +28,13 @@ export class ContentGeneratorComponent {
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  params = { destination: 'Mt. Fuji', tone: 'adventurous', mood: 'excited', season: 'Summer' }; // Default params
+  params = {
+    destination: 'Mt. Fuji',
+    tone: 'adventurous',
+    mood: 'excited',
+    season: 'Summer',
+  }; // Default params
+  aiProvider: 'OpenAI' | 'Grok' = 'OpenAI'
   customText = '';
   storyBookBackground = this.imageService.backgroundImageUrl('storybook.png');
 
@@ -37,7 +43,7 @@ export class ContentGeneratorComponent {
   moods = ['excited', 'serene', 'curious', 'terrified'];
   seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
   destinations = ['Kinkaku-ji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Mt. Fuji', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
-
+  aiProviders = ['OpenAI', 'Grok'];
   dreamEvent = signal<EventData | null>(null);
 
   disabled = computed(() => !this.auth.isAuthenticated())
@@ -47,7 +53,7 @@ export class ContentGeneratorComponent {
     this.busy.set(true);
     this.error.set(null);
 
-    this.openAiService.generateContent(this.params, this.customText || 'happy').subscribe({
+    this.openAiService.generateContent(this.params, this.customText || 'happy', this.aiProvider).subscribe({
       next: (aiEvent) => {
         const event: EventData = {
           eventId: 0,
