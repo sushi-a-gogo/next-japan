@@ -26,7 +26,12 @@ main {
   grid-area: main;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .router-content {
+    flex: 1;
+  }
 }
 
 footer {
@@ -52,10 +57,6 @@ footer {
     //backdrop-filter: blur(3px);
     //-webkit-backdrop-filter: blur(3px);
   }
-}
-
-.router-outlet {
-  width: 100%;
 }
 
 @media (min-width: 600px) {

@@ -2,6 +2,11 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
+:host {
+  display: block;
+  width: 100%;
+}
+
 article {
   flex: 1;
   display: flex;
