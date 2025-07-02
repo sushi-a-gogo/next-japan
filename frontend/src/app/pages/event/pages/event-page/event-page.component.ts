@@ -6,7 +6,6 @@ import { EventService } from '@app/pages/event/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
-import { FooterComponent } from '@app/shared/footer/footer.component';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { catchError, forkJoin, of } from 'rxjs';
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
@@ -19,7 +18,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 @Component({
   selector: 'app-event-page',
   imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent,
-    EventOpportunitiesComponent, FooterComponent, PageLoadSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent],
+    EventOpportunitiesComponent, PageLoadSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })

@@ -1,8 +1,7 @@
-header {
+:host {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 101;
   width: 100%;
-  background-color: var(--creamy-white-clouds);
 }

@@ -1,4 +1,4 @@
-<nav [class.open]="userProfile()">
+<nav [class.search-mode]="inSearchMode()">
   @if(userProfile()) {
   <ul>
     <li>
@@ -6,11 +6,7 @@
         <app-logo [size]="92" />
       </a>
     </li>
-    <li class="search desktop">
-      <app-search-autocomplete />
-    </li>
-    <li class="spacer"></li>
-    <li>
+    <!-- <li>
       <a
         type="button"
         class="app-button ai"
@@ -20,6 +16,19 @@
       >
         AI Event Builder
       </a>
+    </li> -->
+    <li class="spacer"></li>
+    <li>
+      <button
+        aria-label="Search Events"
+        type="button"
+        class="app-button flex-button transparent"
+        [class.active]="inSearchMode()"
+        (click)="toggleSearchPanel()"
+      >
+        <span class="material-icons">search</span>
+        Search Events
+      </button>
     </li>
     <li class="notifications">
       @defer () {
@@ -32,6 +41,6 @@
       }
     </li>
   </ul>
-  <app-search-autocomplete class="mobile" />
+  <app-search-autocomplete />
   }
 </nav>

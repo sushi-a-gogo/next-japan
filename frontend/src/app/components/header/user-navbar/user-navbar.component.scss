@@ -3,7 +3,6 @@
 
 :host {
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,16 +11,14 @@
 
 nav {
   width: 100%;
-  height: 0;
-  opacity: 0;
-  transition: 0.25s ease-in-out;
+  height: var.$user-header-height;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: 0.25s ease-in-out;
 
-  &.open {
-    height: var.$user-header-height-mobile;
-    opacity: 1;
+  &.search-mode {
+    height: calc(var.$user-header-height + var.$user-header-height);
   }
 }
 
@@ -45,8 +42,6 @@ li {
   height: 100%;
 
   .app-button {
-    //height: 100%;
-    //width: 100%;
     background-color: transparent;
     padding: 0 20px;
     white-space: nowrap;
@@ -75,10 +70,6 @@ li {
   }
 }
 
-li.search {
-  flex: 1;
-}
-
 li.spacer {
   flex: 1;
 }
@@ -87,25 +78,13 @@ li.spacer {
   display: none;
 }
 
-li.desktop {
-  display: none;
+.strong {
+  font-weight: 600;
 }
 
 @media (min-width: 600px) {
-  li.desktop {
-    display: inherit;
-  }
-
-  .mobile {
-    display: none;
-  }
-
   nav {
     max-width: var.$max-page-width;
-
-    &.open {
-      height: var.$user-header-height;
-    }
   }
 
   ul {
@@ -120,9 +99,5 @@ li.desktop {
         }
       }
     }
-  }
-
-  li.spacer {
-    display: none;
   }
 }

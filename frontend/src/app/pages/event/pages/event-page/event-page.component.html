@@ -9,9 +9,6 @@
     routerLink="/home"
     routerLinkText="Click here to go back to the home page"
   ></app-page-error>
-  <footer>
-    <app-footer />
-  </footer>
   } @else {
   <header [style.backgroundImage]="backgroundImage()">
     <app-event-header></app-event-header>
@@ -27,9 +24,6 @@
       <app-event-opportunities />
     </section>
   </main>
-  <footer>
-    <app-footer />
-  </footer>
   }
 </article>
 @if(showRegistrationDialog()) {

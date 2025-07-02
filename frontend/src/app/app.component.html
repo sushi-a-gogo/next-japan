@@ -1,14 +1,28 @@
 @if(!ready()) {
 <app-spin-up />
 } @else {
-<div class="app-container" [class.user]="!!userProfile()">
-  <app-header />
+<div
+  class="app-container"
+  [class.user]="!!userProfile()"
+  [class.search-mode]="inSearchMode()"
+>
+  <header>
+    <app-header />
+  </header>
   <main>
-    <section class="router-outlet">
+    <section class="router-content">
       <router-outlet />
     </section>
+    <footer>
+      <app-footer />
+    </footer>
   </main>
 </div>
+<div
+  class="backdrop"
+  [class.open]="inSearchMode()"
+  (click)="toggleSearchMode()"
+></div>
 <app-error-bar />
 @if(isAuthenticating()) {
 <app-login />

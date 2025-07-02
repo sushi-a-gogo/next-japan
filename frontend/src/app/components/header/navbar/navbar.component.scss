@@ -1,0 +1,92 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba(
+    $color: map.get(var.$colors, creamy-white-clouds),
+    $alpha: 1
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+nav {
+  height: var.$user-header-height;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.25s ease-in-out;
+
+  &.search-mode {
+    height: calc(var.$user-header-height + var.$user-header-height);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    gap: 10px;
+
+    li {
+      display: list-item;
+      text-align: center;
+    }
+
+    li.org-logo:hover {
+      transition: 0.25s;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    li.login {
+      justify-self: flex-end;
+      flex: 1;
+      padding-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  }
+}
+
+button.transparent {
+  border-radius: 4px;
+  padding: 0 10px;
+  min-width: 40px;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.text {
+  display: none;
+}
+
+@media (min-width: 430px) {
+}
+
+@media (min-width: 600px) {
+  nav,
+  .search-autocomplete {
+    max-width: var.$max-page-width;
+  }
+  .text {
+    display: inline;
+  }
+  button.transparent {
+    padding: 0 20px;
+  }
+}

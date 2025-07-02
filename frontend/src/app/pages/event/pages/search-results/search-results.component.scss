@@ -2,13 +2,15 @@
 @use "variables.scss" as var;
 
 :host {
-  width: 100%;
+  // width: 100%;
+  // height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  margin-bottom: 80px;
+  // justify-content: flex-start;
+  // justify-content: space-between;
+  //height: 100%;
+  //margin-bottom: 80px;
 }
 
 .content-container {

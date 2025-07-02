@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { DialogService } from '@app/services/dialog.service';
-import { ModalComponent } from "../../shared/modal/modal.component";
+import { ModalComponent } from "@shared/modal/modal.component";
 
 @Component({
   selector: 'app-about',

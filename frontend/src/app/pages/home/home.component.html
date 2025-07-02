@@ -9,9 +9,6 @@
     errorTitle="Site not available."
     errorMessage="We're sorry. The page could not be loaded."
   ></app-page-error>
-  <footer>
-    <app-footer />
-  </footer>
 </article>
 } @else {
 <article>
@@ -31,15 +28,36 @@
     </section>
     <section>
       <div class="flex-content">
-        <!-- defer -->
         @if(loaded()) {
         <app-event-carousel></app-event-carousel>
         }
       </div>
     </section>
+    <section class="image-content">
+      <img [ngSrc]="aiBackgroundImage().src" alt="A dream" fill priority />
+      <div class="text-content flex-content flex-column center">
+        <header>
+          <div class="headline">AI Event Builder</div>
+          <div class="subhead">Design and customize events effortlessly.</div>
+        </header>
+        <main class="content">
+          Our AI Event Designer is currently in beta and available for you to
+          test drive. Experience how artificial intelligence can help you design
+          and customize events quickly and effortlessly. Try it now and
+          experience the future of event planning!
+        </main>
+        <footer>
+          <a
+            class="app-button app-button-save"
+            aria-label="Learn more about our AI Event Designer"
+            type="button"
+            routerLink="./dream"
+          >
+            <strong>Learn More</strong>
+          </a>
+        </footer>
+      </div>
+    </section>
   </main>
-  <footer>
-    <app-footer />
-  </footer>
 </article>
 }

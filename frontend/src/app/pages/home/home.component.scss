@@ -1,5 +1,11 @@
+@use "sass:color";
 @use "sass:map";
 @use "variables.scss" as var;
+
+:host {
+  display: block;
+  width: 100%;
+}
 
 article {
   flex: 1;
@@ -10,16 +16,17 @@ article {
   height: 100%;
 }
 
-header {
+article > header {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   background-size: cover;
 }
 
-main {
+article > main {
   flex: 1;
   width: 100%;
 
@@ -30,16 +37,8 @@ main {
   padding-bottom: 0;
 }
 
-main > section:last-child {
-  padding-bottom: 30px;
-}
-
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: #232323;
+article > main > section:last-child {
+  margin-bottom: 30px;
 }
 
 section {
@@ -50,6 +49,7 @@ section {
 }
 
 .flex-content {
+  z-index: 1;
   width: 100%;
   text-align: center;
 }
@@ -70,15 +70,81 @@ section {
   }
 }
 
-@media (min-width: 600px) {
-  main {
-    padding: 0;
-    padding-top: 48px;
-    gap: 48px;
+.image-content {
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 512px;
+  background-position: top;
+
+  img {
+    //opacity: 0.5;
+    //filter: brightness(50%);
+    object-fit: cover;
+    object-position: top;
+    background-position: top;
   }
 
-  main > section:last-child {
-    padding-bottom: 76px;
+  .text-content {
+    padding: 18px 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  main.content {
+    max-width: 800px;
+    font-size: 14px;
+  }
+
+  footer {
+    padding: 10px 0 6px 0;
+  }
+}
+
+.headline {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.subhead {
+  font-size: 18px;
+  line-height: 1.14286;
+  font-weight: 400;
+  letter-spacing: 0.007em;
+}
+
+a.app-button.app-button-save {
+  font-size: 18px;
+  height: 48px;
+  //width: 50%;
+  border-radius: 4px;
+  background: color.scale(
+    map.get(var.$colors, bright-blue-sky),
+    $lightness: -20%
+  );
+
+  &:hover {
+    background: color.scale(
+      map.get(var.$colors, bright-blue-sky),
+      $lightness: -30%
+    );
+  }
+}
+
+@media (min-width: 600px) {
+  article > main {
+    padding: 0;
+    padding-top: 48px;
+  }
+
+  article > main > section:last-child {
+    margin-bottom: 100px;
   }
 
   .organization-info {

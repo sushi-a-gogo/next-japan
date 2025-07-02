@@ -3,7 +3,7 @@ import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { ImageService } from '@app/services/image.service';
-import { OpportunityDateComponent } from "../../../../shared/opportunity-date/opportunity-date.component";
+import { OpportunityDateComponent } from "@shared/opportunity-date/opportunity-date.component";
 
 @Component({
   selector: 'app-event-card',
