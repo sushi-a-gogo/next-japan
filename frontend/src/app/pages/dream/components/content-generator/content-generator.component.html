@@ -27,9 +27,33 @@
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic">
     <mat-label>Time of Year</mat-label>
-    <mat-select [(ngModel)]="params.season" name="style">
+    <mat-select [(ngModel)]="params.season" name="season">
       @for (season of seasons; track $index) {
       <mat-option [value]="season">{{ season }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Activity</mat-label>
+    <mat-select [(ngModel)]="params.activity" name="activity">
+      @for (activity of activities; track $index) {
+      <mat-option [value]="activity">{{ activity }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Group Size</mat-label>
+    <mat-select [(ngModel)]="params.groupSize" name="groupSize">
+      @for (groupSize of groupSizes; track $index) {
+      <mat-option [value]="groupSize">{{ groupSize }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Time of Day</mat-label>
+    <mat-select [(ngModel)]="params.timeOfDay" name="timeOfDay">
+      @for (timeOfDay of timesOfDay; track $index) {
+      <mat-option [value]="timeOfDay">{{ timeOfDay }}</mat-option>
       }
     </mat-select>
   </mat-form-field>

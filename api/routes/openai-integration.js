@@ -34,32 +34,35 @@ const providers = {
 router.post("/generate-content", async (req, res) => {
   //await new Promise((resolve) => setTimeout(resolve, 3000));
   //return res.status(500).json({ error: "Failed to generate content" });
+  // Expecting params and custom text from Angular front-end
+  const { promptParams, customText, aiProvider } = req.body;
+  const providerKey = aiProvider || "OpenAI";
+  const provider = providers[providerKey.toLowerCase()];
+
+  // Validate input
+  if (!promptParams || !customText) {
+    return res
+      .status(400)
+      .json({ error: "Missing promptParams or customText" });
+  }
 
   try {
-    // Expecting params and custom text from Angular front-end
-    const { promptParams, customText, aiProvider } = req.body;
-
-    // Validate input
-    if (!promptParams || !customText) {
-      return res
-        .status(400)
-        .json({ error: "Missing promptParams or customText" });
-    }
-
     if (!(await isPromptSafe(customText))) {
       throw new Error(
         "Prompt violates content guidelines. Please use appropriate language."
       );
     }
 
-    const providerKey = aiProvider || "OpenAI";
-    const provider = providers[providerKey.toLowerCase()];
-    console.log("Selected provider" + providerKey);
-
     // Construct text prompt
-    const textPrompt = `Generate creative text describing a day long special event in Japan using 100 words or less and based on these parameters: ${JSON.stringify(
-      promptParams
-    )}. User input: ${customText}`;
+    const textPrompt = `Generate a raw JSON object describing a day long special event in Japan based on these parameters:
+    ${JSON.stringify(promptParams)}.
+    User input: ${customText}.
+    The JSON object must include these properties:
+        'description': a creative text narrative (max 200 words),
+        'eventTitle': a concise title derived from the description.
+    Return only the raw JSON object, no additional text.
+    Do not include Markdown, code blocks, or extra text—output valid JSON only.
+    Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
     console.log(`Call ${providerKey} Chat API for text: ` + textPrompt);
 
     // Construct image prompt
@@ -75,13 +78,12 @@ router.post("/generate-content", async (req, res) => {
     The image should not contain any text or symbols.`;
     console.log(`Call ${providerKey} API for image: ` + imagePrompt);
 
-    const imageResponse = await getImageResultFromAI(provider, imagePrompt);
     // Call AI API for text
     const textResponse = await getTextResultFromAI(provider, textPrompt);
-    const generatedText = textResponse.choices[0].message.content;
+    const generatedTextJson = textResponse.choices[0].message.content;
+    const aiGeneratedEvent = JSON.parse(generatedTextJson);
 
-    // Call AI Image API
-    //const imageResponse = await getImageResultFromAI(provider, imagePrompt);
+    const imageResponse = await getImageResultFromAI(provider, imagePrompt);
     const imageUrl = imageResponse.data[0].url;
     // Download and save image locally
     const imageName = `image-${Date.now()}.png`;
@@ -91,13 +93,10 @@ router.post("/generate-content", async (req, res) => {
     const buffer = Buffer.from(arrayBuffer);
     fs.writeFileSync(imagePath, buffer);
 
-    // Return local image URL
-    const localImageUrl = `/images/${imageName}`; // Serve from your Express static folder
-
     // Return both text and image to front-end
     res.json({
-      text: generatedText,
-      imageUrl: localImageUrl,
+      ...aiGeneratedEvent,
+      imageUrl: `/images/${imageName}`,
       image: { id: imageName, width: 1792, height: 1024 },
     });
   } catch (error) {
