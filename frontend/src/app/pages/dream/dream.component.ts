@@ -3,12 +3,11 @@ import { Component, computed, inject, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
-import { FooterComponent } from '@app/shared/footer/footer.component';
 import { ContentGeneratorComponent } from "./components/content-generator/content-generator.component";
 
 @Component({
   selector: 'app-dream',
-  imports: [NgOptimizedImage, ContentGeneratorComponent, FooterComponent],
+  imports: [NgOptimizedImage, ContentGeneratorComponent],
   templateUrl: './dream.component.html',
   styleUrl: './dream.component.scss'
 })

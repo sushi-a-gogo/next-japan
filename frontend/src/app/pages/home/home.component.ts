@@ -7,7 +7,6 @@ import { PageErrorComponent } from '@app/components/page-error/page-error.compon
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OrganizationService } from '@app/services/organization.service';
-import { FooterComponent } from '@app/shared/footer/footer.component';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { of } from 'rxjs';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
@@ -15,7 +14,7 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NgOptimizedImage, FooterComponent, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
+  imports: [RouterLink, NgOptimizedImage, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

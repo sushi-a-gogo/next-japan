@@ -26,6 +26,7 @@
             formControlName="firstName"
             autocomplete="off"
           />
+          <mat-error>Please enter your first name.</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Last Name</mat-label>
@@ -79,11 +80,11 @@
         @if('phone' === profileForm.get('preferredContactMethod')?.value) {
         <div #disclaimer class="disclaimer">
           <p>
-            By choosing <em>Phone</em> as my preferred contact method, I agree
-            to receive recurring automated text messages (e.g. account
-            notifications) at the phone number provided. MSG & data rates may
-            apply. MSG frequency varies. To opt out of receiving text messages,
-            choose another preferred contact method in your user profile.
+            By selecting <em>Phone</em> as your preferred contact method, you
+            agree to receive helpful text messages (like event updates) at the
+            number you provided. Message and data rates may apply. Message
+            frequency may vary. If you'd rather not get texts, you can always
+            choose a different contact method in your profile.
           </p>
           View our
           <a routerLink="/legal/tos" target="_blank">Terms of Service</a>

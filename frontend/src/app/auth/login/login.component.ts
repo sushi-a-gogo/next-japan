@@ -4,9 +4,9 @@ import { UserProfile } from '@app/models/user-profile.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
+import { AvatarComponent } from "@shared/avatar/avatar.component";
+import { ModalComponent } from "@shared/modal/modal.component";
 import { of, switchMap } from 'rxjs';
-import { AvatarComponent } from "../../shared/avatar/avatar.component";
-import { ModalComponent } from "../../shared/modal/modal.component";
 
 @Component({
   selector: 'app-login',

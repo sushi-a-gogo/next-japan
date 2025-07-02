@@ -6,12 +6,17 @@
   [class.user]="!!userProfile()"
   [class.search-mode]="inSearchMode()"
 >
-  <app-header />
+  <header>
+    <app-header />
+  </header>
   <main>
     <section class="router-outlet">
       <router-outlet />
     </section>
   </main>
+  <footer>
+    <app-footer />
+  </footer>
 </div>
 <div
   class="backdrop"

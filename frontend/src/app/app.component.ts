@@ -1,6 +1,7 @@
 import { afterNextRender, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from "@app/components/footer/footer.component";
 import { catchError, exhaustMap, of, timer } from 'rxjs';
 import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
@@ -14,7 +15,7 @@ import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, LoginComponent, ErrorBarComponent, AboutComponent, SpinUpComponent],
+  imports: [RouterOutlet, HeaderComponent, LoginComponent, ErrorBarComponent, AboutComponent, SpinUpComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

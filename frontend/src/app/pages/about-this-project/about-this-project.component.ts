@@ -3,11 +3,10 @@ import { Component, computed, inject } from '@angular/core';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { ImageService } from '@app/services/image.service';
-import { FooterComponent } from "../../shared/footer/footer.component";
 
 @Component({
   selector: 'app-about-this-project',
-  imports: [NgOptimizedImage, FooterComponent],
+  imports: [NgOptimizedImage],
   templateUrl: './about-this-project.component.html',
   styleUrl: './about-this-project.component.scss'
 })
