@@ -1,16 +1,19 @@
 <img class="background" [ngSrc]="image().src" fill priority />
 <div class="content">
-  <article class="flex-column content-container">
+  <article class="flex-column fade-in" [class.open]="open()">
     <header>👨‍💻 About This Project</header>
     <main>
       <div>
-        Next Japan is a full-stack portfolio project built by me to showcase
-        real-world engineering capabilities. It simulates an imaginary world
-        inspired by Japanese Anime, allowing imaginary users to register for
-        special events hosted at various locales in Japan.
+        Next Japan is a full-stack portfolio project I built to showcase
+        real-world engineering skills, explore new technologies, and stay
+        engaged while on the job hunt.
+        <p>
+          It simulates an imaginary world inspired by Japanese Anime, allowing
+          imaginary users to register for special events hosted at various
+          locales in Japan.
+        </p>
+        Designed, architected, coded, and deployed entirely from scratch using:
       </div>
-      Created entirely from scratch using:
-
       <ul>
         <li>
           <span>⚙️</span> Angular v20 with modular routing, components, and
@@ -26,7 +29,8 @@
           cached image delivery
         </li>
         <li>
-          <span>🤖</span> Integration with the OpenAI API for enhanced features
+          <span>🤖</span> Integration with the OpenAI and Grok APIs for enhanced
+          features
         </li>
         <li>
           <span>☁️</span> Cloud deployment with cold start loading overlay

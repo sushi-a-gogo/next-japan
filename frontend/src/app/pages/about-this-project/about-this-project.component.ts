@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { ImageService } from '@app/services/image.service';
@@ -10,7 +10,7 @@ import { ImageService } from '@app/services/image.service';
   templateUrl: './about-this-project.component.html',
   styleUrl: './about-this-project.component.scss'
 })
-export class AboutThisProjectComponent {
+export class AboutThisProjectComponent implements OnInit {
   private imageService = inject(ImageService);
   private aboutImage: AppImageData = {
     id: "about.png",
@@ -23,6 +23,12 @@ export class AboutThisProjectComponent {
     return this.imageService.resizeImage(this.aboutImage, this.aboutImage.width, this.aboutImage.height);
   });
 
+  open = signal(false);
+
   private auth = inject(AuthMockService);
   isAuthenticated = this.auth.isAuthenticated;
+
+  ngOnInit(): void {
+    setTimeout(() => this.open.set(true), 100);
+  }
 }
