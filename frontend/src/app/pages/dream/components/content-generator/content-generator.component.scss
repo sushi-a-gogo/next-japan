@@ -15,14 +15,17 @@ form {
   width: 100%;
 }
 
-.app-button.app-button-save {
+.app-button {
   border-radius: 6px;
   font-weight: 600;
   height: 48px;
-  background: color.scale(
-    map.get(var.$colors, navy-blue-mountain),
-    $lightness: 10%
-  );
+
+  &.generate {
+    background: color.scale(
+      map.get(var.$colors, navy-blue-mountain),
+      $lightness: 10%
+    );
+  }
 }
 
 @media (min-width: 768px) {

@@ -78,13 +78,28 @@
   <button
     class="app-button app-button-save"
     disabled
-    matTooltip="To enable this feature, sign in or create an account."
+    matTooltip="Sign in or create an account to use the content generator."
   >
     Generate
   </button>
   } @else {
-  <button class="app-button app-button-save" type="submit">Generate</button>
-  }
+  <!-- Save workflow -->
+  @if(dreamEvent()) {
+  <button class="app-button app-button-default" type="button" (click)="reset()">
+    Try Again
+  </button>
+  <button
+    class="app-button app-button-save"
+    type="button"
+    (click)="saveEvent()"
+  >
+    Save Event
+  </button>
+  } @else {
+  <button class="app-button app-button-save generate" type="submit">
+    Generate
+  </button>
+  } }
 </form>
 <app-dream-banner
   [dreamEvent]="dreamEvent()"

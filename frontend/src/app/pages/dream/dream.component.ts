@@ -16,8 +16,8 @@ export class DreamComponent implements OnInit {
   private aiImage: AppImageData = {
     id: "ai-banner.png",
     cloudfareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
-    width: 768,
-    height: 1366
+    width: 1024,
+    height: 1792
   };
 
   image = computed(() => {

@@ -17,8 +17,8 @@ export class SpinUpComponent implements OnInit {
   private spinUpImage: AppImageData = {
     id: "about.png",
     cloudfareImageId: "32d6e94b-c33d-4953-379c-fe2a1b373400",
-    width: 1366,
-    height: 768
+    width: 1792,
+    height: 1024
   };
 
   image = computed(() => {
