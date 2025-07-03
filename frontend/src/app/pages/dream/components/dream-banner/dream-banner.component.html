@@ -1,12 +1,40 @@
-@if(dreamEvent()) {
-<div class="banner-container">
+@if(!dreamEvent() && !error() && !busy()) {
+<div class="no-results flex-row">
+  <span class="icon">🚀</span>
+  <span>
+    Your personalized, AI-powered dream event will be revealed here!<br />
+    Start by selecting your preferences above and hit
+    <strong>Generate</strong> to see the magic happen.
+  </span>
+</div>
+}
+<div class="fade-in" [class.open]="busy()">
+  @if(busy()) {
+  <div class="no-results flex-row">
+    <span class="icon">🚀</span>
+    <span>Waiting for the AI response...this may take a few minutes.</span>
+    <app-loading-spinner [delay]="250" />
+  </div>
+  }
+</div>
+<div class="fade-in" [class.open]="error()">
+  @if(error()) {
+  <div class="no-results flex-row error">
+    <span class="icon">🚀</span>
+    <span>{{ error() }}</span>
+  </div>
+  }
+</div>
+<div class="banner-container fade-in" [class.open]="dreamEvent() && !busy()">
+  @if(resizedImage()) {
   <img [ngSrc]="resizedImage()!.src" priority fill alt="Event image." />
+  }
   <div class="banner-bar">
     <div>
       <div class="banner-title break-word">
-        {{ dreamEvent()!.eventTitle }}
+        {{ dreamEvent()?.eventTitle }}
       </div>
-      <p class="pre-wrap">{{ dreamEvent()!.description }}</p>
+      <p class="pre-wrap">{{ dreamEvent()?.description }}</p>
       <div class="event-desc">
         <span class="material-icons">event_note</span>
         Coming Soon
@@ -14,4 +42,3 @@
     </div>
   </div>
 </div>
-}

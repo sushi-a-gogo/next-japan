@@ -86,26 +86,8 @@
   <button class="app-button app-button-save" type="submit">Generate</button>
   }
 </form>
-<div>
-  @if(!dreamEvent()) {
-  <div class="no-results flex-row">
-    @if(busy()) {
-    <span class="icon">🚀</span>
-    <span>Loading...this may take a few minutes.</span>
-    <app-loading-spinner [delay]="250" />
-    } @else {
-    <span class="icon">🚀</span>
-    <span>
-      Your personalized, AI-powered dream event will be revealed here!<br />
-      Start by selecting your preferences above and hit
-      <strong>Generate</strong> to see the magic happen.
-    </span>
-    }
-  </div>
-  }
-  <app-dream-banner
-    [dreamEvent]="dreamEvent()"
-    class="fade-in"
-    [class.open]="!error() && !busy()"
-  />
-</div>
+<app-dream-banner
+  [dreamEvent]="dreamEvent()"
+  [busy]="busy()"
+  [error]="error()"
+/>

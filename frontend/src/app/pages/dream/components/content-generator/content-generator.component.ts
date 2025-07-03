@@ -9,21 +9,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { ImageService } from '@app/services/image.service';
 import { OpenAiService } from '@app/services/open-ai.service';
-import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent, LoadingSpinnerComponent],
+  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent {
   private auth = inject(AuthMockService);
-  private openAiService = inject(OpenAiService);
-  private imageService = inject(ImageService);
+  private aiService = inject(OpenAiService);
 
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
@@ -70,11 +67,10 @@ export class ContentGeneratorComponent {
   disabled = computed(() => !this.auth.isAuthenticated())
 
   generateContent() {
-    this.dreamEvent.set(null);
-    this.busy.set(true);
     this.error.set(null);
+    this.busy.set(true);
 
-    this.openAiService.generateContent(this.params, this.customText || 'happy', this.aiProvider).subscribe({
+    this.aiService.generateContent(this.params, this.customText || 'happy', this.aiProvider).subscribe({
       next: (aiEvent) => {
         const event: EventData = {
           eventId: 0,

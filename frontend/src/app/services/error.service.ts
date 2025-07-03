@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,14 @@ import { throwError } from 'rxjs';
 export class ErrorService {
   private errorMessageSignal = signal<string>('');
   errorMessage = this.errorMessageSignal.asReadonly();
+
+  simulateError$<T>() {
+    return new Observable<T>((observer) => {
+      setTimeout(() => {
+        observer.error(new Error('This is a simulated error!'));
+      }, 1000);
+    });
+  }
 
   handleError(error: HttpErrorResponse, message = 'Something went wrong. Please try again later.', log = false) {
     if (log) {

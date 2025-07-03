@@ -25,40 +25,8 @@ form {
   );
 }
 
-.results {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.no-results {
-  //color: var(--creamy-white-clouds);
-  border-radius: 4px;
-  gap: 10px;
-  padding: 20px;
-  background: #d9e4ee;
-  border: 1px solid map.get(var.$colors, dark-label);
-
-  .icon {
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  &.error {
-    background: color.scale(
-      map.get(var.$colors, light-pink-petals),
-      $lightness: 65%
-    );
-    border: 1px solid
-      color.scale(map.get(var.$colors, red-torii-gate), $lightness: -10%);
-    color: color.scale(map.get(var.$colors, red-torii-gate), $lightness: -10%);
-  }
-}
-
 @media (min-width: 768px) {
   :host {
-    //flex-direction: row;
     margin-bottom: 20px;
   }
 
