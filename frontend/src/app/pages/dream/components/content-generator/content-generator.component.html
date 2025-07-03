@@ -84,7 +84,7 @@
   </button>
   } @else {
   <!-- Save workflow -->
-  @if(dreamEvent()) {
+  @if(saveEnabled && dreamEvent()) {
   <button class="app-button app-button-default" type="button" (click)="reset()">
     Try Again
   </button>

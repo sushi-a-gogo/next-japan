@@ -67,6 +67,7 @@ export class ContentGeneratorComponent {
   dreamEvent = signal<AiEvent | null>(null);
 
   disabled = computed(() => !this.auth.isAuthenticated())
+  saveEnabled = false;
 
   generateContent() {
     this.error.set(null);
