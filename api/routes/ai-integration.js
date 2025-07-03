@@ -131,22 +131,22 @@ function createTextPrompt(promptParams, customText) {
   User input: ${customText}.
   The JSON object must include these properties:
       'description': a creative text narrative (max 200 words),
-      'eventTitle': a concise title derived from the description.
+      'eventTitle': a concise title inspired by the description (3-5 words).
   Return only the raw JSON object, no additional text.
   Do not include Markdown, code blocks, or extra text—output valid JSON only.
   Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
 }
 
 function createImagePrompt(promptParams, customText) {
-  return `Create an image in a cel-shaded, anime style,
+  return `Create an anime-style digital painting in a cel-shaded, anime style,
   using a color palette of warm glowing tones together with bright pastels,
   and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
     promptParams
   )}.
-  Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
+  The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,
   adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
-  Avoid close-up or foreground characters.
   Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+  Avoid close-up or foreground characters.
   The image should not contain any text or symbols.`;
 }
 

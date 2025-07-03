@@ -7,6 +7,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { HeaderComponent } from './components/header/header.component';
+import { PageErrorComponent } from "./components/page-error/page-error.component";
 import { SpinUpComponent } from "./components/spin-up/spin-up.component";
 import { ApiSpinUpService } from './services/api-spinup.service';
 import { AuthMockService } from './services/auth-mock.service';
@@ -15,7 +16,7 @@ import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, LoginComponent, ErrorBarComponent, AboutComponent, SpinUpComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, LoginComponent, ErrorBarComponent, AboutComponent, SpinUpComponent, FooterComponent, PageErrorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
   userProfile = this.userProfileService.userProfile;
 
   ready = signal(false);
+  broken = signal(false);
 
   private destroyRef = inject(DestroyRef);
 
@@ -44,10 +46,14 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     timer(0, 840000).pipe(
       exhaustMap(() => this.spinUp.ping$()),
-      catchError((e) => of(null)),
+      catchError((errorResp) => {
+        console.error(errorResp);
+        return of(errorResp);
+      }),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((res) => {
-      this.ready.set(!!res);
+    ).subscribe((resp) => {
+      this.ready.set(resp?.ok);
+      this.broken.set(0 === resp?.status);
     });
   }
 
