@@ -16,11 +16,13 @@ const openai = new OpenAI({
 
 const providers = {
   openai: {
+    name: "OpenAI",
     client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "[API_KEY]" }),
     model: "gpt-4o-mini", // ...or 'gpt-3.5-turbo' for cost savings
     imageModel: "dall-e-3",
   },
   grok: {
+    name: "Grok",
     client: new OpenAI({
       apiKey: process.env.XAI_API_KEY || "[API_KEY]",
       baseURL: "https://api.x.ai/v1", // Override for Grok
@@ -53,37 +55,16 @@ router.post("/generate-content", async (req, res) => {
       );
     }
 
-    // Construct text prompt
-    const textPrompt = `Generate a raw JSON object describing a day long special event in Japan based on these parameters:
-    ${JSON.stringify(promptParams)}.
-    User input: ${customText}.
-    The JSON object must include these properties:
-        'description': a creative text narrative (max 200 words),
-        'eventTitle': a concise title derived from the description.
-    Return only the raw JSON object, no additional text.
-    Do not include Markdown, code blocks, or extra text—output valid JSON only.
-    Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
-    console.log(`Call ${providerKey} Chat API for text: ` + textPrompt);
-
-    // Construct image prompt
-    const imagePrompt = `Create an image in a cel-shaded, anime style,
-    using a color palette of warm glowing tones together with bright pastels,
-    and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
-      promptParams
-    )}.
-    Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
-    adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
-    Avoid close-up or foreground characters.
-    Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
-    The image should not contain any text or symbols.`;
-    console.log(`Call ${providerKey} API for image: ` + imagePrompt);
+    const textPrompt = createTextPrompt(promptParams, customText);
+    const imagePrompt = createImagePrompt(promptParams, customText);
 
     // Call AI API for text
-    const textResponse = await getTextResultFromAI(provider, textPrompt);
+    const textResponse = await fetchTextResultFromAI(provider, textPrompt);
     const generatedTextJson = textResponse.choices[0].message.content;
     const aiGeneratedEvent = JSON.parse(generatedTextJson);
 
-    const imageResponse = await getImageResultFromAI(provider, imagePrompt);
+    // Call AI API for image
+    const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
     const imageUrl = imageResponse.data[0].url;
     // Download and save image locally
     const imageName = `image-${Date.now()}.png`;
@@ -93,11 +74,11 @@ router.post("/generate-content", async (req, res) => {
     const buffer = Buffer.from(arrayBuffer);
     fs.writeFileSync(imagePath, buffer);
 
-    // Return both text and image to front-end
+    // Return both text and image
     res.json({
       ...aiGeneratedEvent,
-      imageUrl: `/images/${imageName}`,
       image: { id: imageName, width: 1792, height: 1024 },
+      imageUrl: `/images/${imageName}`,
     });
   } catch (error) {
     console.error("Error with AI API:", error);
@@ -110,7 +91,8 @@ async function isPromptSafe(userPrompt) {
   return !moderation.results[0].flagged;
 }
 
-async function getTextResultFromAI(provider, prompt) {
+async function fetchTextResultFromAI(provider, prompt) {
+  console.log(`Call ${provider.name} API for text creation: ` + prompt);
   const textResponse = await provider.client.chat.completions.create({
     model: provider.model,
     messages: [
@@ -127,7 +109,8 @@ async function getTextResultFromAI(provider, prompt) {
   return textResponse;
 }
 
-async function getImageResultFromAI(provider, prompt) {
+async function fetchImageResultFromAI(provider, prompt) {
+  console.log(`Call ${provider.name} API for image creation: ` + prompt);
   const requestParams = {
     model: provider.imageModel,
     prompt,
@@ -140,6 +123,31 @@ async function getImageResultFromAI(provider, prompt) {
 
   const imageResponse = await provider.client.images.generate(requestParams);
   return imageResponse;
+}
+
+function createTextPrompt(promptParams, customText) {
+  return `Generate a raw JSON object describing a day long special event in Japan based on these parameters:
+  ${JSON.stringify(promptParams)}.
+  User input: ${customText}.
+  The JSON object must include these properties:
+      'description': a creative text narrative (max 200 words),
+      'eventTitle': a concise title derived from the description.
+  Return only the raw JSON object, no additional text.
+  Do not include Markdown, code blocks, or extra text—output valid JSON only.
+  Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
+}
+
+function createImagePrompt(promptParams, customText) {
+  return `Create an image in a cel-shaded, anime style,
+  using a color palette of warm glowing tones together with bright pastels,
+  and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
+    promptParams
+  )}.
+  Generate a family-friendly, non-violent, non-sexual, non-offensive image suitable for all audiences,
+  adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
+  Avoid close-up or foreground characters.
+  Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+  The image should not contain any text or symbols.`;
 }
 
 function createGhibliStylePrompt({
