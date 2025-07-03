@@ -15,7 +15,7 @@ export class ApiSpinUpService {
   private apiUri = `${environment.apiUrl}/api/ping`;
 
   ping$() {
-    return this.http.get(`${this.apiUri}`).pipe(
+    return this.http.get(`${this.apiUri}`, { observe: 'response' }).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'ping'),
     );
   }

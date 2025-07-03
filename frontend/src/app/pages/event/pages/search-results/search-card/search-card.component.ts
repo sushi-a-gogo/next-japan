@@ -17,7 +17,7 @@ export class SearchCardComponent implements OnInit {
   event = input.required<EventInformation>();
   query = input<string>();
   resizedImage = computed(() => {
-    return this.imageService.resizeImage(this.event().image, 192, 128);
+    return this.imageService.resizeImage(this.event().image, 224, 128);
   });
 
   routerLink: string = '';

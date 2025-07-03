@@ -2,9 +2,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
+import aiRouter from "./routes/ai-integration.js";
 import eventRouter from "./routes/event.js";
 import imageResizeRouter from "./routes/image-resize.js";
-import openAiRouter from "./routes/openai-integration.js";
 import organizationRouter from "./routes/organization.js";
 import userRouter from "./routes/user.js";
 
@@ -42,7 +42,7 @@ app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 
 app.use("/api/ai", apiLimiter);
-app.use("/api/ai", openAiRouter);
+app.use("/api/ai", aiRouter);
 
 app.get("/api/ping", (req, res) => {
   console.log("Ping received, instance awake:", new Date());

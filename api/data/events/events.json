@@ -287,5 +287,19 @@
       }
     ],
     "locations": [7]
+  },
+  {
+    "eventId": 11,
+    "eventTitle": "Nara's Spring Cultural Quest",
+    "description": "Experience the beauty of Nara in spring with a morning adventure among cherry blossoms and historic temples. Visit Todai-ji, meet the friendly deer in Nara Park, and enjoy unique Japanese-inspired hot dogs. Immerse yourself in local culture and crafts for a memorable solo journey.",
+    "image": {
+      "id": "nara-spring-quest.png",
+      "cloudfareImageId": "efdca9e8-daaf-433f-a9d5-4aa12c496e00",
+      "width": 1366,
+      "height": 768
+    },
+    "fullDescription": "Embark on an exhilarating morning adventure in Nara this spring! As the sun rises, the vibrant cherry blossoms bloom, creating a picturesque backdrop for your cultural tour. Start your day with a visit to the iconic Todai-ji Temple, where you can marvel at the Great Buddha statue, a true masterpiece of ancient craftsmanship. Stroll through Nara Park, where friendly deer roam freely, adding a playful touch to your exploration. Engage with local artisans and discover the enchanting world of traditional Japanese crafts. Savor the delicious flavors of hot dogs infused with unique Japanese ingredients, offering a delightful twist on a classic favorite. This solo journey is not just about sightseeing; it's about immersing yourself in the rich cultural tapestry of Nara, creating unforgettable memories as you embrace the spirit of adventure.",
+    "locations": [],
+    "eventCoordinators": []
   }
 ]

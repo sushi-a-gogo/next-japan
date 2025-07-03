@@ -1,6 +1,8 @@
 import { AppImageData } from "@app/models/app-image-data.model";
 
 export interface AiEvent {
-  text: string;
+  eventTitle: string;
+  description: string;
   image: AppImageData
+  text?: string;
 }

@@ -28,16 +28,43 @@ export class ContentGeneratorComponent {
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  params = { destination: 'Mt. Fuji', tone: 'adventurous', mood: 'excited', season: 'Summer' }; // Default params
+  aiProvider: 'OpenAI' | 'Grok' = 'OpenAI'
   customText = '';
-  storyBookBackground = this.imageService.backgroundImageUrl('storybook.png');
 
+  tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy', 'festive', 'rustic', 'exotic'];
+  moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified'];
+  seasons = ['Spring', 'Summer', 'Fall', 'Winter', 'Monsoon', 'Cherry Blossom', 'Maple Season'];
+  destinations = [
+    'Kinkaku-ji',
+    'Hakuba Valley',
+    'Himeji Castle',
+    'Hokkaido',
+    'Kyoto',
+    'Mt. Fuji',
+    'Nara',
+    'Okinawa',
+    'Shirakawa-go',
+    'Tokyo',
+    'Yokohama',
+    'Yonaha Maehama Beach',
+  ];
+  activities = [
+    'Cookout', 'Festival', 'Hiking', 'Cultural Tour', 'Skiing', 'Hot Spring Soak', 'Boat Ride'
+  ];
+  groupSizes = ['Solo', 'Small Group (2-5)', 'Family (6-10)', 'Large Group (10+)'];
+  timesOfDay = ['Morning', 'Afternoon', 'Evening', 'Night'];
 
-  tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy'];
-  moods = ['excited', 'serene', 'curious', 'terrified'];
-  seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
-  destinations = ['Kinkaku-ji', 'Hakuba Valley', "Himeji Castle", 'Kyoto', 'Mt. Fuji', 'Tokyo', 'Yokohama', 'Yonaha Maehama Beach'];
+  params = {
+    destination: this.destinations[0],
+    tone: this.tones[0],
+    mood: this.moods[0],
+    season: this.seasons[0],
+    activity: this.activities[0],
+    groupSize: this.groupSizes[0],
+    timeOfDay: this.timesOfDay[0],
+  }; // Default params
 
+  aiProviders = ['OpenAI', 'Grok'];
   dreamEvent = signal<EventData | null>(null);
 
   disabled = computed(() => !this.auth.isAuthenticated())
@@ -47,14 +74,11 @@ export class ContentGeneratorComponent {
     this.busy.set(true);
     this.error.set(null);
 
-    this.openAiService.generateContent(this.params, this.customText || 'happy').subscribe({
+    this.openAiService.generateContent(this.params, this.customText || 'happy', this.aiProvider).subscribe({
       next: (aiEvent) => {
         const event: EventData = {
           eventId: 0,
-          eventTitle: 'My Dream Event',
-          image: aiEvent.image,
-          description: aiEvent.text,
-
+          ...aiEvent,
         }
         this.dreamEvent.set(event)
       },

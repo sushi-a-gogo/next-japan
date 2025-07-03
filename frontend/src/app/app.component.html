@@ -1,6 +1,10 @@
-@if(!ready()) {
-<app-spin-up />
+@if(!ready()) { @if(broken()) {
+<app-page-error
+  errorMessage="A network error has occurred. Please try again later."
+/>
 } @else {
+<app-spin-up />
+} } @else {
 <div
   class="app-container"
   [class.user]="!!userProfile()"

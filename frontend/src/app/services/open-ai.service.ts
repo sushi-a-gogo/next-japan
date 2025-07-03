@@ -15,10 +15,11 @@ export class OpenAiService {
 
   constructor(private http: HttpClient) { }
 
-  generateContent(params: any, text: string): Observable<AiEvent> {
+  generateContent(params: any, text: string, aiProvider: 'OpenAI' | 'Grok'): Observable<AiEvent> {
     return this.http.post<AiEvent>(`${this.uri}/generate-content`, {
       promptParams: params,
       customText: text,
+      aiProvider
     }).pipe(
       debug(RxJsLoggingLevel.DEBUG, "openAI:generateContent"),
       catchError((e) => this.errorService.handleError(e, 'Error fetching result from Open AI', true))
