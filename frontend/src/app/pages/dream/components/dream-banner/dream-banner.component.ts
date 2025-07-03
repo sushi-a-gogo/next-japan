@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { EventData } from '@app/pages/event/models/event-data.model';
+import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { ImageService } from '@app/services/image.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
 
@@ -13,7 +13,7 @@ import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spi
 export class DreamBannerComponent {
   private imageService = inject(ImageService);
 
-  dreamEvent = input<EventData | null>(null)
+  dreamEvent = input<AiEvent | null>(null)
   busy = input<boolean>(false);
   error = input<string | null>();
 

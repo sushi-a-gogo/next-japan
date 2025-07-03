@@ -29,8 +29,8 @@ export class HomeComponent implements OnInit {
   private aiImage: AppImageData = {
     id: "ai-banner.png",
     cloudfareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
-    width: 1366,
-    height: 768
+    width: 1792,
+    height: 1024
   };
 
   aiBackgroundImage = computed(() => {

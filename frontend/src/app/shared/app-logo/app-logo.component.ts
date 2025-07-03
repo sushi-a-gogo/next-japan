@@ -14,8 +14,8 @@ export class AppLogoComponent {
   private logo: AppImageData = {
     id: "app-logo.png",
     cloudfareImageId: "3b588c66-9a25-4edd-ed61-560b698cf600",
-    width: 1366,
-    height: 768
+    width: 1792,
+    height: 1024
   };
 
   size = input<number>(48);

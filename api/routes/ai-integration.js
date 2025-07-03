@@ -1,9 +1,8 @@
+import axios from "axios";
 import dotenv from "dotenv";
 import express from "express";
-import fs from "fs";
-import fetch from "node-fetch";
+import FormData from "form-data";
 import OpenAI from "openai";
-import path from "path";
 
 dotenv.config();
 
@@ -66,23 +65,90 @@ router.post("/generate-content", async (req, res) => {
     // Call AI API for image
     const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
     const imageUrl = imageResponse.data[0].url;
+    const imageName = `event-image-${Date.now()}.png`;
     // Download and save image locally
-    const imageName = `image-${Date.now()}.png`;
-    const imagePath = path.join("public/images", imageName);
-    const response = await fetch(imageUrl);
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    fs.writeFileSync(imagePath, buffer);
+    // const imagePath = path.join("public/images", imageName);
+    // const response = await fetch(imageUrl);
+    // const arrayBuffer = await response.arrayBuffer();
+    // const buffer = Buffer.from(arrayBuffer);
+    // fs.writeFileSync(imagePath, buffer);
 
     // Return both text and image
     res.json({
       ...aiGeneratedEvent,
       image: { id: imageName, width: 1792, height: 1024 },
-      imageUrl: `/images/${imageName}`,
+      imageUrl,
+      aiProvider,
+      prompt: { text: textPrompt, image: imagePrompt },
     });
   } catch (error) {
     console.error("Error with AI API:", error);
     res.status(500).json({ error: "Failed to generate content" });
+  }
+});
+
+router.post("/save", async (req, res) => {
+  try {
+    const { eventTitle, description, image, imageUrl, aiProvider, prompt } =
+      req.body;
+
+    // Input validation
+    if (!eventTitle || !description || !imageUrl) {
+      return res.status(400).json({
+        error: "Missing required fields: title, description, or imageUrl",
+      });
+    }
+
+    // Upload image to Cloudflare
+    const formData = new FormData();
+    const imageBuffer = await axios.get(imageUrl, {
+      responseType: "arraybuffer",
+    });
+    const filename = image.id;
+    formData.append("file", imageBuffer.data, {
+      filename,
+    });
+
+    const cloudfareUploadUrl = `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`;
+    console.log("Upload image to: " + cloudfareUploadUrl);
+
+    const cloudflareResponse = await axios.post(cloudfareUploadUrl, formData, {
+      headers: {
+        ...formData.getHeaders(),
+        Authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,
+      },
+    });
+
+    if (!cloudflareResponse.data.success) {
+      throw new Error("Cloudflare upload failed");
+    }
+
+    const cloudflareImageId = cloudflareResponse.data.result.id;
+    const deliveryUrl = `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_HASH}/${cloudflareImageId}/public?w=1792&h=1024&format=webp`;
+
+    // Response (MongoDB integration to follow)
+    return res.status(201).json({
+      success: true,
+      data: {
+        eventTitle,
+        description,
+        image: {
+          id: filename,
+          cloudflareImageId,
+          width: image.width,
+          height: image.height,
+        },
+        imageUrl: deliveryUrl,
+        aiProvider,
+        prompt,
+      },
+    });
+  } catch (error) {
+    console.error("Save event error:", error.message || error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || "Failed to save event",
+    });
   }
 });
 

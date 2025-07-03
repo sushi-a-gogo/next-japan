@@ -15,8 +15,8 @@ export class PageErrorComponent {
   private notFoundImage: AppImageData = {
     id: "about.png",
     cloudfareImageId: "180a8511-bc5e-46e7-8db3-7e7af379c800",
-    width: 1366,
-    height: 768
+    width: 1792,
+    height: 1024
   };
 
   image = computed(() => {

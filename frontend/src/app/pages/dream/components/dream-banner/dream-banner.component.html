@@ -26,8 +26,13 @@
   }
 </div>
 <div class="banner-container fade-in" [class.open]="dreamEvent() && !busy()">
-  @if(resizedImage()) {
-  <img [ngSrc]="resizedImage()!.src" priority fill alt="Event image." />
+  @if(dreamEvent()) {
+  <img
+    [ngSrc]="dreamEvent()!.imageUrl"
+    priority
+    fill
+    alt="An image of and event."
+  />
   }
   <div class="banner-bar">
     <div>
