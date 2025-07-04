@@ -1,0 +1,49 @@
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { AppImageData } from '@app/models/app-image-data.model';
+import { ContentGeneratorComponent } from "@app/pages/dream/pages/ai-event-builder/content-generator/content-generator.component";
+import { ImageService } from '@app/services/image.service';
+
+@Component({
+  selector: 'app-ai-event-builder',
+  imports: [NgOptimizedImage, ContentGeneratorComponent],
+  templateUrl: './ai-event-builder.component.html',
+  styleUrl: './ai-event-builder.component.scss'
+})
+export class AiEventBuilderComponent implements OnInit {
+  private imageService = inject(ImageService);
+  private aiImage: AppImageData = {
+    id: "ai-banner-alt.png",
+    cloudflareImageId: "ea6cbb50-de47-4dff-3cce-cb05a41c1800",
+    width: 1024,
+    height: 1792
+  };
+
+  image = computed(() => {
+    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
+  });
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  private router = inject(Router);
+
+  ngOnInit(): void {
+    this.title.setTitle('Next Japan AI');
+
+    // Set meta tags
+    const description = 'This page leverages advanced AI technology to help you design your ideal Japanese vacation event.';
+    this.meta.updateTag({ name: 'description', content: description });
+
+    // Open Graph meta tags
+    this.meta.updateTag({ property: 'og:title', content: this.title.getTitle() });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: window.location.href });
+  }
+
+  onEventCreated() {
+    this.router.navigate(['/dream/event']);
+  }
+}
+

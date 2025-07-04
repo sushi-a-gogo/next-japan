@@ -5,7 +5,7 @@
     "description": "Explore the beauty of Mount Fuji and enjoy an evening of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
       "id": "fuji-snow.png",
-      "cloudfareImageId": "78e603ed-b1ab-40db-c402-c902d939d900",
+      "cloudflareImageId": "78e603ed-b1ab-40db-c402-c902d939d900",
       "width": 1792,
       "height": 1024
     },
@@ -44,7 +44,7 @@
     "description": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family! We will have a bonfire, games, and more.",
     "image": {
       "id": "golden-sunset.png",
-      "cloudfareImageId": "8b75c7ff-7745-47b9-b4a2-efc128db8e00",
+      "cloudflareImageId": "8b75c7ff-7745-47b9-b4a2-efc128db8e00",
       "width": 1792,
       "height": 1024
     },
@@ -83,7 +83,7 @@
     "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
     "image": {
       "id": "cookout.png",
-      "cloudfareImageId": "fe32d590-4808-4a11-f04f-0e33d19f8100",
+      "cloudflareImageId": "fe32d590-4808-4a11-f04f-0e33d19f8100",
       "width": 1792,
       "height": 1024
     },
@@ -134,7 +134,7 @@
     "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
     "image": {
       "id": "himeji-lights.png",
-      "cloudfareImageId": "17caec54-dd17-42b2-5196-dfe25be94c00",
+      "cloudflareImageId": "17caec54-dd17-42b2-5196-dfe25be94c00",
       "width": 1792,
       "height": 1024
     },
@@ -185,7 +185,7 @@
     "description": "Discover Yokohama with your family, exploring tranquil gardens, fun museums, and scenic waterfronts for a day of adventure and relaxation.",
     "image": {
       "id": "yokohama.png",
-      "cloudfareImageId": "097a4264-d8ca-4056-9d5d-c34c731d6600",
+      "cloudflareImageId": "097a4264-d8ca-4056-9d5d-c34c731d6600",
       "width": 1792,
       "height": 1024
     },
@@ -212,7 +212,7 @@
     "description": "Embark on a magical day in Kyoto, exploring ancient shrines, bamboo groves, and ending with a starlit family night of wonder.",
     "image": {
       "id": "kyoto-night.png",
-      "cloudfareImageId": "0cea6dbc-1c51-4665-e367-465b5b009200",
+      "cloudflareImageId": "0cea6dbc-1c51-4665-e367-465b5b009200",
       "width": 1792,
       "height": 1024
     },
@@ -239,7 +239,7 @@
     "description": "Spend an exciting day exploring Tower Records in Tokyo, discovering new music, exclusive releases, and enjoying the vibrant atmosphere of one of the city's most iconic music stores.",
     "image": {
       "id": "tower-records.png",
-      "cloudfareImageId": "ca930aad-c84b-4687-c7a4-1f1849c18b00",
+      "cloudflareImageId": "ca930aad-c84b-4687-c7a4-1f1849c18b00",
       "width": 1792,
       "height": 1024
     },
@@ -266,7 +266,7 @@
     "description": "Experience the charm of old Tokyo at the Autumn Nostalgia Festival at Tokyo Tower. Enjoy vintage exhibits, classic films, and traditional street foods as the city glows with autumn colors. Live performances and guided tours bring the spirit of the past to life.",
     "image": {
       "id": "tokyo-tower.png",
-      "cloudfareImageId": "3795b3ce-824e-48e6-e924-6da1e003e600",
+      "cloudflareImageId": "3795b3ce-824e-48e6-e924-6da1e003e600",
       "width": 1792,
       "height": 1024
     },
@@ -280,7 +280,7 @@
         "email": "xx@yy.zz",
         "image": {
           "id": "avatar_3.jpg",
-          "cloudfareImageId": "",
+          "cloudflareImageId": "",
           "width": 255,
           "height": 255
         }
@@ -294,7 +294,7 @@
     "description": "Experience the beauty of Nara in spring with a morning adventure among cherry blossoms and historic temples. Visit Todai-ji, meet the friendly deer in Nara Park, and enjoy unique Japanese-inspired hot dogs. Immerse yourself in local culture and crafts for a memorable solo journey.",
     "image": {
       "id": "nara-spring-quest.png",
-      "cloudfareImageId": "efdca9e8-daaf-433f-a9d5-4aa12c496e00",
+      "cloudflareImageId": "efdca9e8-daaf-433f-a9d5-4aa12c496e00",
       "width": 1792,
       "height": 1024
     },

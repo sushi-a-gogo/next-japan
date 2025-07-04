@@ -1,0 +1,41 @@
+<header>
+  <img [ngSrc]="image().src" alt="A dream" fill priority />
+  <div class="background-overlay">
+    <div class="header-content">
+      <div class="splash content-container">
+        <div class="flex-column">
+          <h2 class="vivid">AI Event Builder</h2>
+          <div>
+            This page leverages advanced AI technology to help you design your
+            ideal Japanese vacation event.
+          </div>
+          <div class="full-text">
+            By understanding your preferences and interests, our AI suggests
+            personalized destinations, activities, and experiences, making it
+            easy to create a truly unforgettable trip tailored just for you. You
+            can also choose between different AI providers, including OpenAI and
+            Grok, to generate your event - select your preferred engine below
+            for a unique experience. Whether you're seeking cultural adventures,
+            culinary delights, or hidden gems off the beaten path, our platform
+            provides expert recommendations and flexible planning tools to
+            ensure your journey is seamless and inspiring.
+          </div>
+          <div class="vivid">
+            <span class="icon">🚀</span>
+            <span>
+              Select your preferences below and hit
+              <strong>Generate</strong> to see the magic happen.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<article class="content-container">
+  <main>
+    <section>
+      <app-content-generator (eventCreated)="onEventCreated()" />
+    </section>
+  </main>
+</article>

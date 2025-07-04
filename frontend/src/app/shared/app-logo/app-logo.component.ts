@@ -13,7 +13,7 @@ export class AppLogoComponent {
   private imageService = inject(ImageService);
   private logo: AppImageData = {
     id: "app-logo.png",
-    cloudfareImageId: "3b588c66-9a25-4edd-ed61-560b698cf600",
+    cloudflareImageId: "3b588c66-9a25-4edd-ed61-560b698cf600",
     width: 1792,
     height: 1024
   };

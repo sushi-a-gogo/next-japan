@@ -1,3 +1,6 @@
+@if(dreamEvent()) {
+<app-dream-banner [dreamEvent]="dreamEvent()!" />
+} @else {
 <form (ngSubmit)="generateContent()">
   <mat-form-field subscriptSizing="dynamic">
     <mat-label>Destination</mat-label>
@@ -83,26 +86,22 @@
     Generate
   </button>
   } @else {
-  <!-- Save workflow -->
-  @if(saveEnabled && dreamEvent()) {
-  <button class="app-button app-button-default" type="button" (click)="reset()">
-    Try Again
-  </button>
-  <button
-    class="app-button app-button-save"
-    type="button"
-    (click)="saveEvent()"
-  >
-    Save Event
-  </button>
-  } @else {
   <button class="app-button app-button-save generate" type="submit">
     Generate
   </button>
-  } }
+  }
 </form>
-<app-dream-banner
-  [dreamEvent]="dreamEvent()"
-  [busy]="busy()"
-  [error]="error()"
-/>
+<div class="fade-in" [class.open]="busy()">
+  @if(busy()) {
+  <app-loading-spinner [delay]="250" />
+  }
+</div>
+<div class="fade-in" [class.open]="error()">
+  @if(error()) {
+  <div class="no-results flex-row error">
+    <span class="icon">🚀</span>
+    <span>{{ error() }}</span>
+  </div>
+  }
+</div>
+}

@@ -1,17 +1,18 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router, RouterLink } from '@angular/router';
+import { DreamHeaderComponent } from "@app/pages/dream/components/dream-banner/dream-header/dream-header.component";
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { ImageService } from '@app/services/image.service';
 import { AiService } from '@app/services/open-ai.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
-import { DreamHeaderComponent } from "./dream-header/dream-header.component";
 
 @Component({
-  selector: 'app-dream-banner',
-  imports: [LoadingSpinnerComponent, DreamHeaderComponent],
-  templateUrl: './dream-banner.component.html',
-  styleUrl: './dream-banner.component.scss',
+  selector: 'app-ai-event',
+  imports: [RouterLink, LoadingSpinnerComponent, DreamHeaderComponent],
+  templateUrl: './ai-event.component.html',
+  styleUrl: './ai-event.component.scss',
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -21,26 +22,25 @@ import { DreamHeaderComponent } from "./dream-header/dream-header.component";
     ])
   ],
   host: { '[@fadeIn]': '' }
-
 })
-export class DreamBannerComponent {
+export class AiEventComponent {
+  private router = inject(Router);
   private aiService = inject(AiService);
   private imageService = inject(ImageService);
   private destroyRef = inject(DestroyRef);
 
   busy = signal<boolean>(false);
 
-  dreamEvent = input.required<AiEvent>()
+  dreamEvent = this.aiService.aiEvent;
   savedEvent = signal<AiEvent | null>(null);
 
 
   backgroundImage = computed(() => {
-    const resizedImage = this.imageService.resizeImage(this.dreamEvent()!.image, 384, 256);
-    return `url('${resizedImage.src}')`;
+    return `url('${this.dreamEvent()?.imageUrl}')`;
   });
 
   reset() {
-    //this.dreamEvent.set(null);
+    this.router.navigate(['../dream']);
   }
 
   saveEvent() {
@@ -51,3 +51,4 @@ export class DreamBannerComponent {
 
   }
 }
+

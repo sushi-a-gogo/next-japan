@@ -1,6 +1,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
@@ -10,19 +10,22 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { OpenAiService } from '@app/services/open-ai.service';
-import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
+import { AiService } from '@app/services/open-ai.service';
+import { LoadingSpinnerComponent } from "@shared/loading-spinner/loading-spinner.component";
+import { DreamBannerComponent } from "../../../components/dream-banner/dream-banner.component";
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent],
+  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent, LoadingSpinnerComponent],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent {
   private auth = inject(AuthMockService);
-  private aiService = inject(OpenAiService);
+  private aiService = inject(AiService);
   private destroyRef = inject(DestroyRef);
+
+  eventCreated = output<AiEvent>();
 
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
@@ -67,7 +70,6 @@ export class ContentGeneratorComponent {
   dreamEvent = signal<AiEvent | null>(null);
 
   disabled = computed(() => !this.auth.isAuthenticated())
-  saveEnabled = false;
 
   generateContent() {
     this.error.set(null);
@@ -77,7 +79,7 @@ export class ContentGeneratorComponent {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (aiEvent) => {
-        this.dreamEvent.set(aiEvent)
+        this.eventCreated.emit(aiEvent);
       },
       error: (e) => {
         this.error.set(e.message);
@@ -86,17 +88,4 @@ export class ContentGeneratorComponent {
       complete: () => this.busy.set(false)
     });
   }
-
-  reset() {
-    this.dreamEvent.set(null);
-  }
-
-  saveEvent() {
-    this.aiService.saveEvent$(this.dreamEvent()!).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      console.log('Saved:', res.data);
-      this.dreamEvent.set(res.data); // Update with Cloudflare URL
-    });
-
-  }
-
 }

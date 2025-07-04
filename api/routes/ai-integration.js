@@ -2,7 +2,9 @@ import axios from "axios";
 import dotenv from "dotenv";
 import express from "express";
 import FormData from "form-data";
+import mongoose from "mongoose";
 import OpenAI from "openai";
+import Event from "../models/Event.js"; // Adjust path
 
 dotenv.config();
 
@@ -89,13 +91,20 @@ router.post("/generate-content", async (req, res) => {
 
 router.post("/save", async (req, res) => {
   try {
-    const { eventTitle, description, image, imageUrl, aiProvider, prompt } =
-      req.body;
+    const {
+      eventTitle,
+      description,
+      fullDescription,
+      image,
+      imageUrl,
+      aiProvider,
+      prompt,
+    } = req.body;
 
     // Input validation
-    if (!eventTitle || !description || !imageUrl) {
+    if (!eventTitle || !description || !fullDescription || !imageUrl) {
       return res.status(400).json({
-        error: "Missing required fields: title, description, or imageUrl",
+        error: "Missing required fields: eventTitle, description, or imageUrl",
       });
     }
 
@@ -126,21 +135,55 @@ router.post("/save", async (req, res) => {
     const cloudflareImageId = cloudflareResponse.data.result.id;
     const deliveryUrl = `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_HASH}/${cloudflareImageId}/public?w=1792&h=1024&format=webp`;
 
-    // Response (MongoDB integration to follow)
+    // Save to MongoDB
+    mongoose
+      .connect(process.env.MONGODB_URI)
+      .then(() => console.log("MongoDB connected"))
+      .catch((err) => console.error("MongoDB connection error:", err));
+
+    // const eventSchema = new mongoose.Schema({
+    //   eventTitle: { type: String, required: true },
+    //   description: { type: String, required: true },
+    //   imageId: { type: String, required: true },
+    //   imageWidth: { type: Number, required: true },
+    //   imageHeight: { type: Number, required: true },
+    //   cloudflareImageId: { type: String, required: true }, // New field
+    //   createdAt: { type: Date, default: Date.now },
+    //   aiProvider: { type: String, enum: ["OpenAI", "Grok"], default: "OpenAI" },
+    //   textPrompt: { type: String },
+    //   imagePrompt: { type: String },
+    // });
+    // const Event = mongoose.model("Event", eventSchema);
+
+    const event = new Event({
+      eventTitle,
+      description,
+      fullDescription,
+      imageId: image.id,
+      imageHeight: image.height,
+      imageWidth: image.width,
+      cloudflareImageId,
+      aiProvider,
+      textPrompt: prompt.text,
+      imagePrompt: prompt.image,
+    });
+    await event.save();
+
     return res.status(201).json({
       success: true,
       data: {
-        eventTitle,
-        description,
+        eventTitle: event.eventTitle,
+        description: event.description,
+        fullDescription: event.fullDescription,
         image: {
-          id: filename,
-          cloudflareImageId,
-          width: image.width,
-          height: image.height,
+          id: event.imageId,
+          cloudflareImageId: event.cloudflareImageId,
+          width: event.imageWidth,
+          height: event.imageHeight,
         },
         imageUrl: deliveryUrl,
         aiProvider,
-        prompt,
+        prompt: { text: event.textPrompt, image: event.imagePrompt },
       },
     });
   } catch (error) {
@@ -196,11 +239,12 @@ function createTextPrompt(promptParams, customText) {
   ${JSON.stringify(promptParams)}.
   User input: ${customText}.
   The JSON object must include these properties:
-      'description': a creative text narrative (max 200 words),
+      'fullDescription': a creative text narrative (max 200 words),
+      'description': a brief summary of the fullDescription value (max 30 words),
       'eventTitle': a concise title inspired by the description (3-5 words).
   Return only the raw JSON object, no additional text.
   Do not include Markdown, code blocks, or extra text—output valid JSON only.
-  Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
+  Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }.`;
 }
 
 function createImagePrompt(promptParams, customText) {

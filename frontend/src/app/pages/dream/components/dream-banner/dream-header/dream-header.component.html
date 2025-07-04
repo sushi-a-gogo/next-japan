@@ -1,0 +1,28 @@
+<div class="background-overlay">
+  <div class="header-content">
+    <div class="banner-container">
+      @if(resizedImage()) {
+      <img
+        [ngSrc]="resizedImage()!"
+        alt="An image of the event"
+        fill
+        priority
+      />
+      }
+      <div class="banner-bar">
+        <div class="flex-column">
+          <div class="banner-title break-word">
+            {{ event().eventTitle }}
+          </div>
+          <div class="event-desc">
+            {{ event().description }}
+          </div>
+          <div class="flex-row">
+            <span class="material-icons">event_note</span>
+            Coming Soon
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
