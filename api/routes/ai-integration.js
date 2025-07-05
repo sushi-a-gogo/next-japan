@@ -167,23 +167,24 @@ router.post("/save", async (req, res) => {
       textPrompt: prompt.text,
       imagePrompt: prompt.image,
     });
-    await event.save();
+    const savedEvent = await event.save();
 
     return res.status(201).json({
       success: true,
       data: {
-        eventTitle: event.eventTitle,
-        description: event.description,
-        fullDescription: event.fullDescription,
+        eventId: savedEvent._id.toString(), // Pass _id as eventId
+        eventTitle: savedEvent.eventTitle,
+        description: savedEvent.description,
+        fullDescription: savedEvent.fullDescription,
         image: {
-          id: event.imageId,
-          cloudflareImageId: event.cloudflareImageId,
-          width: event.imageWidth,
-          height: event.imageHeight,
+          id: savedEvent.imageId,
+          cloudflareImageId: savedEvent.cloudflareImageId,
+          width: savedEvent.imageWidth,
+          height: savedEvent.imageHeight,
         },
         imageUrl: deliveryUrl,
         aiProvider,
-        prompt: { text: event.textPrompt, image: event.imagePrompt },
+        prompt: { text: savedEvent.textPrompt, image: savedEvent.imagePrompt },
       },
     });
   } catch (error) {

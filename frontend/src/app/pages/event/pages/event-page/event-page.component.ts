@@ -54,7 +54,7 @@ export class EventPageComponent implements OnChanges {
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
   ngOnChanges(changes: SimpleChanges): void {
-    const id = Number(this.eventId());
+    const id = this.eventId();
     this.loaded.set(false);
     forkJoin([this.eventService.getEvent$(id), this.eventService.getEventOpportunities$(id)])
       .pipe(catchError((e) => {

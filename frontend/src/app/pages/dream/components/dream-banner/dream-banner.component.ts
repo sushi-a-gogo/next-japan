@@ -1,9 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { AiService } from '@app/services/ai.service';
 import { ImageService } from '@app/services/image.service';
-import { AiService } from '@app/services/open-ai.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
 import { DreamHeaderComponent } from "./dream-header/dream-header.component";
 
@@ -41,13 +40,5 @@ export class DreamBannerComponent {
 
   reset() {
     //this.dreamEvent.set(null);
-  }
-
-  saveEvent() {
-    this.aiService.saveEvent$(this.dreamEvent()!).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      console.log('Saved:', res.data);
-      this.savedEvent.set(res.data); // Update with Cloudflare URL
-    });
-
   }
 }

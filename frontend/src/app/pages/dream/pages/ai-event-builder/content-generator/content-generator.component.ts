@@ -2,21 +2,20 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, DestroyRef, inject, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { AiService } from '@app/services/ai.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { AiService } from '@app/services/open-ai.service';
-import { LoadingSpinnerComponent } from "@shared/loading-spinner/loading-spinner.component";
-import { DreamBannerComponent } from "../../../components/dream-banner/dream-banner.component";
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent, LoadingSpinnerComponent],
+  imports: [TitleCasePipe, FormsModule, MatProgressBarModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
@@ -25,6 +24,7 @@ export class ContentGeneratorComponent {
   private aiService = inject(AiService);
   private destroyRef = inject(DestroyRef);
 
+  promptForm?: FormGroup;
   eventCreated = output<AiEvent>();
 
   busy = signal<boolean>(false);
@@ -67,11 +67,12 @@ export class ContentGeneratorComponent {
   }; // Default params
 
   aiProviders = ['OpenAI', 'Grok'];
-  dreamEvent = signal<AiEvent | null>(null);
+  //dreamEvent = signal<AiEvent | null>(null);
 
   disabled = computed(() => !this.auth.isAuthenticated())
 
-  generateContent() {
+  generateContent(promptForm: NgForm) {
+    promptForm.form.disable();
     this.error.set(null);
     this.busy.set(true);
 
@@ -80,10 +81,12 @@ export class ContentGeneratorComponent {
     ).subscribe({
       next: (aiEvent) => {
         this.eventCreated.emit(aiEvent);
+        promptForm.form.enable();
       },
       error: (e) => {
         this.error.set(e.message);
         this.busy.set(false);
+        promptForm.form.enable();
       },
       complete: () => this.busy.set(false)
     });

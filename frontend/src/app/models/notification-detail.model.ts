@@ -7,7 +7,7 @@ export interface NotificationDetail {
   title: string;
   message: string;
   userId: number;
-  eventId: number;
+  eventId: string;
   eventDate: Date;
   eventTimeZone: string;
   isRead?: boolean;

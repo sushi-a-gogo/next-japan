@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AiService } from '@app/services/open-ai.service';
+import { AiService } from '@app/services/ai.service';
 
 export const aiEventGuard: CanActivateFn = (route, state) => {
   const aiService = inject(AiService);

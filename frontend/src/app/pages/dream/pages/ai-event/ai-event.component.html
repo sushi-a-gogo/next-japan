@@ -11,17 +11,19 @@
   </section>
 </main>
 <footer class="button-bar">
-  <a type="button" class="app-button app-button-default" routerLink="..">
-    Try Again
+  <a type="button" class="app-button app-button-dark" routerLink="..">
+    <span class="material-icons">arrow_back_ios_new</span>
+    Go Back
   </a>
   <button
     class="app-button app-button-save"
     type="button"
     (click)="saveEvent()"
+    [disabled]="busy()"
   >
-    Save Event
+    @if(busy()) { Saving... } @else { Save Event }
   </button>
 </footer>
-@if(busy()) {
-<app-loading-spinner />
-}
+<div class="progress" [class.open]="busy()">
+  <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
+</div>

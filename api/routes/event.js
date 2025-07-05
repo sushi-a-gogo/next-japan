@@ -79,7 +79,7 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const eventId = Number(req.params.id);
+  const eventId = req.params.id;
   const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
   const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
   const events = JSON.parse(eventJson);

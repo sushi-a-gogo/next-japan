@@ -4,6 +4,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import aiRouter from "./routes/ai-integration.js";
 import eventRouter from "./routes/event.js";
+import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import organizationRouter from "./routes/organization.js";
 import userRouter from "./routes/user.js";
@@ -38,6 +39,7 @@ app.use(
 // Mount routers
 app.use("/api/organization", organizationRouter);
 app.use("/api/event", eventRouter);
+app.use("/api/events", eventsRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 

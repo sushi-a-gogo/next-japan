@@ -13,9 +13,8 @@ import { EventInformation } from './models/event-information.model';
 @Injectable()
 export class EventService {
   private http = inject(HttpClient);
-  private cache = new Map<number, Observable<EventInformation | null>>();
+  private cache = new Map<string, Observable<EventInformation | null>>();
   private cacheTime = 0;
-
 
   private eventSignal = signal<EventInformation | null>(null);
   event = this.eventSignal.asReadonly();
@@ -43,7 +42,7 @@ export class EventService {
     );
   }
 
-  getEvent$(eventId: number): Observable<EventInformation | null> {
+  getEvent$(eventId: string): Observable<EventInformation | null> {
     this.eventSignal.set(null);
     if (!eventId) {
       return of(null);
@@ -72,7 +71,7 @@ export class EventService {
     return obs$;
   }
 
-  getEventOpportunities$(eventId: number): Observable<EventOpportunity[]> {
+  getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
     return this.getOpportunities$(eventId).pipe(
       map((resp) => {
         this.eventOpportunitiesSignal.set(resp.eventOpportunities);
@@ -80,21 +79,21 @@ export class EventService {
       }));
   }
 
-  private getEventById$(id: number) {
+  private getEventById$(id: string) {
     return this.http.get<{ event: EventInformation }>(`${this.apiUrl}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getEvent'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching event.'))
     );
   }
 
-  private getOpportunities$(eventId: number) {
+  private getOpportunities$(eventId: string) {
     return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUrl}/${eventId}/opportunities`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getOpportunities'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
     );
   }
 
-  private existsInCache(eventId: number) {
+  private existsInCache(eventId: string) {
     const ageOfCacheInMilliseconds = new Date().getTime() - this.cacheTime;
     if (ageOfCacheInMilliseconds > 1000 * 60) {
       this.cache.clear();
