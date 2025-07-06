@@ -10,10 +10,15 @@ router.use(express.json());
 
 router.get("/", async (req, res) => {
   try {
+    mongoose
+      .connect(process.env.MONGODB_URI)
+      .then(() => console.log("MongoDB connected"))
+      .catch((err) => console.error("MongoDB connection error:", err));
+
     const events = await Event.find().sort({ createdAt: -1 });
     const formattedEvents = events.map((event) => ({
       eventId: event._id.toString(), // Use _id as eventId
-      title: event.eventTitle,
+      eventTitle: event.eventTitle,
       description: event.description,
       fullDescription: event.fullDescription,
       image: {
@@ -22,6 +27,8 @@ router.get("/", async (req, res) => {
         width: event.imageWidth,
         height: event.imageHeight,
       },
+      locations: [],
+      eventCoordinators: [],
       aiProvider: event.aiProvider,
       createdAt: event.createdAt,
     }));
@@ -39,6 +46,10 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.error("MongoDB connection error:", err));
   try {
     const event = await Event.findById(req.params.id); // Use _id directly
     if (!event) {
@@ -47,20 +58,22 @@ router.get("/:id", async (req, res) => {
         error: "Event not found",
       });
     }
-    const deliveryUrl = `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_ID}/${event.cloudflareImageId}/public?w=1792&h=1024&format=webp`;
+
     return res.status(200).json({
       success: true,
       data: {
         eventId: event._id.toString(), // Use _id as eventId
-        title: event.eventTitle,
+        eventTitle: event.eventTitle,
         description: event.description,
-        description: event.fullDescription,
+        fullDescription: event.fullDescription,
         image: {
           id: event.imageId,
           cloudflareImageId: event.cloudflareImageId,
           width: event.imageWidth,
           height: event.imageHeight,
         },
+        locations: [],
+        eventCoordinators: [],
         aiProvider: event.aiProvider,
         createdAt: event.createdAt,
       },

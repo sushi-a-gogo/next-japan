@@ -13,7 +13,12 @@ const router = express.Router();
 
 async function readOpportunities(eventId) {
   const opportunityJson = await fs.readFile(OPPORTUNITIES_JSON, "utf-8");
-  const items = JSON.parse(opportunityJson);
+  const items = JSON.parse(opportunityJson).filter(
+    (item) => item.eventId === eventId
+  );
+  console.log(
+    `Found ${items.length} opportunities matching event '${eventId}'`
+  );
 
   const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
   const events = JSON.parse(eventJson);
@@ -35,10 +40,6 @@ async function readOpportunities(eventId) {
   opportunities.sort((a, b) =>
     new Date(a.startDate) < new Date(b.startDate) ? -1 : 1
   );
-
-  if (eventId) {
-    return opportunities.filter((opp) => opp.eventId === eventId);
-  }
 
   return opportunities;
 }
@@ -104,7 +105,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:id/opportunities", async (req, res) => {
-  const eventId = Number(req.params.id);
+  const eventId = req.params.id;
   const eventOpportunities = await readOpportunities(eventId);
   return res.status(200).json({ eventOpportunities });
 });

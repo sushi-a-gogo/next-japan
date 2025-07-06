@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px 10px;
+  padding: 20px 10px 0 10px;
 }
 
 form {
@@ -29,13 +29,6 @@ form {
   border-radius: 6px;
   font-weight: 600;
   height: 48px;
-
-  &.generate {
-    // background: color.scale(
-    //   map.get(var.$colors, pink-cherry-blossoms),
-    //   $lightness: 0%
-    // );
-  }
 }
 
 .no-results {
@@ -61,6 +54,12 @@ form {
   }
 }
 
+h2 {
+  margin: 40px 0;
+  font-size: 22px;
+  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
+}
+
 .progress {
   height: 0;
   width: 100%;
@@ -74,8 +73,7 @@ form {
 
 @media (min-width: var.$max-page-width) {
   .content-container {
-    padding: 20px 0;
-    margin-bottom: 40px;
+    padding: 20px 0 0 0;
   }
 
   form {

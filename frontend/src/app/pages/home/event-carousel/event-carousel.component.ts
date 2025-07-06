@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventsService } from '@app/services/events.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { forkJoin } from 'rxjs';
 import { EventCardComponent } from "./event-card/event-card.component";
@@ -39,6 +40,7 @@ export class EventCarouselComponent implements OnInit {
   ]);
 
   private organizationService = inject(OrganizationService);
+  private eventsService = inject(EventsService);
   private breakpointObserver = inject(BreakpointObserver);
   private destroyRef = inject(DestroyRef);
 
@@ -60,13 +62,14 @@ export class EventCarouselComponent implements OnInit {
 
     const observables = {
       events: this.organizationService.getEvents$(),
+      savedEvents: this.eventsService.get$(),
       opportunities: this.organizationService.getNextOpportunities$(),
     };
     forkJoin(observables).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
-        this.events.set(res.events);
+        this.events.set([...res.events, ...res.savedEvents.data]);
         this.configureEvents(res.opportunities);
       },
       error: () => {

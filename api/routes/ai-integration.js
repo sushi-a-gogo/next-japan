@@ -1,10 +1,6 @@
-import axios from "axios";
 import dotenv from "dotenv";
 import express from "express";
-import FormData from "form-data";
-import mongoose from "mongoose";
 import OpenAI from "openai";
-import Event from "../models/Event.js"; // Adjust path
 
 dotenv.config();
 
@@ -86,113 +82,6 @@ router.post("/generate-content", async (req, res) => {
   } catch (error) {
     console.error("Error with AI API:", error);
     res.status(500).json({ error: "Failed to generate content" });
-  }
-});
-
-router.post("/save", async (req, res) => {
-  try {
-    const {
-      eventTitle,
-      description,
-      fullDescription,
-      image,
-      imageUrl,
-      aiProvider,
-      prompt,
-    } = req.body;
-
-    // Input validation
-    if (!eventTitle || !description || !fullDescription || !imageUrl) {
-      return res.status(400).json({
-        error: "Missing required fields: eventTitle, description, or imageUrl",
-      });
-    }
-
-    // Upload image to Cloudflare
-    const formData = new FormData();
-    const imageBuffer = await axios.get(imageUrl, {
-      responseType: "arraybuffer",
-    });
-    const filename = image.id;
-    formData.append("file", imageBuffer.data, {
-      filename,
-    });
-
-    const cloudfareUploadUrl = `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`;
-    console.log("Upload image to: " + cloudfareUploadUrl);
-
-    const cloudflareResponse = await axios.post(cloudfareUploadUrl, formData, {
-      headers: {
-        ...formData.getHeaders(),
-        Authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,
-      },
-    });
-
-    if (!cloudflareResponse.data.success) {
-      throw new Error("Cloudflare upload failed");
-    }
-
-    const cloudflareImageId = cloudflareResponse.data.result.id;
-    const deliveryUrl = `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_HASH}/${cloudflareImageId}/public?w=1792&h=1024&format=webp`;
-
-    // Save to MongoDB
-    mongoose
-      .connect(process.env.MONGODB_URI)
-      .then(() => console.log("MongoDB connected"))
-      .catch((err) => console.error("MongoDB connection error:", err));
-
-    // const eventSchema = new mongoose.Schema({
-    //   eventTitle: { type: String, required: true },
-    //   description: { type: String, required: true },
-    //   imageId: { type: String, required: true },
-    //   imageWidth: { type: Number, required: true },
-    //   imageHeight: { type: Number, required: true },
-    //   cloudflareImageId: { type: String, required: true }, // New field
-    //   createdAt: { type: Date, default: Date.now },
-    //   aiProvider: { type: String, enum: ["OpenAI", "Grok"], default: "OpenAI" },
-    //   textPrompt: { type: String },
-    //   imagePrompt: { type: String },
-    // });
-    // const Event = mongoose.model("Event", eventSchema);
-
-    const event = new Event({
-      eventTitle,
-      description,
-      fullDescription,
-      imageId: image.id,
-      imageHeight: image.height,
-      imageWidth: image.width,
-      cloudflareImageId,
-      aiProvider,
-      textPrompt: prompt.text,
-      imagePrompt: prompt.image,
-    });
-    const savedEvent = await event.save();
-
-    return res.status(201).json({
-      success: true,
-      data: {
-        eventId: savedEvent._id.toString(), // Pass _id as eventId
-        eventTitle: savedEvent.eventTitle,
-        description: savedEvent.description,
-        fullDescription: savedEvent.fullDescription,
-        image: {
-          id: savedEvent.imageId,
-          cloudflareImageId: savedEvent.cloudflareImageId,
-          width: savedEvent.imageWidth,
-          height: savedEvent.imageHeight,
-        },
-        imageUrl: deliveryUrl,
-        aiProvider,
-        prompt: { text: savedEvent.textPrompt, image: savedEvent.imagePrompt },
-      },
-    });
-  } catch (error) {
-    console.error("Save event error:", error.message || error);
-    return res.status(500).json({
-      success: false,
-      error: error.message || "Failed to save event",
-    });
   }
 });
 

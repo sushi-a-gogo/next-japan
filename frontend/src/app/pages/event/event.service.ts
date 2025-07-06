@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { ErrorService } from '@app/services/error.service';
+import { EventsService } from '@app/services/events.service';
 import { UtilService } from '@app/services/util.service';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
@@ -22,6 +23,7 @@ export class EventService {
   private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
   eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
 
+  private savedEventService = inject(EventsService);
   private errorService = inject(ErrorService);
   private util = inject(UtilService);
   private apiUrl = `${environment.apiUrl}/api/event`;
@@ -55,8 +57,7 @@ export class EventService {
     }
 
     const obs$ = this.getEventById$(eventId).pipe(
-      switchMap((resp) => {
-        const event: EventInformation = resp?.event;
+      switchMap((event) => {
         if (event) {
           event.locations.forEach((loc) => (loc.displayAddress = this.util.getEventDisplayAddress(loc)));
         }
@@ -80,8 +81,14 @@ export class EventService {
   }
 
   private getEventById$(id: string) {
-    return this.http.get<{ event: EventInformation }>(`${this.apiUrl}/${id}`).pipe(
+    const isMockEvent = id?.startsWith("next-");
+    if (!isMockEvent) {
+      return this.savedEventService.getEvent$(id);
+    }
+
+    return this.http.get<EventInformation>(`${this.apiUrl}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getEvent'),
+      map((resp) => resp.event as EventInformation),
       catchError((e) => this.errorService.handleError(e, 'Error fetching event.'))
     );
   }

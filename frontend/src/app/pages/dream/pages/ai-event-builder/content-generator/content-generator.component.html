@@ -102,6 +102,9 @@
     }
   </div>
 </div>
+<h2 class="fade-in" [class.open]="busy()">
+  Waiting for response from AI...this may take a minute.
+</h2>
 <div class="progress" [class.open]="busy()">
   <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
 </div>
