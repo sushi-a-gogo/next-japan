@@ -74,9 +74,6 @@ footer {
 }
 
 @media (min-width: 600px) {
-  main {
-    padding: 0;
-  }
   footer {
     flex-direction: row;
     justify-content: center;
@@ -85,5 +82,11 @@ footer {
     a {
       width: 150px;
     }
+  }
+}
+
+@media (min-width: var.$max-page-width) {
+  main {
+    padding: 0;
   }
 }

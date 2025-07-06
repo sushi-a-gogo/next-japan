@@ -55,7 +55,8 @@ form {
 }
 
 h2 {
-  margin: 40px 0;
+  text-align: center;
+  margin: 30px 10px;
   font-size: 22px;
   color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
 }
