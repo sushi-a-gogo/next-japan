@@ -4,7 +4,4 @@ import { EventData } from './event-data.model';
 export interface EventInformation extends EventData {
   fullDescription: string;
   eventCoordinators: EventCoordinator[];
-  minDate?: string;
-  maxDate?: string;
-
 }

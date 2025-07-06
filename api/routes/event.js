@@ -46,7 +46,6 @@ async function readOpportunities(eventId) {
 
 router.get("/search", async (req, res) => {
   const query = req.query.q?.toLowerCase() || "";
-  const verbose = req.query.v?.toLowerCase() || "";
 
   const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
   const events = JSON.parse(eventJson);
@@ -58,25 +57,14 @@ router.get("/search", async (req, res) => {
       event.fullDescription.toLowerCase().includes(query)
   );
 
-  if (verbose === "1") {
-    const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
-    const locations = JSON.parse(locationJson);
-    filteredEvents.forEach((event) => {
-      event.locations = event.locations.map((locationId) =>
-        locations.find((l) => l.locationId === locationId)
-      );
-    });
-    res.json(filteredEvents);
-  } else {
-    res.json(
-      filteredEvents.map((e) => ({
-        eventId: e.eventId,
-        eventTitle: e.eventTitle,
-        description: e.description,
-        image: e.image,
-      }))
-    );
-  }
+  res.json(
+    filteredEvents.map((e) => ({
+      eventId: e.eventId,
+      eventTitle: e.eventTitle,
+      description: e.description,
+      image: e.image,
+    }))
+  );
 });
 
 router.get("/:id", async (req, res) => {

@@ -18,12 +18,13 @@ export class AppLogoComponent {
     height: 1024
   };
 
-  size = input<number>(48);
+  width = input<number>(92);
 
   image = computed(() => {
-    return this.imageService.resizeImage(this.logo, this.size(), this.size());
+    const height = Math.ceil(this.width() * 2 / 3);
+    return this.imageService.resizeImage(this.logo, this.width(), height);
   });
 
-  style = computed(() => ({ width: `${this.size()}px`, height: `${this.size}px` }));
+  style = computed(() => ({ width: `${this.image().image.width}px`, height: `${this.image().image.height}px` }));
 
 }

@@ -17,11 +17,11 @@
         {{ event()?.eventTitle }}
       </div>
       <div class="event-desc">
-        @if(event()?.minDate) {
+        @if(eventDateRange()) {
         <mat-icon>event_note</mat-icon>
-        <span>{{ event()?.minDate | date }}</span>
-        @if(multiDayEvent()) { -
-        <span>{{ event()?.maxDate | date }}</span>
+        <span>{{ eventDateRange()!.minDate | date }}</span>
+        @if(eventDateRange()?.maxDate) { -
+        <span>{{ eventDateRange()!.maxDate | date }}</span>
         } } @else {
         <div class="flex-column">
           <div class="flex-row">

@@ -70,15 +70,9 @@ export class EventPageComponent implements OnChanges {
       }), takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (res) => {
           const event = res?.event;
-          const eventOpportunities = res?.opportunities || [];
           const eventTitle = event?.eventTitle || 'Event Not Found';
           const description = event?.description || 'Event Not Found';
           const image = event ? this.imageService.resizeImage(event?.image, 384, 256) : null;
-
-          if (event && eventOpportunities.length) {
-            event.minDate = eventOpportunities[0].startDate;
-            event.maxDate = eventOpportunities[eventOpportunities.length - 1].startDate;
-          }
 
           this.title.setTitle(eventTitle);
 

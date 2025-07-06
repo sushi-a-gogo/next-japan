@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EventInformation } from '@app/pages/event/models/event-information.model';
+import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { EventSearchService } from '@app/services/event-search.service';
 import { OrganizationService } from '@app/services/organization.service';
@@ -16,10 +16,10 @@ import { SearchCardComponent } from "./search-card/search-card.component";
 })
 export class SearchResultsComponent implements OnChanges {
   q = input<string>()
-  events = signal<EventInformation[]>([]);
+  events = signal<EventData[]>([]);
   loaded = signal(false);
 
-  private eventService = inject(EventSearchService);
+  private eventSearchService = inject(EventSearchService);
   private organizationService = inject(OrganizationService);
   private destroyRef = inject(DestroyRef);
 
@@ -30,13 +30,15 @@ export class SearchResultsComponent implements OnChanges {
     }
 
     const observables = {
-      events: of<EventInformation[]>([]),
+      events: of<EventData[]>([]),
+      savedEvents: of<EventData[]>([]),
       opportunities: of<EventOpportunity[]>([])
     };
 
     const query = this.q() && this.q()!.length > 2 ? this.q() : '';
     if (query) {
-      observables.events = this.eventService.searchFullEvents(query);
+      observables.events = this.eventSearchService.searchEvents$(query);
+      observables.savedEvents = this.eventSearchService.searchDbEvents$(query);
       observables.opportunities = this.organizationService.getNextOpportunities$();
 
     }
@@ -45,7 +47,7 @@ export class SearchResultsComponent implements OnChanges {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
-        const events = res.events;
+        const events = [...res.events, ...res.savedEvents];
         events.forEach((event) => {
           const opportunities = res.opportunities.sort(this.sortByDate).filter((o) => o.eventId === event.eventId);
           event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
