@@ -27,11 +27,9 @@
       </div>
     </section>
     <section>
-      <div class="flex-content">
-        @if(loaded()) {
-        <app-event-carousel></app-event-carousel>
-        }
-      </div>
+      @if(loaded()) {
+      <app-event-carousel></app-event-carousel>
+      }
     </section>
     <section class="image-content">
       <img [ngSrc]="aiBackgroundImage().src" alt="A dream" fill priority />

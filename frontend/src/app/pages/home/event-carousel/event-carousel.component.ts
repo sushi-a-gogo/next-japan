@@ -12,9 +12,9 @@ import { forkJoin } from 'rxjs';
 import { EventCardComponent } from "./event-card/event-card.component";
 
 const EventCarouselBreakpoints = {
-  small: '(max-width: 739.98px)',
-  medium: '(min-width: 740px) and (max-width: 1099.98px)',
-  large: '(min-width: 1100px)',
+  small: '(max-width: 819.98px)',
+  medium: '(min-width: 820px) and (max-width: 1199.98px)',
+  large: '(min-width: 1200px)',
 };
 
 @Component({
