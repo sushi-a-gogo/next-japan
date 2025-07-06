@@ -82,10 +82,7 @@ router.get("/search", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const eventId = req.params.id;
   const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
-  const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
   const events = JSON.parse(eventJson);
-  const locations = JSON.parse(locationJson);
-  const eventOpportunities = await readOpportunities(eventId);
 
   const index = events.findIndex((event) => event.eventId === eventId);
   if (index === -1) {
@@ -93,15 +90,20 @@ router.get("/:id", async (req, res) => {
   }
 
   const event = events[index];
-  event.locations = event.locations.map((locationId) =>
-    locations.find((l) => l.locationId === locationId)
-  );
-  if (eventOpportunities.length) {
-    event.minDate = eventOpportunities[0].startDate;
-    event.maxDate = eventOpportunities[eventOpportunities.length - 1].startDate;
-  }
-
   res.status(200).json({ event });
+});
+
+router.get("/:id/locations", async (req, res) => {
+  const eventId = req.params.id;
+  const eventOpportunities = await readOpportunities(eventId);
+
+  const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
+  const locations = JSON.parse(locationJson);
+  const eventLocations = locations.filter(
+    (l) => !!eventOpportunities.find((o) => o.locationId === l.locationId)
+  );
+
+  return res.status(200).json({ eventLocations });
 });
 
 router.get("/:id/opportunities", async (req, res) => {

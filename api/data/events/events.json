@@ -35,8 +35,7 @@
           "height": 842
         }
       }
-    ],
-    "locations": [1, 2]
+    ]
   },
   {
     "eventId": "next-2",
@@ -74,8 +73,7 @@
           "height": 842
         }
       }
-    ],
-    "locations": [3, 4]
+    ]
   },
   {
     "eventId": "next-3",
@@ -125,8 +123,7 @@
           "height": 842
         }
       }
-    ],
-    "locations": [5]
+    ]
   },
   {
     "eventId": "next-6",
@@ -176,8 +173,7 @@
           "height": 842
         }
       }
-    ],
-    "locations": []
+    ]
   },
   {
     "eventId": "next-7",
@@ -203,8 +199,7 @@
           "height": 255
         }
       }
-    ],
-    "locations": []
+    ]
   },
   {
     "eventId": "next-8",
@@ -230,8 +225,7 @@
           "height": 255
         }
       }
-    ],
-    "locations": []
+    ]
   },
   {
     "eventId": "next-9",
@@ -257,8 +251,7 @@
           "height": 255
         }
       }
-    ],
-    "locations": [6]
+    ]
   },
   {
     "eventId": "next-10",
@@ -285,8 +278,7 @@
           "height": 255
         }
       }
-    ],
-    "locations": [7]
+    ]
   },
   {
     "eventId": "next-11",
@@ -299,7 +291,6 @@
       "height": 1024
     },
     "fullDescription": "Embark on an exhilarating morning adventure in Nara this spring! As the sun rises, the vibrant cherry blossoms bloom, creating a picturesque backdrop for your cultural tour. Start your day with a visit to the iconic Todai-ji Temple, where you can marvel at the Great Buddha statue, a true masterpiece of ancient craftsmanship. Stroll through Nara Park, where friendly deer roam freely, adding a playful touch to your exploration. Engage with local artisans and discover the enchanting world of traditional Japanese crafts. Savor the delicious flavors of hot dogs infused with unique Japanese ingredients, offering a delightful twist on a classic favorite. This solo journey is not just about sightseeing; it's about immersing yourself in the rich cultural tapestry of Nara, creating unforgettable memories as you embrace the spirit of adventure.",
-    "locations": [],
     "eventCoordinators": []
   }
 ]

@@ -16,7 +16,8 @@ export class EventBannerComponent {
   private imageService = inject(ImageService);
 
   event = this.eventService.event;
-  locationCount = computed(() => this.event()?.locations.length);
+  eventLocations = this.eventService.eventLocations;
+  locationCount = computed(() => this.eventLocations().length);
   resizedImage = computed(() => this.event() ?
     this.imageService.resizeImage(this.event()!.image, this.event()!.image.width, this.event()!.image.height)
     : null);

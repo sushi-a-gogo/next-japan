@@ -58,15 +58,27 @@ export class EventPageComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const id = this.eventId();
     this.loaded.set(false);
-    forkJoin([this.eventService.getEvent$(id), this.eventService.getEventOpportunities$(id)])
+    const observables = {
+      event: this.eventService.getEvent$(id),
+      locations: this.eventService.getEventLocations$(id),
+      opportunities: this.eventService.getEventOpportunities$(id)
+    };
+    forkJoin(observables)
       .pipe(catchError((e) => {
         this.hasError.set(true)
-        return of([null]);
+        return of(null);
       }), takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: ([event]) => {
+        next: (res) => {
+          const event = res?.event;
+          const eventOpportunities = res?.opportunities || [];
           const eventTitle = event?.eventTitle || 'Event Not Found';
           const description = event?.description || 'Event Not Found';
           const image = event ? this.imageService.resizeImage(event?.image, 384, 256) : null;
+
+          if (event && eventOpportunities.length) {
+            event.minDate = eventOpportunities[0].startDate;
+            event.maxDate = eventOpportunities[eventOpportunities.length - 1].startDate;
+          }
 
           this.title.setTitle(eventTitle);
 

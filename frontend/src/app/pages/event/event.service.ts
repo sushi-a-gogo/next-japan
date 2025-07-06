@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { MapLocation } from '@app/models/map-location.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { ErrorService } from '@app/services/error.service';
@@ -19,6 +20,9 @@ export class EventService {
 
   private eventSignal = signal<EventInformation | null>(null);
   event = this.eventSignal.asReadonly();
+
+  private eventLocationsSignal = signal<MapLocation[]>([]);
+  eventLocations = this.eventLocationsSignal.asReadonly();
 
   private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
   eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
@@ -58,10 +62,6 @@ export class EventService {
 
     const obs$ = this.getEventById$(eventId).pipe(
       switchMap((event) => {
-        if (event) {
-          event.locations.forEach((loc) => (loc.displayAddress = this.util.getEventDisplayAddress(loc)));
-        }
-
         this.eventSignal.set(event);
         return of(event);
       }),
@@ -70,6 +70,16 @@ export class EventService {
 
     this.cache.set(eventId, obs$);
     return obs$;
+  }
+
+  getEventLocations$(eventId: string): Observable<MapLocation[]> {
+    return this.getLocations$(eventId).pipe(
+      map((resp) => {
+        const eventLocations: MapLocation[] = resp.eventLocations;
+        eventLocations.forEach((loc: MapLocation) => (loc.displayAddress = this.util.getEventDisplayAddress(loc)));
+        this.eventLocationsSignal.set(eventLocations);
+        return eventLocations;
+      }));
   }
 
   getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
@@ -90,6 +100,13 @@ export class EventService {
       debug(RxJsLoggingLevel.DEBUG, 'getEvent'),
       map((resp) => resp.event as EventInformation),
       catchError((e) => this.errorService.handleError(e, 'Error fetching event.'))
+    );
+  }
+
+  private getLocations$(eventId: string) {
+    return this.http.get<{ eventLocations: MapLocation[] }>(`${this.apiUrl}/${eventId}/locations`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getLocations'),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching locations.'))
     );
   }
 
