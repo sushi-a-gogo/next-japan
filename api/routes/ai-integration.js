@@ -53,7 +53,10 @@ router.post("/generate-content", async (req, res) => {
     }
 
     const textPrompt = createTextPrompt(promptParams, customText);
-    const imagePrompt = createImagePrompt(promptParams, customText);
+    const imagePrompt =
+      provider.name === "Grok"
+        ? createGrokImagePrompt(promptParams, customText)
+        : createImagePrompt(promptParams, customText);
 
     // Call AI API for text
     const textResponse = await fetchTextResultFromAI(provider, textPrompt);
@@ -147,6 +150,20 @@ function createImagePrompt(promptParams, customText) {
   adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
   Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
   Avoid close-up or foreground characters.
+  The image should not contain any text or symbols.`;
+}
+
+function createGrokImagePrompt(promptParams, customText) {
+  return `Generate a digital painting, using warm glowing tones and bright pastels,
+  with a landscape focus, no text, family-friendly, high resolution.
+  The theme should be inspired by Studio Ghibli movies, '${customText}', and these parameters: ${JSON.stringify(
+    promptParams
+  )}.
+  The image should have landscape dimensions 1024x585.
+  The image should have a cel-shaded, anime look-think Speed Racer.
+  The image should have the appearance of a Japanese animated movie.
+  Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+  Characters should be depicted in anime style and should take up only a small portion of the image.
   The image should not contain any text or symbols.`;
 }
 

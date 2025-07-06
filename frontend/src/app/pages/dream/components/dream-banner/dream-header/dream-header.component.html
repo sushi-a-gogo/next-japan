@@ -4,6 +4,7 @@
       @if(resizedImage()) {
       <img
         [ngSrc]="resizedImage()!"
+        [class.grok]="xAi()"
         alt="An image of the event"
         fill
         priority

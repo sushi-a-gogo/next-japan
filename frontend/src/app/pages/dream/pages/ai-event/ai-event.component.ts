@@ -5,7 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import { DreamHeaderComponent } from "@app/pages/dream/components/dream-banner/dream-header/dream-header.component";
-import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { EventData } from '@app/pages/event/models/event-data.model';
 import { AiService } from '@app/services/ai.service';
 import { EventsService } from '@app/services/events.service';
 
@@ -35,7 +35,7 @@ export class AiEventComponent implements OnInit {
   busy = signal<boolean>(false);
 
   dreamEvent = this.aiService.aiEvent;
-  savedEvent = signal<AiEvent | null>(null);
+  savedEvent = signal<EventData | null>(null);
 
 
   backgroundImage = computed(() => {

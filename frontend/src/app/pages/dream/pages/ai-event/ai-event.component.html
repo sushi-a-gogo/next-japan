@@ -15,15 +15,30 @@
     <span class="material-icons">arrow_back_ios_new</span>
     Go Back
   </a>
+  @if(!savedEvent()) {
   <button
     class="app-button app-button-save"
     type="button"
     (click)="saveEvent()"
-    [disabled]="busy()"
+    [disabled]="busy() || savedEvent()"
   >
     @if(busy()) { Saving... } @else { Save Event }
   </button>
+  } @else {
+  <a
+    type="button"
+    class="app-button app-button-save fade-in"
+    [class.open]="savedEvent()"
+    [routerLink]="'/event/' + savedEvent()?.eventId"
+  >
+    Visit the Event Page
+  </a>
+  }
 </footer>
+<div class="banner fade-in" [class.open]="savedEvent()">
+  <span class="material-icons">campaign</span>
+  <div>Your event has been saved!</div>
+</div>
 <div class="progress" [class.open]="busy()">
   <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
 </div>

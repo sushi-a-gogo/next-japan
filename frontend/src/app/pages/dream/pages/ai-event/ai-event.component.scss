@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "variables.scss" as var;
 
 :host {
@@ -56,9 +57,28 @@ footer {
   button,
   a {
     width: 100%;
+    min-width: 200px;
     border-radius: 6px;
     font-weight: 600;
     color: #fff;
+  }
+  a.app-button-save {
+    background-color: var(--bright-green-grass);
+  }
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: color.scale(map.get(var.$colors, dark-brown-tree), $lightness: 0%);
+  .material-icons {
+    color: var(--red-torii-gate);
   }
 }
 

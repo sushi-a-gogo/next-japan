@@ -67,8 +67,6 @@ export class ContentGeneratorComponent {
   }; // Default params
 
   aiProviders = ['OpenAI', 'Grok'];
-  //dreamEvent = signal<AiEvent | null>(null);
-
   disabled = computed(() => !this.auth.isAuthenticated())
 
   generateContent(promptForm: NgForm) {

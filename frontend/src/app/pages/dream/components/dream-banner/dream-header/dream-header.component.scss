@@ -32,6 +32,10 @@
     object-fit: cover;
     width: auto;
     height: auto;
+
+    &.grok {
+      object-fit: contain;
+    }
   }
 }
 

@@ -19,6 +19,7 @@ export class EventBannerComponent {
   eventLocations = this.eventService.eventLocations;
   eventOpportunities = this.eventService.eventOpportunities;
 
+  xAi = computed(() => this.event()?.aiProvider === 'Grok');
   locationCount = computed(() => this.eventLocations().length);
   resizedImage = computed(() => this.event() ?
     this.imageService.resizeImage(this.event()!.image, this.event()!.image.width, this.event()!.image.height)

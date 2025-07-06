@@ -5,6 +5,7 @@
     [alt]="event()?.description"
     class="fade-in"
     [class.open]="imageLoaded()"
+    [class.grok]="xAi()"
     fill
     priority
     [style.objectPosition]="event()?.image?.position"
@@ -35,7 +36,8 @@
         </div>
         }
       </div>
-      <div class="event-desc fade-in" [class.open]="locationCount()">
+      @if(locationCount()) {
+      <div class="event-desc" [class.open]="locationCount()">
         <mat-icon>place</mat-icon>
         <span>
           {{ locationCount() | displayCount }}
@@ -46,6 +48,7 @@
           }
         </span>
       </div>
+      }
     </div>
   </div>
 </div>

@@ -48,11 +48,4 @@ export class AiService {
       catchError((e) => this.errorService.handleError(e, 'Error fetching result from Open AI', true))
     );
   }
-
-  // saveEvent$(event: AiEvent) {
-  //   return this.http.post<AiEvent>(`${this.uri}/save`, event).pipe(
-  //     debug(RxJsLoggingLevel.DEBUG, "AI:saveEvent"),
-  //     catchError((e) => this.errorService.handleError(e, 'Error saving event', true))
-  //   );
-  // }
 }

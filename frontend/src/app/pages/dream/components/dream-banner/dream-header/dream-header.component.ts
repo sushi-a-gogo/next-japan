@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { EventData } from '@app/pages/event/models/event-data.model';
 import { ImageService } from '@app/services/image.service';
 
 @Component({
@@ -11,7 +12,9 @@ import { ImageService } from '@app/services/image.service';
 })
 export class DreamHeaderComponent {
   event = input.required<AiEvent>();
-  savedEvent = input<AiEvent | null>();
+  savedEvent = input<EventData | null>();
+
+  xAi = computed(() => this.event().aiProvider === 'Grok');
 
   private imageService = inject(ImageService);
 
