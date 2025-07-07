@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -24,6 +25,6 @@ export const appConfig: ApplicationConfig = {
       inMemoryScrollingFeature,
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' })
-    )
+    ), provideClientHydration(withEventReplay())
   ]
 };
