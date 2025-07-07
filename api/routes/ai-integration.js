@@ -31,19 +31,23 @@ const providers = {
 
 // POST endpoint to handle text and image generation
 router.post("/generate-content", async (req, res) => {
-  //await new Promise((resolve) => setTimeout(resolve, 3000));
-  //return res.status(500).json({ error: "Failed to generate content" });
-  // Expecting params and custom text from Angular front-end
-  const { promptParams, customText, aiProvider } = req.body;
-  const providerKey = aiProvider || "OpenAI";
-  const provider = providers[providerKey.toLowerCase()];
+  // Expecting params from Angular front-end
+  const { promptParams } = req.body;
 
   // Validate input
-  if (!promptParams || !customText) {
-    return res
-      .status(400)
-      .json({ error: "Missing promptParams or customText" });
+  if (!promptParams) {
+    return res.status(400).json({ error: "Missing promptParams" });
   }
+
+  //await new Promise((resolve) => setTimeout(resolve, 3000));
+  //return res.status(500).json({ error: "Failed to generate content" });
+
+  const providerKey = promptParams.aiProvider || "OpenAI";
+  const provider = providers[providerKey.toLowerCase()];
+  promptParams.aiProvider = undefined;
+
+  const customText = promptParams.customText || "Happy day.";
+  promptParams.customText = undefined;
 
   try {
     if (!(await isPromptSafe(customText))) {
@@ -79,7 +83,7 @@ router.post("/generate-content", async (req, res) => {
       ...aiGeneratedEvent,
       image: { id: imageName, width: 1792, height: 1024 },
       imageUrl,
-      aiProvider,
+      aiProvider: provider.name,
       prompt: { text: textPrompt, image: imagePrompt },
     });
   } catch (error) {

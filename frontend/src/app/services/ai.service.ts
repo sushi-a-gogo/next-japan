@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { AiPromptParams } from '@app/models/ai-prompt-params.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { environment } from '@environments/environment';
@@ -13,16 +14,22 @@ export class AiService {
   private uri = `${environment.apiUrl}/api/ai`;
   private errorService = inject(ErrorService);
 
+  private promptParamsSignal = signal<AiPromptParams | null>(null)
+  promptParams = this.promptParamsSignal.asReadonly();
+
   private aiEventSignal = signal<AiEvent | null>(null)
   aiEvent = this.aiEventSignal.asReadonly();
 
   constructor(private http: HttpClient) { }
 
-  generateContent$(params: any, text: string, aiProvider: 'OpenAI' | 'Grok'): Observable<AiEvent> {
+  clearPrompt() {
+    this.promptParamsSignal.set(null);
+  }
+
+  generateContent$(params: any): Observable<AiEvent> {
+    this.promptParamsSignal.set(params);
     return this.http.post<AiEvent>(`${this.uri}/generate-content`, {
-      promptParams: params,
-      customText: text,
-      aiProvider
+      promptParams: params
     }).pipe(
       debug(RxJsLoggingLevel.DEBUG, "AI:generateContent"),
       tap((event) => this.aiEventSignal.set(event)),

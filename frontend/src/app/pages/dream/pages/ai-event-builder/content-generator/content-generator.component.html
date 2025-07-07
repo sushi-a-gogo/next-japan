@@ -60,7 +60,7 @@
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>AI Engine</mat-label>
-      <mat-select [(ngModel)]="aiProvider" name="aiProvider">
+      <mat-select [(ngModel)]="params.aiProvider" name="aiProvider">
         @for (provider of aiProviders; track $index) {
         <mat-option [value]="provider">{{ provider }}</mat-option>
         }
@@ -70,7 +70,7 @@
       <mat-label>Enter any special text</mat-label>
       <input
         matInput
-        [(ngModel)]="customText"
+        [(ngModel)]="params.customText"
         name="customText"
         placeholder="Enter text"
       />
@@ -93,14 +93,6 @@
     </button>
     }
   </form>
-  <div class="fade-in" [class.open]="error()">
-    @if(error()) {
-    <div class="no-results flex-row error">
-      <span class="icon">🚀</span>
-      <span>{{ error() }}</span>
-    </div>
-    }
-  </div>
 </div>
 <div class="progress" [class.open]="busy()">
   <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>

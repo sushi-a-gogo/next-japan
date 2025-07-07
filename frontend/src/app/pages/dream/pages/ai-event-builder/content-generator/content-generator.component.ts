@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationStart, Router } from '@angular/router';
+import { AiPromptParams } from '@app/models/ai-prompt-params.model';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { AiService } from '@app/services/ai.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
@@ -35,17 +36,14 @@ export class ContentGeneratorComponent implements OnInit {
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  aiProvider: 'OpenAI' | 'Grok' = 'OpenAI'
-  customText = '';
-
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy', 'festive', 'rustic', 'exotic'];
   moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified'];
   seasons = ['Spring', 'Summer', 'Fall', 'Winter', 'Monsoon', 'Cherry Blossom', 'Maple Season'];
   destinations = [
-    'Kinkaku-ji',
     'Hakuba Valley',
     'Himeji Castle',
     'Hokkaido',
+    'Kinkaku-ji',
     'Kyoto',
     'Mt. Fuji',
     'Nara',
@@ -61,15 +59,18 @@ export class ContentGeneratorComponent implements OnInit {
   groupSizes = ['Solo', 'Small Group (2-5)', 'Family (6-10)', 'Large Group (10+)'];
   timesOfDay = ['Morning', 'Afternoon', 'Evening', 'Night'];
 
-  params = {
-    destination: this.destinations[0],
-    tone: this.tones[0],
-    mood: this.moods[0],
-    season: this.seasons[0],
-    activity: this.activities[0],
-    groupSize: this.groupSizes[0],
-    timeOfDay: this.timesOfDay[0],
-  }; // Default params
+  params: AiPromptParams =
+    this.aiService.promptParams() ||
+    {
+      destination: this.destinations[0],
+      tone: this.tones[0],
+      mood: this.moods[0],
+      season: this.seasons[0],
+      activity: this.activities[0],
+      groupSize: this.groupSizes[0],
+      timeOfDay: this.timesOfDay[0],
+      aiProvider: 'OpenAI'
+    }; // Default params
 
   aiProviders = ['OpenAI', 'Grok'];
   disabled = computed(() => !this.auth.isAuthenticated())
@@ -83,6 +84,7 @@ export class ContentGeneratorComponent implements OnInit {
 
   generateContent(promptForm: NgForm) {
     promptForm.form.disable();
+
     this.error.set(null);
     this.busy.set(true);
     this.snackBar.open('Generating your event content with AI. Please wait a moment while we craft something special for you!', 'Okay', {
@@ -91,7 +93,7 @@ export class ContentGeneratorComponent implements OnInit {
       panelClass: 'success-bar'
     });
 
-    this.aiService.generateContent$(this.params, this.customText || 'happy', this.aiProvider).pipe(
+    this.aiService.generateContent$(this.params).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (aiEvent) => {
