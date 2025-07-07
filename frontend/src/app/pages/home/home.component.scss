@@ -12,6 +12,7 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 24px;
   width: 100%;
   height: 100%;
 }
@@ -32,9 +33,11 @@ article > main {
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  padding-bottom: 0;
+  gap: 24px;
+
+  > section:not(.image-content) {
+    padding: 0 20px;
+  }
 }
 
 article > main > section:last-child {
@@ -60,7 +63,6 @@ section {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  padding: 10px 20px;
   text-align: center;
 
   .info-title {
@@ -71,7 +73,6 @@ section {
 }
 
 .image-content {
-  border-radius: 6px;
   overflow: hidden;
   position: relative;
   color: #fff;
@@ -138,17 +139,21 @@ a.app-button.app-button-save {
 }
 
 @media (min-width: 600px) {
+  article {
+    gap: 48px;
+  }
+
   article > main {
     padding: 0;
-    padding-top: 48px;
+    gap: 48px;
   }
 
   article > main > section:last-child {
-    margin-bottom: 100px;
+    margin-bottom: 96px;
   }
 
   .organization-info {
-    padding: 40px 20px;
+    //padding: 40px 20px;
 
     .info-title {
       font-size: 28px;
@@ -167,5 +172,9 @@ a.app-button.app-button-save {
     padding-left: 0;
     padding-right: 0;
     gap: 30px;
+  }
+
+  .image-content {
+    border-radius: 6px;
   }
 }

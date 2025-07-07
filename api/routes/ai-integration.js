@@ -1,7 +1,5 @@
-import axios from "axios";
 import dotenv from "dotenv";
 import express from "express";
-import FormData from "form-data";
 import OpenAI from "openai";
 
 dotenv.config();
@@ -55,7 +53,10 @@ router.post("/generate-content", async (req, res) => {
     }
 
     const textPrompt = createTextPrompt(promptParams, customText);
-    const imagePrompt = createImagePrompt(promptParams, customText);
+    const imagePrompt =
+      provider.name === "Grok"
+        ? createGrokImagePrompt(promptParams, customText)
+        : createImagePrompt(promptParams, customText);
 
     // Call AI API for text
     const textResponse = await fetchTextResultFromAI(provider, textPrompt);
@@ -84,71 +85,6 @@ router.post("/generate-content", async (req, res) => {
   } catch (error) {
     console.error("Error with AI API:", error);
     res.status(500).json({ error: "Failed to generate content" });
-  }
-});
-
-router.post("/save", async (req, res) => {
-  try {
-    const { eventTitle, description, image, imageUrl, aiProvider, prompt } =
-      req.body;
-
-    // Input validation
-    if (!eventTitle || !description || !imageUrl) {
-      return res.status(400).json({
-        error: "Missing required fields: title, description, or imageUrl",
-      });
-    }
-
-    // Upload image to Cloudflare
-    const formData = new FormData();
-    const imageBuffer = await axios.get(imageUrl, {
-      responseType: "arraybuffer",
-    });
-    const filename = image.id;
-    formData.append("file", imageBuffer.data, {
-      filename,
-    });
-
-    const cloudfareUploadUrl = `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`;
-    console.log("Upload image to: " + cloudfareUploadUrl);
-
-    const cloudflareResponse = await axios.post(cloudfareUploadUrl, formData, {
-      headers: {
-        ...formData.getHeaders(),
-        Authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,
-      },
-    });
-
-    if (!cloudflareResponse.data.success) {
-      throw new Error("Cloudflare upload failed");
-    }
-
-    const cloudflareImageId = cloudflareResponse.data.result.id;
-    const deliveryUrl = `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_HASH}/${cloudflareImageId}/public?w=1792&h=1024&format=webp`;
-
-    // Response (MongoDB integration to follow)
-    return res.status(201).json({
-      success: true,
-      data: {
-        eventTitle,
-        description,
-        image: {
-          id: filename,
-          cloudflareImageId,
-          width: image.width,
-          height: image.height,
-        },
-        imageUrl: deliveryUrl,
-        aiProvider,
-        prompt,
-      },
-    });
-  } catch (error) {
-    console.error("Save event error:", error.message || error);
-    return res.status(500).json({
-      success: false,
-      error: error.message || "Failed to save event",
-    });
   }
 });
 
@@ -196,11 +132,12 @@ function createTextPrompt(promptParams, customText) {
   ${JSON.stringify(promptParams)}.
   User input: ${customText}.
   The JSON object must include these properties:
-      'description': a creative text narrative (max 200 words),
+      'fullDescription': a creative text narrative (max 200 words),
+      'description': a brief summary of the fullDescription value (max 30 words),
       'eventTitle': a concise title inspired by the description (3-5 words).
   Return only the raw JSON object, no additional text.
   Do not include Markdown, code blocks, or extra text—output valid JSON only.
-  Output should look like: {'description': 'text...', 'eventTitle': 'title...'}.`;
+  Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }.`;
 }
 
 function createImagePrompt(promptParams, customText) {
@@ -213,6 +150,20 @@ function createImagePrompt(promptParams, customText) {
   adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
   Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
   Avoid close-up or foreground characters.
+  The image should not contain any text or symbols.`;
+}
+
+function createGrokImagePrompt(promptParams, customText) {
+  return `Generate a digital painting, using warm glowing tones and bright pastels,
+  with a landscape focus, no text, family-friendly, high resolution.
+  The theme should be inspired by Studio Ghibli movies, '${customText}', and these parameters: ${JSON.stringify(
+    promptParams
+  )}.
+  The image should have landscape dimensions 1024x585.
+  The image should have a cel-shaded, anime look-think Speed Racer.
+  The image should have the appearance of a Japanese animated movie.
+  Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
+  Characters should be depicted in anime style and should take up only a small portion of the image.
   The image should not contain any text or symbols.`;
 }
 

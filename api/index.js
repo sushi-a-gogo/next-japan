@@ -1,9 +1,13 @@
+import retry from "async-retry";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import mongoose from "mongoose";
+
 import rateLimit from "express-rate-limit";
 import aiRouter from "./routes/ai-integration.js";
 import eventRouter from "./routes/event.js";
+import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import organizationRouter from "./routes/organization.js";
 import userRouter from "./routes/user.js";
@@ -35,9 +39,21 @@ app.use(
   })
 );
 
+let isConnected = false;
+mondoDbConnectWithRetry()
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB after retries:", err);
+    if (!isConnected) {
+      console.log("Shutting down due to DB failure...");
+      process.exit(1); // Render will restart
+    }
+  });
+
 // Mount routers
 app.use("/api/organization", organizationRouter);
 app.use("/api/event", eventRouter);
+app.use("/api/events", eventsRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 
@@ -63,5 +79,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Something went wrong" });
 });
 
+async function mondoDbConnectWithRetry() {
+  await retry(() => mongoose.connect(process.env.MONGODB_URI), {
+    retries: 5,
+    minTimeout: 1000, // 1 second initial delay
+    maxTimeout: 5000, // 5 seconds max delay
+  });
+  isConnected = true;
+}
+
 export default app;
-//export { app };

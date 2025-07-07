@@ -8,9 +8,27 @@
       active-indicator-color: var(--bright-blue-sky),
     )
   );
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--bright-blue-sky),
+      active-indicator-height: 5px,
+    )
+  );
 }
 
-:root {
+.success-bar {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: var(--vivid-yellow-text),
+      supporting-text-weight: 600,
+      supporting-text-size: 16px,
+      //supporting-text-line-height: 20px,
+      container-color: var(--navy-blue-mountain),
+    )
+  );
+}
+
+.error-bar {
   @include mat.snack-bar-overrides(
     (
       button-color: var(--vivid-yellow-text),

@@ -17,23 +17,24 @@ export class EventSearchService {
   private searchModeSignal = signal(false);
   searchMode = this.searchModeSignal.asReadonly();
 
-  private apiUrl = `${environment.apiUrl}/api/event/search`;
+  private apiEventUrl = `${environment.apiUrl}/api/event/search`;
+  private apiEventsUrl = `${environment.apiUrl}/api/events/search`;
 
   constructor() { }
 
   searchEvents$(query: string): Observable<EventData[]> {
-    return this.http.get<EventInformation[]>(`${this.apiUrl}?q=${encodeURIComponent(query)}`).pipe(
+    return this.http.get<EventInformation[]>(`${this.apiEventUrl}?q=${encodeURIComponent(query)}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'searchEvents'),
       map(events => events.slice(0, 5)), // Limit to 5 suggestions
-      catchError((e) => this.errorService.handleError(e, 'Error searching event.'))
+      catchError((e) => this.errorService.handleError(e, 'Error searching events.'))
     );
   }
 
-  searchFullEvents(query: string): Observable<EventInformation[]> {
-    return this.http.get<EventInformation[]>(`${this.apiUrl}?v=1&q=${encodeURIComponent(query)}`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, 'searchFullEvents'),
-      map(events => events.slice(0, 10)), // Limit to 10 suggestions
-      catchError((e) => this.errorService.handleError(e, 'Error searching event.'))
+  searchDbEvents$(query: string): Observable<EventData[]> {
+    return this.http.get<EventInformation[]>(`${this.apiEventsUrl}?q=${encodeURIComponent(query)}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'searchEvents'),
+      map(events => events.slice(0, 5)), // Limit to 5 suggestions
+      catchError((e) => this.errorService.handleError(e, 'Error searching events.'))
     );
   }
 

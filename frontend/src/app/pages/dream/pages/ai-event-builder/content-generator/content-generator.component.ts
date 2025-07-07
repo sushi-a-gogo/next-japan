@@ -1,28 +1,36 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NavigationStart, Router } from '@angular/router';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { AiService } from '@app/services/ai.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { OpenAiService } from '@app/services/open-ai.service';
-import { DreamBannerComponent } from "../dream-banner/dream-banner.component";
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, DreamBannerComponent],
+  imports: [TitleCasePipe, FormsModule, MatProgressBarModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
-export class ContentGeneratorComponent {
+export class ContentGeneratorComponent implements OnInit {
+  private router = inject(Router);
   private auth = inject(AuthMockService);
-  private aiService = inject(OpenAiService);
+  private aiService = inject(AiService);
   private destroyRef = inject(DestroyRef);
+  private snackBar = inject(MatSnackBar);
+
+  promptForm?: FormGroup;
+  eventCreated = output<AiEvent>();
 
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
@@ -64,39 +72,38 @@ export class ContentGeneratorComponent {
   }; // Default params
 
   aiProviders = ['OpenAI', 'Grok'];
-  dreamEvent = signal<AiEvent | null>(null);
-
   disabled = computed(() => !this.auth.isAuthenticated())
-  saveEnabled = false;
 
-  generateContent() {
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationStart),
+      takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.snackBar.dismiss())
+  }
+
+  generateContent(promptForm: NgForm) {
+    promptForm.form.disable();
     this.error.set(null);
     this.busy.set(true);
+    this.snackBar.open('Generating your event content with AI. Please wait a moment while we craft something special for you!', 'Okay', {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: 'success-bar'
+    });
 
     this.aiService.generateContent$(this.params, this.customText || 'happy', this.aiProvider).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (aiEvent) => {
-        this.dreamEvent.set(aiEvent)
+        this.eventCreated.emit(aiEvent);
+        promptForm.form.enable();
       },
       error: (e) => {
         this.error.set(e.message);
         this.busy.set(false);
+        promptForm.form.enable();
       },
       complete: () => this.busy.set(false)
     });
   }
-
-  reset() {
-    this.dreamEvent.set(null);
-  }
-
-  saveEvent() {
-    this.aiService.saveEvent$(this.dreamEvent()!).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      console.log('Saved:', res.data);
-      this.dreamEvent.set(res.data); // Update with Cloudflare URL
-    });
-
-  }
-
 }

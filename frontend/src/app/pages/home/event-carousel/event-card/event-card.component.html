@@ -35,6 +35,11 @@
             [opportunity]="event().nextOpportunityDate!"
           ></app-opportunity-date>
         </div>
+        } @else {
+        <div class="coming-soon">
+          <span class="material-icons">campaign</span>
+          <div class="banner disabled">Coming Soon</div>
+        </div>
         }
       </div>
     </div>

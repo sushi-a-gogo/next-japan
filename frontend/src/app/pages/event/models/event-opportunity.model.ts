@@ -4,7 +4,7 @@ import { MapLocation } from '@app/models/map-location.model';
 
 export interface EventOpportunity extends CalendarDate, MapLocation {
   opportunityId: number;
-  eventId: number;
+  eventId: string;
   eventTitle: string;
   image: AppImageData,
   notes?: string;

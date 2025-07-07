@@ -13,6 +13,10 @@
     object-fit: cover;
     width: auto;
     height: auto;
+
+    &.grok {
+      object-fit: contain;
+    }
   }
 }
 
@@ -31,9 +35,9 @@
 }
 
 .banner-title {
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 45px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
   margin-bottom: 10px;
   -webkit-box-orient: vertical;
   display: -webkit-box;
@@ -53,6 +57,10 @@
   justify-content: flex-start;
   gap: 10px;
   padding-top: 10px;
+
+  .flex-column {
+    gap: 24px;
+  }
 }
 
 @media (min-width: var.$screen-sm) {
@@ -60,5 +68,15 @@
     flex-direction: row;
     align-items: center;
     padding: 20px;
+  }
+  .banner-title {
+    font-size: 36px;
+    line-height: 45px;
+    font-weight: 600;
+  }
+  .event-desc {
+    .flex-column {
+      gap: 12px;
+    }
   }
 }

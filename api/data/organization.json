@@ -3,7 +3,7 @@
   "name": "Next Japan",
   "image": {
     "id": "tokyo-night.png",
-    "cloudfareImageId": "d3734dbe-2b91-4728-331e-f78c8284a500",
+    "cloudflareImageId": "d3734dbe-2b91-4728-331e-f78c8284a500",
     "width": 1792,
     "height": 1024
   },

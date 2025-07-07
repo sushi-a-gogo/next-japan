@@ -1,6 +1,6 @@
 export interface AppImageData {
   id: string,
-  cloudfareImageId?: string;
+  cloudflareImageId?: string;
   width: number,
   height: number,
   position?: string

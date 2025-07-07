@@ -72,7 +72,7 @@ button {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: stretch;
   gap: 14px;
   width: 100%;
@@ -89,7 +89,7 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  text-align: left;
+  text-align: center;
 
   &.description {
     white-space: pre-wrap;
@@ -126,8 +126,18 @@ button {
   align-items: center;
   justify-content: flex-end;
 
+  .material-icons {
+    color: var(--red-torii-gate);
+  }
+
   .banner {
     font-weight: 700;
+  }
+
+  .coming-soon {
+    .banner {
+      opacity: 0.5;
+    }
   }
 }
 

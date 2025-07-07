@@ -1,0 +1,107 @@
+<div class="content-container">
+  <form #promptForm="ngForm" (ngSubmit)="generateContent(promptForm)">
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Destination</mat-label>
+      <mat-select [(ngModel)]="params.destination" name="destination">
+        @for (destination of destinations; track $index) {
+        <mat-option [value]="destination">{{
+          destination | titlecase
+        }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Tone</mat-label>
+      <mat-select [(ngModel)]="params.tone" name="tone">
+        @for (tone of tones; track $index) {
+        <mat-option [value]="tone">{{ tone | titlecase }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Attitude</mat-label>
+      <mat-select [(ngModel)]="params.mood" name="mood">
+        @for (mood of moods; track $index) {
+        <mat-option [value]="mood">{{ mood | titlecase }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Time of Year</mat-label>
+      <mat-select [(ngModel)]="params.season" name="season">
+        @for (season of seasons; track $index) {
+        <mat-option [value]="season">{{ season }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Activity</mat-label>
+      <mat-select [(ngModel)]="params.activity" name="activity">
+        @for (activity of activities; track $index) {
+        <mat-option [value]="activity">{{ activity }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Group Size</mat-label>
+      <mat-select [(ngModel)]="params.groupSize" name="groupSize">
+        @for (groupSize of groupSizes; track $index) {
+        <mat-option [value]="groupSize">{{ groupSize }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Time of Day</mat-label>
+      <mat-select [(ngModel)]="params.timeOfDay" name="timeOfDay">
+        @for (timeOfDay of timesOfDay; track $index) {
+        <mat-option [value]="timeOfDay">{{ timeOfDay }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>AI Engine</mat-label>
+      <mat-select [(ngModel)]="aiProvider" name="aiProvider">
+        @for (provider of aiProviders; track $index) {
+        <mat-option [value]="provider">{{ provider }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Enter any special text</mat-label>
+      <input
+        matInput
+        [(ngModel)]="customText"
+        name="customText"
+        placeholder="Enter text"
+      />
+    </mat-form-field>
+    @if(disabled()) {
+    <button
+      class="app-button app-button-save"
+      disabled
+      matTooltip="Sign in or create an account to use the content generator."
+    >
+      Generate
+    </button>
+    } @else {
+    <button
+      class="app-button app-button-save generate"
+      type="submit"
+      [disabled]="busy()"
+    >
+      Generate
+    </button>
+    }
+  </form>
+  <div class="fade-in" [class.open]="error()">
+    @if(error()) {
+    <div class="no-results flex-row error">
+      <span class="icon">🚀</span>
+      <span>{{ error() }}</span>
+    </div>
+    }
+  </div>
+</div>
+<div class="progress" [class.open]="busy()">
+  <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
+</div>

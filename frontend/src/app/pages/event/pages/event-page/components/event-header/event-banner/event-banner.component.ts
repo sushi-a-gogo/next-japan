@@ -16,18 +16,27 @@ export class EventBannerComponent {
   private imageService = inject(ImageService);
 
   event = this.eventService.event;
-  locationCount = computed(() => this.event()?.locations.length);
+  eventLocations = this.eventService.eventLocations;
+  eventOpportunities = this.eventService.eventOpportunities;
+
+  xAi = computed(() => this.event()?.aiProvider === 'Grok');
+  locationCount = computed(() => this.eventLocations().length);
   resizedImage = computed(() => this.event() ?
     this.imageService.resizeImage(this.event()!.image, this.event()!.image.width, this.event()!.image.height)
     : null);
   imageLoaded = signal<boolean>(false);
 
-  //'event-banner-default.png';
-  multiDayEvent = computed(() => {
-    const minDate = this.event()?.minDate;
-    const maxDate = this.event()?.maxDate;
-    return minDate && maxDate ?
-      new Date(minDate!).toDateString() !== new Date(maxDate!).toDateString() : false;
+  eventDateRange = computed(() => {
+    const opportunities = this.eventOpportunities();
+    if (opportunities.length) {
+      const minDate = opportunities[0].startDate;
+      const maxDate = opportunities.length > 1 ? opportunities[opportunities.length - 1].startDate : undefined;
+      return {
+        minDate, maxDate
+      };
+    }
+
+    return null;
   });
 
   onImageLoad() {

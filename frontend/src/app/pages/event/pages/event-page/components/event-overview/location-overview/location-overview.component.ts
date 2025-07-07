@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EventService } from '@app/pages/event/event.service';
 import { LocationExpansionPanelComponent } from "./location-expansion-panel/location-expansion-panel.component";
 
@@ -10,5 +10,5 @@ import { LocationExpansionPanelComponent } from "./location-expansion-panel/loca
 })
 export class LocationOverviewComponent {
   private eventService = inject(EventService);
-  locations = computed(() => this.eventService.event()?.locations || []);
+  locations = this.eventService.eventLocations;
 }
