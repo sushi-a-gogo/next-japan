@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventSearchService } from '@app/services/event-search.service';
-import { debounceTime, filter, of, switchMap, tap } from 'rxjs';
+import { debounceTime, filter, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-search-autocomplete',
@@ -77,9 +77,13 @@ export class SearchAutocompleteComponent implements OnInit {
 
     this.searchQuery.valueChanges.pipe(
       debounceTime(300),
-      filter((query) => !this.selectedValue),
-      tap((query) => console.log('Search: ' + query)),
-      switchMap(query => query && query!.length > 2 ? this.eventSearchService.searchEvents$(query) : of([])),
+      filter(() => !this.selectedValue),
+      switchMap(query => {
+        if (query && query?.length > 2) {
+          return this.eventSearchService.searchAllEvents$(query);
+        }
+        return of([]);
+      }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(events => {
       this.filteredEvents = events;

@@ -31,23 +31,20 @@ export class SearchResultsComponent implements OnChanges {
 
     const observables = {
       events: of<EventData[]>([]),
-      savedEvents: of<EventData[]>([]),
       opportunities: of<EventOpportunity[]>([])
     };
 
     const query = this.q() && this.q()!.length > 2 ? this.q() : '';
     if (query) {
-      observables.events = this.eventSearchService.searchEvents$(query);
-      observables.savedEvents = this.eventSearchService.searchDbEvents$(query);
+      observables.events = this.eventSearchService.searchAllEvents$(query);
       observables.opportunities = this.organizationService.getNextOpportunities$();
-
     }
 
     forkJoin(observables).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
-        const events = [...res.events, ...res.savedEvents];
+        const events = res.events;
         events.forEach((event) => {
           const opportunities = res.opportunities.sort(this.sortByDate).filter((o) => o.eventId === event.eventId);
           event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
