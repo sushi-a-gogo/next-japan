@@ -24,7 +24,8 @@ export class ErrorBarComponent {
     this.snackBar.open(message, 'OK', {
       duration: 10000,
       horizontalPosition: 'center',
-      verticalPosition: 'top'
+      verticalPosition: 'top',
+      panelClass: 'error-bar'
     }).afterDismissed().subscribe(() => this.errorService.clearError());
   }
 
