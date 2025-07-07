@@ -85,7 +85,7 @@ export class ContentGeneratorComponent implements OnInit {
     promptForm.form.disable();
     this.error.set(null);
     this.busy.set(true);
-    this.snackBar.open('Generating your event content with AI. Please wait a moment while we craft something special for you!', 'OK', {
+    this.snackBar.open('Generating your event content with AI. Please wait a moment while we craft something special for you!', 'Okay', {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       panelClass: 'success-bar'

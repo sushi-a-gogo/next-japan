@@ -5,7 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { DreamHeaderComponent } from "@app/pages/dream/components/dream-banner/dream-header/dream-header.component";
+import { DreamHeaderComponent } from "@app/pages/dream/pages/ai-event/dream-header/dream-header.component";
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { AiService } from '@app/services/ai.service';
 import { EventsService } from '@app/services/events.service';

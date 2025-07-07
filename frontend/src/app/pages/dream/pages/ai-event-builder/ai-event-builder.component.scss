@@ -71,14 +71,6 @@ footer {
 main {
   flex: 1;
   width: 100%;
-
-  section {
-    padding: 20px;
-  }
-}
-
-footer {
-  width: 100%;
 }
 
 .full-text {
@@ -87,7 +79,6 @@ footer {
 
 .vivid {
   color: var(--light-yellow-stars);
-  //color: color.scale(map.get(var.$colors, bright-green-grass), $lightness: 25%);
 }
 
 @media (min-width: 600px) {
@@ -125,11 +116,5 @@ footer {
 @media (min-width: var.$max-page-width) {
   .background-overlay {
     padding: 0;
-  }
-
-  main {
-    section {
-      padding: 20px 0;
-    }
   }
 }
