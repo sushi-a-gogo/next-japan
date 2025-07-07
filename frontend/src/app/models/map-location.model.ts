@@ -1,5 +1,5 @@
 export interface MapLocation {
-  locationId: number;
+  locationId: string;
   locationName: string;
   addressLine1: string;
   addressLine2?: string;

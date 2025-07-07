@@ -1,6 +1,6 @@
 [
   {
-    "locationId": 1,
+    "locationId": "next-loc-fuji-1",
     "locationName": "Mt.Fuji Camp & Glamp",
     "addressLine1": "2533-1 Oishi",
     "city": "Yamanashi",
@@ -10,7 +10,7 @@
     "longitude": 138.74085199321922
   },
   {
-    "locationId": 2,
+    "locationId": "next-loc-fuji-2",
     "locationName": "Fujimibashi Mount Fuji Viewing Platform",
     "addressLine1": "Minamitsuru District",
     "city": "Kawaguchi",
@@ -20,7 +20,7 @@
     "longitude": 138.76978589528957
   },
   {
-    "locationId": 3,
+    "locationId": "next-loc-kinkaku-1",
     "locationName": "Rokuon-ji Kinkaku (Golden Pavilion)",
     "addressLine1": "1 Kinkakujicho, Kita Ward",
     "city": "Kyoto",
@@ -30,7 +30,7 @@
     "longitude": 135.72843306957876
   },
   {
-    "locationId": 4,
+    "locationId": "next-loc-kinkaku-2",
     "locationName": "South Pond Remains",
     "addressLine1": "1 Kinkakujicho, Kita Ward",
     "city": "Kyoto",
@@ -40,7 +40,7 @@
     "longitude": 135.72867446836977
   },
   {
-    "locationId": 5,
+    "locationId": "next-loc-kikugahama-1",
     "locationName": "Kikugahama Beach",
     "addressLine1": "Historical Landmark",
     "city": "Hagi",
@@ -50,7 +50,7 @@
     "longitude": 131.3878227526694
   },
   {
-    "locationId": 6,
+    "locationId": "next-loc-tokyo-1",
     "locationName": "Tower Records",
     "addressLine1": "1 Chome-22-14 Jinnan",
     "city": "Shibuya City",
@@ -60,7 +60,7 @@
     "longitude": 139.698289
   },
   {
-    "locationId": 7,
+    "locationId": "next-loc-tokyo-2",
     "locationName": "Zojoji Temple",
     "addressLine1": "4 Chome-7-35 Shibakoen",
     "city": "Minato City",
@@ -68,5 +68,35 @@
     "zip": "105-0011",
     "latitude": 35.65858,
     "longitude": 139.749478
+  },
+  {
+    "locationId": "next-loc-yokohama-1",
+    "locationName": "The Sky Garden, Yokohama Landmark Tower",
+    "addressLine1": "2 Chome-2-1 Minatomirai",
+    "city": "Yokohama",
+    "state": "Kanagawa",
+    "zip": "220-8173",
+    "latitude": 35.454954,
+    "longitude": 139.631385
+  },
+  {
+    "locationId": "next-loc-himeji-1",
+    "locationName": "Koko-en Garden",
+    "addressLine1": "68 Honmachi",
+    "city": "Himeji",
+    "state": "Hyogo",
+    "zip": "670-0012",
+    "latitude": 34.837313,
+    "longitude": 134.693915
+  },
+  {
+    "locationId": "next-loc-kyoto-1",
+    "locationName": "Nidec Kyoto Tower",
+    "addressLine1": "721-1 Higashishiokojicho, Shimogyo Ward",
+    "city": "Kyoto",
+    "state": "Kyoto",
+    "zip": "600-8216",
+    "latitude": 34.987574,
+    "longitude": 135.759363
   }
 ]

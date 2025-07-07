@@ -2,7 +2,7 @@
   {
     "opportunityId": 1,
     "eventId": "next-1",
-    "locationId": 1,
+    "locationId": "next-loc-fuji-1",
     "startDate": "2025-10-21T00:00:00",
     "endDate": "2025-10-21T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -13,7 +13,7 @@
   {
     "opportunityId": 100,
     "eventId": "next-1",
-    "locationId": 1,
+    "locationId": "next-loc-fuji-1",
     "startDate": "2025-11-21T00:00:00",
     "endDate": "2025-11-21T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -24,7 +24,7 @@
   {
     "opportunityId": 2,
     "eventId": "next-1",
-    "locationId": 2,
+    "locationId": "next-loc-fuji-2",
     "startDate": "2025-10-21T00:00:00",
     "endDate": "2025-10-21T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -35,7 +35,7 @@
   {
     "opportunityId": 200,
     "eventId": "next-1",
-    "locationId": 2,
+    "locationId": "next-loc-fuji-2",
     "startDate": "2025-12-01T01:00:00",
     "endDate": "2025-12-01T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -46,7 +46,7 @@
   {
     "opportunityId": 201,
     "eventId": "next-1",
-    "locationId": 2,
+    "locationId": "next-loc-fuji-2",
     "startDate": "2025-12-11T01:00:00",
     "endDate": "2025-12-11T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -57,7 +57,7 @@
   {
     "opportunityId": 3,
     "eventId": "next-2",
-    "locationId": 3,
+    "locationId": "next-loc-kinkaku-1",
     "startDate": "2025-08-27T00:00:00",
     "endDate": "2025-08-27T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -68,7 +68,7 @@
   {
     "opportunityId": 4,
     "eventId": "next-2",
-    "locationId": 4,
+    "locationId": "next-loc-kinkaku-2",
     "startDate": "2025-09-15T00:00:00",
     "endDate": "2025-09-15T12:00:00",
     "timeZone": "Asia/Tokyo",
@@ -79,7 +79,7 @@
   {
     "opportunityId": 5,
     "eventId": "next-3",
-    "locationId": 5,
+    "locationId": "next-loc-kikugahama-1",
     "startDate": "2025-07-21T08:00:00",
     "endDate": "2025-07-21T14:00:00",
     "timeZone": "Asia/Tokyo",
@@ -90,7 +90,7 @@
   {
     "opportunityId": 6,
     "eventId": "next-3",
-    "locationId": 5,
+    "locationId": "next-loc-kikugahama-1",
     "startDate": "2025-10-01T08:00:00",
     "endDate": "2025-10-01T14:00:00",
     "timeZone": "Asia/Tokyo",
@@ -101,7 +101,7 @@
   {
     "opportunityId": 7,
     "eventId": "next-9",
-    "locationId": 6,
+    "locationId": "next-loc-tokyo-1",
     "startDate": "2025-08-31T04:00:00",
     "endDate": "2025-08-31T11:30:00",
     "timeZone": "Asia/Tokyo",
@@ -112,7 +112,7 @@
   {
     "opportunityId": 8,
     "eventId": "next-9",
-    "locationId": 6,
+    "locationId": "next-loc-tokyo-1",
     "startDate": "2025-10-01T02:00:00",
     "endDate": "2025-10-01T10:00:00",
     "timeZone": "Asia/Tokyo",
@@ -123,7 +123,7 @@
   {
     "opportunityId": 9,
     "eventId": "next-10",
-    "locationId": 7,
+    "locationId": "next-loc-tokyo-2",
     "startDate": "2025-10-01T01:00:00",
     "endDate": "2025-10-01T09:00:00",
     "timeZone": "Asia/Tokyo",
@@ -134,12 +134,56 @@
   {
     "opportunityId": 10,
     "eventId": "next-10",
-    "locationId": 7,
+    "locationId": "next-loc-tokyo-2",
     "startDate": "2025-10-31T01:00:00",
     "endDate": "2025-10-31T09:00:00",
     "timeZone": "Asia/Tokyo",
     "timeZoneAbbreviation": "JST",
     "timeZoneOffset": 9,
     "notes": "Spooky surprises await at Tokyo Tower this Halloween—watch out for ghosts, ghouls, and festive crowds!"
+  },
+  {
+    "opportunityId": 11,
+    "eventId": "next-7",
+    "locationId": "next-loc-yokohama-1",
+    "startDate": "2025-10-14T01:00:00",
+    "endDate": "2025-10-14T09:00:00",
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "Meet at The Sky Garden, Yokohama Landmark Tower to begin your Yokohama Discovery day. Enjoy panoramic views and get ready for a day of exploration and fun."
+  },
+  {
+    "opportunityId": 12,
+    "eventId": "next-7",
+    "locationId": "next-loc-yokohama-1",
+    "startDate": "2025-10-30T01:00:00",
+    "endDate": "2025-10-30T09:00:00",
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "This is the last event of the fall season—join us for a memorable finale at The Sky Garden, Yokohama Landmark Tower. Enjoy panoramic views and celebrate the season's end together."
+  },
+  {
+    "opportunityId": 13,
+    "eventId": "next-6",
+    "locationId": "next-loc-himeji-1",
+    "startDate": "2025-10-06T01:00:00",
+    "endDate": "2025-10-06T09:00:00",
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "Meet at this location to begin a day-long adventure exploring the magnificent Himeji Castle and its historic grounds."
+  },
+  {
+    "opportunityId": 14,
+    "eventId": "next-8",
+    "locationId": "next-loc-kyoto-1",
+    "startDate": "2025-11-06T01:00:00",
+    "endDate": "2025-11-06T09:00:00",
+    "timeZone": "Asia/Tokyo",
+    "timeZoneAbbreviation": "JST",
+    "timeZoneOffset": 9,
+    "notes": "Meet at this location to begin a late fall exploration in Kyoto. Enjoy the seasonal colors and discover the city's historic sites together."
   }
 ]
