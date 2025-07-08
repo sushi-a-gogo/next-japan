@@ -1,11 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
+import { MetaService } from '@app/services/meta.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { of } from 'rxjs';
@@ -20,7 +21,7 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
 })
 export class HomeComponent implements OnInit {
   private title = inject(Title);
-  private meta = inject(Meta);
+  private meta = inject(MetaService);
   private destroyRef = inject(DestroyRef);
 
   private imageService = inject(ImageService);
@@ -61,15 +62,7 @@ export class HomeComponent implements OnInit {
       next: (org) => {
         this.title.setTitle(`${org.name}`);
         // Set meta tags
-        this.meta.updateTag({ name: 'description', content: org.infoDescription });
-
-        // Open Graph meta tags
-        this.meta.updateTag({ property: 'og:title', content: this.org.name });
-        this.meta.updateTag({ property: 'og:description', content: org.infoDescription });
-        this.meta.updateTag({ property: 'og:url', content: window.location.href });
-
-        //this.bannerImage = org.image;// res.events[index].image;
-        //const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
+        this.meta.updateTags(this.title.getTitle(), org.infoDescription);
       },
       error: () => {
         this.loaded.set(true);

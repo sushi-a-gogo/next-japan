@@ -1,8 +1,6 @@
 import { afterNextRender, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "@app/components/footer/footer.component";
-import { catchError, exhaustMap, of, timer } from 'rxjs';
 import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
@@ -34,7 +32,7 @@ export class AppComponent implements OnInit {
   private userProfileService = inject(UserProfileService);
   userProfile = this.userProfileService.userProfile;
 
-  ready = signal(false);
+  ready = signal(true);
   broken = signal(false);
 
   private destroyRef = inject(DestroyRef);
@@ -44,17 +42,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    timer(0, 840000).pipe(
-      exhaustMap(() => this.spinUp.ping$()),
-      catchError((errorResp) => {
-        console.error(errorResp);
-        return of(errorResp);
-      }),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((resp) => {
-      this.ready.set(resp?.ok);
-      this.broken.set(0 === resp?.status);
-    });
+    // timer(0, 840000).pipe(
+    //   exhaustMap(() => this.spinUp.ping$()),
+    //   catchError((errorResp) => {
+    //     console.error(errorResp);
+    //     return of(errorResp);
+    //   }),
+    //   takeUntilDestroyed(this.destroyRef)
+    // ).subscribe((resp) => {
+    //   this.ready.set(resp?.ok);
+    //   this.broken.set(0 === resp?.status);
+    // });
   }
 
   toggleSearchMode() {

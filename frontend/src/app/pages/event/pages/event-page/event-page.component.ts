@@ -1,12 +1,12 @@
 import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventService } from '@app/pages/event/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
-import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
+import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { catchError, forkJoin, of } from 'rxjs';
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
@@ -25,13 +25,12 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 })
 export class EventPageComponent implements OnChanges {
   private title = inject(Title);
-  private meta = inject(Meta);
+  private meta = inject(MetaService);
 
   private auth = inject(AuthMockService);
   private dialogService = inject(DialogService);
 
   private eventService = inject(EventService);
-  private eventsService = inject(EventsService);
   private imageService = inject(ImageService);
 
   private destroyRef = inject(DestroyRef);
@@ -72,20 +71,9 @@ export class EventPageComponent implements OnChanges {
           const event = res?.event;
           const eventTitle = event?.eventTitle || 'Event Not Found';
           const description = event?.description || 'Event Not Found';
-          const image = event ? this.imageService.resizeImage(event?.image, 384, 256) : null;
 
           this.title.setTitle(eventTitle);
-
-          // Set meta tags
-          this.meta.updateTag({ name: 'description', content: description });
-
-          // Open Graph meta tags
-          this.meta.updateTag({ property: 'og:title', content: eventTitle });
-          this.meta.updateTag({ property: 'og:description', content: description });
-          if (image) {
-            this.meta.updateTag({ property: 'og:image', content: image.src });
-          }
-          this.meta.updateTag({ property: 'og:url', content: window.location.href });
+          this.meta.updateTags(eventTitle, description);
 
           this.hasError.set(!event);
           this.loaded.set(true);

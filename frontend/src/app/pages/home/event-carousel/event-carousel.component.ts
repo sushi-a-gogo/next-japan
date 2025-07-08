@@ -1,5 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,6 +33,7 @@ export class EventCarouselComponent implements OnInit {
   slides: { events: (EventData | null)[] }[] = [];
 
   private eventCountPerSlide = 0;
+  private platformId = inject(PLATFORM_ID);
 
   private eventCountPerSlideMap = new Map([
     [EventCarouselBreakpoints.small, 1],
@@ -60,26 +62,28 @@ export class EventCarouselComponent implements OnInit {
         }
       });
 
-    const observables = {
-      events: this.organizationService.getEvents$(),
-      savedEvents: this.eventsService.get$(),
-      opportunities: this.organizationService.getNextOpportunities$(),
-    };
-    forkJoin(observables).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: (res) => {
-        this.events.set([...res.events, ...res.savedEvents.data]);
-        this.configureEvents(res.opportunities);
-      },
-      error: () => {
-        this.loaded.set(true);
-        this.hasError.set(true);
-      },
-      complete: () => {
-        this.loaded.set(true);
-      }
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      const observables = {
+        events: this.organizationService.getEvents$(),
+        savedEvents: this.eventsService.get$(),
+        opportunities: this.organizationService.getNextOpportunities$(),
+      };
+      forkJoin(observables).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next: (res) => {
+          this.events.set([...res.events, ...res.savedEvents.data]);
+          this.configureEvents(res.opportunities);
+        },
+        error: () => {
+          this.loaded.set(true);
+          this.hasError.set(true);
+        },
+        complete: () => {
+          this.loaded.set(true);
+        }
+      });
+    }
   }
 
   showPrevSlide() {
