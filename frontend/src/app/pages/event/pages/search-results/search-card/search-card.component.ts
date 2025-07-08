@@ -16,8 +16,12 @@ export class SearchCardComponent implements OnInit {
 
   event = input.required<EventData>();
   query = input<string>();
+
+  isGrokEvent = computed(() => this.event().aiProvider === 'Grok');
+
   resizedImage = computed(() => {
-    return this.imageService.resizeImage(this.event().image, 224, 128);
+    const width = this.isGrokEvent() ? 224 : 170;
+    return this.imageService.resizeImage(this.event().image, width, 128);
   });
 
   routerLink: string = '';

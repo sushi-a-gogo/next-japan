@@ -7,7 +7,6 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "vercel-build": "ng build --configuration production",
     "serve:ssr:next-japan-web": "node dist/next-japan-web/server/server.mjs"
   },
   "private": true,

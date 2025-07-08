@@ -1,4 +1,5 @@
-import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
@@ -26,6 +27,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 export class EventPageComponent implements OnChanges {
   private title = inject(Title);
   private meta = inject(MetaService);
+  private platformId = inject(PLATFORM_ID);
 
   private auth = inject(AuthMockService);
   private dialogService = inject(DialogService);
@@ -45,7 +47,7 @@ export class EventPageComponent implements OnChanges {
   hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => {
-    if (this.event()) {
+    if (this.event() && isPlatformBrowser(this.platformId)) {
       const resizedImage = this.imageService.resizeImage(this.event()!.image, 384, 256);
       return `url('${resizedImage.src}')`;
     }

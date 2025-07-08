@@ -43,6 +43,17 @@ button {
   background-position: center;
   overflow: hidden;
 
+  &.grok {
+    background: transparent;
+    img {
+      border-radius: 3px;
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
+      transition: 0.25s;
+    }
+  }
+
   img {
     border-radius: 3px;
     object-fit: fill;
@@ -77,7 +88,7 @@ button {
 }
 
 strong {
-  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -20%);
+  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -40%);
 }
 
 @media (min-width: 600px) {

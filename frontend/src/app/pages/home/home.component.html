@@ -27,15 +27,13 @@
       </div>
     </section>
     <section>
-      @if(loaded()) {
-      <app-event-carousel></app-event-carousel>
-      }
+      <app-event-carousel [events]="events()"></app-event-carousel>
     </section>
     <section class="image-content">
       <img [ngSrc]="aiBackgroundImage().src" alt="A dream" fill priority />
       <div class="text-content flex-content flex-column center">
         <header>
-          <div class="headline">AI Event Builder</div>
+          <div class="headline">AI Event Designer</div>
           <div class="subhead">Design and customize events effortlessly.</div>
         </header>
         <main class="content">
@@ -51,7 +49,7 @@
             type="button"
             routerLink="./dream"
           >
-            <strong>Learn More</strong>
+            <strong>Explore the AI Event Designer</strong>
           </a>
         </footer>
       </div>
