@@ -1,5 +1,5 @@
-import { DatePipe, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { EventService } from '@app/pages/event/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
@@ -14,6 +14,7 @@ import { ImageService } from '@app/services/image.service';
 export class EventBannerComponent {
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
+  private platformId = inject(PLATFORM_ID);
 
   event = this.eventService.event;
   eventLocations = this.eventService.eventLocations;
@@ -21,9 +22,13 @@ export class EventBannerComponent {
 
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
   locationCount = computed(() => this.eventLocations().length);
-  resizedImage = computed(() => this.event() ?
-    this.imageService.resizeImage(this.event()!.image, this.event()!.image.width, this.event()!.image.height)
-    : null);
+
+  resizedImage = computed(() => {
+    const image = this.event() && isPlatformBrowser(this.platformId) ? this.event()!.image : null;
+    return image ?
+      this.imageService.resizeImage(image, image?.width, image?.height) : null;
+  });
+
   imageLoaded = signal<boolean>(false);
 
   eventDateRange = computed(() => {
