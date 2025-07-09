@@ -1,6 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { AuthMockService } from '@app/services/auth-mock.service';
-import { OrganizationService } from '@app/services/organization.service';
+import { Component } from '@angular/core';
 import { EventBannerComponent } from "./event-banner/event-banner.component";
 
 @Component({
@@ -10,10 +8,4 @@ import { EventBannerComponent } from "./event-banner/event-banner.component";
   styleUrl: './event-header.component.scss'
 })
 export class EventHeaderComponent {
-  private auth = inject(AuthMockService);
-  private organizationService = inject(OrganizationService);
-
-  isAuthenticated = this.auth.isAuthenticated;
-  organizationInformation = this.organizationService.organizationInformation;
-
 }

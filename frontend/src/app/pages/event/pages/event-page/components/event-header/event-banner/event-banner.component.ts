@@ -1,13 +1,12 @@
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { EventService } from '@app/pages/event/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
 
 @Component({
   selector: 'app-event-banner',
-  imports: [NgOptimizedImage, DatePipe, MatIconModule, DisplayCountPipe],
+  imports: [NgOptimizedImage, DatePipe, DisplayCountPipe],
   templateUrl: './event-banner.component.html',
   styleUrl: './event-banner.component.scss'
 })

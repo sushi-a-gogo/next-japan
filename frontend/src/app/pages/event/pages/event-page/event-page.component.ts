@@ -4,7 +4,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventService } from '@app/pages/event/event.service';
-import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -29,9 +28,7 @@ export class EventPageComponent implements OnChanges {
   private meta = inject(MetaService);
   private platformId = inject(PLATFORM_ID);
 
-  private auth = inject(AuthMockService);
   private dialogService = inject(DialogService);
-
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
 
@@ -39,8 +36,6 @@ export class EventPageComponent implements OnChanges {
   private event = this.eventService.event;
 
   eventId = input.required<string>();
-
-  isAuthenticated = this.auth.isAuthenticated;
 
   focusChild: string | null = null;
   loaded = signal<boolean>(false);

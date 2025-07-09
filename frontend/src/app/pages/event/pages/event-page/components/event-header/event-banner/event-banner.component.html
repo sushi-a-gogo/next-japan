@@ -1,54 +1,50 @@
-<div class="banner-container">
-  @if(resizedImage()) {
-  <img
-    [ngSrc]="resizedImage()!.src"
-    [alt]="event()?.description"
-    class="fade-in"
-    [class.open]="imageLoaded()"
-    [class.grok]="xAi()"
-    fill
-    priority
-    [style.objectPosition]="event()?.image?.position"
-    (load)="onImageLoad()"
-  />
-  }
-  <div class="banner-bar">
-    <div>
-      <div class="banner-title break-word">
-        {{ event()?.eventTitle }}
-      </div>
-      <div class="event-desc">
-        @if(eventDateRange()) {
-        <mat-icon>event_note</mat-icon>
-        <span>{{ eventDateRange()!.minDate | date }}</span>
-        @if(eventDateRange()?.maxDate) { -
-        <span>{{ eventDateRange()!.maxDate | date }}</span>
-        } } @else {
-        <div class="flex-column">
-          <div class="flex-row">
-            <!-- <mat-icon>article</mat-icon> -->
-            {{ event()?.description }}
-          </div>
-          <div class="flex-row">
-            <mat-icon>event_note</mat-icon>
-            Coming Soon
-          </div>
-        </div>
-        }
-      </div>
-      @if(locationCount()) {
-      <div class="event-desc" [class.open]="locationCount()">
-        <mat-icon>place</mat-icon>
-        <span>
-          {{ locationCount() | displayCount }}
-          @if(locationCount() !== 1) {
-          <span>Locations</span>
-          } @else {
-          <span>Location</span>
-          }
-        </span>
-      </div>
-      }
-    </div>
+@if(resizedImage()) {
+<img
+  [ngSrc]="resizedImage()!.src"
+  [alt]="event()?.description"
+  class="fade-in"
+  [class.open]="imageLoaded()"
+  [class.grok]="xAi()"
+  fill
+  priority
+  [style.objectPosition]="event()?.image?.position"
+  (load)="onImageLoad()"
+/>
+}
+<div class="banner-bar">
+  <div class="banner-title break-word">
+    {{ event()?.eventTitle }}
   </div>
+  <div class="event-desc">
+    @if(eventDateRange()) {
+    <!-- date range start -->
+    <span class="material-icons">event_note</span>
+    <span>{{ eventDateRange()!.minDate | date }}</span>
+    @if(eventDateRange()?.maxDate) { -
+    <span>{{ eventDateRange()!.maxDate | date }}</span>
+    }
+    <!-- date range end -->
+    } @else {
+    <div class="flex-column">
+      {{ event()?.description }}
+      <div class="flex-row">
+        <span class="material-icons">campaign</span>
+        Coming Soon
+      </div>
+    </div>
+    }
+  </div>
+  @if(locationCount()) {
+  <div class="event-desc" [class.open]="locationCount()">
+    <span class="material-icons">place</span>
+    <span>
+      {{ locationCount() | displayCount }}
+      @if(locationCount() !== 1) {
+      <span>Locations</span>
+      } @else {
+      <span>Location</span>
+      }
+    </span>
+  </div>
+  }
 </div>

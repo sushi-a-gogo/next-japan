@@ -1,15 +1,21 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
-.navbar-panels {
+:host {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #fff;
   color: map.get(var.$colors, dark-label);
-
+  background-color: #fff;
+  position: sticky;
+  top: var.$user-header-height;
+  z-index: 99;
   width: 100%;
-  //max-width: var.$max-page-width;
+  //padding: 0 10px;
+
+  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  max-width: var.$max-page-width;
 }
 
 nav {
@@ -46,11 +52,11 @@ nav {
 
 .panel-overview {
   flex: 1;
+  padding: 0 10px;
 }
 
 .panel-opportunities {
   display: none;
-  width: 360px;
 }
 
 @media (min-width: 768px) {
@@ -71,13 +77,13 @@ nav {
     display: flex;
     align-items: center;
     padding: 0 10px;
-    width: 420px;
+    width: 430px;
     font-weight: 600;
   }
 }
 
-@media (min-width: 1200px) {
-  .panel-opportunities {
-    width: 430px;
+@media (min-width: calc(var.$max-page-width + 10px)) {
+  .panel-overview {
+    padding: 0;
   }
 }

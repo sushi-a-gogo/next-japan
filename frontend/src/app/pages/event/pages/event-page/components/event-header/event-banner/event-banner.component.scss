@@ -1,13 +1,14 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
-.banner-container {
+:host {
   position: relative;
   width: 100%;
   height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  max-width: var.$max-page-width;
 
   img {
     object-fit: cover;
@@ -25,11 +26,6 @@
   background-color: rgba(0, 0, 0, 0.6);
   padding: 10px;
   padding-bottom: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
   width: 100%;
   z-index: 1;
 }
@@ -65,15 +61,15 @@
 
 @media (min-width: var.$screen-sm) {
   .banner-bar {
-    flex-direction: row;
-    align-items: center;
     padding: 20px;
   }
+
   .banner-title {
     font-size: 36px;
     line-height: 45px;
     font-weight: 600;
   }
+
   .event-desc {
     .flex-column {
       gap: 12px;

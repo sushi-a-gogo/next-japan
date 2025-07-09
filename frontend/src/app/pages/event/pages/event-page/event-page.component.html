@@ -14,11 +14,7 @@
     <app-event-header></app-event-header>
   </header>
   <main class="content-container">
-    <app-event-navbar
-      class="event-navbar content-container"
-      [class.logged-in]="isAuthenticated()"
-      (setFocus)="setFocusChild($event)"
-    ></app-event-navbar>
+    <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>
     <section class="event-panels">
       <app-event-overview [focusChild]="focusChild" />
       <app-event-opportunities />

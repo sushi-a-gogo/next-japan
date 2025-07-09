@@ -5,13 +5,6 @@
   display: none;
 }
 
-main {
-  width: 100%;
-  padding: 20px 0;
-  background-color: #fff;
-  padding-bottom: 80px;
-}
-
 .opportunity-cards {
   display: flex;
   flex-direction: column;
@@ -40,6 +33,9 @@ main {
   :host {
     display: block;
     width: 430px;
+    background-color: #fff;
+    padding: 20px 0;
+    padding-bottom: 80px;
   }
 }
 
