@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: next-japan-web
+    env: node
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npm run build:ssr
+    startCommand: npm run serve:ssr:next-japan-web
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
