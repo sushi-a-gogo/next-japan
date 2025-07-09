@@ -1,6 +1,7 @@
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { plans } from './subscription-plan.model';
 
@@ -12,7 +13,16 @@ import { plans } from './subscription-plan.model';
 })
 export class SignUpComponent {
   private imageService = inject(ImageService);
+  private aboutImage: AppImageData = {
+    id: "about.png",
+    cloudflareImageId: "32d6e94b-c33d-4953-379c-fe2a1b373400",
+    width: 1792,
+    height: 1024
+  };
 
-  backgroundImage = this.imageService.resizeImage({ id: 'about.png', width: 1792, height: 1024 }, 1792, 1024);
+  image = computed(() => {
+    return this.imageService.resizeImage(this.aboutImage, this.aboutImage.width, this.aboutImage.height);
+  });
+
   plans = plans;
 }

@@ -1,14 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, DestroyRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EventData } from '@app/pages/event/models/event-data.model';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
-import { EventsService } from '@app/services/events.service';
-import { OrganizationService } from '@app/services/organization.service';
-import { forkJoin } from 'rxjs';
 import { EventCardComponent } from "./event-card/event-card.component";
 
 const EventCarouselBreakpoints = {
@@ -23,28 +20,30 @@ const EventCarouselBreakpoints = {
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss'
 })
-export class EventCarouselComponent implements OnInit {
-  events = signal<EventData[]>([]);
-  loaded = signal<boolean>(false);
-  hasError = signal<boolean>(false);
-
+export class EventCarouselComponent implements OnChanges {
+  events = input.required<EventData[]>();
+  showCarousel = signal(false);
   carouselIndex = 0;
   slides: { events: (EventData | null)[] }[] = [];
 
-  private eventCountPerSlide = 0;
+  private destroyRef = inject(DestroyRef);
+  private platformId = inject(PLATFORM_ID);
 
   private eventCountPerSlideMap = new Map([
     [EventCarouselBreakpoints.small, 1],
     [EventCarouselBreakpoints.medium, 2],
     [EventCarouselBreakpoints.large, 3],
   ]);
-
-  private organizationService = inject(OrganizationService);
-  private eventsService = inject(EventsService);
+  private eventCountPerSlide = 0;
   private breakpointObserver = inject(BreakpointObserver);
-  private destroyRef = inject(DestroyRef);
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['events'] && isPlatformBrowser(this.platformId)) {
+      this.setupCarousel();
+    }
+  }
+
+  private setupCarousel() {
     this.breakpointObserver
       .observe([EventCarouselBreakpoints.small, EventCarouselBreakpoints.medium, EventCarouselBreakpoints.large])
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -60,26 +59,8 @@ export class EventCarouselComponent implements OnInit {
         }
       });
 
-    const observables = {
-      events: this.organizationService.getEvents$(),
-      savedEvents: this.eventsService.get$(),
-      opportunities: this.organizationService.getNextOpportunities$(),
-    };
-    forkJoin(observables).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: (res) => {
-        this.events.set([...res.events, ...res.savedEvents.data]);
-        this.configureEvents(res.opportunities);
-      },
-      error: () => {
-        this.loaded.set(true);
-        this.hasError.set(true);
-      },
-      complete: () => {
-        this.loaded.set(true);
-      }
-    });
+    this.configureSlides();
+    this.showCarousel.set(true);
   }
 
   showPrevSlide() {
@@ -88,18 +69,6 @@ export class EventCarouselComponent implements OnInit {
 
   showNextSlide() {
     this.carouselIndex = this.carouselIndex + 1;
-  }
-
-  private configureEvents(opportunities: EventOpportunity[]) {
-    this.events().forEach((event) => {
-      const eventOpportunities = opportunities
-        .filter((o) => o.eventId === event.eventId)
-        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-
-      event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
-    });
-
-    this.configureSlides();
   }
 
   private configureSlides() {

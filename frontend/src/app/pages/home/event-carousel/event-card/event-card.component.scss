@@ -23,7 +23,7 @@ button {
 
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: stretch;
   overflow: hidden;
 
@@ -53,9 +53,12 @@ button {
   background: url("/assets/images/no-image.png");
   background-size: cover;
   background-position: center;
-
   overflow: hidden;
   padding: 3px;
+
+  &.grok {
+    width: 240px;
+  }
 
   img {
     border-radius: 3px;

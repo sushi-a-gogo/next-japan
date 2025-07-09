@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-logout',
@@ -19,7 +20,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
-      const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : window.location.origin);
+      const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : environment.baseUrl);
       this.userService.clearUserProfile();
       this.auth.logout(returnUrl);
     });

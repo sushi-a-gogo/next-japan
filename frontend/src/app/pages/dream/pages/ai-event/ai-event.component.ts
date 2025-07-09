@@ -3,12 +3,13 @@ import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angula
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { DreamHeaderComponent } from "@app/pages/dream/pages/ai-event/dream-header/dream-header.component";
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { AiService } from '@app/services/ai.service';
 import { EventsService } from '@app/services/events.service';
+import { MetaService } from '@app/services/meta.service';
 import { filter } from 'rxjs';
 
 @Component({
@@ -29,7 +30,7 @@ import { filter } from 'rxjs';
 export class AiEventComponent implements OnInit {
   private router = inject(Router);
   private title = inject(Title);
-  private meta = inject(Meta);
+  private meta = inject(MetaService);
   private aiService = inject(AiService);
   private eventsService = inject(EventsService);
   private destroyRef = inject(DestroyRef);
@@ -55,12 +56,7 @@ export class AiEventComponent implements OnInit {
 
     // Set meta tags
     const description = 'This page presents AI generated event details.';
-    this.meta.updateTag({ name: 'description', content: description });
-
-    // Open Graph meta tags
-    this.meta.updateTag({ property: 'og:title', content: this.title.getTitle() });
-    this.meta.updateTag({ property: 'og:description', content: description });
-    this.meta.updateTag({ property: 'og:url', content: window.location.href });
+    this.meta.updateTags(this.title.getTitle(), description);
   }
 
   reset() {

@@ -1,14 +1,18 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
+import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
+import { MetaService } from '@app/services/meta.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { EventData } from '../event/models/event-data.model';
+import { EventOpportunity } from '../event/models/event-opportunity.model';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
@@ -20,9 +24,10 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
 })
 export class HomeComponent implements OnInit {
   private title = inject(Title);
-  private meta = inject(Meta);
+  private meta = inject(MetaService);
   private destroyRef = inject(DestroyRef);
 
+  private eventsService = inject(EventsService);
   private imageService = inject(ImageService);
   private organizationService = inject(OrganizationService);
 
@@ -39,6 +44,8 @@ export class HomeComponent implements OnInit {
 
 
   org = this.organizationService.organizationInformation;
+  events = signal<EventData[]>([]);
+
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
@@ -53,23 +60,17 @@ export class HomeComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
-
-    org$.pipe(
+    const observables = this.getObservables();
+    forkJoin(observables).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (org) => {
-        this.title.setTitle(`${org.name}`);
+      next: (res) => {
+        this.title.setTitle(`${res.org.name}`);
         // Set meta tags
-        this.meta.updateTag({ name: 'description', content: org.infoDescription });
+        this.meta.updateTags(this.title.getTitle(), res.org.infoDescription);
 
-        // Open Graph meta tags
-        this.meta.updateTag({ property: 'og:title', content: this.org.name });
-        this.meta.updateTag({ property: 'og:description', content: org.infoDescription });
-        this.meta.updateTag({ property: 'og:url', content: window.location.href });
-
-        //this.bannerImage = org.image;// res.events[index].image;
-        //const resizedImage = this.imageService.resizeImage(this.bannerImage, 384, 256);
+        this.events.set([...res.events, ...res.savedEvents.data]);
+        this.configureEvents(res.opportunities);
       },
       error: () => {
         this.loaded.set(true);
@@ -78,6 +79,28 @@ export class HomeComponent implements OnInit {
       complete: () => {
         this.loaded.set(true);
       }
+    });
+  }
+
+  private getObservables() {
+    const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
+
+    return {
+      org: org$,
+      events: this.organizationService.getEvents$(),
+      savedEvents: this.eventsService.get$(),
+      opportunities: this.organizationService.getNextOpportunities$(),
+    };
+  }
+
+
+  private configureEvents(opportunities: EventOpportunity[]) {
+    this.events().forEach((event) => {
+      const eventOpportunities = opportunities
+        .filter((o) => o.eventId === event.eventId)
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
+      event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
     });
   }
 

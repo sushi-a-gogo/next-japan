@@ -133,19 +133,19 @@ a.app-button.app-button-save {
   &:hover {
     background: color.scale(
       map.get(var.$colors, bright-blue-sky),
-      $lightness: -30%
+      $lightness: -40%
     );
   }
 }
 
 @media (min-width: 600px) {
   article {
-    gap: 48px;
+    gap: 60px;
   }
 
   article > main {
     padding: 0;
-    gap: 48px;
+    gap: 60px;
   }
 
   article > main > section:last-child {

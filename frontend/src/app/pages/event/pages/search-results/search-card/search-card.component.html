@@ -1,6 +1,6 @@
 <div class="card-container">
   <button type="button" (click)="goToEvent()" class="border-box">
-    <div class="image-container">
+    <div class="image-container" [class.grok]="isGrokEvent()">
       <img
         alt="Event Image"
         priority

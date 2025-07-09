@@ -1,12 +1,13 @@
 @use "sass:map";
 @use "src/styles/variables.scss" as var;
 
-section {
+:host {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   width: 100%;
+  flex-wrap: wrap;
   //min-height: 542px;
 }
 

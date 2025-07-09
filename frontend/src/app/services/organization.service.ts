@@ -50,12 +50,12 @@ export class OrganizationService {
     );
   }
 
-  getCalendarEvents$(isoFirstDay: string, isoLastDay: string): Observable<EventOpportunity[]> {
+  private getCalendarEvents$(isoFirstDay: string, isoLastDay: string): Observable<EventOpportunity[]> {
     return of([]);
-    return this.http.get<{ opportunities: EventOpportunity[] }>(`${this.apiUri}/opportunities`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, 'getNextOpportunities'),
-      map((resp) => resp.opportunities),
-      catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
-    );
+    // return this.http.get<{ opportunities: EventOpportunity[] }>(`${this.apiUri}/opportunities`).pipe(
+    //   debug(RxJsLoggingLevel.DEBUG, 'getNextOpportunities'),
+    //   map((resp) => resp.opportunities),
+    //   catchError((e) => this.errorService.handleError(e, 'Error fetching opportunities.'))
+    // );
   }
 }

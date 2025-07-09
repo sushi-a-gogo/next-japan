@@ -9,7 +9,7 @@ router.use(express.json());
 
 router.get("/", async (req, res) => {
   try {
-    const events = await Event.find().sort({ createdAt: -1 });
+    const events = await Event.find().sort({ createdAt: -1 }).limit(10);
     const formattedEvents = events.map((event) => ({
       eventId: event._id.toString(), // Use _id as eventId
       eventTitle: event.eventTitle,
@@ -71,6 +71,7 @@ router.get("/search", async (req, res) => {
         eventTitle: e.eventTitle,
         description: e.description,
         image: e.image,
+        aiProvider: e.aiProvider,
       }))
     );
   } catch (error) {

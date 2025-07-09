@@ -1,10 +1,11 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ContentGeneratorComponent } from "@app/pages/dream/pages/ai-event-builder/content-generator/content-generator.component";
 import { ImageService } from '@app/services/image.service';
+import { MetaService } from '@app/services/meta.service';
 
 @Component({
   selector: 'app-ai-event-builder',
@@ -27,7 +28,7 @@ export class AiEventBuilderComponent implements OnInit {
   });
 
   private title = inject(Title);
-  private meta = inject(Meta);
+  private meta = inject(MetaService);
   private router = inject(Router);
 
   ngOnInit(): void {
@@ -35,12 +36,7 @@ export class AiEventBuilderComponent implements OnInit {
 
     // Set meta tags
     const description = 'This page leverages advanced AI technology to help you design your ideal Japanese vacation event.';
-    this.meta.updateTag({ name: 'description', content: description });
-
-    // Open Graph meta tags
-    this.meta.updateTag({ property: 'og:title', content: this.title.getTitle() });
-    this.meta.updateTag({ property: 'og:description', content: description });
-    this.meta.updateTag({ property: 'og:url', content: window.location.href });
+    this.meta.updateTags(this.title.getTitle(), description);
   }
 
   onEventCreated() {
