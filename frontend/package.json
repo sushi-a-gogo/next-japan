@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
+    "build:ssr": "ng build && ng run next-japan-web:server",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:next-japan-web": "node dist/next-japan-web/server/server.mjs"
