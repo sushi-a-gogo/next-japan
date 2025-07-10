@@ -1,9 +1,16 @@
 <header>
-  <img [ngSrc]="image().src" alt="A dream" fill priority />
+  <img
+    [ngSrc]="image().src"
+    [width]="image().image.width"
+    [height]="image().image.height"
+    alt="A dream"
+    sizes="100vw"
+    priority
+  />
   <div class="background-overlay">
     <div class="header-content">
-      <div class="splash content-container">
-        <div class="flex-column">
+      <div class="splash">
+        <div class="flex-column content-container">
           <h2>AI Event Designer</h2>
           <div>
             This page leverages advanced AI technology to help you design your

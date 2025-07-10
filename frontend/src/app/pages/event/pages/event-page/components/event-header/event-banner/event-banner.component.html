@@ -1,14 +1,14 @@
 @if(resizedImage()) {
 <img
   [ngSrc]="resizedImage()!.src"
+  sizes="100vw"
   [alt]="event()?.description"
-  class="fade-in"
-  [class.open]="imageLoaded()"
   [class.grok]="xAi()"
-  fill
-  priority
+  [width]="resizedImage()?.image?.width"
+  [height]="resizedImage()?.image?.height"
   [style.objectPosition]="event()?.image?.position"
-  (load)="onImageLoad()"
+  priority
+  placeholder
 />
 }
 <div class="banner-bar">

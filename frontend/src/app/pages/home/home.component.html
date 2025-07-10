@@ -26,11 +26,17 @@
         </div>
       </div>
     </section>
-    <section>
+    <section class="fade-in" [class.open]="completed()">
       <app-event-carousel [events]="events()"></app-event-carousel>
     </section>
     <section class="image-content">
-      <img [ngSrc]="aiBackgroundImage().src" alt="A dream" fill priority />
+      <img
+        [ngSrc]="aiBackgroundImage().src"
+        alt="A dream"
+        [width]="aiBackgroundImage().image.width"
+        [height]="aiBackgroundImage().image.height"
+        sizes="100vw"
+      />
       <div class="text-content flex-content flex-column center">
         <header>
           <div class="headline">AI Event Designer</div>

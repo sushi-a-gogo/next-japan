@@ -17,8 +17,8 @@ export class AiEventBuilderComponent implements OnInit {
   private imageService = inject(ImageService);
   private aiImage: AppImageData = {
     id: "ai-banner-alt.png",
-    //cloudflareImageId: "ea6cbb50-de47-4dff-3cce-cb05a41c1800",
-    cloudflareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
+    cloudflareImageId: "ea6cbb50-de47-4dff-3cce-cb05a41c1800",
+    // cloudflareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
     width: 1024,
     height: 1792
   };

@@ -24,6 +24,8 @@ header {
   overflow: hidden;
 
   img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 }
@@ -42,7 +44,6 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 20px;
 }
 
 .header-content {
@@ -59,8 +60,6 @@ footer {
   justify-content: center;
   gap: 0;
   padding: 20px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   background: rgba($color: #000, $alpha: 0.85);
 
   h2 {
@@ -99,9 +98,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 
     h2 {
       margin: 0;
@@ -114,7 +110,8 @@ main {
 }
 
 @media (min-width: var.$max-page-width) {
-  .background-overlay {
-    padding: 0;
+  .splash {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 }
