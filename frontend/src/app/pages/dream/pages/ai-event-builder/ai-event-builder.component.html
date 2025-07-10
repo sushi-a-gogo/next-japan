@@ -1,5 +1,12 @@
 <header>
-  <img [ngSrc]="image().src" alt="A dream" fill priority />
+  <img
+    [ngSrc]="image().src"
+    [width]="image().image.width"
+    [height]="image().image.height"
+    alt="A dream"
+    sizes="100vw"
+    priority
+  />
   <div class="background-overlay">
     <div class="header-content">
       <div class="splash content-container">

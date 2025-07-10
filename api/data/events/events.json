@@ -18,7 +18,8 @@
         "lastName": "Ashford",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_1.jpg",
+          "id": "coordinator-2.png",
+          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
           "width": 255,
           "height": 255
         }
@@ -26,11 +27,12 @@
       {
         "eventId": "next-1",
         "eventCoordinatorId": 22,
-        "firstName": "Tlu",
-        "lastName": "Marks",
+        "firstName": "Minato",
+        "lastName": "Takumi",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_2.jpg",
+          "id": "coordinator-3.png",
+          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
           "width": 512,
           "height": 842
         }
@@ -52,11 +54,12 @@
       {
         "eventId": "next-2",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Sunny",
+        "lastName": "Banks",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_3.jpg",
+          "id": "coordinator-4.png",
+          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
           "width": 255,
           "height": 255
         }
@@ -64,13 +67,14 @@
       {
         "eventId": "next-2",
         "eventCoordinatorId": 22,
-        "firstName": "Tlu",
-        "lastName": "Marks",
+        "firstName": "Mya",
+        "lastName": "Ashford",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_2.jpg",
-          "width": 512,
-          "height": 842
+          "id": "coordinator-2.png",
+          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
+          "width": 255,
+          "height": 255
         }
       }
     ]
@@ -89,24 +93,26 @@
     "eventCoordinators": [
       {
         "eventId": "next-3",
-        "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "eventCoordinatorId": 11,
+        "firstName": "Mya",
+        "lastName": "Ashford",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_3.jpg",
+          "id": "coordinator-2.png",
+          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
           "width": 255,
           "height": 255
         }
       },
       {
         "eventId": "next-3",
-        "eventCoordinatorId": 11,
-        "firstName": "Mya",
-        "lastName": "Ashford",
+        "eventCoordinatorId": 33,
+        "firstName": "Minato",
+        "lastName": "Takumi",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_1.jpg",
+          "id": "coordinator-3.png",
+          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
           "width": 255,
           "height": 255
         }
@@ -114,13 +120,14 @@
       {
         "eventId": "next-3",
         "eventCoordinatorId": 22,
-        "firstName": "Tlu",
-        "lastName": "Marks",
+        "firstName": "Luna",
+        "lastName": "Livegood",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_2.jpg",
-          "width": 512,
-          "height": 842
+          "id": "avatar_3.jpg",
+          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
+          "width": 255,
+          "height": 255
         }
       }
     ]
@@ -140,11 +147,12 @@
       {
         "eventId": "next-6",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Minato",
+        "lastName": "Takumi",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_3.jpg",
+          "id": "coordinator-3.png",
+          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
           "width": 255,
           "height": 255
         }
@@ -156,7 +164,8 @@
         "lastName": "Ashford",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_1.jpg",
+          "id": "coordinator-2.png",
+          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
           "width": 255,
           "height": 255
         }
@@ -164,13 +173,14 @@
       {
         "eventId": "next-6",
         "eventCoordinatorId": 22,
-        "firstName": "Tlu",
-        "lastName": "Marks",
+        "firstName": "Sunny",
+        "lastName": "Banks",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_2.jpg",
-          "width": 512,
-          "height": 842
+          "id": "coordinator-4.png",
+          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
+          "width": 255,
+          "height": 255
         }
       }
     ]
@@ -190,11 +200,12 @@
       {
         "eventId": "next-7",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Luna",
+        "lastName": "Livegood",
         "email": "xx@yy.zz",
         "image": {
           "id": "avatar_3.jpg",
+          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
           "width": 255,
           "height": 255
         }
@@ -216,11 +227,12 @@
       {
         "eventId": "next-8",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Sunny",
+        "lastName": "Banks",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_3.jpg",
+          "id": "coordinator-4.png",
+          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
           "width": 255,
           "height": 255
         }
@@ -242,11 +254,12 @@
       {
         "eventId": "next-9",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Minato",
+        "lastName": "Takumi",
         "email": "xx@yy.zz",
         "image": {
-          "id": "avatar_3.jpg",
+          "id": "coordinator-3.png",
+          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
           "width": 255,
           "height": 255
         }
@@ -268,14 +281,14 @@
       {
         "eventId": "next-10",
         "eventCoordinatorId": 33,
-        "firstName": "Poyi",
-        "lastName": "Joiri",
+        "firstName": "Luna",
+        "lastName": "Livegood",
         "email": "xx@yy.zz",
         "image": {
           "id": "avatar_3.jpg",
-          "cloudflareImageId": "",
-          "width": 255,
-          "height": 255
+          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
+          "width": 1792,
+          "height": 1024
         }
       }
     ]

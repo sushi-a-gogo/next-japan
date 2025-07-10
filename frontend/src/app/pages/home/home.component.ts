@@ -5,14 +5,14 @@ import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
+import { OrganizationInformation } from '@app/models/organization-information.model';
 import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, map, of, switchMap } from 'rxjs';
 import { EventData } from '../event/models/event-data.model';
-import { EventOpportunity } from '../event/models/event-opportunity.model';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   private aiImage: AppImageData = {
     id: "ai-banner.png",
-    cloudflareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
+    cloudflareImageId: "ea6cbb50-de47-4dff-3cce-cb05a41c1800",
     width: 1792,
     height: 1024
   };
@@ -43,10 +43,11 @@ export class HomeComponent implements OnInit {
   });
 
 
-  org = this.organizationService.organizationInformation;
+  org = signal<OrganizationInformation | null>(null);
   events = signal<EventData[]>([]);
 
   loaded = signal<boolean>(false);
+  completed = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => {
@@ -60,49 +61,54 @@ export class HomeComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const observables = this.getObservables();
-    forkJoin(observables).pipe(
+    this.fetchOrganizationData$().pipe(
+      switchMap((org) => {
+        this.title.setTitle(`${org.name}`);
+        // Set meta tags
+        this.meta.updateTags(this.title.getTitle(), org.infoDescription);
+        this.org.set(org);
+        this.loaded.set(true);
+        return this.fetchEvents$();
+      }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (res) => {
-        this.title.setTitle(`${res.org.name}`);
-        // Set meta tags
-        this.meta.updateTags(this.title.getTitle(), res.org.infoDescription);
-
-        this.events.set([...res.events, ...res.savedEvents.data]);
-        this.configureEvents(res.opportunities);
+      next: (events) => {
+        this.events.set(events);
       },
       error: () => {
         this.loaded.set(true);
         this.hasError.set(true);
       },
       complete: () => {
-        this.loaded.set(true);
+        this.completed.set(true);
       }
     });
   }
 
-  private getObservables() {
-    const org$ = this.org() ? of(this.org()!) : this.organizationService.getOrganizationInfo$();
+  private fetchOrganizationData$() {
+    const orgData = this.organizationService.organizationInformation();
+    return orgData ? of(orgData) : this.organizationService.getOrganizationInfo$();
+  }
 
-    return {
-      org: org$,
+  private fetchEvents$() {
+    const observables = {
       events: this.organizationService.getEvents$(),
       savedEvents: this.eventsService.get$(),
       opportunities: this.organizationService.getNextOpportunities$(),
     };
+
+    return forkJoin(observables).pipe(
+      map((res) => {
+        const events = [...res.events, ...res.savedEvents.data];
+        events.forEach((event) => {
+          const eventOpportunities = res.opportunities
+            .filter((o) => o.eventId === event.eventId)
+            .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+          event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+        });
+        return events;
+      })
+    );
   }
-
-
-  private configureEvents(opportunities: EventOpportunity[]) {
-    this.events().forEach((event) => {
-      const eventOpportunities = opportunities
-        .filter((o) => o.eventId === event.eventId)
-        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-
-      event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
-    });
-  }
-
 
 }

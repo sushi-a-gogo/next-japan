@@ -12,8 +12,8 @@
 
   img {
     object-fit: cover;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 
     &.grok {
       object-fit: contain;
@@ -27,6 +27,7 @@
   padding: 10px;
   padding-bottom: 20px;
   width: 100%;
+  position: absolute;
   z-index: 1;
 }
 
@@ -60,6 +61,10 @@
 }
 
 @media (min-width: var.$screen-sm) {
+  :host {
+    //height: 600px;
+  }
+
   .banner-bar {
     padding: 20px;
   }
