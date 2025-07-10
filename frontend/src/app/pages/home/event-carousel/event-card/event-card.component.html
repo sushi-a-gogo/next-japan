@@ -1,47 +1,45 @@
-<div class="card-container">
-  <button type="button" (click)="goToEvent()" class="border-box">
-    <div class="image-container" [class.grok]="isGrokEvent()">
-      @if(resizedImage()) {
-      <img
-        alt="Event Image"
-        [ngSrc]="resizedImage().src"
-        [width]="resizedImage().image.width"
-        [height]="resizedImage().image.height"
-      />
+<button type="button" (click)="goToEvent()" class="border-box">
+  <div class="image-container" [class.grok]="isGrokEvent()">
+    @if(resizedImage()) {
+    <img
+      alt="Event Image"
+      [ngSrc]="resizedImage()!.src"
+      [width]="resizedImage()!.image.width"
+      [height]="resizedImage()!.image.height"
+    />
+    } @else {
+    <img
+      alt="Event Image Not Available"
+      class="no-image"
+      src="assets/images/no-image.png"
+    />
+    }
+  </div>
+  <div class="card-body">
+    <div
+      class="title multi-line-box break-word"
+      matTooltipShowDelay="750"
+      matTooltipClass="app-tooltip"
+    >
+      {{ event().eventTitle || "Title Not Available" }}
+    </div>
+    <div class="description multi-line-box break-word">
+      {{ event().description }}
+    </div>
+    <div class="upcoming">
+      @if(event().nextOpportunityDate) {
+      <div>
+        <div class="banner">Next Opportunity</div>
+        <app-opportunity-date
+          [opportunity]="event().nextOpportunityDate!"
+        ></app-opportunity-date>
+      </div>
       } @else {
-      <img
-        alt="Event Image Not Available"
-        class="no-image"
-        src="assets/images/no-image.png"
-      />
+      <div class="coming-soon">
+        <span class="material-icons">campaign</span>
+        <div class="banner disabled">Coming Soon</div>
+      </div>
       }
     </div>
-    <div class="card-body">
-      <div
-        class="title multi-line-box break-word"
-        matTooltipShowDelay="750"
-        matTooltipClass="app-tooltip"
-      >
-        {{ event().eventTitle || "Title Not Available" }}
-      </div>
-      <div class="description multi-line-box break-word">
-        {{ event().description }}
-      </div>
-      <div class="upcoming">
-        @if(event().nextOpportunityDate) {
-        <div>
-          <div class="banner">Next Opportunity</div>
-          <app-opportunity-date
-            [opportunity]="event().nextOpportunityDate!"
-          ></app-opportunity-date>
-        </div>
-        } @else {
-        <div class="coming-soon">
-          <span class="material-icons">campaign</span>
-          <div class="banner disabled">Coming Soon</div>
-        </div>
-        }
-      </div>
-    </div>
-  </button>
-</div>
+  </div>
+</button>

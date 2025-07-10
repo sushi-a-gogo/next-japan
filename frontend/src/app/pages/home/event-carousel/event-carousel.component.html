@@ -1,45 +1,36 @@
 @if(showCarousel()) {
-<div class="controls">
+<div class="carousel-container">
   <button
-    aria-label="Show Previous Slide"
-    type="button"
-    class="app-icon-button"
-    matRipple
-    (click)="showPrevSlide()"
-    [disabled]="carouselIndex === 0"
+    class="nav-button prev"
+    (click)="scrollPrev()"
+    [disabled]="disablePrevButton"
+    aria-label="Previous events"
   >
-    <mat-icon>arrow_back_ios_new</mat-icon>
+    Prev
   </button>
-</div>
-<mat-tab-group [selectedIndex]="carouselIndex" class="mat-tab-hide-tabs">
-  @for(slide of slides; track slide.events[0]?.eventId) {
-  <mat-tab>
-    <div class="carousel-slide">
-      @for(event of slide.events; track $index) {
-      <div class="event-card">
-        @if(event) {
-        <app-event-card [event]="event"></app-event-card>
-        }
-      </div>
-      }
+  <cdk-virtual-scroll-viewport
+    orientation="horizontal"
+    [itemSize]="itemSize()"
+    [style.width.px]="viewportWidth()"
+    [style.minWidth.px]="315"
+    class="viewport"
+    #viewport
+  >
+    <div
+      class="event-item"
+      *cdkVirtualFor="let event of events(); trackBy: trackByEventId"
+      [style.width]="itemWidth()"
+    >
+      <app-event-card [event]="event"></app-event-card>
     </div>
-  </mat-tab>
-  }
-</mat-tab-group>
-<div class="controls">
+  </cdk-virtual-scroll-viewport>
   <button
-    aria-label="Show Next Slide"
-    type="button"
-    class="app-icon-button"
-    matRipple
-    (click)="showNextSlide()"
-    [disabled]="carouselIndex === slides.length - 1"
+    class="nav-button next"
+    (click)="scrollNext()"
+    [disabled]="disableNextButton"
+    aria-label="Next events"
   >
-    <mat-icon>arrow_forward_ios</mat-icon>
+    Next
   </button>
 </div>
-} @else { @for(event of events(); track event.eventId) {
-<div class="event-card">
-  <app-event-card [event]="event"></app-event-card>
-</div>
-} }
+}

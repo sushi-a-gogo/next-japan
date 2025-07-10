@@ -201,3 +201,9 @@
 .cdk-overlay-backdrop.notification-backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  min-width: fit-content; /* Ensure wrapper expands to all events */
+}

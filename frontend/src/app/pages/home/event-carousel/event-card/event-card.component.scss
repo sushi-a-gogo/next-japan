@@ -1,10 +1,11 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
-.card-container {
-  height: 100%;
-  width: 100%;
-  padding: 10px;
+:host {
+  display: block;
+  width: 315px;
+  height: 440px;
+  //padding: 10px;
   padding-top: 0;
 }
 
@@ -57,7 +58,7 @@ button {
   padding: 3px;
 
   &.grok {
-    width: 240px;
+    width: 270px;
   }
 
   img {
@@ -146,12 +147,12 @@ button {
 
 @media (min-width: 400px) {
   .image-container {
-    height: 165px;
+    //height: 165px;
   }
 }
 
 @media (min-width: 600px) {
   .image-container {
-    height: 180px;
+    //height: 180px;
   }
 }
