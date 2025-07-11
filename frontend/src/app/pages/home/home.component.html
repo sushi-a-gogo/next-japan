@@ -15,8 +15,8 @@
   <header [style.backgroundImage]="backgroundImage()">
     <app-org-banner [org]="org()"></app-org-banner>
   </header>
-  <main class="content-container fade-in" [class.open]="org()">
-    <section>
+  <main class="fade-in" [class.open]="org()">
+    <section class="content-container">
       <div class="flex-content organization-info">
         <div class="info-title break-word">
           {{ org()?.infoTitle }}
