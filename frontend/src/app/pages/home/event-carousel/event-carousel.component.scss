@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 945px; /* 315px * 3 */
   margin: 0 auto;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 .viewport {
@@ -21,16 +21,26 @@
 .cdk-virtual-scroll-content-wrapper {
   display: flex;
   flex-direction: row;
-  min-width: fit-content; /* Ensure wrapper expands to all events */
+  min-width: fit-content;
 }
 
 .event-item {
   scroll-snap-align: start;
-  width: 315px; /* Fixed card width */
+  width: 325px;
   height: 440px;
+  //padding-right: 10px; /* Add spacing */
   box-sizing: border-box;
-  padding: 8px;
   flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.event-item:last-child {
+  margin-right: 0; /* Remove trailing margin */
 }
 
 .nav-button {
@@ -44,6 +54,7 @@
   cursor: pointer;
   z-index: 10;
   font-size: 16px;
+  border-radius: 4px; /* Soften appearance */
 }
 
 .nav-button:disabled {
@@ -52,9 +63,9 @@
 }
 
 .prev {
-  left: 10px;
+  left: -42px; /* Offset from edge */
 }
 
 .next {
-  right: 10px;
+  right: -72px; /* Offset from edge */
 }

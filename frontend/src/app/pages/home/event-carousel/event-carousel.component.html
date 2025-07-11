@@ -19,7 +19,6 @@
     <div
       class="event-item"
       *cdkVirtualFor="let event of events(); trackBy: trackByEventId"
-      [style.width]="itemWidth()"
     >
       <app-event-card [event]="event"></app-event-card>
     </div>

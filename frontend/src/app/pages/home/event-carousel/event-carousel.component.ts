@@ -6,12 +6,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventCardComponent } from './event-card/event-card.component';
 
-const CARD_WIDTH = 315;
+const CARD_WIDTH = 325;
 
 const BreakpointsConfig = [
   { query: '(max-width: 819.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH },
-  { query: '(min-width: 820px) and (max-width: 1199.98px)', eventsPerView: 2, viewportWidth: CARD_WIDTH * 2 },
-  { query: '(min-width: 1200px)', eventsPerView: 3, viewportWidth: CARD_WIDTH * 3 },
+  { query: '(min-width: 820px) and (max-width: 1199.98px)', eventsPerView: 2, viewportWidth: (CARD_WIDTH * 2) },
+  { query: '(min-width: 1200px)', eventsPerView: 3, viewportWidth: (CARD_WIDTH * 3) },
 ];
 
 @Component({
@@ -29,7 +29,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   currentIndex = signal(0);
   itemSize = signal(CARD_WIDTH);
   viewportWidth = signal(CARD_WIDTH);
-  itemWidth = signal(`${CARD_WIDTH}px`);
 
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
@@ -71,12 +70,10 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
         const newViewportWidth = activeBreakpoint?.viewportWidth ?? CARD_WIDTH;
         this.eventsPerView.set(newEventsPerView);
         this.viewportWidth.set(newViewportWidth);
-        //this.itemWidth.set(`${100 / newEventsPerView}%`);
         console.log('Breakpoint:', {
           eventsPerView: newEventsPerView,
           viewportWidth: newViewportWidth,
           itemSize: this.itemSize(),
-          itemWidth: this.itemWidth(),
         });
         setTimeout(() => this.scrollToIndex(this.currentIndex()), 0);
       });
@@ -85,13 +82,19 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private scrollToIndex(index: number) {
     if (this.viewport) {
       console.log('Scrolling to index:', index);
-      this.viewport.scrollTo({ left: index * this.itemSize(), behavior: 'smooth' });
+      const offset = index * this.itemSize();
+      this.viewport.scrollTo({ left: offset, behavior: 'smooth' });
       this.currentIndex.set(index);
+      // Force viewport re-render
+      this.viewport.checkViewportSize();
+      setTimeout(() => {
+        this.viewport.scrollTo({ left: offset, behavior: 'smooth' }); // Re-apply scroll
+      }, 100);
     }
   }
 
   scrollPrev() {
-    const newIndex = Math.max(0, this.currentIndex() - this.eventsPerView());
+    const newIndex = Math.max(0, this.currentIndex() - 1); //this.eventsPerView());
     console.log('Scroll Prev:', { currentIndex: this.currentIndex(), newIndex });
     this.scrollToIndex(newIndex);
   }
