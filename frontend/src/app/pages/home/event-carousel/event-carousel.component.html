@@ -1,45 +1,36 @@
-@if(showCarousel()) {
-<div class="controls">
+<div class="carousel-container">
+  @if(!ssrMode()) {
   <button
-    aria-label="Show Previous Slide"
-    type="button"
-    class="app-icon-button"
-    matRipple
-    (click)="showPrevSlide()"
-    [disabled]="carouselIndex === 0"
+    class="nav-button prev"
+    (click)="scrollPrev()"
+    [disabled]="disablePrevButton"
+    aria-label="Previous events"
   >
-    <mat-icon>arrow_back_ios_new</mat-icon>
+    <span class="material-icons">arrow_back_ios_new</span>
+    Prev
   </button>
-</div>
-<mat-tab-group [selectedIndex]="carouselIndex" class="mat-tab-hide-tabs">
-  @for(slide of slides; track slide.events[0]?.eventId) {
-  <mat-tab>
-    <div class="carousel-slide">
-      @for(event of slide.events; track $index) {
-      <div class="event-card">
-        @if(event) {
-        <app-event-card [event]="event"></app-event-card>
-        }
-      </div>
-      }
-    </div>
-  </mat-tab>
   }
-</mat-tab-group>
-<div class="controls">
-  <button
-    aria-label="Show Next Slide"
-    type="button"
-    class="app-icon-button"
-    matRipple
-    (click)="showNextSlide()"
-    [disabled]="carouselIndex === slides.length - 1"
+  <div
+    class="carousel-track"
+    [class.carousel-track--ssr]="ssrMode()"
+    #carouselTrack
+    [style.width.px]="viewportWidth()"
   >
-    <mat-icon>arrow_forward_ios</mat-icon>
+    @for(event of events(); track event?.eventId || $index) {
+    <div class="event-item">
+      <app-event-card [event]="event"></app-event-card>
+    </div>
+    }
+  </div>
+  @if(!ssrMode()) {
+  <button
+    class="nav-button next"
+    (click)="scrollNext()"
+    [disabled]="disableNextButton"
+    aria-label="Next events"
+  >
+    <span class="material-icons">arrow_forward_ios</span>
+    Next
   </button>
+  }
 </div>
-} @else { @for(event of events(); track event.eventId) {
-<div class="event-card">
-  <app-event-card [event]="event"></app-event-card>
-</div>
-} }

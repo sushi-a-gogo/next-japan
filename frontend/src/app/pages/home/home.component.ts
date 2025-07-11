@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
   private organizationService = inject(OrganizationService);
 
   private aiImage: AppImageData = {
-    id: "ai-banner.png",
-    cloudflareImageId: "ea6cbb50-de47-4dff-3cce-cb05a41c1800",
+    id: "ai-background.png",
+    cloudflareImageId: "46a4b01c-c275-4556-aec4-ec7be2e8d500",
     width: 1792,
     height: 1024
   };
