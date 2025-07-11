@@ -1,71 +1,87 @@
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 945px; /* 315px * 3 */
+  //max-width: 975px; /* 325px * 3 */
   margin: 0 auto;
-  //overflow: hidden;
 }
 
-.viewport {
+.carousel-track {
   width: 100%;
+  //min-width: 360px;
   height: 440px;
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  overflow-y: hidden;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-x;
 }
 
-.cdk-virtual-scroll-content-wrapper {
-  display: flex;
-  flex-direction: row;
-  min-width: fit-content;
+.carousel-track::-webkit-scrollbar {
+  display: none;
 }
 
 .event-item {
   scroll-snap-align: start;
-  width: 325px;
+  width: 325px; /* 315px card + 5px padding per side */
   height: 440px;
-  //padding-right: 10px; /* Add spacing */
   box-sizing: border-box;
+  padding: 0 5px;
   flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-
-  &:last-child {
-    padding-right: 0;
-  }
-}
-
-.event-item:last-child {
-  margin-right: 0; /* Remove trailing margin */
 }
 
 .nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  z-index: 10;
-  font-size: 16px;
-  border-radius: 4px; /* Soften appearance */
+  display: none;
 }
 
-.nav-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+@media (min-width: 768px) {
+  .carousel-track {
+    //min-width: 700px;
+  }
 }
 
-.prev {
-  left: -42px; /* Offset from edge */
-}
+@media (min-width: 1120px) {
+  .nav-button {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: 0.25s ease-in-out;
 
-.next {
-  right: -72px; /* Offset from edge */
+    .material-icons {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .prev {
+    left: -60px;
+  }
+
+  .next {
+    right: -60px;
+  }
 }

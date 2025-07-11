@@ -6,29 +6,21 @@
     [disabled]="disablePrevButton"
     aria-label="Previous events"
   >
+    <span class="material-icons">arrow_back_ios_new</span>
     Prev
   </button>
-  <cdk-virtual-scroll-viewport
-    orientation="horizontal"
-    [itemSize]="itemSize()"
-    [style.width.px]="viewportWidth()"
-    [style.minWidth.px]="315"
-    class="viewport"
-    #viewport
-  >
-    <div
-      class="event-item"
-      *cdkVirtualFor="let event of events(); trackBy: trackByEventId"
-    >
-      <app-event-card [event]="event"></app-event-card>
-    </div>
-  </cdk-virtual-scroll-viewport>
+  <div class="carousel-track" #carouselTrack [style.width.px]="viewportWidth()">
+    @for(event of events(); track event?.eventId || $index) {
+    <app-event-card [event]="event"></app-event-card>
+    }
+  </div>
   <button
     class="nav-button next"
     (click)="scrollNext()"
     [disabled]="disableNextButton"
     aria-label="Next events"
   >
+    <span class="material-icons">arrow_forward_ios</span>
     Next
   </button>
 </div>

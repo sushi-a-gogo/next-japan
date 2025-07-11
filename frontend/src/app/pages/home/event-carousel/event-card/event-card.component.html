@@ -1,4 +1,4 @@
-<button type="button" (click)="goToEvent()" class="border-box">
+<a type="button" [routerLink]="routerLink()" class="button">
   <div class="image-container" [class.grok]="isGrokEvent()">
     @if(resizedImage()) {
     <img
@@ -42,4 +42,4 @@
       }
     </div>
   </div>
-</button>
+</a>
