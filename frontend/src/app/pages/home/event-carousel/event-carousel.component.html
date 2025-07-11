@@ -1,5 +1,5 @@
-@if(showCarousel()) {
 <div class="carousel-container">
+  @if(!ssrMode()) {
   <button
     class="nav-button prev"
     (click)="scrollPrev()"
@@ -9,13 +9,20 @@
     <span class="material-icons">arrow_back_ios_new</span>
     Prev
   </button>
-  <div class="carousel-track" #carouselTrack [style.width.px]="viewportWidth()">
+  }
+  <div
+    class="carousel-track"
+    [class.carousel-track--ssr]="ssrMode()"
+    #carouselTrack
+    [style.width.px]="viewportWidth()"
+  >
     @for(event of events(); track event?.eventId || $index) {
     <div class="event-item">
       <app-event-card [event]="event"></app-event-card>
     </div>
     }
   </div>
+  @if(!ssrMode()) {
   <button
     class="nav-button next"
     (click)="scrollNext()"
@@ -25,5 +32,5 @@
     <span class="material-icons">arrow_forward_ios</span>
     Next
   </button>
+  }
 </div>
-}

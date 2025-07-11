@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/pages/event/models/event-data.model';
 import { fromEvent } from 'rxjs';
@@ -24,10 +24,11 @@ const BreakpointsConfig = [
 export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
   events = input.required<EventData[]>();
-  showCarousel = signal(false);
   eventsPerView = signal(1);
   currentIndex = signal(0);
   viewportWidth = signal(CARD_WIDTH);
+
+  ssrMode = computed(() => !isPlatformBrowser(this.platformId));
 
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
@@ -40,21 +41,14 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
     return this.currentIndex() >= this.events().length - this.eventsPerView();
   }
 
-  trackByEventId(index: number, event: EventData): string {
-    return event?.eventId ?? 'index-' + index;
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['events'] && isPlatformBrowser(this.platformId)) {
-      console.log('Events received:', this.events().length);
       this.setupBreakpoints();
-      this.showCarousel.set(this.events().length > 0);
     }
   }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      console.log('Track initialized:', !!this.carouselTrack);
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
     }
@@ -70,10 +64,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
         const newViewportWidth = activeBreakpoint?.viewportWidth ?? CARD_WIDTH;
         this.eventsPerView.set(newEventsPerView);
         this.viewportWidth.set(newViewportWidth);
-        console.log('Breakpoint:', {
-          eventsPerView: newEventsPerView,
-          viewportWidth: newViewportWidth,
-        });
         this.scrollToIndex(this.currentIndex());
       });
   }
@@ -86,7 +76,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
           const scrollLeft = this.carouselTrack.nativeElement.scrollLeft;
           const newIndex = Math.round(scrollLeft / CARD_WIDTH);
           if (newIndex !== this.currentIndex()) {
-            console.log('Scroll detected:', { scrollLeft, newIndex });
             this.currentIndex.set(newIndex);
           }
         });
@@ -95,7 +84,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
 
   private scrollToIndex(index: number) {
     if (this.carouselTrack && isPlatformBrowser(this.platformId)) {
-      console.log('Scrolling to index:', index);
       const cardSlotWidth = CARD_WIDTH; // 315px card + 5px padding per side
       this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
       this.currentIndex.set(index);
@@ -104,13 +92,11 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
 
   scrollPrev() {
     const newIndex = Math.max(0, this.currentIndex() - this.eventsPerView());
-    console.log('Scroll Prev:', { currentIndex: this.currentIndex(), newIndex });
     this.scrollToIndex(newIndex);
   }
 
   scrollNext() {
     const newIndex = Math.min(this.events().length - this.eventsPerView(), this.currentIndex() + this.eventsPerView());
-    console.log('Scroll Next:', { currentIndex: this.currentIndex(), newIndex });
     this.scrollToIndex(newIndex);
   }
 }

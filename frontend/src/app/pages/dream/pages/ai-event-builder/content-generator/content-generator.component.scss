@@ -29,8 +29,18 @@ form {
 
 .app-button {
   border-radius: 6px;
-  font-weight: 600;
-  height: 48px;
+  font-size: 20px;
+  font-weight: 700;
+  height: 56px;
+
+  background: #007b72;
+  color: var(--vivid-yellow-text);
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    background-color: #00aeef;
+    color: #000; /* flip text to black for better contrast */
+  }
 }
 
 .no-results {
@@ -67,14 +77,22 @@ form {
   }
 }
 
-@media (min-width: var.$max-page-width) {
-  .content-container {
-    padding: 20px 0;
+@media (min-width: 600px) {
+  .app-button {
+    font-size: 18px;
+    font-weight: 600;
+    width: 212px;
   }
 
   form {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+  }
+}
+
+@media (min-width: var.$max-page-width) {
+  .content-container {
+    padding: 20px 0;
   }
 }

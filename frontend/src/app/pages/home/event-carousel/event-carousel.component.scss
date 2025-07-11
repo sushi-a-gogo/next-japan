@@ -24,6 +24,11 @@
 .carousel-track::-webkit-scrollbar {
   display: none;
 }
+.carousel-track--ssr {
+  overflow-x: visible; /* No scrolling server-side */
+  flex-wrap: wrap; /* Stack events for SEO */
+  height: auto;
+}
 
 .event-item {
   transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
@@ -43,12 +48,6 @@
 @media (max-width: 819.98px), (pointer: coarse) {
   .carousel-container {
     overflow: visible;
-  }
-  .carousel-track {
-    //padding-right: 20px;
-  }
-  .carousel-track.has-prev {
-    //padding-left: 20px; /* Peek previous card */
   }
 }
 
