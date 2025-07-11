@@ -11,7 +11,9 @@
   </button>
   <div class="carousel-track" #carouselTrack [style.width.px]="viewportWidth()">
     @for(event of events(); track event?.eventId || $index) {
-    <app-event-card [event]="event"></app-event-card>
+    <div class="event-item">
+      <app-event-card [event]="event"></app-event-card>
+    </div>
     }
   </div>
   <button

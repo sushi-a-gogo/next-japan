@@ -3,12 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/pages/event/models/event-data.model';
+import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
 const CARD_WIDTH = 325; // 315px card + 5px padding per side
 
 const BreakpointsConfig = [
-  { query: '(max-width: 767.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH + 35 },
+  { query: '(max-width: 767.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH + 40 },
   { query: '(min-width: 768px) and (max-width: 1119.98px)', eventsPerView: 2, viewportWidth: CARD_WIDTH * 2 + 35 },
   { query: '(min-width: 1120px)', eventsPerView: 3, viewportWidth: CARD_WIDTH * 3 },
 ];
@@ -55,6 +56,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Track initialized:', !!this.carouselTrack);
       this.scrollToIndex(this.currentIndex());
+      this.setupScrollListener();
     }
   }
 
@@ -76,10 +78,25 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       });
   }
 
+  private setupScrollListener() {
+    if (isPlatformBrowser(this.platformId)) {
+      fromEvent(this.carouselTrack.nativeElement, 'scroll')
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          const scrollLeft = this.carouselTrack.nativeElement.scrollLeft;
+          const newIndex = Math.round(scrollLeft / CARD_WIDTH);
+          if (newIndex !== this.currentIndex()) {
+            console.log('Scroll detected:', { scrollLeft, newIndex });
+            this.currentIndex.set(newIndex);
+          }
+        });
+    }
+  }
+
   private scrollToIndex(index: number) {
     if (this.carouselTrack && isPlatformBrowser(this.platformId)) {
       console.log('Scrolling to index:', index);
-      const cardSlotWidth = 325; // 315px card + 5px padding per side
+      const cardSlotWidth = CARD_WIDTH; // 315px card + 5px padding per side
       this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
       this.currentIndex.set(index);
     }

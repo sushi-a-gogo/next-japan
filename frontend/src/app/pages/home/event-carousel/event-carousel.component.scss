@@ -7,11 +7,9 @@
 
 .carousel-track {
   width: 100%;
-  //min-width: 360px;
   height: 440px;
   display: flex;
   flex-direction: row;
-  overflow: hidden;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -19,14 +17,18 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-x;
+  will-change: scroll-position;
+  overscroll-behavior-x: contain; /* Prevent overscrolling */
+  transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
 }
-
 .carousel-track::-webkit-scrollbar {
   display: none;
 }
 
 .event-item {
-  scroll-snap-align: start;
+  transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
+  scroll-snap-align: center;
+  scroll-snap-stop: always; /* Force snap to one item */
   width: 325px; /* 315px card + 5px padding per side */
   height: 440px;
   box-sizing: border-box;
@@ -38,13 +40,19 @@
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 819.98px), (pointer: coarse) {
+  .carousel-container {
+    overflow: visible;
+  }
   .carousel-track {
-    //min-width: 700px;
+    //padding-right: 20px;
+  }
+  .carousel-track.has-prev {
+    //padding-left: 20px; /* Peek previous card */
   }
 }
 
-@media (min-width: 1120px) {
+@media (min-width: 1120px) and (pointer: fine) {
   .nav-button {
     display: none;
     position: absolute;
