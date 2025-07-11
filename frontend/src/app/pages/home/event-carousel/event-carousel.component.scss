@@ -51,7 +51,7 @@
   }
 }
 
-@media (min-width: 1120px) and (pointer: fine) {
+@media (pointer: fine) or (min-width: 932px) {
   .nav-button {
     display: none;
     position: absolute;
