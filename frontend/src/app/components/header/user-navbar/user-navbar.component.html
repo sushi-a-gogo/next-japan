@@ -13,7 +13,7 @@
         type="button"
         class="app-button flex-button transparent"
         [class.active]="inSearchMode()"
-        (click)="toggleSearchPanel()"
+        (click)="toggleSearchPanel($event)"
       >
         <span class="material-icons">search</span>
         Search Events

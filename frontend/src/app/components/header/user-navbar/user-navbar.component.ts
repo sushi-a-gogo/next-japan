@@ -37,7 +37,8 @@ export class UserNavbarComponent {
   userProfile = this.userProfileService.userProfile;
   inSearchMode = this.eventSearch.searchMode;
 
-  toggleSearchPanel() {
+  toggleSearchPanel(event: any) {
+    event.currentTarget.blur();
     this.eventSearch.toggleSearchMode();
   }
 
