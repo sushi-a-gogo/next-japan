@@ -1,27 +1,29 @@
-<section [class.hide]="currentCount === 0">
+<article [class.hide]="currentCount === 0">
   <header>
     <div class="title-text">{{ location().locationName }}</div>
-    <app-event-breadcrumb
-      [data]="location().opportunities![0]"
-    ></app-event-breadcrumb>
   </header>
   <main>
-    <div class="location-data">
-      <app-address-strip
-        [location]="location()"
-        [showDirections]="true"
-      ></app-address-strip>
-    </div>
-    <div class="cards">
-      @for(opportunity of location().opportunities; track
-      opportunity.opportunityId) {
-      <app-registration-card
-        [class.removed]="removedIds.includes(opportunity.opportunityId)"
-        [opportunity]="opportunity"
-        [allowRemoval]="allowRemoval()"
-        (remove)="removeSelection(opportunity.opportunityId)"
-      />
-      }
-    </div>
+    <section>
+      <header>
+        <app-address-strip
+          [location]="location()"
+          [showDirections]="true"
+        ></app-address-strip>
+      </header>
+      <main>
+        <ul>
+          @for(opportunity of location().opportunities; track
+          opportunity.opportunityId) {
+          <li [class.removed]="removedIds.includes(opportunity.opportunityId)">
+            <app-registration-card
+              [opportunity]="opportunity"
+              [allowRemoval]="allowRemoval()"
+              (remove)="removeSelection(opportunity.opportunityId)"
+            />
+          </li>
+          }
+        </ul>
+      </main>
+    </section>
   </main>
-</section>
+</article>

@@ -6,6 +6,19 @@
   gap: 8px;
 }
 
+.opportunity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
 .selector {
   align-self: flex-end;
 }

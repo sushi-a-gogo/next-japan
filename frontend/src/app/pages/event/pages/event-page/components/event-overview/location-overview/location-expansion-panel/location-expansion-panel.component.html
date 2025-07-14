@@ -28,9 +28,9 @@
       <div class="expansion-panel" [class.open]="accordion.expanded">
         @for(opportunity of opportunities(); track opportunity.opportunityId) {
         <div class="accordion-card">
-          <app-opportunity-label
+          <app-opportunity-timestamp
             [opportunity]="opportunity"
-          ></app-opportunity-label>
+          ></app-opportunity-timestamp>
           <app-opportunity-selector [opportunity]="opportunity" />
         </div>
         } @empty {

@@ -6,12 +6,12 @@ import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansi
 import { EventService } from '@app/pages/event/event.service';
 import { EventLocation } from '@app/pages/event/models/event-location.model';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
-import { OpportunityLabelComponent } from "@app/shared/opportunity-label/opportunity-label.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
+import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 
 @Component({
   selector: 'app-location-expansion-panel',
-  imports: [MatExpansionModule, MatRippleModule, AddressStripComponent, OpportunityLabelComponent, OpportunitySelectorComponent],
+  imports: [MatExpansionModule, MatRippleModule, AddressStripComponent, OpportunityTimestampComponent, OpportunitySelectorComponent],
   templateUrl: './location-expansion-panel.component.html',
   styleUrl: './location-expansion-panel.component.scss'
 })
