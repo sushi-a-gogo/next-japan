@@ -19,5 +19,7 @@
       <app-login-button [signup]="true"></app-login-button>
     </li>
   </ul>
-  <app-search-autocomplete class="search-autocomplete" />
+  @if (inSearchMode()) {
+  <app-search-autocomplete />
+  }
 </nav>

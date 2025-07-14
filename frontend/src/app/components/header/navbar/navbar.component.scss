@@ -20,6 +20,7 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   transition: 0.25s ease-in-out;
 
   &.search-mode {
@@ -31,7 +32,6 @@ nav {
     padding: 0;
     list-style: none;
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;

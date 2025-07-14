@@ -6,17 +6,6 @@
         <app-logo />
       </a>
     </li>
-    <!-- <li>
-      <a
-        type="button"
-        class="app-button ai"
-        matRipple
-        routerLink="./dream"
-        routerLinkActive="active"
-      >
-        AI Event Builder
-      </a>
-    </li> -->
     <li class="spacer"></li>
     <li>
       <button
@@ -41,6 +30,7 @@
       }
     </li>
   </ul>
+  @if (inSearchMode()) {
   <app-search-autocomplete />
-  }
+  } }
 </nav>

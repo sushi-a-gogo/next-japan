@@ -1,4 +1,5 @@
-import { Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit, viewChild } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, Component, DestroyRef, ElementRef, HostListener, inject, OnInit, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -15,22 +16,28 @@ import { debounceTime, filter, of, switchMap } from 'rxjs';
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './search-autocomplete.component.html',
   styleUrl: './search-autocomplete.component.scss',
-})
-export class SearchAutocompleteComponent implements OnInit {
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in-out', style({ opacity: 1 }))
+      ])
+    ])
+  ],
+  host: { '[@fadeIn]': '' }
 
+})
+export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
-      if (this.visible) {
-        this.eventSearchService.toggleSearchMode();
-      }
+      this.eventSearchService.toggleSearchMode();
     }
   }
 
-  searchQuery = new FormControl({ value: '', disabled: true });
+  searchQuery = new FormControl('');
   filteredEvents: EventData[] = [];
   selectedValue?: string;
-  visible = false;
 
   private searchInput = viewChild<ElementRef>('searchInput');
   private trigger = viewChild<MatAutocompleteTrigger>('autocompleteInput');
@@ -39,40 +46,16 @@ export class SearchAutocompleteComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private eventSearchService = inject(EventSearchService);
 
-  constructor() {
-    effect(() => {
-      const enabled = this.eventSearchService.searchMode();
-      if (enabled) {
-        setTimeout(() => {
-          this.searchQuery.enable({ emitEvent: false });
-          const query = this.route.snapshot.queryParams['q'];
-          if (query) {
-            this.searchQuery.setValue(query, { emitEvent: false });
-          }
-          this.searchInput()?.nativeElement.focus();
-          this.visible = true;
-        }, 200);
-      } else {
-        this.visible = false;
-        setTimeout(() => {
-          this.searchQuery.disable({ emitEvent: false });
-          this.searchQuery.setValue('', { emitEvent: false });
-          this.filteredEvents = [];
-          setTimeout(() => {
-            this.selectedValue = undefined;
-          }, 200);
-        }, 200);
-      }
-    })
-  }
-
   ngOnInit() {
+    const query = this.route.snapshot.queryParams['q'];
+    if (query) {
+      this.searchQuery.setValue(query, { emitEvent: false });
+    }
+
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        if (this.visible) {
-          this.eventSearchService.toggleSearchMode();
-        }
+        this.eventSearchService.toggleSearchMode();
       });
 
     this.searchQuery.valueChanges.pipe(
@@ -88,6 +71,10 @@ export class SearchAutocompleteComponent implements OnInit {
     ).subscribe(events => {
       this.filteredEvents = events;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.searchInput()?.nativeElement.focus();
   }
 
   search() {
