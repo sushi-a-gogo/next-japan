@@ -40,5 +40,16 @@
   </div>
 </header>
 <main>
-  <app-content-generator (eventCreated)="onEventCreated()" />
+  <app-content-generator
+    (eventCreating)="onEventCreating()"
+    (eventCreated)="onEventCreated()"
+  />
 </main>
+<div class="backdrop" [class.open]="busy()"></div>
+<div class="snackbar" [class.open]="busy()">
+  Generating your event content with AI. Please wait a moment while we craft
+  something special for you!
+</div>
+<div class="progress" [class.open]="busy()">
+  <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
+</div>

@@ -16,6 +16,34 @@
   );
 }
 
+.yellow-spin {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: var(--vivid-yellow-text),
+    )
+  );
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--vivid-yellow-text),
+      active-indicator-height: 6px,
+    )
+  );
+}
+
+.teal-spin {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: #007b72,
+    )
+  );
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: #007b72,
+      active-indicator-height: 5px,
+    )
+  );
+}
+
 .success-bar {
   @include mat.snack-bar-overrides(
     (

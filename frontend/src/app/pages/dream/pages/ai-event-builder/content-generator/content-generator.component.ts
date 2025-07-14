@@ -6,31 +6,26 @@ import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NavigationStart, Router } from '@angular/router';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { AiService } from '@app/services/ai.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatProgressBarModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule],
+  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent implements OnInit {
-  private router = inject(Router);
   private auth = inject(AuthMockService);
   private aiService = inject(AiService);
   private destroyRef = inject(DestroyRef);
-  private snackBar = inject(MatSnackBar);
 
   promptForm?: FormGroup;
+  eventCreating = output<boolean>();
   eventCreated = output<AiEvent>();
 
   busy = signal<boolean>(false);
@@ -54,7 +49,7 @@ export class ContentGeneratorComponent implements OnInit {
     'Yonaha Maehama Beach',
   ];
   activities = [
-    'Cookout', 'Festival', 'Hiking', 'Cultural Tour', 'Skiing', 'Hot Spring Soak', 'Boat Ride'
+    'Explore', 'Local Experience', 'Cookout', 'Festival', 'Hiking', 'Cultural Tour', 'Skiing', 'Hot Spring Soak', 'Boat Ride', 'Unique Experience'
   ];
   groupSizes = ['Solo', 'Small Group (2-5)', 'Family (6-10)', 'Large Group (10+)'];
   timesOfDay = ['Morning', 'Afternoon', 'Evening', 'Night'];
@@ -76,22 +71,14 @@ export class ContentGeneratorComponent implements OnInit {
   disabled = computed(() => !this.auth.isAuthenticated())
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationStart),
-      takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.snackBar.dismiss())
   }
 
   generateContent(promptForm: NgForm) {
     promptForm.form.disable();
+    this.eventCreating.emit(true);
 
     this.error.set(null);
     this.busy.set(true);
-    this.snackBar.open('Generating your event content with AI. Please wait a moment while we craft something special for you!', 'Okay', {
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-      panelClass: 'success-bar'
-    });
 
     this.aiService.generateContent$(this.params).pipe(
       takeUntilDestroyed(this.destroyRef)
