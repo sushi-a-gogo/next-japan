@@ -16,7 +16,7 @@
     #carouselTrack
     [style.width.px]="viewportWidth()"
   >
-    @for(event of events(); track event?.eventId || $index) {
+    @for(event of sortedEvents(); track event?.eventId || $index) {
     <div class="event-item">
       <app-event-card [event]="event"></app-event-card>
     </div>
