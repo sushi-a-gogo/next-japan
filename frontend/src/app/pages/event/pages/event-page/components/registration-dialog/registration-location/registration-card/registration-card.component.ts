@@ -1,11 +1,11 @@
 import { Component, inject, input, output } from '@angular/core';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { EventSelectionService } from '@app/services/event-selection.service';
-import { OpportunityLabelComponent } from "@shared/opportunity-label/opportunity-label.component";
+import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 
 @Component({
   selector: 'app-registration-card',
-  imports: [OpportunityLabelComponent],
+  imports: [OpportunityTimestampComponent],
   templateUrl: './registration-card.component.html',
   styleUrl: './registration-card.component.scss'
 })

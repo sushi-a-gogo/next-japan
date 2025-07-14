@@ -1,7 +1,25 @@
-<app-opportunity-card
-  [opportunity]="event()"
-  [showDirections]="true"
-></app-opportunity-card>
+<section class="flex-column">
+  <header class="title-text break-word">
+    <a [routerLink]="routerLink()">
+      {{ event().eventTitle }}
+    </a>
+  </header>
+  <main>
+    <div class="location-address">
+      <app-address-strip
+        [location]="event()"
+        [showAddress]="false"
+        [showDirections]="true"
+        [notes]="event().locationNotes"
+      ></app-address-strip>
+    </div>
+    <div>
+      <app-opportunity-timestamp
+        [opportunity]="event()"
+      ></app-opportunity-timestamp>
+    </div>
+  </main>
+</section>
 <div class="actions">
   <app-registration-status-label
     [class]="event().status"

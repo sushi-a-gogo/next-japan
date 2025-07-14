@@ -9,6 +9,7 @@ import { MapLocation } from '@app/models/map-location.model';
 })
 export class AddressStripComponent {
   location = input.required<MapLocation>()
+  showAddress = input<boolean>(true);
   showDirections = input<boolean>(false);
   notes = input<string>();
   address!: string;

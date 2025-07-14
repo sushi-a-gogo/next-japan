@@ -1,12 +1,11 @@
 import { Component, computed, input } from '@angular/core';
 import { EventLocation } from '@app/pages/event/models/event-location.model';
 import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
-import { EventBreadcrumbComponent } from '@app/shared/event-breadcrumb/event-breadcrumb.component';
 import { RegistrationCardComponent } from "./registration-card/registration-card.component";
 
 @Component({
   selector: 'app-registration-location',
-  imports: [EventBreadcrumbComponent, AddressStripComponent, RegistrationCardComponent],
+  imports: [AddressStripComponent, RegistrationCardComponent],
   templateUrl: './registration-location.component.html',
   styleUrl: './registration-location.component.scss'
 })

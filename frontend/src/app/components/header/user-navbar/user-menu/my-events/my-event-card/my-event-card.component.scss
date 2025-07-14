@@ -14,6 +14,21 @@
   }
 }
 
+a {
+  color: var(--navy-blue-mountain);
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .actions {
   width: 100%;
   display: flex;

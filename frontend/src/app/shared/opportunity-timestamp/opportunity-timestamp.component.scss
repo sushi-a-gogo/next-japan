@@ -1,0 +1,42 @@
+@use "sass:map";
+@use "variables.scss" as var;
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.material-icons {
+  color: var(--bright-blue-sky);
+  //font-weight: 600;
+  align-self: flex-start;
+}
+
+.date-time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  text-align: left;
+
+  .time {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-between;
+  }
+}
+
+.notes {
+  color: map.get(var.$colors, dark-label);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+}

@@ -1,6 +1,16 @@
-<app-opportunity-card
-  [opportunity]="opportunity()"
-  [showNotes]="true"
-  [showDirections]="true"
-></app-opportunity-card>
+<div class="opportunity-card">
+  <header class="title-text break-word">
+    {{ opportunity().locationName }}
+  </header>
+  <main>
+    <app-address-strip
+      [location]="opportunity()"
+      [showDirections]="true"
+      [notes]="opportunity().locationNotes"
+    ></app-address-strip>
+    <app-opportunity-timestamp
+      [opportunity]="opportunity()"
+    ></app-opportunity-timestamp>
+  </main>
+</div>
 <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
