@@ -50,6 +50,8 @@
   Generating your event content with AI. Please wait a moment while we craft
   something special for you!
 </div>
-<div class="progress" [class.open]="busy()">
+@if(busy()) {
+<div class="progress">
   <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
 </div>
+}
