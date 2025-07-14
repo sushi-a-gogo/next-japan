@@ -74,7 +74,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.searchInput()?.nativeElement.focus();
+    this.searchInput()?.nativeElement.click();
   }
 
   search() {
