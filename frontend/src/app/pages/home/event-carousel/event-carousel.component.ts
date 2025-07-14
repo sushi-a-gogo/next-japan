@@ -24,6 +24,7 @@ const BreakpointsConfig = [
 export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
   events = input.required<EventData[]>();
+  sortedEvents = signal<EventData[]>([]);
   eventsPerView = signal(1);
   currentIndex = signal(0);
   viewportWidth = signal(CARD_WIDTH);
@@ -43,6 +44,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['events'] && isPlatformBrowser(this.platformId)) {
+      this.sortedEvents.set([...this.events().sort(this.sortByDate)])
       this.setupBreakpoints();
     }
   }
@@ -52,6 +54,18 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
     }
+  }
+
+  private sortByDate(a: EventData, b: EventData) {
+    const dateA = a.nextOpportunityDate ? new Date(a.nextOpportunityDate?.startDate) : null;
+    const dateB = b.nextOpportunityDate ? new Date(b.nextOpportunityDate?.startDate) : null;
+    if (!dateA) {
+      return 1;
+    }
+    if (!dateB) {
+      return -1;
+    }
+    return dateA.getTime() - dateB.getTime();
   }
 
   private setupBreakpoints() {

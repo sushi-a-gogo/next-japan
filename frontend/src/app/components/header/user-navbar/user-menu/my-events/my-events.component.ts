@@ -31,5 +31,4 @@ export class MyEventsComponent {
   private sortByDate(a: EventRegistration, b: EventRegistration) {
     return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
   }
-
 }
