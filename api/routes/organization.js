@@ -4,7 +4,6 @@ import fs from "node:fs/promises";
 
 import {
   EVENTS_JSON,
-  LOCATIONS_JSON,
   OPPORTUNITIES_JSON,
   ORGANIZATION_JSON,
 } from "../utils/paths.js";
@@ -34,29 +33,29 @@ router.get("/opportunities", async (req, res) => {
     new Date(a.startDate) < new Date(b.startDate) ? -1 : 1
   );
 
-  const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
-  const events = JSON.parse(eventJson);
+  // const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
+  // const events = JSON.parse(eventJson);
 
-  const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
-  const locations = JSON.parse(locationJson);
+  // const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
+  // const locations = JSON.parse(locationJson);
 
-  const opportunities = items.map((o) => {
-    const event = events.find((e) => e.eventId === o.eventId);
-    const location = locations.find((l) => l.locationId === o.locationId);
-    return {
-      ...o,
-      ...location,
-      eventTitle: event.eventTitle,
-      image: event.image,
-    };
-  });
+  // const opportunities = items.map((o) => {
+  //   const event = events.find((e) => e.eventId === o.eventId);
+  //   const location = locations.find((l) => l.locationId === o.locationId);
+  //   return {
+  //     ...o,
+  //     ...location,
+  //     eventTitle: event.eventTitle,
+  //     image: event.image,
+  //   };
+  // });
 
   const map = new Map();
   const nextOpportunities = [];
-  for (let i = 0; i < opportunities.length; i++) {
-    if (!map.get(opportunities[i].eventId)) {
-      nextOpportunities.push(opportunities[i]);
-      map.set(opportunities[i].eventId, true);
+  for (let i = 0; i < items.length; i++) {
+    if (!map.get(items[i].eventId)) {
+      nextOpportunities.push(items[i]);
+      map.set(items[i].eventId, true);
     }
   }
 

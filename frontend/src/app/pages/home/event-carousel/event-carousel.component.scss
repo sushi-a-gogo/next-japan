@@ -19,6 +19,7 @@
   touch-action: pan-x;
   will-change: scroll-position;
   overscroll-behavior-x: contain; /* Prevent overscrolling */
+  overscroll-behavior-y: auto;
   transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
 }
 .carousel-track::-webkit-scrollbar {

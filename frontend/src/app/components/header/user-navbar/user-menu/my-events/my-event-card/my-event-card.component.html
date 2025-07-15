@@ -7,15 +7,14 @@
   <main>
     <div class="location-address">
       <app-address-strip
-        [location]="event()"
+        [location]="event().location"
         [showAddress]="false"
         [showDirections]="true"
-        [notes]="event().locationNotes"
       ></app-address-strip>
     </div>
     <div>
       <app-opportunity-timestamp
-        [opportunity]="event()"
+        [opportunity]="event().opportunity"
       ></app-opportunity-timestamp>
     </div>
   </main>
@@ -23,6 +22,6 @@
 <div class="actions">
   <app-registration-status-label
     [class]="event().status"
-    [status]="event().status"
+    [status]="event().status!"
   />
 </div>

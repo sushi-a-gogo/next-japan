@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { EventService } from '@app/pages/event/event.service';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
@@ -11,5 +12,7 @@ import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp
   styleUrl: './event-opportunity.component.scss'
 })
 export class EventOpportunityComponent {
+  private eventService = inject(EventService);
   opportunity = input.required<EventOpportunity>();
+  location = computed(() => this.eventService.eventLocations().find((l) => l.locationId === this.opportunity().locationId));
 }

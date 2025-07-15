@@ -2,6 +2,7 @@ import { Component, DestroyRef, effect, ElementRef, inject, OnInit, output, sign
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { EventService } from '@app/pages/event/event.service';
 import { EventLocation } from '@app/pages/event/models/event-location.model';
 import { EventRegistration } from '@app/pages/event/models/event-registration.model';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -20,6 +21,7 @@ import { RegistrationLocationComponent } from './registration-location/registrat
   styleUrl: './registration-dialog.component.scss'
 })
 export class RegistrationDialogComponent implements OnInit {
+  private eventService = inject(EventService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
   private userProfileService = inject(UserProfileService);
@@ -47,24 +49,15 @@ export class RegistrationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.selected().forEach((opportunity) => {
-      const address = this.util.getEventDisplayAddress(opportunity);
-      let location = this.selectedLocations.find((l) => l.displayAddress === address);
+      let location = this.selectedLocations.find((l) => l.locationId === opportunity.locationId);
       if (location) {
         location.opportunities?.push(opportunity);
       } else {
-        location = {
-          locationId: opportunity.locationId,
-          locationName: opportunity.locationName,
-          locationNotes: opportunity.locationNotes,
-          //eventId: 0,
-          addressLine1: opportunity.addressLine1,
-          city: opportunity.city,
-          state: opportunity.state,
-          zip: opportunity.zip,
-          displayAddress: address,
-          opportunities: [opportunity],
-        };
-        this.selectedLocations.push(location);
+        location = this.eventService.eventLocations().find((l) => l.locationId === opportunity.locationId);
+        if (location) {
+          location!.opportunities = [opportunity];
+          this.selectedLocations.push(location);
+        }
       }
     });
   }
@@ -93,11 +86,26 @@ export class RegistrationDialogComponent implements OnInit {
   }
 
   private requestSelected$() {
-    const requests = this.selected();
+    const event = this.eventService.event();
+    if (!event) {
+      return of(false);
+    }
+
+    const requests: EventRegistration[] = this.selected().map((opportunity) => {
+      const location = this.eventService.eventLocations().find((l) => l.locationId === opportunity.locationId)!;
+      const registration = {
+        eventTitle: event.eventTitle,
+        image: event.image,
+        location,
+        opportunity
+      };
+      return registration;
+    });
     const userID = this.userProfileService.userProfile()!.userId;
+
     return this.registrationService.requestOpportunities$(requests, userID).pipe(
       switchMap((registrations) => {
-        const success = registrations.map((reg: EventRegistration) => requests.find((s) => s.opportunityId === reg.opportunityId)!);
+        const success = registrations.map((reg: EventRegistration) => requests.find((s) => s.opportunity.opportunityId === reg.opportunity.opportunityId)!);
         return of(success.length > 0);
       })
     );

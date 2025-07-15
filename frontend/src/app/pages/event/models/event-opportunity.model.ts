@@ -1,11 +1,8 @@
-import { AppImageData } from '@app/models/app-image-data.model';
 import { CalendarDate } from '@app/models/calendar-date.model';
-import { MapLocation } from '@app/models/map-location.model';
 
-export interface EventOpportunity extends CalendarDate, MapLocation {
+export interface EventOpportunity extends CalendarDate {
   opportunityId: number;
+  locationId: string;
   eventId: string;
-  eventTitle: string;
-  image: AppImageData,
   notes?: string;
 }

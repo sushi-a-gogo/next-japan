@@ -33,7 +33,7 @@ export class OpportunitySelectorComponent {
   });
 
   status = computed(() => {
-    const registration = this.registrationService.registrations().find((r) => r.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
+    const registration = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
     if (!registration) {
       return null;
     }

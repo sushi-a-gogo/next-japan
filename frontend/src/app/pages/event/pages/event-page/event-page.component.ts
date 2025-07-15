@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { EventService } from '@app/pages/event/event.service';
 import { DialogService } from '@app/services/dialog.service';
+import { EventOpportunityService } from '@app/services/event-opportunity.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
@@ -30,6 +31,7 @@ export class EventPageComponent implements OnChanges {
 
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
+  private opportunityService = inject(EventOpportunityService);
   private imageService = inject(ImageService);
 
   private destroyRef = inject(DestroyRef);
@@ -52,12 +54,16 @@ export class EventPageComponent implements OnChanges {
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
   ngOnChanges(changes: SimpleChanges): void {
+    const changed = changes['eventId'];
+    if (!changed) return;
+
     const id = this.eventId();
     this.loaded.set(false);
     const observables = {
       event: this.eventService.getEvent$(id),
       locations: this.eventService.getEventLocations$(id),
-      opportunities: this.eventService.getEventOpportunities$(id)
+      opportunities: this.eventService.getEventOpportunities$(id),
+      mongoOps: this.opportunityService.getEventOpportunities$(id)
     };
     forkJoin(observables)
       .pipe(catchError((e) => {

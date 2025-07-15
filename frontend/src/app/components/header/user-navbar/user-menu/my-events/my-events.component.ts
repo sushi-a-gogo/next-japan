@@ -29,6 +29,6 @@ export class MyEventsComponent {
   }
 
   private sortByDate(a: EventRegistration, b: EventRegistration) {
-    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+    return new Date(a.opportunity.startDate).getTime() - new Date(b.opportunity.startDate).getTime();
   }
 }

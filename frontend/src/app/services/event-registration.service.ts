@@ -16,9 +16,9 @@ export class EventRegistrationService {
   private id = 0;
 
 
-  requestOpportunities$(opportunities: EventOpportunity[], userId: number): Observable<EventRegistration[]> {
-    return from(opportunities).pipe(
-      concatMap((opportunity) => this.addRegistration$(opportunity, userId)),
+  requestOpportunities$(requests: EventRegistration[], userId: number): Observable<EventRegistration[]> {
+    return from(requests).pipe(
+      concatMap((request) => this.addRegistration$(request, userId)),
       toArray()
     );
   }
@@ -29,13 +29,13 @@ export class EventRegistrationService {
 
     const items = this.registrations().filter((r) => r.userId === userId);
     const conflicted = items.filter((s) => {
-      if (s.opportunityId !== opp.opportunityId) {
-        const startTime = new Date(s.startDate);
+      if (s.opportunity.opportunityId !== opp.opportunityId) {
+        const startTime = new Date(s.opportunity.startDate);
         if (startTime >= selectedStartTime && startTime < selectedEndTime) {
           return true;
         }
 
-        const endTime = new Date(s.endDate);
+        const endTime = new Date(s.opportunity.endDate);
         if (endTime > selectedStartTime && endTime <= selectedEndTime) {
           return true;
         }
@@ -47,11 +47,11 @@ export class EventRegistrationService {
     return conflicted.length > 0;
   }
 
-  private addRegistration$(opportunity: EventOpportunity, userId: number): Observable<EventRegistration> {
-    const registration: EventRegistration = {
-      ...opportunity,
+  private addRegistration$(registration: EventRegistration, userId: number): Observable<EventRegistration> {
+    const userRegistration: EventRegistration = {
+      ...registration,
       userId,
-      registrationId: ++this.id,
+      registrationId: `reg_${userId}_${++this.id}`,
       status: RegistrationStatus.Requested,
     }
 
@@ -59,9 +59,9 @@ export class EventRegistrationService {
     setTimeout(() => {
       this.registrationSignal.update((prev) =>
         prev.map((reg) => {
-          if (reg.registrationId === registration.registrationId) {
+          if (reg.registrationId === userRegistration.registrationId) {
             const newReg = {
-              ...reg,
+              ...userRegistration,
               status: RegistrationStatus.Registered
             };
 
@@ -73,9 +73,9 @@ export class EventRegistrationService {
       );
     }, delayMs);
 
-    return of(registration).pipe(delay(250), tap(() => {
-      this.registrationSignal.update((prev) => [...prev, registration]);
-      this.notificationService.sendRegistrationNotification(registration);
+    return of(userRegistration).pipe(delay(250), tap(() => {
+      this.registrationSignal.update((prev) => [...prev, userRegistration]);
+      this.notificationService.sendRegistrationNotification(userRegistration);
     }));
   }
 
