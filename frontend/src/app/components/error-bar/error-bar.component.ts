@@ -16,17 +16,18 @@ export class ErrorBarComponent {
     effect(() => {
       if (this.errorService.errorMessage()) {
         this.openSnackBar(this.errorService.errorMessage());
+        this.errorService.clearError()
       }
     });
   }
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'OK', {
-      duration: 10000,
+      duration: 8000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: 'error-bar'
-    }).afterDismissed().subscribe(() => this.errorService.clearError());
+    }).afterDismissed().subscribe();
   }
 
 }

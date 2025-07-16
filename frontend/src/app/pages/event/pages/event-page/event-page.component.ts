@@ -8,7 +8,7 @@ import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { catchError, forkJoin, of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -57,18 +57,12 @@ export class EventPageComponent implements OnChanges {
 
     const id = this.eventId();
     this.loaded.set(false);
-    const observables = {
-      event: this.eventService.getEvent$(id),
-      locations: this.eventService.getEventLocations$(id),
-      opportunities: this.eventService.getEventOpportunities$(id),
-    };
-    forkJoin(observables)
+    this.eventService.get$(id)
       .pipe(catchError((e) => {
         this.hasError.set(true)
         return of(null);
       }), takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: (res) => {
-          const event = res?.event;
+        next: (event) => {
           const eventTitle = event?.eventTitle || 'Event Not Found';
           const description = event?.description || 'Event Not Found';
 

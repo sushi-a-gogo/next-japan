@@ -3,8 +3,8 @@ import { MapLocation } from '@app/models/map-location.model';
 import { EventsService } from '@app/services/events.service';
 import { LocationService } from '@app/services/location.service';
 import { OpportunityService } from '@app/services/opportunity.service';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { EventInformation } from '../../models/event-information.model';
 import { EventOpportunity } from '../../models/event-opportunity.model';
 
@@ -23,19 +23,42 @@ export class EventService {
   private locationService = inject(LocationService);
   private opportunityService = inject(OpportunityService);
 
-  getEvent$(eventId: string): Observable<EventInformation | null> {
-    return this.eventsService.getEvent$(eventId).pipe(
-      tap((event) => this.eventSignal.set(event))
+  get$(eventId: string): Observable<EventInformation | null> {
+    let event: EventInformation | null = null;
+    const observables = {
+      locations: this.getEventLocations$(eventId),
+      opportunities: this.getEventOpportunities$(eventId),
+    };
+
+    return this.getEvent$(eventId).pipe(
+      switchMap((ev) => {
+        event = ev;
+        return event ? forkJoin(observables) : of(null);
+      }),
+      switchMap(() => of(event))
     );
   }
 
-  getEventLocations$(eventId: string): Observable<MapLocation[]> {
+  private getEvent$(eventId: string): Observable<EventInformation | null> {
+    this.eventSignal.set(null);
+    if (!eventId) {
+      return of(null);
+    }
+
+    return this.eventsService.getEvent$(eventId).pipe(
+      tap((event) => this.eventSignal.set(event))
+    )
+  }
+
+  private getEventLocations$(eventId: string): Observable<MapLocation[]> {
+    this.eventLocationsSignal.set([]);
     return this.locationService.getEventLocations$(eventId).pipe(
       tap((locations) => this.eventLocationsSignal.set(locations))
     );
   }
 
-  getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
+  private getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
+    this.eventOpportunitiesSignal.set([]);
     return this.opportunityService.getEventOpportunities$(eventId).pipe(
       tap((opportunities) => this.eventOpportunitiesSignal.set(opportunities))
     );
