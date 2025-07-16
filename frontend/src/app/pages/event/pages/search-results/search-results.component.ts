@@ -5,7 +5,7 @@ import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { EventSearchService } from '@app/services/event-search.service';
 import { MetaService } from '@app/services/meta.service';
-import { OrganizationService } from '@app/services/organization.service';
+import { OpportunityService } from '@app/services/opportunity.service';
 import { PageLoadSpinnerComponent } from "@shared/page-load-spinner/page-load-spinner.component";
 import { forkJoin, of } from 'rxjs';
 import { SearchCardComponent } from "./search-card/search-card.component";
@@ -24,7 +24,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   private title = inject(Title);
   private meta = inject(MetaService);
   private eventSearchService = inject(EventSearchService);
-  private organizationService = inject(OrganizationService);
+  private opportunityService = inject(OpportunityService);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
@@ -46,8 +46,8 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
     const query = this.q() && this.q()!.length > 2 ? this.q() : '';
     if (query) {
-      observables.events = this.eventSearchService.searchAllEvents$(query);
-      observables.opportunities = this.organizationService.getNextOpportunities$();
+      observables.events = this.eventSearchService.searchEvents$(query);
+      observables.opportunities = this.opportunityService.getOpportunities$();
     }
 
     forkJoin(observables).pipe(
@@ -56,7 +56,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
       next: (res) => {
         const events = res.events;
         events.forEach((event) => {
-          const opportunities = res.opportunities.sort(this.sortByDate).filter((o) => o.eventId === event.eventId);
+          const opportunities = res.opportunities.filter((o) => o.eventId === event.eventId).sort(this.sortByDate);
           event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
         });
         this.events.set(events);

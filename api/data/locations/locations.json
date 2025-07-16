@@ -80,6 +80,16 @@
     "longitude": 139.631385
   },
   {
+    "locationId": "next-loc-yokohama-2",
+    "locationName": "Cup Noodles Museum",
+    "addressLine1": "2 Chome-3-4 Shinko",
+    "city": "Yokohama",
+    "state": "Kanagawa",
+    "zip": "231-0001",
+    "latitude": 35.457523,
+    "longitude": 139.636001
+  },
+  {
     "locationId": "next-loc-himeji-1",
     "locationName": "Koko-en Garden",
     "addressLine1": "68 Honmachi",
