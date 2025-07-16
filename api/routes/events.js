@@ -2,6 +2,7 @@ import axios from "axios";
 import express from "express";
 import FormData from "form-data";
 
+import coordinator from "../lib/coordinators.js";
 import Event from "../models/Event.js"; // Adjust path
 
 const router = express.Router();
@@ -14,20 +15,18 @@ router.get("/", async (req, res) => {
       eventId: event._id.toString(), // Use _id as eventId
       eventTitle: event.eventTitle,
       description: event.description,
-      fullDescription: event.fullDescription,
       image: {
         id: event.imageId,
         cloudflareImageId: event.cloudflareImageId,
         width: event.imageWidth,
         height: event.imageHeight,
       },
-      eventCoordinators: [],
       aiProvider: event.aiProvider,
       createdAt: event.createdAt,
     }));
     return res.status(200).json({
       success: true,
-      data: formattedEvents,
+      events: formattedEvents,
     });
   } catch (error) {
     console.error("Get events error:", error.message || error);
@@ -53,7 +52,7 @@ router.get("/search", async (req, res) => {
         width: event.imageWidth,
         height: event.imageHeight,
       },
-      eventCoordinators: [],
+      eventCoordinators: event.eventCoordinators,
       aiProvider: event.aiProvider,
       createdAt: event.createdAt,
     }));
@@ -91,6 +90,7 @@ router.post("/save", async (req, res) => {
       fullDescription,
       image,
       imageUrl,
+      eventCoordinators,
       aiProvider,
       prompt,
     } = req.body;
@@ -142,6 +142,17 @@ router.post("/save", async (req, res) => {
       textPrompt: prompt.text,
       imagePrompt: prompt.image,
     });
+
+    // Ensure eventCoordinators is an array; default to head coordinator if not provided
+    if (!eventCoordinators || eventCoordinators.length === 0) {
+      event.eventCoordinators = [coordinator.getCoordinatorDetails("coord1")];
+    } else {
+      // Validate and populate coordinator details
+      event.eventCoordinators = eventCoordinators.map((coord) => {
+        return coordinator.getCoordinatorDetails(coord.eventCoordinatorId);
+      });
+    }
+
     const savedEvent = await event.save();
 
     return res.status(201).json({
@@ -157,6 +168,7 @@ router.post("/save", async (req, res) => {
           width: savedEvent.imageWidth,
           height: savedEvent.imageHeight,
         },
+        eventCoordinators: savedEvent.eventCoordinators,
         imageUrl: deliveryUrl,
         aiProvider,
         prompt: { text: savedEvent.textPrompt, image: savedEvent.imagePrompt },
@@ -183,7 +195,7 @@ router.get("/:id", async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      data: {
+      event: {
         eventId: event._id.toString(), // Use _id as eventId
         eventTitle: event.eventTitle,
         description: event.description,
@@ -194,7 +206,9 @@ router.get("/:id", async (req, res) => {
           width: event.imageWidth,
           height: event.imageHeight,
         },
-        eventCoordinators: [],
+        eventCoordinators: event.eventCoordinators.map((c) =>
+          mapCoordinator(c)
+        ),
         aiProvider: event.aiProvider,
         createdAt: event.createdAt,
       },
@@ -207,5 +221,20 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+
+function mapCoordinator(coordinator) {
+  return {
+    eventCoordinatorId: coordinator.eventCoordinatorId,
+    firstName: coordinator.firstName,
+    lastName: coordinator.lastName,
+    email: coordinator.email,
+    image: {
+      id: coordinator.imageId,
+      cloudflareImageId: coordinator.cloudflareImageId,
+      width: coordinator.imageWidth,
+      height: coordinator.imageHeight,
+    },
+  };
+}
 
 export default router;

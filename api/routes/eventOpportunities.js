@@ -29,10 +29,10 @@ router.get("/:opportunityId", async (req, res) => {
 // GET event opportunities
 router.get("/:eventId/opportunities", async (req, res) => {
   try {
-    const opportunities = await EventOpportunity.find({
+    const eventOpportunities = await EventOpportunity.find({
       eventId: req.params.eventId,
     }); //.populate("eventId");
-    res.json({ opportunities });
+    res.json({ eventOpportunities });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

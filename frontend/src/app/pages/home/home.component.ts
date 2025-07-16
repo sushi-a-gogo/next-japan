@@ -9,6 +9,7 @@ import { OrganizationInformation } from '@app/models/organization-information.mo
 import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
+import { OpportunityService } from '@app/services/opportunity.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { forkJoin, map, of, switchMap } from 'rxjs';
@@ -27,8 +28,9 @@ export class HomeComponent implements OnInit {
   private meta = inject(MetaService);
   private destroyRef = inject(DestroyRef);
 
-  private eventsService = inject(EventsService);
   private imageService = inject(ImageService);
+  private eventsService = inject(EventsService);
+  private opportunityService = inject(OpportunityService);
   private organizationService = inject(OrganizationService);
 
   private aiImage: AppImageData = {
@@ -92,14 +94,13 @@ export class HomeComponent implements OnInit {
 
   private fetchEvents$() {
     const observables = {
-      events: this.organizationService.getEvents$(),
-      savedEvents: this.eventsService.get$(),
-      opportunities: this.organizationService.getNextOpportunities$(),
+      events: this.eventsService.get$(),
+      opportunities: this.opportunityService.getOpportunities$(),
     };
 
     return forkJoin(observables).pipe(
       map((res) => {
-        const events = [...res.events, ...res.savedEvents];
+        const events = res.events;
         events.forEach((event) => {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)

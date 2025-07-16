@@ -2,13 +2,12 @@ import { Component, DestroyRef, effect, ElementRef, inject, OnInit, output, sign
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { EventService } from '@app/pages/event/event.service';
 import { EventLocation } from '@app/pages/event/models/event-location.model';
 import { EventRegistration } from '@app/pages/event/models/event-registration.model';
+import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { UtilService } from '@app/services/util.service';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { of, switchMap } from 'rxjs';
@@ -25,7 +24,6 @@ export class RegistrationDialogComponent implements OnInit {
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
   private userProfileService = inject(UserProfileService);
-  private util = inject(UtilService);
   private destroyRef = inject(DestroyRef);
 
   close = output<boolean>();

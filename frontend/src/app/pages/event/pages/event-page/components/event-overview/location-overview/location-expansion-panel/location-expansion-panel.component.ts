@@ -3,8 +3,8 @@ import { Component, computed, inject, input, OnInit, signal, ViewChild, viewChil
 import { MatRipple, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 
-import { EventService } from '@app/pages/event/event.service';
 import { EventLocation } from '@app/pages/event/models/event-location.model';
+import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";

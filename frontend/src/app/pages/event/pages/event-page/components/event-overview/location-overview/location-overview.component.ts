@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EventService } from '@app/pages/event/event.service';
+import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { LocationExpansionPanelComponent } from "./location-expansion-panel/location-expansion-panel.component";
 
 @Component({
