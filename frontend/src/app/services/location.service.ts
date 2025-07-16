@@ -26,8 +26,8 @@ export class LocationService {
   }
 
   getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    if (this.cache.existsInCache('eventLocations')) {
-      const cached = this.cache.get('eventLocations');
+    if (this.cache.existsInCache(eventId)) {
+      const cached = this.cache.get(eventId);
       if (cached) {
         console.log("*** Event locations retrieved from cache.");
         return cached;
@@ -37,7 +37,7 @@ export class LocationService {
     const obs$ = this.fetchEventLocations$(eventId).pipe(
       shareReplay(1)
     );
-    this.cache.set('eventLocations', obs$);
+    this.cache.set(eventId, obs$);
 
     return obs$;
   }

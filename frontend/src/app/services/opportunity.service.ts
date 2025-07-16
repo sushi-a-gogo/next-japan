@@ -35,8 +35,8 @@ export class OpportunityService {
   }
 
   getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
-    if (this.cache.existsInCache('eventOpportunities')) {
-      const cached = this.cache.get('eventOpportunities');
+    if (this.cache.existsInCache(eventId)) {
+      const cached = this.cache.get(eventId);
       if (cached) {
         console.log("*** Event Opportunities retrieved from cache.");
         return cached;
@@ -46,7 +46,7 @@ export class OpportunityService {
     const obs$ = this.fetchEventOpportunities$(eventId).pipe(
       shareReplay(1)
     );
-    this.cache.set('eventOpportunities', obs$);
+    this.cache.set(eventId, obs$);
 
     return obs$;
   }
