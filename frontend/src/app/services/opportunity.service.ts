@@ -13,7 +13,7 @@ import { ErrorService } from './error.service';
 @Injectable({ providedIn: 'root' })
 export class OpportunityService {
   private http = inject(HttpClient);
-  private cache = new HttpClientCache<EventOpportunity[]>();
+  private cache = new HttpClientCache<EventOpportunity[]>(3);
   private errorService = inject(ErrorService);
   private apiUrl = `${environment.apiUrl}/api/event-opportunities`;
 
@@ -35,11 +35,20 @@ export class OpportunityService {
   }
 
   getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
-    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUrl}/${eventId}/opportunities`).pipe(
-      map((resp) => resp.eventOpportunities),
-      debug(RxJsLoggingLevel.DEBUG, "getEventOpportunities"),
-      catchError((e) => this.errorService.handleError(e, 'Error getting event opportunities', true))
+    if (this.cache.existsInCache('eventOpportunities')) {
+      const cached = this.cache.get('eventOpportunities');
+      if (cached) {
+        console.log("*** Event Opportunities retrieved from cache.");
+        return cached;
+      }
+    }
+
+    const obs$ = this.fetchEventOpportunities$(eventId).pipe(
+      shareReplay(1)
     );
+    this.cache.set('eventOpportunities', obs$);
+
+    return obs$;
   }
 
   getOpportunity$(opportunityId: number): Observable<EventOpportunity> {
@@ -55,6 +64,14 @@ export class OpportunityService {
       map((resp) => resp.opportunities),
       debug(RxJsLoggingLevel.DEBUG, "getOpportunities"),
       catchError((e) => this.errorService.handleError(e, 'Error getting opportunities', true))
+    );
+  }
+
+  private fetchEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
+    return this.http.get<{ eventOpportunities: EventOpportunity[] }>(`${this.apiUrl}/${eventId}/opportunities`).pipe(
+      map((resp) => resp.eventOpportunities),
+      debug(RxJsLoggingLevel.DEBUG, "getEventOpportunities"),
+      catchError((e) => this.errorService.handleError(e, 'Error getting event opportunities', true))
     );
   }
 }
