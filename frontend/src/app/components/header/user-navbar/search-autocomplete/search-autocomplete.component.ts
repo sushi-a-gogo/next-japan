@@ -63,7 +63,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
       filter(() => !this.selectedValue),
       switchMap(query => {
         if (query && query?.length > 2) {
-          return this.eventSearchService.searchAllEvents$(query);
+          return this.eventSearchService.searchEvents$(query);
         }
         return of([]);
       }),

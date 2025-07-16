@@ -1,16 +1,12 @@
 @for(coordinator of eventCoordinators(); track coordinator.eventCoordinatorId) {
-<div class="coordinator-row">
+<div class="flex-row">
+  <app-avatar [avatar]="coordinator" [size]="64"></app-avatar>
   <div>
-    <div class="profile-image-container">
-      <app-avatar [avatar]="coordinator" [size]="64"></app-avatar>
-    </div>
-  </div>
-  <div class="coordinator-column">
-    <span class="break-word">
+    <div class="break-word">
       {{ coordinator.firstName }} {{ coordinator.lastName }}
-    </span>
+    </div>
     <a
-      class="email link-text"
+      class="link-text"
       [href]="'mailto: ' + coordinator.email"
       [title]="coordinator.email"
     >

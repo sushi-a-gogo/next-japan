@@ -1,13 +1,15 @@
 <div class="opportunity-card">
   <header class="title-text break-word">
-    {{ opportunity().locationName }}
+    {{ location()?.locationName }}
   </header>
   <main>
+    @if(location()) {
     <app-address-strip
-      [location]="opportunity()"
+      [location]="location()!"
       [showDirections]="true"
-      [notes]="opportunity().locationNotes"
+      [notes]="location()?.locationNotes"
     ></app-address-strip>
+    }
     <app-opportunity-timestamp
       [opportunity]="opportunity()"
     ></app-opportunity-timestamp>

@@ -16,32 +16,11 @@ async function readOpportunities(eventId) {
   const items = JSON.parse(opportunityJson).filter(
     (item) => item.eventId === eventId
   );
-  console.log(
-    `Found ${items.length} opportunities matching event '${eventId}'`
+  items.sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
   );
 
-  const eventJson = await fs.readFile(EVENTS_JSON, "utf-8");
-  const events = JSON.parse(eventJson);
-
-  const locationJson = await fs.readFile(LOCATIONS_JSON, "utf-8");
-  const locations = JSON.parse(locationJson);
-
-  const opportunities = items.map((o) => {
-    const event = events.find((e) => e.eventId === o.eventId);
-    const location = locations.find((l) => l.locationId === o.locationId);
-    return {
-      ...o,
-      ...location,
-      eventTitle: event.eventTitle,
-      image: event.image,
-    };
-  });
-
-  opportunities.sort((a, b) =>
-    new Date(a.startDate) < new Date(b.startDate) ? -1 : 1
-  );
-
-  return opportunities;
+  return items;
 }
 
 router.get("/search", async (req, res) => {

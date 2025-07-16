@@ -3,7 +3,7 @@ import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID,
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
-import { EventService } from '@app/pages/event/event.service';
+import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -52,12 +52,15 @@ export class EventPageComponent implements OnChanges {
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
   ngOnChanges(changes: SimpleChanges): void {
+    const changed = changes['eventId'];
+    if (!changed) return;
+
     const id = this.eventId();
     this.loaded.set(false);
     const observables = {
       event: this.eventService.getEvent$(id),
       locations: this.eventService.getEventLocations$(id),
-      opportunities: this.eventService.getEventOpportunities$(id)
+      opportunities: this.eventService.getEventOpportunities$(id),
     };
     forkJoin(observables)
       .pipe(catchError((e) => {

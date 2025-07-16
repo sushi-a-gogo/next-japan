@@ -11,63 +11,13 @@
   gap: 24px;
 }
 
-.coordinator-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-}
-
-.coordinator-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 3px;
-}
-
-.profile-image-container {
-  height: 64px;
-  width: 64px;
-  border-radius: 50%;
-  border: 1px solid map.get(var.$colors, default-gray);
-
-  img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    vertical-align: top;
-  }
-}
-
-.no-avatar_container {
-  height: 62px;
-  width: 62px;
-  text-transform: uppercase;
-  border-radius: 50%;
-  text-align: center;
-  background-color: map.get(var.$colors, inactive);
-
-  .mat-icon {
-    height: 42px;
-    width: 42px;
-    font-size: 36px;
-    line-height: 1.75;
-    color: white;
-  }
-}
-
-a.email {
-  display: inline-block;
+a {
   text-decoration: none;
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
 
   &:hover {
-    text-decoration: underline 1px;
-    text-underline-offset: 5px;
+    text-decoration: underline;
   }
 }

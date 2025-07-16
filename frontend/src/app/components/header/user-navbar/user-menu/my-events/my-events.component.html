@@ -17,7 +17,7 @@
       You haven't registered for any events yet.<br />
       Start planning your next adventure and your events will appear here!
     </div>
-    } @else { @for(event of events(); track event.startDate) {
+    } @else { @for(event of events(); track event.registrationId) {
     <app-my-event-card [event]="event" />
     } }
   </main>

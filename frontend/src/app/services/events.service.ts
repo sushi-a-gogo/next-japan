@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { HttpClientCache } from '@app/cache/http-client-cache';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { EventData } from '@app/pages/event/models/event-data.model';
 import { EventInformation } from '@app/pages/event/models/event-information.model';
 import { environment } from '@environments/environment';
 import { catchError, map, Observable, shareReplay, tap } from 'rxjs';
@@ -14,34 +16,31 @@ const CACHE_DURATION_MS = 1000 * 60 * 5; // 5 minutes in milliseconds
 })
 export class EventsService {
   private http = inject(HttpClient);
-  private cache = new Map<string, Observable<EventInformation[]>>();
-  private cacheTimes = new Map<string, number>();
+  private cache = new HttpClientCache<EventData[]>();
   private errorService = inject(ErrorService);
   private eventsUrl = `${environment.apiUrl}/api/events`;
 
-  constructor() { }
-
-  get$(): Observable<EventInformation[]> {
-    if (this.existsInCache('events')) {
+  get$(): Observable<EventData[]> {
+    if (this.cache.existsInCache('events')) {
       const cached = this.cache.get('events');
       if (cached) {
+        console.log("*** Events retrieved from cache.");
         return cached;
       }
     }
 
-    const obs$ = this.getEvents$().pipe(
+    const obs$ = this.fetchEvents$().pipe(
       shareReplay(1)
     );
     this.cache.set('events', obs$);
-    this.cacheTimes.set('events', new Date().getTime());
 
     return obs$;
   }
 
   getEvent$(eventId: string): Observable<EventInformation> {
-    return this.http.get<EventInformation>(`${this.eventsUrl}/${eventId}`).pipe(
+    return this.http.get<{ event: EventInformation }>(`${this.eventsUrl}/${eventId}`).pipe(
+      map((resp) => resp.event as EventInformation),
       debug(RxJsLoggingLevel.DEBUG, "getEvent"),
-      map((resp) => resp.data as EventInformation),
       catchError((e) => this.errorService.handleError(e, 'Error getting event', true))
     );
   }
@@ -54,24 +53,11 @@ export class EventsService {
     );
   }
 
-  private getEvents$(): Observable<EventInformation[]> {
-    return this.http.get<EventInformation[]>(`${this.eventsUrl}`).pipe(
+  private fetchEvents$(): Observable<EventData[]> {
+    return this.http.get<{ events: EventData[] }>(`${this.eventsUrl}`).pipe(
+      map((resp) => resp.events),
       debug(RxJsLoggingLevel.DEBUG, "getEvents"),
-      map((res) => res.data),
       catchError((e) => this.errorService.handleError(e, 'Error getting events', true))
     );
-  }
-
-  private existsInCache(key: string) {
-    const now = new Date().getTime();
-    const cacheTime = this.cacheTimes.get(key) ?? 0;
-    const ageOfCacheInMilliseconds = now - cacheTime;
-    if (ageOfCacheInMilliseconds > CACHE_DURATION_MS) {
-      this.cache.delete(key);
-      this.cacheTimes.delete(key);
-      return false;
-    }
-
-    return this.cache.has(key);
   }
 }

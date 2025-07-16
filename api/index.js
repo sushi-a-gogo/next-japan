@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import aiRouter from "./routes/ai-integration.js";
 import eventRouter from "./routes/event.js";
+import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
 import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
@@ -45,6 +46,7 @@ connectDB().catch((err) => console.error("MongoDB connection error:", err));
 app.use("/api/organization", organizationRouter); // JSON app data
 app.use("/api/event", eventRouter); // JSON events
 app.use("/api/events", eventsRouter); // MongoDB events
+app.use("/api/event-locations", eventLocationsRouter); // MongoDB event locations
 app.use("/api/event-opportunities", eventOpportunitiesRouter); // MongoDB event opportunities
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);

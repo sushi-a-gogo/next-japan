@@ -3,307 +3,127 @@
     "eventId": "next-1",
     "eventTitle": "Mount Fuji Retreat",
     "description": "Explore the beauty of Mount Fuji and enjoy an evening of fun and food with friends and family! We will have a bonfire, games, and more.",
-    "image": {
-      "id": "fuji-snow.png",
-      "cloudflareImageId": "78e603ed-b1ab-40db-c402-c902d939d900",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "fuji-snow.png",
+    "cloudflareImageId": "78e603ed-b1ab-40db-c402-c902d939d900",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Join us for a special event at the base of Mount Fuji! Experience the breathtaking scenery of Japan's most iconic mountain while connecting with friends, family, and fellow adventurers.\n\nThe event begins with a warm welcome and refreshments featuring local specialties. Settle in and enjoy the stunning views of Mount Fuji as you prepare for a day filled with fun and engaging activities.\n\nStart the morning with an optional group yoga session overlooking the mountain, followed by a guided nature walk through nearby scenic trails. Our expert guides will share fascinating insights into the region's unique flora, fauna, and geological history.\n\nAfter the walk, participate in hands-on workshops such as Japanese calligraphy, origami, or a cooking demonstration where you'll learn to prepare authentic dishes using fresh, local ingredients. For those seeking adventure, try mountain biking or canoeing on a nearby lake.\n\nAs the event draws to a close, gather around a cozy bonfire for storytelling, live acoustic music, and marshmallow roasting. Enjoy a delicious meal featuring a rotating menu of Japanese and international cuisine, with vegetarian and vegan options available.\n\nWhether you're looking to relax in nature, make new friends, or try something new, this Mount Fuji event offers something for everyone. Our friendly staff and experienced coordinators are dedicated to making your experience safe, enjoyable, and memorable.\n\nSpace is limited, so sign up today to reserve your spot at this unique Mount Fuji gathering! Don't miss this opportunity to create lasting memories in one of Japan's most beautiful and culturally rich locations.",
-    "eventCoordinators": [
-      {
-        "eventId": "next-1",
-        "eventCoordinatorId": 11,
-        "firstName": "Mya",
-        "lastName": "Ashford",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-2.png",
-          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-1",
-        "eventCoordinatorId": 22,
-        "firstName": "Minato",
-        "lastName": "Takumi",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-3.png",
-          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
-          "width": 512,
-          "height": 842
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-2",
     "eventTitle": "Explore Kinkaku-ji",
     "description": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family! We will have a bonfire, games, and more.",
-    "image": {
-      "id": "golden-sunset.png",
-      "cloudflareImageId": "b2077feb-61be-4b33-4243-7c7d9d54a800",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "golden-sunset.png",
+    "cloudflareImageId": "b2077feb-61be-4b33-4243-7c7d9d54a800",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Discover the beauty of Kinkaku-ji, the Golden Pavilion, and enjoy a day of fun and food with friends and family!\n\nJoin us for an immersive experience at one of Japan’s most iconic landmarks. The day begins with a guided tour of Kinkaku-ji, where you’ll learn about its rich history, stunning architecture, and the legends surrounding this UNESCO World Heritage Site. Marvel at the shimmering gold leaf exterior reflecting in the tranquil pond, and stroll through the beautifully landscaped gardens filled with seasonal flowers and ancient trees.\n\nAfter the tour, participate in a traditional Japanese tea ceremony in a nearby teahouse, where you can savor matcha and local sweets while enjoying views of the pavilion. For those interested in culture, we offer hands-on workshops in calligraphy and origami, as well as a kimono dress-up experience with photo opportunities.\n\nLunch will feature a variety of Japanese dishes, including vegetarian and vegan options, served picnic-style in the gardens. In the afternoon, join group games and scavenger hunts designed for all ages, or relax by the South Pond and take in the peaceful scenery.\n\nAs evening approaches, gather around a bonfire for storytelling, live music, and marshmallow roasting. Our event coordinators will share fascinating tales about Kyoto’s history and the significance of Kinkaku-ji. The day concludes with a lantern release, symbolizing good wishes and new friendships.\n\nAll activities are family-friendly and suitable for both locals and visitors. Don’t miss this unique opportunity to connect with others, learn about Japanese culture, and create lasting memories at the Golden Pavilion!",
-    "eventCoordinators": [
-      {
-        "eventId": "next-2",
-        "eventCoordinatorId": 33,
-        "firstName": "Sunny",
-        "lastName": "Banks",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-4.png",
-          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-2",
-        "eventCoordinatorId": 22,
-        "firstName": "Mya",
-        "lastName": "Ashford",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-2.png",
-          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-3",
     "eventTitle": "Kikugahama Beach Cookout",
     "description": "Enjoy a night of fun and food with friends and family on the sandy dunes of beautiful Kikugahama Beach! We will have a bonfire, games, and more.",
-    "image": {
-      "id": "cookout.png",
-      "cloudflareImageId": "fe32d590-4808-4a11-f04f-0e33d19f8100",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "cookout.png",
+    "cloudflareImageId": "fe32d590-4808-4a11-f04f-0e33d19f8100",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Join us for an unforgettable evening at the Cookout on the stunning sands of Kikugahama Beach! This event is perfect for families, friends, and anyone looking to enjoy the great outdoors in a fun and welcoming atmosphere.\n\nAs the sun sets over the Sea of Japan, gather around a roaring bonfire and savor delicious campfire-cooked meals, including freshly grilled seafood, local vegetables, and classic s'mores. Our team will provide all the necessary equipment and ingredients, so all you need to bring is your enthusiasm and appetite!\n\nThroughout the night, enjoy a variety of beach games and activities suitable for all ages, such as beach volleyball, sandcastle building contests, and scavenger hunts. There will also be live acoustic music performances by local artists, creating the perfect backdrop for a relaxing and memorable evening.\n\nFor those interested in learning new skills, we will host interactive workshops on outdoor cooking techniques, fire safety, and sustainable beach practices. Our friendly event coordinators will be on hand to ensure everyone has a safe and enjoyable experience.\n\nSpace is limited to maintain a cozy and intimate setting, so be sure to sign up early. Don’t miss this chance to connect with your community, make new friends, and create lasting memories under the stars at Kikugahama Beach!\n\nEvent Highlights:\n- Bonfire and campfire-cooked dinner\n- Beach games and contests\n- Live music performances\n- Outdoor cooking and safety workshops\n- Family-friendly activities\n- Beautiful seaside location\n\nWhat to Bring:\n- Comfortable beachwear and a light jacket\n- Reusable water bottle\n- Blanket or beach chair (optional)\n\nWe look forward to seeing you at the Campfire Cookout!\n\nFor questions or special accommodations, please contact our event coordinators.\n",
-    "eventCoordinators": [
-      {
-        "eventId": "next-3",
-        "eventCoordinatorId": 11,
-        "firstName": "Mya",
-        "lastName": "Ashford",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-2.png",
-          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-3",
-        "eventCoordinatorId": 33,
-        "firstName": "Minato",
-        "lastName": "Takumi",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-3.png",
-          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-3",
-        "eventCoordinatorId": 22,
-        "firstName": "Luna",
-        "lastName": "Livegood",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "avatar_3.jpg",
-          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-6",
     "eventTitle": "Himeji Castle Magic",
     "description": "Experience a magical day at Himeji Castle, exploring its historic halls and beautiful gardens together.",
-    "image": {
-      "id": "himeji-lights.png",
-      "cloudflareImageId": "17caec54-dd17-42b2-5196-dfe25be94c00",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "himeji-lights.png",
+    "cloudflareImageId": "17caec54-dd17-42b2-5196-dfe25be94c00",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Step back in time with your family to the ethereal beauty of Himeji Castle for a day-long event that whispers tales from centuries past. As the morning sun gently bathes the pristine white walls of this UNESCO World Heritage Site, embark on a serene journey through history. The castle grounds, cloaked in the amber hues of autumn, create a perfect backdrop for treasured family moments.\n\nBegin your day wandering the tranquil gardens, where cherry blossom trees cradle memories of samurai and empresses. Participate in a traditional tea ceremony that invites you to savor the delicate flavors of matcha while reflecting on the elegance of yesteryears. As you explore the labyrinthine corridors and the towering keeps, tales of courage and honor echo softly, igniting imaginations both young and old.\n\nAt midday, enjoy a family picnic under ancient wisteria vines, where the gentle rustle of leaves tells stories of generations gone by. As the day wanes, gather for a lantern-lit walk around the moat, the castle’s reflection dancing serenely on the water’s surface. Let this day at Himeji Castle be a cherished chapter in your family's book of memories, a nostalgic embrace of Japan's timeless serenity.",
-    "eventCoordinators": [
-      {
-        "eventId": "next-6",
-        "eventCoordinatorId": 33,
-        "firstName": "Minato",
-        "lastName": "Takumi",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-3.png",
-          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-6",
-        "eventCoordinatorId": 11,
-        "firstName": "Mya",
-        "lastName": "Ashford",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-2.png",
-          "cloudflareImageId": "cf68e1ff-447c-487f-60be-d0e3abfdc800",
-          "width": 255,
-          "height": 255
-        }
-      },
-      {
-        "eventId": "next-6",
-        "eventCoordinatorId": 22,
-        "firstName": "Sunny",
-        "lastName": "Banks",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-4.png",
-          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-7",
     "eventTitle": "Yokohama Discovery",
     "description": "Discover Yokohama with your family, exploring tranquil gardens, fun museums, and scenic waterfronts for a day of adventure and relaxation.",
-    "image": {
-      "id": "yokohama.png",
-      "cloudflareImageId": "097a4264-d8ca-4056-9d5d-c34c731d6600",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "yokohama.png",
+    "cloudflareImageId": "097a4264-d8ca-4056-9d5d-c34c731d6600",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Embark on a day of serene discovery with your family in the enchanting city of Yokohama. Begin your journey at the tranquil Sankeien Garden, where winding paths lead you through lush landscapes and historic buildings, each whispering tales of Japan's rich past. As the morning sun casts gentle rays over lily ponds, let your curiosity guide you.\n\nNext, head to the Yokohama Anpanman Children's Museum, where little ones can giggle and explore a world of imagination. Watch as their eyes light up with wonder, sparking their own stories of adventure.\n\nPause for a peaceful lunch at a local teahouse in the charming Motomachi district. Savor delicate flavors while the gentle hum of the city provides a calming backdrop.\n\nIn the afternoon, visit the Cup Noodles Museum, where creativity brews. Engage in hands-on workshops, crafting your unique instant noodle creation—a delightful fusion of learning and play.\n\nAs the day winds down, stroll along the illuminated Minato Mirai waterfront. The soft glow of the Ferris wheel reflects on the water, wrapping your family in a warm embrace of tranquility and curiosity. Yokohama awaits, a serene tapestry of exploration for all ages.",
-    "eventCoordinators": [
-      {
-        "eventId": "next-7",
-        "eventCoordinatorId": 33,
-        "firstName": "Luna",
-        "lastName": "Livegood",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "avatar_3.jpg",
-          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-8",
     "eventTitle": "Kyoto Under the Stars",
     "description": "Embark on a magical day in Kyoto, exploring ancient shrines, bamboo groves, and ending with a starlit family night of wonder.",
-    "image": {
-      "id": "kyoto-night.png",
-      "cloudflareImageId": "0cea6dbc-1c51-4665-e367-465b5b009200",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "kyoto-night.png",
+    "cloudflareImageId": "0cea6dbc-1c51-4665-e367-465b5b009200",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Embark on a magical day in Kyoto, where the wonders of the ancient city unfold with curious charm, culminating in a starlit night like no other. Begin your journey at the iconic Fushimi Inari Shrine, where thousands of vermilion torii gates lead you into a world of mystery and history. Wander through the enchanting Arashiyama Bamboo Grove, where whispers of the past beckon you deeper into its emerald embrace.\n\nAs the sun dips below the horizon, gather your family and head to the serene Kiyomizu-dera Temple. Here, the night truly begins as the temple illuminates in a breathtaking spectacle, casting golden reflections onto the surrounding cherry trees. This sight alone is enough to leave you spellbound.\n\nBut the true highlight awaits at the outskirts of the city—an exclusive stargazing event in the tranquil hills of Kyoto. Lay back on plush cushions and gaze upwards as the night sky unfolds its celestial tapestry. With a telescope at hand, let the children discover constellations while you sip on warm matcha, the gentle night air filled with laughter and awe. In this moment, under Kyoto's starry canopy, create family memories that shimmer for a lifetime.\n\n",
-    "eventCoordinators": [
-      {
-        "eventId": "next-8",
-        "eventCoordinatorId": 33,
-        "firstName": "Sunny",
-        "lastName": "Banks",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-4.png",
-          "cloudflareImageId": "7e9d73bd-e8d8-4ef9-c0f1-f446e80cb000",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-9",
     "eventTitle": "Tower Records Deep Dive",
     "description": "Spend an exciting day exploring Tower Records in Tokyo, discovering new music, exclusive releases, and enjoying the vibrant atmosphere of one of the city's most iconic music stores.",
-    "image": {
-      "id": "tower-records.png",
-      "cloudflareImageId": "ca930aad-c84b-4687-c7a4-1f1849c18b00",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "tower-records.png",
+    "cloudflareImageId": "ca930aad-c84b-4687-c7a4-1f1849c18b00",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Dive into the vibrant world of music at Tower Records in Tokyo, one of the city's most iconic destinations for music lovers of all ages! This immersive event invites you and your family to explore the legendary multi-story store, where every floor offers a new adventure and discovery.\n\nBegin your day with a guided tour of Tower Records, learning about its rich history and its role in shaping Tokyo's music scene. Browse through an extensive collection of CDs, vinyl records, and exclusive Japanese releases—perfect for collectors and casual fans alike. Our knowledgeable staff will be on hand to recommend hidden gems and help you find your next favorite artist.\n\nParticipate in interactive workshops where you can try your hand at DJing, remixing tracks, or designing your own album cover. For younger guests, there are music-themed games and scavenger hunts throughout the store, making the experience fun and engaging for the whole family.\n\nEnjoy live performances by local bands and up-and-coming artists on the in-store stage, and take part in Q&A sessions to learn more about the creative process behind the music. Don’t miss the exclusive listening booths, where you can preview new releases and rare tracks in a cozy, soundproof environment.\n\nRefuel at the Tower Records Café, offering a menu inspired by popular Japanese and international artists. Savor themed snacks and drinks while soaking in the lively atmosphere and chatting with fellow music enthusiasts.\n\nAs the day winds down, join us for a special meet-and-greet with guest musicians, where you can get autographs and take photos to remember your visit. Whether you’re a lifelong music fan or just curious to explore, Tower Records Deep Dive promises a day of discovery, creativity, and connection in the heart of Tokyo’s music culture.\n\nAll ages and experience levels are welcome. Come ready to listen, learn, and celebrate the universal language of music!",
-    "eventCoordinators": [
-      {
-        "eventId": "next-9",
-        "eventCoordinatorId": 33,
-        "firstName": "Minato",
-        "lastName": "Takumi",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "coordinator-3.png",
-          "cloudflareImageId": "8c6456b9-09d9-49ad-4f50-093088da5700",
-          "width": 255,
-          "height": 255
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-10",
     "eventTitle": "Autumn Nostalgia Festival",
     "description": "Experience the charm of old Tokyo at the Autumn Nostalgia Festival at Tokyo Tower. Enjoy vintage exhibits, classic films, and traditional street foods as the city glows with autumn colors. Live performances and guided tours bring the spirit of the past to life.",
-    "image": {
-      "id": "tokyo-tower.png",
-      "cloudflareImageId": "3795b3ce-824e-48e6-e924-6da1e003e600",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "tokyo-tower.png",
+    "cloudflareImageId": "3795b3ce-824e-48e6-e924-6da1e003e600",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Step back in time this fall at Tokyo Tower's enchanting \"Autumn Nostalgia Festival.\" As golden leaves dance in the gentle breeze, explore vintage Tokyo through curated exhibits and classic film screenings. Savor traditional street foods, their aromas mingling with crisp autumn air. Ascend the tower at sunset, where the cityscape glows with a warm, amber hue, reminiscent of bygone days. Curiosity piqued, join guided tours revealing secrets of Tokyo's storied past. As twilight descends, live performances echo the melodies of old, leaving you with a lingering sense of wonder and a heart full of cherished memories.",
-    "eventCoordinators": [
-      {
-        "eventId": "next-10",
-        "eventCoordinatorId": 33,
-        "firstName": "Luna",
-        "lastName": "Livegood",
-        "email": "xx@yy.zz",
-        "image": {
-          "id": "avatar_3.jpg",
-          "cloudflareImageId": "ffde2000-9897-45df-08f9-4f531ebe3900",
-          "width": 1792,
-          "height": 1024
-        }
-      }
-    ]
+    "eventCoordinators": []
   },
   {
     "eventId": "next-11",
     "eventTitle": "Nara's Spring Cultural Quest",
     "description": "Experience the beauty of Nara in spring with a morning adventure among cherry blossoms and historic temples. Visit Todai-ji, meet the friendly deer in Nara Park, and enjoy unique Japanese-inspired hot dogs. Immerse yourself in local culture and crafts for a memorable solo journey.",
-    "image": {
-      "id": "nara-spring-quest.png",
-      "cloudflareImageId": "efdca9e8-daaf-433f-a9d5-4aa12c496e00",
-      "width": 1792,
-      "height": 1024
-    },
+    "imageId": "nara-spring-quest.png",
+    "cloudflareImageId": "efdca9e8-daaf-433f-a9d5-4aa12c496e00",
+    "imageWidth": 1792,
+    "imageHeight": 1024,
     "fullDescription": "Embark on an exhilarating morning adventure in Nara this spring! As the sun rises, the vibrant cherry blossoms bloom, creating a picturesque backdrop for your cultural tour. Start your day with a visit to the iconic Todai-ji Temple, where you can marvel at the Great Buddha statue, a true masterpiece of ancient craftsmanship. Stroll through Nara Park, where friendly deer roam freely, adding a playful touch to your exploration. Engage with local artisans and discover the enchanting world of traditional Japanese crafts. Savor the delicious flavors of hot dogs infused with unique Japanese ingredients, offering a delightful twist on a classic favorite. This solo journey is not just about sightseeing; it's about immersing yourself in the rich cultural tapestry of Nara, creating unforgettable memories as you embrace the spirit of adventure.",
     "eventCoordinators": []
+  },
+  {
+    "eventId": "687561ef8ca1d13fc0fd530c",
+    "eventTitle": "Cup Noodles Time Travel",
+    "description": "Explore the history of instant noodles in Yokohama with a nostalgic twist.",
+    "fullDescription": "Step into a time capsule of culinary innovation at the Cup Noodles Museum in Yokohama this fall. As the golden leaves swirl in the crisp morning air, gather with your small group of fellow food enthusiasts to embark on a journey through the history of instant ramen. Marvel at whimsical exhibits that showcase the evolution of this beloved dish, from its humble beginnings to the global phenomenon it is today. Engage your curiosity as you participate in a hands-on workshop, crafting your own unique cup noodle flavor, surrounded by laughter and the aroma of savory broth. This intimate experience not only fills your belly but also your heart with warmth and nostalgia, evoking memories of late-night snacks and family meals. As you savor the fruits of your labor, reflect on how a simple invention has brought people together across generations and cultures, making this morning in Yokohama a deliciously memorable adventure.",
+    "imageId": "event-image-1752523193949.png",
+    "imageHeight": 1024,
+    "imageWidth": 1792,
+    "cloudflareImageId": "4f98e519-2a41-4f02-7581-7e3b2975ff00",
+    "eventCoordinators": [],
+    "aiProvider": "OpenAI",
+    "imagePrompt": "Create an anime-style digital painting in a cel-shaded, anime style,\n  using a color palette of warm glowing tones together with bright pastels,\n  and a theme inspired by Studio Ghibli movies, 'Cup Noodles Museum' and these parameters: {\"destination\":\"Yokohama\",\"tone\":\"nostalgic\",\"mood\":\"curious\",\"season\":\"Fall\",\"activity\":\"Local Experience\",\"groupSize\":\"Small Group (2-5)\",\"timeOfDay\":\"Morning\"}.\n  The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,\n  adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.\n  Keep focus on the landscape and mood; characters should feel like a natural part of the scene.\n  Avoid close-up or foreground characters.\n  The image should not contain any text or symbols.",
+    "textPrompt": "Generate a raw JSON object describing a day long special event in Japan based on these parameters:\n  {\"destination\":\"Yokohama\",\"tone\":\"nostalgic\",\"mood\":\"curious\",\"season\":\"Fall\",\"activity\":\"Local Experience\",\"groupSize\":\"Small Group (2-5)\",\"timeOfDay\":\"Morning\"}.\n  User input: Cup Noodles Museum.\n  The JSON object must include these properties:\n      'fullDescription': a creative text narrative (max 200 words),\n      'description': a brief summary of the fullDescription value (max 30 words),\n      'eventTitle': a concise title inspired by the description (3-5 words).\n  Return only the raw JSON object, no additional text.\n  Do not include Markdown, code blocks, or extra text—output valid JSON only.\n  Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }."
+  },
+  {
+    "eventId": "6875683fd330ded926ad2ab7",
+    "eventTitle": "Cherry Blossom Adventure",
+    "description": "Experience the thrill of spring in Hakuba Valley while indulging in cherry ice cream.",
+    "fullDescription": "Embark on an exhilarating morning adventure in the breathtaking Hakuba Valley this spring! As the cherry blossoms bloom, you'll find yourself surrounded by a stunning landscape of pink petals drifting in the gentle breeze. Start your day with a refreshing hike through the picturesque trails, where the vibrant colors of nature awaken your senses. After exploring the serene mountains, treat yourself to a delightful scoop of cherry ice cream, perfectly capturing the essence of this beautiful season. The sweet and tangy flavor will invigorate your spirit and complement the joyful atmosphere. Immerse yourself in the excitement of solo exploration, where each step leads you to discover hidden gems amidst the natural beauty of Hakuba. Capture stunning photos, breathe in the fresh mountain air, and savor the moment as you indulge in the ultimate springtime treat!",
+    "imageId": "event-image-1752524850214.png",
+    "imageHeight": 1024,
+    "imageWidth": 1792,
+    "cloudflareImageId": "7368fce6-6095-49e7-97bb-df3ba1390400",
+    "eventCoordinators": [],
+    "aiProvider": "OpenAI",
+    "imagePrompt": "Create an anime-style digital painting in a cel-shaded, anime style,\n  using a color palette of warm glowing tones together with bright pastels,\n  and a theme inspired by Studio Ghibli movies, 'Cherry Ice Cream' and these parameters: {\"destination\":\"Hakuba Valley\",\"tone\":\"adventurous\",\"mood\":\"excited\",\"season\":\"Spring\",\"activity\":\"Explore\",\"groupSize\":\"Solo\",\"timeOfDay\":\"Morning\"}.\n  The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,\n  adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.\n  Keep focus on the landscape and mood; characters should feel like a natural part of the scene.\n  Avoid close-up or foreground characters.\n  The image should not contain any text or symbols.",
+    "textPrompt": "Generate a raw JSON object describing a day long special event in Japan based on these parameters:\n  {\"destination\":\"Hakuba Valley\",\"tone\":\"adventurous\",\"mood\":\"excited\",\"season\":\"Spring\",\"activity\":\"Explore\",\"groupSize\":\"Solo\",\"timeOfDay\":\"Morning\"}.\n  User input: Cherry Ice Cream.\n  The JSON object must include these properties:\n      'fullDescription': a creative text narrative (max 200 words),\n      'description': a brief summary of the fullDescription value (max 30 words),\n      'eventTitle': a concise title inspired by the description (3-5 words).\n  Return only the raw JSON object, no additional text.\n  Do not include Markdown, code blocks, or extra text—output valid JSON only.\n  Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }."
   }
 ]

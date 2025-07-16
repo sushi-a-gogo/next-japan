@@ -14,5 +14,5 @@ import { RegistrationStatusLabelComponent } from "@shared/registration-status-la
 })
 export class MyEventCardComponent {
   event = input.required<EventRegistration>();
-  routerLink = computed(() => `/event/${this.event().eventId}`);
+  routerLink = computed(() => `/event/${this.event().opportunity.eventId}`);
 }

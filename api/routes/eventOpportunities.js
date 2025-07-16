@@ -5,8 +5,34 @@ const router = express.Router();
 // GET all event opportunities
 router.get("/", async (req, res) => {
   try {
-    const opportunities = await EventOpportunity.find().populate("eventId");
-    res.json(opportunities);
+    const opportunities = await EventOpportunity.find(); //.populate("eventId");
+    res.json({ opportunities });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET by opportunityId
+router.get("/:opportunityId", async (req, res) => {
+  try {
+    const opportunity = await EventOpportunity.findOne({
+      opportunityId: req.params.opportunityId,
+    }).populate("eventId");
+    if (!opportunity)
+      return res.status(404).json({ message: "Opportunity not found" });
+    res.json({ opportunity });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET event opportunities
+router.get("/:eventId/opportunities", async (req, res) => {
+  try {
+    const eventOpportunities = await EventOpportunity.find({
+      eventId: req.params.eventId,
+    }); //.populate("eventId");
+    res.json({ eventOpportunities });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -20,20 +46,6 @@ router.post("/", async (req, res) => {
     res.status(201).json(opportunity);
   } catch (error) {
     res.status(400).json({ message: error.message });
-  }
-});
-
-// GET by opportunityId
-router.get("/:opportunityId", async (req, res) => {
-  try {
-    const opportunity = await EventOpportunity.findOne({
-      opportunityId: req.params.opportunityId,
-    }).populate("eventId");
-    if (!opportunity)
-      return res.status(404).json({ message: "Opportunity not found" });
-    res.json(opportunity);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
   }
 });
 
