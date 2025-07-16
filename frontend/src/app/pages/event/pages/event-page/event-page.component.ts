@@ -57,12 +57,17 @@ export class EventPageComponent implements OnChanges {
 
     const id = this.eventId();
     this.loaded.set(false);
-    this.eventService.get$(id)
-      .pipe(catchError((e) => {
-        this.hasError.set(true)
-        return of(null);
-      }), takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: (event) => {
+
+    this.eventService.getEvent$(id)
+      .pipe(
+        catchError((e) => {
+          this.hasError.set(true)
+          return of(null);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next: (res) => {
+          const event = res?.event;
           const eventTitle = event?.eventTitle || 'Event Not Found';
           const description = event?.description || 'Event Not Found';
 

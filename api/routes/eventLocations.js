@@ -51,13 +51,6 @@ router.get("/:eventId/locations", async (req, res) => {
     ].map((location) => ({
       locationId: location._id.toString(), // Use _id as locationId
       ...location,
-      // locationName: location.locationName,
-      // addressLine1: location.addressLine1,
-      // city: location.city,
-      // state: location.state,
-      // zip: location.zip,
-      // latitude: location.latitude,
-      // longitude: location.longitude,
     }));
 
     res.json({ eventLocations });
