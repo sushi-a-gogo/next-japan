@@ -1,5 +1,5 @@
 import { effect, ElementRef, inject, Injectable, signal } from '@angular/core';
-import { EventRegistration } from '@app/pages/event/models/event-registration.model';
+import { EventRegistration } from '@app/models/event/event-registration.model';
 import { NotificationDetail } from '@models/notification-detail.model';
 import { map, Observable, of, Subject } from 'rxjs';
 import { DateTimeService } from './date-time.service';

@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 
 @Component({
   selector: 'app-event-breadcrumb',

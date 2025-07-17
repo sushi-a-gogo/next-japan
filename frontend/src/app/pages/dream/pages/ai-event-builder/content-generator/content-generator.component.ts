@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
-import { AiEvent } from '@app/pages/event/models/ai-event.model';
+import { AiEvent } from '@app/models/event/ai-event.model';
 import { AiService } from '@app/services/ai.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 

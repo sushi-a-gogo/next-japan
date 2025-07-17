@@ -1,5 +1,5 @@
 import { Component, computed, ElementRef, inject, input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { EventService } from '@app/pages/event/pages/event-page/event.service';
+import { EventService } from '@app/pages/event/event-page/event.service';
 import { CoordinatorOverviewComponent } from "./coordinator-overview/coordinator-overview.component";
 import { LocationOverviewComponent } from "./location-overview/location-overview.component";
 

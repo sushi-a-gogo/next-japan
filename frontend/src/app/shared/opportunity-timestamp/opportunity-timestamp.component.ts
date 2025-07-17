@@ -1,6 +1,6 @@
 import { DatePipe, LowerCasePipe } from '@angular/common';
 import { Component, inject, input, OnInit } from '@angular/core';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { DateTimeService } from '@app/services/date-time.service';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, DestroyRef, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { EventData } from '@app/pages/event/models/event-data.model';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventData } from '@app/models/event/event-data.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { EventSearchService } from '@app/services/event-search.service';
 import { MetaService } from '@app/services/meta.service';
 import { OpportunityService } from '@app/services/opportunity.service';
@@ -11,12 +11,12 @@ import { forkJoin, of } from 'rxjs';
 import { SearchCardComponent } from "./search-card/search-card.component";
 
 @Component({
-  selector: 'app-search-results',
+  selector: 'app-search-results-page',
   imports: [SearchCardComponent, PageLoadSpinnerComponent],
-  templateUrl: './search-results.component.html',
-  styleUrl: './search-results.component.scss'
+  templateUrl: './search-results-page.component.html',
+  styleUrl: './search-results-page.component.scss'
 })
-export class SearchResultsComponent implements OnInit, OnChanges {
+export class SearchResultsPageComponent implements OnInit, OnChanges {
   q = input<string>()
   events = signal<EventData[]>([]);
   loaded = signal(false);

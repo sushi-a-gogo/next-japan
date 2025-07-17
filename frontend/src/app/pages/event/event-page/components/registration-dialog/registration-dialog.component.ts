@@ -2,9 +2,9 @@ import { Component, DestroyRef, effect, ElementRef, inject, OnInit, output, sign
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { EventLocation } from '@app/pages/event/models/event-location.model';
-import { EventRegistration } from '@app/pages/event/models/event-registration.model';
-import { EventService } from '@app/pages/event/pages/event-page/event.service';
+import { EventLocation } from '@app/models/event/event-location.model';
+import { EventRegistration } from '@app/models/event/event-registration.model';
+import { EventService } from '@app/pages/event/event-page/event.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { UserProfileService } from '@app/services/user-profile.service';

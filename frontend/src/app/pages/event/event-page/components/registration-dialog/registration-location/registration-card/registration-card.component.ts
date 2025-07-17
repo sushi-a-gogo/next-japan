@@ -1,5 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 

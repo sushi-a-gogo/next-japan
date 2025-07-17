@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EventData } from '@app/pages/event/models/event-data.model';
+import { EventData } from '@app/models/event/event-data.model';
 import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 

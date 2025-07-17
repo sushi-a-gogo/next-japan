@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
+import { AiEvent } from '@app/models/event/ai-event.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { AiEvent } from '@app/pages/event/models/ai-event.model';
 import { environment } from '@environments/environment';
 import { catchError, delay, Observable, of, tap } from 'rxjs';
 import { ErrorService } from './error.service';

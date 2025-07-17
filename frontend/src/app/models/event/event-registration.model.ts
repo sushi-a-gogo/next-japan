@@ -1,6 +1,6 @@
 import { AppImageData } from '@app/models/app-image-data.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { MapLocation } from '@app/models/map-location.model';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 
 export interface EventRegistration {
   eventTitle: string;

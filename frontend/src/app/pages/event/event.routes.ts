@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
+import { EventPageComponent } from './event-page/event-page.component';
+import { EventService } from './event-page/event.service';
 import { EventComponent } from './event.component';
-import { EventPageComponent } from './pages/event-page/event-page.component';
-import { EventService } from './pages/event-page/event.service';
-import { SearchResultsComponent } from './pages/search-results/search-results.component';
+import { SearchResultsPageComponent } from './search-results-page/search-results-page.component';
 
 export const eventRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ export const eventRoutes: Routes = [
       },
       {
         path: 'search',
-        component: SearchResultsComponent,
+        component: SearchResultsPageComponent,
       },
       {
         path: ':eventId',

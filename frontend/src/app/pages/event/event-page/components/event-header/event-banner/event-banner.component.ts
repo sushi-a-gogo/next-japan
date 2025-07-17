@@ -1,6 +1,6 @@
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
-import { EventService } from '@app/pages/event/pages/event-page/event.service';
+import { EventService } from '@app/pages/event/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
 

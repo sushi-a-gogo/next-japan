@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 
 @Injectable({
   providedIn: 'root',

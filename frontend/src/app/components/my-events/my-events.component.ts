@@ -1,7 +1,7 @@
 import { Component, computed, inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { EventRegistration } from '@app/pages/event/models/event-registration.model';
+import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { ModalComponent } from "@app/shared/modal/modal.component";

@@ -1,12 +1,12 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { EventInformation } from '@app/models/event/event-information.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { MapLocation } from '@app/models/map-location.model';
 import { EventsService } from '@app/services/events.service';
 import { LocationService } from '@app/services/location.service';
 import { OpportunityService } from '@app/services/opportunity.service';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { EventInformation } from '../../models/event-information.model';
-import { EventOpportunity } from '../../models/event-opportunity.model';
 
 /**
  * Service to manage event page data.

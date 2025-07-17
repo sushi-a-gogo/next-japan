@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventData } from '@app/pages/event/models/event-data.model';
+import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OpportunityDateComponent } from "@app/shared/opportunity-date/opportunity-date.component";
 

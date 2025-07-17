@@ -1,6 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { RegistrationStatus } from '@app/pages/event/models/event-registration.model';
+import { RegistrationStatus } from '@app/models/event/event-registration.model';
 
 @Component({
   selector: 'app-registration-status-label',

@@ -1,7 +1,7 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EventData } from '@app/pages/event/models/event-data.model';
+import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
 import { OpportunityDateComponent } from "@shared/opportunity-date/opportunity-date.component";
 

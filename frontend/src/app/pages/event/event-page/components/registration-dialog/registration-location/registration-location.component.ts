@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { EventLocation } from '@app/pages/event/models/event-location.model';
+import { EventLocation } from '@app/models/event/event-location.model';
 import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
 import { RegistrationCardComponent } from "./registration-card/registration-card.component";
 

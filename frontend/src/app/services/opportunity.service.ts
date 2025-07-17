@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
 import { environment } from '@environments/environment';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
 import { ErrorService } from './error.service';

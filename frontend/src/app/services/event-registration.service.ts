@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { EventOpportunity } from '@app/pages/event/models/event-opportunity.model';
-import { EventRegistration, RegistrationStatus } from '@app/pages/event/models/event-registration.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
+import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { concatMap, delay, from, Observable, of, tap, toArray } from 'rxjs';
 import { NotificationService } from './notification.service';
 

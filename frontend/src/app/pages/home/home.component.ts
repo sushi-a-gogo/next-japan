@@ -12,8 +12,8 @@ import { MetaService } from '@app/services/meta.service';
 import { OpportunityService } from '@app/services/opportunity.service';
 import { OrganizationService } from '@app/services/organization.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
+import { EventData } from '@models/event/event-data.model';
 import { forkJoin, map, of, switchMap } from 'rxjs';
-import { EventData } from '../event/models/event-data.model';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 

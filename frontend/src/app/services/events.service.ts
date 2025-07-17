@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
+import { AiEvent } from '@app/models/event/ai-event.model';
+import { EventData } from '@app/models/event/event-data.model';
+import { EventInformation } from '@app/models/event/event-information.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { AiEvent } from '@app/pages/event/models/ai-event.model';
-import { EventData } from '@app/pages/event/models/event-data.model';
-import { EventInformation } from '@app/pages/event/models/event-information.model';
 import { environment } from '@environments/environment';
 import { catchError, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
