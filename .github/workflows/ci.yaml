@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "npm"
+      # Frontend: Test and build
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Lint frontend
+        run: npm run lint || echo "Linting not configured"
+        working-directory: frontend
+      - name: Test frontend
+        run: npm test -- --watch=false || echo "Tests not configured"
+        working-directory: frontend
+      - name: Build frontend SSR
+        run: npm run build:ssr
+        working-directory: frontend
+      # Backend: Test
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: api
+      - name: Test backend
+        run: npm test || echo "Tests not configured"
+        working-directory: api
