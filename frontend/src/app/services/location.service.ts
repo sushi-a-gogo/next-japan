@@ -15,7 +15,7 @@ export class LocationService {
   private http = inject(HttpClient);
   private errorService = inject(ErrorService);
   private apiUrl = `${environment.apiUrl}/api/event-locations`;
-  private cache = new HttpClientCache<MapLocation[]>(5);
+  private eventCache = new HttpClientCache<MapLocation[]>();
 
   getLocations$(): Observable<MapLocation[]> {
     return this.http.get<{ locations: MapLocation[] }>(this.apiUrl).pipe(
@@ -26,10 +26,10 @@ export class LocationService {
   }
 
   getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    if (this.cache.existsInCache(eventId)) {
-      const cached = this.cache.get(eventId);
+    const key = `locations:${eventId}`;
+    if (this.eventCache.existsInCache(key)) {
+      const cached = this.eventCache.get(key);
       if (cached) {
-        console.log("*** Event locations retrieved from cache.");
         return cached;
       }
     }
@@ -37,7 +37,7 @@ export class LocationService {
     const obs$ = this.fetchEventLocations$(eventId).pipe(
       shareReplay(1)
     );
-    this.cache.set(eventId, obs$);
+    this.eventCache.set(key, obs$);
 
     return obs$;
   }

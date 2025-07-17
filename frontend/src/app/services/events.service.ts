@@ -16,16 +16,16 @@ const CACHE_DURATION_MS = 1000 * 60 * 5; // 5 minutes in milliseconds
 })
 export class EventsService {
   private http = inject(HttpClient);
+  private eventsCache = new HttpClientCache<EventData[]>(5, 1);
   private eventCache = new HttpClientCache<EventInformation>();
-  private eventsCache = new HttpClientCache<EventData[]>();
   private errorService = inject(ErrorService);
   private eventsUrl = `${environment.apiUrl}/api/events`;
 
   get$(): Observable<EventData[]> {
-    if (this.eventsCache.existsInCache('events')) {
-      const cached = this.eventsCache.get('events');
+    const key = 'events';
+    if (this.eventsCache.existsInCache(key)) {
+      const cached = this.eventsCache.get(key);
       if (cached) {
-        console.log("*** Events retrieved from cache.");
         return cached;
       }
     }
@@ -33,16 +33,16 @@ export class EventsService {
     const obs$ = this.fetchEvents$().pipe(
       shareReplay(1)
     );
-    this.eventsCache.set('events', obs$);
+    this.eventsCache.set(key, obs$);
 
     return obs$;
   }
 
   getEvent$(eventId: string): Observable<EventInformation> {
-    if (this.eventCache.existsInCache(eventId)) {
-      const cached = this.eventCache.get(eventId);
+    const key = `event:${eventId}`;
+    if (this.eventCache.existsInCache(key)) {
+      const cached = this.eventCache.get(key);
       if (cached) {
-        console.log("*** Event retrieved from cache.");
         return cached;
       }
     }
@@ -54,14 +54,14 @@ export class EventsService {
       shareReplay(1)
     );
 
-    this.eventCache.set(eventId, obs$);
+    this.eventCache.set(key, obs$);
     return obs$;
   }
 
   saveEvent$(event: AiEvent) {
     return this.http.post<AiEvent>(`${this.eventsUrl}/save`, event).pipe(
       debug(RxJsLoggingLevel.DEBUG, "saveEvent"),
-      tap(() => this.eventsCache.delete('events')),
+      tap(() => this.eventsCache.clear()),
       catchError((e) => this.errorService.handleError(e, 'Error saving event', true))
     );
   }

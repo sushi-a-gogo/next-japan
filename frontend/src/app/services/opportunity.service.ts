@@ -13,15 +13,16 @@ import { ErrorService } from './error.service';
 @Injectable({ providedIn: 'root' })
 export class OpportunityService {
   private http = inject(HttpClient);
-  private cache = new HttpClientCache<EventOpportunity[]>(3);
+  private cache = new HttpClientCache<EventOpportunity[]>(5, 1);
+  private eventCache = new HttpClientCache<EventOpportunity[]>();
   private errorService = inject(ErrorService);
   private apiUrl = `${environment.apiUrl}/api/event-opportunities`;
 
   getOpportunities$(): Observable<EventOpportunity[]> {
-    if (this.cache.existsInCache('opportunities')) {
-      const cached = this.cache.get('opportunities');
+    const key = `opportunities`;
+    if (this.cache.existsInCache(key)) {
+      const cached = this.cache.get(key);
       if (cached) {
-        console.log("*** Opportunities retrieved from cache.");
         return cached;
       }
     }
@@ -29,16 +30,16 @@ export class OpportunityService {
     const obs$ = this.fetchOpportunities$().pipe(
       shareReplay(1)
     );
-    this.cache.set('opportunities', obs$);
+    this.cache.set(key, obs$);
 
     return obs$;
   }
 
   getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
-    if (this.cache.existsInCache(eventId)) {
-      const cached = this.cache.get(eventId);
+    const key = `opportunities:${eventId}`;
+    if (this.eventCache.existsInCache(key)) {
+      const cached = this.eventCache.get(key);
       if (cached) {
-        console.log("*** Event Opportunities retrieved from cache.");
         return cached;
       }
     }
@@ -46,7 +47,7 @@ export class OpportunityService {
     const obs$ = this.fetchEventOpportunities$(eventId).pipe(
       shareReplay(1)
     );
-    this.cache.set(eventId, obs$);
+    this.eventCache.set(key, obs$);
 
     return obs$;
   }

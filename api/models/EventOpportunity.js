@@ -10,6 +10,7 @@ const eventOpportunitySchema = new mongoose.Schema(
     eventId: {
       type: String,
       required: true,
+      index: true,
       ref: "Event", // Reference to existing Event collection
     },
     locationId: {
