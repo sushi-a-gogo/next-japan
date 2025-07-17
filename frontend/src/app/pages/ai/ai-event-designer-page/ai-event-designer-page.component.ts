@@ -6,18 +6,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
-import { ContentGeneratorComponent } from "@app/pages/dream/pages/ai-event-builder/content-generator/content-generator.component";
+import { ContentGeneratorComponent } from "@app/pages/ai/ai-event-designer-page/content-generator/content-generator.component";
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'app-ai-event-builder',
+  selector: 'app-ai-event-designer-page',
   imports: [NgOptimizedImage, ContentGeneratorComponent, MatProgressBar],
-  templateUrl: './ai-event-builder.component.html',
-  styleUrl: './ai-event-builder.component.scss'
+  templateUrl: './ai-event-designer-page.component.html',
+  styleUrl: './ai-event-designer-page.component.scss'
 })
-export class AiEventBuilderComponent implements OnInit {
+export class AiEventDesignerPageComponent implements OnInit {
   private imageService = inject(ImageService);
   private aiImage: AppImageData = {
     id: "ai-background.png",
@@ -57,7 +57,7 @@ export class AiEventBuilderComponent implements OnInit {
   }
 
   onEventCreated() {
-    this.router.navigate(['/dream/event']);
+    this.router.navigate(['/ai/event']);
   }
 }
 

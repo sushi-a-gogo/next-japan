@@ -6,17 +6,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
-import { DreamHeaderComponent } from "@app/pages/dream/pages/ai-event/dream-header/dream-header.component";
+import { AiEventHeaderComponent } from "@app/pages/ai/ai-event-page/ai-event-header/ai-event-header.component";
 import { AiService } from '@app/services/ai.service';
 import { EventsService } from '@app/services/events.service';
 import { MetaService } from '@app/services/meta.service';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'app-ai-event',
-  imports: [RouterLink, MatProgressBarModule, DreamHeaderComponent],
-  templateUrl: './ai-event.component.html',
-  styleUrl: './ai-event.component.scss',
+  selector: 'app-ai-event-page',
+  imports: [RouterLink, MatProgressBarModule, AiEventHeaderComponent],
+  templateUrl: './ai-event-page.component.html',
+  styleUrl: './ai-event-page.component.scss',
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -27,7 +27,7 @@ import { filter } from 'rxjs';
   ],
   host: { '[@fadeIn]': '' }
 })
-export class AiEventComponent implements OnInit {
+export class AiEventPageComponent implements OnInit {
   private router = inject(Router);
   private title = inject(Title);
   private meta = inject(MetaService);
@@ -60,7 +60,7 @@ export class AiEventComponent implements OnInit {
   }
 
   reset() {
-    this.router.navigate(['../dream']);
+    this.router.navigate(['../ai']);
   }
 
   saveEvent() {

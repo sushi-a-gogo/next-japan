@@ -41,8 +41,8 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/events/event.routes').then((mod) => mod.eventRoutes)
   },
   {
-    path: 'dream',
-    loadChildren: () => import('./pages/dream/dream.routes').then((mod) => mod.dreamRoutes),
+    path: 'ai',
+    loadChildren: () => import('./pages/ai/ai.routes').then((mod) => mod.aiRoutes),
     canActivate: [authGuard]
   },
   { path: '**', component: NotFoundComponent },

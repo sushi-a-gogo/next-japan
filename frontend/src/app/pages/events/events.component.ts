@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-event',
+  selector: 'app-events',
   imports: [RouterOutlet],
-  templateUrl: './event.component.html',
-  styleUrl: './event.component.scss'
+  templateUrl: './events.component.html',
+  styleUrl: './events.component.scss'
 })
-export class EventComponent {
+export class EventsComponent {
 
 }

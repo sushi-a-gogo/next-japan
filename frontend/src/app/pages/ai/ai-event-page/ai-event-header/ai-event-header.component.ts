@@ -5,12 +5,12 @@ import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
 
 @Component({
-  selector: 'app-dream-header',
+  selector: 'app-ai-event-header',
   imports: [NgOptimizedImage],
-  templateUrl: './dream-header.component.html',
-  styleUrl: './dream-header.component.scss'
+  templateUrl: './ai-event-header.component.html',
+  styleUrl: './ai-event-header.component.scss'
 })
-export class DreamHeaderComponent {
+export class AiEventHeaderComponent {
   event = input.required<AiEvent>();
   savedEvent = input<EventData | null>();
 

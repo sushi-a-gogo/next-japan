@@ -8,5 +8,5 @@ export const aiEventGuard: CanActivateFn = (route, state) => {
   if (aiService.aiEvent()) {
     return true;
   }
-  return router.navigate(["/dream/create"]);
+  return router.navigate(["/ai/create"]);
 };

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-dream',
+  selector: 'app-ai',
   imports: [RouterOutlet],
-  templateUrl: './dream.component.html',
-  styleUrl: './dream.component.scss'
+  templateUrl: './ai.component.html',
+  styleUrl: './ai.component.scss'
 })
-export class DreamComponent { }
+export class AiComponent { }

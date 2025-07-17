@@ -14,15 +14,15 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
-    path: 'dream',
+    path: 'ai',
     renderMode: RenderMode.Prerender
   },
   {
-    path: 'dream/create',
+    path: 'ai/create',
     renderMode: RenderMode.Prerender
   },
   {
-    path: 'dream/event',
+    path: 'ai/event',
     renderMode: RenderMode.Server
   },
   {
