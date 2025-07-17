@@ -1,10 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SearchAutocompleteComponent } from "@app/components/header/user-navbar/search-autocomplete/search-autocomplete.component";
 import { EventSearchService } from '@app/services/event-search.service';
 import { AppLogoComponent } from "@app/shared/app-logo/app-logo.component";
 import { LoginButtonComponent } from "@app/shared/login-button/login-button.component";
+import { SearchAutocompleteComponent } from "@app/shared/search-autocomplete/search-autocomplete.component";
 
 @Component({
   selector: 'app-navbar',

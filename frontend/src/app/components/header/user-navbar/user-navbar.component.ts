@@ -8,8 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 import { EventSearchService } from '@app/services/event-search.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { AppLogoComponent } from "@shared/app-logo/app-logo.component";
-import { MyNotificationsComponent } from "./my-notifications/my-notifications.component";
-import { SearchAutocompleteComponent } from "./search-autocomplete/search-autocomplete.component";
+import { SearchAutocompleteComponent } from "../../../shared/search-autocomplete/search-autocomplete.component";
+import { MyNotificationsComponent } from "../../my-notifications/my-notifications.component";
 import { UserMenuComponent } from "./user-menu/user-menu.component";
 
 @Component({
