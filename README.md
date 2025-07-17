@@ -16,7 +16,11 @@ Tech Stack
 Layer Tools Used
 - Frontend Angular v20, Angular Router, Angular Material
 - Backend Node.js, Express, serverless-style API design
+- MongoDB for persistent event storage and dynamic content management
 - Hosting Render (static + web service)
-- Integration OpenAI API (text generation, assistant logic)
+- Integration OpenAI and xAI APIs (text and image generation, assistant logic)
 - Data Source Simulated API with local JSON file mock data
 - Environment .env variables, prod/staging configs, CORS, rate limiting
+
+### AI-Generated Events
+Events can be generated using OpenAI/xAI integration. The backend ensures all events, including AI-generated ones, are saved to MongoDB.
