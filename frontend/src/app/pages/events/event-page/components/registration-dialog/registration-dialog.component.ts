@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { EventLocation } from '@app/models/event/event-location.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
-import { EventService } from '@app/pages/event/event-page/event.service';
+import { EventService } from '@app/pages/events/event-page/event.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { UserProfileService } from '@app/services/user-profile.service';

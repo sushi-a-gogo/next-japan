@@ -4,7 +4,7 @@ import { MatRipple, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 
 import { EventLocation } from '@app/models/event/event-location.model';
-import { EventService } from '@app/pages/event/event-page/event.service';
+import { EventService } from '@app/pages/events/event-page/event.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";

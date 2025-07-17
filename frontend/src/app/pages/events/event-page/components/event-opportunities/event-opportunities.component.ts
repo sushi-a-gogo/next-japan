@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { EventService } from '@app/pages/event/event-page/event.service';
+import { EventService } from '@app/pages/events/event-page/event.service';
 import { EventOpportunityComponent } from "./event-opportunity/event-opportunity.component";
 
 @Component({

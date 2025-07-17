@@ -38,7 +38,7 @@ export const routes: Routes = [
   },
   {
     path: 'event',
-    loadChildren: () => import('./pages/event/event.routes').then((mod) => mod.eventRoutes)
+    loadChildren: () => import('./pages/events/event.routes').then((mod) => mod.eventRoutes)
   },
   {
     path: 'dream',

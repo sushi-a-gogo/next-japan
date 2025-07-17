@@ -3,7 +3,7 @@ import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID,
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
-import { EventService } from '@app/pages/event/event-page/event.service';
+import { EventService } from '@app/pages/events/event-page/event.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
