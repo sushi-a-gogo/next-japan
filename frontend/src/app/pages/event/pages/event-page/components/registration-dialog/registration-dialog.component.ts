@@ -51,7 +51,7 @@ export class RegistrationDialogComponent implements OnInit {
       if (location) {
         location.opportunities?.push(opportunity);
       } else {
-        location = this.eventService.eventLocations().find((l) => l.locationId === opportunity.locationId);
+        location = this.eventService.eventData().locations.find((l) => l.locationId === opportunity.locationId);
         if (location) {
           location!.opportunities = [opportunity];
           this.selectedLocations.push(location);
@@ -84,13 +84,14 @@ export class RegistrationDialogComponent implements OnInit {
   }
 
   private requestSelected$() {
-    const event = this.eventService.event();
+    const event = this.eventService.eventData().event;
     if (!event) {
       return of(false);
     }
 
+    const locations = this.eventService.eventData().locations;
     const requests: EventRegistration[] = this.selected().map((opportunity) => {
-      const location = this.eventService.eventLocations().find((l) => l.locationId === opportunity.locationId)!;
+      const location = locations.find((l) => l.locationId === opportunity.locationId)!;
       const registration = {
         eventTitle: event.eventTitle,
         image: event.image,
@@ -103,7 +104,8 @@ export class RegistrationDialogComponent implements OnInit {
 
     return this.registrationService.requestOpportunities$(requests, userID).pipe(
       switchMap((registrations) => {
-        const success = registrations.map((reg: EventRegistration) => requests.find((s) => s.opportunity.opportunityId === reg.opportunity.opportunityId)!);
+        const success = registrations.map((reg: EventRegistration) =>
+          requests.find((s) => s.opportunity.opportunityId === reg.opportunity.opportunityId)!);
         return of(success.length > 0);
       })
     );

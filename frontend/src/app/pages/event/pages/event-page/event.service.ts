@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { MapLocation } from '@app/models/map-location.model';
 import { EventsService } from '@app/services/events.service';
 import { LocationService } from '@app/services/location.service';
@@ -16,6 +16,12 @@ import { EventOpportunity } from '../../models/event-opportunity.model';
  */
 @Injectable()
 export class EventService {
+  eventData = computed(() => ({
+    event: this.event(),
+    locations: this.eventLocations(),
+    opportunities: this.eventOpportunities()
+  }));
+
   private eventSignal = signal<EventInformation | null>(null);
   event = this.eventSignal.asReadonly();
 

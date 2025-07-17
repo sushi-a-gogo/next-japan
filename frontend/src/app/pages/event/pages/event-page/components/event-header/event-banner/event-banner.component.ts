@@ -1,5 +1,5 @@
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
@@ -14,24 +14,21 @@ export class EventBannerComponent {
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
+  private eventData = this.eventService.eventData;
 
-  event = this.eventService.event;
-  eventLocations = this.eventService.eventLocations;
-  eventOpportunities = this.eventService.eventOpportunities;
-
+  event = computed(() => this.eventData().event);
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
-  locationCount = computed(() => this.eventLocations().length);
+  locationCount = computed(() => this.eventData().locations.length);
 
   resizedImage = computed(() => {
-    const image = this.event() && isPlatformBrowser(this.platformId) ? this.event()!.image : null;
+    const ev = this.event();
+    const image = ev && isPlatformBrowser(this.platformId) ? ev!.image : null;
     return image ?
       this.imageService.resizeImage(image, image?.width, image?.height) : null;
   });
 
-  imageLoaded = signal<boolean>(false);
-
   eventDateRange = computed(() => {
-    const opportunities = this.eventOpportunities();
+    const opportunities = this.eventData().opportunities;
     if (opportunities.length) {
       const minDate = opportunities[0].startDate;
       const maxDate = opportunities.length > 1 ? opportunities[opportunities.length - 1].startDate : undefined;
@@ -42,8 +39,4 @@ export class EventBannerComponent {
 
     return null;
   });
-
-  onImageLoad() {
-    this.imageLoaded.set(true);
-  }
 }

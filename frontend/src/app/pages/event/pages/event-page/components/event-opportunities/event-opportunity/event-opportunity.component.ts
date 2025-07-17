@@ -14,5 +14,6 @@ import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp
 export class EventOpportunityComponent {
   private eventService = inject(EventService);
   opportunity = input.required<EventOpportunity>();
-  location = computed(() => this.eventService.eventLocations().find((l) => l.locationId === this.opportunity().locationId));
+  location = computed(() => this.eventService.eventData().locations
+    .find((l) => l.locationId === this.opportunity().locationId));
 }

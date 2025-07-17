@@ -10,5 +10,6 @@ import { EventOpportunityComponent } from "./event-opportunity/event-opportunity
 })
 export class EventOpportunitiesComponent {
   private eventService = inject(EventService);
-  opportunities = computed(() => this.eventService.eventOpportunities().sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1).slice(0, 3));
+  opportunities = computed(() => this.eventService.eventData().opportunities
+    .sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1).slice(0, 3));
 }

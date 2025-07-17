@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { EventService } from '@app/pages/event/pages/event-page/event.service';
 import { CoordinatorOverviewComponent } from "./coordinator-overview/coordinator-overview.component";
 import { LocationOverviewComponent } from "./location-overview/location-overview.component";
@@ -11,7 +11,8 @@ import { LocationOverviewComponent } from "./location-overview/location-overview
 })
 export class EventOverviewComponent implements OnChanges {
   private eventService = inject(EventService);
-  event = this.eventService.event;
+
+  event = computed(() => this.eventService.eventData().event);
   focusChild = input<string | null>(null);
 
   @ViewChild('description') description?: ElementRef;

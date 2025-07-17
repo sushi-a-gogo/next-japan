@@ -27,23 +27,21 @@ export class EventPageComponent implements OnChanges {
   private title = inject(Title);
   private meta = inject(MetaService);
   private platformId = inject(PLATFORM_ID);
+  private destroyRef = inject(DestroyRef);
 
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
 
-  private destroyRef = inject(DestroyRef);
-  private event = this.eventService.event;
-
   eventId = input.required<string>();
-
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
   hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => {
-    if (this.event() && isPlatformBrowser(this.platformId)) {
-      const resizedImage = this.imageService.resizeImage(this.event()!.image, 384, 256);
+    const event = this.eventService.eventData().event;
+    if (event && isPlatformBrowser(this.platformId)) {
+      const resizedImage = this.imageService.resizeImage(event!.image, 384, 256);
       return `url('${resizedImage.src}')`;
     }
     return undefined;

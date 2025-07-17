@@ -10,6 +10,6 @@ import { AvatarComponent } from "@app/shared/avatar/avatar.component";
 })
 export class CoordinatorOverviewComponent {
   private eventService = inject(EventService);
-  eventCoordinators = computed(() => this.eventService.event()?.eventCoordinators || []);
+  eventCoordinators = computed(() => this.eventService.eventData().event?.eventCoordinators || []);
 
 }

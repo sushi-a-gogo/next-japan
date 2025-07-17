@@ -25,7 +25,8 @@ export class LocationExpansionPanelComponent implements OnInit {
   @ViewChild(MatRipple) ripple?: MatRipple;
 
   opportunities = computed(() => {
-    const items = this.eventService.eventOpportunities().filter((opp) => opp.locationId === this.location().locationId);
+    const items = this.eventService.eventData().opportunities
+      .filter((opp) => opp.locationId === this.location().locationId);
     items.sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1);
     return items;
   });
