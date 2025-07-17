@@ -5,7 +5,6 @@
   display: block;
   width: 315px;
   height: 440px;
-  //padding: 10px;
   padding-top: 0;
   margin-right: 10px;
 }
@@ -16,11 +15,9 @@
   width: 315px;
   padding: 0;
   margin: 0;
-  border: 1px solid map.get(var.$colors, default-gray);
   border-radius: 3px;
-  background-color: #fff;
+  background-color: map.get(var.$colors, section-gray);
   color: #000;
-  //box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
   text-decoration: none;
   text-align: center;
@@ -33,7 +30,7 @@
 
   &:hover {
     cursor: pointer;
-    background-color: map.get(var.$colors, section-gray);
+    background-color: map.get(var.$colors, section-medium-gray);
     border-color: map.get(var.$colors, light-gray-accent);
 
     .image-container {
@@ -51,22 +48,15 @@
 .image-container {
   width: 100%;
   height: 180px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  background-color: var(--creamy-white-clouds);
   background: url("/assets/images/no-image.png");
   background-size: cover;
   background-position: center;
-  overflow: hidden;
-  padding: 3px;
 
   &.grok {
     width: 270px;
   }
 
   img {
-    border-radius: 3px;
-    border-top-right-radius: 3px;
     object-fit: fill;
     height: 100%;
     width: 100%;
@@ -85,6 +75,8 @@
   width: 100%;
   padding: 20px;
   padding-bottom: 32px;
+  border: 1px solid map.get(var.$colors, default-gray);
+  border-top: 0;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   overflow: hidden;
