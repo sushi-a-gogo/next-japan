@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { EventsService } from '@app/services/events.service';
 import { EventComponent } from './event.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { EventService } from './pages/event-page/event.service';
@@ -18,7 +17,6 @@ export const eventRoutes: Routes = [
       {
         path: 'search',
         component: SearchResultsComponent,
-        providers: [EventsService]
       },
       {
         path: ':eventId',

@@ -8,6 +8,12 @@ import { tap } from 'rxjs/operators';
 import { EventInformation } from '../../models/event-information.model';
 import { EventOpportunity } from '../../models/event-opportunity.model';
 
+/**
+ * Service to manage event page data.
+ * I wanted to explore using signals for data management in place of RXJS observables
+ * This service is a wrapper over different event services, injecting their results
+ * into signals that are referenced by the event page components.
+ */
 @Injectable()
 export class EventService {
   private eventSignal = signal<EventInformation | null>(null);
@@ -23,8 +29,11 @@ export class EventService {
   private locationService = inject(LocationService);
   private opportunityService = inject(OpportunityService);
 
-  getEvent$(eventId: string) {
+  loadEvent$(eventId: string) {
     this.eventSignal.set(null);
+    this.eventLocationsSignal.set([]);
+    this.eventOpportunitiesSignal.set([]);
+
     const observables = {
       event: this.getEventById$(eventId),
       locations: this.getEventLocations$(eventId),
@@ -34,21 +43,19 @@ export class EventService {
     return forkJoin(observables);
   }
 
-  getEventById$(eventId: string) {
+  private getEventById$(eventId: string) {
     return this.eventsService.getEvent$(eventId).pipe(
       tap((event) => this.eventSignal.set(event))
     )
   }
 
   private getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    this.eventLocationsSignal.set([]);
     return this.locationService.getEventLocations$(eventId).pipe(
       tap((locations) => this.eventLocationsSignal.set(locations))
     );
   }
 
   private getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
-    this.eventOpportunitiesSignal.set([]);
     return this.opportunityService.getEventOpportunities$(eventId).pipe(
       tap((opportunities) => this.eventOpportunitiesSignal.set(opportunities))
     );

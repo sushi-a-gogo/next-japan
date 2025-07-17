@@ -80,7 +80,7 @@ header {
   //margin-bottom: 10px;
   opacity: 0;
   border-radius: 12px;
-  padding: 5px 10px;
+  padding: 0 16px;
   background: #fcfcfc; // map.get(var.$colors, section-light-gray);
   border: 1px solid map.get(var.$colors, light-gray-accent);
 
@@ -92,26 +92,12 @@ header {
 .accordion-card {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  gap: 10px;
-  padding: 15px 0;
-
-  &:first-child {
-    padding: 10px 0 15px 0;
-  }
+  gap: 24px;
+  padding: 24px 0;
 
   &:not(:first-child) {
     border-top: 1px solid map.get(var.$colors, light-gray-accent);
   }
-
-  &:last-child {
-    padding-bottom: 10px;
-  }
-}
-
-.waiver-required {
-  margin-top: 15px;
-  margin-left: -25px; // gets around the mat-accordion '2.5rem' padding-left
 }
 
 .message {
@@ -155,15 +141,6 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
-
-    &:first-child {
-      padding: 10px;
-      padding-top: 5px;
-    }
-
-    &:last-child {
-      padding-bottom: 5px;
-    }
+    padding: 16px 0;
   }
 }

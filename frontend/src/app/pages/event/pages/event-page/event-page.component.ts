@@ -58,7 +58,7 @@ export class EventPageComponent implements OnChanges {
     const id = this.eventId();
     this.loaded.set(false);
 
-    this.eventService.getEvent$(id)
+    this.eventService.loadEvent$(id)
       .pipe(
         catchError((e) => {
           this.hasError.set(true)
