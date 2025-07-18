@@ -46,24 +46,24 @@ export class EventService {
       opportunities: this.getEventOpportunities$(eventId),
     };
 
-    return forkJoin(observables);
+    return forkJoin(observables).pipe(
+      tap((res) => {
+        this.eventSignal.set(res.event);
+        this.eventLocationsSignal.set(res.locations);
+        this.eventOpportunitiesSignal.set(res.opportunities);
+      })
+    );
   }
 
   private getEventById$(eventId: string) {
-    return this.eventsService.getEvent$(eventId).pipe(
-      tap((event) => this.eventSignal.set(event))
-    )
+    return this.eventsService.getEvent$(eventId);
   }
 
   private getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    return this.locationService.getEventLocations$(eventId).pipe(
-      tap((locations) => this.eventLocationsSignal.set(locations))
-    );
+    return this.locationService.getEventLocations$(eventId);
   }
 
   private getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
-    return this.opportunityService.getEventOpportunities$(eventId).pipe(
-      tap((opportunities) => this.eventOpportunitiesSignal.set(opportunities))
-    );
+    return this.opportunityService.getEventOpportunities$(eventId);
   }
 }
