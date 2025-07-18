@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['./not-found']);
         } else {
           this.events.set(events);
-          this.loaded.set(true);
         }
       },
       error: (e) => {

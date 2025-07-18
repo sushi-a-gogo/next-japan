@@ -1,5 +1,12 @@
-<div class="fade-in" [class.open]="spinUp()">
-  @if(spinUp()) {
-  <app-spin-host />
-  }
-</div>
+<section [class.overlay]="showSpinner()">
+  <div class="spinner-box" [class.show]="showSpinner()">
+    <div>
+      <mat-spinner
+        diameter="80"
+        strokeWidth="10"
+        class="blue-spin"
+      ></mat-spinner>
+    </div>
+    <h2 class="loading-message">Loading...please wait.</h2>
+  </div>
+</section>

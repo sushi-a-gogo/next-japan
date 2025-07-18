@@ -16,6 +16,25 @@ article {
   gap: 48px;
   width: 100%;
   height: 100%;
+  background: url("/assets/images/default-event.avif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #232323;
+
+  header,
+  main {
+    opacity: 0;
+    transition: 0.25s ease-in-out;
+  }
+
+  &.open {
+    background: none;
+    opacity: 1;
+    header,
+    main {
+      opacity: 1;
+    }
+  }
 }
 
 article > header {

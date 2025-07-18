@@ -1,11 +1,11 @@
 @if(!loaded()) {
 <app-page-load-spinner />
 }
-<article class="fade-in" [class.open]="loaded()">
+<article [class.open]="loaded()">
   <header [style.backgroundImage]="backgroundImage()">
     <app-org-banner [org]="org()"></app-org-banner>
   </header>
-  <main class="fade-in" [class.open]="org()">
+  <main>
     <section class="content-container">
       <div class="flex-content organization-info">
         <div class="info-title break-word">
