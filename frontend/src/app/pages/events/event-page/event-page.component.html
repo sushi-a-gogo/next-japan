@@ -2,14 +2,14 @@
 <app-page-load-spinner [delay]="1000" />
 }
 <article [class.open]="loaded()">
-  @if(hasError()) {
+  @if(loaded()) { @if(hasError()) {
   <app-page-error
     errorTitle="Event Site not available."
     errorMessage="We're sorry. The requested event was not found."
     routerLink="/home"
     routerLinkText="Click here to go back to the home page"
   ></app-page-error>
-  } @else {
+  }@else {
   <header [style.backgroundImage]="backgroundImage()">
     <app-event-header></app-event-header>
   </header>
@@ -20,7 +20,7 @@
       <app-event-opportunities />
     </section>
   </main>
-  }
+  } }
 </article>
 @if(showRegistrationDialog()) {
 <app-registration-dialog (close)="closeRegistrationDialog()" />
