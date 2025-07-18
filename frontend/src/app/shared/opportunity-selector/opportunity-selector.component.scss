@@ -18,10 +18,24 @@
   border-color: var(--bright-blue-sky);
   color: #fff;
 
+  &:hover:not(:disabled),
+  &:focus,
+  &:active {
+    background-color: var(--bright-blue-sky);
+    border-color: var(--bright-blue-sky);
+  }
+
   &.selected {
     font-weight: 700;
     background-color: var(--navy-blue-mountain);
     border-color: var(--navy-blue-mountain);
+
+    &:hover:not(:disabled),
+    &:focus,
+    &:active {
+      background-color: var(--navy-blue-mountain);
+      border-color: var(--navy-blue-mountain);
+    }
   }
 }
 
@@ -43,6 +57,12 @@
     background-color: #fff;
     border-color: map.get(var.$colors, inactive);
     color: #000;
+    &:hover:not(:disabled),
+    &:focus,
+    &:active {
+      background-color: map.get(var.$colors, section-gray);
+      border-color: map.get(var.$colors, inactive);
+    }
 
     &.selected {
       background-color: var(--bright-blue-sky);
@@ -50,7 +70,9 @@
       color: #fff;
       font-weight: 700;
 
-      &:hover {
+      &:hover:not(:disabled),
+      &:focus,
+      &:active {
         background: color.scale(
           map.get(var.$colors, bright-blue-sky),
           $lightness: -10%

@@ -3,7 +3,6 @@ import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angula
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { ErrorService } from '@app/services/error.service';
@@ -20,7 +19,7 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NgOptimizedImage, PageErrorComponent, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
+  imports: [RouterLink, NgOptimizedImage, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
