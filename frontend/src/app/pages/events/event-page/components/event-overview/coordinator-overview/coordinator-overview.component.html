@@ -1,4 +1,4 @@
-@for(coordinator of eventCoordinators(); track coordinator.eventCoordinatorId) {
+@for(coordinator of eventCoordinators(); track $index) {
 <div class="flex-row">
   <app-avatar [avatar]="coordinator" [size]="64"></app-avatar>
   <div>

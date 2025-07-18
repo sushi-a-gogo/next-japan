@@ -2,10 +2,11 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { OrganizationInformation } from '@app/models/organization-information.model';
+import { ErrorService } from '@app/services/error.service';
 import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -24,12 +25,14 @@ import { OrgBannerComponent } from "./org-banner/org-banner.component";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  private router = inject(Router);
   private title = inject(Title);
   private meta = inject(MetaService);
   private destroyRef = inject(DestroyRef);
 
   private imageService = inject(ImageService);
   private eventsService = inject(EventsService);
+  private errorService = inject(ErrorService);
   private opportunityService = inject(OpportunityService);
   private organizationService = inject(OrganizationService);
 
@@ -50,7 +53,6 @@ export class HomeComponent implements OnInit {
 
   loaded = signal<boolean>(false);
   completed = signal<boolean>(false);
-  hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => {
     if (this.org()) {
@@ -63,33 +65,40 @@ export class HomeComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.fetchOrganizationData$().pipe(
+    this.organizationService.getOrganizationInfo$().pipe(
       switchMap((org) => {
+        if (!org) {
+          return of([]);
+        }
+
         this.title.setTitle(`${org.name}`);
         // Set meta tags
         this.meta.updateTags(this.title.getTitle(), org.infoDescription);
+
         this.org.set(org);
         this.loaded.set(true);
+
         return this.fetchEvents$();
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (events) => {
-        this.events.set(events);
+        if (!this.org()) {
+          this.errorService.sendError(new Error("The requested data was not found."));
+          this.router.navigate(['./not-found']);
+        } else {
+          this.events.set(events);
+          this.loaded.set(true);
+        }
       },
-      error: () => {
-        this.loaded.set(true);
-        this.hasError.set(true);
+      error: (e) => {
+        this.errorService.sendError(new Error('Error fetching requested data.'));
+        this.router.navigate(['./not-found']);
       },
       complete: () => {
         this.completed.set(true);
       }
     });
-  }
-
-  private fetchOrganizationData$() {
-    const orgData = this.organizationService.organizationInformation();
-    return orgData ? of(orgData) : this.organizationService.getOrganizationInfo$();
   }
 
   private fetchEvents$() {

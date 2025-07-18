@@ -1,17 +1,7 @@
-<!-- error -->
-@if(hasError()) {
-<article>
-  <app-page-error
-    errorTitle="Site not available."
-    errorMessage="We're sorry. The page could not be loaded."
-  ></app-page-error>
-</article>
-} @else {
-<!-- load spinner-->
 @if(!loaded()) {
 <app-page-load-spinner />
 }
-<article>
+<article class="fade-in" [class.open]="loaded()">
   <header [style.backgroundImage]="backgroundImage()">
     <app-org-banner [org]="org()"></app-org-banner>
   </header>
@@ -62,4 +52,3 @@
     </section>
   </main>
 </article>
-}

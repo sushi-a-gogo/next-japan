@@ -1,5 +1,5 @@
-<section [class.overlay]="showSpinner()">
-  <div class="spinner-box" [class.show]="showSpinner()">
+<div class="host">
+  <div class="spinner-box">
     <div>
       <mat-spinner
         diameter="80"
@@ -9,4 +9,5 @@
     </div>
     <h2 class="loading-message">Loading...please wait.</h2>
   </div>
-</section>
+  <div class="backdrop"></div>
+</div>
