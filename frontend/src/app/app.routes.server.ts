@@ -7,7 +7,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'event',
-    renderMode: RenderMode.Prerender
+    renderMode: RenderMode.Server
   },
   {
     path: 'event/:eventId',

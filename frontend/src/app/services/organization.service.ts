@@ -26,14 +26,6 @@ export class OrganizationService {
         this.organizationInformationSignal.set(org);
         return org;
       }),
-      // retry({
-      //   count: 3, // Retry up to 3 times
-      //   delay: (error, retryIndex) => {
-      //     const delayTime = Math.pow(2, retryIndex) * 200; // 200ms, 400ms, 800ms
-      //     console.log(`Retrying after ${delayTime}ms (Attempt ${retryIndex + 1})`);
-      //     return timer(delayTime);
-      //   }
-      // }),
       catchError((e) => {
         this.organizationInformationSignal.set(null);
         return this.errorService.handleError(e, 'Error fetching organization information.', true);
