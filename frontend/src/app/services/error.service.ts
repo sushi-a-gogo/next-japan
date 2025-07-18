@@ -35,4 +35,8 @@ export class ErrorService {
   clearError() {
     this.errorMessageSignal.set('');
   }
+
+  sendError(error: Error) {
+    this.errorMessageSignal.set(error.message || 'Unknown Error');
+  }
 }

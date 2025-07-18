@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
+import { ErrorService } from '@app/services/error.service';
 
 @Component({
   selector: 'app-not-found',
@@ -8,4 +9,6 @@ import { PageErrorComponent } from '@app/components/page-error/page-error.compon
   styleUrl: './not-found.component.scss'
 })
 export class NotFoundComponent {
+  private errorService = inject(ErrorService);
+  errorMessage = computed(() => this.errorService.errorMessage() || "We're sorry. The requested page was not found.");
 }

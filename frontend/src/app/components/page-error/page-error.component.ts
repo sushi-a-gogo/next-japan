@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject, input, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
@@ -23,8 +23,8 @@ export class PageErrorComponent {
     return this.imageService.resizeImage(this.notFoundImage, this.notFoundImage.width, this.notFoundImage.height);
   });
 
+  errorMessage = input<string>(`We're sorry. The requested page could not be loaded.`);
   @Input() errorTitle = 'Page not available.';
-  @Input() errorMessage = `We're sorry. The requested page could not be loaded.`;
   @Input() routerLink?: string;
   @Input() routerLinkText?: string;
 

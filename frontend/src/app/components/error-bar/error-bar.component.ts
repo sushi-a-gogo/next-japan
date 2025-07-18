@@ -18,7 +18,6 @@ export class ErrorBarComponent {
     effect(() => {
       if (isPlatformBrowser(this.platformId) && this.errorService.errorMessage()) {
         this.openSnackBar(this.errorService.errorMessage());
-        this.errorService.clearError()
       }
     });
   }
@@ -29,7 +28,9 @@ export class ErrorBarComponent {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: 'error-bar'
-    }).afterDismissed().subscribe();
+    }).afterDismissed().subscribe(() => {
+      this.errorService.clearError();
+    });
   }
 
 }

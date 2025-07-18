@@ -16,11 +16,13 @@ import { tap } from 'rxjs/operators';
  */
 @Injectable()
 export class EventService {
-  eventData = computed(() => ({
-    event: this.event(),
-    locations: this.eventLocations(),
-    opportunities: this.eventOpportunities()
-  }));
+  eventData = computed(() => {
+    return {
+      event: this.event(),
+      locations: this.eventLocations(),
+      opportunities: this.eventOpportunities()
+    };
+  });
 
   private eventSignal = signal<EventInformation | null>(null);
   event = this.eventSignal.asReadonly();

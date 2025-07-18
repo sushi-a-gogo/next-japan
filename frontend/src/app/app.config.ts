@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -20,7 +20,7 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     {
       provide: IMAGE_LOADER, useValue: (config: ImageLoaderConfig) => {
         const { src, width } = config;

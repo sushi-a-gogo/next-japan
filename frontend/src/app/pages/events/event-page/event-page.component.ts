@@ -2,13 +2,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { PageErrorComponent } from '@app/components/page-error/page-error.component';
+import { Router } from '@angular/router';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DialogService } from '@app/services/dialog.service';
+import { ErrorService } from '@app/services/error.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { catchError, of } from 'rxjs';
 import { EventHeaderComponent } from "./components/event-header/event-header.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -18,12 +18,13 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventHeaderComponent, EventNavbarComponent, PageErrorComponent, EventOverviewComponent,
+  imports: [EventHeaderComponent, EventNavbarComponent, EventOverviewComponent,
     EventOpportunitiesComponent, PageLoadSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
 export class EventPageComponent implements OnChanges {
+  private router = inject(Router);
   private title = inject(Title);
   private meta = inject(MetaService);
   private platformId = inject(PLATFORM_ID);
@@ -31,12 +32,12 @@ export class EventPageComponent implements OnChanges {
 
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
+  private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
   eventId = input.required<string>();
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
-  hasError = signal<boolean>(false);
 
   backgroundImage = computed(() => {
     const event = this.eventService.eventData().event;
@@ -58,10 +59,6 @@ export class EventPageComponent implements OnChanges {
 
     this.eventService.loadEvent$(id)
       .pipe(
-        catchError((e) => {
-          this.hasError.set(true)
-          return of(null);
-        }),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe({
         next: (res) => {
@@ -72,10 +69,17 @@ export class EventPageComponent implements OnChanges {
           this.title.setTitle(eventTitle);
           this.meta.updateTags(eventTitle, description);
 
-          this.hasError.set(!event);
-          this.loaded.set(true);
+          if (!event) {
+            this.errorService.sendError(new Error("The requested event was not found."));
+            this.router.navigate(['./not-found']);
+          } else {
+            this.loaded.set(true);
+          }
         },
-        error: () => this.hasError.set(true),
+        error: (e) => {
+          this.errorService.sendError(new Error('Error fetching requested event.'));
+          this.router.navigate(['./not-found']);
+        },
         complete: () => this.loaded.set(true)
       });
   }

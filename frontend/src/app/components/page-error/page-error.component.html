@@ -3,7 +3,7 @@
   <span class="material-icons"> crisis_alert </span>
   <div class="error-block">
     <div class="error-header">{{ errorTitle }}</div>
-    {{ errorMessage }}
+    {{ errorMessage() }}
     @if(routerLink) {
     <div class="error-link">
       <span class="material-icons"> arrow_right </span>
