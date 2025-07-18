@@ -1,4 +1,5 @@
-import { Component, effect, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorService } from '@app/services/error.service';
 
@@ -9,12 +10,13 @@ import { ErrorService } from '@app/services/error.service';
   styleUrl: './error-bar.component.scss'
 })
 export class ErrorBarComponent {
+  private platformId = inject(PLATFORM_ID);
   private snackBar = inject(MatSnackBar);
   private errorService = inject(ErrorService);
 
   constructor() {
     effect(() => {
-      if (this.errorService.errorMessage()) {
+      if (isPlatformBrowser(this.platformId) && this.errorService.errorMessage()) {
         this.openSnackBar(this.errorService.errorMessage());
         this.errorService.clearError()
       }

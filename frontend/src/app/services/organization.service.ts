@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { catchError, map, Observable, retry } from 'rxjs';
+import { catchError, map, Observable, retry, timer } from 'rxjs';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -26,8 +26,15 @@ export class OrganizationService {
         this.organizationInformationSignal.set(org);
         return org;
       }),
-      retry(3),
-      catchError((e) => {
+      retry({
+        count: 3, // Retry up to 3 times
+        delay: (error, retryIndex) => {
+          const delayTime = Math.pow(2, retryIndex) * 200; // 200ms, 400ms, 800ms
+          console.log(`Retrying after ${delayTime}ms (Attempt ${retryIndex + 1})`);
+          return timer(delayTime);
+        }
+      }), catchError((e) => {
+        console.log('ha')
         this.organizationInformationSignal.set(null);
         return this.errorService.handleError(e, 'Error fetching organization information.', true);
       }));
