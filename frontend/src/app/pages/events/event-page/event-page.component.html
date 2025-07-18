@@ -1,7 +1,8 @@
 @if(!loaded()) {
-<app-page-load-spinner [delay]="500" />
+<app-page-load-spinner />
 }
 <article [class.open]="loaded()">
+  @if(loaded()) {
   <header [style.backgroundImage]="backgroundImage()">
     <app-event-header></app-event-header>
   </header>
@@ -12,6 +13,7 @@
       <app-event-opportunities />
     </section>
   </main>
+  }
 </article>
 @if(showRegistrationDialog()) {
 <app-registration-dialog (close)="closeRegistrationDialog()" />

@@ -8,15 +8,15 @@
 }
 
 article {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
   opacity: 0;
-  transition: opacity 0.25s;
+  transition: 0.25s ease-in-out;
 
   &.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     opacity: 1;
   }
 }

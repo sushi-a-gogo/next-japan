@@ -1,33 +1,15 @@
-.host {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+:host {
+  display: block;
   height: 100%;
+}
+
+.fade-in {
+  opacity: 0.25;
+  height: 100%;
+  transition: 0.25s ease-in-out;
   background: url("/assets/images/default-event.avif");
-}
 
-.backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.65);
-  z-index: 101;
-}
-
-.spinner-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 120px 0;
-  z-index: 102;
-}
-
-.loading-message {
-  color: var(--vivid-yellow-text);
+  &.open {
+    opacity: 1;
+  }
 }
