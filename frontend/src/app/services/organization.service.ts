@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { OrganizationInformation } from '@app/models/organization-information.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, retry } from 'rxjs';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -26,6 +26,7 @@ export class OrganizationService {
         this.organizationInformationSignal.set(org);
         return org;
       }),
+      retry(3),
       catchError((e) => {
         this.organizationInformationSignal.set(null);
         return this.errorService.handleError(e, 'Error fetching organization information.', true);
