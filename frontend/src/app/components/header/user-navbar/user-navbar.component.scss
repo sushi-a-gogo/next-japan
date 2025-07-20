@@ -6,7 +6,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--creamy-white-clouds);
+  //background-color: var(--creamy-white-clouds);
+  background: rgba($color: #f8f8f8, $alpha: 0.8);
+  backdrop-filter: blur(24px);
 }
 
 nav {

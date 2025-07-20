@@ -1,17 +1,28 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
-import { fromEvent } from 'rxjs';
+import { EventsService } from '@app/services/events.service';
+import { OpportunityService } from '@app/services/opportunity.service';
+import { forkJoin, fromEvent, map } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
 const CARD_WIDTH = 325; // 315px card + 5px padding per side
 
+// const BreakpointsConfig = [
+//   { query: '(max-width: 767.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH + 40 },
+//   { query: '(min-width: 768px) and (max-width: 1119.98px)', eventsPerView: 2, viewportWidth: CARD_WIDTH * 2 + 35 },
+//   { query: '(min-width: 1120px)', eventsPerView: 3, viewportWidth: CARD_WIDTH * 3 },
+// ];
 const BreakpointsConfig = [
-  { query: '(max-width: 767.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH + 40 },
-  { query: '(min-width: 768px) and (max-width: 1119.98px)', eventsPerView: 2, viewportWidth: CARD_WIDTH * 2 + 35 },
-  { query: '(min-width: 1120px)', eventsPerView: 3, viewportWidth: CARD_WIDTH * 3 },
+  { query: '(max-width: 689.98px)', eventsPerView: 1 },
+  { query: '(min-width: 690px) and (max-width: 1014.98px)', eventsPerView: 2 },
+  { query: '(min-width: 1015px) and (max-width: 1339.98px)', eventsPerView: 3 },
+  { query: '(min-width: 1340px) and (max-width: 1664.98px)', eventsPerView: 4 },
+  { query: '(min-width: 1665px) and (max-width: 1989.98px)', eventsPerView: 5 },
+  { query: '(min-width: 1990px) and (max-width: 2314.98px)', eventsPerView: 6 },
+  { query: '(min-width: 2315px) and (max-width: 2500px)', eventsPerView: 7 },
 ];
 
 @Component({
@@ -21,32 +32,32 @@ const BreakpointsConfig = [
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
 })
-export class EventCarouselComponent implements OnChanges, AfterViewInit {
+export class EventCarouselComponent implements OnInit, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
-  events = input.required<EventData[]>();
   sortedEvents = signal<EventData[]>([]);
   eventsPerView = signal(1);
   currentIndex = signal(0);
-  viewportWidth = signal(CARD_WIDTH);
+
+  eventsLoaded = signal(false);
 
   ssrMode = computed(() => !isPlatformBrowser(this.platformId));
+
+  private eventsService = inject(EventsService);
+  private opportunityService = inject(OpportunityService);
+
 
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
   private breakpointObserver = inject(BreakpointObserver);
 
-  get disablePrevButton() {
-    return this.currentIndex() === 0;
-  }
-  get disableNextButton() {
-    return this.currentIndex() >= this.events().length - this.eventsPerView();
-  }
+  disablePrevButton = computed(() => this.currentIndex() === 0);
+  disableNextButton = computed(() => this.currentIndex() >= this.sortedEvents().length - this.eventsPerView());
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['events'] && isPlatformBrowser(this.platformId)) {
-      this.sortedEvents.set([...this.events().sort(this.sortByDate)])
+  ngOnInit(): void {
+    this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
+      this.sortedEvents.set([...events.sort(this.sortByDate)])
       this.setupBreakpoints();
-    }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -54,6 +65,19 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
     }
+    setTimeout(() => {
+      this.eventsLoaded.set(true);
+    }, 500);
+  }
+
+  scrollPrev() {
+    const newIndex = Math.max(0, this.currentIndex() - this.eventsPerView());
+    this.scrollToIndex(newIndex);
+  }
+
+  scrollNext() {
+    const newIndex = Math.min(this.sortedEvents().length - this.eventsPerView(), this.currentIndex() + this.eventsPerView());
+    this.scrollToIndex(newIndex);
   }
 
   private sortByDate(a: EventData, b: EventData) {
@@ -75,9 +99,10 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       .subscribe((result) => {
         const activeBreakpoint = BreakpointsConfig.find((bp) => result.breakpoints[bp.query]);
         const newEventsPerView = activeBreakpoint?.eventsPerView ?? 1;
-        const newViewportWidth = activeBreakpoint?.viewportWidth ?? CARD_WIDTH;
         this.eventsPerView.set(newEventsPerView);
-        this.viewportWidth.set(newViewportWidth);
+        if (newEventsPerView === 1) {
+          this.currentIndex.set(1);
+        }
         this.scrollToIndex(this.currentIndex());
       });
   }
@@ -88,7 +113,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           const scrollLeft = this.carouselTrack.nativeElement.scrollLeft;
-          const newIndex = Math.round(scrollLeft / CARD_WIDTH);
+          const newIndex = Math.ceil(scrollLeft / CARD_WIDTH);
           if (newIndex !== this.currentIndex()) {
             this.currentIndex.set(newIndex);
           }
@@ -98,19 +123,29 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
 
   private scrollToIndex(index: number) {
     if (this.carouselTrack && isPlatformBrowser(this.platformId)) {
-      const cardSlotWidth = CARD_WIDTH; // 315px card + 5px padding per side
+      const cardSlotWidth = CARD_WIDTH;
       this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
       this.currentIndex.set(index);
     }
   }
 
-  scrollPrev() {
-    const newIndex = Math.max(0, this.currentIndex() - this.eventsPerView());
-    this.scrollToIndex(newIndex);
-  }
+  private fetchEvents$() {
+    const observables = {
+      events: this.eventsService.get$(),
+      opportunities: this.opportunityService.getOpportunities$(),
+    };
 
-  scrollNext() {
-    const newIndex = Math.min(this.events().length - this.eventsPerView(), this.currentIndex() + this.eventsPerView());
-    this.scrollToIndex(newIndex);
+    return forkJoin(observables).pipe(
+      map((res) => {
+        const events = res.events;
+        events.forEach((event) => {
+          const eventOpportunities = res.opportunities
+            .filter((o) => o.eventId === event.eventId)
+            .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+          event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+        });
+        return events;
+      })
+    );
   }
 }

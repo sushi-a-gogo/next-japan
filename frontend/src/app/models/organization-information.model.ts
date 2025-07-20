@@ -1,7 +1,6 @@
 import { AppImageData } from "./app-image-data.model";
 
 export interface OrganizationInformation {
-  organizationId: number;
   name: string;
   image: AppImageData;
   bannerTitle: string;

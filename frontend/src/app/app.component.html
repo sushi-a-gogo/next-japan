@@ -1,26 +1,15 @@
-@if(!ready()) { @if(broken()) {
-<app-page-error
-  errorMessage="A network error has occurred. Please try again later."
-/>
-} @else {
-<app-spin-up />
-} } @else {
 <div
   class="app-container"
   [class.user]="!!userProfile()"
   [class.search-mode]="inSearchMode()"
 >
-  <header>
-    <app-header />
-  </header>
+  <app-header />
   <main>
     <section class="router-content">
       <router-outlet />
     </section>
-    <footer>
-      <app-footer />
-    </footer>
   </main>
+  <app-footer />
 </div>
 <div
   class="backdrop"
@@ -30,5 +19,10 @@
 <app-error-bar />
 @if(isAuthenticating()) {
 <app-login />
-} }
+}
 <app-about />
+@if(showEventsDialog()) {
+<app-my-events (close)="closeEventsDialog()" />
+} @if(showProfileDialog()) {
+<app-user-profile (close)="closeProfileDialog()" />
+}

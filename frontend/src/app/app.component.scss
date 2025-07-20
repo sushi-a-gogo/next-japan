@@ -2,28 +2,20 @@
 @use "variables.scss" as var;
 
 .app-container {
-  height: var(--app-height);
-  display: grid;
-  grid-template-rows:
-    [header-row] calc(var.$color-bar-height + var.$user-header-height)
-    [main-row] auto;
+  width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
+  margin-top: calc(var.$color-bar-height + var.$user-header-height);
 
   &.search-mode {
-    grid-template-rows:
-      [header-row] calc(
-        var.$color-bar-height + var.$user-header-height +
-          var.$user-header-height
-      )
-      [main-row] auto;
+    margin-top: calc(
+      var.$color-bar-height + var.$user-header-height + var.$user-header-height
+    );
   }
-  grid-template-areas:
-    "header"
-    "main";
   transition: 0.25s ease-in-out;
 }
 
 main {
-  grid-area: main;
   width: 100%;
   display: flex;
   flex-direction: column;
