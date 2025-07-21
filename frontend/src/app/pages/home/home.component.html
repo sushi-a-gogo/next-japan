@@ -1,23 +1,20 @@
-@if(!loaded()) {
-<app-page-load-spinner />
-}
-<article [class.open]="loaded()">
+<article>
   <header [style.backgroundImage]="backgroundImage()">
-    <app-org-banner [org]="org()"></app-org-banner>
+    <app-org-banner />
   </header>
   <main>
     <section class="content-container">
       <div class="flex-content organization-info">
         <div class="info-title break-word">
-          {{ org()?.infoTitle }}
+          {{ org.infoTitle }}
         </div>
         <div class="info-description break-word pre-wrap">
-          {{ org()?.infoDescription }}
+          {{ org.infoDescription }}
         </div>
       </div>
     </section>
-    <section class="fade-in" [class.open]="completed()">
-      <app-event-carousel [events]="events()"></app-event-carousel>
+    <section>
+      <app-event-carousel />
     </section>
     <section class="image-content">
       <img

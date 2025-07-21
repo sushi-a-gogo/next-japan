@@ -1,9 +1,9 @@
-<div class="carousel-container">
+<div class="carousel-container fade-in" [class.open]="eventsLoaded()">
   @if(!ssrMode()) {
   <button
     class="nav-button prev"
     (click)="scrollPrev()"
-    [disabled]="disablePrevButton"
+    [disabled]="disablePrevButton()"
     aria-label="Previous events"
   >
     <span class="material-icons">arrow_back_ios_new</span>
@@ -14,7 +14,6 @@
     class="carousel-track"
     [class.carousel-track--ssr]="ssrMode()"
     #carouselTrack
-    [style.width.px]="viewportWidth()"
   >
     @for(event of sortedEvents(); track event?.eventId || $index) {
     <div class="event-item">
@@ -26,7 +25,7 @@
   <button
     class="nav-button next"
     (click)="scrollNext()"
-    [disabled]="disableNextButton"
+    [disabled]="disableNextButton()"
     aria-label="Next events"
   >
     <span class="material-icons">arrow_forward_ios</span>

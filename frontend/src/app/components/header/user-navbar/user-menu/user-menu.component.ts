@@ -1,19 +1,19 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
+import { Component, computed, inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogService } from '@app/services/dialog.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
-import { MyEventsComponent } from "../../../my-events/my-events.component";
-import { UserProfileComponent } from "../../../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-user-menu',
-  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserProfileComponent, MyEventsComponent, UserAvatarComponent],
+  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {
+  private dialogService = inject(DialogService);
   private userProfileService = inject(UserProfileService);
 
   signout = output();
@@ -28,27 +28,15 @@ export class UserMenuComponent {
     return '';
   });
 
-  showMyEvents = signal(false);
-  showUserProfile = signal(false);
-
   logout() {
     this.signout.emit();
   }
 
   openMyEvents() {
-    this.showMyEvents.set(true);
-  }
-
-  closeMyEvents() {
-    this.showMyEvents.set(false);
+    this.dialogService.showEventsDialog();
   }
 
   openUserProfile() {
-    this.showUserProfile.set(true);
+    this.dialogService.showProfileDialog();
   }
-
-  closeUserProfile() {
-    this.showUserProfile.set(false);
-  }
-
 }

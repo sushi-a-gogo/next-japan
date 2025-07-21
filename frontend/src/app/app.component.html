@@ -1,10 +1,3 @@
-@if(!ready()) { @if(broken()) {
-<app-page-error
-  errorMessage="A network error has occurred. Please try again later."
-/>
-} @else {
-<app-spin-up />
-} } @else {
 <div
   class="app-container"
   [class.user]="!!userProfile()"
@@ -30,5 +23,10 @@
 <app-error-bar />
 @if(isAuthenticating()) {
 <app-login />
-} }
+}
 <app-about />
+@if(showEventsDialog()) {
+<app-my-events (close)="closeEventsDialog()" />
+} @if(showProfileDialog()) {
+<app-user-profile (close)="closeProfileDialog()" />
+}
