@@ -56,18 +56,16 @@ export class EventCarouselComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
       this.sortedEvents.set([...events.sort(this.sortByDate)])
-      this.setupBreakpoints();
     })
   }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      this.setupBreakpoints();
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
     }
-    setTimeout(() => {
-      this.eventsLoaded.set(true);
-    }, 500);
+    this.eventsLoaded.set(true);
   }
 
   scrollPrev() {
