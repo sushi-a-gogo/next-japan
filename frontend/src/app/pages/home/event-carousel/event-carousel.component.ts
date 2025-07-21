@@ -30,6 +30,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
 
   events = input<EventData[]>([])
   sortedEvents = signal<EventData[]>([]);
+  eventsLoaded = signal<boolean>(false);
   eventsPerView = signal(1);
   currentIndex = signal(0);
 
@@ -53,6 +54,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       this.setupBreakpoints();
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
+      setTimeout(() => this.eventsLoaded.set(true));
     }
   }
 
