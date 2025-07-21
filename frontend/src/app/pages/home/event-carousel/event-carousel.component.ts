@@ -56,6 +56,7 @@ export class EventCarouselComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
       this.sortedEvents.set([...events.sort(this.sortByDate)])
+      this.eventsLoaded.set(true);
     })
   }
 
@@ -65,7 +66,6 @@ export class EventCarouselComponent implements OnInit, AfterViewInit {
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
     }
-    this.eventsLoaded.set(true);
   }
 
   scrollPrev() {
