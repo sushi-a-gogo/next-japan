@@ -5,14 +5,13 @@ import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
-import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import organization from 'src/lib/organization-data';
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NgOptimizedImage, OrgBannerComponent, EventCarouselComponent, PageLoadSpinnerComponent],
+  imports: [RouterLink, NgOptimizedImage, OrgBannerComponent, EventCarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

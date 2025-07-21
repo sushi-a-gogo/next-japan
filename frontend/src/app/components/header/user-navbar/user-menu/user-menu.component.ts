@@ -5,12 +5,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogService } from '@app/services/dialog.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
-import { MyEventsComponent } from "../../../my-events/my-events.component";
-import { UserProfileComponent } from "../../../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-user-menu',
-  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserProfileComponent, MyEventsComponent, UserAvatarComponent],
+  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss'
 })

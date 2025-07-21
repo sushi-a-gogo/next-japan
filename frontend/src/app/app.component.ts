@@ -6,8 +6,6 @@ import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { HeaderComponent } from './components/header/header.component';
 import { MyEventsComponent } from "./components/my-events/my-events.component";
-import { PageErrorComponent } from "./components/page-error/page-error.component";
-import { SpinUpComponent } from "./components/spin-up/spin-up.component";
 import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { AuthMockService } from './services/auth-mock.service';
 import { DialogService } from './services/dialog.service';
@@ -16,7 +14,16 @@ import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, LoginComponent, ErrorBarComponent, AboutComponent, SpinUpComponent, FooterComponent, PageErrorComponent, MyEventsComponent, UserProfileComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    LoginComponent,
+    ErrorBarComponent,
+    AboutComponent,
+    FooterComponent,
+    MyEventsComponent,
+    UserProfileComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
