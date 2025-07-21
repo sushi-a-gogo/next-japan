@@ -55,7 +55,7 @@ li {
     &.logo:active,
     &.logo:focus {
       padding: 0;
-      border-radius: 0;
+      background-color: transparent;
     }
 
     &.active {
@@ -95,7 +95,7 @@ li.spacer {
 
   li {
     .app-button {
-      &:hover {
+      &:hover:not(.logo) {
         @media (pointer: fine) {
           background-color: map.get(var.$colors, section-medium-gray);
         }

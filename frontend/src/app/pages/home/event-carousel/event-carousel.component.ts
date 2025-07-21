@@ -1,20 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
-import { EventsService } from '@app/services/events.service';
-import { OpportunityService } from '@app/services/opportunity.service';
-import { forkJoin, fromEvent, map } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
 const CARD_WIDTH = 325; // 315px card + 5px padding per side
 
-// const BreakpointsConfig = [
-//   { query: '(max-width: 767.98px)', eventsPerView: 1, viewportWidth: CARD_WIDTH + 40 },
-//   { query: '(min-width: 768px) and (max-width: 1119.98px)', eventsPerView: 2, viewportWidth: CARD_WIDTH * 2 + 35 },
-//   { query: '(min-width: 1120px)', eventsPerView: 3, viewportWidth: CARD_WIDTH * 3 },
-// ];
 const BreakpointsConfig = [
   { query: '(max-width: 689.98px)', eventsPerView: 1 },
   { query: '(min-width: 690px) and (max-width: 1014.98px)', eventsPerView: 2 },
@@ -32,19 +25,15 @@ const BreakpointsConfig = [
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
 })
-export class EventCarouselComponent implements OnInit, AfterViewInit {
+export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
+
+  events = input<EventData[]>([])
   sortedEvents = signal<EventData[]>([]);
   eventsPerView = signal(1);
   currentIndex = signal(0);
 
-  eventsLoaded = signal(false);
-
   ssrMode = computed(() => !isPlatformBrowser(this.platformId));
-
-  private eventsService = inject(EventsService);
-  private opportunityService = inject(OpportunityService);
-
 
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
@@ -53,11 +42,10 @@ export class EventCarouselComponent implements OnInit, AfterViewInit {
   disablePrevButton = computed(() => this.currentIndex() === 0);
   disableNextButton = computed(() => this.currentIndex() >= this.sortedEvents().length - this.eventsPerView());
 
-  ngOnInit(): void {
-    this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
-      this.sortedEvents.set([...events.sort(this.sortByDate)])
-      this.eventsLoaded.set(true);
-    })
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['events']) {
+      this.sortedEvents.set([...this.events().sort(this.sortByDate)])
+    }
   }
 
   ngAfterViewInit(): void {
@@ -125,25 +113,5 @@ export class EventCarouselComponent implements OnInit, AfterViewInit {
       this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
       this.currentIndex.set(index);
     }
-  }
-
-  private fetchEvents$() {
-    const observables = {
-      events: this.eventsService.get$(),
-      opportunities: this.opportunityService.getOpportunities$(),
-    };
-
-    return forkJoin(observables).pipe(
-      map((res) => {
-        const events = res.events;
-        events.forEach((event) => {
-          const eventOpportunities = res.opportunities
-            .filter((o) => o.eventId === event.eventId)
-            .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-          event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
-        });
-        return events;
-      })
-    );
   }
 }
