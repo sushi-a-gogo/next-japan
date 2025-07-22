@@ -16,8 +16,8 @@
   padding: 0;
   margin: 0;
   border-radius: 3px;
-  background-color: map.get(var.$colors, section-gray);
-  color: #000;
+  background-color: var(--next-surface);
+  color: var(--next-text);
   transition: 0.25s;
   text-decoration: none;
   text-align: center;
@@ -30,8 +30,8 @@
 
   &:hover {
     cursor: pointer;
-    background-color: map.get(var.$colors, section-medium-gray);
-    border-color: map.get(var.$colors, light-gray-accent);
+    //background-color: map.get(var.$colors, section-medium-gray);
+    border-color: var(--next-border);
 
     .image-container {
       img {
@@ -60,7 +60,6 @@
     object-fit: fill;
     height: 100%;
     width: 100%;
-    vertical-align: top;
     transition: 0.25s;
   }
 }
@@ -75,7 +74,7 @@
   width: 100%;
   padding: 20px;
   padding-bottom: 32px;
-  border: 1px solid map.get(var.$colors, default-gray);
+  border: 1px solid var(--next-border);
   border-top: 0;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;

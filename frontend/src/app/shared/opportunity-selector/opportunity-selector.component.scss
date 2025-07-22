@@ -18,13 +18,6 @@
   border-color: var(--bright-blue-sky);
   color: #fff;
 
-  &:hover:not(:disabled),
-  &:focus,
-  &:active {
-    background-color: var(--bright-blue-sky);
-    border-color: var(--bright-blue-sky);
-  }
-
   &.selected {
     font-weight: 700;
     background-color: var(--navy-blue-mountain);
@@ -54,19 +47,17 @@
     height: 40px;
     font-size: 16px;
     font-weight: 600;
-    background-color: #fff;
-    border-color: map.get(var.$colors, inactive);
-    color: #000;
+    background-color: var(--next-surface-alt);
+    border-color: var(--next-border);
+    color: var(--next-text);
     &:hover:not(:disabled),
     &:focus,
     &:active {
-      background-color: map.get(var.$colors, section-gray);
-      border-color: map.get(var.$colors, inactive);
+      background-color: var(--next-surface);
     }
 
     &.selected {
       background-color: var(--bright-blue-sky);
-      border-color: var(--bright-blue-sky);
       color: #fff;
       font-weight: 700;
 

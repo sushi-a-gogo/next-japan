@@ -56,7 +56,7 @@ footer {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--next-bg);
 
   .event-overview {
     flex: 1;
@@ -68,7 +68,7 @@ footer {
     flex-direction: row;
 
     .event-overview {
-      border-right: 1px solid map.get(var.$colors, light-gray-accent);
+      border-right: 1px solid var(--next-border);
     }
   }
 }

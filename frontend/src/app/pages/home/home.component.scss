@@ -71,6 +71,7 @@ section {
     font-size: 24px;
     line-height: 30px;
     font-weight: 700;
+    color: var(--next-text);
   }
 }
 
@@ -117,6 +118,7 @@ section {
   line-height: 32px;
   font-weight: 700;
   letter-spacing: -0.005em;
+  color: var(--next-highlight);
 }
 
 .subhead {
@@ -149,10 +151,6 @@ a.app-button.app-button-save {
   article > main {
     padding: 0;
     gap: 60px;
-  }
-
-  article > main > section:last-child {
-    //margin-bottom: 96px;
   }
 
   .organization-info {

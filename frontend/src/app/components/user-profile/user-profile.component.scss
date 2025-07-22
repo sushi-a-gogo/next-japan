@@ -44,6 +44,7 @@ form {
   a {
     text-decoration: none;
     cursor: pointer;
+    color: var(--next-link);
 
     &:hover {
       text-decoration: underline;

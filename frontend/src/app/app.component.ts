@@ -23,7 +23,13 @@ export class AppComponent {
   isAuthenticating = this.authService.isAuthenticating;
 
   constructor() {
-    afterNextRender(this.configureAppHeight);
+    afterNextRender(() => {
+      const useDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (useDarkTheme) {
+        document.body.classList.add('dark-theme');
+      }
+      this.configureAppHeight();
+    });
   }
 
   private configureAppHeight(): void {

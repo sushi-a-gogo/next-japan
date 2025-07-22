@@ -35,8 +35,8 @@
 }
 
 .notes {
-  color: map.get(var.$colors, dark-label);
   font-size: 13px;
   line-height: 16px;
   font-weight: 600;
+  color: var(--next-note);
 }

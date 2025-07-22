@@ -88,7 +88,7 @@ button {
 }
 
 strong {
-  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -40%);
+  color: var(--next-heading);
 }
 
 @media (min-width: 600px) {

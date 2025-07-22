@@ -5,16 +5,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #fff;
-  color: map.get(var.$colors, dark-label);
-  background-color: #fff;
+  background-color: var(--next-surface);
   position: sticky;
   top: var.$user-header-height;
   z-index: 99;
   width: 100%;
   //padding: 0 10px;
 
-  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  border-bottom: 1px solid var(--next-border);
   max-width: var.$max-page-width;
 }
 
@@ -37,8 +35,8 @@ nav {
 
     a {
       text-decoration: none;
-      border-bottom: 3px solid white;
-      color: map.get(var.$colors, dark-label);
+      border-bottom: 3px solid var(--next-surface);
+      color: var(--next-text);
       font-weight: 600;
 
       &:hover {
@@ -70,7 +68,7 @@ nav {
 
 @media (min-width: 992px) {
   .panel-overview {
-    border-right: 1px solid map.get(var.$colors, light-gray-accent);
+    border-right: 1px solid var(--next-border);
   }
 
   .panel-opportunities {
@@ -84,6 +82,6 @@ nav {
 
 @media (min-width: calc(var.$max-page-width + 10px)) {
   .panel-overview {
-    padding: 0;
+    //padding: 0;
   }
 }

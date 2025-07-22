@@ -134,4 +134,5 @@ $_rest: (
 );
 
 $primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$secondary-palette: map.merge(map.get($_palettes, secondary), $_rest);
 $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);

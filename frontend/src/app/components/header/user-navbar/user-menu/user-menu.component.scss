@@ -22,7 +22,6 @@
   gap: 4px;
   transition: 0.25s;
   height: 100%;
-  //width: 100%;
 
   &:hover {
     background-color: map.get(var.$colors, section-medium-gray);
@@ -37,6 +36,7 @@ header {
   line-height: 24px;
   font-weight: 700;
   padding: 10px 20px;
+  color: var(--next-heading);
 
   span {
     overflow: hidden;
@@ -55,7 +55,7 @@ header {
   gap: 16px;
   padding: 10px;
   width: 100%;
-  color: #2d2d2d;
+  color: var(--next-text);
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;

@@ -51,7 +51,7 @@ header {
   .time {
     font-size: 12px;
     line-height: 1;
-    color: map.get(var.$colors, dark-label);
+    color: var(--next-note);
   }
 }
 

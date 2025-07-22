@@ -12,10 +12,10 @@
   min-height: 42px;
   min-width: 64px;
   text-align: center;
-  color: #000;
+  color: var(--next-text);
 
   &.outline {
-    border: 1px solid map.get(var.$colors, inactive);
+    border: 1px solid var(--next-border);
   }
 
   &.flex-button {
@@ -47,7 +47,7 @@ a.app-button {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: #000;
+  color: var(--next-text);
   text-decoration: none;
 
   &.stack {
@@ -143,13 +143,13 @@ a.app-button {
 }
 
 .app-button-cancel {
-  background-color: #fff;
-  color: map.get(var.$colors, dark-label);
+  background-color: var(--next-surface);
+  color: var(--next-text);
   min-width: 133px;
-  border: 2px solid map.get(var.$colors, dark-label);
+  border: 2px solid var(--next-border);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(#fff, $lightness: -5%);
+    background-color: var(--next-surface-alt);
   }
 }
 

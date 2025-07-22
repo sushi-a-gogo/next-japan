@@ -13,7 +13,8 @@ form {
 
 .compact-form-field {
   width: 100%;
-  background-color: #d9e4ee; // map.get(var.$colors, section-medium-gray);
+  //color: var(--navy-blue-mountain);
+  //background-color: #d9e4ee; // map.get(var.$colors, section-medium-gray);
   @include mat.form-field-density(-4);
 }
 

@@ -3,9 +3,11 @@
 @use "sass:color";
 
 @use "variables.scss" as var;
-@use "./styles/themes/next-japan-theme" as *;
-@use "app-buttons.scss" as *;
-@use "app-material-overrides.scss" as *;
+@use "./styles/themes/next-japan-theme.scss";
+@use "./styles/themes/next-japan-dark-theme.scss";
+@use "./styles/themes/custom-theme-tokens";
+@use "./styles/app-buttons.scss";
+@use "./styles/app-material-overrides.scss";
 
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
@@ -31,7 +33,8 @@ body {
   margin: 0;
   font-family: var.$app-font;
   font-size: 16px;
-  color: #000;
+  background-color: var(--next-bg);
+  color: var(--next-text);
   overscroll-behavior: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -60,6 +63,7 @@ textarea {
   font-size: 18px;
   line-height: 24px;
   font-weight: 700;
+  color: var(--next-text);
 }
 
 .mini-text {
@@ -68,7 +72,7 @@ textarea {
 }
 
 .link-text {
-  color: color.scale(map.get(var.$colors, bright-blue-sky), $lightness: -45%);
+  color: var(--next-link);
 }
 
 .flex-row {
@@ -154,6 +158,5 @@ footer.dialog {
   .mat-mdc-menu-panel.notification-panel {
     max-width: none;
     padding: 5px 0 15px 0;
-    background-color: white;
   }
 }

@@ -39,7 +39,7 @@ footer {
 }
 
 .hint {
-  color: map.get(var.$colors, dark-label);
+  color: var(--next-note);
   font-weight: 500;
 }
 

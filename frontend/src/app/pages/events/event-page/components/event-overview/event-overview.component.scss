@@ -5,6 +5,7 @@
   padding: 0 10px;
   padding-bottom: 80px;
   flex: 1;
+  background-color: var(--next-surface);
 }
 
 header {
@@ -14,18 +15,18 @@ header {
   margin: 24px 0 6px 0;
   text-align: left;
   scroll-margin-top: 105px;
-  color: var(--dark-brown-tree);
+  color: var(--next-text);
 }
 
 @media (min-width: 992px) {
   :host {
-    border-right: 1px solid map.get(var.$colors, light-gray-accent);
+    border-right: 1px solid var(--next-border);
   }
 }
 
 @media (min-width: var.$max-page-width) {
   :host {
-    padding: 0;
+    //padding: 0;
     padding-bottom: 80px;
     padding-right: 20px;
   }

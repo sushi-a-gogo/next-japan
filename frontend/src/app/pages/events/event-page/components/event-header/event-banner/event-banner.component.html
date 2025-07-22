@@ -15,28 +15,9 @@
   <div class="banner-title break-word">
     {{ event()?.eventTitle }}
   </div>
-  <div class="event-desc">
-    @if(eventDateRange()) {
-    <!-- date range start -->
-    <span class="material-icons">event_note</span>
-    <span>{{ eventDateRange()!.minDate | date }}</span>
-    @if(eventDateRange()?.maxDate) { -
-    <span>{{ eventDateRange()!.maxDate | date }}</span>
-    }
-    <!-- date range end -->
-    } @else {
-    <div class="flex-column">
-      {{ event()?.description }}
-      <div class="flex-row">
-        <span class="material-icons">campaign</span>
-        Coming Soon
-      </div>
-    </div>
-    }
-  </div>
   @if(locationCount()) {
   <div class="event-desc" [class.open]="locationCount()">
-    <span class="material-icons">place</span>
+    <span class="material-icons icon-place">place</span>
     <span>
       {{ locationCount() | displayCount }}
       @if(locationCount() !== 1) {
@@ -47,4 +28,23 @@
     </span>
   </div>
   }
+  <div class="event-desc">
+    @if(eventDateRange()) {
+    <!-- date range start -->
+    <span class="material-icons icon-note">event_note</span>
+    <span>{{ eventDateRange()!.minDate | date }}</span>
+    @if(eventDateRange()?.maxDate) { -
+    <span>{{ eventDateRange()!.maxDate | date }}</span>
+    }
+    <!-- date range end -->
+    } @else {
+    <div class="flex-column">
+      {{ event()?.description }}
+      <div class="flex-row">
+        <span class="material-icons icon-campaign">campaign</span>
+        Coming Soon
+      </div>
+    </div>
+    }
+  </div>
 </div>

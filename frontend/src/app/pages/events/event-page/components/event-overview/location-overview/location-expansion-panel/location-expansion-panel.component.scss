@@ -15,11 +15,11 @@ header {
   width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: #fff;
+  background-color: var(--next-surface);
   border-radius: 4px;
 
   &.collapsed {
-    border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+    border-bottom: 1px solid var(--next-border);
   }
 
   button {
@@ -31,10 +31,10 @@ header {
     transition: 0.25s;
     gap: 5px;
     cursor: pointer;
-    border: 1px solid map.get(var.$colors, section-medium-gray);
+    border: 1px solid var(--next-border);
     border-radius: 100%;
-    color: #000;
-    background-color: map.get(var.$colors, section-light-gray);
+    color: var(--next-text);
+    background-color: var(--next-surface-alt);
     height: 42px;
     width: 42px;
     white-space: nowrap;
@@ -53,7 +53,7 @@ header {
     }
 
     &:hover {
-      filter: brightness(94%);
+      background-color: var(--next-surface);
     }
 
     &.busy {
@@ -81,8 +81,8 @@ header {
   opacity: 0;
   border-radius: 12px;
   padding: 0 16px;
-  background: #fcfcfc; // map.get(var.$colors, section-light-gray);
-  border: 1px solid map.get(var.$colors, light-gray-accent);
+  background: var(--next-surface-alt);
+  border: 1px solid var(--next-border);
 
   &.open {
     opacity: 1;
