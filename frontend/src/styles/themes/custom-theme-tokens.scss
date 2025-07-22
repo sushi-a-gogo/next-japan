@@ -5,14 +5,17 @@ html:not(.dark-theme) {
   --next-surface: #ffffff;
   --next-surface-rgb: 255, 255, 255;
   --next-surface-alt: #eaeaea;
-  --next-text: #0f2b56; // navy
+  --next-shade: #fcfcfc;
+  --next-text: #000; // black
+  --next-text-alt: #0f2b56; // navy
   --next-heading: #e52521; // torii gate red
-  --next-accent: #ff6fae; // cherry blossom
+  --next-accent: #e52521; // strong red
   --next-primary: #00aeef; // bright blue
   --next-highlight: #ffd300; // vivid yellow
-  --next-muted: #6dc067; // green
+  --next-muted: #616060; // accessible neutral gray
   --next-border: #dedede;
-  --next-border-alt: #2e1b0b; // dark brown
+  --next-border-alt: #ababab;
+  --next-border-dark: #2e1b0b; // dark brown
   --next-shadow: rgba(0, 0, 0, 0.1);
   --next-link: #006083; // bright blue
   --next-note: #616060; // bright blue
@@ -24,6 +27,7 @@ html:not(.dark-theme) {
   --next-surface: #1e1e1e;
   --next-surface-rgb: 30, 30, 30;
   --next-surface-alt: #2a2a2a;
+  --next-shade: #2a2a2a;
   --next-text: #ffffff;
   --next-heading: #ffd300; // vivid yellow
   --next-accent: #ff6fae;
@@ -31,6 +35,7 @@ html:not(.dark-theme) {
   --next-highlight: #ffe779;
   --next-muted: #6dc067;
   --next-border: #444;
+  --next-border-alt: #444;
   --next-shadow: rgba(0, 0, 0, 0.5);
   --next-link: #00aeef; // bright blue
   --next-note: #ababab; // bright blue

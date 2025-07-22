@@ -34,8 +34,8 @@ li {
   align-items: center;
   min-height: 40px;
   transition: 0.25s ease-in-out;
-  padding-bottom: 10px;
-  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--next-border);
 
   &.removed {
     opacity: 0;

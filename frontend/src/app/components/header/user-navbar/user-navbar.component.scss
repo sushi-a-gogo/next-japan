@@ -21,6 +21,7 @@ nav {
   transition: 0.25s ease-in-out;
 
   &.search-mode {
+    background-color: var(--next-surface);
     height: calc(var.$user-header-height + var.$user-header-height);
   }
 }

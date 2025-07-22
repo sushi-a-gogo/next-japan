@@ -13,8 +13,8 @@ header {
   gap: 10px;
 
   width: 100%;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   background-color: var(--next-surface);
   border-radius: 4px;
 
@@ -34,7 +34,7 @@ header {
     border: 1px solid var(--next-border);
     border-radius: 100%;
     color: var(--next-text);
-    background-color: var(--next-surface-alt);
+    background-color: var(--next-surface);
     height: 42px;
     width: 42px;
     white-space: nowrap;
@@ -53,7 +53,7 @@ header {
     }
 
     &:hover {
-      background-color: var(--next-surface);
+      background-color: var(--next-surface-alt);
     }
 
     &.busy {
@@ -81,7 +81,7 @@ header {
   opacity: 0;
   border-radius: 12px;
   padding: 0 16px;
-  background: var(--next-surface-alt);
+  background: var(--next-shade);
   border: 1px solid var(--next-border);
 
   &.open {
@@ -96,7 +96,7 @@ header {
   padding: 24px 0;
 
   &:not(:first-child) {
-    border-top: 1px solid map.get(var.$colors, light-gray-accent);
+    border-top: 1px solid var(--next-border);
   }
 }
 
@@ -105,7 +105,7 @@ header {
   gap: 5px;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid map.get(var.$colors, light-gray-accent);
+  border-bottom: 1px solid var(--next-border);
 
   .material-icons {
     color: map.get(var.$colors, inactive);
