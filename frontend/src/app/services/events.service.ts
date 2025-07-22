@@ -9,8 +9,6 @@ import { environment } from '@environments/environment';
 import { catchError, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
 
-const CACHE_DURATION_MS = 1000 * 60 * 5; // 5 minutes in milliseconds
-
 @Injectable({
   providedIn: 'root'
 })
