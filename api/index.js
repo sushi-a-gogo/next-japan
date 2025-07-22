@@ -56,7 +56,7 @@ app.use("/api/ai", aiRouter);
 
 app.get("/api/ping", (req, res) => {
   console.log("Ping received, instance awake:", new Date());
-  res.json({ msg: "API is alive" });
+  res.json({ msg: "API is alive", timestamp: new Date().toISOString() });
 });
 
 // 404
