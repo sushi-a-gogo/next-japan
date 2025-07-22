@@ -2,17 +2,15 @@
 @use "variables.scss" as var;
 
 :host {
-  position: relative;
+  background: url("/assets/images/default-event.avif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-}
-
-img.background {
-  object-fit: cover;
-  filter: brightness(0.7);
+  min-height: calc(var(--app-height));
 }
 
 .content {
@@ -23,8 +21,6 @@ img.background {
   width: 100%;
   z-index: 1;
   padding: 60px 20px;
-  padding-bottom: 280px;
-  min-height: 640px;
 }
 
 ul {
@@ -43,7 +39,10 @@ ul {
     span {
       font-size: 20px;
     }
-    //color: map.get(var.$colors, dark-label);
+
+    &.home {
+      gap: 4px;
+    }
   }
 }
 
@@ -68,6 +67,16 @@ article {
 
 a {
   color: var(--vivid-yellow-text);
+
+  &.home {
+    color: var(--bright-blue-sky);
+    text-decoration: none;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 footer {

@@ -1,16 +1,6 @@
 @use "variables.scss" as var;
-
-:host {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-footer {
-  width: 100%;
+.content-container {
+  padding: 10px 20px;
 }
 
 @media (max-width: var.$max-page-width) {
