@@ -81,7 +81,10 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
 
   search() {
     this.trigger()?.closePanel();
-    this.router.navigate([`/event/search`], { queryParams: { q: this.searchQuery.value } });
+    this.eventSearchService.clearSearchMode();
+    setTimeout(() => {
+      this.router.navigate([`/event/search`], { queryParams: { q: this.searchQuery.value } });
+    });
   }
 
   onOptionSelected(event: any) {
@@ -90,7 +93,10 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
     const selectedEvent = this.filteredEvents.find(e => e.eventTitle === this.selectedValue);
     if (selectedEvent) {
       // Navigate to event page
-      this.router.navigate([`/event/${selectedEvent.eventId}`]);
+      this.eventSearchService.clearSearchMode();
+      setTimeout(() => {
+        this.router.navigate([`/event/${selectedEvent.eventId}`]);
+      })
     }
   }
 }

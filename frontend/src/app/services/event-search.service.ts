@@ -29,6 +29,10 @@ export class EventSearchService {
     );
   }
 
+  clearSearchMode() {
+    this.searchModeSignal.set(false);
+  }
+
   toggleSearchMode() {
     this.searchModeSignal.update((prev) => !prev);
   }
