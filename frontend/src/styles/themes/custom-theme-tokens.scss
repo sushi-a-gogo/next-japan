@@ -19,6 +19,7 @@ html:not(.dark-theme) {
   --next-shadow: rgba(0, 0, 0, 0.1);
   --next-link: #006083; // bright blue
   --next-note: #616060; // bright blue
+  --next-footer-bg: #1a1a1a;
 }
 
 // Dark Mode
@@ -39,4 +40,5 @@ html:not(.dark-theme) {
   --next-shadow: rgba(0, 0, 0, 0.5);
   --next-link: #00aeef; // bright blue
   --next-note: #ababab; // bright blue
+  --next-footer-bg: #111111;
 }

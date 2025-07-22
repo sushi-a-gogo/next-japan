@@ -14,7 +14,7 @@ button {
   border: 0;
   color: #000;
   transition: 0.25s ease-in-out;
-  background-color: white;
+  background-color: var(--next-surface);
 
   &:hover {
     cursor: pointer;
@@ -34,19 +34,15 @@ button {
 }
 
 .image-container {
-  width: 224px;
-  height: 128px;
+  width: 100%;
   border-radius: 3px;
-  background-color: var(--creamy-white-clouds);
   background: url("/assets/images/no-image.png");
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
   overflow: hidden;
 
   &.grok {
     background: transparent;
     img {
-      border-radius: 3px;
       object-fit: contain;
       height: 100%;
       width: 100%;
@@ -55,7 +51,6 @@ button {
   }
 
   img {
-    border-radius: 3px;
     object-fit: fill;
     height: 100%;
     width: 100%;
@@ -87,8 +82,12 @@ button {
   line-height: 19px;
 }
 
+.notes {
+  color: var(--next-muted);
+}
+
 strong {
-  color: var(--next-heading);
+  //color: var(--next-heading);
 }
 
 @media (min-width: 600px) {
@@ -97,5 +96,10 @@ strong {
     align-items: center;
     gap: 24px;
     //padding: 20px 0;
+  }
+
+  .image-container {
+    width: 224px;
+    height: 128px;
   }
 }

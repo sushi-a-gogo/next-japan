@@ -23,6 +23,10 @@
   &:first-child {
     padding-top: 0;
   }
+
+  &:last-child {
+    border: 0;
+  }
 }
 
 .message {
