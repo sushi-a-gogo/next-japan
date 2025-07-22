@@ -26,6 +26,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
+    path: 'ping',
+    renderMode: RenderMode.Server
+  },
+  {
     path: 'login',
     renderMode: RenderMode.Server
   },

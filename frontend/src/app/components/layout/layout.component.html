@@ -1,0 +1,30 @@
+<div
+  class="app-container"
+  [class.user]="!!userProfile()"
+  [class.search-mode]="inSearchMode()"
+>
+  <header>
+    <app-header />
+  </header>
+  <main>
+    <section class="router-content">
+      <ng-content />
+    </section>
+    <footer>
+      <app-footer />
+    </footer>
+  </main>
+</div>
+<div
+  class="backdrop"
+  [class.open]="inSearchMode()"
+  (click)="toggleSearchMode()"
+></div>
+<!-- My Events -->
+@if(showEventsDialog()) {
+<app-my-events (close)="closeEventsDialog()" />
+}
+<!-- My Profile -->
+@if(showProfileDialog()) {
+<app-user-profile (close)="closeProfileDialog()" />
+}

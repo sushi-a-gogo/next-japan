@@ -5,11 +5,16 @@ import { authGuard } from './guards/auth.guard';
 import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { PingComponent } from './pages/ping/ping.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'ping',
+    component: PingComponent
   },
   {
     path: 'login',

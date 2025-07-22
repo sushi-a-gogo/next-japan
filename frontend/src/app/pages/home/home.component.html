@@ -1,51 +1,53 @@
-<article>
-  <header [style.backgroundImage]="backgroundImage()">
-    <app-org-banner />
-  </header>
-  <main>
-    <section class="content-container">
-      <div class="flex-content organization-info">
-        <div class="info-title break-word">
-          {{ org.infoTitle }}
+<app-layout>
+  <article>
+    <header [style.backgroundImage]="backgroundImage()">
+      <app-org-banner />
+    </header>
+    <main>
+      <section class="content-container">
+        <div class="flex-content organization-info">
+          <div class="info-title break-word">
+            {{ org.infoTitle }}
+          </div>
+          <div class="info-description break-word pre-wrap">
+            {{ org.infoDescription }}
+          </div>
         </div>
-        <div class="info-description break-word pre-wrap">
-          {{ org.infoDescription }}
+      </section>
+      <section>
+        <app-event-carousel [events]="events()" />
+      </section>
+      <section class="image-content">
+        <img
+          [ngSrc]="aiBackgroundImage().src"
+          alt="A dream"
+          [width]="aiBackgroundImage().image.width"
+          [height]="aiBackgroundImage().image.height"
+          sizes="100vw"
+        />
+        <div class="text-content flex-content flex-column center">
+          <header>
+            <div class="headline">AI Event Designer</div>
+            <div class="subhead">Design and customize events effortlessly.</div>
+          </header>
+          <main class="content">
+            Our AI Event Designer is currently in beta and available for you to
+            test drive. Experience how artificial intelligence can help you
+            design and customize events quickly and effortlessly. Try it now and
+            experience the future of event planning!
+          </main>
+          <footer>
+            <a
+              class="app-button app-button-save"
+              aria-label="Learn more about our AI Event Designer"
+              type="button"
+              routerLink="./ai"
+            >
+              <strong>Explore the AI Event Designer</strong>
+            </a>
+          </footer>
         </div>
-      </div>
-    </section>
-    <section>
-      <app-event-carousel [events]="events()" />
-    </section>
-    <section class="image-content">
-      <img
-        [ngSrc]="aiBackgroundImage().src"
-        alt="A dream"
-        [width]="aiBackgroundImage().image.width"
-        [height]="aiBackgroundImage().image.height"
-        sizes="100vw"
-      />
-      <div class="text-content flex-content flex-column center">
-        <header>
-          <div class="headline">AI Event Designer</div>
-          <div class="subhead">Design and customize events effortlessly.</div>
-        </header>
-        <main class="content">
-          Our AI Event Designer is currently in beta and available for you to
-          test drive. Experience how artificial intelligence can help you design
-          and customize events quickly and effortlessly. Try it now and
-          experience the future of event planning!
-        </main>
-        <footer>
-          <a
-            class="app-button app-button-save"
-            aria-label="Learn more about our AI Event Designer"
-            type="button"
-            routerLink="./ai"
-          >
-            <strong>Explore the AI Event Designer</strong>
-          </a>
-        </footer>
-      </div>
-    </section>
-  </main>
-</article>
+      </section>
+    </main>
+  </article>
+</app-layout>
