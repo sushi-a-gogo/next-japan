@@ -2,7 +2,7 @@ ul {
   padding: 20px;
   margin: 0;
   list-style: none;
-  gap: 6px;
+  gap: 10px;
   border-radius: 10px;
   background: rgba($color: #000000, $alpha: 0.85);
   font-size: 14px;
@@ -18,6 +18,10 @@ ul {
       line-height: 1;
     }
   }
+}
+
+a {
+  color: var(--next-link);
 }
 
 @media (min-width: 600px) {

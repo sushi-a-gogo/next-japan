@@ -132,7 +132,7 @@ a.app-button {
   background-color: var(--next-surface);
   color: var(--next-text);
   min-width: 133px;
-  border: 2px solid var(--next-border);
+  border: 2px solid var(--next-border-alt);
 
   &:hover:not(:disabled) {
     background-color: var(--next-surface-alt);
