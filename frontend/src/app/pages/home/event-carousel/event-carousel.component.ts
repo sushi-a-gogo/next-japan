@@ -46,7 +46,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['events']) {
       this.sortedEvents.set([...this.events().sort(this.sortByDate)])
-      setTimeout(() => this.eventsLoaded.set(true));
+      setTimeout(() => this.eventsLoaded.set(this.events().length > 0));
     }
   }
 
