@@ -9,7 +9,7 @@ Goals
 - Implement a real-world REST API with Express
 - Deploy both frontend and backend to the cloud (Render)
 - Integrate OpenAI API to enhance interactivity
-- Optimize for cold-start latency and client-side routing
+- SSR for optimized performance and SEO
 
 Tech Stack
 
