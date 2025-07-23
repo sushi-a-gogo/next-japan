@@ -58,6 +58,7 @@
   @include mat.snack-bar-overrides(
     (
       button-color: var(--vivid-yellow-text),
+      supporting-text-color: #fff,
       supporting-text-weight: 400,
       container-color: var(--red-torii-gate),
     )
