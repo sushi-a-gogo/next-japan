@@ -19,7 +19,7 @@
     map.get(var.$colors, navy-blue-mountain) 0%,
     color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -20%) 100%
   );
-  color: var(--next-highlight);
+  color: var(--vivid-yellow-text);
 
   opacity: 0;
   transition: opacity 0.25s;
@@ -36,6 +36,7 @@
   font-size: 20px;
   font-weight: 700;
   border-radius: 4px;
+  background: var(--next-surface);
 
   &.mobile {
     width: 100%;

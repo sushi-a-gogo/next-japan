@@ -61,7 +61,7 @@ a.app-button {
     line-height: 19px;
   }
 
-  &.app-button-save {
+  &.app-button-filled {
     color: #fff;
   }
 }
@@ -117,7 +117,7 @@ a.app-button {
   }
 }
 
-.app-button-save {
+.app-button-filled {
   background-color: var(--next-confirm-bg);
   color: var(--next-confirm-text);
 
@@ -130,7 +130,7 @@ a.app-button {
   }
 }
 
-.app-button-cancel {
+.app-button-outlined {
   background-color: transparent;
   color: var(--next-outlined-text);
   min-width: 133px;

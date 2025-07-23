@@ -100,7 +100,7 @@
   <footer class="dialog">
     <button
       type="button"
-      class="app-button dialog-button app-button-cancel"
+      class="app-button dialog-button app-button-outlined"
       matRipple
       (click)="closeProfile()"
     >
@@ -108,7 +108,7 @@
     </button>
     <button
       type="button"
-      class="app-button dialog-button app-button-save"
+      class="app-button dialog-button app-button-filled"
       matRipple
       (click)="saveProfile()"
       [disabled]="profileForm.pristine || !profileForm.valid"

@@ -18,7 +18,7 @@
     </a>
     @if(!savedEvent()) {
     <button
-      class="app-button app-button-save"
+      class="app-button app-button-filled"
       type="button"
       (click)="saveEvent()"
       [disabled]="busy() || savedEvent()"
@@ -28,7 +28,7 @@
     } @else {
     <a
       type="button"
-      class="app-button app-button-save fade-in"
+      class="app-button app-button-filled fade-in"
       [class.open]="savedEvent()"
       [routerLink]="'/event/' + savedEvent()?.eventId"
     >

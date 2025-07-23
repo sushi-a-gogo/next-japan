@@ -77,7 +77,7 @@
     </mat-form-field>
     @if(disabled()) {
     <button
-      class="app-button app-button-save"
+      class="app-button app-button-filled"
       disabled
       matTooltip="Sign in or create an account to use the content generator."
     >
@@ -85,7 +85,7 @@
     </button>
     } @else {
     <button
-      class="app-button app-button-save generate"
+      class="app-button app-button-filled generate"
       type="submit"
       [disabled]="busy()"
     >
