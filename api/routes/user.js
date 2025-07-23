@@ -53,22 +53,6 @@ router.put("/update", async (req, res) => {
     }
 
     // Save to MongoDB
-    const user = new User({
-      firstName,
-      lastName,
-      email,
-      imageId: image.id,
-      imageHeight: image.height,
-      imageWidth: image.width,
-      cloudflareImageId: image.cloudflareImageId,
-      addressLine1,
-      city,
-      state,
-      zip,
-      mode,
-    });
-
-    // You need to find the user by id and then update
     const { userId } = req.body;
     if (!userId) {
       return res.status(400).json({ error: "Missing userId for update" });
@@ -88,7 +72,7 @@ router.put("/update", async (req, res) => {
         city,
         state,
         zip,
-        mode,
+        mode: mode || null,
       },
       { new: true }
     );
