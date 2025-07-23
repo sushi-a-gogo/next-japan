@@ -22,8 +22,8 @@
 
   &.dialog-button {
     font-weight: 700;
-    border-radius: 3px;
-    min-width: 133px;
+    border-radius: 4px;
+    min-width: 120px;
   }
 
   &:disabled {
@@ -43,17 +43,13 @@ a.app-button {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: var(--next-text);
   text-decoration: none;
 }
 
 .app-button-filled {
   background-color: var(--next-confirm-bg);
+  border: 1px solid var(--next-confirm-bg);
   color: var(--next-confirm-text);
-
-  &.dialog-button {
-    min-width: 119px;
-  }
 
   &:hover:not(:disabled) {
     opacity: 0.9;

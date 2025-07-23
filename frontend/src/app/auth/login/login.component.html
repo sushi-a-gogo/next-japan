@@ -10,7 +10,8 @@
         <li>
           <button
             class="app-button flex-button user"
-            [class.selected]="selectedUserId() === user.userId"
+            [class.app-button-filled]="selectedUserId() === user.userId"
+            [class.app-button-outlined]="selectedUserId() !== user.userId"
             (click)="select(user.userId)"
           >
             <app-avatar [size]="48" [avatar]="user" />
@@ -22,7 +23,7 @@
     </main>
     <footer class="flex-column">
       <button
-        class="app-button app-button-filled"
+        class="app-button dialog-button app-button-filled"
         (click)="signin()"
         [disabled]="!selectedUserId()"
       >

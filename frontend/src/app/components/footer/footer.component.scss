@@ -1,4 +1,3 @@
-@use "sass:map";
 @use "variables.scss" as var;
 
 :host {
@@ -90,7 +89,7 @@ a {
   gap: 5px;
 
   &:hover {
-    color: map.get(var.$colors, vivid-yellow-text);
+    color: var(--vivid-yellow-text);
   }
 }
 
