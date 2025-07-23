@@ -184,6 +184,9 @@ router.post("/save", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  //await new Promise((resolve) => setTimeout(resolve, 100));
+  // return res.status(500).json();
+
   try {
     const event = await Event.findById(req.params.id); // Use _id directly
     if (!event) {
