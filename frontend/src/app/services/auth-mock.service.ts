@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { UserProfile } from '@app/models/user-profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,15 +29,9 @@ export class AuthMockService {
     this.authenticating.set(false);
   }
 
-  login() {
+  login(user: UserProfile) {
     this.authenticating.set(false);
     this.authenticated.set(true);
-  }
-
-  loginWithRedirect(options: any) {
-    this.router.navigate([options.appState.target || '/']).then(() => {
-      this.authenticated.set(true);
-    });
   }
 
   logout(redirectTo: string) {

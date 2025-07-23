@@ -80,6 +80,10 @@
   margin-bottom: 10px;
 }
 
+.material-icons {
+  color: var(--next-heading);
+}
+
 @media (min-width: var.$screen-sm) {
   .banner-title {
     font-size: 36px;

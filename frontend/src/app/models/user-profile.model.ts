@@ -6,8 +6,6 @@ export interface UserProfile extends User {
   state: string | null;
   zip: string | null;
   phone: string | null;
-  createdDate?: Date;
-  lastUpdateDate?: Date;
-  additionalInformation?: string;
   isEmailPreferred: boolean;
+  mode?: 'light' | 'dark';
 }

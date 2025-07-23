@@ -1,4 +1,3 @@
-@use "sass:map";
 @use "variables.scss" as var;
 
 :host {
@@ -23,7 +22,7 @@
 
 .banner-bar {
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.66);
   padding: 10px;
   padding-bottom: 20px;
   width: 100%;
@@ -32,6 +31,7 @@
 }
 
 .banner-title {
+  color: var(--next-highlight);
   font-size: 24px;
   font-weight: 700;
   line-height: 32px;
@@ -58,6 +58,15 @@
   .flex-column {
     gap: 24px;
   }
+}
+
+.icon-note {
+  color: var(--next-primary);
+}
+
+.icon-place,
+.icon-campaign {
+  color: var(--red-torii-gate);
 }
 
 @media (min-width: var.$screen-sm) {

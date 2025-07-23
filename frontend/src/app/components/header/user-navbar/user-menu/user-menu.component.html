@@ -33,6 +33,50 @@
       My Profile
     </div>
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="modes">
+    <div class="menu-item">
+      <span class="material-icons">palette</span>
+      Appearance
+    </div>
+  </button>
+  <mat-menu #modes="matMenu">
+    <button mat-menu-item class="theme-selector" (click)="setAppearanceMode()">
+      <div class="menu-item">
+        <span class="material-icons" [class.open]="!userProfile()?.mode"
+          >check</span
+        >
+        Device
+      </div>
+    </button>
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="setAppearanceMode('light')"
+    >
+      <div class="menu-item">
+        <span
+          class="material-icons"
+          [class.open]="userProfile()?.mode === 'light'"
+          >check</span
+        >
+        Light
+      </div>
+    </button>
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="setAppearanceMode('dark')"
+    >
+      <div class="menu-item">
+        <span
+          class="material-icons"
+          [class.open]="userProfile()?.mode === 'dark'"
+          >check</span
+        >
+        Dark
+      </div>
+    </button>
+  </mat-menu>
   <button mat-menu-item (click)="logout()">
     <div class="menu-item">
       <span class="material-icons">logout</span>

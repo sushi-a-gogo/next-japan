@@ -6,7 +6,7 @@
     [disabled]="selected().length === 0"
     (click)="openRegistrationDialog()"
   >
-    Tap to Register
+    Tap to Request
   </button>
   <div class="desktop">
     @if(selected().length) {
@@ -18,10 +18,10 @@
       <button
         type="button"
         matRipple
-        class="app-button"
+        class="app-button app-button-outlined"
         (click)="openRegistrationDialog()"
       >
-        Register
+        Request
       </button>
     </div>
     }

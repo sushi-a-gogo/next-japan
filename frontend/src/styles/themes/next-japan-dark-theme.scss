@@ -1,14 +1,11 @@
-// File: src/styles/themes/next-japan-theme.scss
-
 @use "@angular/material" as mat;
-@use "sass:map";
 @use "./next-japan_theme-colors.scss" as colors;
 
-html {
+.dark-theme {
   @include mat.theme(
     (
       color: (
-        theme-type: light,
+        theme-type: dark,
         primary: colors.$primary-palette,
         secondary: colors.$secondary-palette,
         tertiary: colors.$tertiary-palette,

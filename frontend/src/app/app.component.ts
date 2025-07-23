@@ -4,6 +4,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { AuthMockService } from './services/auth-mock.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,13 @@ export class AppComponent {
   private authService = inject(AuthMockService);
   isAuthenticating = this.authService.isAuthenticating;
 
+  private themeService = inject(ThemeService);
+
   constructor() {
-    afterNextRender(this.configureAppHeight);
+    afterNextRender(() => {
+      this.themeService.setAppearanceMode();
+      this.configureAppHeight();
+    });
   }
 
   private configureAppHeight(): void {

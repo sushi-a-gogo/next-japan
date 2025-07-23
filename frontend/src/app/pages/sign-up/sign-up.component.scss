@@ -1,29 +1,31 @@
-@use "sass:color";
-@use "sass:map";
-@use "variables.scss" as var;
-
 :host {
-  position: relative;
+  background: url("/assets/images/default-event.avif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  height: 100%;
+  justify-content: center;
   width: 100%;
-  padding: 0 20px;
-}
-
-img.background {
-  object-fit: cover;
-  filter: brightness(0.7);
+  min-height: calc(var(--app-height));
 }
 
 article {
   margin: 40px 0;
-  padding: 0 20px 40px 20px;
-  z-index: 1;
+  padding: 20px;
   border-radius: 16px;
   width: 100%;
-  background: rgba($color: #fff, $alpha: 0.75);
+  background: rgba($color: #000, $alpha: 0.75);
+  color: #fff;
+}
+
+h2 {
+  color: var(--next-highlight);
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
 }
 
 ul.plan-list {
@@ -38,8 +40,9 @@ ul.plan-list {
     flex: 1 1 100%;
     min-width: 0;
     box-sizing: border-box;
-    border: 1px solid map.get(var.$colors, section-medium-gray);
-    background-color: map.get(var.$colors, section-gray);
+    border: 1px solid var(--next-border);
+    background-color: var(--next-surface);
+    color: var(--next-text);
     border-radius: 10px;
     overflow: hidden;
 
@@ -52,8 +55,6 @@ ul.plan-list {
     }
 
     padding-bottom: 4px;
-
-    // Optional: add margin or padding as needed
   }
 
   // 2 columns ≥ 600px
@@ -100,7 +101,6 @@ div.flex-column {
 
 .benefits {
   flex: 1;
-  color: map.get(var.$colors, dark-label);
   font-weight: 600;
 
   ul {
@@ -157,58 +157,34 @@ div.flex-column {
 }
 
 .pink {
-  background-color: map.get(var.$colors, pink-cherry-blossoms);
+  background-color: var(--next-accent);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, pink-cherry-blossoms),
-      $lightness: -5%
-    );
+    opacity: 0.9;
   }
 }
 
 .brown {
-  background-color: map.get(var.$colors, dark-brown-tree);
+  background-color: var(--next-heading);
+  color: var(--next-bg);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, dark-brown-tree),
-      $lightness: -5%
-    );
-  }
-}
-
-.yellow {
-  background-color: color.scale(
-    map.get(var.$colors, vivid-yellow-text),
-    $lightness: -25%
-  );
-  &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, vivid-yellow-text),
-      $lightness: -40%
-    );
+    opacity: 0.9;
   }
 }
 
 .green {
-  background-color: map.get(var.$colors, bright-green-grass);
+  background-color: var(--next-muted);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, bright-green-grass),
-      $lightness: -5%
-    );
+    opacity: 0.9;
   }
 }
 
 .blue {
-  background-color: map.get(var.$colors, bright-blue-sky);
+  background-color: var(--next-primary);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, bright-blue-sky),
-      $lightness: -5%
-    );
+    opacity: 0.9;
   }
 }

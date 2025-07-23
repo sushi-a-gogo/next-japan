@@ -16,7 +16,7 @@
 
   &.open {
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(var(--next-surface-rgb), 0.25);
     backdrop-filter: blur(0.5px);
   }
 }
@@ -54,24 +54,14 @@ footer {
     width: 48px;
     height: 48px;
     border-radius: 100%;
-    //background: lighten(map.get(var.$colors, bright-green-grass), 30%);
-    background: color.scale(
-      map.get(var.$colors, bright-green-grass),
-      $lightness: 70%
-    );
-    //border: 1px solid darken(map.get(var.$colors, bright-green-grass), 40%);
-    border: 1px solid
-      color.scale(map.get(var.$colors, bright-green-grass), $lightness: -66%);
+    background: var(--next-surface-alt);
+    border: 1px solid var(--next-border);
   }
 
   .material-icons {
     font-size: 32px;
     font-weight: 500;
-    color: color.scale(
-      map.get(var.$colors, bright-green-grass),
-      $lightness: -66%
-    );
-    //color: darken(map.get(var.$colors, bright-green-grass), 40%);
+    color: var(--next-note);
   }
 }
 

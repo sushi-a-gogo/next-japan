@@ -1,7 +1,3 @@
-@use "sass:color";
-@use "sass:map";
-@use "variables.scss" as var;
-
 .app-button {
   border: 0;
   background-color: inherit;
@@ -9,14 +5,13 @@
   padding: 0 20px;
   font-size: 16px;
   line-height: 24px;
+  font-weight: 600;
+
+  letter-spacing: 0.006rem;
   min-height: 42px;
   min-width: 64px;
   text-align: center;
-  color: #000;
-
-  &.outline {
-    border: 1px solid map.get(var.$colors, inactive);
-  }
+  color: var(--next-text);
 
   &.flex-button {
     display: flex;
@@ -27,17 +22,18 @@
 
   &.dialog-button {
     font-weight: 700;
-    border-radius: 3px;
+    border-radius: 4px;
+    min-width: 120px;
   }
 
   &:disabled {
-    cursor: default;
+    cursor: not-allowed;
     opacity: 0.5;
 
     &.inactive {
-      opacity: 1;
-      background-color: #0000001f;
-      color: #00000042;
+      opacity: 0.75;
+      background-color: var(--next-surface-alt);
+      color: var(--next-text);
     }
   }
 }
@@ -47,171 +43,25 @@ a.app-button {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: #000;
   text-decoration: none;
+}
 
-  &.stack {
-    flex-direction: column;
-    white-space: nowrap;
-    line-height: 19px;
-  }
+.app-button-filled {
+  background-color: var(--next-confirm-bg);
+  border: 1px solid var(--next-confirm-bg);
+  color: var(--next-confirm-text);
 
-  &.app-button-save {
-    color: #fff;
+  &:hover:not(:disabled) {
+    opacity: 0.9;
   }
 }
 
-.app-icon-button {
-  border: 0;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  border-radius: 100%;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: map.get(var.$colors, light-gray-accent);
-  color: #000;
+.app-button-outlined {
+  background-color: transparent;
+  color: var(--next-outlined-text);
+  border: 1px solid var(--next-outlined-border);
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, light-gray-accent),
-      $lightness: -5%
-    );
-  }
-
-  .mat-icon,
-  .material-icons {
-    height: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: map.get(var.$colors, dark-label);
-  }
-
-  &.white {
-    background-color: #fff;
-
-    &:hover:not(:disabled) {
-      background-color: color.scale(#fff, $lightness: -5%);
-    }
-  }
-
-  &.transparent {
-    background-color: inherit;
-
-    &:hover:not(:disabled),
-    &:focus,
-    &:active {
-      background-color: map.get(var.$colors, section-gray);
-    }
-  }
-
-  &.alt-transparent {
-    background-color: inherit;
-
-    .mat-icon,
-    .material-icons {
-      color: #fff;
-    }
-
-    outline-color: #fff;
-  }
-
-  &:disabled {
-    cursor: default;
-    background-color: #0000001f;
-    color: #00000042;
-    opacity: 0.5;
-  }
-}
-
-.app-button-save {
-  background-color: map.get(var.$colors, bright-blue-sky);
-  color: #fff;
-
-  &.dialog-button {
-    min-width: 119px;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, bright-blue-sky),
-      $lightness: -5%
-    );
-  }
-}
-
-.app-button-cancel {
-  background-color: #fff;
-  color: map.get(var.$colors, dark-label);
-  min-width: 133px;
-  border: 2px solid map.get(var.$colors, dark-label);
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(#fff, $lightness: -5%);
-  }
-}
-
-.app-button-confirm {
-  background: map.get(var.$colors, red-torii-gate);
-  background-color: map.get(var.$colors, red-torii-gate);
-  color: #fff;
-  min-width: 119px;
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, red-torii-gate),
-      $lightness: -5%
-    );
-  }
-}
-
-.app-button-dark {
-  color: #fff;
-  background-color: map.get(var.$colors, dark-label);
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, dark-label),
-      $lightness: -15%
-    );
-  }
-}
-
-.app-button-default {
-  background-color: map.get(var.$colors, inactive);
-  color: #fff;
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, inactive),
-      $lightness: -5%
-    );
-  }
-}
-
-.app-button-select {
-  border: 1px solid map.get(var.$colors, darkest-gray);
-  color: map.get(var.$colors, darkest-gray);
-  font-weight: 600;
-  background-color: #fff;
-
-  &:disabled {
-    opacity: 0.75;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: color.scale(#fff, $lightness: -5%);
-  }
-
-  &.transparent {
-    color: #000;
-    background-color: transparent;
-    font-weight: 400;
-
-    &:hover:not(:disabled) {
-      background-color: map.get(var.$colors, default-gray);
-    }
+    background-color: var(--next-surface-alt);
   }
 }

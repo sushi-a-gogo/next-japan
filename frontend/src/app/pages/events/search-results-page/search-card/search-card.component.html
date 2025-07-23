@@ -18,7 +18,7 @@
       >
         {{ event().eventTitle || "Title Not Available" }}
       </div>
-      <div class="description break-word">
+      <div class="description notes break-word">
         {{ event().description }}
       </div>
     </div>
@@ -30,6 +30,11 @@
           [opportunity]="event().nextOpportunityDate!"
         ></app-opportunity-date>
       </div>
+    </div>
+    } @else {
+    <div class="flex-row">
+      <span class="material-icons">campaign</span>
+      <strong>Coming Soon</strong>
     </div>
     }
   </div>

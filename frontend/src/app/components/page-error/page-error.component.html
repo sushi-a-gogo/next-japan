@@ -1,8 +1,8 @@
 <img [ngSrc]="image().src" alt="An image of sadness" fill priority />
 <div class="error-content">
-  <span class="material-icons"> crisis_alert </span>
+  <span class="material-icons alert"> crisis_alert </span>
   <div class="error-block">
-    <div class="error-header">{{ errorTitle }}</div>
+    <div class="error-header alert">{{ errorTitle }}</div>
     {{ errorMessage() }}
     @if(routerLink) {
     <div class="error-link">

@@ -1,4 +1,5 @@
-import { Component, computed, inject, output } from '@angular/core';
+import { Component, computed, DestroyRef, inject, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -15,6 +16,7 @@ import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.comp
 export class UserMenuComponent {
   private dialogService = inject(DialogService);
   private userProfileService = inject(UserProfileService);
+  private destroyRef = inject(DestroyRef);
 
   signout = output();
 
@@ -38,5 +40,14 @@ export class UserMenuComponent {
 
   openUserProfile() {
     this.dialogService.showProfileDialog();
+  }
+
+  setAppearanceMode(mode?: 'light' | 'dark') {
+    if (this.userProfile()) {
+      this.userProfile()!.mode = mode;
+      this.userProfileService.updateProfile$(this.userProfile()!).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe();
+    }
   }
 }

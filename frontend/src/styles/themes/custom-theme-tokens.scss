@@ -1,0 +1,62 @@
+// Light Mode (default)
+:root,
+html:not(.dark-theme) {
+  --next-bg: #f8f8f8;
+  --next-surface: #ffffff;
+  --next-surface-rgb: 255, 255, 255;
+  --next-surface-alt: #eaeaea;
+  --next-shade: #fcfcfc;
+  --next-text: #000; // black
+  --next-text-rgb: 0, 0, 0;
+  --next-text-alt: #0f2b56; // navy
+  --next-heading: #2e1b0b; // dark brown
+  --next-accent: #e52521; // torii gate red
+  --next-primary: #00aeef; // bright blue
+  --next-primary-rgb: 0, 174, 239; // bright blue
+  --next-highlight: #ffd300; // vivid yellow
+  --next-highlight-rgb: 255, 211, 0; // vivid yellow
+  --next-muted: #616060; // accessible neutral gray
+  --next-border: #dedede;
+  --next-border-alt: #ababab;
+  --next-border-dark: #2e1b0b; // dark brown
+  --next-shadow: rgba(0, 0, 0, 0.1);
+  --next-link: #00658d; // bright blue
+  --next-note: #616060; // bright blue
+  --next-footer-bg: #1a1a1a;
+
+  --next-confirm-bg: #00658d;
+  --next-confirm-text: #fff;
+
+  --next-outlined-text: #00658d;
+  --next-outlined-border: #6e7881;
+}
+
+// Dark Mode
+.dark-theme {
+  --next-bg: #121212;
+  --next-surface: #1e1e1e;
+  --next-surface-rgb: 30, 30, 30;
+  --next-surface-alt: #2a2a2a;
+  --next-shade: #2a2a2a;
+  --next-text: #ffffff;
+  --next-text-rgb: 255, 255, 255;
+  --next-heading: #ffd300; // vivid yellow
+  --next-accent: #ff6fae;
+  --next-primary: #00aeef;
+  --next-primary-rgb: 0, 174, 239; // bright blue
+  --next-highlight: #ffe779;
+  --next-highlight-rgb: 255, 231, 121;
+  --next-muted: #6dc067;
+  --next-border: #444;
+  --next-border-alt: #444;
+  --next-shadow: rgba(0, 0, 0, 0.5);
+  --next-link: #82cfff;
+  --next-note: #ababab;
+  --next-footer-bg: #111111;
+
+  --next-confirm-bg: #82cfff;
+  --next-confirm-text: #00344b;
+
+  --next-outlined-text: #82cfff;
+  --next-outlined-border: #87929b;
+}

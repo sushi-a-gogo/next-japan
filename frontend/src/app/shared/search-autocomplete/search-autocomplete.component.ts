@@ -6,7 +6,7 @@ import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventSearchService } from '@app/services/event-search.service';
 import { debounceTime, filter, of, switchMap } from 'rxjs';
@@ -52,12 +52,6 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
       this.searchQuery.setValue(query, { emitEvent: false });
     }
 
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        this.eventSearchService.toggleSearchMode();
-      });
-
     this.searchQuery.valueChanges.pipe(
       debounceTime(300),
       filter(() => !this.selectedValue),
@@ -81,10 +75,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
 
   search() {
     this.trigger()?.closePanel();
-    this.eventSearchService.clearSearchMode();
-    setTimeout(() => {
-      this.router.navigate([`/event/search`], { queryParams: { q: this.searchQuery.value } });
-    });
+    this.router.navigate([`/event/search`], { queryParams: { q: this.searchQuery.value } });
   }
 
   onOptionSelected(event: any) {
@@ -93,10 +84,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
     const selectedEvent = this.filteredEvents.find(e => e.eventTitle === this.selectedValue);
     if (selectedEvent) {
       // Navigate to event page
-      this.eventSearchService.clearSearchMode();
-      setTimeout(() => {
-        this.router.navigate([`/event/${selectedEvent.eventId}`]);
-      })
+      this.router.navigate([`/event/${selectedEvent.eventId}`]);
     }
   }
 }

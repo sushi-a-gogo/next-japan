@@ -1,6 +1,3 @@
-@use "sass:map";
-@use "variables.scss" as var;
-
 :host {
   position: relative;
   display: block;
@@ -38,11 +35,14 @@ img {
   }
 }
 
+.alert {
+  color: var(--pink-cherry-blossoms);
+}
+
 .error-header {
   font-size: 18px;
   line-height: 19px;
   font-weight: 700;
-  color: map.get(var.$colors, error-red);
 }
 
 .error-link {
@@ -51,7 +51,7 @@ img {
 
   a {
     font-weight: 600;
-    color: map.get(var.$colors, light-yellow-stars);
+    color: var(--vivid-yellow-text);
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -63,6 +63,5 @@ img {
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
-    color: map.get(var.$colors, base-color);
   }
 }

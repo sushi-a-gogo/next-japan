@@ -10,6 +10,7 @@
     <button
       aria-label="Open Panel"
       type="button"
+      class="app-button app-button-outlined"
       matRipple
       (click)="selectLocation()"
       [class.expanded]="accordion.expanded"
@@ -32,11 +33,6 @@
             [opportunity]="opportunity"
           ></app-opportunity-timestamp>
           <app-opportunity-selector [opportunity]="opportunity" />
-        </div>
-        } @empty {
-        <div class="message">
-          <span class="material-icons">schedule</span>
-          No opportunities at this location.
         </div>
         }
       </div>

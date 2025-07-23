@@ -1,7 +1,3 @@
-@use "sass:map";
-@use "sass:color";
-@use "variables.scss" as var;
-
 :host {
   display: flex;
   flex-direction: row;
@@ -14,16 +10,12 @@
 }
 
 .material-icons {
-  color: map.get(var.$colors, red-torii-gate);
+  color: var(--red-torii-gate);
 }
 
 a.get-directions {
   font-weight: 600;
   text-decoration: underline;
-
-  .inactive {
-    color: map.get(var.$colors, inactive);
-  }
 
   &.desktop {
     display: none;

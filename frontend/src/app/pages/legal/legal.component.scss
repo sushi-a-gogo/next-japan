@@ -1,4 +1,11 @@
 @use "variables.scss" as var;
+
+.host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .content-container {
   padding: 10px 20px;
 }

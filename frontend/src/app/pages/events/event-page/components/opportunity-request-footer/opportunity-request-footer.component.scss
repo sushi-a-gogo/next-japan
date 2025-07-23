@@ -1,5 +1,3 @@
-@use "sass:map";
-@use "sass:color";
 @use "variables.scss" as var;
 
 .event-footer {
@@ -14,12 +12,8 @@
   font-weight: 700;
   width: 100%;
   height: 0;
-  background: linear-gradient(
-    180deg,
-    map.get(var.$colors, navy-blue-mountain) 0%,
-    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -20%) 100%
-  );
-  color: white;
+  background: var(--navy-blue-mountain);
+  color: var(--vivid-yellow-text);
 
   opacity: 0;
   transition: opacity 0.25s;
@@ -36,22 +30,13 @@
   font-size: 20px;
   font-weight: 700;
   border-radius: 4px;
-  color: white;
-  background: linear-gradient(
-    180deg,
-    map.get(var.$colors, navy-blue-mountain) 0%,
-    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -8%) 100%
-  );
+  background: var(--next-surface);
 
   &.mobile {
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      180deg,
-      map.get(var.$colors, navy-blue-mountain) 0%,
-      color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -8%)
-        100%
-    );
+    color: var(--next-highlight);
+    background: var(--navy-blue-mountain);
   }
 }
 
@@ -79,17 +64,14 @@
     max-width: var.$max-page-width;
     padding: 0 20px;
   }
-
-  .app-button {
-    padding: 10px 30px;
-    color: var(--navy-blue-mountain);
-    border: 1px solid var(--navy-blue-mountain);
-    background: white;
-  }
 }
 
 @media (min-width: var.$max-page-width) {
   .desktop {
-    padding: 0;
+    padding: 0 10px 0 0;
+  }
+
+  .app-button {
+    padding: 10px 30px;
   }
 }

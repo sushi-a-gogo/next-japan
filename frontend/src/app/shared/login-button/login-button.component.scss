@@ -1,48 +1,12 @@
-@use "sass:map";
-@use "variables.scss" as var;
-
 button,
 a {
   font-size: 14px;
   font-weight: 700;
   border-radius: 4px;
-  border: 0;
-  padding: 12px;
-  min-width: 80px;
-  color: #fff;
-  background-color: transparent;
-  //width: 100px;
-  white-space: nowrap;
+  padding: 0 12px;
+  min-width: 100px;
 
   &:hover {
     cursor: pointer;
-  }
-}
-
-.get-started {
-  text-decoration: none;
-  background-color: rgba(
-    $color: map.get(var.$colors, navy-blue-mountain),
-    $alpha: 1
-  );
-
-  &:hover {
-    background-color: rgba(
-      $color: map.get(var.$colors, navy-blue-mountain),
-      $alpha: 1
-    );
-  }
-}
-
-.sign-in {
-  background-color: rgba(
-    $color: map.get(var.$colors, bright-blue-sky),
-    $alpha: 1
-  );
-  &:hover {
-    background-color: rgba(
-      $color: map.get(var.$colors, bright-blue-sky),
-      $alpha: 1
-    );
   }
 }

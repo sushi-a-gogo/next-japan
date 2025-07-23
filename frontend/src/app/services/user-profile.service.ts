@@ -3,10 +3,11 @@ import { afterNextRender, inject, Injectable, signal } from '@angular/core';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { UserProfile } from '@models/user-profile.model';
-import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
 import { StorageService } from './storage.service';
+import { ThemeService } from './theme.service';
 
 const LOCAL_STORAGE_KEY = 'nextjp.user';
 
@@ -18,6 +19,7 @@ export class UserProfileService {
   private authService = inject(AuthMockService);
   private errorService = inject(ErrorService);
   private storage = inject(StorageService);
+  private themeService = inject(ThemeService);
 
   private apiUri = `${environment.apiUrl}/api/user`;
 
@@ -29,13 +31,14 @@ export class UserProfileService {
       const savedUser = this.storage.local.getItem(LOCAL_STORAGE_KEY);
       if (savedUser) {
         this.user.set(JSON.parse(savedUser));
-        this.authService.login();
+        this.themeService.setAppearanceMode(this.user()?.mode);
+        this.authService.login(this.user()!);
       }
     });
   }
 
   getUsers$() {
-    return this.http.get<{ users: UserProfile[] }>(`${this.apiUri}/list`).pipe(
+    return this.http.get<{ users: UserProfile[] }>(`${this.apiUri}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getUsers'),
       map((resp) => resp.users),
       catchError((e) => this.errorService.handleError(e, 'Error fetching users.', true))
@@ -55,11 +58,13 @@ export class UserProfileService {
   updateProfile$(userProfile: UserProfile): Observable<UserProfile> {
     const prevUser = this.user();
     this.setUser(userProfile);
-
-    return of(userProfile).pipe(delay(100), catchError((err) => {
-      this.setUser(prevUser);
-      return throwError(() => new Error('User update failed.'))
-    }));
+    return this.http.put<UserProfile>(`${this.apiUri}/update`, userProfile).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "saveUser"),
+      catchError((e) => {
+        this.setUser(prevUser);
+        return this.errorService.handleError(e, 'Error updating user profile', true)
+      })
+    );
   }
 
   clearUserProfile() {
@@ -73,5 +78,6 @@ export class UserProfileService {
     } else {
       this.storage.local.removeItem(LOCAL_STORAGE_KEY)
     }
+    this.themeService.setAppearanceMode(user?.mode);
   }
 }
