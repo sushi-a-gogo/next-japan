@@ -12,7 +12,9 @@ html:not(.dark-theme) {
   --next-heading: #2e1b0b; // dark brown
   --next-accent: #e52521; // torii gate red
   --next-primary: #00aeef; // bright blue
+  --next-primary-rgb: 0, 174, 239; // bright blue
   --next-highlight: #ffd300; // vivid yellow
+  --next-highlight-rgb: 255, 211, 0; // vivid yellow
   --next-muted: #616060; // accessible neutral gray
   --next-border: #dedede;
   --next-border-alt: #ababab;
@@ -41,7 +43,9 @@ html:not(.dark-theme) {
   --next-heading: #ffd300; // vivid yellow
   --next-accent: #ff6fae;
   --next-primary: #00aeef;
+  --next-primary-rgb: 0, 174, 239; // bright blue
   --next-highlight: #ffe779;
+  --next-highlight-rgb: 255, 231, 121;
   --next-muted: #6dc067;
   --next-border: #444;
   --next-border-alt: #444;

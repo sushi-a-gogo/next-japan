@@ -101,7 +101,6 @@ div.flex-column {
 
 .benefits {
   flex: 1;
-  color: var(--next-muted);
   font-weight: 600;
 
   ul {
@@ -158,7 +157,7 @@ div.flex-column {
 }
 
 .pink {
-  background-color: var(--pink-cherry-blossoms);
+  background-color: var(--next-accent);
 
   &:hover:not(:disabled) {
     opacity: 0.9;
@@ -167,6 +166,7 @@ div.flex-column {
 
 .brown {
   background-color: var(--next-heading);
+  color: var(--next-bg);
 
   &:hover:not(:disabled) {
     opacity: 0.9;
@@ -174,7 +174,7 @@ div.flex-column {
 }
 
 .green {
-  background-color: var(--bright-green-grass);
+  background-color: var(--next-muted);
 
   &:hover:not(:disabled) {
     opacity: 0.9;
@@ -182,7 +182,7 @@ div.flex-column {
 }
 
 .blue {
-  background-color: var(--bright-blue-sky);
+  background-color: var(--next-primary);
 
   &:hover:not(:disabled) {
     opacity: 0.9;

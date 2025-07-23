@@ -1,7 +1,3 @@
-@use "sass:map";
-@use "sass:color";
-@use "variables.scss" as var;
-
 .card-container {
   display: flex;
   flex-direction: column;
@@ -17,10 +13,6 @@ button {
   background-color: var(--next-surface);
 
   &:hover {
-    cursor: pointer;
-    background-color: map.get(var.$colors, section-gray);
-    border-color: map.get(var.$colors, light-gray-accent);
-
     .image-container {
       img {
         filter: brightness(85%);

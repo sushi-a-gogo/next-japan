@@ -1,7 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@use "sass:map";
-@use "sass:color";
-
 @use "variables.scss" as var;
 @use "./styles/themes/next-japan-theme.scss";
 @use "./styles/themes/next-japan-dark-theme.scss";
@@ -23,7 +20,6 @@
 }
 
 html {
-  //font-size: 10px;
   height: 100%;
   overflow-y: scroll;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -32,7 +28,9 @@ html {
 body {
   height: 100%;
   margin: 0;
-  font-family: var.$app-font;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
   font-size: 16px;
   background-color: var(--next-bg);
   color: var(--next-text);
