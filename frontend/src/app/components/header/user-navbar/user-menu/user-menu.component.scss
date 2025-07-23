@@ -58,6 +58,16 @@ header {
   font-weight: 500;
 }
 
+.theme-selector {
+  .material-icons {
+    opacity: 0;
+
+    &.open {
+      opacity: 1;
+    }
+  }
+}
+
 @media (min-width: 600px) {
   .user-name {
     display: flex;

@@ -10,4 +10,5 @@ export interface UserProfile extends User {
   lastUpdateDate?: Date;
   additionalInformation?: string;
   isEmailPreferred: boolean;
+  mode?: 'light' | 'dark';
 }

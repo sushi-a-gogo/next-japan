@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   signin() {
     this.userService.getUser$(this.selectedUserId()).pipe(
       switchMap((user) => {
-        this.auth.login();
+        this.auth.login(user);
         return of(user);
       }),
       takeUntilDestroyed(this.destroyRef)).subscribe();

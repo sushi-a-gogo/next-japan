@@ -7,6 +7,7 @@ import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
 import { StorageService } from './storage.service';
+import { ThemeService } from './theme.service';
 
 const LOCAL_STORAGE_KEY = 'nextjp.user';
 
@@ -18,6 +19,7 @@ export class UserProfileService {
   private authService = inject(AuthMockService);
   private errorService = inject(ErrorService);
   private storage = inject(StorageService);
+  private themeService = inject(ThemeService);
 
   private apiUri = `${environment.apiUrl}/api/user`;
 
@@ -29,7 +31,8 @@ export class UserProfileService {
       const savedUser = this.storage.local.getItem(LOCAL_STORAGE_KEY);
       if (savedUser) {
         this.user.set(JSON.parse(savedUser));
-        this.authService.login();
+        this.themeService.setAppearanceMode(this.user()?.mode);
+        this.authService.login(this.user()!);
       }
     });
   }
@@ -73,5 +76,6 @@ export class UserProfileService {
     } else {
       this.storage.local.removeItem(LOCAL_STORAGE_KEY)
     }
+    this.themeService.setAppearanceMode(user?.mode);
   }
 }
