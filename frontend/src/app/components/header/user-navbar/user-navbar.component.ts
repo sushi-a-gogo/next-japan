@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 
 import { MatRippleModule } from '@angular/material/core';
@@ -18,16 +17,7 @@ import { UserMenuComponent } from "./user-menu/user-menu.component";
     MatRippleModule,
     MyNotificationsComponent, AppLogoComponent, UserMenuComponent, SearchAutocompleteComponent],
   templateUrl: './user-navbar.component.html',
-  styleUrl: './user-navbar.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 }))
-      ])
-    ])
-  ],
-  host: { '[@fadeIn]': '' }
+  styleUrl: './user-navbar.component.scss'
 })
 export class UserNavbarComponent {
   private router = inject(Router);
