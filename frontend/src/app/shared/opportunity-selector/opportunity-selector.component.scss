@@ -14,29 +14,6 @@
   height: 48px;
   border-radius: 4px;
   font-weight: 700;
-  background-color: transparent;
-  border-color: var(--next-outlined-border);
-  color: var(--next-outlined-text);
-  transition: background-color 0.25s ease-in-out;
-
-  &:hover:not(:disabled),
-  &:focus,
-  &:active {
-    background-color: var(--next-surface-alt);
-  }
-
-  &.selected {
-    background-color: var(--next-confirm-bg);
-    color: var(--next-confirm-text);
-    font-weight: 700;
-
-    &:hover:not(:disabled),
-    &:focus,
-    &:active {
-      background-color: var(--next-confirm-bg);
-      opacity: 0.9;
-    }
-  }
 }
 
 .button-text {
