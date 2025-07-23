@@ -118,9 +118,10 @@ main {
     min-height: 68px;
     max-width: 96vw;
     padding: 16px 32px;
-    color: var(--next-bg);
+    color: #fff;
     font-weight: 600;
-    background-color: rgba(var(--next-text-rgb), 0.65);
+    background-color: var(--pink-cherry-blossoms);
+    border: 1px solid var(--next-border);
     border-radius: 6px;
     display: flex;
     align-items: center;
