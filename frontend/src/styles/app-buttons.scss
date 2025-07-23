@@ -2,6 +2,10 @@
 @use "sass:map";
 @use "variables.scss" as var;
 
+.mdc-app-button {
+  font-weight: 600;
+}
+
 .app-button {
   border: 0;
   background-color: inherit;
@@ -9,6 +13,7 @@
   padding: 0 20px;
   font-size: 16px;
   line-height: 24px;
+  letter-spacing: 0.006rem;
   min-height: 42px;
   min-width: 64px;
   text-align: center;
@@ -113,26 +118,23 @@ a.app-button {
 }
 
 .app-button-save {
-  background-color: map.get(var.$colors, bright-blue-sky);
-  color: #fff;
+  background-color: var(--next-confirm-bg);
+  color: var(--next-confirm-text);
 
   &.dialog-button {
     min-width: 119px;
   }
 
   &:hover:not(:disabled) {
-    background-color: color.scale(
-      map.get(var.$colors, bright-blue-sky),
-      $lightness: -5%
-    );
+    opacity: 0.9;
   }
 }
 
 .app-button-cancel {
-  background-color: var(--next-surface);
-  color: var(--next-text);
+  background-color: transparent;
+  color: var(--next-outlined-text);
   min-width: 133px;
-  border: 2px solid var(--next-border-alt);
+  border: 1px solid var(--next-outlined-border);
 
   &:hover:not(:disabled) {
     background-color: var(--next-surface-alt);

@@ -36,12 +36,6 @@
   font-size: 20px;
   font-weight: 700;
   border-radius: 4px;
-  color: white;
-  background: linear-gradient(
-    180deg,
-    map.get(var.$colors, navy-blue-mountain) 0%,
-    color.scale(map.get(var.$colors, navy-blue-mountain), $lightness: -8%) 100%
-  );
 
   &.mobile {
     width: 100%;
@@ -80,17 +74,14 @@
     max-width: var.$max-page-width;
     padding: 0 20px;
   }
-
-  .app-button {
-    padding: 10px 30px;
-    color: var(--navy-blue-mountain);
-    border: 1px solid var(--navy-blue-mountain);
-    background: white;
-  }
 }
 
 @media (min-width: var.$max-page-width) {
   .desktop {
     padding: 0 10px 0 0;
+  }
+
+  .app-button {
+    padding: 10px 30px;
   }
 }

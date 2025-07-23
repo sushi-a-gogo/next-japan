@@ -14,9 +14,10 @@
   height: 48px;
   border-radius: 4px;
   font-weight: 700;
-  background-color: var(--next-surface);
-  border-color: var(--next-border);
-  color: var(--next-text);
+  background-color: transparent;
+  border-color: var(--next-outlined-border);
+  color: var(--next-outlined-text);
+  transition: background-color 0.25s ease-in-out;
 
   &:hover:not(:disabled),
   &:focus,
@@ -25,15 +26,15 @@
   }
 
   &.selected {
+    background-color: var(--next-confirm-bg);
+    color: var(--next-confirm-text);
     font-weight: 700;
-    background-color: var(--bright-blue-sky);
-    border-color: var(--bright-blue-sky);
 
     &:hover:not(:disabled),
     &:focus,
     &:active {
-      background-color: var(--bright-blue-sky);
-      border-color: var(--bright-blue-sky);
+      background-color: var(--next-confirm-bg);
+      opacity: 0.9;
     }
   }
 }
@@ -47,34 +48,10 @@
 
 @media (min-width: 600px) {
   .app-button {
-    padding: 0 10px;
     min-width: 120px;
     width: 100%;
     height: 40px;
     font-size: 16px;
     font-weight: 600;
-    background-color: var(--next-surface);
-    border-color: var(--next-border-alt);
-    color: var(--next-text);
-    &:hover:not(:disabled),
-    &:focus,
-    &:active {
-      background-color: var(--next-surface-alt);
-    }
-
-    &.selected {
-      background-color: var(--bright-blue-sky);
-      color: #fff;
-      font-weight: 700;
-
-      &:hover:not(:disabled),
-      &:focus,
-      &:active {
-        background: color.scale(
-          map.get(var.$colors, bright-blue-sky),
-          $lightness: -10%
-        );
-      }
-    }
   }
 }

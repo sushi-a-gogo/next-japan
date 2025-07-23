@@ -31,13 +31,11 @@ header {
     transition: 0.25s;
     gap: 5px;
     cursor: pointer;
-    border: 1px solid var(--next-border);
     border-radius: 100%;
-    color: var(--next-text);
-    background-color: var(--next-surface);
     height: 42px;
     width: 42px;
     white-space: nowrap;
+    font-weight: 600;
 
     .desktop {
       display: none;
@@ -50,14 +48,6 @@ header {
       &.mobile {
         font-weight: 700;
       }
-    }
-
-    &:hover {
-      background-color: var(--next-surface-alt);
-    }
-
-    &.busy {
-      opacity: 0.75;
     }
 
     &.expanded {
