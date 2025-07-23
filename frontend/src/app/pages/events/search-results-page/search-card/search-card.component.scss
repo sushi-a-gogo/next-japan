@@ -86,16 +86,11 @@ button {
   color: var(--next-muted);
 }
 
-strong {
-  //color: var(--next-heading);
-}
-
 @media (min-width: 600px) {
   .card-container {
     flex-direction: row;
     align-items: center;
     gap: 24px;
-    //padding: 20px 0;
   }
 
   .image-container {

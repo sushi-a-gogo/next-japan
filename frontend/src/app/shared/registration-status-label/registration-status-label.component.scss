@@ -21,8 +21,6 @@
   }
 
   &.registered {
-    //background: lighten(map.get(var.$colors, base-color), 40%);
-    //color: map.get(var.$colors, base-color);
     background: color.scale(
       map.get(var.$colors, bright-blue-sky),
       $lightness: 70%
@@ -47,8 +45,6 @@
       map.get(var.$colors, bright-green-grass),
       $lightness: -66%
     );
-    //background: lighten(map.get(var.$colors, bright-green-grass), 30%);
-    //color: darken(map.get(var.$colors, bright-green-grass), 40%);
 
     .material-icons.requested {
       display: inline-block;

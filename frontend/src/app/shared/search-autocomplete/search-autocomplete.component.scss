@@ -1,6 +1,4 @@
 @use "@angular/material" as mat;
-@use "sass:map";
-@use "variables.scss" as var;
 
 :host {
   display: block;
@@ -13,8 +11,6 @@ form {
 
 .compact-form-field {
   width: 100%;
-  //color: var(--navy-blue-mountain);
-  //background-color: #d9e4ee; // map.get(var.$colors, section-medium-gray);
   @include mat.form-field-density(-4);
 }
 

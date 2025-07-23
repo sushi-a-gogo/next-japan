@@ -1,4 +1,3 @@
-@use "sass:map";
 @use "variables.scss" as var;
 
 .app-container {
@@ -49,10 +48,6 @@ footer {
     width: 100%;
     z-index: 100;
     opacity: 1;
-    background: rgba(
-      $color: map.get(var.$colors, creamy-white-clouds),
-      $alpha: 0.1
-    );
     background: rgba($color: #000000, $alpha: 0.5);
   }
 }
