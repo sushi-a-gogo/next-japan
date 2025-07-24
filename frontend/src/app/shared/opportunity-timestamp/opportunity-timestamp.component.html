@@ -1,15 +1,15 @@
 <span class="material-icons"> schedule </span>
 <div>
   <section class="date-time">
-    <div>
+    <div class="date">
       {{ startDate | date : format() }}
     </div>
     <div class="time">
       <div>
         {{ startDate | date : "h:mma" | lowercase }} -
         {{ endDate | date : "h:mma" | lowercase }}
+        ({{ opportunity().timeZoneAbbreviation }})
       </div>
-      <div>{{ opportunity().timeZoneAbbreviation }}</div>
     </div>
   </section>
   @if(opportunity().notes) {

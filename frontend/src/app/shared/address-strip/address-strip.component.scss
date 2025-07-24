@@ -14,12 +14,10 @@
 }
 
 a.get-directions {
+  display: inline-block;
   font-weight: 600;
   text-decoration: underline;
-
-  &.desktop {
-    display: none;
-  }
+  padding: 0 5px;
 
   &:hover {
     text-decoration: underline 1px;
@@ -31,17 +29,4 @@ a.get-directions {
   font-size: 14px;
   line-height: 19px;
   font-weight: 400;
-}
-
-@media (min-width: 600px) {
-  a.get-directions {
-    &.mobile {
-      display: none;
-    }
-
-    &.desktop {
-      display: inline-block;
-      margin-left: 5px;
-    }
-  }
 }

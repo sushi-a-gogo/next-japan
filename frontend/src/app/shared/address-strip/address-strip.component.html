@@ -1,6 +1,6 @@
 <span class="material-icons"> location_on </span>
-<div>
-  <div class="address">
+<div class="address">
+  <span>
     @if(showAddress()) {
     {{ address }} }@else {
     {{ location().locationName }}
@@ -8,25 +8,17 @@
     <!-- directions -->
     @if(showDirections()) {
     <a
-      class="get-directions mini-text link-text desktop"
+      class="get-directions mini-text link-text"
       [href]="place"
       target="_blank"
     >
       Directions
     </a>
     }
-  </div>
-  @if(notes()) {
-  <div class="notes break-word">
-    {{ notes() }}
-  </div>
-  } @if(address && showDirections()) {
-  <a
-    class="get-directions mini-text link-text mobile"
-    [href]="place"
-    target="_blank"
-  >
-    Directions
-  </a>
-  }
+  </span>
 </div>
+@if(notes()) {
+<div class="notes break-word">
+  {{ notes() }}
+</div>
+}

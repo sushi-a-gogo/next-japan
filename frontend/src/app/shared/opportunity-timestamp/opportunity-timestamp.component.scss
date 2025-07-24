@@ -5,7 +5,7 @@
   gap: 5px;
 
   font-size: 14px;
-  line-height: 24px;
+  line-height: 20px;
   font-weight: 700;
 }
 
@@ -16,11 +16,9 @@
 
 .date-time {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  text-align: left;
+  flex-direction: column;
+  gap: 0;
+  line-height: 24px;
 
   .time {
     display: flex;
@@ -35,4 +33,12 @@
   line-height: 16px;
   font-weight: 600;
   color: var(--next-muted);
+}
+
+@media (min-width: 600px) {
+  .date-time {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }

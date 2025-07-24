@@ -107,6 +107,10 @@ textarea {
   &.center {
     align-items: center;
   }
+
+  &.gap-sm {
+    gap: 5px;
+  }
 }
 
 .break-word {
