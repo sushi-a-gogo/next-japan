@@ -59,28 +59,27 @@ footer {
   gap: 10px;
   width: 100%;
 
-  button,
-  a {
+  .progress {
+    height: 0;
     width: 100%;
-    min-width: 200px;
-    border-radius: 6px;
-    font-weight: 600;
-    color: #fff;
-  }
-  a.app-button-filled {
-    background-color: var(--bright-green-grass);
+    overflow: hidden;
+    transition: 0.25s ease-in-out;
+
+    &.open {
+      height: 5px;
+    }
   }
 }
 
-.progress {
-  height: 0;
+.app-button {
+  border-radius: 6px;
+  font-weight: 700;
   width: 100%;
-  overflow: hidden;
-  transition: 0.25s ease-in-out;
-
-  &.open {
-    height: 5px;
-  }
+  min-width: 200px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  height: 56px;
 }
 
 @media (min-width: 600px) {
@@ -89,7 +88,7 @@ footer {
     justify-content: center;
 
     button,
-    a {
+    .app-button {
       width: 150px;
     }
   }

@@ -65,6 +65,7 @@
   max-height: 225px;
   line-clamp: 5;
   -webkit-line-clamp: 5;
+  color: var(--next-highlight);
 }
 
 .event-desc {
@@ -81,7 +82,7 @@
 }
 
 .material-icons {
-  color: var(--next-heading);
+  color: var(--next-highlight);
 }
 
 @media (min-width: var.$screen-sm) {
