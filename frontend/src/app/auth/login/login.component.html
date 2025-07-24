@@ -2,7 +2,7 @@
 <app-loading-spinner></app-loading-spinner>
 } }
 <app-modal (close)="cancel()">
-  <div class="flex-column fade-in" [class.open]="loaded()">
+  <div class="dialog flex-column fade-in" [class.open]="loaded()">
     <header>Choose an account:</header>
     <main>
       <ul class="flex-column">

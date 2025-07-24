@@ -42,6 +42,8 @@ router.put("/update", async (req, res) => {
       city,
       state,
       zip,
+      phone,
+      isEmailPreferred,
       mode,
     } = req.body;
 
@@ -72,6 +74,8 @@ router.put("/update", async (req, res) => {
         city,
         state,
         zip,
+        phone,
+        isEmailPreferred,
         mode: mode || null,
       },
       { new: true }
@@ -97,6 +101,8 @@ router.put("/update", async (req, res) => {
         city: savedUser.city,
         state: savedUser.state,
         zip: savedUser.zip,
+        phone: savedUser.phone,
+        isEmailPreferred: savedUser.isEmailPreferred,
         mode: savedUser.mode,
       },
     });
@@ -129,6 +135,8 @@ router.get("/:id", async (req, res) => {
       city: user.city,
       state: user.state,
       zip: user.zip,
+      phone: user.phone,
+      isEmailPreferred: user.isEmailPreferred,
       mode: user.mode,
       createdAt: user.createdAt,
     };

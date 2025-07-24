@@ -1,11 +1,12 @@
+.dialog.flex-column {
+  gap: 30px;
+}
+
 header {
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
-}
-
-footer {
-  margin-top: 20px;
+  color: var(--next-heading);
 }
 
 ul {
@@ -25,7 +26,22 @@ div {
   &.user {
     padding: 5px 10px;
     border-radius: 8px;
+    font-weight: 700;
     transition: 0.25s;
+
+    &.app-button-filled {
+      background: #007b72;
+      border-color: #007b72;
+      color: var(--vivid-yellow-text);
+      font-weight: 700;
+      transition: 0.25s ease-in-out;
+
+      &:hover {
+        background: #007b72;
+        border-color: #007b72;
+        color: var(--vivid-yellow-text);
+      }
+    }
   }
 
   &.dialog-button {
