@@ -58,6 +58,20 @@ textarea {
   overflow-y: scroll;
 }
 
+.headline {
+  font-size: 32px;
+  line-height: 1.125;
+  font-weight: 600;
+  letter-spacing: 0.004em;
+}
+
+.subhead {
+  font-size: 19px;
+  line-height: 1.21053;
+  letter-spacing: 0.012em;
+  font-weight: 600;
+}
+
 .title-text {
   font-size: 18px;
   line-height: 24px;
@@ -158,5 +172,19 @@ footer.dialog {
     max-width: none;
     padding: 5px 0 15px 0;
     background-color: var(--next-surface);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .headline {
+    font-size: 48px;
+    line-height: 1.07143;
+    letter-spacing: -0.005em;
+  }
+
+  .subhead {
+    font-size: 28px;
+    line-height: 1.14286;
+    letter-spacing: 0.007em;
   }
 }

@@ -10,8 +10,6 @@
   top: var.$user-header-height;
   z-index: 99;
   width: 100%;
-  //padding: 0 10px;
-
   border-bottom: 1px solid var(--next-border);
 }
 
@@ -42,15 +40,9 @@ nav {
 
     a {
       text-decoration: none;
-      border-bottom: 3px solid var(--next-surface);
       color: var(--next-text);
       font-weight: 600;
-
-      &:hover {
-        text-decoration: underline;
-        text-underline-offset: 5px;
-        text-decoration-thickness: 1px;
-      }
+      letter-spacing: 0.002em;
     }
   }
 }
@@ -87,8 +79,8 @@ nav {
   }
 }
 
-@media (min-width: calc(var.$max-page-width + 10px)) {
+@media (min-width: calc(var.$max-page-width + 20px)) {
   .panel-overview {
-    //padding: 0;
+    padding: 0;
   }
 }

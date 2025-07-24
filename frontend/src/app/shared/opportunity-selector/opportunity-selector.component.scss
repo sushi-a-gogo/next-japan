@@ -1,15 +1,14 @@
-.status {
-  display: flex;
-}
-
 .app-button {
   padding: 0 10px;
   text-align: center;
+  min-width: 120px;
   width: 100%;
-  font-size: 18px;
-  height: 48px;
+  font-size: 17px;
+  line-height: 1.17648;
+  letter-spacing: -0.022em;
+  height: 44px;
   border-radius: 4px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .button-text {
@@ -21,10 +20,6 @@
 
 @media (min-width: 600px) {
   .app-button {
-    min-width: 120px;
-    width: 100%;
-    height: 40px;
-    font-size: 16px;
     font-weight: 600;
   }
 }

@@ -17,6 +17,7 @@ html:not(.dark-theme) {
   --next-muted: #616060; // accessible neutral gray
   --next-muted-rgb: 97, 96, 96; // accessible neutral gray
   --next-border: #dedede;
+  --next-border-modal: transparent;
   --next-border-alt: #ababab;
   --next-border-dark: #2e1b0b; // dark brown
   --next-shadow: rgba(0, 0, 0, 0.1);
@@ -48,6 +49,7 @@ html:not(.dark-theme) {
   --next-muted: #6dc067;
   --next-muted-rgb: 109, 192, 103;
   --next-border: #444;
+  --next-border-modal: #444;
   --next-border-alt: #444;
   --next-shadow: rgba(0, 0, 0, 0.5);
   --next-link: #82cfff;

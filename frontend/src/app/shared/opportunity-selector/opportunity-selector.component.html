@@ -1,38 +1,41 @@
-@if(isAuthenticated()) { @if(status()) {
-<div class="status">
-  <app-registration-status-label [class]="status()" [status]="status()!" />
-</div>
+@if(isAuthenticated()) {
+<!-- registered -->
+@if(status()) {
+<app-registration-status-label [class]="status()" [status]="status()!" />
 } @else {
-<div>
-  @if(selected()) {
-  <button
-    type="button"
-    matRipple
-    class="app-button app-button-filled flex-button"
-    (click)="selectOpportunity()"
-  >
-    <span class="material-icons">done</span>
-    <span class="button-text">Selected</span>
-  </button>
-  } @else {
-  <!-- Not Selected -->
-  @if(conflicted()) {
-  <button type="button" class="app-button inactive" disabled="disabled">
-    <span class="button-text">Conflict</span>
-  </button>
-  } @else {
-  <button
-    type="button"
-    matRipple
-    class="app-button app-button-outlined"
-    (click)="selectOpportunity()"
-    [disabled]="status()"
-  >
-    Select
-  </button>
-  } }
-</div>
-} } @else {
+<!-- selected -->
+@if(selected()) {
+<button
+  type="button"
+  matRipple
+  class="app-button app-button-filled flex-button"
+  (click)="selectOpportunity()"
+>
+  <span class="material-icons">done</span>
+  <span class="button-text">Selected</span>
+</button>
+} @else {
+<!-- Not Selected -->
+@if(conflicted()) {
+<button type="button" class="app-button inactive" disabled="disabled">
+  <span class="button-text">Conflict</span>
+</button>
+} @else {
+<button
+  type="button"
+  matRipple
+  class="app-button app-button-outlined"
+  (click)="selectOpportunity()"
+  [disabled]="status()"
+>
+  Select
+</button>
+} }
+<!-- End Not Selected -->
+}
+<!-- End Authenticated -->
+} @else {
+<!-- Not Authenticated -->
 <div
   matTooltip="Please sign in to register for an event."
   matTooltipPosition="left"

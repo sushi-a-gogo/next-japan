@@ -31,8 +31,9 @@
     opacity: 0.5;
 
     &.inactive {
-      opacity: 0.75;
-      background-color: var(--next-surface-alt);
+      opacity: 0.5;
+      background-color: var(--next-surface);
+      border: 1px solid var(--next-border);
       color: var(--next-text);
     }
   }

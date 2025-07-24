@@ -19,7 +19,7 @@ header {
   width: 100%;
   position: relative;
 
-  height: 400px;
+  height: 600px;
   overflow: hidden;
 
   img {
@@ -54,13 +54,13 @@ header {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  gap: 0;
+  gap: 20px;
   padding: 20px;
   background: rgba($color: #000, $alpha: 0.5);
+}
 
-  h2 {
-    margin: 0;
-  }
+.headline {
+  color: var(--next-highlight);
 }
 
 main {
@@ -129,28 +129,11 @@ main {
   }
 }
 
-@media (min-width: 600px) {
-  header {
-    height: 420px;
-  }
-}
-
 @media (min-width: 1000px) {
   .background-overlay {
     top: auto;
     bottom: 0;
     justify-content: flex-end;
-  }
-
-  .splash {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    h2 {
-      margin: 0;
-    }
   }
 
   .full-text {

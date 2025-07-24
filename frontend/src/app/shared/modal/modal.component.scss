@@ -8,7 +8,7 @@
   padding: 20px;
   z-index: 202;
   background: var(--next-surface);
-  border: 0;
+  border: 1px solid var(--next-border-modal);
   border-radius: 8px;
   overflow: auto;
   overscroll-behavior: contain;

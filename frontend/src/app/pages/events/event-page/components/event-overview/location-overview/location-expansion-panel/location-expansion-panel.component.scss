@@ -80,12 +80,17 @@ header {
 .accordion-card {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 24px 0;
+  gap: 20px;
+  padding: 20px 0;
 
   &:not(:first-child) {
     border-top: 1px solid var(--next-border);
   }
+}
+
+.selector {
+  align-self: flex-end;
+  max-width: 50%;
 }
 
 @media (min-width: 600px) {
