@@ -4,7 +4,6 @@
   padding: 0 10px;
   padding-bottom: 80px;
   flex: 1;
-  background-color: var(--next-surface);
 }
 
 header {
@@ -23,8 +22,9 @@ header {
   }
 }
 
-@media (min-width: var.$max-page-width) {
+@media (min-width: calc(var.$max-page-width + 20px)) {
   :host {
+    padding: 0;
     padding-bottom: 80px;
     padding-right: 20px;
   }

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, inject, OnInit, output, ViewChild } from '@angular/core';
+import { Component, DestroyRef, inject, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
-import { AppImageData } from '@app/models/app-image-data.model';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
@@ -21,7 +20,7 @@ import { UserProfileForm } from './user-profile.form';
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   private userProfileService = inject(UserProfileService);
   userProfile = this.userProfileService.userProfile;
   profileForm = this.getProfileForm(this.userProfile()!);
@@ -32,24 +31,9 @@ export class UserProfileComponent implements OnInit {
     { value: 'email', viewValue: 'Email' },
     { value: 'phone', viewValue: 'Phone' },
   ];
-  @ViewChild('disclaimer') disclaimer?: ElementRef;
   busy = false;
 
-  private imageData?: AppImageData;
   private destroyRef = inject(DestroyRef);
-
-  ngOnInit(): void {
-    this.profileForm
-      .get('preferredContactMethod')
-      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((val) => {
-        if (val === 'phone') {
-          setTimeout(() => {
-            this.disclaimer?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-          }, 125);
-        }
-      });
-  }
 
   saveProfile() {
     const newProfile = {

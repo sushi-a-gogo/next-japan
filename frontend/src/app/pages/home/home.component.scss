@@ -51,7 +51,6 @@ section {
 }
 
 .flex-content {
-  z-index: 1;
   width: 100%;
   text-align: center;
 }
@@ -95,6 +94,7 @@ section {
     z-index: 1;
     bottom: 0;
     padding: 18px 24px;
+    gap: 16px;
     background-color: rgba(0, 0, 0, 0.5);
   }
 
@@ -110,7 +110,7 @@ section {
 
 .headline {
   font-size: 24px;
-  line-height: 32px;
+  line-height: 36px;
   font-weight: 700;
   letter-spacing: -0.005em;
   color: var(--next-highlight);

@@ -5,9 +5,9 @@
   <header [style.backgroundImage]="backgroundImage()">
     <app-event-header></app-event-header>
   </header>
-  <main class="content-container">
+  <main>
     <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>
-    <section class="event-panels">
+    <section class="event-panels content-container">
       <app-event-overview [focusChild]="focusChild" />
       <app-event-opportunities />
     </section>

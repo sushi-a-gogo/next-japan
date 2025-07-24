@@ -60,14 +60,14 @@
     position: absolute;
     top: 100%;
     transform: translateY(-50%);
-    background: var(--next-text);
-    opacity: 0.6;
+    background: rgba(var(--next-muted-rgb), 0.75);
     color: var(--next-bg);
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     z-index: 10;
     font-size: 16px;
+    font-weight: 600;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@
     }
 
     &:hover {
-      opacity: 1;
+      background: rgba(var(--next-muted-rgb), 0.9);
     }
   }
 

@@ -3,7 +3,8 @@
 :host {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   background-color: var(--next-surface);
   position: sticky;
   top: var.$user-header-height;
@@ -12,6 +13,13 @@
   //padding: 0 10px;
 
   border-bottom: 1px solid var(--next-border);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
   max-width: var.$max-page-width;
 }
 

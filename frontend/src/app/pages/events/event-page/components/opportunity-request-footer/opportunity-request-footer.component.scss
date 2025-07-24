@@ -13,16 +13,16 @@
   width: 100%;
   height: 0;
   background: var(--navy-blue-mountain);
-  color: var(--vivid-yellow-text);
+  color: var(--next-highlight);
 
   opacity: 0;
-  transition: opacity 0.25s;
+  transition: 0.25s ease-in-out;
 
   &.visible {
     opacity: 1;
     z-index: 102;
     height: 80px;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    //transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   }
 }
 
@@ -64,14 +64,14 @@
     max-width: var.$max-page-width;
     padding: 0 20px;
   }
+
+  .app-button {
+    padding: 10px 30px;
+  }
 }
 
 @media (min-width: var.$max-page-width) {
   .desktop {
     padding: 0 10px 0 0;
-  }
-
-  .app-button {
-    padding: 10px 30px;
   }
 }
