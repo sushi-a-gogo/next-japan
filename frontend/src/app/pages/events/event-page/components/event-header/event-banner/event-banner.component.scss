@@ -60,9 +60,12 @@
   color: var(--next-primary);
 }
 
-.icon-place,
-.icon-campaign {
+.icon-place {
   color: var(--red-torii-gate);
+}
+
+.icon-campaign {
+  color: var(--vivid-yellow-text);
 }
 
 @media (min-width: var.$screen-sm) {

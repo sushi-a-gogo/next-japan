@@ -20,14 +20,10 @@
       </button>
     </li>
     <li class="notifications">
-      @defer () {
       <app-my-notifications />
-      }
     </li>
     <li class="image">
-      @defer () {
       <app-user-menu (signout)="logout()" />
-      }
     </li>
   </ul>
   @if (inSearchMode()) {
