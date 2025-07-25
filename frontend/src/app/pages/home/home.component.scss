@@ -62,6 +62,7 @@ section {
   justify-content: center;
   gap: 20px;
   text-align: center;
+  padding: 0 20px;
 
   .subhead {
     color: var(--next-heading);
@@ -109,13 +110,6 @@ section {
   color: var(--next-highlight);
 }
 
-.subhead {
-  // font-size: 18px;
-  // line-height: 1.14286;
-  // font-weight: 400;
-  // letter-spacing: 0.007em;
-}
-
 a.app-button.app-button-filled {
   font-size: 18px;
   height: 48px;
@@ -154,10 +148,11 @@ a.app-button.app-button-filled {
   }
 }
 
-@media (min-width: var.$max-page-width) {
+@media (min-width: calc(var.$max-page-width + 20px)) {
   .organization-info {
-    padding-left: 0;
-    padding-right: 0;
+    //padding-left: 0;
+    //padding-right: 0;
+    padding: 0;
     gap: 30px;
   }
 }
