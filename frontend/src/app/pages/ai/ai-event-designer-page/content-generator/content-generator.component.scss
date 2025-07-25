@@ -21,11 +21,13 @@ form {
   height: 56px;
 
   background: #007b72;
+  border-color: #007b72;
   color: var(--vivid-yellow-text);
   transition: 0.25s ease-in-out;
 
   &:hover {
     background-color: var(--bright-blue-sky);
+    border-color: var(--bright-blue-sky);
     color: #000; /* flip text to black for better contrast */
   }
 }
