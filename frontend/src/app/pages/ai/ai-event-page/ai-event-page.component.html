@@ -11,7 +11,7 @@
       <main class="pre-wrap">{{ dreamEvent()!.fullDescription }}</main>
     </section>
   </main>
-  <footer class="button-bar">
+  <footer>
     <a type="button" class="app-button app-button-outlined" routerLink="..">
       <span class="material-icons">arrow_back_ios_new</span>
       Go Back
@@ -36,7 +36,7 @@
     </a>
     }
   </footer>
+  <div class="progress" [class.open]="busy()">
+    <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
+  </div>
 </article>
-<div class="progress" [class.open]="busy()">
-  <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
-</div>

@@ -25,17 +25,6 @@ footer {
   align-items: center;
   gap: 10px;
   width: 100%;
-
-  .progress {
-    height: 0;
-    width: 100%;
-    overflow: hidden;
-    transition: 0.25s ease-in-out;
-
-    &.open {
-      height: 5px;
-    }
-  }
 }
 
 .subhead {
@@ -51,6 +40,17 @@ footer {
   line-height: 24px;
   font-weight: 700;
   height: 56px;
+}
+
+.progress {
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+
+  &.open {
+    height: 5px;
+  }
 }
 
 @media (min-width: 600px) {
