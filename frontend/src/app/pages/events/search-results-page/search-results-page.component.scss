@@ -1,26 +1,12 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+article {
+  padding: 20px 0;
 }
 
-.content-container {
-  padding: 10px 20px;
-  width: 100%;
-  margin-bottom: 40px;
-}
-
-header {
-  .title {
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 700;
-    margin: 4px 0;
-  }
-}
-
-footer {
-  width: 100%;
+.title {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  margin: 4px 0;
 }
 
 .hilite {
@@ -40,13 +26,8 @@ footer {
 
 ul {
   margin: 0;
-  margin-top: 10px;
   padding: 0;
   list-style: none;
-
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
 
   li {
     padding-bottom: 10px;

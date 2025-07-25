@@ -15,7 +15,6 @@
   width: 100%;
   border-bottom: 1px solid var(--next-border);
   padding: 10px;
-  padding-right: 10px;
   padding-bottom: 20px;
   margin-bottom: 10px;
 
@@ -38,11 +37,5 @@
     width: 430px;
     padding: 20px 0;
     padding-bottom: 80px;
-  }
-}
-
-@media (min-width: calc(var.$max-page-width)) {
-  .opportunity-card {
-    padding-right: 0;
   }
 }

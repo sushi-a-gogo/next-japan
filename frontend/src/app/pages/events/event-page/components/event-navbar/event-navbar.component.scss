@@ -13,14 +13,6 @@
   border-bottom: 1px solid var(--next-border);
 }
 
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var.$max-page-width;
-}
-
 nav {
   ul {
     margin: 0;
@@ -49,7 +41,6 @@ nav {
 
 .panel-overview {
   flex: 1;
-  padding: 0 10px;
 }
 
 .panel-opportunities {
@@ -76,11 +67,5 @@ nav {
     padding: 0 10px;
     width: 430px;
     font-weight: 600;
-  }
-}
-
-@media (min-width: calc(var.$max-page-width)) {
-  .panel-overview {
-    padding: 0;
   }
 }

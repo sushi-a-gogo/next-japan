@@ -88,6 +88,110 @@ textarea {
   color: var(--next-link);
 }
 
+.component-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .cb-content {
+    width: 100%;
+    max-width: 1200px;
+
+    &.pad {
+      padding: 0 16px;
+    }
+  }
+}
+
+.text-centered {
+  text-align: center;
+}
+
+@media screen and (min-width: 1201px) {
+  .component-box .cb-content.rounded {
+    border-radius: 10px;
+  }
+  .component-box .cb-content.rounded-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+@media screen and (min-width: 1240px) {
+  .component-box .cb-content.pad {
+    padding: 0;
+  }
+}
+
+.nx-flex {
+  display: flex;
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.col {
+    flex-direction: column;
+  }
+
+  &.al-c {
+    align-items: center;
+  }
+
+  &.al-start {
+    align-items: flex-start;
+  }
+
+  &.al-end {
+    align-items: flex-end;
+  }
+
+  &.jc-c {
+    justify-content: center;
+  }
+
+  &.jc-start {
+    justify-content: flex-start;
+  }
+
+  &.jc-end {
+    justify-content: flex-end;
+  }
+
+  &.jc-sb {
+    justify-content: space-between;
+  }
+
+  &.gap-5 {
+    gap: 5px;
+  }
+
+  &.gap-10 {
+    gap: 10px;
+  }
+
+  &.gap-12 {
+    gap: 12px;
+  }
+
+  &.gap-16 {
+    gap: 16px;
+  }
+
+  &.gap-20 {
+    gap: 20px;
+  }
+
+  &.gap-24 {
+    gap: 12px;
+  }
+
+  &.gap-36 {
+    gap: 36px;
+  }
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -136,14 +240,6 @@ textarea {
 
   .dialog-close {
     margin-right: -14px;
-  }
-}
-
-.content-container {
-  max-width: var.$max-page-width;
-
-  @media (width: 1024px) {
-    max-width: 1024px;
   }
 }
 

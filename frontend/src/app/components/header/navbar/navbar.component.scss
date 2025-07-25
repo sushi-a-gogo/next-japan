@@ -1,80 +1,81 @@
 @use "variables.scss" as var;
 
 :host {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
   background-color: rgba(var(--next-surface-rgb), 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 nav {
-  height: var.$user-header-height;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  height: var.$user-header-height;
   transition: 0.25s ease-in-out;
 
   &.search-mode {
+    background-color: var(--next-surface);
     height: calc(var.$user-header-height + var.$user-header-height);
   }
+}
 
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: stretch;
-    gap: 10px;
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
 
-    li {
-      display: list-item;
-      text-align: center;
+li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0;
+  height: 100%;
+
+  .app-button {
+    background-color: transparent;
+    padding: 0 20px;
+    white-space: nowrap;
+    transition: 0.25s;
+    font-weight: 500;
+    border-radius: 24px;
+
+    &.logo,
+    &.logo:active,
+    &.logo:focus {
+      padding: 0;
+      background-color: transparent;
     }
 
-    li.login {
-      justify-self: flex-end;
-      flex: 1;
-      padding-right: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
+    &.active {
+      background-color: var(--next-surface-alt);
     }
+  }
+
+  &:last-child {
+    padding-right: 12px;
   }
 }
 
-button.transparent {
-  border-radius: 4px;
-  padding: 0 10px;
-  min-width: 40px;
-  background-color: rgba(0, 0, 0, 0.05);
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
-.text {
-  display: none;
+li.spacer {
+  flex: 1;
 }
 
 @media (min-width: 600px) {
-  nav,
-  .search-autocomplete {
-    max-width: var.$max-page-width;
+  ul {
+    gap: 10px;
   }
-  .text {
-    display: inline;
-  }
-  button.transparent {
-    padding: 0 20px;
+
+  li {
+    .app-button {
+      &:hover:not(.logo) {
+        @media (pointer: fine) {
+          background-color: var(--next-surface-alt);
+        }
+      }
+    }
   }
 }

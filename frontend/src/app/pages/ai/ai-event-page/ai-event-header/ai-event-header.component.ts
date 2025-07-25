@@ -18,7 +18,7 @@ export class AiEventHeaderComponent {
 
   private imageService = inject(ImageService);
 
-  resizedImage = computed(() => {
+  bannerImage = computed(() => {
     if (this.savedEvent()) {
       const image = this.savedEvent()!.image;
       return this.imageService.resizeImage(image, image.width, image.height).src;

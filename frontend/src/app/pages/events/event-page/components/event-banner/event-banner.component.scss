@@ -1,11 +1,9 @@
 :host {
   display: flex;
   justify-content: center;
-  text-align: center;
   width: 100%;
   height: 600px;
-  overflow: hidden;
-  backdrop-filter: brightness(30%) blur(15px);
+  backdrop-filter: brightness(80%) blur(30px);
 }
 
 .cb-content {
@@ -23,15 +21,33 @@ img {
   width: 100%;
   display: flex;
   background: rgba($color: #000000, $alpha: 0.7);
-  padding: 24px;
+  padding: 24px 12px;
   color: #fff;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .headline {
   color: var(--vivid-yellow-text);
 }
 
+.icon-note {
+  color: var(--next-primary);
+}
+
+.icon-place {
+  color: var(--red-torii-gate);
+}
+
+.icon-campaign {
+  color: var(--vivid-yellow-text);
+}
+
 @media (min-width: 600px) {
+  .content {
+    padding: 24px;
+  }
+
   .description {
     font-size: 18px;
     font-weight: 400;

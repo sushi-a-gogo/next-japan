@@ -1,59 +1,65 @@
-<article class="content-container flex-column">
-  <div>
-    <h2>A plan for every budget. An unforgettable experience for everyone.</h2>
-    <h4>
-      Find your perfect adventure and unlock exclusive events across Japan!
-    </h4>
-  </div>
-  <p>
-    Discover unforgettable experiences with our vacation event subscription
-    service! Choose from multiple plan tiers designed to fit your travel style
-    and budget. As a member, you'll have the opportunity to register for
-    exclusive, all-day events held at iconic locations across Japan. Whether
-    you're seeking cultural adventures, culinary delights, or scenic
-    explorations, our flexible plans make it easy to enjoy the best that Japan
-    has to offer.
-  </p>
-  <ul class="plan-list">
-    @for(plan of plans; track plan.name) {
-    <li class="plan-item">
-      <span class="banner" [class]="plan.code">{{ plan.name }}</span>
-      <div class="flex-column">
-        <div class="description">
-          {{ plan.description }}
-        </div>
-        <div class="benefits">
-          <ul>
-            @for(benefit of plan.benefits; track $index) {
-            <li>{{ benefit }}</li>
-            }
-          </ul>
-        </div>
-        <div class="pricing-container">
-          <div>
-            <div class="pricing">
-              <div class="tier">Individual</div>
-              {{ plan.price.individual | currency }}/year
-            </div>
-            <div class="pricing">
-              <div class="tier">Family*</div>
-              {{ plan.price.family | currency }}/year
-            </div>
-          </div>
-        </div>
-        <a class="app-button" routerLink="/home" [class]="plan.code">
-          Select
-          <span class="material-icons">arrow_forward_ios</span>
-        </a>
+<div class="component-box">
+  <div class="cb-content pad">
+    <article>
+      <div>
+        <h2>
+          A plan for every budget. An unforgettable experience for everyone.
+        </h2>
+        <h4>
+          Find your perfect adventure and unlock exclusive events across Japan!
+        </h4>
       </div>
-    </li>
-    }
-  </ul>
-  <section class="disclaimer">
-    <small>
-      *Family plans permit access for a maximum of two (2) adults and two (2)
-      children (ages 0–17) per subscription. Additional fees may apply for each
-      additional family member. Terms and conditions apply.
-    </small>
-  </section>
-</article>
+      <p>
+        Discover unforgettable experiences with our vacation event subscription
+        service! Choose from multiple plan tiers designed to fit your travel
+        style and budget. As a member, you'll have the opportunity to register
+        for exclusive, all-day events held at iconic locations across Japan.
+        Whether you're seeking cultural adventures, culinary delights, or scenic
+        explorations, our flexible plans make it easy to enjoy the best that
+        Japan has to offer.
+      </p>
+      <ul class="plan-list">
+        @for(plan of plans; track plan.name) {
+        <li class="plan-item">
+          <span class="banner" [class]="plan.code">{{ plan.name }}</span>
+          <div class="flex-column">
+            <div class="description">
+              {{ plan.description }}
+            </div>
+            <div class="benefits">
+              <ul>
+                @for(benefit of plan.benefits; track $index) {
+                <li>{{ benefit }}</li>
+                }
+              </ul>
+            </div>
+            <div class="pricing-container">
+              <div>
+                <div class="pricing">
+                  <div class="tier">Individual</div>
+                  {{ plan.price.individual | currency }}/year
+                </div>
+                <div class="pricing">
+                  <div class="tier">Family*</div>
+                  {{ plan.price.family | currency }}/year
+                </div>
+              </div>
+            </div>
+            <a class="app-button" routerLink="/home" [class]="plan.code">
+              Select
+              <span class="material-icons">arrow_forward_ios</span>
+            </a>
+          </div>
+        </li>
+        }
+      </ul>
+      <section class="disclaimer">
+        <small>
+          *Family plans permit access for a maximum of two (2) adults and two
+          (2) children (ages 0–17) per subscription. Additional fees may apply
+          for each additional family member. Terms and conditions apply.
+        </small>
+      </section>
+    </article>
+  </div>
+</div>

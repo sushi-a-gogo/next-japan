@@ -44,7 +44,7 @@
   display: none;
 }
 
-@media (min-width: var.$screen-sm) {
+@media (min-width: 768px) {
   .mobile {
     display: none;
   }
@@ -61,17 +61,9 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: var.$max-page-width;
-    padding: 0 20px;
   }
 
   .app-button {
     padding: 10px 30px;
-  }
-}
-
-@media (min-width: var.$max-page-width) {
-  .desktop {
-    padding: 0 10px 0 0;
   }
 }
