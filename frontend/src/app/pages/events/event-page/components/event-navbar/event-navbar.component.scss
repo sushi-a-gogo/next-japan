@@ -79,7 +79,7 @@ nav {
   }
 }
 
-@media (min-width: calc(var.$max-page-width + 20px)) {
+@media (min-width: calc(var.$max-page-width)) {
   .panel-overview {
     padding: 0;
   }

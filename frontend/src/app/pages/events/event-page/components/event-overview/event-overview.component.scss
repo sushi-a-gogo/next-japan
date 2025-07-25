@@ -22,10 +22,10 @@ header {
   }
 }
 
-@media (min-width: calc(var.$max-page-width + 20px)) {
+@media (min-width: calc(var.$max-page-width)) {
   :host {
     padding: 0;
     padding-bottom: 80px;
-    padding-right: 20px;
+    padding-right: 10px;
   }
 }
