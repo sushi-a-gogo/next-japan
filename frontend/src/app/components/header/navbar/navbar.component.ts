@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventSearchService } from '@app/services/event-search.service';
@@ -11,15 +10,15 @@ import { SearchAutocompleteComponent } from "@app/shared/search-autocomplete/sea
   imports: [RouterLink, AppLogoComponent, LoginButtonComponent, SearchAutocompleteComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 }))
-      ])
-    ])
-  ],
-  host: { '[@fadeIn]': '' }
+  // animations: [
+  //   trigger('fadeIn', [
+  //     transition(':enter', [
+  //       style({ opacity: 0 }),
+  //       animate('400ms ease-in-out', style({ opacity: 1 }))
+  //     ])
+  //   ])
+  // ],
+  // host: { '[@fadeIn]': '' }
 })
 export class NavbarComponent {
   private eventSearch = inject(EventSearchService);

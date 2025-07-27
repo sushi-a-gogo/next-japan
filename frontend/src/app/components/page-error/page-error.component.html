@@ -1,11 +1,11 @@
 <img [ngSrc]="image().src" alt="An image of sadness" fill priority />
-<div class="error-content">
+<div class="nx-flex col al-c jc-c gap-10 error-content">
   <span class="material-icons alert"> crisis_alert </span>
-  <div class="error-block">
+  <div class="nx-flex col al-c gap-20 error-block">
     <div class="error-header alert">{{ errorTitle }}</div>
     {{ errorMessage() }}
     @if(routerLink) {
-    <div class="error-link">
+    <div class="nx-flex row al-c error-link">
       <span class="material-icons"> arrow_right </span>
       <a [routerLink]="routerLink">{{ routerLinkText }}</a>
     </div>

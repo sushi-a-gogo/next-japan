@@ -3,7 +3,7 @@
   justify-content: center;
   width: 100%;
   height: 600px;
-  backdrop-filter: brightness(80%) blur(30px);
+  backdrop-filter: brightness(80%) blur(20px);
 }
 
 .cb-content {
@@ -30,7 +30,15 @@ img {
   color: var(--vivid-yellow-text);
 }
 
-.material-icons {
+.icon-note {
+  color: var(--next-primary);
+}
+
+.icon-place {
+  color: var(--red-torii-gate);
+}
+
+.icon-campaign {
   color: var(--vivid-yellow-text);
 }
 
@@ -39,7 +47,7 @@ img {
     padding: 24px;
   }
 
-  .event-desc {
+  .description {
     font-size: 18px;
     font-weight: 400;
     line-height: 26px;

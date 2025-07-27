@@ -1,8 +1,6 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 import { LayoutComponent } from "@app/components/layout/layout.component";
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
@@ -12,12 +10,13 @@ import { MetaService } from '@app/services/meta.service';
 import { OpportunityService } from '@app/services/opportunity.service';
 import { forkJoin, map } from 'rxjs';
 import organization from 'src/lib/organization-data';
+import { AiBannerComponent } from "./ai-banner/ai-banner.component";
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { OrgBannerComponent } from "./org-banner/org-banner.component";
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NgOptimizedImage, OrgBannerComponent, EventCarouselComponent, LayoutComponent],
+  imports: [OrgBannerComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

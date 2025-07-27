@@ -20,7 +20,7 @@ export class EventBannerComponent {
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
   locationCount = computed(() => this.eventData().locations.length);
 
-  resizedImage = computed(() => {
+  bannerImage = computed(() => {
     const ev = this.event();
     const image = ev && isPlatformBrowser(this.platformId) ? ev!.image : null;
     return image ?

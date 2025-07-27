@@ -1,80 +1,72 @@
-<div class="content">
-  <article class="flex-column">
-    <header>👨‍💻 About This Project</header>
-    <main>
-      <div>
-        Next Japan is a full-stack portfolio project I built to showcase
-        real-world software engineering skills.
-        <p>
-          It simulates an imaginary world inspired by Japanese Animation,
-          allowing imaginary users to register for special events hosted at
-          various locales in Japan.
-        </p>
-        Designed, architected, coded, and deployed entirely from scratch using:
-      </div>
-      <ul>
-        <li>
-          <span>🧩</span> Angular v20 with modular routing, components, and
-          services
-        </li>
-        <li><span>👾</span> Node.js + Express backend hosted on Render</li>
-        <li>
-          <span>🗃️</span> MongoDB for persistent event storage and dynamic
-          content management.
-        </li>
-        <li><span>📡</span> RESTful API with rate limiting, CORS handling</li>
-        <li>
-          <span>🤖</span> Integration with the OpenAI and Grok APIs for enhanced
-          features.
-        </li>
-        <li>
-          <span>🌐</span> Cloudflare Images integration for optimized, globally
-          cached image delivery.
-        </li>
-        <li>
-          <span>☁️</span> Cloud deployment hosted on Render with always-on
-          performance via health check pings.
-        </li>
-        <li><span>🧪</span> Environment-specific configs, error handling</li>
-        <li>
-          <span>🖥️📱</span> Responsive design supporting both desktop and
-          mobile, with selectable light and dark modes
-        </li>
-        <li>
-          <span>🚀</span> Implemented SSR for optimized performance and SEO,
-          transitioning from a static SPA, and tackling DOM access, layout
-          observer issues, and pre-render hydration.
-        </li>
-      </ul>
-
-      <ul>
-        <li>
-          <span>💻</span> View
-          <a href="https://github.com/sushi-a-gogo/next-japan" target="_blank"
-            >Source on GitHub</a
-          >
-        </li>
-        <li>
-          <span>📄</span> View
-          <a
-            href="/assets/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            My Resume
-          </a>
-        </li>
-        <li>
-          <span>📧</span> Contact me:
-          <a href="mailto: joe.svatek@icloud.com">Joe Svatek</a>
-        </li>
-      </ul>
-      <ul>
-        <li class="home">
-          <span>🏠</span> Back to the
-          <a class="home" routerLink="/home">Home Page</a>
-        </li>
-      </ul>
-    </main>
-  </article>
-</div>
+<article class="nx-flex col gap-36">
+  <header>👨‍💻 About This Project</header>
+  <main>
+    <div>
+      Next Japan is a full-stack portfolio project I built to showcase
+      real-world software engineering skills. It simulates an imaginary world
+      inspired by Japanese Animation, allowing imaginary users to register for
+      special events hosted at various locales in Japan.
+    </div>
+    <p>
+      Designed, architected, coded, and deployed entirely from scratch using:
+    </p>
+    <ul class="nx-flex col gap-5">
+      <li>
+        <span>🧩</span> Angular v20 with modular routing, components, and
+        services
+      </li>
+      <li><span>👾</span> Node.js + Express backend hosted on Render</li>
+      <li>
+        <span>🗃️</span> MongoDB for persistent event storage and dynamic content
+        management.
+      </li>
+      <li><span>📡</span> RESTful API with rate limiting, CORS handling</li>
+      <li>
+        <span>🤖</span> Integration with the OpenAI and Grok APIs for enhanced
+        features.
+      </li>
+      <li>
+        <span>🌐</span> Cloudflare Images integration for optimized, globally
+        cached image delivery.
+      </li>
+      <li>
+        <span>☁️</span> Cloud deployment hosted on Render with always-on
+        performance via health check pings.
+      </li>
+      <li><span>🧪</span> Environment-specific configs, error handling</li>
+      <li>
+        <span>🖥️📱</span> Responsive design supporting both desktop and mobile,
+        with selectable light and dark modes
+      </li>
+      <li>
+        <span>🚀</span> Implemented SSR for optimized performance and SEO,
+        transitioning from a static SPA, and tackling DOM access, layout
+        observer issues, and pre-render hydration.
+      </li>
+    </ul>
+  </main>
+  <footer>
+    <ul class="nx-flex col gap-5">
+      <li>
+        <span>💻</span> View
+        <a href="https://github.com/sushi-a-gogo/next-japan" target="_blank"
+          >Source on GitHub</a
+        >
+      </li>
+      <li>
+        <span>📄</span> View
+        <a href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer">
+          My Resume
+        </a>
+      </li>
+      <li>
+        <span>📧</span> Contact me:
+        <a href="mailto: joe.svatek@icloud.com">Joe Svatek</a>
+      </li>
+      <li class="home">
+        <span>🏠</span> Return to the
+        <a class="home" routerLink="/home">Home Page</a>
+      </li>
+    </ul>
+  </footer>
+</article>

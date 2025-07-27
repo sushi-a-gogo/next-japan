@@ -16,27 +16,18 @@ img {
   padding: 10px;
   padding-bottom: 20px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   text-align: center;
   width: 100%;
   height: 100%;
 
   .error-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
     font-size: 16px;
     line-height: 19px;
   }
 }
 
 .alert {
-  color: var(--pink-cherry-blossoms);
+  color: var(--vivid-yellow-text);
 }
 
 .error-header {
@@ -46,9 +37,6 @@ img {
 }
 
 .error-link {
-  display: flex;
-  align-items: center;
-
   a {
     font-weight: 600;
     color: var(--vivid-yellow-text);

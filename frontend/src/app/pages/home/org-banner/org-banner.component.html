@@ -1,19 +1,15 @@
-<div class="background-overlay">
-  <div class="header-content content-container">
-    <img
-      [ngSrc]="bannerImage.src"
-      [width]="bannerImage.image.width"
-      [height]="bannerImage.image.height"
-      sizes="100vw"
-      priority
-      placeholder
-      alt="Tokyo at night"
-    />
-    <div class="content-bottom">
-      <div class="headline">{{ org.bannerTitle }}</div>
-      <div class="description break-word pre-wrap">
-        {{ org.bannerDescription }}
-      </div>
+<div class="cb-content">
+  <img
+    [ngSrc]="bannerImage.src"
+    fill
+    priority
+    placeholder
+    alt="Tokyo at night"
+  />
+  <div class="content cb-content nx-flex col al-c jc-c gap-24">
+    <div class="headline">{{ org.bannerTitle }}</div>
+    <div class="description">
+      {{ org.bannerDescription }}
     </div>
   </div>
 </div>

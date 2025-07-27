@@ -8,11 +8,11 @@
   justify-content: center;
   width: 100%;
   min-height: calc(var(--app-height));
+  padding: 40px;
 }
 
 article {
-  margin: 40px 0;
-  padding: 20px;
+  padding: 48px;
   border-radius: 16px;
   width: 100%;
   background: rgba($color: #000, $alpha: 0.75);
@@ -35,50 +35,26 @@ ul.plan-list {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
 
-  li.plan-item {
-    flex: 1 1 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    border: 1px solid var(--next-border);
-    background-color: var(--next-surface);
-    color: var(--next-text);
-    border-radius: 10px;
-    overflow: hidden;
+li.plan-item {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--next-border);
+  background-color: var(--next-surface);
+  color: var(--next-text);
+  border-radius: 10px;
+  overflow: hidden;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .flex-column {
-      flex: 1;
-      gap: 0;
-    }
-
-    padding-bottom: 4px;
+  .flex-column {
+    flex: 1;
+    gap: 0;
   }
 
-  // 2 columns ≥ 600px
-  @media (min-width: 600px) {
-    li.plan-item {
-      flex: 1 1 240px;
-      min-width: 240px;
-      max-width: calc(50% - 8px);
-    }
-  }
-
-  // 3 columns ≥ 900px
-  @media (min-width: 900px) {
-    li.plan-item {
-      max-width: calc(33.333% - 10.67px);
-    }
-  }
-
-  // 4 columns ≥ 1200px
-  @media (min-width: 1200px) {
-    li.plan-item {
-      max-width: calc(25% - 12px);
-    }
-  }
+  padding-bottom: 4px;
 }
 
 .banner {
@@ -141,7 +117,7 @@ div.flex-column {
   }
 }
 
-.app-button {
+.app-button.select {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -157,7 +133,7 @@ div.flex-column {
 }
 
 .pink {
-  background-color: var(--next-accent);
+  background-color: var(--pink-cherry-blossoms);
 
   &:hover:not(:disabled) {
     opacity: 0.9;
@@ -165,7 +141,7 @@ div.flex-column {
 }
 
 .brown {
-  background-color: var(--next-heading);
+  background-color: var(--navy-blue-mountain);
   color: var(--next-bg);
 
   &:hover:not(:disabled) {
@@ -186,5 +162,22 @@ div.flex-column {
 
   &:hover:not(:disabled) {
     opacity: 0.9;
+  }
+}
+
+.app-button.home {
+  width: 280px;
+  border-radius: 6px;
+}
+
+@media screen and (min-width: 992px) {
+  li.plan-item {
+    width: 49%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  li.plan-item {
+    width: 24%;
   }
 }

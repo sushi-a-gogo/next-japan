@@ -1,27 +1,24 @@
-<div class="background-overlay">
-  <div class="header-content">
-    <div class="banner-container">
-      @if(resizedImage()) {
-      <img
-        [ngSrc]="resizedImage()!"
-        [class.grok]="xAi()"
-        alt="An image of the event"
-        fill
-        priority
-      />
-      }
-      <div class="banner-bar">
-        <div class="headline">
-          {{ event().eventTitle }}
-        </div>
-        <div class="event-desc">
-          {{ event().description }}
-        </div>
-        <div class="flex-row">
-          <span class="material-icons">campaign</span>
-          Coming Soon
-        </div>
-      </div>
+<div class="cb-content">
+  @if(bannerImage()) {
+  <img
+    [ngSrc]="bannerImage()"
+    [class.grok]="xAi()"
+    fill
+    priority
+    placeholder
+    [alt]="event().eventTitle"
+  />
+  }
+  <div class="content cb-content nx-flex col al-start jc-c gap-24">
+    <div class="headline">
+      {{ event().eventTitle }}
+    </div>
+    <div class="event-desc">
+      {{ event().description }}
+    </div>
+    <div class="flex-row">
+      <span class="material-icons">campaign</span>
+      Coming Soon
     </div>
   </div>
 </div>

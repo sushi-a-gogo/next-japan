@@ -1,17 +1,17 @@
-<div class="content">
-  <header [style.backgroundImage]="backgroundImage()">
+<article class="nx-flex col al-c gap-20">
+  <header class="component-box" [style.backgroundImage]="backgroundImage()">
     <app-ai-event-header
       [event]="dreamEvent()!"
       [savedEvent]="savedEvent()"
     ></app-ai-event-header>
   </header>
-  <main class="content-container">
-    <section>
-      <header>Description</header>
+  <main class="component-box">
+    <section class="cb-content pad nx-flex col gap-20">
+      <header class="subhead">Description</header>
       <main class="pre-wrap">{{ dreamEvent()!.fullDescription }}</main>
     </section>
   </main>
-  <footer class="button-bar">
+  <footer>
     <a type="button" class="app-button app-button-outlined" routerLink="..">
       <span class="material-icons">arrow_back_ios_new</span>
       Go Back
@@ -36,7 +36,7 @@
     </a>
     }
   </footer>
-</div>
-<div class="progress" [class.open]="busy()">
-  <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
-</div>
+  <div class="progress" [class.open]="busy()">
+    <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
+  </div>
+</article>

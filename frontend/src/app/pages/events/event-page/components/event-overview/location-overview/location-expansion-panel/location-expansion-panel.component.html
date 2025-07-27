@@ -1,5 +1,8 @@
-<header [class.collapsed]="!accordion.expanded">
-  <div class="location-address">
+<header
+  class="nx-flex row al-c jc-sb gap-10"
+  [class.collapsed]="!accordion.expanded"
+>
+  <div class="nx-flex col gap-10">
     <div class="title-text">{{ location().locationName }}</div>
     <app-address-strip
       [location]="location()"
@@ -10,16 +13,16 @@
     <button
       aria-label="Open Panel"
       type="button"
-      class="app-button app-button-outlined"
+      class="app-button app-button-outlined nx-flex row al-c jc-c gap-5"
       matRipple
       (click)="selectLocation()"
       [class.expanded]="accordion.expanded"
     >
       <span class="material-icons mobile">expand_more</span>
-      <div class="desktop">
+      <span class="desktop">
         <span> View Opportunities </span>
         <span class="material-icons">arrow_drop_down</span>
-      </div>
+      </span>
     </button>
   </div>
 </header>

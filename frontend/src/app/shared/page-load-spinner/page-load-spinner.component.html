@@ -1,5 +1,8 @@
-<section [class.overlay]="showSpinner()">
-  <div class="spinner-box" [class.show]="showSpinner()">
+<section class="nx-flex col al-c" [class.overlay]="showSpinner()">
+  <div
+    class="spinner-box nx-flex col al-c jc-c gap-10"
+    [class.show]="showSpinner()"
+  >
     <div>
       <mat-spinner
         diameter="80"

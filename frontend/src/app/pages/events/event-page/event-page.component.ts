@@ -9,7 +9,7 @@ import { ErrorService } from '@app/services/error.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
-import { EventHeaderComponent } from "./components/event-header/event-header.component";
+import { EventBannerComponent } from "./components/event-banner/event-banner.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
 import { EventOverviewComponent } from "./components/event-overview/event-overview.component";
@@ -18,8 +18,8 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventHeaderComponent, EventNavbarComponent, EventOverviewComponent,
-    EventOpportunitiesComponent, LoadingSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent],
+  imports: [EventNavbarComponent, EventOverviewComponent,
+    EventOpportunitiesComponent, LoadingSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent, EventBannerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })

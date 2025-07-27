@@ -1,25 +1,33 @@
-<nav class="open" [class.search-mode]="inSearchMode()">
-  <ul>
-    <li class="org-logo">
-      <a routerLink="/home" class="logo-container org-name break-word">
-        <app-logo />
-      </a>
-    </li>
-    <li class="login">
-      <button
-        aria-label="Search Events"
-        type="button"
-        class="app-button flex-button transparent strong"
-        (click)="toggleSearchPanel()"
-      >
-        <span class="material-icons">search</span>
-        <span class="text">Search Events</span>
-      </button>
-      <app-login-button></app-login-button>
-      <app-login-button [signup]="true"></app-login-button>
-    </li>
-  </ul>
-  @if (inSearchMode()) {
-  <app-search-autocomplete />
-  }
-</nav>
+<div class="component-box">
+  <nav
+    class="cb-content flex col al-c jc-start"
+    [class.search-mode]="inSearchMode()"
+  >
+    <ul class="nx-flex row al-c jc-sb">
+      <li>
+        <a class="app-button logo" routerLink="/home">
+          <app-logo />
+        </a>
+      </li>
+      <li class="spacer"></li>
+      <li>
+        <button
+          aria-label="Search Events"
+          type="button"
+          class="app-button flex-button transparent strong"
+          (click)="toggleSearchPanel()"
+        >
+          <span class="material-icons">search</span>
+          <span class="text">Search Events</span>
+        </button>
+      </li>
+      <li>
+        <app-login-button></app-login-button>
+        <app-login-button [signup]="true"></app-login-button>
+      </li>
+    </ul>
+    @if (inSearchMode()) {
+    <app-search-autocomplete />
+    }
+  </nav>
+</div>

@@ -1,12 +1,5 @@
-@if(opportunities().length) {
-<div class="opportunity-cards">
-  @for(opportunity of opportunities(); track opportunity.opportunityId) {
-  <app-event-opportunity
-    class="opportunity-card"
-    [opportunity]="opportunity"
-  ></app-event-opportunity>
-  }
-</div>
-} @else {
+@for(opportunity of opportunities(); track opportunity.opportunityId) {
+<app-event-opportunity [opportunity]="opportunity" />
+} @empty {
 <div class="message">There are no Upcoming Opportunities for this Event.</div>
 }

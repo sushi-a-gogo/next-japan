@@ -3,8 +3,11 @@
 <app-page-load-spinner />
 }
 
-<div class="content-container flex-column fade-in" [class.open]="loaded()">
-  <header>
+<article
+  class="component-box nx-flex flex-column gap-20 fade-in"
+  [class.open]="loaded()"
+>
+  <header class="cb-content pad">
     <small
       >{{ events().length }}
       {{ events().length === 1 ? "result" : "results" }} for
@@ -20,11 +23,13 @@
     </span>
     }
   </header>
-  <ul>
-    @for(event of events(); track event.eventId) {
-    <li>
-      <app-search-card [event]="event" [query]="q()" />
-    </li>
-    }
-  </ul>
-</div>
+  <main class="cb-content pad">
+    <ul class="nx-flex col gap-20">
+      @for(event of events(); track event.eventId) {
+      <li>
+        <app-search-card [event]="event" [query]="q()" />
+      </li>
+      }
+    </ul>
+  </main>
+</article>

@@ -7,122 +7,23 @@
 }
 
 article {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 48px;
   width: 100%;
   height: 100%;
-  margin-bottom: 48px;
 }
 
-article > header {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+header {
   background-size: cover;
+  background-position: center;
+  backdrop-filter: brightness(30%) blur(30px);
 }
 
-article > main {
-  flex: 1;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+main {
   gap: 48px;
-
-  > section:first-child {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
 }
 
-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.flex-content {
-  width: 100%;
-  text-align: center;
-}
-
-.organization-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  text-align: center;
-  padding: 0 20px;
-
-  .subhead {
-    color: var(--next-heading);
-  }
-}
-
-.image-content {
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 600px;
-  background-position: top;
-  transition: 0.25s ease-in-out;
-
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-
-  .text-content {
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    padding: 18px 24px;
-    gap: 16px;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  main.content {
-    max-width: 800px;
-    font-size: 14px;
-  }
-
-  footer {
-    padding: 10px 0 6px 0;
-  }
-}
-
-.headline {
-  color: var(--next-highlight);
-}
-
-a.app-button.app-button-filled {
-  font-size: 18px;
-  height: 48px;
-  font-weight: 600;
-  border-radius: 4px;
-
-  background: #007b72;
-  border-color: #007b72;
-  color: var(--vivid-yellow-text);
-
-  &:hover {
-    background-color: #00675f;
-  }
+.subhead {
+  color: var(--next-heading);
 }
 
 @media (min-width: 600px) {
@@ -130,35 +31,13 @@ a.app-button.app-button-filled {
     gap: 60px;
   }
 
-  article > main {
+  main {
     padding: 0;
     gap: 60px;
   }
 
-  .organization-info {
-    .info-title {
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .info-description {
-      font-size: 18px;
-      line-height: 26px;
-    }
-  }
-}
-
-@media (min-width: calc(var.$max-page-width + 20px)) {
-  .organization-info {
-    //padding-left: 0;
-    //padding-right: 0;
-    padding: 0;
-    gap: 30px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .image-content {
-    height: 640px;
+  .text-centered {
+    font-size: 18px;
+    line-height: 26px;
   }
 }

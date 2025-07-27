@@ -1,16 +1,16 @@
 @if(!loaded()) {
 <app-loading-spinner [delay]="500" />
 }
-<article [class.open]="loaded()">
-  <header [style.backgroundImage]="backgroundImage()">
-    <app-event-header></app-event-header>
+<article class="nx-flex col al-c" [class.open]="loaded()">
+  <header class="component-box" [style.backgroundImage]="backgroundImage()">
+    <app-event-banner />
   </header>
-  <main>
+  <main class="component-box nx-flex col al-c">
     <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>
-    <section class="event-panels content-container">
+    <div class="event-panels cb-content pad nx-flex row al-start jc-sb">
       <app-event-overview [focusChild]="focusChild" />
       <app-event-opportunities />
-    </section>
+    </div>
   </main>
 </article>
 @if(showRegistrationDialog()) {

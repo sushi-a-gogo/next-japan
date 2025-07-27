@@ -6,10 +6,6 @@ section {
   width: 100%;
   height: 100%;
   z-index: 101;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   transition: 0.25s ease-in;
 
   &.overlay {
@@ -18,11 +14,6 @@ section {
 }
 
 .spinner-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   opacity: 0;
   transition: opacity 1s;
   padding: 120px 0;
