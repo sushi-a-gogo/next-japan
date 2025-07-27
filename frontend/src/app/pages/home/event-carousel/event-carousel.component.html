@@ -1,4 +1,4 @@
-<div class="carousel-container">
+<div class="carousel-container" [class.open]="eventsLoaded()">
   @if(!ssrMode()) {
   <button
     class="nav-button prev"
@@ -7,7 +7,7 @@
     aria-label="Previous events"
   >
     <span class="material-icons">arrow_back_ios_new</span>
-    Prev
+    <span class="text">Prev</span>
   </button>
   }
   <div
@@ -30,7 +30,7 @@
     aria-label="Next events"
   >
     <span class="material-icons">arrow_forward_ios</span>
-    Next
+    <span class="text">Next</span>
   </button>
   }
 </div>

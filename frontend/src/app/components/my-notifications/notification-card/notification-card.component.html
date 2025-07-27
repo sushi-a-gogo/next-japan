@@ -6,9 +6,9 @@
     alt="Event Image"
   />
 </div>
-<section>
-  <header>
-    <span class="title">
+<section class="nx-flex col gap-5">
+  <header class="nx-flex row al-c jc-sb gap-24">
+    <span class="nx-flex col title">
       {{ notification().title }}
       <span class="time">
         {{ notification().eventDate | date : "fullDate" }}

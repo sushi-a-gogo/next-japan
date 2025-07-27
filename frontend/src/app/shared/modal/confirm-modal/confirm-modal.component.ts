@@ -6,7 +6,7 @@ import { ModalComponent } from "../modal.component";
   standalone: true,
   imports: [ModalComponent],
   templateUrl: './confirm-modal.component.html',
-  styleUrl: './confirm-modal.component.css'
+  styleUrl: './confirm-modal.component.scss'
 })
 export class ConfirmModalComponent {
   headerText = input<string>();

@@ -1,8 +1,8 @@
-<div class="opportunity-card">
+<div class="nx-flex col gap-10 opportunity-card">
   <header class="title-text break-word">
     {{ location()?.locationName }}
   </header>
-  <main>
+  <main class="nx-flex col gap-5">
     @if(location()) {
     <app-address-strip
       [location]="location()!"

@@ -1,5 +1,5 @@
 <app-modal (close)="close.emit(true)">
-  <div class="progress-spinner" [class.open]="busy()">
+  <div class="progress-spinner nx-flex row al-c jc-c" [class.open]="busy()">
     @if(busy()) {
     <app-loading-spinner message="Sending Requests..." />
     }
@@ -15,18 +15,16 @@
       <span class="material-icons">close</span>
     </button>
   </header>
-  <main class="dialog" #main>
+  <main class="dialog nx-flex col gap-10" #main>
     @if(completed()) {
-    <div class="completed">
-      <div class="icon">
+    <div class="completed nx-flex row al-c gap-16">
+      <div class="icon nx-flex al-c jc-c">
         <span class="material-icons">pending_actions</span>
       </div>
-      <div>
-        <p>
-          We have received your registration request. You will be notified once
-          your registration is complete!
-        </p>
-      </div>
+      <p>
+        We have received your registration request. You will be notified once
+        your registration is complete!
+      </p>
     </div>
     } @else { @for(location of selectedLocations; track location.locationId) {
     <app-registration-location

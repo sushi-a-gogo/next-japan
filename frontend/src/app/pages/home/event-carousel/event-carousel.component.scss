@@ -3,7 +3,12 @@
   width: calc(100vw - 40px);
   max-width: 2560px;
   margin: 0 auto;
-  //overflow: hidden;
+  // opacity: 0;
+  // transition: 0.2s ease-in-out;
+
+  // &.open {
+  //   opacity: 1;
+  // }
 }
 
 .carousel-track {
@@ -47,6 +52,49 @@
 .nav-button {
   display: none;
 }
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(var(--next-text-rgb), 0.1);
+  color: var(--next-note);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: 0.25s ease-in-out;
+
+  .material-icons {
+    font-size: 32px;
+  }
+
+  .text {
+    display: none;
+  }
+
+  &:hover {
+    background: rgba(var(--next-muted-rgb), 0.9);
+  }
+}
+
+.nav-button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.prev {
+  left: -12px;
+}
+
+.next {
+  right: -12px;
+}
 
 @media (max-width: 819.98px), (pointer: coarse) {
   .carousel-container {
@@ -54,40 +102,25 @@
   }
 }
 
-@media (pointer: fine) or (min-width: 932px) {
+@media (min-width: 932px) {
   .nav-button {
-    display: none;
-    position: absolute;
     top: 100%;
-    transform: translateY(-50%);
     background: rgba(var(--next-muted-rgb), 0.75);
     color: var(--next-bg);
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 16px;
-    font-weight: 600;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: 0.25s ease-in-out;
+    height: 40px;
+    width: 80px;
 
     .material-icons {
       font-size: 16px;
     }
 
-    &:hover {
-      background: rgba(var(--next-muted-rgb), 0.9);
+    .text {
+      display: inline;
+      font-size: 16px;
+      font-weight: 600;
     }
   }
-
-  .nav-button:disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-  }
-
   .prev {
     left: 20px;
   }

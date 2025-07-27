@@ -12,13 +12,13 @@
   (click)="selectOpportunity()"
 >
   <span class="material-icons">done</span>
-  <span class="button-text">Selected</span>
+  Selected
 </button>
 } @else {
 <!-- Not Selected -->
 @if(conflicted()) {
 <button type="button" class="app-button inactive" disabled="disabled">
-  <span class="button-text">Conflict</span>
+  Conflict
 </button>
 } @else {
 <button
@@ -47,7 +47,7 @@
     class="app-button flex-button inactive"
     disabled="disabled"
   >
-    <span class="button-text">Select</span>
+    Select
   </button>
 </div>
 

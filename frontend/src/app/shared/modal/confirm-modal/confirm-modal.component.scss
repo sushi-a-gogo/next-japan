@@ -4,10 +4,6 @@
   padding: 1.6rem;
   background-color: #f4c7c7;
   color: #3e0505;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
 h2 {
@@ -24,7 +20,7 @@ p {
 .confirmation-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 2rem;
+  gap: 20px;
 }
 
 button {

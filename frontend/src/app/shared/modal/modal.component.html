@@ -1,5 +1,9 @@
-<div class="backdrop" [class.open]="open()" (click)="onClose()">
-  <div class="dialog" (click)="onClick($event)">
+<div
+  class="backdrop nx-flex al-c jc-c"
+  [class.open]="open()"
+  (click)="onClose()"
+>
+  <div class="dialog nx-flex col gap-24" (click)="onClick($event)">
     <ng-content />
   </div>
 </div>

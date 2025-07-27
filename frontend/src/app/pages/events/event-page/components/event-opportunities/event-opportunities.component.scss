@@ -4,29 +4,6 @@
   display: none;
 }
 
-.opportunity-cards {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.opportunity-card {
-  width: 100%;
-  border-bottom: 1px solid var(--next-border);
-  padding: 10px;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    border: 0;
-  }
-}
-
 .message {
   padding: 10px;
 }
