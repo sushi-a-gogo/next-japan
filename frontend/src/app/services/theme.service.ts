@@ -8,7 +8,7 @@ export class ThemeService {
   constructor() { }
 
   setAppearanceMode(theme?: 'light' | 'dark') {
-    const useDarkTheme = theme === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const useDarkTheme = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if (useDarkTheme) {
       document?.body?.classList.add('dark-theme');
     } else {
