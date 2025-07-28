@@ -3,12 +3,9 @@
   width: calc(100vw - 40px);
   max-width: 2560px;
   margin: 0 auto;
-  // opacity: 0;
-  // transition: 0.2s ease-in-out;
-
-  // &.open {
-  //   opacity: 1;
-  // }
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 .carousel-track {
@@ -23,30 +20,49 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-x;
-  will-change: scroll-position;
-  overscroll-behavior-x: contain; /* Prevent overscrolling */
+  overscroll-behavior-x: contain;
   overscroll-behavior-y: auto;
-  transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
 }
 
 .carousel-track::-webkit-scrollbar {
   display: none;
 }
+
 .carousel-track--ssr {
-  overflow-x: visible; /* No scrolling server-side */
-  flex-wrap: wrap; /* Stack events for SEO */
+  overflow-x: visible;
+  flex-wrap: wrap;
   height: auto;
 }
 
 .event-item {
-  transition: scroll-left 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
   scroll-snap-align: center;
-  scroll-snap-stop: always; /* Force snap to one item */
-  width: 325px; /* 315px card + 5px padding per side */
+  scroll-snap-stop: always;
+  width: 325px;
   height: 440px;
   box-sizing: border-box;
   padding: 0 5px;
   flex: 0 0 auto;
+  opacity: 0; /* Added to ensure initial state */
+}
+
+.event-item.visible {
+  animation: fadeSlide 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-delay: var(--animation-delay);
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-15px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
 .nav-button {
@@ -54,11 +70,6 @@
   top: 50%;
   transform: translateY(-50%);
   background: rgba(var(--next-text-rgb), 0.1);
-
-  &:hover,
-  &:visited {
-    background: rgba(var(--next-text-rgb), 0.1);
-  }
   color: var(--next-note);
   border: none;
   cursor: pointer;
@@ -70,7 +81,12 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  transition: 0.25s ease-in-out;
+  transition: background 0.25s ease-in-out, opacity 0.25s ease-in-out;
+
+  &:hover,
+  &:visited {
+    background: rgba(var(--next-text-rgb), 0.1);
+  }
 
   .material-icons {
     font-size: 32px;
@@ -92,12 +108,6 @@
 
 .next {
   right: -12px;
-}
-
-@media (max-width: 819.98px), (pointer: coarse) {
-  .carousel-container {
-    overflow: visible;
-  }
 }
 
 @media (min-width: 932px) {

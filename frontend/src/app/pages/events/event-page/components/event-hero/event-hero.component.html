@@ -1,0 +1,54 @@
+@if(bannerImage()) {
+<img
+  [ngSrc]="bannerImage()!.src"
+  [class.grok]="xAi()"
+  fill
+  priority
+  placeholder
+  [alt]="event()?.eventTitle"
+/>
+}
+<div class="hero-overlay nx-flex col al-c jc-c gap-24">
+  <div class="cb-content nx-flex row al-c">
+    <div class="headline">
+      {{ event()?.eventTitle }}
+    </div>
+  </div>
+  @if(locationCount()) {
+  <div
+    class="cb-content nx-flex row al-c gap-10"
+    [class.open]="locationCount()"
+  >
+    <span class="material-icons icon-place">place</span>
+    <span>
+      {{ locationCount() | displayCount }}
+      @if(locationCount() !== 1) {
+      <span>Locations</span>
+      } @else {
+      <span>Location</span>
+      }
+    </span>
+  </div>
+  }
+  <div class="cb-content nx-flex row al-c gap-10">
+    @if(eventDateRange()) {
+    <!-- date range start -->
+    <span class="material-icons icon-note">event_note</span>
+    <span>{{ eventDateRange()!.minDate | date }}</span>
+    @if(eventDateRange()?.maxDate) { -
+    <span>{{ eventDateRange()!.maxDate | date }}</span>
+    }
+    <!-- date range end -->
+    } @else {
+    <div class="nx-flex col gap-10">
+      <div class="description">
+        {{ event()?.description }}
+      </div>
+      <div class="nx-flex row al-c gap-10">
+        <span class="material-icons icon-campaign">campaign</span>
+        Coming Soon
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { EventService } from '@app/pages/events/event-page/event.service';
@@ -5,12 +6,29 @@ import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
 
 @Component({
-  selector: 'app-event-banner',
+  selector: 'app-event-hero',
   imports: [NgOptimizedImage, DatePipe, DisplayCountPipe],
-  templateUrl: './event-banner.component.html',
-  styleUrl: './event-banner.component.scss'
+  templateUrl: './event-hero.component.html',
+  styleUrl: './event-hero.component.scss',
+  animations: [
+    trigger('fadeSlideIn', [
+      state('void', style({
+        opacity: 0,
+        transform: 'translateY(50px)'
+      })),
+      state('in', style({
+        opacity: 1,
+        transform: 'translateY(0)'
+      })),
+      transition('void => in', [
+        animate('400ms ease-out')
+      ])
+    ])
+  ],
+  host: { '[@fadeSlideIn]': 'in' }
+
 })
-export class EventBannerComponent {
+export class EventHeroComponent {
   private eventService = inject(EventService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);

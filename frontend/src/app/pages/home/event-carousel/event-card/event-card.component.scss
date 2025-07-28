@@ -14,7 +14,6 @@
   border-radius: 3px;
   background-color: var(--next-surface);
   color: var(--next-text);
-  transition: 0.25s;
   text-decoration: none;
   text-align: center;
 
@@ -23,21 +22,19 @@
   align-items: center;
   justify-content: stretch;
   overflow: hidden;
+}
 
-  &:hover {
-    cursor: pointer;
-    border-color: var(--next-border);
+.button:hover {
+  //cursor: pointer;
+  border-color: var(--next-border);
+}
 
-    .image-container {
-      img {
-        filter: brightness(80%);
+.button:hover .image-container img {
+  //filter: brightness(80%);
+}
 
-        &.no-image {
-          filter: brightness(95%);
-        }
-      }
-    }
-  }
+.button:hover .image-container img.no-image {
+  //filter: brightness(95%);
 }
 
 .image-container {
@@ -46,17 +43,16 @@
   background: url("/assets/images/no-image.png");
   background-size: cover;
   background-position: center;
+}
 
-  &.grok {
-    width: 270px;
-  }
+.image-container.grok {
+  width: 270px;
+}
 
-  img {
-    object-fit: fill;
-    height: 100%;
-    width: 100%;
-    transition: 0.25s;
-  }
+.image-container img {
+  object-fit: fill;
+  height: 100%;
+  width: 100%;
 }
 
 .card-body {
@@ -83,33 +79,33 @@
   text-overflow: ellipsis;
   white-space: normal;
   text-align: center;
+}
 
-  &.description {
-    white-space: pre-wrap;
-  }
+.multi-line-box.description {
+  white-space: pre-wrap;
 }
 
 .title {
   font-size: 18px;
   line-height: 21px;
   font-weight: 700;
+}
 
-  &.multi-line-box {
-    max-height: 63px;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-  }
+.title.multi-line-box {
+  max-height: 63px;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
 }
 
 .description {
   font-size: 14px;
   line-height: 19px;
+}
 
-  &.multi-line-box {
-    max-height: 76px;
-    line-clamp: 4;
-    -webkit-line-clamp: 4;
-  }
+.description.multi-line-box {
+  max-height: 76px;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
 }
 
 .upcoming {
@@ -118,18 +114,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+}
 
-  .material-icons {
-    color: var(--red-torii-gate);
-  }
+.upcoming .material-icons {
+  color: var(--red-torii-gate);
+}
 
-  .banner {
-    font-weight: 700;
-  }
+.upcoming .banner {
+  font-weight: 700;
+}
 
-  .coming-soon {
-    .banner {
-      opacity: 0.5;
-    }
-  }
+.upcoming .coming-soon .banner {
+  opacity: 0.5;
 }

@@ -12,11 +12,11 @@ import { forkJoin, map } from 'rxjs';
 import organization from 'src/lib/organization-data';
 import { AiBannerComponent } from "./ai-banner/ai-banner.component";
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
-import { OrgBannerComponent } from "./org-banner/org-banner.component";
+import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [OrgBannerComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
+  imports: [HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -38,22 +38,24 @@ export class HomeComponent implements OnInit {
     height: 1024
   };
 
-  aiBackgroundImage = computed(() => {
-    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
-  });
-
-  org = organization;
-
   backgroundImage = computed(() => {
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
     return `url('${resizedImage.src}')`;
   });
 
+  aiBackgroundImage = computed(() => {
+    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
+  });
+
+  org = organization;
+
   ngOnInit(): void {
     this.title.setTitle(`${organization.name}`);
     // Set meta tags
     this.meta.updateTags(this.title.getTitle(), organization.infoDescription);
+    const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
+    this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
 
     this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
       this.events.set(events)
