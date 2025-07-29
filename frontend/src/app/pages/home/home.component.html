@@ -13,7 +13,11 @@
         </div>
       </div>
       <app-event-carousel [events]="events()" />
+      @defer (on viewport) {
       <app-ai-banner />
+      } @placeholder {
+      <app-ai-banner />
+      }
     </main>
   </article>
 </app-layout>

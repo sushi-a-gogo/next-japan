@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -15,7 +16,24 @@ import { filter } from 'rxjs';
   selector: 'app-ai-event-designer-page',
   imports: [NgOptimizedImage, ContentGeneratorComponent, MatProgressBar],
   templateUrl: './ai-event-designer-page.component.html',
-  styleUrl: './ai-event-designer-page.component.scss'
+  styleUrl: './ai-event-designer-page.component.scss',
+  animations: [
+    trigger('fadeSlideIn', [
+      state('void', style({
+        opacity: 0,
+        filter: 'blur(2px)'
+      })),
+      state('in', style({
+        opacity: 1,
+        filter: 'blur(0)'
+      })),
+      transition('void => in', [
+        animate('400ms ease-out')
+      ])
+    ])
+  ],
+  host: { '[@fadeSlideIn]': 'in' }
+
 })
 export class AiEventDesignerPageComponent implements OnInit {
   private imageService = inject(ImageService);

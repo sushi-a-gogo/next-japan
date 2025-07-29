@@ -27,7 +27,7 @@ import organization from 'src/lib/organization-data';
     trigger('fadeSlideIn', [
       state('void', style({
         opacity: 0,
-        transform: 'scale(1.025)'
+        transform: 'scale(1.015)'
       })),
       state('in', style({
         opacity: 1,
