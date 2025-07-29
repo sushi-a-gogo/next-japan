@@ -13,7 +13,7 @@ import { ImageService } from '@app/services/image.service';
   animations: [
     trigger('fadeSlideIn', [
       state('void', style({
-        opacity: 0,
+        opacity: 0.25,
         filter: 'blur(5px)'
       })),
       state('in', style({
@@ -21,7 +21,7 @@ import { ImageService } from '@app/services/image.service';
         filter: 'blur(0)'
       })),
       transition('void => in', [
-        animate('1000ms ease-out')
+        animate('800ms ease-out')
       ])
     ])
   ],

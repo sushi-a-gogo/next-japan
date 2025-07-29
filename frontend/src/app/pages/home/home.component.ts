@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
@@ -16,7 +17,7 @@ import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
+  imports: [NgOptimizedImage, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -38,10 +39,10 @@ export class HomeComponent implements OnInit {
     height: 1024
   };
 
-  backgroundImage = computed(() => {
+  heroImage = computed(() => {
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
-    return `url('${resizedImage.src}')`;
+    return resizedImage.src;
   });
 
   aiBackgroundImage = computed(() => {

@@ -14,8 +14,10 @@ article {
 
 header {
   width: 100%;
-  background-size: cover;
-  background-position: center;
+  img {
+    object-fit: cover;
+  }
+  position: relative;
 }
 
 main {

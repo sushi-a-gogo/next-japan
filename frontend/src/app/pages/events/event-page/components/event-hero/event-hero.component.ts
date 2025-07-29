@@ -13,15 +13,13 @@ import { ImageService } from '@app/services/image.service';
   animations: [
     trigger('fadeSlideIn', [
       state('void', style({
-        opacity: 0,
-        transform: 'translateY(50px)'
+        transform: 'translateY(20px)'
       })),
       state('in', style({
-        opacity: 1,
         transform: 'translateY(0)'
       })),
       transition('void => in', [
-        animate('400ms ease-out')
+        animate('400ms ease-in-out')
       ])
     ])
   ],

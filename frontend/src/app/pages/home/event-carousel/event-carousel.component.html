@@ -15,12 +15,11 @@
     [class.carousel-track--ssr]="ssrMode()"
     #carouselTrack
   >
-    @for (event of sortedEvents(); track event?.eventId || $index; let i =
-    $index) {
+    @for (event of sortedEvents(); track event?.eventId || $index) {
     <div
       class="event-item"
       [class.visible]="animationState() === 'in'"
-      [style.--animation-delay]="getAnimationDelay(i) + 'ms'"
+      [style.--animation-delay]="$index * 100 + 'ms'"
     >
       <app-event-card [event]="event"></app-event-card>
     </div>

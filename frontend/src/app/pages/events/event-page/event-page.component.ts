@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
@@ -18,7 +18,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventNavbarComponent, EventOverviewComponent,
+  imports: [NgOptimizedImage, EventNavbarComponent, EventOverviewComponent,
     EventOpportunitiesComponent, LoadingSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent, EventHeroComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
@@ -39,11 +39,11 @@ export class EventPageComponent implements OnChanges {
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 
-  backgroundImage = computed(() => {
+  heroImage = computed(() => {
     const event = this.eventService.eventData().event;
     if (event && isPlatformBrowser(this.platformId)) {
       const resizedImage = this.imageService.resizeImage(event!.image, 384, 256);
-      return `url('${resizedImage.src}')`;
+      return resizedImage.src;
     }
     return undefined;
   });

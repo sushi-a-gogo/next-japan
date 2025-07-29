@@ -11,31 +11,21 @@ import organization from 'src/lib/organization-data';
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    // trigger('fadeSlideIn', [
-    //   state('void', style({
-    //     opacity: 0,
-    //     transform: 'scale(0.95)'
-    //   })),
-    //   state('in', style({
-    //     opacity: 1,
-    //     transform: 'scale(1)'
-    //   })),
-    //   transition('void => in', [
-    //     animate('600ms ease-out')
-    //   ])
-    // ])
     trigger('fadeSlideIn', [
       state('void', style({
-        opacity: 0,
-        transform: 'scale(1.015)'
+        transform: 'translateY(20px)'
       })),
       state('in', style({
-        opacity: 1,
-        transform: 'scale(1.0)'
+        transform: 'translateY(0px)'
       })),
       transition('void => in', [
         animate('400ms ease-out')
       ])
+      // transition('void => in', [
+      //   animate('400ms cubic-bezier(0.23, 1.5, 0.32, 1)', style({ transform: 'translateY(-6px)' })),
+      //   animate('120ms cubic-bezier(0.23, 1.5, 0.32, 1)', style({ transform: 'translateY(2px)' })),
+      //   animate('80ms cubic-bezier(0.23, 1.5, 0.32, 1)', style({ transform: 'translateY(0)' }))
+      // ])
     ])
   ],
   host: { '[@fadeSlideIn]': 'in' }

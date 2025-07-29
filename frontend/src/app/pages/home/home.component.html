@@ -1,6 +1,7 @@
 <app-layout>
   <article class="nx-flex col al-c">
-    <header class="component-box" [style.backgroundImage]="backgroundImage()">
+    <header class="component-box">
+      <img [ngSrc]="heroImage()" alt="Hero Image" fill placeholder />
       <app-hero />
     </header>
     <main class="component-box nx-flex col al-c">

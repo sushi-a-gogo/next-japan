@@ -71,7 +71,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
 
   ngAfterContentInit(): void {
     if (isPlatformBrowser(this.platformId) && this.sortedEvents().length > 0) {
-      console.log(`AfterContentInit: Found ${this.sortedEvents().length} events at ${Date.now()}`);
       // Check if carousel is already in view
       this.checkInitialVisibility();
     }
@@ -82,7 +81,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
       this.setupBreakpoints();
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
-      this.setupAnimationListeners();
       this.setupIntersectionObserver();
     }
   }
@@ -95,10 +93,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
   scrollNext() {
     const newIndex = Math.min(this.sortedEvents().length - this.eventsPerView(), this.currentIndex() + this.eventsPerView());
     this.scrollToIndex(newIndex);
-  }
-
-  getAnimationDelay(index: number): number {
-    return index * 200; // 200ms stagger per card
   }
 
   private sortByDate(a: EventData, b: EventData) {
@@ -144,38 +138,13 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
     }
   }
 
-  private setupAnimationListeners() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.carouselTrack.nativeElement.addEventListener('animationstart', (event: AnimationEvent) => {
-        console.log(`Animation started on ${event.target}, animationName: ${event.animationName} at ${Date.now()}`);
-      });
-      this.carouselTrack.nativeElement.addEventListener('animationend', (event: AnimationEvent) => {
-        console.log(`Animation ended on ${event.target}, animationName: ${event.animationName} at ${Date.now()}`);
-      });
-    }
-  }
-
   private checkInitialVisibility() {
     if (isPlatformBrowser(this.platformId) && this.carouselTrack && !this.hasAnimated) {
       const rect = this.carouselTrack.nativeElement.getBoundingClientRect();
       const isInView = rect.top >= 0 && rect.top <= window.innerHeight;
       if (isInView && this.sortedEvents().length > 0) {
-        console.log(`Carousel already in view at AfterContentInit, triggering animation at ${Date.now()}`);
-        requestAnimationFrame(() => {
-          this.animationState.set('in');
-          this.cdr.markForCheck();
-          this.hasAnimated = true;
-          // Force repaint
-          requestAnimationFrame(() => {
-            const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
-            items.forEach((item: HTMLElement, index: number) => {
-              const computedStyle = window.getComputedStyle(item);
-              console.log(`Item ${index} styles: opacity=${computedStyle.opacity}, transform=${computedStyle.transform}`);
-              item.style.transform = 'scale(1.0001)';
-              item.style.transform = '';
-            });
-          });
-        });
+        const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
+        this.animateIn(items);
       }
     }
   }
@@ -183,32 +152,33 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
   private setupIntersectionObserver() {
     if (isPlatformBrowser(this.platformId) && this.carouselTrack) {
       const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
-      console.log(`IntersectionObserver: Found ${items.length} .event-item elements at ${Date.now()}`);
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting && this.sortedEvents().length > 0 && !this.hasAnimated) {
-            console.log(`Carousel in view, triggering animation at ${Date.now()}`);
-            requestAnimationFrame(() => {
-              this.animationState.set('in');
-              this.cdr.markForCheck();
-              this.hasAnimated = true;
-              // Force repaint
-              requestAnimationFrame(() => {
-                items.forEach((item: HTMLElement, index: number) => {
-                  const computedStyle = window.getComputedStyle(item);
-                  console.log(`Item ${index} styles: opacity=${computedStyle.opacity}, transform=${computedStyle.transform}`);
-                  item.style.transform = 'scale(1.0001)';
-                  item.style.transform = '';
-                });
-              });
-              observer.disconnect();
-            });
+            this.animateIn(items, observer);
           }
         },
         { threshold: 0.1 }
       );
       observer.observe(this.carouselTrack.nativeElement);
     }
+  }
+
+  private animateIn(items: HTMLElement[], observer?: IntersectionObserver) {
+    requestAnimationFrame(() => {
+      this.animationState.set('in');
+      this.cdr.markForCheck();
+      this.hasAnimated = true;
+      // Force repaint
+      requestAnimationFrame(() => {
+        items.forEach((item: HTMLElement, index: number) => {
+          const computedStyle = window.getComputedStyle(item);
+          item.style.transform = 'scale(1.0001)';
+          item.style.transform = '';
+        });
+      });
+      observer?.disconnect();
+    });
   }
 
   private scrollToIndex(index: number) {
