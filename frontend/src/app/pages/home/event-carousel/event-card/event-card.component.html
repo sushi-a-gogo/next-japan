@@ -1,33 +1,32 @@
 <a type="button" [routerLink]="routerLink()" class="button">
   <div class="image-container" [class.grok]="isGrokEvent()">
-    @if(resizedImage()) {
+    @if (resizedImage()) {
     <img
       alt="Event Image"
       [ngSrc]="resizedImage()!.src"
       [width]="resizedImage()!.image.width"
       [height]="resizedImage()!.image.height"
+      loading="lazy"
+      fetchpriority="high"
     />
     } @else {
     <img
       alt="Event Image Not Available"
       class="no-image"
       src="assets/images/no-image.png"
+      loading="lazy"
     />
     }
   </div>
   <div class="card-body">
-    <div
-      class="title multi-line-box break-word"
-      matTooltipShowDelay="750"
-      matTooltipClass="app-tooltip"
-    >
+    <div class="title multi-line-box break-word">
       {{ event().eventTitle || "Title Not Available" }}
     </div>
     <div class="description multi-line-box break-word">
       {{ event().description }}
     </div>
     <div class="upcoming">
-      @if(event().nextOpportunityDate) {
+      @if (event().nextOpportunityDate) {
       <div>
         <div class="banner">Next Opportunity</div>
         <app-opportunity-date

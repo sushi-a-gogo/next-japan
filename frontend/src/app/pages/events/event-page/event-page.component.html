@@ -2,8 +2,11 @@
 <app-loading-spinner [delay]="500" />
 }
 <article class="nx-flex col al-c" [class.open]="loaded()">
-  <header class="component-box" [style.backgroundImage]="backgroundImage()">
-    <app-event-banner />
+  <header class="component-box">
+    @if(heroImage()) {
+    <img [ngSrc]="heroImage()!" alt="Hero Image" fill placeholder priority />
+    }
+    <app-event-hero />
   </header>
   <main class="component-box nx-flex col al-c">
     <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>

@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -15,13 +16,32 @@ import { filter } from 'rxjs';
   selector: 'app-ai-event-designer-page',
   imports: [NgOptimizedImage, ContentGeneratorComponent, MatProgressBar],
   templateUrl: './ai-event-designer-page.component.html',
-  styleUrl: './ai-event-designer-page.component.scss'
+  styleUrl: './ai-event-designer-page.component.scss',
+  animations: [
+    trigger('fadeSlideIn', [
+      state('void', style({
+        opacity: 0.25,
+        filter: 'blur(2px)',
+        transform: 'translateY(50px)'
+      })),
+      state('in', style({
+        opacity: 1,
+        filter: 'blur(0)',
+        transform: 'translateY(0)'
+      })),
+      transition('void => in', [
+        animate('400ms ease-out')
+      ])
+    ])
+  ],
+  host: { '[@fadeSlideIn]': 'in' }
+
 })
 export class AiEventDesignerPageComponent implements OnInit {
   private imageService = inject(ImageService);
   private aiImage: AppImageData = {
     id: "ai-background.png",
-    cloudflareImageId: "46a4b01c-c275-4556-aec4-ec7be2e8d500",
+    cloudflareImageId: "fe93cd16-79b0-411a-3584-4a52953f3d00",
     // cloudflareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
     width: 1024,
     height: 1792

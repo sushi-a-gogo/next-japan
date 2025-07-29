@@ -1,6 +1,7 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
 import { fromEvent } from 'rxjs';
@@ -24,13 +25,29 @@ const BreakpointsConfig = [
   imports: [EventCardComponent],
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('cardFadeSlide', [
+      state('out', style({
+        opacity: 0,
+        transform: 'translateX(-30px) !important'
+      })),
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0) !important'
+      })),
+      transition('out => in', [
+        animate('600ms {{delay}}ms ease-out')
+      ], { params: { delay: 0 } })
+    ])
+  ]
 })
-export class EventCarouselComponent implements OnChanges, AfterViewInit {
+export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterContentInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
+  animationState = signal('out');
 
-  events = input<EventData[]>([])
+  events = input<EventData[]>([]);
   sortedEvents = signal<EventData[]>([]);
-  eventsLoaded = signal<boolean>(false);
   eventsPerView = signal(1);
   currentIndex = signal(0);
 
@@ -39,6 +56,8 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
   private breakpointObserver = inject(BreakpointObserver);
+  private cdr = inject(ChangeDetectorRef);
+  private hasAnimated = false;
 
   disablePrevButton = computed(() => this.currentIndex() === 0);
   disableNextButton = computed(() => this.currentIndex() >= this.sortedEvents().length - this.eventsPerView());
@@ -46,6 +65,14 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['events']) {
       this.sortedEvents.set([...this.events().sort(this.sortByDate)]);
+      this.cdr.markForCheck();
+    }
+  }
+
+  ngAfterContentInit(): void {
+    if (isPlatformBrowser(this.platformId) && this.sortedEvents().length > 0) {
+      // Check if carousel is already in view
+      this.checkInitialVisibility();
     }
   }
 
@@ -54,7 +81,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       this.setupBreakpoints();
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
-      setTimeout(() => this.eventsLoaded.set(this.events().length > 0), 250);
+      this.setupIntersectionObserver();
     }
   }
 
@@ -89,9 +116,10 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
         const newEventsPerView = activeBreakpoint?.eventsPerView ?? 1;
         this.eventsPerView.set(newEventsPerView);
         if (newEventsPerView === 1) {
-          this.currentIndex.set(1);
+          this.currentIndex.set(0);
         }
         this.scrollToIndex(this.currentIndex());
+        this.cdr.markForCheck();
       });
   }
 
@@ -104,9 +132,53 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
           const newIndex = Math.ceil(scrollLeft / CARD_WIDTH);
           if (newIndex !== this.currentIndex()) {
             this.currentIndex.set(newIndex);
+            this.cdr.markForCheck();
           }
         });
     }
+  }
+
+  private checkInitialVisibility() {
+    if (isPlatformBrowser(this.platformId) && this.carouselTrack && !this.hasAnimated) {
+      const rect = this.carouselTrack.nativeElement.getBoundingClientRect();
+      const isInView = rect.top >= 0 && rect.top <= window.innerHeight;
+      if (isInView && this.sortedEvents().length > 0) {
+        const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
+        this.animateIn(items);
+      }
+    }
+  }
+
+  private setupIntersectionObserver() {
+    if (isPlatformBrowser(this.platformId) && this.carouselTrack) {
+      const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && this.sortedEvents().length > 0 && !this.hasAnimated) {
+            this.animateIn(items, observer);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(this.carouselTrack.nativeElement);
+    }
+  }
+
+  private animateIn(items: HTMLElement[], observer?: IntersectionObserver) {
+    requestAnimationFrame(() => {
+      this.animationState.set('in');
+      this.cdr.markForCheck();
+      this.hasAnimated = true;
+      // Force repaint
+      requestAnimationFrame(() => {
+        items.forEach((item: HTMLElement, index: number) => {
+          const computedStyle = window.getComputedStyle(item);
+          item.style.transform = 'scale(1.0001)';
+          item.style.transform = '';
+        });
+      });
+      observer?.disconnect();
+    });
   }
 
   private scrollToIndex(index: number) {
@@ -114,6 +186,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
       const cardSlotWidth = CARD_WIDTH;
       this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
       this.currentIndex.set(index);
+      this.cdr.markForCheck();
     }
   }
 }

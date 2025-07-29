@@ -1,5 +1,5 @@
-<div class="carousel-container" [class.open]="eventsLoaded()">
-  @if(!ssrMode()) {
+<div class="carousel-container">
+  @if (!ssrMode()) {
   <button
     class="nav-button prev"
     (click)="scrollPrev()"
@@ -12,17 +12,20 @@
   }
   <div
     class="carousel-track"
-    [class.open]="eventsLoaded()"
     [class.carousel-track--ssr]="ssrMode()"
     #carouselTrack
   >
-    @for(event of sortedEvents(); track event?.eventId || $index) {
-    <div class="event-item">
+    @for (event of sortedEvents(); track event?.eventId || $index) {
+    <div
+      class="event-item"
+      [class.visible]="animationState() === 'in'"
+      [style.--animation-delay]="$index * 100 + 'ms'"
+    >
       <app-event-card [event]="event"></app-event-card>
     </div>
     }
   </div>
-  @if(!ssrMode()) {
+  @if (!ssrMode()) {
   <button
     class="nav-button next"
     (click)="scrollNext()"

@@ -7,6 +7,7 @@ import { OpportunityDateComponent } from "@shared/opportunity-date/opportunity-d
 
 @Component({
   selector: 'app-event-card',
+  standalone: true,
   imports: [NgOptimizedImage, RouterLink, OpportunityDateComponent],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.scss'
@@ -20,7 +21,7 @@ export class EventCardComponent {
   resizedImage = computed(() => {
     if (isPlatformBrowser(this.platformId)) {
       const width = this.isGrokEvent() ? 342 : 448;
-      return this.imageService.resizeImage(this.event().image, 448, 256)
+      return this.imageService.resizeImage(this.event().image, 448, 256);
     }
     return null;
   });

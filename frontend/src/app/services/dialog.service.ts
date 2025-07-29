@@ -12,10 +12,10 @@ export class DialogService {
 
   constructor() {
     afterNextRender(() => {
-      const savedUser = this.storage.session.getItem('nextjp');
-      if (!savedUser) {
-        this.storage.session.setItem('nextjp', '1');
-        this.showDialogSignal.set('about');
+      const savedStatus = this.storage.session.getItem('nextjp.status');
+      if (!savedStatus) {
+        this.storage.session.setItem('nextjp.status', '1');
+        setTimeout(() => this.showDialogSignal.set('about'), 1500);
       }
     });
   }
