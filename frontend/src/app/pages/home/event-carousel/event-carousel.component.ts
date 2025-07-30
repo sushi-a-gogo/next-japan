@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
 import { fromEvent } from 'rxjs';
@@ -42,7 +42,7 @@ const BreakpointsConfig = [
     ])
   ]
 })
-export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterContentInit {
+export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
   animationState = signal('out');
 
@@ -69,19 +69,13 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
     }
   }
 
-  ngAfterContentInit(): void {
-    if (isPlatformBrowser(this.platformId) && this.sortedEvents().length > 0) {
-      // Check if carousel is already in view
-      this.checkInitialVisibility();
-    }
-  }
-
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.setupBreakpoints();
       this.scrollToIndex(this.currentIndex());
       this.setupScrollListener();
-      this.setupIntersectionObserver();
+      const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
+      this.animateIn(items);
     }
   }
 
@@ -138,37 +132,11 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
     }
   }
 
-  private checkInitialVisibility() {
-    if (isPlatformBrowser(this.platformId) && this.carouselTrack && !this.hasAnimated) {
-      const rect = this.carouselTrack.nativeElement.getBoundingClientRect();
-      const isInView = rect.top >= 0 && rect.top <= window.innerHeight;
-      if (isInView && this.sortedEvents().length > 0) {
-        const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
-        this.animateIn(items);
-      }
-    }
-  }
-
-  private setupIntersectionObserver() {
-    if (isPlatformBrowser(this.platformId) && this.carouselTrack) {
-      const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && this.sortedEvents().length > 0 && !this.hasAnimated) {
-            this.animateIn(items, observer);
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(this.carouselTrack.nativeElement);
-    }
-  }
-
   private animateIn(items: HTMLElement[], observer?: IntersectionObserver) {
     requestAnimationFrame(() => {
       this.animationState.set('in');
       this.cdr.markForCheck();
-      this.hasAnimated = true;
+      //this.hasAnimated = true;
       // Force repaint
       requestAnimationFrame(() => {
         items.forEach((item: HTMLElement, index: number) => {
@@ -177,7 +145,7 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit, AfterCo
           item.style.transform = '';
         });
       });
-      observer?.disconnect();
+      //observer?.disconnect();
     });
   }
 

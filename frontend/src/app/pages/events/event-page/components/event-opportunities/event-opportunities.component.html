@@ -1,5 +1,8 @@
 @for(opportunity of opportunities(); track opportunity.opportunityId) {
 <app-event-opportunity [opportunity]="opportunity" />
 } @empty {
-<div class="message">There are no Upcoming Opportunities for this Event.</div>
+<div class="message">
+  There are currently no upcoming opportunities for this event. Please check
+  back soon or contact us if you have any questions!
+</div>
 }
