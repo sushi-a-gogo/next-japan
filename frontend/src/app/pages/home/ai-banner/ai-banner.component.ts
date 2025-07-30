@@ -1,7 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import fadeIn from '@app/animations/fadeIn.animation';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
 
@@ -10,8 +9,6 @@ import { ImageService } from '@app/services/image.service';
   imports: [NgOptimizedImage, RouterLink],
   templateUrl: './ai-banner.component.html',
   styleUrl: './ai-banner.component.scss',
-  animations: [fadeIn],
-  host: { '[@fadeIn]': 'in' }
 })
 export class AiBannerComponent {
   private imageService = inject(ImageService);

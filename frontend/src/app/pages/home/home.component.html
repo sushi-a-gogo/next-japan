@@ -17,11 +17,8 @@
       <app-event-carousel [events]="events()" />
       } @placeholder {
       <app-event-carousel class="hidden" [events]="events()" />
-      } @defer (on viewport) {
-      <app-ai-banner />
-      } @placeholder {
-      <app-ai-banner class="hidden" />
       }
+      <app-ai-banner />
     </main>
   </article>
 </app-layout>
