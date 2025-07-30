@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import slideDownBounce from '@app/animations/slideDownBounce.animation';
+import fadeIn from '@app/animations/fadeIn.animation';
 import { ImageService } from '@app/services/image.service';
 import organization from 'src/lib/organization-data';
 
@@ -10,8 +10,8 @@ import organization from 'src/lib/organization-data';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideDownBounce],
-  host: { '[@slideDownBounce]': 'in' }
+  animations: [fadeIn],
+  host: { '[@fadeIn]': 'in' }
 })
 export class HeroComponent {
   animationState = 'in';
