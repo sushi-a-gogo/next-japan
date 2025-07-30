@@ -8,7 +8,7 @@ const fadeIn = trigger('fadeIn', [
     opacity: 1,
   })),
   transition('void => in', [
-    animate('200ms ease-in-out')
+    animate('400ms ease-out')
   ])
 ]);
 
