@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -14,7 +15,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-ai-event-page',
-  imports: [RouterLink, MatProgressBarModule, AiEventHeaderComponent],
+  imports: [NgOptimizedImage, RouterLink, MatProgressBarModule, AiEventHeaderComponent],
   templateUrl: './ai-event-page.component.html',
   styleUrl: './ai-event-page.component.scss',
   animations: [
@@ -43,7 +44,7 @@ export class AiEventPageComponent implements OnInit {
 
 
   backgroundImage = computed(() => {
-    return `url('${this.dreamEvent()?.imageUrl}')`;
+    return this.dreamEvent()?.imageUrl;
   });
 
   ngOnInit(): void {

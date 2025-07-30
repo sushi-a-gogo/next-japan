@@ -1,5 +1,12 @@
 <article class="nx-flex col al-c gap-20">
-  <header class="component-box" [style.backgroundImage]="backgroundImage()">
+  <header class="component-box">
+    <img
+      [ngSrc]="backgroundImage()!"
+      alt="Hero Image"
+      fill
+      placeholder
+      priority
+    />
     <app-ai-event-header
       [event]="dreamEvent()!"
       [savedEvent]="savedEvent()"

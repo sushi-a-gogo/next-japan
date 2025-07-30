@@ -12,23 +12,16 @@ article {
     width: 100%;
     img {
       object-fit: cover;
+      filter: brightness(50%) blur(5px);
     }
     position: relative;
   }
 
-  header,
-  main {
-    opacity: 0;
-    transition: 0.25s ease-in-out;
-  }
+  opacity: 0;
+  transition: 0.25s ease-in-out;
 
   &.open {
-    background: none;
     opacity: 1;
-    header,
-    main {
-      opacity: 1;
-    }
   }
 }
 

@@ -8,7 +8,7 @@ import { DialogService } from '@app/services/dialog.service';
 import { ErrorService } from '@app/services/error.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
-import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
+import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -19,7 +19,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 @Component({
   selector: 'app-event-page',
   imports: [NgOptimizedImage, EventNavbarComponent, EventOverviewComponent,
-    EventOpportunitiesComponent, LoadingSpinnerComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent, EventHeroComponent],
+    EventOpportunitiesComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent, EventHeroComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
@@ -73,7 +73,7 @@ export class EventPageComponent implements OnChanges {
             this.errorService.sendError(new Error("The requested event was not found."));
             this.router.navigate(['./not-found']);
           } else {
-            this.loaded.set(true);
+            //this.loaded.set(true);
           }
         },
         error: (e) => {

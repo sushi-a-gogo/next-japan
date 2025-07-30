@@ -16,6 +16,7 @@ header {
   width: 100%;
   img {
     object-fit: cover;
+    filter: brightness(20%);
   }
   position: relative;
 }

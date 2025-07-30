@@ -1,6 +1,6 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import slideDownBounce from '@app/animations/slideDownBounce.animation';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
@@ -10,20 +10,8 @@ import { ImageService } from '@app/services/image.service';
   imports: [NgOptimizedImage, DatePipe, DisplayCountPipe],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
-  animations: [
-    trigger('fadeSlideIn', [
-      state('void', style({
-        transform: 'translateY(20px)'
-      })),
-      state('in', style({
-        transform: 'translateY(0)'
-      })),
-      transition('void => in', [
-        animate('400ms ease-in-out')
-      ])
-    ])
-  ],
-  host: { '[@fadeSlideIn]': 'in' }
+  animations: [slideDownBounce],
+  host: { '[@slideDownBounce]': 'in' }
 
 })
 export class EventHeroComponent {

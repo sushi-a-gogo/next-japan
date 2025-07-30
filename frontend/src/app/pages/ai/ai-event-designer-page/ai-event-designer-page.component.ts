@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -6,6 +5,7 @@ import { MatProgressBar } from "@angular/material/progress-bar";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
+import blurredSlideUp from '@app/animations/blurredSlideUp.animation';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ContentGeneratorComponent } from "@app/pages/ai/ai-event-designer-page/content-generator/content-generator.component";
 import { ImageService } from '@app/services/image.service';
@@ -17,24 +17,8 @@ import { filter } from 'rxjs';
   imports: [NgOptimizedImage, ContentGeneratorComponent, MatProgressBar],
   templateUrl: './ai-event-designer-page.component.html',
   styleUrl: './ai-event-designer-page.component.scss',
-  animations: [
-    trigger('fadeSlideIn', [
-      state('void', style({
-        opacity: 0.25,
-        filter: 'blur(2px)',
-        transform: 'translateY(50px)'
-      })),
-      state('in', style({
-        opacity: 1,
-        filter: 'blur(0)',
-        transform: 'translateY(0)'
-      })),
-      transition('void => in', [
-        animate('400ms ease-out')
-      ])
-    ])
-  ],
-  host: { '[@fadeSlideIn]': 'in' }
+  animations: [blurredSlideUp],
+  host: { '[@blurredSlideUp]': 'in' }
 
 })
 export class AiEventDesignerPageComponent implements OnInit {
