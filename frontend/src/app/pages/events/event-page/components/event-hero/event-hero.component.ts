@@ -1,6 +1,5 @@
 import { DatePipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
-import fadeIn from '@app/animations/fadeIn.animation';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { ImageService } from '@app/services/image.service';
@@ -10,8 +9,6 @@ import { ImageService } from '@app/services/image.service';
   imports: [NgOptimizedImage, DatePipe, DisplayCountPipe],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
-  animations: [fadeIn],
-  host: { '[@fadeIn]': 'in' }
 
 })
 export class EventHeroComponent {
