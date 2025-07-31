@@ -13,6 +13,15 @@
     <footer>
       <app-footer />
     </footer>
+    @defer(on timer(50ms)) {
+    <!-- defer sign-in banner -->
+    @if(!isAuthenticated()) {
+    <app-sign-in-banner />
+    }
+    <!-- end defer -->
+    } @placeholder {
+    <i></i>
+    }
   </main>
 </div>
 <div

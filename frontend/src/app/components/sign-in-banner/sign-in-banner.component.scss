@@ -1,0 +1,45 @@
+:host {
+  z-index: 201;
+  position: sticky;
+  bottom: 0;
+}
+
+.banner {
+  width: 100%;
+  height: 150px;
+  color: #fff;
+  background: var(--bright-blue-sky);
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cb-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .banner {
+    height: 84px;
+  }
+
+  .cb-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .buttons {
+    width: auto;
+  }
+}

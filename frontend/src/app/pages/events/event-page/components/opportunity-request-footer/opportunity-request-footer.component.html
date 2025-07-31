@@ -3,18 +3,9 @@
   [class.visible]="selected().length > 0"
 >
   <div class="cb-content pad">
-    <button
-      type="button"
-      matRipple
-      class="app-button mobile"
-      [disabled]="selected().length === 0"
-      (click)="openRegistrationDialog()"
-    >
-      Tap to Request
-    </button>
-    <div class="desktop">
+    <div class="nx-flex row al-c jc-sb gap-10">
       @if(selected().length) {
-      <div>
+      <div class="text">
         You have selected {{ selected().length }}
         {{ selected().length === 1 ? " opportunity." : " opportunities." }}
       </div>

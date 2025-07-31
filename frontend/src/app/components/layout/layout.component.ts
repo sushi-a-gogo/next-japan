@@ -9,11 +9,12 @@ import { filter } from 'rxjs';
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
 import { MyEventsComponent } from "../my-events/my-events.component";
+import { SignInBannerComponent } from '../sign-in-banner/sign-in-banner.component';
 import { UserProfileComponent } from "../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [HeaderComponent, FooterComponent, MyEventsComponent, UserProfileComponent],
+  imports: [HeaderComponent, FooterComponent, SignInBannerComponent, MyEventsComponent, UserProfileComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
@@ -23,6 +24,7 @@ export class LayoutComponent {
 
   private authService = inject(AuthMockService);
   isAuthenticating = this.authService.isAuthenticating;
+  isAuthenticated = this.authService.isAuthenticated;
 
   private userProfileService = inject(UserProfileService);
   userProfile = this.userProfileService.userProfile;

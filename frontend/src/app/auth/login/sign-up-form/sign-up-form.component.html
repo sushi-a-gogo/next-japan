@@ -1,0 +1,29 @@
+<form class="nx-flex col" [formGroup]="newUserForm">
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input
+      type="text"
+      matInput
+      required
+      name="firstName"
+      formControlName="firstName"
+      autocomplete="off"
+    />
+    <mat-error>Please enter your first name.</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input
+      type="text"
+      matInput
+      required
+      name="lastName"
+      formControlName="lastName"
+      autocomplete="off"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput name="email" formControlName="email" />
+  </mat-form-field>
+</form>

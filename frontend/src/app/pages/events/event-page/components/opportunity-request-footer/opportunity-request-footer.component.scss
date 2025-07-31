@@ -9,8 +9,9 @@
   font-weight: 700;
   width: 100%;
   height: 0;
-  background: var(--navy-blue-mountain);
-  color: var(--next-highlight);
+  background: var(--bright-blue-sky);
+  color: #fff;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
 
   opacity: 0;
   transition: 0.25s ease-in-out;
@@ -22,44 +23,34 @@
   }
 }
 
-.app-button {
-  font-size: 20px;
+.text {
+  font-size: 19px;
+  line-height: 1.21053;
+  letter-spacing: 0.012em;
   font-weight: 700;
-  border-radius: 4px;
-  background: var(--next-surface);
-
-  &.mobile {
-    width: 100%;
-    height: 100%;
-    color: var(--next-highlight);
-    background: var(--navy-blue-mountain);
-  }
 }
 
-.desktop {
-  display: none;
+.app-button {
+  border-radius: 4px;
+  background: var(--next-surface);
 }
 
 @media (min-width: 768px) {
-  .mobile {
-    display: none;
-  }
-
   .event-footer.visible {
-    font-size: 22px;
-    line-height: 28px;
-    height: 120px;
+    height: 80px;
   }
 
-  .desktop {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  .text {
+    font-size: 22px;
+    line-height: 1.14286;
+    font-weight: 600;
   }
 
   .app-button {
-    padding: 10px 30px;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.21053;
+    letter-spacing: 0.007em;
+    padding: 6px 24px;
   }
 }

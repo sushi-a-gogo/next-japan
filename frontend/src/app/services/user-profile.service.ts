@@ -3,7 +3,7 @@ import { afterNextRender, inject, Injectable, signal } from '@angular/core';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { UserProfile } from '@models/user-profile.model';
-import { catchError, map, Observable, tap } from 'rxjs';
+import { catchError, delay, map, Observable, tap } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
 import { StorageService } from './storage.service';
@@ -48,6 +48,7 @@ export class UserProfileService {
   getUser$(id: number) {
     return this.http.get<{ user: UserProfile }>(`${this.apiUri}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getUser'),
+      delay(1500), // simulate login process
       tap((resp) => {
         this.setUser(resp.user);
       }),

@@ -1,9 +1,9 @@
 @if(signup()) {
-<a mat-ripple routerLink="/signup" class="app-button app-button-outlined"
-  >Get Started</a
->
+<button mat-ripple class="app-button app-button-filled" (click)="signUp()">
+  Get Started
+</button>
 } @else {
-<button mat-ripple class="app-button app-button-filled" (click)="login()">
+<button mat-ripple class="app-button app-button-outlined" (click)="login()">
   Sign In
 </button>
 }
