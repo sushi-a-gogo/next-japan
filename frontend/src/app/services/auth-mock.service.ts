@@ -11,26 +11,26 @@ export class AuthMockService {
   isAuthenticated = this.authenticated.asReadonly();
   isAuthenticated$ = toObservable(this.authenticated);
 
-  private authenticating = signal<boolean>(false);
+  private authenticating = signal<'sign-in' | 'sign-up' | null>(null);
   isAuthenticating = this.authenticating.asReadonly();
 
   constructor(private router: Router) {
   }
 
-  authenticationStart() {
+  authenticationStart(mode?: 'sign-in' | 'sign-up') {
     if (this.authenticated()) {
       return;
     }
 
-    this.authenticating.set(true);
+    this.authenticating.set(mode || 'sign-in');
   }
 
   authenticationStop() {
-    this.authenticating.set(false);
+    this.authenticating.set(null);
   }
 
   login(user: UserProfile) {
-    this.authenticating.set(false);
+    this.authenticating.set(null);
     this.authenticated.set(true);
   }
 

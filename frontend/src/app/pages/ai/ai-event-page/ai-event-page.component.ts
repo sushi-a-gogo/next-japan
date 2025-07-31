@@ -80,7 +80,7 @@ export class AiEventPageComponent implements OnInit {
   private openSaveMessage() {
     this.snackBar.open('🎉 Success! Your AI-powered event is now saved.', 'Awesome!', {
       horizontalPosition: 'center',
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       panelClass: 'success-bar'
     }).afterDismissed().subscribe();
   }

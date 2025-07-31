@@ -88,6 +88,7 @@ header {
   header {
     button {
       border-radius: 4px;
+      height: 44px;
       width: auto;
 
       .material-icons.mobile {
@@ -99,7 +100,6 @@ header {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        height: 19px;
       }
     }
   }

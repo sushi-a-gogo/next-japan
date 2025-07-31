@@ -45,11 +45,12 @@
 .success-bar {
   @include mat.snack-bar-overrides(
     (
-      button-color: var(--vivid-yellow-text),
+      button-color: var(--navy-blue-mountain),
+      container-shape: 24px,
+      supporting-text-color: #fff,
       supporting-text-weight: 600,
-      supporting-text-size: 16px,
-      //supporting-text-line-height: 20px,
-      container-color: var(--navy-blue-mountain),
+      supporting-text-size: 14px,
+      container-color: var(--pink-cherry-blossoms),
     )
   );
 }

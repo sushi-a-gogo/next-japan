@@ -1,12 +1,24 @@
+.container {
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%); /* Shifts the element up by half its height */
+  z-index: 1000;
+  margin: 0 auto;
+}
+
 .dialog.flex-column {
-  gap: 30px;
+  gap: 24px;
 }
 
 header {
   font-size: 18px;
   line-height: 24px;
   font-weight: 600;
-  color: var(--next-heading);
 }
 
 ul {
@@ -20,25 +32,34 @@ div {
   border-radius: 4px;
 }
 
+.text-button {
+  cursor: pointer;
+  color: var(--next-link);
+  border: 0;
+  background-color: transparent;
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
 .app-button {
   width: 100%;
+  border-radius: 4px;
 
   &.user {
     padding: 5px 10px;
-    border-radius: 8px;
     font-weight: 700;
     transition: 0.25s;
 
     &.app-button-filled {
-      background: #007b72;
-      border-color: #007b72;
       color: var(--vivid-yellow-text);
       font-weight: 700;
       transition: 0.25s ease-in-out;
 
       &:hover {
-        background: #007b72;
-        border-color: #007b72;
         color: var(--vivid-yellow-text);
       }
     }
@@ -51,4 +72,8 @@ div {
 
 .flex-button {
   justify-content: flex-start;
+}
+
+.switchbox {
+  font-weight: 500;
 }
