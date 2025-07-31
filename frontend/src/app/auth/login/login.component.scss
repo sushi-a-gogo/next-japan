@@ -27,11 +27,6 @@ ul {
   padding: 0;
 }
 
-div {
-  padding: 10px;
-  border-radius: 4px;
-}
-
 .text-button {
   cursor: pointer;
   color: var(--next-link);
@@ -76,4 +71,5 @@ div {
 
 .switchbox {
   font-weight: 500;
+  margin-bottom: 10px;
 }

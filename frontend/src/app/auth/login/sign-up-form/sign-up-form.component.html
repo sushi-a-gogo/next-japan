@@ -1,5 +1,5 @@
-<form class="nx-flex col" [formGroup]="newUserForm">
-  <mat-form-field appearance="outline">
+<form class="nx-flex col gap-20" [formGroup]="newUserForm">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-label>First Name</mat-label>
     <input
       type="text"
@@ -11,7 +11,7 @@
     />
     <mat-error>Please enter your first name.</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-label>Last Name</mat-label>
     <input
       type="text"
@@ -21,9 +21,11 @@
       formControlName="lastName"
       autocomplete="off"
     />
+    <mat-error>Please enter your last name.</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-label>Email</mat-label>
     <input type="email" matInput name="email" formControlName="email" />
+    <mat-error>Please enter a valid email.</mat-error>
   </mat-form-field>
 </form>
