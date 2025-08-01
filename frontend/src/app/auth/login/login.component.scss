@@ -50,13 +50,8 @@ ul {
     transition: 0.25s;
 
     &.app-button-filled {
-      color: var(--vivid-yellow-text);
       font-weight: 700;
       transition: 0.25s ease-in-out;
-
-      &:hover {
-        color: var(--vivid-yellow-text);
-      }
     }
   }
 
