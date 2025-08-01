@@ -16,14 +16,14 @@ export class EventRegistrationService {
   private id = 0;
 
 
-  requestOpportunities$(requests: EventRegistration[], userId: number): Observable<EventRegistration[]> {
+  requestOpportunities$(requests: EventRegistration[], userId: string): Observable<EventRegistration[]> {
     return from(requests).pipe(
       concatMap((request) => this.addRegistration$(request, userId)),
       toArray()
     );
   }
 
-  checkForConflict(opp: EventOpportunity, userId: number) {
+  checkForConflict(opp: EventOpportunity, userId: string) {
     const selectedStartTime = new Date(opp.startDate);
     const selectedEndTime = new Date(opp.endDate);
 
@@ -47,7 +47,7 @@ export class EventRegistrationService {
     return conflicted.length > 0;
   }
 
-  private addRegistration$(registration: EventRegistration, userId: number): Observable<EventRegistration> {
+  private addRegistration$(registration: EventRegistration, userId: string): Observable<EventRegistration> {
     const userRegistration: EventRegistration = {
       ...registration,
       userId,

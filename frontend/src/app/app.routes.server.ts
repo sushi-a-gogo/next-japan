@@ -38,10 +38,6 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
-    path: 'signup',
-    renderMode: RenderMode.Prerender
-  },
-  {
     path: 'about-this-project',
     renderMode: RenderMode.Prerender
   },

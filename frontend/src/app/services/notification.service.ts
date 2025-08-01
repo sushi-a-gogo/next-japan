@@ -62,7 +62,7 @@ export class NotificationService {
       notificationDate: new Date(),
       eventDate,
       eventTimeZone: reg.opportunity.timeZoneAbbreviation,
-      userId: reg.userId || 0,
+      userId: reg.userId || '',
       eventId: reg.opportunity.eventId,
       image: reg.image,
       title: reg.eventTitle,

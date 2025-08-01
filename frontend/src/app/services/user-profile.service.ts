@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { User } from '@app/models/user.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { UserProfile } from '@models/user-profile.model';
-import { catchError, delay, map, Observable, tap } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
 import { StorageService } from './storage.service';
@@ -45,7 +46,7 @@ export class UserProfileService {
     );
   }
 
-  getUser$(id: number) {
+  getUser$(id: string) {
     return this.http.get<{ user: UserProfile }>(`${this.apiUri}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getUser'),
       delay(1500), // simulate login process
@@ -70,6 +71,21 @@ export class UserProfileService {
 
   clearUserProfile() {
     this.setUser(null);
+  }
+
+  setUserProfile$(user: User) {
+    const newUserProfile: UserProfile = {
+      ...user,
+      addressLine1: null,
+      city: null,
+      state: null,
+      zip: null,
+      phone: null,
+      isEmailPreferred: false
+    };
+    this.user.set(newUserProfile);
+
+    return of(newUserProfile).pipe(delay(1500));
   }
 
   private setUser(user: UserProfile | null) {

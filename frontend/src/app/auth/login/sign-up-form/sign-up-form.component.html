@@ -1,31 +1,46 @@
-<form class="nx-flex col gap-20" [formGroup]="newUserForm">
-  <mat-form-field appearance="outline" subscriptSizing="dynamic">
-    <mat-label>First Name</mat-label>
-    <input
-      type="text"
-      matInput
-      required
-      name="firstName"
-      formControlName="firstName"
-      autocomplete="off"
-    />
-    <mat-error>Please enter your first name.</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline" subscriptSizing="dynamic">
-    <mat-label>Last Name</mat-label>
-    <input
-      type="text"
-      matInput
-      required
-      name="lastName"
-      formControlName="lastName"
-      autocomplete="off"
-    />
-    <mat-error>Please enter your last name.</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline" subscriptSizing="dynamic">
-    <mat-label>Email</mat-label>
-    <input type="email" matInput name="email" formControlName="email" />
-    <mat-error>Please enter a valid email.</mat-error>
-  </mat-form-field>
-</form>
+<div class="content nx-flex col jc-sb gap-36">
+  <form class="nx-flex col gap-20" [formGroup]="newUserForm">
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>First Name</mat-label>
+      <input
+        type="text"
+        matInput
+        required
+        name="firstName"
+        formControlName="firstName"
+        autocomplete="off"
+      />
+      <mat-error>Please enter your first name.</mat-error>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Last Name</mat-label>
+      <input
+        type="text"
+        matInput
+        required
+        name="lastName"
+        formControlName="lastName"
+        autocomplete="off"
+      />
+      <mat-error>Please enter your last name.</mat-error>
+    </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput name="email" formControlName="email" />
+      <mat-error>Please enter a valid email.</mat-error>
+    </mat-form-field>
+  </form>
+  <div class="nx-flex col gap-10">
+    <button
+      class="app-button dialog-button app-button-filled"
+      (click)="createUser()"
+      [disabled]="newUserForm.invalid"
+    >
+      Next
+    </button>
+    <div class="switchbox nx-flex row al-c gap-5">
+      Already have an account?
+      <button class="text-button" (click)="cancel.emit()">Sign in</button>
+    </div>
+  </div>
+</div>

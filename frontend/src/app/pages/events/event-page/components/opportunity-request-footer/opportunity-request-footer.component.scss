@@ -35,9 +35,13 @@
   background: var(--next-surface);
 }
 
+:host-context(.dark-theme) .app-button {
+  border-color: var(--next-surface);
+}
+
 @media (min-width: 768px) {
   .event-footer.visible {
-    height: 84px;
+    height: 96px;
   }
 
   .text {

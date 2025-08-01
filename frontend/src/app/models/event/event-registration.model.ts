@@ -10,7 +10,7 @@ export interface EventRegistration {
   opportunity: EventOpportunity;
 
   registrationId?: string;
-  userId?: number;
+  userId?: string;
   status?: RegistrationStatus;
 }
 

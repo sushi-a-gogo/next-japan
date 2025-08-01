@@ -38,10 +38,6 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/legal/legal.routes').then((mod) => mod.routes)
   },
   {
-    path: 'signup',
-    loadChildren: () => import('./pages/sign-up/sign-up.routes').then((mod) => mod.signUpRoutes),
-  },
-  {
     path: 'event',
     loadChildren: () => import('./pages/events/event.routes').then((mod) => mod.eventRoutes)
   },

@@ -1,0 +1,102 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.content {
+  flex: 1;
+}
+
+.payment-summary {
+  font-size: 0.9rem;
+  color: var(--next-text);
+
+  .amount {
+    font-weight: 700;
+    color: var(--next-accent);
+    font-size: 1.1rem;
+  }
+
+  .legalese {
+    font-size: 0.75rem;
+    color: var(--next-text-soft);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+}
+
+.fake-card {
+  background: linear-gradient(145deg, #2e2e2e, #3c3c3c);
+  color: white;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-bottom: 20px;
+  font-family: "Courier New", monospace;
+
+  .card-number {
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+  }
+
+  .card-meta {
+    font-size: 0.75rem;
+    margin-top: 8px;
+    opacity: 0.75;
+  }
+}
+
+.half-width {
+  flex: 1;
+}
+
+.app-button-filled {
+  background-color: var(--red-torii-gate);
+  border-color: var(--red-torii-gate);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #ab2c2c;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    color: #666;
+  }
+}
+
+.text-button {
+  cursor: pointer;
+  color: var(--next-link);
+  border: 0;
+  background-color: transparent;
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+.legal-text {
+  font-size: 0.75rem;
+  color: var(--next-text-soft);
+  line-height: 1.4;
+  margin-top: 16px;
+
+  a {
+    color: var(--next-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--next-link-hover);
+    }
+  }
+}
