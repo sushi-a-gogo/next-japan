@@ -1,4 +1,4 @@
-import { Component, DestroyRef, HostListener, inject, OnInit, output, signal } from '@angular/core';
+import { Component, DestroyRef, HostListener, inject, input, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -13,6 +13,7 @@ import { filter } from 'rxjs';
 export class ModalComponent implements OnInit {
   open = signal<boolean>(false);
   close = output<boolean>();
+  dynamicWidth = input<boolean>(false);
   private initialized = false;
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);

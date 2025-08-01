@@ -3,7 +3,11 @@
   [class.open]="open()"
   (click)="onClose()"
 >
-  <div class="dialog nx-flex col gap-24" (click)="onClick($event)">
+  <div
+    class="dialog nx-flex col gap-24"
+    [class.dynamic]="dynamicWidth()"
+    (click)="onClick($event)"
+  >
     <ng-content />
   </div>
 </div>

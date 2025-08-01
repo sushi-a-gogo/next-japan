@@ -1,4 +1,4 @@
-<app-modal (close)="cancel()">
+<app-modal [dynamicWidth]="true" (close)="cancel()">
   <div class="container">
     @if(busy()) {
     <div class="spinner">
@@ -9,7 +9,7 @@
       ></mat-spinner>
     </div>
     }
-    <div class="nx-flex col gap-36 fade-in" [class.open]="loaded() && !busy()">
+    <div class="content fade-in nx-flex col gap-36" [class.open]="!busy()">
       <header class="nx-flex row al-c jc-sb">
         <span class="subhead"> {{ modeHeaderText() }} </span>
         <button
@@ -22,42 +22,36 @@
           <span class="material-icons">close</span>
         </button>
       </header>
-      <main>
-        @if(signUpMode()) {
-        <app-sign-up-form />
-        } @else {
-        <ul class="flex-column">
-          @for(user of users(); track user.userId) {
-          <li>
-            <button
-              class="app-button flex-button user"
-              [class.app-button-filled]="selectedUserId() === user.userId"
-              [class.app-button-outlined]="selectedUserId() !== user.userId"
-              (click)="select(user.userId)"
-            >
-              <app-avatar [size]="36" [avatar]="user" />
-              <span>{{ user.firstName }} {{ user.lastName }}</span>
-            </button>
-          </li>
-          }
-        </ul>
+      <main class="nx-flex col">
+        @switch(mode()) {
+        <!-- sign-in -->
+        @case('sign-in') {
+        <app-sign-in
+          (signIn)="signIn($event)"
+          (cancel)="switchMode('sign-up')"
+        />
         }
+        <!-- sign-up -->
+        @case('sign-up') {
+        <app-sign-up-form
+          (signUp)="signUp($event)"
+          (cancel)="switchMode('sign-in')"
+        />
+        }
+        <!-- choose-plan -->
+        @case('choose-plan') {
+        <app-select-plan (select)="selectPlan($event)" />
+        }
+        <!-- plan-payment -->
+        @case('plan-payment') {
+        <app-plan-payment
+          [user]="newUser()!"
+          [plan]="subscriptionPlan()!"
+          (completePayment)="complete()"
+          (cancel)="signUp(newUser()!)"
+        />
+        } }
       </main>
-      <footer>
-        <button
-          class="app-button dialog-button app-button-filled"
-          (click)="signin()"
-          [disabled]="!selectedUserId()"
-        >
-          Next
-        </button>
-      </footer>
-      <div class="switchbox nx-flex row al-c gap-5">
-        {{ modeSupportingText() }}
-        <button class="text-button" (click)="switchMode()">
-          {{ modeButtonText() }}
-        </button>
-      </div>
     </div>
   </div>
 </app-modal>

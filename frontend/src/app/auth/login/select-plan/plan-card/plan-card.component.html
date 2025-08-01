@@ -1,0 +1,23 @@
+<header>
+  <div class="nx-flex row al-c">
+    <span class="plan-icon">{{ plan().icon }}</span> {{ plan().title }}
+  </div>
+  @if(plan().mostPopular){
+  <div class="showcase nx-flex row al-c gap-5">
+    <span class="material-symbols-outlined"> star_shine </span>
+    Most Popular
+  </div>
+  }
+</header>
+<main class="nx-flex col gap-10">
+  <div class="price">{{ plan().price | currency : "¥" }}/month</div>
+  <div class="description">{{ plan().description }}</div>
+  <ul>
+    @for(benefit of plan().benefits; track $index) {
+    <li>{{ benefit }}</li>
+    }
+  </ul>
+</main>
+<footer>
+  <button matButton="filled" (click)="select()">Select Plan</button>
+</footer>

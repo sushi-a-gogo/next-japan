@@ -1,0 +1,70 @@
+<div class="content nx-flex col jc-sb gap-36">
+  <div class="payment-card nx-flex col gap-20">
+    <!-- <div class="fake-card">
+        <div class="card-number">4242 4242 4242 4242</div>
+        <div class="card-meta">Exp 12/29 • VISA</div>
+      </div> -->
+    <form class="nx-flex col gap-20" [formGroup]="paymentForm">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Name on Card</mat-label>
+        <input
+          type="text"
+          matInput
+          required
+          name="nameOnCard"
+          formControlName="nameOnCard"
+          autocomplete="off"
+          readonly="true"
+        />
+      </mat-form-field>
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Credit Card Number</mat-label>
+        <input
+          type="text"
+          matInput
+          required
+          name="creditCardNumber"
+          formControlName="creditCardNumber"
+          readonly="true"
+        />
+      </mat-form-field>
+      <div class="nx-flex row gap-20">
+        <mat-form-field class="half-width" subscriptSizing="dynamic">
+          <mat-label>Exp Month</mat-label>
+          <input matInput formControlName="expirationMonth" readonly="true" />
+        </mat-form-field>
+        <mat-form-field class="half-width" subscriptSizing="dynamic">
+          <mat-label>Exp Year</mat-label>
+          <input matInput formControlName="expirationYear" readonly="true" />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="payment-summary">
+    <div class="nx-flex row jc-sb al-c">
+      <span>Total</span>
+      <span class="amount">¥{{ plan().price }}/month</span>
+    </div>
+    <p class="legalese">
+      This is a recurring subscription that auto-renews monthly. You can cancel
+      at any time through your account settings. By clicking “Submit Payment,”
+      you agree to our
+      <a routerLink="/legal/tos" target="_blank">Terms of Service</a> and
+      <a routerLink="/legal/privacy" target="_blank">Privacy Policy</a>. No
+      actual payment will be processed - this is a demo.
+    </p>
+  </div>
+  <div class="nx-flex col gap-10">
+    <button
+      class="app-button dialog-button app-button-filled"
+      (click)="createSubscription()"
+      [disabled]="paymentForm.invalid"
+    >
+      Submit Payment
+    </button>
+    <div class="switchbox nx-flex row al-c gap-5">
+      Want to review your plan options?
+      <button class="text-button" (click)="cancel.emit()">Go back</button>
+    </div>
+  </div>
+</div>

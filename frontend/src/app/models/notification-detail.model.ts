@@ -6,7 +6,7 @@ export interface NotificationDetail {
   image: AppImageData;
   title: string;
   message: string;
-  userId: number;
+  userId: string;
   eventId: string;
   eventDate: Date;
   eventTimeZone: string;

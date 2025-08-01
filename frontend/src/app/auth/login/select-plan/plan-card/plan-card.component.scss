@@ -1,0 +1,99 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background-color: var(--next-bg);
+  border: 2px solid var(--next-border);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+:host(:hover) {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+:host(.popular-card) {
+  border-color: var(--vivid-yellow-text);
+  box-shadow: 0 0 0 3px rgba(200, 70, 70, 0.3);
+}
+
+header {
+  width: 100%;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--next-strong);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.plan-icon {
+  font-size: 1.5rem;
+  margin-right: 4px;
+}
+
+.showcase {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background-color: var(--red-torii-gate);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--next-accent);
+}
+
+.description {
+  font-size: 0.95rem;
+  color: var(--next-text-soft);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--next-text);
+}
+
+li::before {
+  content: "✔️";
+  margin-right: 8px;
+}
+
+footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+button[matbutton] {
+  min-width: 100%;
+}

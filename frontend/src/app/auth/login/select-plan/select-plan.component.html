@@ -1,0 +1,7 @@
+@for(plan of plans; track $index) {
+<app-plan-card
+  [plan]="plan"
+  [class.popular-card]="plan.mostPopular"
+  (selected)="select.emit(plan)"
+/>
+}

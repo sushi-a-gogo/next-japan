@@ -1,5 +1,9 @@
 .container {
   position: relative;
+  min-width: 300px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .spinner {
@@ -11,8 +15,8 @@
   margin: 0 auto;
 }
 
-.dialog.flex-column {
-  gap: 24px;
+.content {
+  flex: 1;
 }
 
 header {
@@ -21,50 +25,6 @@ header {
   font-weight: 600;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.text-button {
-  cursor: pointer;
-  color: var(--next-link);
-  border: 0;
-  background-color: transparent;
-  transition: 0.25s ease-in-out;
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-}
-
-.app-button {
-  width: 100%;
-  border-radius: 4px;
-
-  &.user {
-    padding: 5px 10px;
-    font-weight: 700;
-    transition: 0.25s;
-
-    &.app-button-filled {
-      font-weight: 700;
-      transition: 0.25s ease-in-out;
-    }
-  }
-
-  &.dialog-button {
-    min-height: 48px;
-  }
-}
-
-.flex-button {
-  justify-content: flex-start;
-}
-
-.switchbox {
-  font-weight: 500;
-  margin-bottom: 10px;
+main {
+  flex: 1;
 }

@@ -1,14 +1,13 @@
 :host {
   display: inline-block;
   width: 100%;
-  min-width: 100px;
+  min-width: 120px;
 }
 
-button,
-a {
-  font-size: 14px;
+button {
+  font-size: 16px;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 24px;
   padding: 0 12px;
   width: 100%;
   &:hover {
@@ -17,5 +16,16 @@ a {
 }
 
 .app-button-outlined {
-  background-color: var(--next-surface);
+  border-color: #fff;
+  color: #fff;
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    background-color: transparent;
+    color: var(--vivid-yellow-text);
+  }
+}
+
+:host-context(.dark-theme) .app-button-filled {
+  background-color: #fff;
 }
