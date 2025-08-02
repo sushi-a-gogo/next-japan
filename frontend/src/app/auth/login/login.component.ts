@@ -6,6 +6,7 @@ import { Plan } from '@app/models/plan.interface';
 import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
+import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
 import { ModalComponent } from "@shared/modal/modal.component";
 import { of, switchMap } from 'rxjs';
 import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
@@ -18,6 +19,7 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
   imports: [
     MatButtonModule,
     MatProgressSpinnerModule,
+    LoadingSpinnerComponent,
     ModalComponent,
     SignInComponent,
     SignUpFormComponent,
@@ -34,6 +36,7 @@ export class LoginComponent {
 
   mode = signal<'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment'>(this.auth.isAuthenticating() || 'sign-in');
   busy = signal<boolean>(false);
+  authenticating = signal<boolean>(false);
 
   modeHeaderText = computed(() => {
     switch (this.mode()) {
@@ -73,7 +76,7 @@ export class LoginComponent {
   }
 
   signIn(userId: string) {
-    this.busy.set(true);
+    this.authenticating.set(true);
     this.userService.getUser$(userId).pipe(
       switchMap((user) => {
         this.auth.login(user);
@@ -96,7 +99,7 @@ export class LoginComponent {
   }
 
   complete() {
-    this.busy.set(true);
+    this.authenticating.set(true);
     this.userService.setUserProfile$(this.newUser()!).pipe(
       switchMap((user) => {
         this.auth.login(user);
