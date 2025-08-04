@@ -106,7 +106,7 @@
       matRipple
       (click)="closeProfile()"
     >
-      Cancel
+      {{ profileForm.dirty ? "Cancel" : "Close" }}
     </button>
     <button
       type="button"

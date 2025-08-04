@@ -1,14 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
 
+  private currentMode = signal<'light' | 'dark' | 'device'>('device');
+
   constructor() { }
 
   setAppearanceMode(theme?: 'light' | 'dark') {
-    const useDarkTheme = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    this.currentMode.set(theme || 'device');
+    this.manageTheme();
+  }
+
+  manageTheme() {
+    const useDarkTheme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if (useDarkTheme) {
       document?.body?.classList.add('dark-theme');
     } else {

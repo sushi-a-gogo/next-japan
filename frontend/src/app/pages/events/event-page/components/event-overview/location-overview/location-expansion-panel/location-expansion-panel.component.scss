@@ -28,9 +28,8 @@ header {
     }
 
     .material-icons {
-      transition-duration: 0.33s;
-      transition-property: transform;
-
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      /* bounce effect easing */
       &.mobile {
         font-weight: 700;
       }
@@ -38,8 +37,6 @@ header {
 
     &.expanded {
       .material-icons {
-        transition-duration: 0.25s;
-        transition-property: transform;
         transform: rotate(180deg);
       }
     }

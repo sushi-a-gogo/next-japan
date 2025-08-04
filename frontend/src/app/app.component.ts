@@ -1,5 +1,7 @@
-import { afterNextRender, Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { afterNextRender, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
@@ -17,19 +19,37 @@ import { ThemeService } from './services/theme.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'next-japan';
+
+  private router = inject(Router);
 
   private authService = inject(AuthMockService);
   isAuthenticating = this.authService.isAuthenticating;
 
   private themeService = inject(ThemeService);
+  private destroyRef = inject(DestroyRef);
+
+  private afterNavigationInit = false;
 
   constructor() {
     afterNextRender(() => {
       this.themeService.setAppearanceMode();
       this.configureAppHeight();
     });
+  }
+
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      if (this.afterNavigationInit) {
+        this.themeService.manageTheme();
+      } else {
+        this.afterNavigationInit = true;
+      }
+    })
   }
 
   private configureAppHeight(): void {

@@ -17,7 +17,7 @@ export class EventSearchService {
   private searchModeSignal = signal(false);
   searchMode = this.searchModeSignal.asReadonly();
 
-  private apiEventsUrl = `${environment.apiUrl}/api/events/search`;
+  private apiEventsUrl = `${environment.apiUrl}/api/search`;
 
   constructor() { }
 
