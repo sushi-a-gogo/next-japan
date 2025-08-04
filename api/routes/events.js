@@ -41,6 +41,7 @@ router.get("/search", async (req, res) => {
   const query = req.query.q?.toLowerCase() || "";
   try {
     const events = await Event.find().sort({ createdAt: -1 });
+
     const formattedEvents = events.map((event) => ({
       eventId: event._id.toString(), // Use _id as eventId
       eventTitle: event.eventTitle,

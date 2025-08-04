@@ -15,5 +15,7 @@ const eventLocationSchema = new mongoose.Schema(
   }
 );
 
+eventLocationSchema.index({ locationName: 1, city: 1, state: 1 });
+
 const EventLocation = mongoose.model("EventLocation", eventLocationSchema);
 export default EventLocation;

@@ -7,7 +7,11 @@ const router = express.Router();
 // GET all event locations
 router.get("/", async (req, res) => {
   try {
-    const locations = await EventLocation.find(); //.populate("eventId");
+    const documents = await EventLocation.find();
+    const locations = documents.map((item) => ({
+      locationId: item._id.toString(), // Use _id as locationId
+      ...item,
+    }));
     res.json({ locations });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,7 +1,7 @@
 import { CalendarDate } from '@app/models/calendar-date.model';
 
 export interface EventOpportunity extends CalendarDate {
-  opportunityId: number;
+  opportunityId: string;
   locationId: string;
   eventId: string;
   notes?: string;

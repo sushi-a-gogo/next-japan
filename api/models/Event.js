@@ -40,5 +40,8 @@ const eventSchema = new mongoose.Schema({
   },
 });
 
+// Define indexes in the schema
+eventSchema.index({ eventTitle: 1, description: 1, fullDescription: 1 });
+
 const Event = mongoose.model("Event", eventSchema);
 export default Event;

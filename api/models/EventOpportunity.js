@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const eventOpportunitySchema = new mongoose.Schema(
   {
-    opportunityId: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
     eventId: {
       type: String,
       required: true,
@@ -50,6 +45,9 @@ const eventOpportunitySchema = new mongoose.Schema(
     timestamps: true, // Adds createdAt, updatedAt
   }
 );
+
+// Create indexes
+eventOpportunitySchema.index({ startDate: 1, endDate: 1 });
 
 const EventOpportunity = mongoose.model(
   "EventOpportunity",

@@ -17,13 +17,13 @@ export class RegistrationLocationComponent {
     return this.locationCount() > 1 || !!this.location()?.opportunities && this.location()!.opportunities!.length > 1;
   });
 
-  removedIds: number[] = [];
+  removedIds: string[] = [];
 
   get currentCount() {
     return this.location().opportunities!.length - this.removedIds.length;
   }
 
-  removeSelection(id: number) {
+  removeSelection(id: string) {
     this.removedIds.push(id);
   }
 
