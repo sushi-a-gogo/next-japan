@@ -15,16 +15,7 @@
 }
 
 .date-time {
-  display: flex;
-  flex-direction: column;
   line-height: 24px;
-
-  .time {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    justify-content: space-between;
-  }
 }
 
 .notes {

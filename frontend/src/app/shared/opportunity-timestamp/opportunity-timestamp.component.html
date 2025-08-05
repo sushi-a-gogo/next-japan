@@ -1,16 +1,10 @@
 <span class="material-icons"> schedule </span>
 <div>
   <section class="date-time">
-    <div class="date">
-      {{ startDate | date : format() }}
-    </div>
-    <div class="time">
-      <div>
-        {{ startDate | date : "h:mma" | lowercase }} -
-        {{ endDate | date : "h:mma" | lowercase }}
-        ({{ opportunity().timeZoneAbbreviation }})
-      </div>
-    </div>
+    {{ startDate | date : format() }}&nbsp;
+    {{ startDate | date : "h:mma" | lowercase }} -
+    {{ endDate | date : "h:mma" | lowercase }}
+    {{ opportunity().timeZoneAbbreviation }}
   </section>
   @if(opportunity().notes) {
   <div class="notes mini-text">
