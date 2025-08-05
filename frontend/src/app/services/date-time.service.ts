@@ -1,40 +1,31 @@
-import { formatDate } from '@angular/common';
-import { Injectable } from '@angular/core';
-import { LocationTimeZone } from 'src/app/models/location-time-zone.model';
+import { DatePipe } from '@angular/common';
+import { inject, Injectable } from '@angular/core';
+import { getTimezoneOffset } from 'date-fns-tz';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DateTimeService {
-  private readonly locale = 'en-US'; // locale code for the locale format rules to use
+  private datePipe = inject(DatePipe);
 
-  formatDateAsString(date: Date, format: string) {
-    return formatDate(date, format, this.locale);
+  getTimezoneOffset(timeZone: string, date: Date) {
+    const effectiveOffset = getTimezoneOffset(timeZone, date) / 36e5; // Convert ms to hours
+    const isPositive = effectiveOffset >= 0;
+    const absOffset = Math.abs(effectiveOffset);
+    const hours = Math.floor(absOffset);
+    const minutes = Math.round((absOffset - hours) * 60);
+    const offsetString = `${isPositive ? '+' : '-'}${hours.toString().padStart(2, '0')}${minutes.toString().padStart(2, '0')}`;
+    return offsetString;
   }
 
-  adjustDateToTimeZoneOffset(dateString: string, location: LocationTimeZone) {
-    const date = new Date(dateString);
-    const timeZoneOffset = this.getTimeZoneOffset(location);
-    const timeOffsetInMS = timeZoneOffset * 60 * 60 * 1000;
-    date.setTime(date.getTime() + timeOffsetInMS);
-    return date;
-  }
-
-  private getTimeZoneOffset(location: LocationTimeZone) {
-    if (this.timeZoneHasOffsetDST(location) && this.isDST(new Date())) {
-      return location.timeZoneOffsetDST || location.timeZoneOffset + 1;
-    }
-
-    return location.timeZoneOffset;
-  }
-
-  private timeZoneHasOffsetDST(location: LocationTimeZone) {
-    return location.timeZoneOffsetDST || location.timeZoneAbbreviation.length === 2;
-  }
-
-  private isDST(d: Date) {
-    const jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
-    const jul = new Date(d.getFullYear(), 6, 1).getTimezoneOffset();
-    return Math.max(jan, jul) !== d.getTimezoneOffset();
+  formatDateInLocaleTime(date: Date, format: string, timeZone: string, locale = 'en-US') {
+    const timeZoneOffset = this.getTimezoneOffset(timeZone, date);
+    const formattedDate = this.datePipe.transform(
+      date,
+      format,
+      timeZoneOffset,
+      locale
+    );
+    return formattedDate;
   }
 }
