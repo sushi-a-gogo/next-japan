@@ -8,6 +8,7 @@
   aria-label="Notifications"
   class="app-button flex-button notification-button"
   matTooltip="Notifications"
+  [matTooltipShowDelay]="500"
 >
   <span class="material-icons"> notifications </span>
   <span class="badge" [class.visible]="notifications().length > 0">{{

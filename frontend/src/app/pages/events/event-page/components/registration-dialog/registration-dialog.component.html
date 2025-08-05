@@ -34,6 +34,7 @@
     } }
   </main>
   <footer class="dialog">
+    @if(selected().length) {
     <button
       type="button"
       matRipple
@@ -44,12 +45,21 @@
     </button>
     <button
       (click)="sendRequest()"
-      [disabled]="selected().length === 0"
       type="button"
       matRipple
       class="app-button dialog-button app-button-filled"
     >
       Request
     </button>
+    } @else {
+    <button
+      (click)="closeDialog()"
+      type="button"
+      matRipple
+      class="app-button dialog-button app-button-filled"
+    >
+      Done
+    </button>
+    }
   </footer>
 </app-modal>

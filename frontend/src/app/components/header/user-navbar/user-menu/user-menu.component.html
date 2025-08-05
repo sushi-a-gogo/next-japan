@@ -5,6 +5,7 @@
   [matMenuTriggerFor]="userMenu"
   mat-ripple
   matTooltip="Account"
+  [matTooltipShowDelay]="500"
 >
   <app-user-avatar [user]="userProfile()!" [size]="48" />
 </button>
@@ -46,7 +47,7 @@
         <span class="material-icons" [class.open]="!userProfile()?.mode"
           >check</span
         >
-        Device
+        Auto
       </div>
     </button>
     <button
