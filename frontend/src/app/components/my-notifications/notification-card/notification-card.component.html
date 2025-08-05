@@ -11,8 +11,8 @@
     <span class="nx-flex col title">
       {{ notification().title }}
       <span class="time">
-        {{ notification().eventDate | date : "fullDate" }}
-        ({{ notification().eventTimeZone }})
+        {{ fullDate() }}
+        ({{ notification().eventTimeZoneAbbreviation }})
       </span>
     </span>
     <span class="time">{{

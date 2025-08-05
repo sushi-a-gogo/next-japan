@@ -1,8 +1,5 @@
+{{ datestamp() }}
 <div>
-  {{ startDate() | date : "EEEE, MMMM d, yyyy" }}
+  {{ timestamp() }}
+  <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
 </div>
-<span>
-  {{ startDate() | date : "h:mma" | lowercase }} -
-  {{ endDate() | date : "h:mma" | lowercase }}
-</span>
-<span>{{ opportunity().timeZoneAbbreviation }}</span>

@@ -27,12 +27,10 @@
     </div>
     <div class="upcoming">
       @if (event().nextOpportunityDate) {
-      <div>
-        <div class="banner">Next Opportunity</div>
-        <app-opportunity-date
-          [opportunity]="event().nextOpportunityDate!"
-        ></app-opportunity-date>
-      </div>
+      <div class="banner">Next Opportunity</div>
+      <app-opportunity-date
+        [opportunity]="event().nextOpportunityDate!"
+      ></app-opportunity-date>
       } @else {
       <div class="coming-soon">
         <span class="material-icons">campaign</span>

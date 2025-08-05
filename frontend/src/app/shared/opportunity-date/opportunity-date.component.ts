@@ -1,24 +1,29 @@
-import { DatePipe, LowerCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { CalendarDate } from '@app/models/calendar-date.model';
 import { DateTimeService } from '@app/services/date-time.service';
 
 @Component({
   selector: 'app-opportunity-date',
-  imports: [DatePipe, LowerCasePipe],
+  imports: [],
   templateUrl: './opportunity-date.component.html',
   styleUrl: './opportunity-date.component.scss'
 })
 export class OpportunityDateComponent {
-  private dateTime = inject(DateTimeService);
+  private dateTimeService = inject(DateTimeService);
 
   opportunity = input.required<CalendarDate>();
 
-  startDate = computed(() =>
-    this.dateTime.adjustDateToTimeZoneOffset(this.opportunity().startDate, this.opportunity())
-  );
-  endDate = computed(() =>
-    this.dateTime.adjustDateToTimeZoneOffset(this.opportunity().endDate, this.opportunity())
-  );
+  datestamp = computed(() => {
+    const startDate = new Date(this.opportunity().startDate);
+    const formattedDate = this.dateTimeService.formatDateInLocaleTime(startDate, 'EEEE, MMMM d, yyyy', this.opportunity().timeZone);
+    return `${formattedDate}`;
+  });
 
+  timestamp = computed(() => {
+    const startDate = new Date(this.opportunity().startDate);
+    const endDate = new Date(this.opportunity().endDate);
+    const formattedStartTime = this.dateTimeService.formatDateInLocaleTime(startDate, 'h:mma', this.opportunity().timeZone);
+    const formattedEndTime = this.dateTimeService.formatDateInLocaleTime(endDate, 'h:mma', this.opportunity().timeZone);
+    return `${formattedStartTime} - ${formattedEndTime}`;
+  });
 }

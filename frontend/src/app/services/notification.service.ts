@@ -55,13 +55,13 @@ export class NotificationService {
 
   sendRegistrationNotification(reg: EventRegistration) {
     const message = reg.status === 'requested' ? `Your registration request has been sent.` : `Your registration was successful!`;
-    const eventDate = this.dateTime.adjustDateToTimeZoneOffset(reg.opportunity.startDate, reg.opportunity);
 
     const notification: NotificationDetail = {
       notificationId: ++this.id, //this.getRandomIntInclusive(1, 1000000),
       notificationDate: new Date(),
-      eventDate,
-      eventTimeZone: reg.opportunity.timeZoneAbbreviation,
+      eventDate: reg.opportunity.startDate,
+      eventTimeZone: reg.opportunity.timeZone,
+      eventTimeZoneAbbreviation: reg.opportunity.timeZoneAbbreviation,
       userId: reg.userId || '',
       eventId: reg.opportunity.eventId,
       image: reg.image,
