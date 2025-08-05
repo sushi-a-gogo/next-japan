@@ -10,6 +10,7 @@ import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
 import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import organizationRouter from "./routes/organization.js";
+import searchRouter from "./routes/search.js";
 import userRouter from "./routes/user.js";
 
 process.on("uncaughtException", (err) => {
@@ -48,6 +49,7 @@ app.use("/api/event", eventRouter); // JSON events
 app.use("/api/events", eventsRouter); // MongoDB events
 app.use("/api/event-locations", eventLocationsRouter); // MongoDB event locations
 app.use("/api/event-opportunities", eventOpportunitiesRouter); // MongoDB event opportunities
+app.use("/api/search", searchRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 

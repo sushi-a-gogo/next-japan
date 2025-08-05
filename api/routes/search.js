@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
     const events = await Event.find().sort({ createdAt: -1 });
     const locations = await EventLocation.find().limit(50);
     const opportunities = await EventOpportunity.find().limit(100);
-    console.log(`found ${locations.length} locations`);
 
     const formattedEvents = events.map((event) => {
       const eventOpportunities = opportunities.filter(
@@ -36,9 +35,6 @@ router.get("/", async (req, res) => {
           return monthName;
         })
         .join(", ");
-
-      //console.log(`${event.eventTitle}: ${locationNames}`);
-      //console.log(`${event.eventTitle}: ${monthNames}`);
 
       return {
         eventId: event._id.toString(), // Use _id as eventId
