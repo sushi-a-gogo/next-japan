@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
-import { authGuard } from './guards/auth.guard';
 import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -44,7 +43,6 @@ export const routes: Routes = [
   {
     path: 'ai',
     loadChildren: () => import('./pages/ai/ai.routes').then((mod) => mod.aiRoutes),
-    canActivate: [authGuard]
   },
   { path: '**', component: NotFoundComponent },
 

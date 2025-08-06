@@ -1,6 +1,8 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventRegistrationService } from '@app/services/event-registration.service';
+import { MetaService } from '@app/services/meta.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { ConfirmModalComponent } from '@app/shared/modal/confirm-modal/confirm-modal.component';
 import { OpportunityTimestampComponent } from '@app/shared/opportunity-timestamp/opportunity-timestamp.component';
@@ -13,7 +15,9 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
   templateUrl: './event-registrations.component.html',
   styleUrl: './event-registrations.component.scss'
 })
-export class EventRegistrationsComponent {
+export class EventRegistrationsComponent implements OnInit {
+  private title = inject(Title);
+  private meta = inject(MetaService);
   private registrationService = inject(EventRegistrationService);
   private userService = inject(UserProfileService);
   private user = this.userService.userProfile;
@@ -22,6 +26,12 @@ export class EventRegistrationsComponent {
 
   events = computed(() =>
     this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
+
+  ngOnInit(): void {
+    this.title.setTitle("Your Event Registrations");
+    const description = "View and manage your registered events on Next Japan. See upcoming opportunities, event details, and cancel registrations if needed.";
+    this.meta.updateTags(this.title.getTitle(), description);
+  }
 
   confirmCancel(event: EventRegistration) {
     this.eventToCancel.set(event);

@@ -81,7 +81,7 @@ export class UserProfileService {
       state: null,
       zip: null,
       phone: null,
-      isEmailPreferred: false
+      isEmailPreferred: true
     };
     this.user.set(newUserProfile);
 

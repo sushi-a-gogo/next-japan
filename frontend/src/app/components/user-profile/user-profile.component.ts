@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, output } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,12 +20,11 @@ import { UserProfileForm } from './user-profile.form';
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
   private userProfileService = inject(UserProfileService);
   userProfile = this.userProfileService.userProfile;
   profileForm = this.getProfileForm(this.userProfile()!);
   close = output<boolean>();
-
 
   contactMethods = [
     { value: 'email', viewValue: 'Email' },
@@ -34,6 +33,19 @@ export class UserProfileComponent {
   busy = false;
 
   private destroyRef = inject(DestroyRef);
+  ngOnInit(): void {
+    this.profileForm.get('preferredContactMethod')?.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(val => {
+      const phoneControl = this.profileForm.get('phone');
+      if (val === 'phone') {
+        phoneControl?.setValidators([Validators.required]);
+      } else {
+        phoneControl?.clearValidators();
+      }
+      phoneControl?.updateValueAndValidity();
+    });
+  }
 
   saveProfile() {
     const newProfile = {
@@ -69,14 +81,12 @@ export class UserProfileComponent {
         city: new FormControl<string | null>(user.city || null, []),
         state: new FormControl<string | null>(user.state || null),
         zip: new FormControl<string | null>(user.zip || null, []),
-        phone: new FormControl<string | null>(user.phone || null, [Validators.required]),
+        phone: new FormControl<string | null>(user.phone || null, user.isEmailPreferred ? [] : [Validators.required]),
         preferredContactMethod: new FormControl<'email' | 'phone' | null>(user.isEmailPreferred ? 'email' : 'phone'),
       }
     );
 
     form.get('email')?.disable();
-    form.get('phone')?.markAsTouched();
-
     return form;
   }
 }

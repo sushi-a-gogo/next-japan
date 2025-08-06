@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '@app/guards/auth.guard';
 import { EventPageComponent } from './event-page/event-page.component';
 import { EventService } from './event-page/event.service';
 import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
@@ -18,6 +19,7 @@ export const eventRoutes: Routes = [
       {
         path: 'registrations',
         component: EventRegistrationsComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'search',
