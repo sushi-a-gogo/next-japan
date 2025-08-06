@@ -6,6 +6,7 @@
   matTooltip="Account"
   [matMenuTriggerFor]="userMenu"
   #menuTrigger="matMenuTrigger"
+  [matTooltipShowDelay]="750"
   [matTooltipDisabled]="menuTrigger.menuOpen"
 >
   <app-user-avatar [user]="userProfile()!" [size]="48" />
