@@ -15,12 +15,21 @@ export class EventRegistrationService {
 
   private id = 0;
 
-
   requestOpportunities$(requests: EventRegistration[], userId: string): Observable<EventRegistration[]> {
     return from(requests).pipe(
       concatMap((request) => this.addRegistration$(request, userId)),
       toArray()
     );
+  }
+
+  cancelRegistration(registrationId: string) {
+    const cancelled = this.registrationSignal().find((reg) => reg.registrationId === registrationId);
+    if (cancelled) {
+      cancelled.status = RegistrationStatus.Cancelled;
+      this.notificationService.sendRegistrationNotification(cancelled);
+    }
+
+    this.registrationSignal.update((prev) => [...prev]);
   }
 
   checkForConflict(opp: EventOpportunity, userId: string) {
@@ -59,7 +68,7 @@ export class EventRegistrationService {
     setTimeout(() => {
       this.registrationSignal.update((prev) =>
         prev.map((reg) => {
-          if (reg.registrationId === userRegistration.registrationId) {
+          if (reg.registrationId === userRegistration.registrationId && reg.status !== RegistrationStatus.Cancelled) {
             const newReg = {
               ...userRegistration,
               status: RegistrationStatus.Registered

@@ -1,28 +1,19 @@
 @use "variables.scss" as var;
 
 .app-container {
-  height: var(--app-height);
-  display: grid;
-  grid-template-rows:
-    [header-row] calc(var.$color-bar-height + var.$user-header-height)
-    [main-row] auto;
+  min-height: var(--app-height);
+}
 
-  &.search-mode {
-    grid-template-rows:
-      [header-row] calc(
-        var.$color-bar-height + var.$user-header-height +
-          var.$user-header-height
-      )
-      [main-row] auto;
-  }
-  grid-template-areas:
-    "header"
-    "main";
-  transition: 0.25s ease-in-out;
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
 }
 
 main {
-  grid-area: main;
+  flex: 1;
   width: 100%;
 
   .router-content {

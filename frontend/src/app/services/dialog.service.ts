@@ -24,10 +24,6 @@ export class DialogService {
     this.showDialogSignal.set('profile');
   }
 
-  showEventsDialog() {
-    this.showDialogSignal.set('events');
-  }
-
   showRegistrationDialog() {
     this.showDialogSignal.set('registration');
   }

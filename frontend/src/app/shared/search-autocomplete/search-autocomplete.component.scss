@@ -11,6 +11,8 @@ form {
 
 .compact-form-field {
   width: 100%;
+  background-color: var(--next-surface);
+  border-radius: 6px;
   @include mat.form-field-density(-4);
 }
 

@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 1;
+  transition: 0.25s ease-in-out;
+
+  &.busy {
+    opacity: 0;
+  }
+
+  .material-icons {
+    display: none;
+  }
+
+  &.requested {
+    .material-icons.requested {
+      display: inline-block;
+      color: var(--next-note);
+    }
+  }
+
+  &.registered {
+    .material-icons.registered {
+      display: inline-block;
+      color: var(--bright-green-grass);
+    }
+  }
+
+  &.cancelled {
+    .material-icons.cancelled {
+      display: inline-block;
+      color: var(--next-note);
+    }
+  }
+}
+
+.label {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: -0.06px;
+  color: var(--next-text);
+  opacity: 0.8;
+}

@@ -1,6 +1,8 @@
-@if(isAuthenticated()) {
-<app-user-navbar />
-} @else {
-<app-navbar />
-}
-<app-color-bar />
+<div class="component-box">
+  @if(isAuthenticated()) {
+  <app-user-navbar />
+  } @else {
+  <app-navbar />
+  }
+  <app-color-bar />
+</div>

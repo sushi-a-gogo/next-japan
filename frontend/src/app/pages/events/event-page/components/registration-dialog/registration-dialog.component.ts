@@ -2,6 +2,7 @@ import { Component, DestroyRef, effect, ElementRef, inject, OnInit, output, sign
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { RouterLink } from '@angular/router';
 import { EventLocation } from '@app/models/event/event-location.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
@@ -15,7 +16,7 @@ import { RegistrationLocationComponent } from './registration-location/registrat
 
 @Component({
   selector: 'app-registration-dialog',
-  imports: [MatButtonModule, MatRippleModule, ModalComponent, RegistrationLocationComponent, LoadingSpinnerComponent],
+  imports: [RouterLink, MatButtonModule, MatRippleModule, ModalComponent, RegistrationLocationComponent, LoadingSpinnerComponent],
   templateUrl: './registration-dialog.component.html',
   styleUrl: './registration-dialog.component.scss'
 })

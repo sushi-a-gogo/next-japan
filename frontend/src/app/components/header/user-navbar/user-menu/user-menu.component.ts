@@ -3,13 +3,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { DialogService } from '@app/services/dialog.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 
 @Component({
   selector: 'app-user-menu',
-  imports: [MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
+  imports: [RouterLink, MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss'
 })
@@ -32,10 +33,6 @@ export class UserMenuComponent {
 
   logout() {
     this.signout.emit();
-  }
-
-  openMyEvents() {
-    this.dialogService.showEventsDialog();
   }
 
   openUserProfile() {

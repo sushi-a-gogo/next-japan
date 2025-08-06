@@ -1,5 +1,5 @@
 import { effect, ElementRef, inject, Injectable, signal } from '@angular/core';
-import { EventRegistration } from '@app/models/event/event-registration.model';
+import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { NotificationDetail } from '@models/notification-detail.model';
 import { map, Observable, of, Subject } from 'rxjs';
 import { DateTimeService } from './date-time.service';
@@ -54,8 +54,7 @@ export class NotificationService {
   }
 
   sendRegistrationNotification(reg: EventRegistration) {
-    const message = reg.status === 'requested' ? `Your registration request has been sent.` : `Your registration was successful!`;
-
+    const message = this.getRegistrationStatusMessage(reg.status);
     const notification: NotificationDetail = {
       notificationId: ++this.id, //this.getRandomIntInclusive(1, 1000000),
       notificationDate: new Date(),
@@ -70,7 +69,6 @@ export class NotificationService {
     };
 
     this.notificationSignal.update((prev) => [notification, ...prev]);
-
   }
 
   showNotifications(elm: ElementRef) {
@@ -99,10 +97,17 @@ export class NotificationService {
     return of(true);
   }
 
-  private getRandomIntInclusive(min: number, max: number) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  private getRegistrationStatusMessage(status?: RegistrationStatus) {
+    switch (status) {
+      case RegistrationStatus.Requested:
+        return 'Your registration request has been sent!';
+      case RegistrationStatus.Registered:
+        return 'Your registration was successful!';
+      case RegistrationStatus.Cancelled:
+        return 'Your registration has been cancelled.';
+      default:
+        return 'Registration status not found.'
+    }
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
