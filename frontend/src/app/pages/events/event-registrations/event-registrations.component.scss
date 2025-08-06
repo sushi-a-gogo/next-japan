@@ -1,6 +1,7 @@
 :host {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 article {
@@ -35,17 +36,27 @@ ul {
   list-style: none;
 
   li {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
   }
 
+  li:first-child,
   li:not(:last-child) {
     border-bottom: 1px solid var(--next-border);
   }
 }
 
+.confirm-title {
+  color: var(--next-heading);
+  font-weight: 700;
+}
+
+.confirm {
+  font-weight: 600;
+}
+
 @media (min-width: 600px) {
   ul {
     gap: 10px;
-    width: 70%;
+    //width: 70%;
   }
 }

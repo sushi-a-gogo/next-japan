@@ -2,10 +2,11 @@
   aria-label="Account"
   type="button"
   class="profile-button"
-  [matMenuTriggerFor]="userMenu"
   mat-ripple
   matTooltip="Account"
-  [matTooltipShowDelay]="500"
+  [matMenuTriggerFor]="userMenu"
+  #menuTrigger="matMenuTrigger"
+  [matTooltipDisabled]="menuTrigger.menuOpen"
 >
   <app-user-avatar [user]="userProfile()!" [size]="48" />
 </button>
@@ -18,17 +19,17 @@
   <header>
     <span> {{ userProfile()?.firstName }} {{ userProfile()?.lastName }} </span>
   </header>
-  <button
+  <a
     type="button"
     class="app-button"
     mat-menu-item
-    (click)="openMyEvents()"
+    routerLink="/event/registrations"
   >
     <div class="menu-item">
       <span class="material-icons">event_available</span>
       My Events
     </div>
-  </button>
+  </a>
   <button mat-menu-item (click)="openUserProfile()">
     <div class="menu-item">
       <span class="material-icons">description</span>

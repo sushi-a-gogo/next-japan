@@ -13,13 +13,12 @@ import { EventHeroComponent } from "./components/event-hero/event-hero.component
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
 import { EventOverviewComponent } from "./components/event-overview/event-overview.component";
-import { OpportunityRequestFooterComponent } from "./components/opportunity-request-footer/opportunity-request-footer.component";
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 
 @Component({
   selector: 'app-event-page',
   imports: [NgOptimizedImage, EventNavbarComponent, EventOverviewComponent,
-    EventOpportunitiesComponent, RegistrationDialogComponent, OpportunityRequestFooterComponent, EventHeroComponent, PageLoadSpinnerComponent],
+    EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })

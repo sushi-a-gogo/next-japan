@@ -1,13 +1,32 @@
 <app-modal (close)="onDialogClose()">
-  <div class="error nx-flex col gap-20">
-    <h2>{{ headerText() }}</h2>
-    <p>{{ message() }}</p>
-
-    <div class="confirmation-actions">
-      <button class="button" (click)="onDialogClose()">
-        I think I changed my mind...
-      </button>
-      <button class="button" (click)="onConfirm()">Okay</button>
-    </div>
-  </div>
+  <header class="dialog">
+    <span>{{ headerText() }}</span>
+    <button
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="onDialogClose()"
+    >
+      <span class="material-icons">close</span>
+    </button>
+  </header>
+  <main class="dialog">
+    <ng-content />
+  </main>
+  <footer class="dialog">
+    <button
+      matRipple
+      class="app-button dialog-button app-button-outlined"
+      (click)="onDialogClose()"
+    >
+      I think I changed my mind...
+    </button>
+    <button
+      matRipple
+      class="app-button dialog-button app-button-filled"
+      (click)="onConfirm()"
+    >
+      Make it so!
+    </button>
+  </footer>
 </app-modal>

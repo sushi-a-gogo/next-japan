@@ -111,3 +111,9 @@ main {
     display: block;
   }
 }
+
+@media (min-width: 2000px) {
+  header {
+    height: 800px;
+  }
+}

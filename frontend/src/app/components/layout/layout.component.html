@@ -1,8 +1,4 @@
-<div
-  class="app-container"
-  [class.user]="!!userProfile()"
-  [class.search-mode]="inSearchMode()"
->
+<div class="app-container nx-flex col" [class.search-mode]="inSearchMode()">
   <header>
     <app-header />
   </header>
@@ -13,6 +9,7 @@
     <footer>
       <app-footer />
     </footer>
+    <app-opportunity-request-footer />
     @defer(on timer(50ms)) {
     <!-- defer sign-in banner -->
     @if(!isAuthenticated()) {
@@ -29,10 +26,6 @@
   [class.open]="inSearchMode()"
   (click)="toggleSearchMode()"
 ></div>
-<!-- My Events -->
-@if(showEventsDialog()) {
-<app-my-events (close)="closeEventsDialog()" />
-}
 <!-- My Profile -->
 @if(showProfileDialog()) {
 <app-user-profile (close)="closeProfileDialog()" />
