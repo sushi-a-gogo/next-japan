@@ -27,6 +27,17 @@ export class EventRegistrationsComponent implements OnInit {
   events = computed(() =>
     this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
 
+  note = computed(() => {
+    const count = this.events().length;
+    if (count === 0) {
+      return undefined;
+    }
+    if (count === 1) {
+      return `You have ${count} event registration.`;
+    }
+    return `You have ${count} event registrations.`;
+  });
+
   ngOnInit(): void {
     this.title.setTitle("Your Event Registrations");
     const description = "View and manage your registered events on Next Japan. See upcoming opportunities, event details, and cancel registrations if needed.";

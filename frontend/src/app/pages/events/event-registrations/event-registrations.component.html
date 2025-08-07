@@ -7,8 +7,11 @@
   class="component-box nx-flex col al-c gap-24 fade-in"
   [class.open]="loaded()"
 >
-  <header class="cb-content pad">
-    <div class="subhead">My Events</div>
+  <header class="cb-content pad nx-flex col gap-10">
+    <div class="title">My Events</div>
+    @if(note()) {
+    <small class="note">{{ note() }}</small>
+    }
   </header>
   <main class="cb-content pad">
     <ul class="nx-flex col gap-20">
