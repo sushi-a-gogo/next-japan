@@ -4,9 +4,10 @@ import { User } from '@app/models/user.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { UserProfile } from '@models/user-profile.model';
-import { catchError, delay, map, Observable, of, tap } from 'rxjs';
+import { catchError, delay, map, Observable, tap } from 'rxjs';
 import { AuthMockService } from './auth-mock.service';
 import { ErrorService } from './error.service';
+import { EventRegistrationService } from './event-registration.service';
 import { StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
 
@@ -21,6 +22,7 @@ export class UserProfileService {
   private errorService = inject(ErrorService);
   private storage = inject(StorageService);
   private themeService = inject(ThemeService);
+  private eventRegistrationService = inject(EventRegistrationService);
 
   private apiUri = `${environment.apiUrl}/api/user`;
 
@@ -29,11 +31,13 @@ export class UserProfileService {
 
   constructor() {
     afterNextRender(() => {
-      const savedUser = this.storage.local.getItem(LOCAL_STORAGE_KEY);
-      if (savedUser) {
-        this.user.set(JSON.parse(savedUser));
-        this.themeService.setAppearanceMode(this.user()?.mode);
-        this.authService.login(this.user()!);
+      const savedUserJson = this.storage.local.getItem(LOCAL_STORAGE_KEY);
+      if (savedUserJson) {
+        const savedUser = JSON.parse(savedUserJson);
+        this.user.set(savedUser);
+        this.themeService.setAppearanceMode(savedUser.mode);
+        this.authService.login(savedUser);
+        this.eventRegistrationService.getRegistrations$(savedUser.userId).subscribe();
       }
     });
   }
@@ -73,19 +77,26 @@ export class UserProfileService {
     this.setUser(null);
   }
 
-  setUserProfile$(user: User) {
-    const newUserProfile: UserProfile = {
-      ...user,
-      addressLine1: null,
-      city: null,
-      state: null,
-      zip: null,
-      phone: null,
-      isEmailPreferred: true
-    };
-    this.user.set(newUserProfile);
-
-    return of(newUserProfile).pipe(delay(1500));
+  signUpUser$(firstName: string, lastName: string, email: string, subscriptionPlan: string) {
+    return this.http.post<{ user: User }>(`${this.apiUri}/signup`, { firstName, lastName, email, subscriptionPlan }).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "signUpUser"),
+      tap((resp) => {
+        const newUserProfile: UserProfile = {
+          ...resp.data,
+          image: { id: '', width: 0, height: 0 },
+          addressLine1: null,
+          city: null,
+          state: null,
+          zip: null,
+          phone: null,
+          isEmailPreferred: true
+        };
+        this.user.set(newUserProfile);
+      }),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error saving user profile', true)
+      })
+    );
   }
 
   private setUser(user: UserProfile | null) {

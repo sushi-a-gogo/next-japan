@@ -20,9 +20,10 @@ ul {
   border-radius: 4px;
 
   &.user {
-    min-height: 56px;
+    min-height: 60px;
     font-weight: 700;
     transition: 0.25s;
+    padding: 0 5px;
 
     &.app-button-filled {
       font-weight: 700;

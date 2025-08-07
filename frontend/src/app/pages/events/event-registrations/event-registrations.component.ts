@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -21,11 +22,14 @@ export class EventRegistrationsComponent implements OnInit {
   private registrationService = inject(EventRegistrationService);
   private userService = inject(UserProfileService);
   private user = this.userService.userProfile;
-  loaded = signal(true);
+  private destroyRef = inject(DestroyRef);
+
+  loaded = signal(false);
   eventToCancel = signal<EventRegistration | null>(null);
 
-  events = computed(() =>
-    this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
+  events = signal<EventRegistration[]>([]);
+  //computed(() =>
+  //this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
 
   note = computed(() => {
     const count = this.events().length;
@@ -42,6 +46,13 @@ export class EventRegistrationsComponent implements OnInit {
     this.title.setTitle("Your Event Registrations");
     const description = "View and manage your registered events on Next Japan. See upcoming opportunities, event details, and cancel registrations if needed.";
     this.meta.updateTags(this.title.getTitle(), description);
+
+    this.registrationService.getRegistrations$(this.user()?.userId!).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((registrations) => {
+      this.events.set(registrations.sort(this.sortByDate));
+      this.loaded.set(true);
+    })
   }
 
   confirmCancel(event: EventRegistration) {
@@ -52,7 +63,9 @@ export class EventRegistrationsComponent implements OnInit {
     if (cancellationConfirmed) {
       const cancelledEvent = this.eventToCancel();
       this.eventToCancel.set(null);
-      this.registrationService.cancelRegistration(cancelledEvent!.registrationId!);
+      this.registrationService.cancelRegistration$(cancelledEvent!).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe();
     } else {
       this.eventToCancel.set(null);
     }

@@ -31,9 +31,50 @@ router.get("/", async (req, res) => {
   res.status(200).json({ users: formattedUsers });
 });
 
+router.post("/signup", async (req, res) => {
+  try {
+    const { firstName, lastName, email, subscriptionPlan } = req.body;
+
+    // Input validation
+    if (!firstName || !lastName || !email || !subscriptionPlan) {
+      return res.status(400).json({
+        error: "Missing required fields: name, email, plan",
+      });
+    }
+
+    // Save to MongoDB
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      subscriptionPlan,
+      isEmailPreferred: true,
+    });
+    const savedUser = await user.save();
+
+    return res.status(201).json({
+      success: true,
+      data: {
+        userId: savedUser._id.toString(), // Pass _id as eventId
+        firstName: savedUser.firstName,
+        lastName: savedUser.lastName,
+        email: savedUser.email,
+        isEmailPreferred: savedUser.isEmailPreferred,
+      },
+    });
+  } catch (error) {
+    console.error("Save user error:", error.message || error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || "Failed to save user",
+    });
+  }
+});
+
 router.put("/update", async (req, res) => {
   try {
     const {
+      userId,
       firstName,
       lastName,
       email,
@@ -48,18 +89,13 @@ router.put("/update", async (req, res) => {
     } = req.body;
 
     // Input validation
-    if (!firstName || !lastName || !email || !image) {
+    if (!userId || !firstName || !lastName || !email || !image) {
       return res.status(400).json({
-        error: "Missing required fields: name, email, or image",
+        error: "Missing required fields: userId, name, email, or image",
       });
     }
 
     // Save to MongoDB
-    const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "Missing userId for update" });
-    }
-
     const savedUser = await User.findByIdAndUpdate(
       userId,
       {

@@ -20,6 +20,7 @@ export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
+
   private destroyRef = inject(DestroyRef);
 
   ngOnInit() {

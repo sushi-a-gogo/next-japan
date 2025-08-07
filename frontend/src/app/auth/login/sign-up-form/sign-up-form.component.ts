@@ -26,7 +26,8 @@ export class SignUpFormComponent {
         id: '',
         width: 0,
         height: 0,
-      }
+      },
+      subscriptionPlan: ''
     };
     this.signUp.emit(user);
   }
@@ -36,9 +37,9 @@ export class SignUpFormComponent {
 
     const form = new FormGroup<NewUserForm>(
       {
-        firstName: new FormControl<string | null>('Mister', { validators: [Validators.required, ...textValidators] }),
-        lastName: new FormControl<string | null>('Mister', { validators: [Validators.required, ...textValidators] }),
-        email: new FormControl<string | null>('mister@mr.mister', {
+        firstName: new FormControl<string | null>('Nuri', { validators: [Validators.required, ...textValidators] }),
+        lastName: new FormControl<string | null>('Jo', { validators: [Validators.required, ...textValidators] }),
+        email: new FormControl<string | null>('nuri.jo@next.jp', {
           validators: [Validators.required, Validators.email]
         }),
       }

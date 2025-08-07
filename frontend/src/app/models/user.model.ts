@@ -5,4 +5,5 @@ export interface User extends Avatar {
   firstName: string;
   lastName: string;
   email: string;
+  subscriptionPlan: string;
 }
