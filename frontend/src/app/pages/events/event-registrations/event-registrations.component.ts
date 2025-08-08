@@ -28,8 +28,6 @@ export class EventRegistrationsComponent implements OnInit {
   eventToCancel = signal<EventRegistration | null>(null);
 
   events = signal<EventRegistration[]>([]);
-  //computed(() =>
-  //this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
 
   note = computed(() => {
     const count = this.events().length;
@@ -47,12 +45,14 @@ export class EventRegistrationsComponent implements OnInit {
     const description = "View and manage your registered events on Next Japan. See upcoming opportunities, event details, and cancel registrations if needed.";
     this.meta.updateTags(this.title.getTitle(), description);
 
-    this.registrationService.getRegistrations$(this.user()?.userId!).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((registrations) => {
-      this.events.set(registrations.sort(this.sortByDate));
-      this.loaded.set(true);
-    })
+    if (this.user()?.userId) {
+      this.registrationService.getRegistrations$(this.user()?.userId!).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe((registrations) => {
+        this.events.set(registrations.sort(this.sortByDate));
+        this.loaded.set(true);
+      })
+    }
   }
 
   confirmCancel(event: EventRegistration) {

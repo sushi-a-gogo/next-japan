@@ -26,6 +26,11 @@
   [class.open]="inSearchMode()"
   (click)="toggleSearchMode()"
 ></div>
+
+@if(isAuthenticating()) {
+<app-login />
+}
+
 <!-- My Profile -->
 @if(showProfileDialog()) {
 <app-user-profile (close)="closeProfileDialog()" />

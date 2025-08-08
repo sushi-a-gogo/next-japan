@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { User } from '@app/models/user.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
@@ -17,6 +18,8 @@ const LOCAL_STORAGE_KEY = 'nextjp.user';
   providedIn: 'root',
 })
 export class UserProfileService {
+  private platformId = inject(PLATFORM_ID);
+
   private http = inject(HttpClient);
   private authService = inject(AuthMockService);
   private errorService = inject(ErrorService);
@@ -30,16 +33,15 @@ export class UserProfileService {
   userProfile = this.user.asReadonly();
 
   constructor() {
-    afterNextRender(() => {
+    if (isPlatformBrowser(this.platformId)) {
       const savedUserJson = this.storage.local.getItem(LOCAL_STORAGE_KEY);
       if (savedUserJson) {
         const savedUser = JSON.parse(savedUserJson);
         this.user.set(savedUser);
         this.themeService.setAppearanceMode(savedUser.mode);
         this.authService.login(savedUser);
-        this.eventRegistrationService.getRegistrations$(savedUser.userId).subscribe();
       }
-    });
+    }
   }
 
   getUsers$() {

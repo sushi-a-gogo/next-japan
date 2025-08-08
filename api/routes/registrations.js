@@ -30,12 +30,12 @@ router.get("/user/:userId", async (req, res) => {
       .populate({
         path: "opportunityId",
         select:
-          "eventId locationId startDate endDate timeZone timeZoneAbbreviation timeZoneOffset notes", // Include eventId
+          "locationId startDate endDate timeZone timeZoneAbbreviation timeZoneOffset notes", // Include eventId
         populate: [
           {
             path: "eventId",
             select:
-              "eventTitle imageId cloudflareImageId imageWidth imageHeight",
+              "_id eventTitle imageId cloudflareImageId imageWidth imageHeight",
           },
           {
             path: "locationId",
@@ -57,7 +57,7 @@ router.get("/user/:userId", async (req, res) => {
       opportunity: reg.opportunityId
         ? {
             opportunityId: reg.opportunityId._id.toString(),
-            eventId: reg.opportunityId.eventId, // Add eventId (string from EventOpportunity)
+            eventId: reg.opportunityId.eventId?._id.toString(), // Add eventId (string from EventOpportunity)
             startDate: reg.opportunityId.startDate,
             endDate: reg.opportunityId.endDate,
             timeZone: reg.opportunityId.timeZone,
