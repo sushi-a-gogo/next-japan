@@ -3,6 +3,8 @@ import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID,
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ApiResponse } from '@app/models/api-response.model';
+import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
@@ -108,7 +110,8 @@ export class EventPageComponent implements OnChanges {
       }
     }
 
-    return of([]);
+    const emptyResp: ApiResponse<EventRegistration[]> = { data: [] };
+    return of(emptyResp);
   }
 
 }

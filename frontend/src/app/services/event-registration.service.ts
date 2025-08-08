@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
+import { ApiResponse } from '@app/models/api-response.model';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { catchError, concatMap, from, map, Observable, shareReplay, switchMap, tap } from 'rxjs';
+import { catchError, concatMap, from, Observable, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
 import { NotificationService } from './notification.service';
 
@@ -22,9 +23,9 @@ export class EventRegistrationService {
   private registrationSignal = signal<EventRegistration[]>([]);
   registrations = this.registrationSignal.asReadonly();
 
-  private eventRegistrationCache = new HttpClientCache<EventRegistration[]>(60, 1);
+  private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
 
-  getRegistrations$(userId: string) {
+  getRegistrations$(userId: string): Observable<ApiResponse<EventRegistration[]>> {
     const key = `eventRegistrations:${userId}`
     if (this.eventRegistrationCache.existsInCache(key)) {
       const cached = this.eventRegistrationCache.get(key);
@@ -41,13 +42,13 @@ export class EventRegistrationService {
     return obs$;
   }
 
-  getRegistration$(registrationId: string): Observable<{ data: { registration: EventRegistration } }> {
-    return this.http.get(`${this.apiUri}/${registrationId}`).pipe(
+  getRegistration$(registrationId: string): Observable<ApiResponse<EventRegistration>> {
+    return this.http.get<ApiResponse<EventRegistration>>(`${this.apiUri}/${registrationId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getRegistration')
     )
   }
 
-  requestOpportunities$(userId: string, opportunityIds: string[]): Observable<EventRegistration[]> {
+  requestOpportunities$(userId: string, opportunityIds: string[]): Observable<ApiResponse<EventRegistration[]>> {
     return from(opportunityIds).pipe(
       concatMap((opportunityId) => this.addRegistration$(opportunityId, userId)),
       switchMap(() => {
@@ -93,11 +94,8 @@ export class EventRegistrationService {
   }
 
   private fetchRegistrations$(userId: string) {
-    return this.http.get<{ registrations: EventRegistration[] }>(`${this.apiUri}/user/${userId}`).pipe(
-      map((resp) => {
-        this.registrationSignal.set(resp.registrations || []);
-        return resp.registrations;
-      }),
+    return this.http.get<ApiResponse<EventRegistration[]>>(`${this.apiUri}/user/${userId}`).pipe(
+      tap((resp) => this.registrationSignal.set(resp.data || [])),
       debug(RxJsLoggingLevel.DEBUG, 'getRegistrations')
     );
   }
@@ -118,7 +116,7 @@ export class EventRegistrationService {
     }, delayMs);
 
     return this.post$(userRegistration).pipe(tap((resp) => {
-      registrationId = resp.data.registration.registrationId;
+      registrationId = resp.data.registrationId;
     }));
   }
 
@@ -126,7 +124,7 @@ export class EventRegistrationService {
     return this.http.post(`${this.apiUri}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "post EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => this.registrationChange(resp.data.registration)),
+      tap((resp) => this.registrationChange(resp.data)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
@@ -138,7 +136,7 @@ export class EventRegistrationService {
     return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => this.registrationChange(resp.data.registration)),
+      tap((resp) => this.registrationChange(resp.data)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
@@ -148,12 +146,9 @@ export class EventRegistrationService {
   private registrationChange(registration: EventRegistration) {
     this.notificationService.sendRegistrationNotification(registration);
     this.registrationSignal.update((prev) => {
-      return prev.map((reg) => {
-        if (reg.registrationId === registration.registrationId) {
-          return registration;
-        }
-        return reg;
-      })
+      return prev.some(reg => reg.registrationId === registration.registrationId)
+        ? prev.map(reg => reg.registrationId === registration.registrationId ? registration : reg)
+        : [...prev, registration];
     });
     this.eventRegistrationCache.clear();
   }

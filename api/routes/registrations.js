@@ -49,11 +49,11 @@ router.get("/user/:userId", async (req, res) => {
       .lean();
 
     if (!registrations.length) {
-      return res.status(200).json({ registrations: [] }); // Your fix
+      return res.status(200).json({ success: true, data: [] }); // Your fix
     }
 
     const formattedRegistrations = registrations.map(formatRegistration);
-    res.status(200).json({ registrations: formattedRegistrations });
+    res.status(200).json({ success: true, data: formattedRegistrations });
   } catch (error) {
     console.error("Error fetching user registrations:", error.message || error);
     res.status(500).json({ error: "Failed to fetch registrations" });
@@ -111,9 +111,7 @@ router.post("/", async (req, res) => {
       .json({ success: true, data: { registrationId: savedReg._id } });
   } catch (error) {
     console.error("Save registration error:", error.message || error);
-    res
-      .status(500)
-      .json({ success: false, error: "Failed to save registration" });
+    res.status(500).json({ error: "Failed to save registration" });
   }
 });
 
@@ -147,17 +145,13 @@ router.get("/:registrationId", async (req, res) => {
       .lean();
 
     if (!registration)
-      return res.status(404).json({ message: "Event registration not found" });
+      return res.status(404).json({ error: "Event registration not found" });
 
     const formattedRegistration = formatRegistration(registration);
-    res
-      .status(200)
-      .json({ success: true, data: { registration: formattedRegistration } });
+    res.status(200).json({ success: true, data: formattedRegistration });
   } catch (error) {
     console.error("Get registration error:", error.message || error);
-    res
-      .status(500)
-      .json({ success: false, error: "Failed to get registration" });
+    res.status(500).json({ error: "Failed to get registration" });
   }
 });
 
@@ -225,9 +219,7 @@ router.put("/:registrationId", async (req, res) => {
       .json({ success: true, data: { registrationId: savedReg._id } });
   } catch (error) {
     console.error("Update registration error:", error.message || error);
-    res
-      .status(500)
-      .json({ success: false, error: "Failed to update registration" });
+    res.status(500).json({ error: "Failed to update registration" });
   }
 });
 

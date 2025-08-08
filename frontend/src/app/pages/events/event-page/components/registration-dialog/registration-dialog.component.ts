@@ -3,7 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
+import { ApiResponse } from '@app/models/api-response.model';
 import { EventLocation } from '@app/models/event/event-location.model';
+import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -83,7 +85,8 @@ export class RegistrationDialogComponent implements OnInit {
   private requestSelected$() {
     const event = this.eventService.eventData().event;
     if (!event) {
-      return of([]);
+      const emptyResp: ApiResponse<EventRegistration[]> = { data: [] };
+      return of(emptyResp);
     }
 
     const requests = this.selected().map((opportunity) => opportunity.opportunityId);
