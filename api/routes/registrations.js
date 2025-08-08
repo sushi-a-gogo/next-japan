@@ -106,65 +106,6 @@ router.post("/", async (req, res) => {
     });
     const savedReg = await registration.save();
 
-    // Populate response
-    // const populatedReg = await EventRegistration.findById(savedReg._id)
-    //   .populate({
-    //     path: "opportunityId",
-    //     populate: [
-    //       {
-    //         path: "eventId",
-    //         select:
-    //           "eventTitle imageId cloudflareImageId imageWidth imageHeight",
-    //       },
-    //       {
-    //         path: "locationId",
-    //         select:
-    //           "locationName addressLine1 city state zip latitude longitude",
-    //       },
-    //     ],
-    //   })
-    //   .lean();
-
-    // const formattedReg = {
-    //   registrationId: populatedReg._id.toString(),
-    //   userId: populatedReg.userId,
-    //   status: populatedReg.status,
-    //   opportunity: populatedReg.opportunityId
-    //     ? {
-    //         opportunityId: populatedReg.opportunityId._id.toString(),
-    //         startDate: populatedReg.opportunityId.startDate,
-    //         endDate: populatedReg.opportunityId.endDate,
-    //         timeZone: populatedReg.opportunityId.timeZone,
-    //         timeZoneAbbreviation:
-    //           populatedReg.opportunityId.timeZoneAbbreviation,
-    //         timeZoneOffset: populatedReg.opportunityId.timeZoneOffset,
-    //         notes: populatedReg.opportunityId.notes,
-    //       }
-    //     : null,
-    //   eventTitle: populatedReg.opportunityId?.eventId?.eventTitle || null,
-    //   location: populatedReg.opportunityId?.locationId
-    //     ? {
-    //         locationName: populatedReg.opportunityId.locationId.locationName,
-    //         addressLine1: populatedReg.opportunityId.locationId.addressLine1,
-    //         city: populatedReg.opportunityId.locationId.city,
-    //         state: populatedReg.opportunityId.locationId.state,
-    //         zip: populatedReg.opportunityId.locationId.zip,
-    //         latitude: populatedReg.opportunityId.locationId.latitude,
-    //         longitude: populatedReg.opportunityId.locationId.longitude,
-    //       }
-    //     : null,
-    //   image: populatedReg.opportunityId?.eventId
-    //     ? {
-    //         id: populatedReg.opportunityId.eventId.imageId,
-    //         cloudflareImageId:
-    //           populatedReg.opportunityId.eventId.cloudflareImageId,
-    //         width: populatedReg.opportunityId.eventId.imageWidth,
-    //         height: populatedReg.opportunityId.eventId.imageHeight,
-    //       }
-    //     : null,
-    //   createdAt: populatedReg.createdAt,
-    // };
-
     res
       .status(201)
       .json({ success: true, data: { registrationId: savedReg._id } });
@@ -275,64 +216,9 @@ router.put("/:registrationId", async (req, res) => {
       updateData,
       { new: true }
     );
-    // .populate({
-    //   path: "opportunityId",
-    //   populate: [
-    //     {
-    //       path: "eventId",
-    //       select:
-    //         "eventTitle imageId cloudflareImageId imageWidth imageHeight",
-    //     },
-    //     {
-    //       path: "locationId",
-    //       select:
-    //         "locationName addressLine1 city state zip latitude longitude",
-    //     },
-    //   ],
-    // })
-    // .lean();
-
     if (!savedReg) {
       return res.status(404).json({ error: "Event Registration not found" });
     }
-
-    // const formattedReg = {
-    //   registrationId: savedReg._id.toString(),
-    //   userId: savedReg.userId,
-    //   status: savedReg.status,
-    //   opportunity: savedReg.opportunityId
-    //     ? {
-    //         opportunityId: savedReg.opportunityId._id.toString(),
-    //         startDate: savedReg.opportunityId.startDate,
-    //         endDate: savedReg.opportunityId.endDate,
-    //         timeZone: savedReg.opportunityId.timeZone,
-    //         timeZoneAbbreviation: savedReg.opportunityId.timeZoneAbbreviation,
-    //         timeZoneOffset: savedReg.opportunityId.timeZoneOffset,
-    //         notes: savedReg.opportunityId.notes,
-    //       }
-    //     : null,
-    //   eventTitle: savedReg.opportunityId?.eventId?.eventTitle || null,
-    //   location: savedReg.opportunityId?.locationId
-    //     ? {
-    //         locationName: savedReg.opportunityId.locationId.locationName,
-    //         addressLine1: savedReg.opportunityId.locationId.addressLine1,
-    //         city: savedReg.opportunityId.locationId.city,
-    //         state: savedReg.opportunityId.locationId.state,
-    //         zip: savedReg.opportunityId.locationId.zip,
-    //         latitude: savedReg.opportunityId.locationId.latitude,
-    //         longitude: savedReg.opportunityId.locationId.longitude,
-    //       }
-    //     : null,
-    //   image: savedReg.opportunityId?.eventId
-    //     ? {
-    //         id: savedReg.opportunityId.eventId.imageId,
-    //         cloudflareImageId: savedReg.opportunityId.eventId.cloudflareImageId,
-    //         width: savedReg.opportunityId.eventId.imageWidth,
-    //         height: savedReg.opportunityId.eventId.imageHeight,
-    //       }
-    //     : null,
-    //   createdAt: savedReg.createdAt,
-    // };
 
     res
       .status(200)
