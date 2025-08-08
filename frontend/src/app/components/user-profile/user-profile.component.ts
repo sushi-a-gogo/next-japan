@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
   private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
 
+  user = this.authService.user;
   userProfile?: UserProfile;
   profileForm = this.getProfileForm();
   close = output<boolean>();

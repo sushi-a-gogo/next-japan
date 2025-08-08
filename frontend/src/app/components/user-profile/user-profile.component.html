@@ -13,10 +13,12 @@
   </header>
   <main class="dialog">
     <div class="profile" [class.disabled]="busy">
-      @if(userProfile) {
-      <app-user-avatar [user]="userProfile" [size]="96" />
-      }
-      <form class="nx-flex col" [formGroup]="profileForm">
+      <app-user-avatar [user]="user()!" [size]="96" />
+      <form
+        class="nx-flex col fade-in"
+        [class.open]="userProfile"
+        [formGroup]="profileForm"
+      >
         <mat-form-field>
           <mat-label>First Name</mat-label>
           <input
