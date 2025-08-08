@@ -36,9 +36,9 @@ export class UserMenuComponent {
 
   changeAppearanceMode(mode?: 'light' | 'dark') {
     this.userProfileService.getUser$(this.user().userId).pipe(
-      switchMap((data) => {
-        data.user.mode = mode;
-        return this.userProfileService.updateProfile$(data.user);
+      switchMap((resp) => {
+        resp.data.mode = mode;
+        return this.userProfileService.updateProfile$(resp.data);
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((resp) => {

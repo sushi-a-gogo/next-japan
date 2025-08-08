@@ -54,14 +54,14 @@ export class UserProfileComponent implements OnInit {
     this.authService.auth$.pipe(
       switchMap((user) => this.userProfileService.getUser$(user!.userId)),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((data) => {
-      this.userProfile = data.user;
+    ).subscribe((resp) => {
+      this.userProfile = resp.data;
       this.profileForm.setValue({
-        firstName: data.user.firstName,
-        lastName: data.user.lastName,
-        email: data.user.email,
-        phone: data.user.phone || null,
-        preferredContactMethod: data.user.isEmailPreferred ? 'email' : 'phone'
+        firstName: this.userProfile.firstName,
+        lastName: this.userProfile.lastName,
+        email: this.userProfile.email,
+        phone: this.userProfile.phone || null,
+        preferredContactMethod: this.userProfile.isEmailPreferred ? 'email' : 'phone'
       });
     });
   }
