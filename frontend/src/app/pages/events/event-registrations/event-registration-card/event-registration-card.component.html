@@ -6,6 +6,7 @@
         [ngSrc]="resizedImage().src"
         [width]="resizedImage().image.width"
         [height]="resizedImage().image.height"
+        priority
       />
     </div>
   </a>
@@ -14,15 +15,17 @@
       <div class="title break-word">
         {{ event().eventTitle }}
       </div>
-      <div class="nx-flex col gap-2">
-        <app-address-strip
-          [location]="event().location"
-          [showAddress]="false"
-          [showDirections]="true"
-        ></app-address-strip>
-        <app-opportunity-timestamp
-          [opportunity]="event().opportunity"
-        ></app-opportunity-timestamp>
+      <div class="nx-flex col gap-5">
+        <div>
+          <app-address-strip
+            [location]="event().location"
+            [showAddress]="false"
+            [showDirections]="true"
+          ></app-address-strip>
+          <app-opportunity-timestamp
+            [opportunity]="event().opportunity"
+          ></app-opportunity-timestamp>
+        </div>
         <app-event-registration-status [status]="event().status" />
       </div>
     </div>

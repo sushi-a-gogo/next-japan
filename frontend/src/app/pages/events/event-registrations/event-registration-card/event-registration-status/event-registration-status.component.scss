@@ -30,18 +30,18 @@
   &.cancelled {
     .material-icons.cancelled {
       display: inline-block;
-      color: var(--red-torii-gate);
+      color: var(--next-heading);
     }
 
     .label {
-      color: var(--red-torii-gate);
+      color: var(--next-heading);
     }
   }
 }
 
 .label {
   font-size: 14px;
-  line-height: 24px;
+  line-height: 1;
   font-weight: 600;
   letter-spacing: -0.06px;
   color: var(--next-text);

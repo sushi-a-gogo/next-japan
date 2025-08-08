@@ -13,11 +13,11 @@ export class EventRegistrationStatusComponent implements OnChanges {
   label = computed(() => {
     switch (this.status()) {
       case RegistrationStatus.Cancelled:
-        return "Your event registration has been cancelled.";
+        return "Your registration has been cancelled. If this was a mistake or you need help, please contact us.";
       case RegistrationStatus.Registered:
-        return "Registered.";
+        return "You're registered!";
       case RegistrationStatus.Requested:
-        return "Registration Request has been received.";
+        return "We've received your registration request! We'll notify you once your spot is confirmed.";
       default:
         return undefined;
     }

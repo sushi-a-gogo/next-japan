@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UserProfile } from '@app/models/user-profile.model';
+import { User } from '@app/models/user.model';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 
@@ -11,7 +11,7 @@ import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent implements OnInit {
-  users = signal<UserProfile[]>([]);
+  users = signal<User[]>([]);
   selectedUserId = signal<string | null>(null);
   loaded = signal(false);
 
@@ -22,8 +22,8 @@ export class SignInComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((users) => {
-      this.users.set(users.slice(0, 2));
+    this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((resp) => {
+      this.users.set(resp.data.slice(0, 2));
       this.loaded.set(true);
     })
   }

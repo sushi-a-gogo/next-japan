@@ -14,9 +14,13 @@ section {
 }
 
 .spinner-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%); /* Shifts the element up by half its height */
+  z-index: 1000;
+  margin: 0 auto;
   opacity: 0;
-  transition: opacity 1s;
-  padding: 120px 0;
 
   &.show {
     opacity: 1;

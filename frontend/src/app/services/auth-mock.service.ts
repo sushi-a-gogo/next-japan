@@ -59,7 +59,7 @@ export class AuthMockService {
       delay(1500), // simulate login process
       tap((resp) => {
         this.authenticating.set(null);
-        this.setUser(resp.user);
+        this.setUser(resp.data);
       })
     );
   }
