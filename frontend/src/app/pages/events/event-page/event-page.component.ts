@@ -4,12 +4,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EventService } from '@app/pages/events/event-page/event.service';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ErrorService } from '@app/services/error.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { of, switchMap } from 'rxjs';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
@@ -35,7 +35,7 @@ export class EventPageComponent implements OnChanges {
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
   private eventRegistrationService = inject(EventRegistrationService);
-  private userService = inject(UserProfileService);
+  private authService = inject(AuthMockService);
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
@@ -102,7 +102,7 @@ export class EventPageComponent implements OnChanges {
 
   private getEventRegistrations$() {
     if (isPlatformBrowser(this.platformId)) {
-      const userId = this.userService.userProfile()?.userId;
+      const userId = this.authService.user()?.userId;
       if (userId) {
         return this.eventRegistrationService.getRegistrations$(userId);
       }

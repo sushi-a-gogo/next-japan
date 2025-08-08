@@ -6,7 +6,6 @@ import { OpportunityRequestFooterComponent } from '@app/pages/events/event-page/
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { EventSearchService } from '@app/services/event-search.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { filter } from 'rxjs';
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
@@ -22,9 +21,6 @@ import { UserProfileComponent } from "../user-profile/user-profile.component";
 export class LayoutComponent {
   private eventSearch = inject(EventSearchService);
   inSearchMode = this.eventSearch.searchMode;
-
-  private userProfileService = inject(UserProfileService);
-  private userProfile = this.userProfileService.userProfile;
 
   private authService = inject(AuthMockService);
   isAuthenticated = this.authService.isAuthenticated;

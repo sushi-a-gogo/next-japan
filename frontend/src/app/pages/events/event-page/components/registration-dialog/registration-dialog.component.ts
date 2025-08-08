@@ -5,9 +5,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { EventLocation } from '@app/models/event/event-location.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { of } from 'rxjs';
@@ -20,10 +20,10 @@ import { RegistrationLocationComponent } from './registration-location/registrat
   styleUrl: './registration-dialog.component.scss'
 })
 export class RegistrationDialogComponent implements OnInit {
+  private authService = inject(AuthMockService);
   private eventService = inject(EventService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
-  private userProfileService = inject(UserProfileService);
   private destroyRef = inject(DestroyRef);
 
   close = output<boolean>();
@@ -87,7 +87,7 @@ export class RegistrationDialogComponent implements OnInit {
     }
 
     const requests = this.selected().map((opportunity) => opportunity.opportunityId);
-    const userId = this.userProfileService.userProfile()!.userId;
+    const userId = this.authService.user()!.userId;
     return this.registrationService.requestOpportunities$(userId, requests);
   }
 

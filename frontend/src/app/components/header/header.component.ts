@@ -13,4 +13,5 @@ import { UserNavbarComponent } from "./user-navbar/user-navbar.component";
 export class HeaderComponent {
   private authService = inject(AuthMockService);
   isAuthenticated = this.authService.isAuthenticated;
+  user = this.authService.user;
 }

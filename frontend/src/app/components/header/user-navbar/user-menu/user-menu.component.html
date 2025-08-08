@@ -9,7 +9,7 @@
   [matTooltipShowDelay]="750"
   [matTooltipDisabled]="menuTrigger.menuOpen"
 >
-  <app-user-avatar [user]="userProfile()!" [size]="48" />
+  <app-user-avatar [user]="user()" [size]="48" />
 </button>
 <mat-menu
   #userMenu="matMenu"
@@ -18,7 +18,7 @@
   backdropClass="notification-backdrop"
 >
   <header>
-    <span> {{ userProfile()?.firstName }} {{ userProfile()?.lastName }} </span>
+    <span> {{ user().firstName }} {{ user().lastName }} </span>
   </header>
   <a
     type="button"
@@ -46,9 +46,7 @@
   <mat-menu #modes="matMenu">
     <button mat-menu-item class="theme-selector" (click)="setAppearanceMode()">
       <div class="menu-item">
-        <span class="material-icons" [class.open]="!userProfile()?.mode"
-          >check</span
-        >
+        <span class="material-icons" [class.open]="!user().mode">check</span>
         Auto
       </div>
     </button>
@@ -58,9 +56,7 @@
       (click)="setAppearanceMode('light')"
     >
       <div class="menu-item">
-        <span
-          class="material-icons"
-          [class.open]="userProfile()?.mode === 'light'"
+        <span class="material-icons" [class.open]="user().mode === 'light'"
           >check</span
         >
         Light
@@ -72,9 +68,7 @@
       (click)="setAppearanceMode('dark')"
     >
       <div class="menu-item">
-        <span
-          class="material-icons"
-          [class.open]="userProfile()?.mode === 'dark'"
+        <span class="material-icons" [class.open]="user().mode === 'dark'"
           >check</span
         >
         Dark

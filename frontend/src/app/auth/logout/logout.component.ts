@@ -29,7 +29,6 @@ export class LogoutComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((params) => {
       const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : environment.baseUrl);
-      this.userService.clearUserProfile();
       this.auth.logout(returnUrl);
     });
   }

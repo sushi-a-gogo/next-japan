@@ -6,4 +6,5 @@ export interface User extends Avatar {
   lastName: string;
   email: string;
   subscriptionPlan: string;
+  mode?: 'light' | 'dark';
 }

@@ -2,7 +2,6 @@
   class="cb-content flex col al-c jc-start"
   [class.search-mode]="inSearchMode()"
 >
-  @if(userProfile()) {
   <ul class="nx-flex row al-c jc-sb">
     <li>
       <a class="app-button logo" routerLink="/home">
@@ -23,13 +22,13 @@
       </button>
     </li>
     <li>
-      <app-my-notifications />
+      <app-my-notifications [userId]="user().userId" />
     </li>
     <li>
-      <app-user-menu (signout)="logout()" />
+      <app-user-menu [user]="user()" (signout)="logout()" />
     </li>
   </ul>
   @if (inSearchMode()) {
   <app-search-autocomplete />
-  } }
+  }
 </nav>

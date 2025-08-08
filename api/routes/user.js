@@ -14,16 +14,13 @@ router.get("/", async (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    subscriptionPlan: user.subscriptionPlan,
     image: {
       id: user.imageId,
       cloudflareImageId: user.cloudflareImageId,
       width: user.imageWidth,
       height: user.imageHeight,
     },
-    addressLine1: user.addressLine1,
-    city: user.city,
-    state: user.state,
-    zip: user.zip,
     mode: user.mode,
     createdAt: user.createdAt,
   }));
@@ -59,6 +56,7 @@ router.post("/signup", async (req, res) => {
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
         email: savedUser.email,
+        subscriptionPlan: savedUser.subscriptionPlan,
         isEmailPreferred: savedUser.isEmailPreferred,
       },
     });
@@ -78,20 +76,24 @@ router.put("/update", async (req, res) => {
       firstName,
       lastName,
       email,
+      subscriptionPlan,
       image,
-      addressLine1,
-      city,
-      state,
-      zip,
       phone,
       isEmailPreferred,
       mode,
     } = req.body;
 
     // Input validation
-    if (!userId || !firstName || !lastName || !email || !image) {
+    if (
+      !userId ||
+      !firstName ||
+      !lastName ||
+      !email ||
+      !image ||
+      !subscriptionPlan
+    ) {
       return res.status(400).json({
-        error: "Missing required fields: userId, name, email, or image",
+        error: "Missing required fields",
       });
     }
 
@@ -102,14 +104,11 @@ router.put("/update", async (req, res) => {
         firstName,
         lastName,
         email,
+        subscriptionPlan,
         imageId: image.id,
         imageHeight: image.height,
         imageWidth: image.width,
         cloudflareImageId: image.cloudflareImageId,
-        addressLine1,
-        city,
-        state,
-        zip,
         phone,
         isEmailPreferred,
         mode: mode || null,
@@ -127,16 +126,13 @@ router.put("/update", async (req, res) => {
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
         email: savedUser.email,
+        subscriptionPlan: savedUser.subscriptionPlan,
         image: {
           id: savedUser.imageId,
           cloudflareImageId: savedUser.cloudflareImageId,
           width: savedUser.imageWidth,
           height: savedUser.imageHeight,
         },
-        addressLine1: savedUser.addressLine1,
-        city: savedUser.city,
-        state: savedUser.state,
-        zip: savedUser.zip,
         phone: savedUser.phone,
         isEmailPreferred: savedUser.isEmailPreferred,
         mode: savedUser.mode,
@@ -161,16 +157,13 @@ router.get("/:id", async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      subscriptionPlan: user.subscriptionPlan,
       image: {
         id: user.imageId,
         cloudflareImageId: user.cloudflareImageId,
         width: user.imageWidth,
         height: user.imageHeight,
       },
-      addressLine1: user.addressLine1,
-      city: user.city,
-      state: user.state,
-      zip: user.zip,
       phone: user.phone,
       isEmailPreferred: user.isEmailPreferred,
       mode: user.mode,

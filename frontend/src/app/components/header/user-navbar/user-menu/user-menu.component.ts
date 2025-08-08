@@ -1,12 +1,15 @@
-import { Component, computed, DestroyRef, inject, output } from '@angular/core';
+import { Component, DestroyRef, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { User } from '@app/models/user.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-menu',
@@ -16,20 +19,12 @@ import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.comp
 })
 export class UserMenuComponent {
   private dialogService = inject(DialogService);
+  private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
   private destroyRef = inject(DestroyRef);
 
+  user = input.required<User>();
   signout = output();
-
-  userProfile = this.userProfileService.userProfile;
-  userName = computed(() => {
-    if (this.userProfile()) {
-      const last = this.userProfile()!.lastName ? ` ${this.userProfile()!.lastName?.substring(0, 1)}.` : '';
-      return `${this.userProfile()!.firstName}${last}`;
-    }
-
-    return '';
-  });
 
   logout() {
     this.signout.emit();
@@ -40,11 +35,14 @@ export class UserMenuComponent {
   }
 
   setAppearanceMode(mode?: 'light' | 'dark') {
-    if (this.userProfile()) {
-      this.userProfile()!.mode = mode;
-      this.userProfileService.updateProfile$(this.userProfile()!).pipe(
-        takeUntilDestroyed(this.destroyRef)
-      ).subscribe();
-    }
+    this.userProfileService.getUser$(this.user().userId).pipe(
+      switchMap((data) => {
+        data.user.mode = mode;
+        return this.userProfileService.updateProfile$(data.user);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((resp) => {
+      this.authService.updateUserData(resp.data);
+    });
   }
 }
