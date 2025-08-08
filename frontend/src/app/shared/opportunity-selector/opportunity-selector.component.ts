@@ -21,7 +21,6 @@ export class OpportunitySelectorComponent {
   opportunity = input.required<EventOpportunity>();
 
   isAuthenticated = this.auth.isAuthenticated;
-  disableCheckForConflict = input<boolean>(false);
   private user = this.auth.user;
 
   selected = computed(() => {
@@ -40,7 +39,7 @@ export class OpportunitySelectorComponent {
   });
 
   conflicted = computed(() => {
-    if (this.isAuthenticated() && !this.status() && !this.disableCheckForConflict()) {
+    if (this.isAuthenticated() && !this.status()) {
       return this.selectionService.checkForConflict(this.opportunity()) || this.registrationService.checkForConflict(this.opportunity(), this.user()!.userId);
     }
     return false;

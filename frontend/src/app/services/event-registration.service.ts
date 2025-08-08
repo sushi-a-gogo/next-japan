@@ -41,6 +41,12 @@ export class EventRegistrationService {
     return obs$;
   }
 
+  getRegistration$(registrationId: string): Observable<{ data: { registration: EventRegistration } }> {
+    return this.http.get(`${this.apiUri}/${registrationId}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getRegistration')
+    )
+  }
+
   requestOpportunities$(userId: string, opportunityIds: string[]): Observable<EventRegistration[]> {
     return from(opportunityIds).pipe(
       concatMap((opportunityId) => this.addRegistration$(opportunityId, userId)),
@@ -59,21 +65,7 @@ export class EventRegistrationService {
       status: RegistrationStatus.Cancelled
     };
 
-    return this.put$(req).pipe(
-      tap((resp) => {
-        if (resp?.ok) {
-          this.registrationSignal.update((prev) => {
-            return prev.map((r) => {
-              if (r.registrationId === req.registrationId) {
-                r.status = RegistrationStatus.Cancelled;
-              }
-              return r;
-            })
-          });
-          this.notificationService.sendRegistrationNotification(registration);
-        }
-      })
-    );
+    return this.put$(req);
   }
 
   checkForConflict(opp: EventOpportunity, userId: string) {
@@ -107,7 +99,7 @@ export class EventRegistrationService {
         return resp.registrations;
       }),
       debug(RxJsLoggingLevel.DEBUG, 'getRegistrations')
-    )
+    );
   }
 
   private addRegistration$(opportunityId: string, userId: string) {
@@ -118,21 +110,23 @@ export class EventRegistrationService {
     }
     let registrationId: string | undefined = undefined;
 
-    const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 60_000; // random between 2 and 10 minutes in ms
+    const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 1000; // random between 2 and 10 minutes in ms
     setTimeout(() => {
       if (registrationId) {
-        this.put$({ ...userRegistration, registrationId }).subscribe();
+        this.put$({ ...userRegistration, registrationId, status: RegistrationStatus.Registered }).subscribe();
       }
     }, delayMs);
 
     return this.post$(userRegistration).pipe(tap((resp) => {
-      registrationId = resp?.body?.data?.registrationId;
+      registrationId = resp.data.registration.registrationId;
     }));
   }
 
   private post$(registration: { userId: string, opportunityId: string, status: RegistrationStatus }) {
-    return this.http.post(`${this.apiUri}`, registration, { observe: 'response' }).pipe(
+    return this.http.post(`${this.apiUri}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "post EventRegistration"),
+      switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
+      tap((resp) => this.registrationChange(resp.data.registration)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
@@ -141,11 +135,26 @@ export class EventRegistrationService {
 
 
   private put$(registration: { registrationId: string, userId: string, opportunityId: string, status: RegistrationStatus }) {
-    return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration, { observe: 'response' }).pipe(
+    return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
+      switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
+      tap((resp) => this.registrationChange(resp.data.registration)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
     );
+  }
+
+  private registrationChange(registration: EventRegistration) {
+    this.notificationService.sendRegistrationNotification(registration);
+    this.registrationSignal.update((prev) => {
+      return prev.map((reg) => {
+        if (reg.registrationId === registration.registrationId) {
+          return registration;
+        }
+        return reg;
+      })
+    });
+    this.eventRegistrationCache.clear();
   }
 }

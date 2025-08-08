@@ -26,7 +26,10 @@ export class EventRegistrationsComponent implements OnInit {
   loaded = signal(false);
   eventToCancel = signal<EventRegistration | null>(null);
 
-  events = signal<EventRegistration[]>([]);
+  events = computed(() => {
+    const registrations = this.registrationService.registrations();
+    return [...registrations].sort(this.sortByDate);
+  });
 
   note = computed(() => {
     const count = this.events().length;
@@ -48,8 +51,7 @@ export class EventRegistrationsComponent implements OnInit {
     if (userId) {
       this.registrationService.getRegistrations$(userId!).pipe(
         takeUntilDestroyed(this.destroyRef)
-      ).subscribe((registrations) => {
-        this.events.set(registrations.sort(this.sortByDate));
+      ).subscribe(() => {
         this.loaded.set(true);
       })
     }
