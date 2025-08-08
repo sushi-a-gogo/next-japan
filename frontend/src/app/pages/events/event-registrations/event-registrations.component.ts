@@ -1,9 +1,10 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { EventRegistration } from '@app/models/event/event-registration.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { MetaService } from '@app/services/meta.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { ConfirmModalComponent } from '@app/shared/modal/confirm-modal/confirm-modal.component';
 import { OpportunityTimestampComponent } from '@app/shared/opportunity-timestamp/opportunity-timestamp.component';
 import { PageLoadSpinnerComponent } from '@app/shared/page-load-spinner/page-load-spinner.component';
@@ -19,13 +20,16 @@ export class EventRegistrationsComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(MetaService);
   private registrationService = inject(EventRegistrationService);
-  private userService = inject(UserProfileService);
-  private user = this.userService.userProfile;
-  loaded = signal(true);
+  private authService = inject(AuthMockService);
+  private destroyRef = inject(DestroyRef);
+
+  loaded = signal(false);
   eventToCancel = signal<EventRegistration | null>(null);
 
-  events = computed(() =>
-    this.registrationService.registrations().filter((r) => r.userId === this.user()?.userId).sort(this.sortByDate));
+  events = computed(() => {
+    const registrations = this.registrationService.registrations();
+    return [...registrations].sort(this.sortByDate);
+  });
 
   note = computed(() => {
     const count = this.events().length;
@@ -42,6 +46,15 @@ export class EventRegistrationsComponent implements OnInit {
     this.title.setTitle("Your Event Registrations");
     const description = "View and manage your registered events on Next Japan. See upcoming opportunities, event details, and cancel registrations if needed.";
     this.meta.updateTags(this.title.getTitle(), description);
+
+    const userId = this.authService.user()?.userId;
+    if (userId) {
+      this.registrationService.getRegistrations$(userId!).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe(() => {
+        this.loaded.set(true);
+      })
+    }
   }
 
   confirmCancel(event: EventRegistration) {
@@ -52,7 +65,9 @@ export class EventRegistrationsComponent implements OnInit {
     if (cancellationConfirmed) {
       const cancelledEvent = this.eventToCancel();
       this.eventToCancel.set(null);
-      this.registrationService.cancelRegistration(cancelledEvent!.registrationId!);
+      this.registrationService.cancelRegistration$(cancelledEvent!).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe();
     } else {
       this.eventToCancel.set(null);
     }

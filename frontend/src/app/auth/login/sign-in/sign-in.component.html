@@ -3,12 +3,12 @@
     @for(user of users(); track user.userId) {
     <li>
       <button
-        class="app-button flex-button user"
+        class="app-button user nx-flex al-c gap-5"
         [class.app-button-filled]="selectedUserId() === user.userId"
         [class.app-button-outlined]="selectedUserId() !== user.userId"
         (click)="select(user.userId)"
       >
-        <app-avatar [size]="36" [avatar]="user" />
+        <app-user-avatar [user]="user" />
         <span>{{ user.firstName }} {{ user.lastName }}</span>
       </button>
     </li>

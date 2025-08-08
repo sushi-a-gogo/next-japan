@@ -2,11 +2,11 @@ import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserProfile } from '@app/models/user-profile.model';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { AvatarComponent } from '@app/shared/avatar/avatar.component';
+import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [AvatarComponent],
+  imports: [UserAvatarComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((users) => {
-      this.users.set(users);
+      this.users.set(users.slice(0, 2));
       this.loaded.set(true);
     })
   }

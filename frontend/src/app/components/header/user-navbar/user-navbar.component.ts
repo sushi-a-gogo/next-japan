@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
+import { User } from '@app/models/user.model';
 import { EventSearchService } from '@app/services/event-search.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { AppLogoComponent } from "@shared/app-logo/app-logo.component";
 import { SearchAutocompleteComponent } from "../../../shared/search-autocomplete/search-autocomplete.component";
 import { MyNotificationsComponent } from "../../my-notifications/my-notifications.component";
@@ -22,9 +22,8 @@ import { UserMenuComponent } from "./user-menu/user-menu.component";
 export class UserNavbarComponent {
   private router = inject(Router);
   private eventSearch = inject(EventSearchService);
-  private userProfileService = inject(UserProfileService);
 
-  userProfile = this.userProfileService.userProfile;
+  user = input.required<User>();
   inSearchMode = this.eventSearch.searchMode;
 
   toggleSearchPanel(event: any) {

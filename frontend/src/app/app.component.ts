@@ -2,17 +2,14 @@ import { afterNextRender, Component, DestroyRef, inject, OnInit } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
-import { LoginComponent } from "./auth/login/login.component";
 import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
-import { AuthMockService } from './services/auth-mock.service';
 import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    LoginComponent,
     ErrorBarComponent,
     AboutComponent,
   ],
@@ -23,9 +20,6 @@ export class AppComponent implements OnInit {
   title = 'next-japan';
 
   private router = inject(Router);
-
-  private authService = inject(AuthMockService);
-  isAuthenticating = this.authService.isAuthenticating;
 
   private themeService = inject(ThemeService);
   private destroyRef = inject(DestroyRef);

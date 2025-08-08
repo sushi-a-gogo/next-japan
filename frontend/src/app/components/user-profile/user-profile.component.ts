@@ -8,9 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
 import { UserProfile } from '@app/models/user-profile.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { ModalComponent } from "@shared/modal/modal.component";
+import { switchMap } from 'rxjs';
 import { UserProfileForm } from './user-profile.form';
 
 @Component({
@@ -21,9 +23,11 @@ import { UserProfileForm } from './user-profile.form';
   styleUrl: './user-profile.component.scss'
 })
 export class UserProfileComponent implements OnInit {
+  private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
-  userProfile = this.userProfileService.userProfile;
-  profileForm = this.getProfileForm(this.userProfile()!);
+
+  userProfile?: UserProfile;
+  profileForm = this.getProfileForm();
   close = output<boolean>();
 
   contactMethods = [
@@ -33,6 +37,7 @@ export class UserProfileComponent implements OnInit {
   busy = false;
 
   private destroyRef = inject(DestroyRef);
+
   ngOnInit(): void {
     this.profileForm.get('preferredContactMethod')?.valueChanges.pipe(
       takeUntilDestroyed(this.destroyRef)
@@ -45,21 +50,42 @@ export class UserProfileComponent implements OnInit {
       }
       phoneControl?.updateValueAndValidity();
     });
+
+    this.authService.auth$.pipe(
+      switchMap((user) => this.userProfileService.getUser$(user!.userId)),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data) => {
+      this.userProfile = data.user;
+      this.profileForm.setValue({
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        email: data.user.email,
+        phone: data.user.phone || null,
+        preferredContactMethod: data.user.isEmailPreferred ? 'email' : 'phone'
+      });
+    });
   }
 
   saveProfile() {
     const newProfile = {
-      ...this.userProfile()!,
+      ...this.userProfile!,
       ...this.profileForm.value,
+      firstName: this.profileForm.value.firstName!,
+      lastName: this.profileForm.value.lastName!,
+      email: this.profileForm.value.email!,
       isEmailPreferred: this.profileForm.get('preferredContactMethod')?.value === 'email',
     };
 
-    const saveProfile$ = this.userProfileService.updateProfile$(newProfile).pipe(
+    this.busy = true;
+    this.userProfileService.updateProfile$(newProfile).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: () => { },
-      error: () => { },
-      complete: () => this.closeProfile()
+      next: (resp) => {
+        this.busy = false;
+        this.authService.updateUserData(resp.data);
+        this.closeProfile();
+      },
+      error: () => { this.busy = false; }
     });
   }
 
@@ -67,26 +93,19 @@ export class UserProfileComponent implements OnInit {
     this.close.emit(true);
   }
 
-  private getProfileForm(user: UserProfile) {
+  private getProfileForm() {
     const textValidators = [Validators.maxLength(100)];
 
     const form = new FormGroup<UserProfileForm>(
       {
-        firstName: new FormControl<string>(user.firstName, { nonNullable: true, validators: [Validators.required, ...textValidators] }),
-        lastName: new FormControl<string>(user.lastName, { nonNullable: true, validators: [Validators.required, ...textValidators] }),
-        email: new FormControl<string>(user.email, {
-          nonNullable: true,
-        }),
-        addressLine1: new FormControl<string | null>(user.addressLine1 || null, []),
-        city: new FormControl<string | null>(user.city || null, []),
-        state: new FormControl<string | null>(user.state || null),
-        zip: new FormControl<string | null>(user.zip || null, []),
-        phone: new FormControl<string | null>(user.phone || null, user.isEmailPreferred ? [] : [Validators.required]),
-        preferredContactMethod: new FormControl<'email' | 'phone' | null>(user.isEmailPreferred ? 'email' : 'phone'),
+        firstName: new FormControl<string | null>(null, [Validators.required, ...textValidators]),
+        lastName: new FormControl<string | null>(null, [Validators.required, ...textValidators]),
+        email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+        phone: new FormControl<string | null>(null),
+        preferredContactMethod: new FormControl<'email' | 'phone' | null>(null),
       }
     );
 
-    form.get('email')?.disable();
     return form;
   }
 }

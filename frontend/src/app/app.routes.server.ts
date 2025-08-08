@@ -10,6 +10,14 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
+    path: 'event/registrations',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'event/search',
+    renderMode: RenderMode.Server
+  },
+  {
     path: 'event/:eventId',
     renderMode: RenderMode.Server
   },

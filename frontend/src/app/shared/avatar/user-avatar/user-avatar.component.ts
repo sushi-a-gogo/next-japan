@@ -10,13 +10,14 @@ import { AvatarComponent } from "../avatar.component";
 })
 export class UserAvatarComponent {
   user = input.required<User>();
-  size = input<number>(33);
+  size = input<48 | 96>(48);
 
   initials = computed(() => this.user().firstName.slice(0, 1) + this.user().lastName.slice(0, 1));
 
   styleCss = computed(() => ({
     width: `${this.size()}px`,
     height: `${this.size()}px`,
+    fontSize: `${this.size() == 48 ? 18 : 34}px`
   }));
 
 }

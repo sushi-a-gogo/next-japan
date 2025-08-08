@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { EventInformation } from '@app/models/event/event-information.model';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { MapLocation } from '@app/models/map-location.model';
+import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventsService } from '@app/services/events.service';
 import { LocationService } from '@app/services/location.service';
 import { OpportunityService } from '@app/services/opportunity.service';
@@ -34,6 +35,7 @@ export class EventService {
   eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
 
   private eventsService = inject(EventsService);
+  private eventRegistrationService = inject(EventRegistrationService);
   private locationService = inject(LocationService);
   private opportunityService = inject(OpportunityService);
 
@@ -45,7 +47,7 @@ export class EventService {
     const observables = {
       event: this.getEventById$(eventId),
       locations: this.getEventLocations$(eventId),
-      opportunities: this.getEventOpportunities$(eventId),
+      opportunities: this.getEventOpportunities$(eventId)
     };
 
     return forkJoin(observables).pipe(

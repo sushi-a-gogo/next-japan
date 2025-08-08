@@ -1,12 +1,26 @@
-import { inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { map } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const auth = inject(AuthMockService);
+  const platformId = inject(PLATFORM_ID);
+  const authService = inject(AuthMockService);
   const router = inject(Router);
-  if (auth.isAuthenticated()) {
-    return true;
+
+  if (!isPlatformBrowser(platformId)) {
+    return true; // Allow SSR to render the page
   }
-  return router.navigate(["/home"]);
+
+  // On client, check auth state
+  return authService.auth$.pipe(
+    map((user) => {
+      if (user) {
+        return true; // User is signed in, allow access
+      }
+      console.log('No user signed in, redirecting to /home');
+      return router.createUrlTree(['/home']);
+    })
+  );
 };

@@ -20,6 +20,7 @@ export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
+
   private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
@@ -28,7 +29,6 @@ export class LogoutComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((params) => {
       const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : environment.baseUrl);
-      this.userService.clearUserProfile();
       this.auth.logout(returnUrl);
     });
   }

@@ -1,6 +1,6 @@
 <div class="component-box">
-  @if(isAuthenticated()) {
-  <app-user-navbar />
+  @if(user()) {
+  <app-user-navbar [user]="user()!" />
   } @else {
   <app-navbar />
   }

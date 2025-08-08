@@ -14,16 +14,13 @@ router.get("/", async (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    subscriptionPlan: user.subscriptionPlan,
     image: {
       id: user.imageId,
       cloudflareImageId: user.cloudflareImageId,
       width: user.imageWidth,
       height: user.imageHeight,
     },
-    addressLine1: user.addressLine1,
-    city: user.city,
-    state: user.state,
-    zip: user.zip,
     mode: user.mode,
     createdAt: user.createdAt,
   }));
@@ -31,49 +28,87 @@ router.get("/", async (req, res) => {
   res.status(200).json({ users: formattedUsers });
 });
 
-router.put("/update", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
-    const {
+    const { firstName, lastName, email, subscriptionPlan } = req.body;
+
+    // Input validation
+    if (!firstName || !lastName || !email || !subscriptionPlan) {
+      return res.status(400).json({
+        error: "Missing required fields: name, email, plan",
+      });
+    }
+
+    // Save to MongoDB
+    const user = new User({
       firstName,
       lastName,
       email,
+      subscriptionPlan,
+      isEmailPreferred: true,
+    });
+    const savedUser = await user.save();
+
+    return res.status(201).json({
+      success: true,
+      data: {
+        userId: savedUser._id.toString(), // Pass _id as eventId
+        firstName: savedUser.firstName,
+        lastName: savedUser.lastName,
+        email: savedUser.email,
+        subscriptionPlan: savedUser.subscriptionPlan,
+        isEmailPreferred: savedUser.isEmailPreferred,
+      },
+    });
+  } catch (error) {
+    console.error("Save user error:", error.message || error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || "Failed to save user",
+    });
+  }
+});
+
+router.put("/update", async (req, res) => {
+  try {
+    const {
+      userId,
+      firstName,
+      lastName,
+      email,
+      subscriptionPlan,
       image,
-      addressLine1,
-      city,
-      state,
-      zip,
       phone,
       isEmailPreferred,
       mode,
     } = req.body;
 
     // Input validation
-    if (!firstName || !lastName || !email || !image) {
+    if (
+      !userId ||
+      !firstName ||
+      !lastName ||
+      !email ||
+      !image ||
+      !subscriptionPlan
+    ) {
       return res.status(400).json({
-        error: "Missing required fields: name, email, or image",
+        error: "Missing required fields",
       });
     }
 
     // Save to MongoDB
-    const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "Missing userId for update" });
-    }
-
     const savedUser = await User.findByIdAndUpdate(
       userId,
       {
         firstName,
         lastName,
         email,
+        subscriptionPlan,
         imageId: image.id,
         imageHeight: image.height,
         imageWidth: image.width,
         cloudflareImageId: image.cloudflareImageId,
-        addressLine1,
-        city,
-        state,
-        zip,
         phone,
         isEmailPreferred,
         mode: mode || null,
@@ -91,16 +126,13 @@ router.put("/update", async (req, res) => {
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
         email: savedUser.email,
+        subscriptionPlan: savedUser.subscriptionPlan,
         image: {
           id: savedUser.imageId,
           cloudflareImageId: savedUser.cloudflareImageId,
           width: savedUser.imageWidth,
           height: savedUser.imageHeight,
         },
-        addressLine1: savedUser.addressLine1,
-        city: savedUser.city,
-        state: savedUser.state,
-        zip: savedUser.zip,
         phone: savedUser.phone,
         isEmailPreferred: savedUser.isEmailPreferred,
         mode: savedUser.mode,
@@ -125,16 +157,13 @@ router.get("/:id", async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      subscriptionPlan: user.subscriptionPlan,
       image: {
         id: user.imageId,
         cloudflareImageId: user.cloudflareImageId,
         width: user.imageWidth,
         height: user.imageHeight,
       },
-      addressLine1: user.addressLine1,
-      city: user.city,
-      state: user.state,
-      zip: user.zip,
       phone: user.phone,
       isEmailPreferred: user.isEmailPreferred,
       mode: user.mode,

@@ -1,11 +1,11 @@
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, inject, input, signal, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { NotificationDetail } from '@app/models/notification-detail.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
 import { NotificationService } from '@app/services/notification.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
 @Component({
@@ -15,14 +15,17 @@ import { NotificationCardComponent } from "./notification-card/notification-card
   styleUrl: './my-notifications.component.scss'
 })
 export class MyNotificationsComponent {
+  userId = input.required<string>();
   notificationMenuTrigger = viewChild<MatMenuTrigger>('notificationMenuTrigger')
+
   private router = inject(Router);
   private notificationService = inject(NotificationService);
-  private userService = inject(UserProfileService);
-  private user = this.userService.userProfile;
+  private authService = inject(AuthMockService);
 
   showClearAll = signal<boolean>(false);
-  notifications = computed(() => this.notificationService.notifications().filter((n) => n.userId === this.user()?.userId && !n.isRead));
+  notifications = computed(() =>
+    this.notificationService.notifications().filter((n) => n.userId === this.userId() && !n.isRead)
+  );
 
   menuToggle(isOpen: boolean) {
     if (isOpen) {

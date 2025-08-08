@@ -8,7 +8,7 @@ import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { LoadingSpinnerComponent } from '@app/shared/loading-spinner/loading-spinner.component';
 import { ModalComponent } from "@shared/modal/modal.component";
-import { of, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
 import { SelectPlanComponent } from './select-plan/select-plan.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -77,35 +77,35 @@ export class LoginComponent {
 
   signIn(userId: string) {
     this.authenticating.set(true);
-    this.userService.getUser$(userId).pipe(
-      switchMap((user) => {
-        this.auth.login(user);
-        return of(user);
-      }),
-      takeUntilDestroyed(this.destroyRef)).subscribe();
-    ;
+    this.auth.login$(userId).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      complete: () => this.authenticating.set(false),
+      error: () => this.authenticating.set(false)
+    });
   }
 
   signUp(user: User) {
-    console.log(`Signed up: ${user.email}`);
     this.newUser.set(user);
     this.switchMode('choose-plan');
   }
 
   selectPlan(plan: Plan) {
-    console.log(`Selected: ${plan.name}`);
     this.subscriptionPlan.set(plan);
+    this.newUser.update((prev) => ({ ...prev!, subscriptionPlan: plan.name }));
     this.switchMode('plan-payment');
   }
 
   complete() {
     this.authenticating.set(true);
-    this.userService.setUserProfile$(this.newUser()!).pipe(
-      switchMap((user) => {
-        this.auth.login(user);
-        return of(user);
-      }),
-      takeUntilDestroyed(this.destroyRef)).subscribe();
-    ;
+    const user = this.newUser()!;
+    this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
+      .pipe(
+        switchMap((resp) => this.auth.login$(resp.data.userId)),
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        complete: () => this.authenticating.set(false),
+        error: () => this.authenticating.set(false)
+      });
   }
 }

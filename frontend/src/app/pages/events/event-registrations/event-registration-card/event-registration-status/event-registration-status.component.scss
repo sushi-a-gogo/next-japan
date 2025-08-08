@@ -30,7 +30,11 @@
   &.cancelled {
     .material-icons.cancelled {
       display: inline-block;
-      color: var(--next-note);
+      color: var(--red-torii-gate);
+    }
+
+    .label {
+      color: var(--red-torii-gate);
     }
   }
 }
