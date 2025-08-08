@@ -34,7 +34,7 @@ export class UserMenuComponent {
     this.dialogService.showProfileDialog();
   }
 
-  setAppearanceMode(mode?: 'light' | 'dark') {
+  changeAppearanceMode(mode?: 'light' | 'dark') {
     this.userProfileService.getUser$(this.user().userId).pipe(
       switchMap((data) => {
         data.user.mode = mode;

@@ -9,14 +9,11 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthMockService);
   const router = inject(Router);
 
-  // On server, return true to defer auth check to client
   if (!isPlatformBrowser(platformId)) {
-    console.log('Running authGuard on server, deferring to client'); // Server-side debug
     return true; // Allow SSR to render the page
   }
 
   // On client, check auth state
-  console.log('Running authGuard on client'); // Client-side debug
   return authService.auth$.pipe(
     map((user) => {
       if (user) {

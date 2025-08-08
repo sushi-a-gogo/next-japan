@@ -44,7 +44,11 @@
     </div>
   </button>
   <mat-menu #modes="matMenu">
-    <button mat-menu-item class="theme-selector" (click)="setAppearanceMode()">
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="changeAppearanceMode()"
+    >
       <div class="menu-item">
         <span class="material-icons" [class.open]="!user().mode">check</span>
         Auto
@@ -53,7 +57,7 @@
     <button
       mat-menu-item
       class="theme-selector"
-      (click)="setAppearanceMode('light')"
+      (click)="changeAppearanceMode('light')"
     >
       <div class="menu-item">
         <span class="material-icons" [class.open]="user().mode === 'light'"
@@ -65,7 +69,7 @@
     <button
       mat-menu-item
       class="theme-selector"
-      (click)="setAppearanceMode('dark')"
+      (click)="changeAppearanceMode('dark')"
     >
       <div class="menu-item">
         <span class="material-icons" [class.open]="user().mode === 'dark'"
