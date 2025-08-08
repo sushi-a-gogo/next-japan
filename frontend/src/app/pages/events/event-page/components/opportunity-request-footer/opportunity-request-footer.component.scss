@@ -37,12 +37,13 @@
 .app-button {
   border-radius: 24px;
   font-weight: 700;
-  background: var(--next-surface);
-  border-color: var(--next-surface);
-}
+  background: var(--creamy-white-clouds);
+  border-color: var(--creamy-white-clouds);
+  color: var(--navy-blue-mountain);
 
-:host-context(.dark-theme) .app-button {
-  border-color: var(--next-surface);
+  &:hover {
+    background-color: #dedede;
+  }
 }
 
 @media (min-width: 768px) {
@@ -61,7 +62,7 @@
     font-weight: 700;
     line-height: 1.21053;
     letter-spacing: 0.007em;
-    padding: 6px 24px;
+    padding: 6px 48px;
     height: 48px;
   }
 }

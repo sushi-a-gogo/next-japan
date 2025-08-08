@@ -20,10 +20,8 @@ export class AppComponent implements OnInit {
   title = 'next-japan';
 
   private router = inject(Router);
-
   private themeService = inject(ThemeService);
   private destroyRef = inject(DestroyRef);
-
   private afterNavigationInit = false;
 
   constructor() {
