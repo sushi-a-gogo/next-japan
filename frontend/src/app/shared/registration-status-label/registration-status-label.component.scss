@@ -43,9 +43,9 @@
   }
 
   &.cancelled {
-    background: var(--red-torii-gate);
+    background: rgba(var(--red-torii-gate-rgb), 0.15);
     border: 1px solid var(--red-torii-gate);
-    color: #fff;
+    color: var(--red-torii-gate);
 
     .material-icons.cancelled {
       display: inline-block;
@@ -63,6 +63,11 @@
     &.registered {
       background: var(--next-link);
       color: #000; //var(--navy-blue-mountain);
+    }
+    &.cancelled {
+      border: 1px solid var(--vivid-yellow-text);
+      color: var(--vivid-yellow-text);
+      background: var(--next-surface);
     }
   }
 }
