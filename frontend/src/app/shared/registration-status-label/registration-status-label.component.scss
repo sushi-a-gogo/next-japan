@@ -25,7 +25,7 @@
   &.requested {
     background: var(--next-surface-alt);
     border: 1px solid var(--next-border-alt);
-    color: #000;
+    color: #222;
 
     .material-icons.requested {
       display: inline-block;
@@ -33,9 +33,9 @@
   }
 
   &.registered {
-    background: rgba(var(--next-primary-rgb), 0.5);
+    background: rgba(var(--next-primary-rgb), 0.25);
     border: 1px solid rgba(var(--next-primary-rgb), 0.75);
-    color: #000;
+    color: #333;
 
     .material-icons.registered {
       display: inline-block;

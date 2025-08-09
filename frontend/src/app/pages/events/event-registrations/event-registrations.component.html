@@ -8,13 +8,13 @@
   [class.open]="loaded()"
 >
   <header class="cb-content pad nx-flex col gap-5">
-    <div class="subhead">My Events</div>
+    <div class="page-heading">My Events</div>
     @if(note()) {
     <small class="note">{{ note() }}</small>
     }
   </header>
   <main class="cb-content pad">
-    <ul class="nx-flex col gap-20">
+    <ul class="nx-flex col gap-24">
       @for(event of events(); track event.registrationId) {
       <li>
         <app-event-registration-card

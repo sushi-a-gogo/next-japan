@@ -28,6 +28,14 @@ footer {
   }
 }
 
+.note {
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  color: var(--next-note);
+  padding: 2px 0;
+}
+
 .completed {
   min-height: 121px;
 
@@ -42,7 +50,7 @@ footer {
     width: 48px;
     height: 48px;
     border-radius: 100%;
-    background: var(--bright-green-grass);
+    background: var(--light-yellow-stars);
     border: 1px solid var(--next-text);
   }
 
