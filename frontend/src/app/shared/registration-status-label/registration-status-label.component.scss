@@ -33,8 +33,8 @@
   }
 
   &.registered {
-    background: rgba(var(--bright-green-grass-rgb), 0.25);
-    border: 1px solid rgba(var(--bright-green-grass-rgb), 0.75);
+    background: rgba(var(--next-primary-rgb), 0.25);
+    border: 1px solid rgba(var(--next-primary-rgb), 0.75);
     color: var(--dark-brown-tree);
 
     .material-icons.registered {
