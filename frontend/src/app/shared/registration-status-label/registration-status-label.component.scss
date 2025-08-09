@@ -33,9 +33,9 @@
   }
 
   &.registered {
-    background: rgba(var(--next-primary-rgb), 0.25);
-    border: 1px solid rgba(var(--next-primary-rgb), 0.75);
-    color: #333;
+    background: rgba(var(--bright-green-grass-rgb), 0.25);
+    border: 1px solid rgba(var(--bright-green-grass-rgb), 0.75);
+    color: var(--dark-brown-tree);
 
     .material-icons.registered {
       display: inline-block;
@@ -56,14 +56,15 @@
 .dark-theme {
   :host {
     &.requested {
-      background: #dedede;
+      background: rgba(255, 255, 255, 0.25);
       border: 1px solid #ababab; //var(--next-border-modal);
+      color: var(--creamy-white-clouds);
     }
 
     &.registered {
-      background: var(--next-link);
-      color: #000; //var(--navy-blue-mountain);
+      color: var(--creamy-white-clouds);
     }
+
     &.cancelled {
       border: 1px solid var(--vivid-yellow-text);
       color: var(--vivid-yellow-text);
