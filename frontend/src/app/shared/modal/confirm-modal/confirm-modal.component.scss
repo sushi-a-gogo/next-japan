@@ -1,3 +1,7 @@
+.app-button {
+  border-radius: 10px;
+}
+
 .app-button-filled {
   background-color: var(--red-torii-gate);
   border-color: var(--red-torii-gate);
@@ -23,6 +27,10 @@ footer {
 }
 
 @media (min-width: 600px) {
+  .app-button {
+    border-radius: 4px;
+  }
+
   footer {
     flex-direction: row;
     button {

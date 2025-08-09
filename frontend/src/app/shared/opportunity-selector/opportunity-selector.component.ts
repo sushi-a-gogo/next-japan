@@ -3,7 +3,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { RegistrationStatus } from '@app/models/event/event-registration.model';
-import { EventRegistrationStatusComponent } from "@app/pages/events/event-registrations/event-registration-card/event-registration-status/event-registration-status.component";
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -12,7 +11,7 @@ import { RegistrationStatusLabelComponent } from "../registration-status-label/r
 
 @Component({
   selector: 'app-opportunity-selector',
-  imports: [MatRippleModule, MatTooltipModule, RegistrationStatusLabelComponent, EventRegistrationStatusComponent],
+  imports: [MatRippleModule, MatTooltipModule, RegistrationStatusLabelComponent],
   templateUrl: './opportunity-selector.component.html',
   styleUrl: './opportunity-selector.component.scss'
 })

@@ -29,11 +29,9 @@ footer {
 }
 
 .note {
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 500;
-  color: var(--next-note);
-  padding: 2px 0;
+  font-size: 0.75rem;
+  color: var(--next-text-soft);
+  line-height: 1.4;
 }
 
 .completed {
@@ -61,8 +59,24 @@ footer {
   }
 }
 
+footer.dialog {
+  flex-direction: column;
+
+  .app-button {
+    width: 100%;
+  }
+}
+
 @media (min-width: 600px) {
   main {
     width: 500px;
+  }
+
+  footer.dialog {
+    flex-direction: row;
+
+    .app-button {
+      width: auto;
+    }
   }
 }
