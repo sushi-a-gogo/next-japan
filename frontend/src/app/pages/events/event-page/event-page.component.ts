@@ -1,8 +1,8 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, DestroyRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
@@ -10,10 +10,11 @@ import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ErrorService } from '@app/services/error.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
+import { EventSelectionService } from '@app/services/event-selection.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
-import { of, switchMap } from 'rxjs';
+import { filter, of, switchMap } from 'rxjs';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
@@ -27,17 +28,18 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss'
 })
-export class EventPageComponent implements OnChanges {
+export class EventPageComponent implements OnInit, OnChanges {
   private router = inject(Router);
   private title = inject(Title);
   private meta = inject(MetaService);
   private platformId = inject(PLATFORM_ID);
   private destroyRef = inject(DestroyRef);
 
+  private authService = inject(AuthMockService);
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
   private eventRegistrationService = inject(EventRegistrationService);
-  private authService = inject(AuthMockService);
+  private eventSelectionService = inject(EventSelectionService);
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
@@ -55,6 +57,17 @@ export class EventPageComponent implements OnChanges {
   });
 
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationStart),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.eventSelectionService.clearAllSelected();
+      });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const changed = changes['eventId'];
@@ -100,6 +113,7 @@ export class EventPageComponent implements OnChanges {
 
   closeRegistrationDialog() {
     this.dialogService.closeDialog('registration');
+    this.eventSelectionService.clearAllSelected();
   }
 
   private getEventRegistrations$() {

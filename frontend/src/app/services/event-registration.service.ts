@@ -110,8 +110,14 @@ export class EventRegistrationService {
 
     const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 60000; // random between 2 and 10 minutes in ms
     setTimeout(() => {
-      if (registrationId) {
-        this.put$({ ...userRegistration, registrationId, status: RegistrationStatus.Registered }).subscribe();
+      const registration = this.registrationSignal()
+        .find((r) => r.registrationId === registrationId && r.status !== RegistrationStatus.Cancelled);
+      if (registration) {
+        this.put$({
+          ...userRegistration,
+          registrationId: registration.registrationId!,
+          status: RegistrationStatus.Registered
+        }).subscribe();
       }
     }, delayMs);
 

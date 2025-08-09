@@ -1,3 +1,8 @@
+:host {
+  display: inline-block;
+  min-width: 192px;
+}
+
 .app-button {
   padding: 0 10px;
   text-align: center;
@@ -9,6 +14,13 @@
   height: 44px;
   border-radius: 24px;
   font-weight: 600;
+}
+
+.label {
+  border: 1px solid var(--next-border);
+  background-color: var(--next-surface-alt);
+  border-radius: 10px;
+  padding: 10px 10px;
 }
 
 @media (min-width: 600px) {

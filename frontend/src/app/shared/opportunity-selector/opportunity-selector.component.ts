@@ -2,14 +2,17 @@ import { Component, computed, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
+import { RegistrationStatus } from '@app/models/event/event-registration.model';
+import { EventRegistrationStatusComponent } from "@app/pages/events/event-registrations/event-registration-card/event-registration-status/event-registration-status.component";
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { DialogService } from '@app/services/dialog.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { RegistrationStatusLabelComponent } from "../registration-status-label/registration-status-label.component";
 
 @Component({
   selector: 'app-opportunity-selector',
-  imports: [MatRippleModule, MatTooltipModule, RegistrationStatusLabelComponent],
+  imports: [MatRippleModule, MatTooltipModule, RegistrationStatusLabelComponent, EventRegistrationStatusComponent],
   templateUrl: './opportunity-selector.component.html',
   styleUrl: './opportunity-selector.component.scss'
 })
@@ -17,6 +20,7 @@ export class OpportunitySelectorComponent {
   private auth = inject(AuthMockService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
+  private dialogService = inject(DialogService);
 
   opportunity = input.required<EventOpportunity>();
 
@@ -31,7 +35,7 @@ export class OpportunitySelectorComponent {
 
   status = computed(() => {
     const registration = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
-    if (!registration) {
+    if (!registration || registration.status === RegistrationStatus.Cancelled) {
       return null;
     }
 
@@ -47,6 +51,7 @@ export class OpportunitySelectorComponent {
 
   selectOpportunity() {
     this.selectionService.selectOpportunity(this.opportunity(), !this.selected());
+    this.dialogService.showRegistrationDialog();
   }
 
   private match(opportunity: EventOpportunity) {

@@ -10,7 +10,16 @@ import { RegistrationStatus } from '@app/models/event/event-registration.model';
 })
 export class RegistrationStatusLabelComponent {
   status = input.required<RegistrationStatus>();
-  label = computed(() =>
-    this.status() === RegistrationStatus.Cancelled ? "Registration Cancelled" : this.status()
-  );
+  label = computed(() => {
+    switch (this.status()) {
+      case RegistrationStatus.Cancelled:
+        return "Your registration has been cancelled.";
+      case RegistrationStatus.Registered:
+        return "You're registered!";
+      case RegistrationStatus.Requested:
+        return "Registration Pending";
+      default:
+        return undefined;
+    }
+  });
 }

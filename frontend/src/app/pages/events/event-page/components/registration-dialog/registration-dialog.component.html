@@ -5,7 +5,7 @@
     }
   </div>
   <header class="dialog">
-    <span>Request Opportunities</span>
+    <div class="dialog-title">Event Registration</div>
     <button
       type="button"
       class="dialog-close"
@@ -32,6 +32,12 @@
       [locationCount]="selectedLocations.length"
     />
     } }
+    <div class="note">
+      Registration is first-come, first-served and spots are limited. You'll be
+      notified when your spot is confirmed. You can cancel your request up to 48
+      hours before the event starts. Questions? Contact us - we're happy to
+      help!
+    </div>
   </main>
   <footer class="dialog">
     @if(selected().length) {
@@ -41,7 +47,7 @@
       class="app-button dialog-button app-button-outlined"
       (click)="closeDialog()"
     >
-      Close
+      Cancel
     </button>
     <button
       (click)="sendRequest()"
@@ -49,7 +55,7 @@
       matRipple
       class="app-button dialog-button app-button-filled"
     >
-      Request
+      Send Request
     </button>
     } @else {
     <a
