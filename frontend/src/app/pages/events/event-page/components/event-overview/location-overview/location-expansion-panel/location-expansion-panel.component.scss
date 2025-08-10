@@ -102,4 +102,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
   }
+
+  .selector {
+    min-width: 125px;
+  }
 }
