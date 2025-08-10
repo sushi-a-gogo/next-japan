@@ -1,7 +1,19 @@
 @if(isAuthenticated()) {
 <!-- registered -->
-@if(status()) {
-<app-registration-status-label [class]="status()" [status]="status()!" />
+@if(registration()) {
+<button
+  type="button"
+  matRipple
+  class="app-button app-button-filled flex-button"
+  disabled
+>
+  @switch(registration()?.status) { @case('requested') {<span
+    class="material-icons"
+    >pending_actions</span
+  >
+  } @case('registered') { <span class="material-icons">verified</span>} }
+  {{ registration()?.status | titlecase }}
+</button>
 } @else {
 <!-- selected -->
 @if(selected()) {
@@ -26,7 +38,6 @@
   matRipple
   class="app-button app-button-filled"
   (click)="selectOpportunity()"
-  [disabled]="status()"
 >
   Select
 </button>

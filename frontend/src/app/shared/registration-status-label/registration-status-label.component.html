@@ -1,4 +1,7 @@
-<span class="material-icons requested">pending_actions</span>
-<span class="material-icons registered">check_circle</span>
-<span class="material-icons cancelled">event_busy</span>
-{{ label() | titlecase }}
+@if(registration()) {
+<div class="note">
+  You registered for this event on
+  {{ registration()?.createdAt | date : "shortDate" }}
+  <a routerLink="/event/registrations" class="link">View Your Events</a>
+</div>
+}

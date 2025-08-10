@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -7,11 +8,10 @@ import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
-import { RegistrationStatusLabelComponent } from "../registration-status-label/registration-status-label.component";
 
 @Component({
   selector: 'app-opportunity-selector',
-  imports: [MatRippleModule, MatTooltipModule, RegistrationStatusLabelComponent],
+  imports: [TitleCasePipe, MatRippleModule, MatTooltipModule],
   templateUrl: './opportunity-selector.component.html',
   styleUrl: './opportunity-selector.component.scss'
 })
@@ -32,17 +32,17 @@ export class OpportunitySelectorComponent {
 
   });
 
-  status = computed(() => {
-    const registration = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
-    if (!registration || registration.status === RegistrationStatus.Cancelled) {
+  registration = computed(() => {
+    const reg = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
+    if (!reg || reg.status === RegistrationStatus.Cancelled) {
       return null;
     }
 
-    return registration.status;
+    return reg;
   });
 
   conflicted = computed(() => {
-    if (this.isAuthenticated() && !this.status()) {
+    if (this.isAuthenticated() && !this.registration()) {
       return this.selectionService.checkForConflict(this.opportunity()) || this.registrationService.checkForConflict(this.opportunity(), this.user()!.userId);
     }
     return false;

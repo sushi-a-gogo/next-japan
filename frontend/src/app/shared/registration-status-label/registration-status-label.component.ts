@@ -1,25 +1,27 @@
-import { TitleCasePipe } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { RegistrationStatus } from '@app/models/event/event-registration.model';
+import { EventRegistrationService } from '@app/services/event-registration.service';
 
 @Component({
   selector: 'app-registration-status-label',
-  imports: [TitleCasePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './registration-status-label.component.html',
   styleUrl: './registration-status-label.component.scss'
 })
 export class RegistrationStatusLabelComponent {
-  status = input.required<RegistrationStatus>();
-  label = computed(() => {
-    switch (this.status()) {
-      case RegistrationStatus.Cancelled:
-        return "Your registration has been cancelled.";
-      case RegistrationStatus.Registered:
-        return "You're registered!";
-      case RegistrationStatus.Requested:
-        return "Registration Pending";
-      default:
-        return undefined;
+  private registrationService = inject(EventRegistrationService);
+
+  opportunity = input.required<EventOpportunity>();
+
+  registration = computed(() => {
+    const reg = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId);
+    if (!reg || reg.status === RegistrationStatus.Cancelled) {
+      return null;
     }
+
+    return reg;
   });
 }

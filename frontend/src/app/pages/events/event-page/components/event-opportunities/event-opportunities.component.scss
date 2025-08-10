@@ -10,7 +10,9 @@
 
 @media (min-width: 992px) {
   :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     width: 430px;
     padding: 20px 0;
     padding-bottom: 80px;
