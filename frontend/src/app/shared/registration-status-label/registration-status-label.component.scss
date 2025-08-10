@@ -4,9 +4,7 @@
 
 .note {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
   font-size: 0.75rem;
   color: var(--next-text-soft);
   line-height: 1.4;
@@ -21,4 +19,13 @@ a {
   color: var(--next-link);
   font-weight: 600;
   text-decoration: underline;
+}
+
+@media screen and (min-width: 430px) {
+  .note {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }

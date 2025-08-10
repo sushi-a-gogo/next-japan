@@ -1,7 +1,7 @@
 @if(registration()) {
 <div class="note">
   You registered for this event on
-  {{ registration()?.createdAt | date : "shortDate" }}
+  {{ registration()?.createdAt | date : "mediumDate" }}
   <a routerLink="/event/registrations" class="link">View Your Events</a>
 </div>
 }
