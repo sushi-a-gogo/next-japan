@@ -4,7 +4,7 @@
 <button
   type="button"
   matRipple
-  class="app-button app-button-filled flex-button"
+  class="app-button app-button-filled flex-button registered"
   disabled
 >
   @switch(registration()?.status) { @case('requested') {<span
@@ -29,7 +29,12 @@
 } @else {
 <!-- Not Selected -->
 @if(conflicted()) {
-<button type="button" class="app-button inactive" disabled="disabled">
+<button
+  type="button"
+  class="app-button inactive"
+  disabled="disabled"
+  matTooltip="This event conflicts with one you've already registered for."
+>
   Conflict
 </button>
 } @else {
