@@ -1,7 +1,4 @@
-<header
-  class="nx-flex row al-c jc-sb gap-10"
-  [class.collapsed]="!accordion.expanded"
->
+<header class="nx-flex row al-c jc-sb gap-10" [class.collapsed]="!expanded()">
   <div class="nx-flex col gap-10">
     <div class="title-text">{{ location().locationName }}</div>
     <app-address-strip
@@ -16,7 +13,7 @@
       class="app-button app-button-outlined nx-flex row al-c jc-c gap-5"
       matRipple
       (click)="selectLocation()"
-      [class.expanded]="accordion.expanded"
+      [class.expanded]="expanded()"
     >
       <span class="material-icons mobile">expand_more</span>
       <span class="desktop">
@@ -26,8 +23,9 @@
     </button>
   </div>
 </header>
+@if(breakpointObserved()){
 <mat-accordion class="app-accordion">
-  <mat-expansion-panel #accordion>
+  <mat-expansion-panel #accordion [expanded]="expanded()">
     <ng-template matExpansionPanelContent>
       <div class="expansion-panel" [class.open]="accordion.expanded">
         @for(opportunity of opportunities(); track opportunity.opportunityId) {
@@ -35,10 +33,14 @@
           <app-opportunity-timestamp
             [opportunity]="opportunity"
           ></app-opportunity-timestamp>
-          <app-opportunity-selector [opportunity]="opportunity" />
+          <div class="selector">
+            <app-opportunity-selector [opportunity]="opportunity" />
+          </div>
         </div>
+        <app-registration-status-label [opportunity]="opportunity" />
         }
       </div>
     </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
+}

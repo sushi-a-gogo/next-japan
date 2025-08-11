@@ -12,6 +12,7 @@ export interface EventRegistration {
   registrationId?: string;
   userId?: string;
   status?: RegistrationStatus;
+  createdAt?: string;
 }
 
 export enum RegistrationStatus {

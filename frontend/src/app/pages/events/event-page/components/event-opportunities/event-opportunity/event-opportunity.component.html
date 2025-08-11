@@ -10,9 +10,14 @@
       [notes]="location()?.locationNotes"
     ></app-address-strip>
     }
-    <app-opportunity-timestamp
-      [opportunity]="opportunity()"
-    ></app-opportunity-timestamp>
+    <div>
+      <app-opportunity-timestamp
+        [opportunity]="opportunity()"
+      ></app-opportunity-timestamp>
+      <app-registration-status-label [opportunity]="opportunity()" />
+    </div>
   </main>
 </div>
-<app-opportunity-selector class="selector" [opportunity]="opportunity()" />
+<div class="actions nx-flex col">
+  <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
+</div>

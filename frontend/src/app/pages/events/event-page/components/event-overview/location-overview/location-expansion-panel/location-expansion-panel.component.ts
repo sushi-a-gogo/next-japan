@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, computed, inject, input, OnInit, signal, ViewChild, viewChild } from '@angular/core';
-import { MatRipple, MatRippleModule } from '@angular/material/core';
+import { Component, computed, inject, input, signal, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 
 import { EventLocation } from '@app/models/event/event-location.model';
@@ -8,21 +9,20 @@ import { EventService } from '@app/pages/events/event-page/event.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
+import { RegistrationStatusLabelComponent } from "@app/shared/registration-status-label/registration-status-label.component";
 
 @Component({
   selector: 'app-location-expansion-panel',
-  imports: [MatExpansionModule, MatRippleModule, AddressStripComponent, OpportunityTimestampComponent, OpportunitySelectorComponent],
+  imports: [MatExpansionModule, MatRippleModule, AddressStripComponent, OpportunityTimestampComponent, OpportunitySelectorComponent, RegistrationStatusLabelComponent],
   templateUrl: './location-expansion-panel.component.html',
   styleUrl: './location-expansion-panel.component.scss'
 })
-export class LocationExpansionPanelComponent implements OnInit {
+export class LocationExpansionPanelComponent {
   private breakpointObserver = inject(BreakpointObserver);
   private eventService = inject(EventService);
 
   location = input.required<EventLocation>();
-
   accordion = viewChild<MatExpansionPanel>('accordion');
-  @ViewChild(MatRipple) ripple?: MatRipple;
 
   opportunities = computed(() => {
     const items = this.eventService.eventData().opportunities
@@ -31,20 +31,20 @@ export class LocationExpansionPanelComponent implements OnInit {
     return items;
   });
   expanded = signal<boolean>(true);
+  breakpointObserved = signal<boolean>(false);
 
-
-  ngOnInit(): void {
+  constructor() {
     this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
-    ]).subscribe(result => {
-      if (result.matches) {
-        this.selectLocation()
-      }
+    ]).pipe(takeUntilDestroyed()).subscribe(result => {
+      this.expanded.set(result.matches);
+      this.breakpointObserved.set(true);
     });
   }
 
   selectLocation() {
-    this.accordion()!.toggle();
+    this.accordion()?.toggle();
+    this.expanded.update((prev) => !prev);
   }
 }

@@ -1,6 +1,7 @@
 :host {
   display: inline-block;
-  min-width: 192px;
+  //min-width: 192px;
+  width: 100%;
 }
 
 .app-button {
@@ -12,6 +13,10 @@
   border-radius: 24px;
   font-size: 0.875rem;
   font-weight: var(--next-confirm-weight);
+
+  &:disabled {
+    opacity: 0.75;
+  }
 }
 
 .label {

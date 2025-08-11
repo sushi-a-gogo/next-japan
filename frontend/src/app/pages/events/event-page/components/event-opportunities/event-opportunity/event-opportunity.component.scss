@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   width: 100%;
   border-bottom: 1px solid var(--next-border);
   padding: 10px;
@@ -23,4 +23,5 @@
 
 .selector {
   align-self: flex-end;
+  max-width: 140px;
 }
