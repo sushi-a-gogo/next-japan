@@ -4,9 +4,8 @@
   gap: 10px;
   width: 100%;
   border-bottom: 1px solid var(--next-border);
-  padding: 10px;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-bottom: 16px;
 
   &:first-child {
     padding-top: 0;
@@ -19,6 +18,10 @@
 
 .opportunity-card {
   width: 100%;
+}
+
+.title {
+  font-weight: 700;
 }
 
 .selector {

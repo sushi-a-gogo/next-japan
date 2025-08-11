@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const eventLocationSchema = new mongoose.Schema(
   {
     locationName: { type: String, required: true },
+    locationNotes: { type: String },
     addressLine1: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },

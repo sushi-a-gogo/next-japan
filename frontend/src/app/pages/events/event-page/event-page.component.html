@@ -10,8 +10,10 @@
   </header>
   <main class="component-box nx-flex col al-c">
     <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>
-    <div class="event-panels cb-content pad nx-flex row al-start jc-sb">
-      <app-event-overview [focusChild]="focusChild" />
+    <div class="event-panels cb-content pad nx-flex row jc-sb">
+      <div class="overview">
+        <app-event-overview [focusChild]="focusChild" />
+      </div>
       <app-event-opportunities />
     </div>
   </main>

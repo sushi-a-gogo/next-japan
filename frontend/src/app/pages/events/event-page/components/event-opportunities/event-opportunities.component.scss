@@ -5,16 +5,16 @@
 }
 
 .message {
-  padding: 10px;
+  padding: 16px;
 }
 
 @media (min-width: 992px) {
   :host {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     width: 430px;
-    padding: 20px 0;
-    padding-bottom: 80px;
+    padding: 16px 0;
+    gap: 16px;
+    border-left: 1px solid var(--next-border);
   }
 }

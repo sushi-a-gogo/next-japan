@@ -1,5 +1,5 @@
 <div class="nx-flex col gap-10 opportunity-card">
-  <header class="title-text break-word">
+  <header class="title break-word">
     {{ location()?.locationName }}
   </header>
   <main class="nx-flex col gap-5">
@@ -7,7 +7,6 @@
     <app-address-strip
       [location]="location()!"
       [showDirections]="true"
-      [notes]="location()?.locationNotes"
     ></app-address-strip>
     }
     <div>

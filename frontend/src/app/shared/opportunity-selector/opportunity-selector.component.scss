@@ -14,8 +14,11 @@
   font-size: 0.875rem;
   font-weight: var(--next-confirm-weight);
 
-  &:disabled {
-    opacity: 0.75;
+  &.registered:disabled {
+    opacity: 1;
+    background-color: var(--bright-blue-sky);
+    border-color: var(--bright-blue-sky);
+    color: var(--creamy-white-clouds);
   }
 }
 

@@ -230,6 +230,13 @@ textarea {
   white-space: pre-wrap;
 }
 
+.soft {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--next-text-soft);
+  line-height: 1.4;
+}
+
 .fade-in {
   opacity: 0;
   transition: opacity 0.25s;

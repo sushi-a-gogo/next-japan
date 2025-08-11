@@ -1,10 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { LocationExpansionPanelComponent } from "./location-expansion-panel/location-expansion-panel.component";
 
 @Component({
   selector: 'app-location-overview',
-  imports: [LocationExpansionPanelComponent],
+  imports: [MatExpansionModule, LocationExpansionPanelComponent],
   templateUrl: './location-overview.component.html',
   styleUrl: './location-overview.component.scss'
 })

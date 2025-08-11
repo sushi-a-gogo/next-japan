@@ -1,10 +1,24 @@
 @if(locations().length) {
 <!-- locations loop -->
-@for(location of locations(); track location.locationId) {
-<app-location-expansion-panel
-  [location]="location"
-></app-location-expansion-panel>
-}
+<mat-accordion class="accordion">
+  @for(location of locations(); track location.locationId) {
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="nx-flex row al-c gap-5">
+          <span class="material-icons"> map </span>
+          <span class="title">{{ location.locationName }}</span>
+        </div>
+      </mat-panel-title>
+      <!-- <mat-panel-description>
+      </mat-panel-description> -->
+    </mat-expansion-panel-header>
+    <app-location-expansion-panel
+      [location]="location"
+    ></app-location-expansion-panel>
+  </mat-expansion-panel>
+  }
+</mat-accordion>
 <!-- locations loop ends -->
 } @else {
 <div class="no-locations">There are no Locations for this Event.</div>

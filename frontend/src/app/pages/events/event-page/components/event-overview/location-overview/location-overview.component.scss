@@ -2,6 +2,23 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  // border: 1px solid var(--next-border);
+  // border-radius: 10px;
+}
+
+:host-context(.dark-theme) {
+  .accordion {
+    border: 1px solid var(--next-border);
+    border-radius: 12px;
+  }
+}
+
+.title {
+  font-weight: 700;
+}
+
+.material-icons {
+  color: var(--red-torii-gate);
 }
 
 .no-locations {

@@ -11,20 +11,19 @@ export class AddressStripComponent {
   location = input.required<MapLocation>()
   showAddress = input<boolean>(true);
   showDirections = input<boolean>(false);
-  notes = input<string>();
+  showIcon = input<boolean>(true);
+  notes = input<string | undefined>();
   address!: string;
+  city!: string;
   place?: string;
 
   ngOnInit(): void {
-    this.address = `${this.location().addressLine1}, ${this.location().city} ${this.location().state} ${this.location().zip}`;
+    this.address = `${this.location().addressLine1}, ${this.location().city}`;
+    this.city = `${this.location().state} ${this.location().zip}`;
     this.setPlace();
   }
 
   private setPlace() {
-    if (!this.location) {
-      return;
-    }
-
     const items = [
       ...(this.location().addressLine1 || '').split(' '),
       ...(this.location().city || '').split(' '),
