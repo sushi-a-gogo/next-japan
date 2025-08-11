@@ -37,15 +37,15 @@ header {
 .event-panels {
   background-color: var(--next-bg);
 
-  .event-overview {
+  .overview {
     flex: 1;
   }
 }
 
 @media (min-width: 992px) {
   .event-panels {
-    .event-overview {
-      border-right: 1px solid var(--next-border);
+    .overview {
+      padding-right: 16px;
     }
   }
 }

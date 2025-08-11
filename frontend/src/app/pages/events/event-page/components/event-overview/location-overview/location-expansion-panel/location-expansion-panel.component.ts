@@ -38,7 +38,7 @@ export class LocationExpansionPanelComponent {
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
     ]).pipe(takeUntilDestroyed()).subscribe(result => {
-      this.expanded.set(result.matches);
+      //this.expanded.set(result.matches);
       this.breakpointObserved.set(true);
     });
   }

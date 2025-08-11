@@ -3,7 +3,6 @@
 :host {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
   background-color: var(--next-surface);
   position: sticky;
@@ -58,7 +57,6 @@ nav {
 
 @media (min-width: 992px) {
   .panel-overview {
-    border-right: 1px solid var(--next-border);
   }
 
   .panel-opportunities {
@@ -67,5 +65,6 @@ nav {
     padding: 0 10px;
     width: 430px;
     font-weight: 600;
+    border-left: 1px solid var(--next-border);
   }
 }

@@ -1,46 +1,21 @@
-<header class="nx-flex row al-c jc-sb gap-10" [class.collapsed]="!expanded()">
-  <div class="nx-flex col gap-10">
-    <div class="title-text">{{ location().locationName }}</div>
-    <app-address-strip
-      [location]="location()"
-      [showDirections]="true"
-    ></app-address-strip>
-  </div>
-  <div>
-    <button
-      aria-label="Open Panel"
-      type="button"
-      class="app-button app-button-outlined nx-flex row al-c jc-c gap-5"
-      matRipple
-      (click)="selectLocation()"
-      [class.expanded]="expanded()"
-    >
-      <span class="material-icons mobile">expand_more</span>
-      <span class="desktop">
-        <span> View Opportunities </span>
-        <span class="material-icons">arrow_drop_down</span>
-      </span>
-    </button>
-  </div>
+<header class="nx-flex col">
+  <app-address-strip
+    [location]="location()"
+    [showDirections]="true"
+    [showIcon]="false"
+    [notes]="location().locationNotes"
+  ></app-address-strip>
 </header>
-@if(breakpointObserved()){
-<mat-accordion class="app-accordion">
-  <mat-expansion-panel #accordion [expanded]="expanded()">
-    <ng-template matExpansionPanelContent>
-      <div class="expansion-panel" [class.open]="accordion.expanded">
-        @for(opportunity of opportunities(); track opportunity.opportunityId) {
-        <div class="accordion-card">
-          <app-opportunity-timestamp
-            [opportunity]="opportunity"
-          ></app-opportunity-timestamp>
-          <div class="selector">
-            <app-opportunity-selector [opportunity]="opportunity" />
-          </div>
-        </div>
-        <app-registration-status-label [opportunity]="opportunity" />
-        }
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
-</mat-accordion>
-}
+<main class="expansion-panel">
+  @for(opportunity of opportunities(); track opportunity.opportunityId) {
+  <div class="accordion-card">
+    <app-opportunity-timestamp
+      [opportunity]="opportunity"
+    ></app-opportunity-timestamp>
+    <div class="selector">
+      <app-opportunity-selector [opportunity]="opportunity" />
+    </div>
+  </div>
+  <app-registration-status-label [opportunity]="opportunity" />
+  }
+</main>

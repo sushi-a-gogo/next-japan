@@ -1,24 +1,27 @@
-<span class="material-icons"> location_on </span>
-<div class="address">
-  <span>
+@if(showIcon()) {
+<span class="material-icons"> map </span>
+}
+<div class="nx-flex col">
+  <div class="address">
     @if(showAddress()) {
-    {{ address }} }@else {
-    {{ location().locationName }}
+    <span> {{ address }}&nbsp; </span>
+    <span>{{ city }}</span>
+    } @else {
+    <span>{{ location().locationName }}</span>
     }
     <!-- directions -->
-    @if(showDirections()) {
-    <a
-      class="get-directions mini-text link-text"
-      [href]="place"
-      target="_blank"
-    >
+    @if(!notes()) {
+    <a class="get-directions soft" [href]="place" target="_blank">
       Directions
     </a>
     }
+  </div>
+  @if(notes()) {
+  <span class="soft">
+    {{ notes() }}
+    <a class="get-directions soft" [href]="place" target="_blank">
+      Directions
+    </a>
   </span>
+  }
 </div>
-@if(notes()) {
-<div class="notes break-word">
-  {{ notes() }}
-</div>
-}

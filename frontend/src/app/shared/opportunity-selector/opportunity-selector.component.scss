@@ -15,7 +15,10 @@
   font-weight: var(--next-confirm-weight);
 
   &:disabled {
-    opacity: 0.75;
+    opacity: 1;
+    background-color: var(--bright-blue-sky);
+    border-color: var(--bright-blue-sky);
+    color: var(--creamy-white-clouds);
   }
 }
 

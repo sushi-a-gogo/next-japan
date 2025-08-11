@@ -1,11 +1,11 @@
-<span class="material-icons"> schedule </span>
+<span class="material-icons"> date_range </span>
 <div>
   <section class="date-time">
     {{ timestamp() }}
     <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
   </section>
   @if(opportunity().notes) {
-  <div class="notes mini-text">
+  <div class="notes soft">
     {{ opportunity().notes }}
   </div>
   }

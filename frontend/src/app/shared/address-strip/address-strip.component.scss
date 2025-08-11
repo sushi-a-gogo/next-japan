@@ -3,7 +3,6 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
-
   font-size: 14px;
   line-height: 19px;
   font-weight: 700;
@@ -13,20 +12,17 @@
   color: var(--red-torii-gate);
 }
 
+.address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 a.get-directions {
   display: inline-block;
   font-weight: 600;
   text-decoration: underline;
-  padding: 0 5px;
-
-  &:hover {
-    text-decoration: underline 1px;
-    text-underline-offset: 1px;
-  }
-}
-
-.notes {
-  font-size: 14px;
-  line-height: 19px;
-  font-weight: 400;
+  color: var(--next-link);
+  padding-left: 5px;
 }
