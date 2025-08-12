@@ -11,5 +11,5 @@ import { LocationExpansionPanelComponent } from "./location-expansion-panel/loca
 })
 export class LocationOverviewComponent {
   private eventService = inject(EventService);
-  locations = computed(() => this.eventService.eventData().locations);
+  locations = computed(() => this.eventService.eventData().locations.sort((a, b) => a.locationName.localeCompare(b.locationName)));
 }

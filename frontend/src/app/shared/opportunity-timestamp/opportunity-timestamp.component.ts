@@ -12,6 +12,7 @@ export class OpportunityTimestampComponent {
   private dateTimeService = inject(DateTimeService);
 
   opportunity = input.required<EventOpportunity>();
+  showNotes = input<boolean>(true);
   iconColor = input<string>();
 
   timestamp = computed(() => {

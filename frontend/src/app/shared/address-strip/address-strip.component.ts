@@ -1,11 +1,16 @@
-import { Component, input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 import { MapLocation } from '@app/models/map-location.model';
 
 @Component({
   selector: 'app-address-strip',
   imports: [],
   templateUrl: './address-strip.component.html',
-  styleUrl: './address-strip.component.scss'
+  styleUrl: './address-strip.component.scss',
+  styles: [`
+  .centered {
+    align-items: center;
+  }
+  `]
 })
 export class AddressStripComponent {
   location = input.required<MapLocation>()
@@ -17,7 +22,11 @@ export class AddressStripComponent {
   city!: string;
   place?: string;
 
+  @HostBinding('class.centered') alignCenter = false; // Class 'is-active' added when isActive is true
+
+
   ngOnInit(): void {
+    this.alignCenter = !this.notes();
     this.address = `${this.location().addressLine1}, ${this.location().city}`;
     this.city = `${this.location().state} ${this.location().zip}`;
     this.setPlace();

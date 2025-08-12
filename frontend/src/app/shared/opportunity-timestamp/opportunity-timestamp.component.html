@@ -4,7 +4,7 @@
     {{ timestamp() }}
     <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
   </section>
-  @if(opportunity().notes) {
+  @if(showNotes() && opportunity().notes) {
   <div class="notes soft">
     {{ opportunity().notes }}
   </div>

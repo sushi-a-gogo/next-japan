@@ -10,7 +10,7 @@
     <span>{{ location().locationName }}</span>
     }
     <!-- directions -->
-    @if(!notes()) {
+    @if(showDirections() && !notes()) {
     <a class="get-directions soft" [href]="place" target="_blank">
       Directions
     </a>
@@ -19,9 +19,11 @@
   @if(notes()) {
   <span class="soft">
     {{ notes() }}
+    @if(showDirections()) {
     <a class="get-directions soft" [href]="place" target="_blank">
       Directions
     </a>
+    }
   </span>
   }
 </div>

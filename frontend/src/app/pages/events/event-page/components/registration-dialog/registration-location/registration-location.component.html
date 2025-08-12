@@ -1,13 +1,15 @@
 <article class="nx-flex col gap-10" [class.hide]="currentCount === 0">
-  <header>
+  <!-- <header>
     <div class="title-text">{{ location().locationName }}</div>
-  </header>
+  </header> -->
   <main>
     <section class="nx-flex col">
       <header>
         <app-address-strip
           [location]="location()"
-          [showDirections]="true"
+          [showAddress]="false"
+          [showDirections]="false"
+          [notes]="location().locationNotes"
         ></app-address-strip>
       </header>
       <main>
