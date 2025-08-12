@@ -5,6 +5,7 @@ import { EventRegistration } from '@app/models/event/event-registration.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { MetaService } from '@app/services/meta.service';
+import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { ConfirmModalComponent } from '@app/shared/modal/confirm-modal/confirm-modal.component';
 import { OpportunityTimestampComponent } from '@app/shared/opportunity-timestamp/opportunity-timestamp.component';
 import { PageLoadSpinnerComponent } from '@app/shared/page-load-spinner/page-load-spinner.component';
@@ -12,7 +13,7 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
 
 @Component({
   selector: 'app-event-registrations',
-  imports: [PageLoadSpinnerComponent, EventRegistrationCardComponent, ConfirmModalComponent, OpportunityTimestampComponent],
+  imports: [PageLoadSpinnerComponent, EventRegistrationCardComponent, ConfirmModalComponent, OpportunityTimestampComponent, AddressStripComponent],
   templateUrl: './event-registrations.component.html',
   styleUrl: './event-registrations.component.scss'
 })
