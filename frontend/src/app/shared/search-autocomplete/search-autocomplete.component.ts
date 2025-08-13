@@ -1,5 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, DestroyRef, ElementRef, HostListener, inject, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, effect, ElementRef, HostBinding, HostListener, inject, OnInit, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -15,19 +14,12 @@ import { debounceTime, filter, of, switchMap } from 'rxjs';
   selector: 'app-search-autocomplete',
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './search-autocomplete.component.html',
-  styleUrl: './search-autocomplete.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('500ms ease-in-out', style({ opacity: 1 }))
-      ])
-    ])
-  ],
-  host: { '[@fadeIn]': '' }
-
+  styleUrl: './search-autocomplete.component.scss'
 })
 export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
+  @HostBinding('class.show') show = false;
+  @HostBinding('class.open') open = false;
+
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Escape') {
@@ -45,6 +37,22 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
   private eventSearchService = inject(EventSearchService);
+
+  constructor() {
+    effect(() => {
+      const inSearchMode = this.eventSearchService.searchMode();
+      if (inSearchMode) {
+        this.show = true;
+        setTimeout(() => {
+          this.open = true;
+          this.searchInput()?.nativeElement.click();
+        }, 100);
+      } else {
+        this.open = false;
+        setTimeout(() => this.show = false, 10);
+      }
+    });
+  }
 
   ngOnInit() {
     const query = this.route.snapshot.queryParams['q'];
