@@ -1,9 +1,7 @@
 article {
   opacity: 1;
-  min-height: 100px;
   width: 100%;
   transition: 0.25s ease-in-out;
-  margin-bottom: 5px;
 
   &.hide {
     opacity: 0;
@@ -15,13 +13,13 @@ article {
 }
 
 ul {
-  margin: 5px 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 li {
-  min-height: 40px;
+  //min-height: 40px;
   transition: 0.25s ease-in-out;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--next-border);
