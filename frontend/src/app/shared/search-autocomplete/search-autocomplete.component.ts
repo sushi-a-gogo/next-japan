@@ -22,7 +22,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
+    if (this.open && event.key === 'Escape') {
       this.eventSearchService.toggleSearchMode();
     }
   }

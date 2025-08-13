@@ -5,7 +5,7 @@
   width: 100%;
   height: 640px;
   position: relative;
-  max-width: 2560px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
@@ -41,6 +41,7 @@ img {
 
 .icon-map {
   color: var(--red-torii-gate);
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
 }
 
 .icon-campaign {
