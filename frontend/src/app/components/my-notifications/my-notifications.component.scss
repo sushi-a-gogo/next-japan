@@ -28,6 +28,10 @@
   margin-bottom: 12px;
 }
 
+.material-symbols-outlined {
+  font-weight: 700;
+}
+
 .badge {
   position: absolute;
   top: 2px;
@@ -69,7 +73,7 @@
     width: 80px;
     border-radius: 24px;
 
-    .material-icons {
+    .material-symbols-outlined {
       display: none;
     }
 

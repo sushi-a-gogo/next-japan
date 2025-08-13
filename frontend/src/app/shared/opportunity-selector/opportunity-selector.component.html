@@ -7,11 +7,10 @@
   class="app-button app-button-filled flex-button registered"
   disabled
 >
-  @switch(registration()?.status) { @case('requested') {<span
-    class="material-icons"
-    >pending_actions</span
-  >
-  } @case('registered') { <span class="material-icons">verified</span>} }
+  @switch(registration()?.status) { @case('requested') {
+  <span class="material-symbols-outlined">pending_actions</span> }
+  @case('registered') { <span class="material-symbols-outlined">verified</span>}
+  }
   {{ registration()?.status | titlecase }}
 </button>
 } @else {
@@ -23,7 +22,7 @@
   class="app-button app-button-filled flex-button"
   (click)="selectOpportunity()"
 >
-  <span class="material-icons">done</span>
+  <span class="material-symbols-outlined">check</span>
   Selected
 </button>
 } @else {

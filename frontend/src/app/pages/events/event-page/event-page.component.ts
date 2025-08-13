@@ -65,7 +65,7 @@ export class EventPageComponent implements OnInit, OnChanges {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
-        this.eventSelectionService.clearAllSelected();
+        this.eventSelectionService.clearSelected();
       });
   }
 
@@ -113,7 +113,7 @@ export class EventPageComponent implements OnInit, OnChanges {
 
   closeRegistrationDialog() {
     this.dialogService.closeDialog('registration');
-    this.eventSelectionService.clearAllSelected();
+    this.eventSelectionService.clearSelected();
   }
 
   private getEventRegistrations$() {

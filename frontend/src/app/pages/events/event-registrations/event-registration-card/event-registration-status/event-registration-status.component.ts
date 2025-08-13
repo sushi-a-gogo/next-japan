@@ -12,8 +12,6 @@ export class EventRegistrationStatusComponent implements OnChanges {
 
   label = computed(() => {
     switch (this.status()) {
-      case RegistrationStatus.Cancelled:
-        return "Your registration has been cancelled. If this was a mistake or you need help, please contact us.";
       case RegistrationStatus.Registered:
         return "You're registered!";
       case RegistrationStatus.Requested:
@@ -24,7 +22,6 @@ export class EventRegistrationStatusComponent implements OnChanges {
   })
   @HostBinding('class.requested') isRequested = false;
   @HostBinding('class.registered') isRegistered = false;
-  @HostBinding('class.cancelled') isCancelled = false;
   @HostBinding('class.busy') isBusy = false;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,7 +31,6 @@ export class EventRegistrationStatusComponent implements OnChanges {
       setTimeout(() => {
         this.isRequested = RegistrationStatus.Requested === this.status();
         this.isRegistered = RegistrationStatus.Registered === this.status();
-        this.isCancelled = RegistrationStatus.Cancelled === this.status();
         this.isBusy = false;
       }, 25)
     }

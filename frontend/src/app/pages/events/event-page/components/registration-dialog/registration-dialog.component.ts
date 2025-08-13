@@ -1,27 +1,28 @@
-import { Component, DestroyRef, effect, ElementRef, inject, OnInit, output, signal, viewChild } from '@angular/core';
+import { Component, computed, DestroyRef, inject, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
-import { EventLocation } from '@app/models/event/event-location.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
+import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
+import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 import { of } from 'rxjs';
-import { RegistrationLocationComponent } from './registration-location/registration-location.component';
+
 
 @Component({
   selector: 'app-registration-dialog',
-  imports: [RouterLink, MatButtonModule, MatRippleModule, ModalComponent, RegistrationLocationComponent, LoadingSpinnerComponent],
+  imports: [RouterLink, MatButtonModule, MatRippleModule, ModalComponent, LoadingSpinnerComponent, AddressStripComponent, OpportunityTimestampComponent],
   templateUrl: './registration-dialog.component.html',
   styleUrl: './registration-dialog.component.scss'
 })
-export class RegistrationDialogComponent implements OnInit {
+export class RegistrationDialogComponent {
   private authService = inject(AuthMockService);
   private eventService = inject(EventService);
   private registrationService = inject(EventRegistrationService);
@@ -29,43 +30,13 @@ export class RegistrationDialogComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   close = output<boolean>();
-  main = viewChild<ElementRef>('main');
 
-  selected = this.selectionService.selectedOpportunities;
-  selectedLocations: EventLocation[] = [];
-  selectedMultiple = this.selectionService.selectedCount > 2;
-  mainElmStyle: any = { overflow: 'hidden' };
+  opportunity = this.selectionService.selectedOpportunity;
+  location = computed(() =>
+    this.eventService.eventData().locations.find((l) => l.locationId === this.opportunity()?.locationId)
+  );
   busy = signal<boolean>(false);
   completed = signal<boolean>(false);
-
-  constructor() {
-    effect(() => {
-      if (this.selected().length === 0 && !this.completed()) {
-        this.closeDialog();
-      }
-    });
-  }
-
-
-  ngOnInit(): void {
-    this.selected().forEach((opportunity) => {
-      let location = this.selectedLocations.find((l) => l.locationId === opportunity.locationId);
-      if (location) {
-        location.opportunities?.push(opportunity);
-      } else {
-        location = this.eventService.eventData().locations.find((l) => l.locationId === opportunity.locationId);
-        if (location) {
-          location!.opportunities = [opportunity];
-          this.selectedLocations.push(location);
-        }
-      }
-    });
-  }
-
-
-  ngAfterViewInit(): void {
-    this.mainElmStyle = this.getMainElementStyle();
-  }
 
   sendRequest() {
     this.busy.set(true);
@@ -73,7 +44,7 @@ export class RegistrationDialogComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.busy.set(false);
-        this.selectionService.clearAllSelected();
+        this.selectionService.clearSelected();
         this.completed.set(true);
       });
   }
@@ -89,14 +60,7 @@ export class RegistrationDialogComponent implements OnInit {
       return of(emptyResp);
     }
 
-    const requests = this.selected().map((opportunity) => opportunity.opportunityId);
     const userId = this.authService.user()!.userId;
-    return this.registrationService.requestOpportunities$(userId, requests);
+    return this.registrationService.requestOpportunity$(userId, this.opportunity()!.opportunityId);
   }
-
-  private getMainElementStyle() {
-    const mainElm = this.main()?.nativeElement;
-    return mainElm?.clientHeight < mainElm?.scrollHeight ? { overflow: 'auto' } : { overflow: 'hidden' };
-  }
-
 }

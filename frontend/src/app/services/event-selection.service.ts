@@ -5,50 +5,37 @@ import { EventOpportunity } from '@app/models/event/event-opportunity.model';
   providedIn: 'root',
 })
 export class EventSelectionService {
-  private selected = signal<EventOpportunity[]>([]);
-  selectedOpportunities = this.selected.asReadonly();
+  private selected = signal<EventOpportunity | null>(null);
+  selectedOpportunity = this.selected.asReadonly();
 
   constructor() { }
 
-  get selectedCount() {
-    return this.selected().length;
-  }
-
   checkForConflict(opportunity: EventOpportunity) {
+    const item = this.selected();
+    if (!item || item.opportunityId === opportunity.opportunityId) {
+      return false;
+    }
+
+    const startTime = new Date(item.startDate);
     const selectedStartTime = new Date(opportunity.startDate);
     const selectedEndTime = new Date(opportunity.endDate);
+    if (startTime >= selectedStartTime && startTime < selectedEndTime) {
+      return true;
+    }
 
-    const items = [...this.selected()];
-    const conflicted = items.filter((item) => {
-      if (item.opportunityId !== opportunity.opportunityId) {
-        const startTime = new Date(item.startDate);
-        if (startTime >= selectedStartTime && startTime < selectedEndTime) {
-          return true;
-        }
+    const endTime = new Date(item.endDate);
+    if (endTime > selectedStartTime && endTime <= selectedEndTime) {
+      return true;
+    }
 
-        const endTime = new Date(item.endDate);
-        if (endTime > selectedStartTime && endTime <= selectedEndTime) {
-          return true;
-        }
-      }
-
-      return false;
-    });
-
-    return conflicted.length > 0;
+    return false;
   }
 
   selectOpportunity(opportunity: EventOpportunity, selected: boolean) {
-    this.selected.update((prev) => {
-      if (selected) {
-        return [...prev, opportunity];
-      } else {
-        return prev.filter((s) => s.opportunityId !== opportunity.opportunityId);
-      }
-    });
+    this.selected.set(selected ? opportunity : null);
   }
 
-  clearAllSelected() {
-    this.selected.set([]);
+  clearSelected() {
+    this.selected.set(null);
   }
 }

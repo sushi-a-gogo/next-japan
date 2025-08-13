@@ -223,4 +223,28 @@ router.put("/:registrationId", async (req, res) => {
   }
 });
 
+// PUT update registration (primarily for status)
+router.delete("/:registrationId", async (req, res) => {
+  try {
+    const { registrationId } = req.params;
+
+    // Validate registrationId
+    if (!mongoose.Types.ObjectId.isValid(registrationId)) {
+      return res.status(400).json({ error: "Invalid registrationId format" });
+    }
+
+    const result = await EventRegistration.findByIdAndDelete(registrationId);
+    if (!result) {
+      return res.status(404).json({ error: "Event Registration not found" });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, data: { registrationId: result._id } });
+  } catch (error) {
+    console.error("Delete registration error:", error.message || error);
+    res.status(500).json({ error: "Failed to delete registration" });
+  }
+});
+
 export default router;
