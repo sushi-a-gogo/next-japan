@@ -19,7 +19,7 @@
     class="cb-content nx-flex row al-c gap-10"
     [class.open]="locationCount()"
   >
-    <span class="material-icons icon-place">place</span>
+    <span class="material-symbols-outlined icon-map"> map </span>
     <span>
       {{ locationCount() | displayCount }}
       @if(locationCount() !== 1) {
@@ -33,7 +33,7 @@
   <div class="cb-content nx-flex row al-c gap-10">
     @if(eventDateRange()) {
     <!-- date range start -->
-    <span class="material-icons icon-note">event_note</span>
+    <span class="material-symbols-outlined icon-note">date_range</span>
     <span>{{ eventDateRange()!.minDate | date }}</span>
     @if(eventDateRange()?.maxDate) { -
     <span>{{ eventDateRange()!.maxDate | date }}</span>
@@ -45,7 +45,7 @@
         {{ event()?.description }}
       </div>
       <div class="nx-flex row al-c gap-10">
-        <span class="material-icons icon-campaign">campaign</span>
+        <span class="material-symbols-outlined icon-campaign">campaign</span>
         Coming Soon
       </div>
     </div>

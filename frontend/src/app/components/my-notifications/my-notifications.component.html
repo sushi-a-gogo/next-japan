@@ -12,7 +12,7 @@
   [matTooltipShowDelay]="750"
   [matTooltipDisabled]="menuTrigger.menuOpen"
 >
-  <span class="material-icons"> notifications </span>
+  <span class="material-symbols-outlined"> notifications </span>
   <span class="badge" [class.visible]="notifications().length > 0">{{
     notifications().length
   }}</span>
@@ -32,7 +32,7 @@
       [class.clear-all]="showClearAll()"
     >
       <span class="button-text">Clear</span>
-      <span class="material-icons">close</span>
+      <span class="material-symbols-outlined"> close </span>
     </button>
   </div>
   @for(notification of notifications(); track notification.notificationId) {

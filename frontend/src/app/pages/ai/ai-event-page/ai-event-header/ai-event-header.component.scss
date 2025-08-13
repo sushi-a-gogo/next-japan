@@ -5,7 +5,7 @@
   justify-content: center;
   width: 100%;
   height: 640px;
-  max-width: 2560px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
@@ -29,7 +29,7 @@ img {
   color: var(--vivid-yellow-text);
 }
 
-.material-icons {
+.material-symbols-outlined {
   color: var(--vivid-yellow-text);
 }
 

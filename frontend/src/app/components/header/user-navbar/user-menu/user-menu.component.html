@@ -27,19 +27,19 @@
     routerLink="/event/registrations"
   >
     <div class="menu-item">
-      <span class="material-icons">event_available</span>
+      <span class="material-symbols-outlined"> event </span>
       My Events
     </div>
   </a>
   <button mat-menu-item (click)="openUserProfile()">
     <div class="menu-item">
-      <span class="material-icons">description</span>
+      <span class="material-symbols-outlined"> description </span>
       Profile
     </div>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="modes">
     <div class="menu-item">
-      <span class="material-icons">palette</span>
+      <span class="material-symbols-outlined"> palette </span>
       Appearance
     </div>
   </button>
@@ -50,7 +50,9 @@
       (click)="changeAppearanceMode()"
     >
       <div class="menu-item">
-        <span class="material-icons" [class.open]="!user().mode">check</span>
+        <span class="material-symbols-outlined" [class.open]="!user().mode">
+          check
+        </span>
         Auto
       </div>
     </button>
@@ -60,9 +62,12 @@
       (click)="changeAppearanceMode('light')"
     >
       <div class="menu-item">
-        <span class="material-icons" [class.open]="user().mode === 'light'"
-          >check</span
+        <span
+          class="material-symbols-outlined"
+          [class.open]="user().mode === 'light'"
         >
+          check
+        </span>
         Light
       </div>
     </button>
@@ -72,16 +77,19 @@
       (click)="changeAppearanceMode('dark')"
     >
       <div class="menu-item">
-        <span class="material-icons" [class.open]="user().mode === 'dark'"
-          >check</span
+        <span
+          class="material-symbols-outlined"
+          [class.open]="user().mode === 'dark'"
         >
+          check
+        </span>
         Dark
       </div>
     </button>
   </mat-menu>
   <button mat-menu-item (click)="logout()">
     <div class="menu-item">
-      <span class="material-icons">logout</span>
+      <span class="material-symbols-outlined"> logout </span>
       Sign Out
     </div>
   </button>

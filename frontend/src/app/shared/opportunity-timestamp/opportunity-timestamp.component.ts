@@ -13,7 +13,6 @@ export class OpportunityTimestampComponent {
 
   opportunity = input.required<EventOpportunity>();
   showNotes = input<boolean>(true);
-  iconColor = input<string>();
 
   timestamp = computed(() => {
     const startDate = new Date(this.opportunity().startDate);

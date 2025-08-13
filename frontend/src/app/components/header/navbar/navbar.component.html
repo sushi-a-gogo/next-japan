@@ -1,27 +1,24 @@
-<nav
-  class="cb-content flex col al-c jc-start"
-  [class.search-mode]="inSearchMode()"
->
-  <ul class="nx-flex row al-c jc-sb">
-    <li>
-      <a class="app-button logo" routerLink="/home">
-        <app-logo />
-      </a>
-    </li>
-    <li class="spacer"></li>
-    <li>
-      <button
-        aria-label="Search Events"
-        type="button"
-        class="app-button flex-button transparent strong"
-        (click)="toggleSearchPanel()"
-      >
-        <span class="material-icons">search</span>
-        <span class="text">Search Events</span>
-      </button>
-    </li>
-  </ul>
-  @if (inSearchMode()) {
-  <app-search-autocomplete />
-  }
+<nav class="cb-content" [class.search-mode]="inSearchMode()">
+  <div class="nav-content">
+    <ul class="nx-flex row al-c jc-sb">
+      <li>
+        <a class="app-button logo" routerLink="/home">
+          <app-logo />
+        </a>
+      </li>
+      <li class="spacer"></li>
+      <li>
+        <button
+          aria-label="Search Events"
+          type="button"
+          class="app-button flex-button transparent strong"
+          (click)="toggleSearchPanel()"
+        >
+          <span class="material-symbols-outlined"> search </span>
+          <span class="text">Search Events</span>
+        </button>
+      </li>
+    </ul>
+    <app-search-autocomplete />
+  </div>
 </nav>

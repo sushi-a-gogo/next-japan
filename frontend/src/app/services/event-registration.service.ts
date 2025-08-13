@@ -6,7 +6,7 @@ import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { catchError, concatMap, from, Observable, shareReplay, switchMap, tap } from 'rxjs';
+import { catchError, Observable, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
 import { NotificationService } from './notification.service';
 
@@ -53,9 +53,8 @@ export class EventRegistrationService {
     )
   }
 
-  requestOpportunities$(userId: string, opportunityIds: string[]): Observable<ApiResponse<EventRegistration[]>> {
-    return from(opportunityIds).pipe(
-      concatMap((opportunityId) => this.addRegistration$(opportunityId, userId)),
+  requestOpportunity$(userId: string, opportunityId: string): Observable<ApiResponse<EventRegistration[]>> {
+    return this.addRegistration$(opportunityId, userId).pipe(
       switchMap(() => {
         this.eventRegistrationCache.clear();
         return this.fetchRegistrations$(userId);
@@ -64,14 +63,7 @@ export class EventRegistrationService {
   }
 
   cancelRegistration$(registration: EventRegistration) {
-    const req = {
-      registrationId: registration.registrationId!,
-      userId: registration.userId!,
-      opportunityId: registration.opportunity.opportunityId,
-      status: RegistrationStatus.Cancelled
-    };
-
-    return this.put$(req);
+    return this.delete$(registration);
   }
 
   checkForConflict(opp: EventOpportunity, userId: string) {
@@ -142,7 +134,6 @@ export class EventRegistrationService {
     );
   }
 
-
   private put$(registration: { registrationId: string, userId: string, opportunityId: string, status: RegistrationStatus }) {
     return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
@@ -154,9 +145,28 @@ export class EventRegistrationService {
     );
   }
 
+  private delete$(registration: EventRegistration) {
+    return this.http.delete(`${this.apiUri}/${registration.registrationId}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "delete EventRegistration"),
+      tap((resp) => {
+        if (resp?.success) {
+          registration.status = RegistrationStatus.Cancelled;
+          this.registrationChange(registration)
+        }
+      }),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error saving Event Registration', true)
+      })
+    );
+  }
+
   private registrationChange(registration: EventRegistration) {
     this.notificationService.sendRegistrationNotification(registration);
     this.userEventRegistrationsSignal.update((prev) => {
+      if (registration.status === RegistrationStatus.Cancelled) {
+        return prev.filter((r) => r.registrationId !== registration.registrationId);
+      }
+
       return prev.some(reg => reg.registrationId === registration.registrationId)
         ? prev.map(reg => reg.registrationId === registration.registrationId ? registration : reg)
         : [...prev, registration];

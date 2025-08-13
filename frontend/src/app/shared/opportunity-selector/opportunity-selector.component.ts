@@ -26,11 +26,8 @@ export class OpportunitySelectorComponent {
   isAuthenticated = this.auth.isAuthenticated;
   private user = this.auth.user;
 
-  selected = computed(() => {
-    const selections = this.selectionService.selectedOpportunities();
-    return !!selections.find((s) => this.match(s));
-
-  });
+  selected = computed(() =>
+    this.selectionService.selectedOpportunity()?.opportunityId === this.opportunity().opportunityId);
 
   registration = computed(() => {
     const reg = this.registrationService.userEventRegistrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
@@ -51,9 +48,5 @@ export class OpportunitySelectorComponent {
   selectOpportunity() {
     this.selectionService.selectOpportunity(this.opportunity(), !this.selected());
     this.dialogService.showRegistrationDialog();
-  }
-
-  private match(opportunity: EventOpportunity) {
-    return opportunity.opportunityId === this.opportunity().opportunityId;
   }
 }

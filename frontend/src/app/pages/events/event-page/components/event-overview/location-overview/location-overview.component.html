@@ -6,7 +6,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="nx-flex row al-c gap-5">
-          <span class="material-icons"> map </span>
+          <span class="material-symbols-outlined"> map </span>
           <span class="title">{{ location.locationName }}</span>
         </div>
       </mat-panel-title>
@@ -21,5 +21,7 @@
 </mat-accordion>
 <!-- locations loop ends -->
 } @else {
-<div class="no-locations">There are no Locations for this Event.</div>
+<div class="no-locations">
+  There are currently no locations for this event. Please check back soon.
+</div>
 }

@@ -1,7 +1,7 @@
 .carousel-container {
   position: relative;
   width: calc(100vw - 40px);
-  max-width: 2560px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
   opacity: 1 !important;
   visibility: visible !important;
@@ -88,7 +88,7 @@
     background: rgba(var(--next-text-rgb), 0.1);
   }
 
-  .material-icons {
+  .material-symbols-outlined {
     font-size: 32px;
   }
 
@@ -119,7 +119,7 @@
     height: 40px;
     width: 80px;
 
-    .material-icons {
+    .material-symbols-outlined {
       font-size: 16px;
     }
 

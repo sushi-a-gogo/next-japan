@@ -9,32 +9,31 @@
     opacity: 0;
   }
 
-  .material-icons {
+  .material-symbols-outlined {
     display: none;
   }
 
   &.requested {
-    .material-icons.requested {
+    .material-symbols-outlined.requested {
       display: inline-block;
       color: var(--next-note);
     }
   }
 
   &.registered {
-    .material-icons.registered {
+    .material-symbols-outlined.registered {
       display: inline-block;
       color: var(--bright-green-grass);
     }
   }
+}
 
-  &.cancelled {
-    .material-icons.cancelled {
-      display: inline-block;
-      color: var(--next-heading);
-    }
-
-    .label {
-      color: var(--next-heading);
+:host-context(.dark-theme) {
+  :host {
+    &.registered {
+      .material-symbols-outlined.registered {
+        color: var(--vivid-yellow-text);
+      }
     }
   }
 }

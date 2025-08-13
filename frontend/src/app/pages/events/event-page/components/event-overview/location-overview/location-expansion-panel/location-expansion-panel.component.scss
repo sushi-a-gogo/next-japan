@@ -7,15 +7,6 @@ header {
   margin-bottom: 10px;
 }
 
-.expansion-panel {
-  //padding: 0 16px;
-  // padding-bottom: 16px;
-  // background: var(--next-shade);
-  // background-color: var(--next-surface);
-  // border: 1px solid var(--next-border);
-  // border-radius: 10px;
-}
-
 .accordion-card {
   display: flex;
   flex-direction: column;
@@ -38,26 +29,6 @@ header {
 }
 
 @media (min-width: 600px) {
-  header {
-    button {
-      display: inline-block;
-      border-radius: 24px;
-      height: 44px;
-      width: auto;
-
-      .material-icons.mobile {
-        display: none;
-      }
-
-      .desktop {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-  }
-
   .accordion-card {
     flex-direction: row;
     justify-content: space-between;
