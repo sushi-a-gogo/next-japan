@@ -20,13 +20,13 @@ export class EventRegistrationService {
   private notificationService = inject(NotificationService);
   private errorService = inject(ErrorService);
 
-  private registrationSignal = signal<EventRegistration[]>([]);
-  registrations = this.registrationSignal.asReadonly();
+  private userEventRegistrationsSignal = signal<EventRegistration[]>([]);
+  userEventRegistrations = this.userEventRegistrationsSignal.asReadonly();
 
   private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
 
-  getRegistrations$(userId: string): Observable<ApiResponse<EventRegistration[]>> {
-    const key = `eventRegistrations:${userId}`
+  getUserEventRegistrations$(userId: string): Observable<ApiResponse<EventRegistration[]>> {
+    const key = `eventRegistrations`
     if (this.eventRegistrationCache.existsInCache(key)) {
       const cached = this.eventRegistrationCache.get(key);
       if (cached) {
@@ -40,6 +40,11 @@ export class EventRegistrationService {
     this.eventRegistrationCache.set(key, obs$);
 
     return obs$;
+  }
+
+  clearUserRegistrations() {
+    this.userEventRegistrationsSignal.set([]);
+    this.eventRegistrationCache.clear();
   }
 
   getRegistration$(registrationId: string): Observable<ApiResponse<EventRegistration>> {
@@ -73,7 +78,7 @@ export class EventRegistrationService {
     const selectedStartTime = new Date(opp.startDate);
     const selectedEndTime = new Date(opp.endDate);
 
-    const items = this.registrations().filter((r) => r.userId === userId);
+    const items = this.userEventRegistrations().filter((r) => r.userId === userId);
     const conflicted = items.filter((s) => {
       if (s.opportunity.opportunityId !== opp.opportunityId) {
         const startTime = new Date(s.opportunity.startDate);
@@ -95,7 +100,7 @@ export class EventRegistrationService {
 
   private fetchRegistrations$(userId: string) {
     return this.http.get<ApiResponse<EventRegistration[]>>(`${this.apiUri}/user/${userId}`).pipe(
-      tap((resp) => this.registrationSignal.set(resp.data || [])),
+      tap((resp) => this.userEventRegistrationsSignal.set(resp.data || [])),
       debug(RxJsLoggingLevel.DEBUG, 'getRegistrations')
     );
   }
@@ -110,7 +115,7 @@ export class EventRegistrationService {
 
     const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 60000; // random between 2 and 10 minutes in ms
     setTimeout(() => {
-      const registration = this.registrationSignal()
+      const registration = this.userEventRegistrationsSignal()
         .find((r) => r.registrationId === registrationId && r.status !== RegistrationStatus.Cancelled);
       if (registration) {
         this.put$({
@@ -151,7 +156,7 @@ export class EventRegistrationService {
 
   private registrationChange(registration: EventRegistration) {
     this.notificationService.sendRegistrationNotification(registration);
-    this.registrationSignal.update((prev) => {
+    this.userEventRegistrationsSignal.update((prev) => {
       return prev.some(reg => reg.registrationId === registration.registrationId)
         ? prev.map(reg => reg.registrationId === registration.registrationId ? registration : reg)
         : [...prev, registration];

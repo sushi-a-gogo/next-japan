@@ -17,7 +17,7 @@ export class RegistrationStatusLabelComponent {
   opportunity = input.required<EventOpportunity>();
 
   registration = computed(() => {
-    const reg = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId);
+    const reg = this.registrationService.userEventRegistrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId);
     if (!reg || reg.status === RegistrationStatus.Cancelled) {
       return null;
     }

@@ -2,7 +2,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { BehaviorSubject, delay, tap } from 'rxjs';
+import { BehaviorSubject, delay, of, switchMap } from 'rxjs';
+import { EventRegistrationService } from './event-registration.service';
 import { StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
 import { UserProfileService } from './user-profile.service';
@@ -17,6 +18,7 @@ export class AuthMockService {
   private storage = inject(StorageService);
   private themeService = inject(ThemeService);
   private userService = inject(UserProfileService);
+  private eventRegistrationService = inject(EventRegistrationService);
 
   private authenticated = signal<boolean>(false);
   isAuthenticated = this.authenticated.asReadonly();
@@ -57,15 +59,17 @@ export class AuthMockService {
   login$(userId: string) {
     return this.userService.getUser$(userId).pipe(
       delay(1500), // simulate login process
-      tap((resp) => {
+      switchMap((resp) => {
         this.authenticating.set(null);
         this.setUser(resp.data);
+        return resp.data ? this.eventRegistrationService.getUserEventRegistrations$(userId) : of([])
       })
     );
   }
 
   logout(redirectTo: string) {
     this.setUser(null);
+    this.eventRegistrationService.clearUserRegistrations();
 
     const url = decodeURIComponent(redirectTo) || '/home';
     // If url starts with '/', remove it for router.navigate to treat it as an absolute path

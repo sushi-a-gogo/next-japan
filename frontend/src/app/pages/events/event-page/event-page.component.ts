@@ -120,7 +120,7 @@ export class EventPageComponent implements OnInit, OnChanges {
     if (isPlatformBrowser(this.platformId)) {
       const userId = this.authService.user()?.userId;
       if (userId) {
-        return this.eventRegistrationService.getRegistrations$(userId);
+        return this.eventRegistrationService.getUserEventRegistrations$(userId);
       }
     }
 

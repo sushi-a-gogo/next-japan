@@ -4,7 +4,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import fadeIn from '@app/animations/fadeIn.animation';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { UserProfileService } from '@app/services/user-profile.service';
 import { environment } from '@environments/environment';
 import { delay } from 'rxjs';
 
@@ -19,7 +18,6 @@ import { delay } from 'rxjs';
 export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private auth = inject(AuthMockService);
-  private userService = inject(UserProfileService);
 
   private destroyRef = inject(DestroyRef);
 

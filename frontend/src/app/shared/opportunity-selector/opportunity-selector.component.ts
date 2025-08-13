@@ -33,7 +33,7 @@ export class OpportunitySelectorComponent {
   });
 
   registration = computed(() => {
-    const reg = this.registrationService.registrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
+    const reg = this.registrationService.userEventRegistrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
     if (!reg || reg.status === RegistrationStatus.Cancelled) {
       return null;
     }
