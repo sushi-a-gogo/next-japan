@@ -2,7 +2,7 @@
   @if(context().registrationId) {
   <!-- switch -->
   @switch(context().registrationStatus) { @case('requested') {
-  <span class="material-symbols-outlined registered">schedule</span> }
+  <span class="material-symbols-outlined registered">pending_actions</span> }
   @case('registered') {
   <span class="material-symbols-outlined registered">verified</span> } }
   <!-- end switch -->

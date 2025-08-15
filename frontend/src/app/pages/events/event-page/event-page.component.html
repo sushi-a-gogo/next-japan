@@ -14,7 +14,11 @@
       <div class="overview">
         <app-event-overview [focusChild]="focusChild" />
       </div>
-      <app-event-opportunities />
+      <div>
+        @if(loaded()) {
+        <app-event-opportunities />
+        }
+      </div>
     </div>
   </main>
 </article>

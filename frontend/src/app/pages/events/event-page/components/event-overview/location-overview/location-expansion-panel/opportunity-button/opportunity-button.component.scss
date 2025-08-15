@@ -13,6 +13,10 @@ button {
   &:hover:not(:disabled) {
     background-color: var(--next-surface-alt);
   }
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .badge {
