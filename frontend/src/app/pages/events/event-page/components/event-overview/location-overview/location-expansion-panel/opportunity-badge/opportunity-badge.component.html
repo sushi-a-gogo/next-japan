@@ -1,0 +1,12 @@
+<div class="badge">
+  @if(context().registrationId) {
+  <!-- switch -->
+  @switch(context().registrationStatus) { @case('requested') {
+  <span class="material-symbols-outlined registered">pending_actions</span> }
+  @case('registered') {
+  <span class="material-symbols-outlined registered">verified</span> } }
+  <!-- end switch -->
+  } @else {
+  <span class="material-symbols-outlined conflicted">block</span>
+  }
+</div>

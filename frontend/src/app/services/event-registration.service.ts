@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
 import { ApiResponse } from '@app/models/api-response.model';
-import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
@@ -64,30 +63,6 @@ export class EventRegistrationService {
 
   cancelRegistration$(registration: EventRegistration) {
     return this.delete$(registration);
-  }
-
-  checkForConflict(opp: EventOpportunity, userId: string) {
-    const selectedStartTime = new Date(opp.startDate);
-    const selectedEndTime = new Date(opp.endDate);
-
-    const items = this.userEventRegistrations().filter((r) => r.userId === userId);
-    const conflicted = items.filter((s) => {
-      if (s.opportunity.opportunityId !== opp.opportunityId) {
-        const startTime = new Date(s.opportunity.startDate);
-        if (startTime >= selectedStartTime && startTime < selectedEndTime) {
-          return true;
-        }
-
-        const endTime = new Date(s.opportunity.endDate);
-        if (endTime > selectedStartTime && endTime <= selectedEndTime) {
-          return true;
-        }
-      }
-
-      return false;
-    });
-
-    return conflicted.length > 0;
   }
 
   private fetchRegistrations$(userId: string) {

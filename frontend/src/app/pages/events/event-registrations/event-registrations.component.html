@@ -4,7 +4,7 @@
 }
 
 <article
-  class="component-box nx-flex col al-c gap-24 fade-in"
+  class="component-box nx-flex col al-c gap-36 fade-in"
   [class.open]="loaded()"
 >
   <header class="cb-content pad nx-flex col gap-5">
@@ -14,7 +14,7 @@
     }
   </header>
   <main class="cb-content pad">
-    <ul class="nx-flex col gap-24">
+    <ul class="nx-flex col gap-36">
       @for(event of events(); track event.registrationId) {
       <li>
         <app-event-registration-card

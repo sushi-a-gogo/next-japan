@@ -4,7 +4,7 @@
 }
 
 <article
-  class="component-box nx-flex flex-column gap-20 fade-in"
+  class="component-box nx-flex flex-column gap-24 fade-in"
   [class.open]="loaded()"
 >
   <header class="cb-content pad">
@@ -24,7 +24,7 @@
     }
   </header>
   <main class="cb-content pad">
-    <ul class="nx-flex col gap-20">
+    <ul class="nx-flex col gap-24">
       @for(event of events(); track event.eventId) {
       <li>
         <app-search-card [event]="event" [query]="q()" />

@@ -1,5 +1,5 @@
 <div class="card-container">
-  <a type="button" [routerLink]="routerLink" class="image-button border-box">
+  <a type="button" [routerLink]="routerLink" class="image-button">
     <div class="image-container" [class.grok]="isGrokEvent()">
       <img
         alt="Event Image"
@@ -29,14 +29,7 @@
         <app-event-registration-status [status]="event().status" />
       </div>
     </div>
-    <div class="actions nx-flex col">
-      <a
-        type="button"
-        [routerLink]="routerLink"
-        class="app-button app-button-filled"
-      >
-        Event Details
-      </a>
+    <div class="actions">
       <button
         type="button"
         class="app-button app-button-outlined"
@@ -45,6 +38,13 @@
       >
         Cancel Registration
       </button>
+      <a
+        type="button"
+        [routerLink]="routerLink"
+        class="app-button app-button-filled"
+      >
+        Event Details
+      </a>
     </div>
   </div>
 </div>
