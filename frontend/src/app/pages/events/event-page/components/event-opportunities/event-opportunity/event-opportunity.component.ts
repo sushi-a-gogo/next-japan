@@ -4,11 +4,10 @@ import { EventService } from '@app/pages/events/event-page/event.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { OpportunitySelectorComponent } from "@app/shared/opportunity-selector/opportunity-selector.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
-import { RegistrationStatusLabelComponent } from "@app/shared/registration-status-label/registration-status-label.component";
 
 @Component({
   selector: 'app-event-opportunity',
-  imports: [OpportunitySelectorComponent, AddressStripComponent, OpportunityTimestampComponent, RegistrationStatusLabelComponent],
+  imports: [OpportunitySelectorComponent, AddressStripComponent, OpportunityTimestampComponent],
   templateUrl: './event-opportunity.component.html',
   styleUrl: './event-opportunity.component.scss'
 })

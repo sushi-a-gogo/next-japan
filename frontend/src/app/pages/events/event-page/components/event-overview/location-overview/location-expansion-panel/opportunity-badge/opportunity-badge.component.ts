@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RegistrationContext, RegistrationStatus } from '@app/models/event/event-registration.model';
 
 @Component({
@@ -9,5 +9,31 @@ import { RegistrationContext, RegistrationStatus } from '@app/models/event/event
 })
 export class OpportunityBadgeComponent {
   status = RegistrationStatus;
-  context = input.required<RegistrationContext>();
+  context = input<RegistrationContext | null>(null);
+
+  iconName = computed(() => {
+    if (this.context()?.registrationStatus === RegistrationStatus.Registered) {
+      return 'verified';
+    }
+    if (this.context()?.registrationStatus === RegistrationStatus.Requested) {
+      return 'pending_actions';
+    }
+    if (this.context()?.conflicted) {
+      return 'block';
+    }
+    return 'calendar_add_on';
+  });
+
+  className = computed(() => {
+    if (this.context()?.registrationStatus === RegistrationStatus.Registered) {
+      return 'verified';
+    }
+    if (this.context()?.registrationStatus === RegistrationStatus.Requested) {
+      return 'pending_actions';
+    }
+    if (this.context()?.conflicted) {
+      return 'block';
+    }
+    return 'calendar_add_on';
+  });
 }

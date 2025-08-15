@@ -23,17 +23,8 @@
   &.registered {
     .material-symbols-outlined.registered {
       display: inline-block;
-      color: var(--bright-green-grass);
-    }
-  }
-}
-
-:host-context(.dark-theme) {
-  :host {
-    &.registered {
-      .material-symbols-outlined.registered {
-        color: var(--vivid-yellow-text);
-      }
+      font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
+      color: var(--next-verified);
     }
   }
 }

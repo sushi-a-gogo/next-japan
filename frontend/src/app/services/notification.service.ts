@@ -100,11 +100,11 @@ export class NotificationService {
   private getRegistrationStatusMessage(status?: RegistrationStatus) {
     switch (status) {
       case RegistrationStatus.Requested:
-        return 'Your registration request has been sent!';
+        return 'We have received your registration request!';
       case RegistrationStatus.Registered:
-        return 'Your registration was successful!';
+        return 'Your event registration has been confirmed. We look forward to seeing you!';
       case RegistrationStatus.Cancelled:
-        return 'Your registration has been cancelled.';
+        return 'Your event registration has been cancelled.';
       default:
         return 'Registration status not found.'
     }

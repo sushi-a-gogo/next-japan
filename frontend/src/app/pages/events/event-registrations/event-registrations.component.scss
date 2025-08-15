@@ -30,7 +30,6 @@ ul {
     padding-bottom: 36px;
   }
 
-  li:first-child,
   li:not(:last-child) {
     border-bottom: 1px solid var(--next-border);
   }
@@ -52,5 +51,10 @@ ul {
 @media (min-width: 600px) {
   ul {
     gap: 10px;
+  }
+
+  li:first-child,
+  li:not(:last-child) {
+    border-bottom: 1px solid var(--next-border);
   }
 }
