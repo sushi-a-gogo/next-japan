@@ -3,9 +3,8 @@ import { Component, computed, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
-import { RegistrationStatus } from '@app/models/event/event-registration.model';
+import { getRegistrationContext } from '@app/models/event/event-registration.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { DialogService } from '@app/services/dialog.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 
@@ -19,34 +18,13 @@ export class OpportunitySelectorComponent {
   private auth = inject(AuthMockService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
-  private dialogService = inject(DialogService);
 
   opportunity = input.required<EventOpportunity>();
-
   isAuthenticated = this.auth.isAuthenticated;
-  private user = this.auth.user;
 
-  selected = computed(() =>
-    this.selectionService.selectedOpportunity()?.opportunityId === this.opportunity().opportunityId);
-
-  registration = computed(() => {
-    const reg = this.registrationService.userEventRegistrations().find((r) => r.opportunity.opportunityId === this.opportunity().opportunityId && r.userId === this.user()?.userId);
-    if (!reg || reg.status === RegistrationStatus.Cancelled) {
-      return null;
-    }
-
-    return reg;
-  });
-
-  conflicted = computed(() => {
-    if (this.isAuthenticated() && !this.registration()) {
-      return this.selectionService.checkForConflict(this.opportunity()) || this.registrationService.checkForConflict(this.opportunity(), this.user()!.userId);
-    }
-    return false;
-  });
+  context = computed(() => getRegistrationContext(this.opportunity(), this.registrationService.userEventRegistrations()));
 
   selectOpportunity() {
-    this.selectionService.selectOpportunity(this.opportunity(), !this.selected());
-    this.dialogService.showRegistrationDialog();
+    this.selectionService.selectOpportunity(this.opportunity());
   }
 }

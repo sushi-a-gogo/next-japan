@@ -1,0 +1,22 @@
+button {
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  color: var(--next-text);
+  width: 100%;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  padding: 12px 8px;
+
+  &:hover:not(:disabled) {
+    background-color: var(--next-surface-alt);
+  }
+}
+
+.badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

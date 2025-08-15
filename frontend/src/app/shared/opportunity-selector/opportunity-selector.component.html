@@ -1,33 +1,19 @@
 @if(isAuthenticated()) {
 <!-- registered -->
-@if(registration()) {
+@if(context()?.registrationStatus) {
 <button
   type="button"
   matRipple
   class="app-button app-button-filled flex-button registered"
   disabled
 >
-  @switch(registration()?.status) { @case('requested') {
+  @switch(context()?.registrationStatus) { @case('requested') {
   <span class="material-symbols-outlined">pending_actions</span> }
   @case('registered') { <span class="material-symbols-outlined">verified</span>}
   }
-  {{ registration()?.status | titlecase }}
+  {{ context()?.registrationStatus | titlecase }}
 </button>
-} @else {
-<!-- selected -->
-@if(selected()) {
-<button
-  type="button"
-  matRipple
-  class="app-button app-button-filled flex-button"
-  (click)="selectOpportunity()"
->
-  <span class="material-symbols-outlined">check</span>
-  Selected
-</button>
-} @else {
-<!-- Not Selected -->
-@if(conflicted()) {
+} @else { @if(context()?.conflicted) {
 <button
   type="button"
   class="app-button inactive"
@@ -40,14 +26,12 @@
 <button
   type="button"
   matRipple
-  class="app-button app-button-filled"
+  class="app-button app-button-filled nx-flex al-c jc-c gap-5"
   (click)="selectOpportunity()"
 >
   Select
 </button>
 } }
-<!-- End Not Selected -->
-}
 <!-- End Authenticated -->
 } @else {
 <!-- Not Authenticated -->

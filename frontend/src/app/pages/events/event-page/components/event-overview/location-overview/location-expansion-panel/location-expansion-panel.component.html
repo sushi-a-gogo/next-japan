@@ -7,15 +7,14 @@
   ></app-address-strip>
 </header>
 <main class="expansion-panel">
-  @for(opportunity of opportunities(); track opportunity.opportunityId) {
-  <div class="accordion-card">
-    <app-opportunity-timestamp
-      [opportunity]="opportunity"
-    ></app-opportunity-timestamp>
-    <div class="selector">
-      <app-opportunity-selector [opportunity]="opportunity" />
-    </div>
-  </div>
-  <app-registration-status-label [opportunity]="opportunity" />
-  }
+  <ul class="nx-flex col gap-10">
+    @for(opportunity of opportunities(); track opportunity.opportunityId) {
+    <li>
+      <app-opportunity-button
+        [opportunity]="opportunity"
+        (select)="selectOpportunity(opportunity)"
+      />
+    </li>
+    }
+  </ul>
 </main>

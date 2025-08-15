@@ -5,13 +5,7 @@
 }
 
 .image-button {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  color: #000;
-  transition: 0.25s ease-in-out;
   background-color: var(--next-surface);
-  cursor: pointer;
 
   &:hover {
     .image-container {
@@ -28,6 +22,7 @@
 
 .image-container {
   width: 100%;
+  height: 200px;
   border-radius: 3px;
   background: url("/assets/images/no-image.png");
   background-size: contain;
@@ -37,17 +32,13 @@
     background: transparent;
     img {
       object-fit: contain;
-      height: 100%;
-      width: 100%;
-      transition: 0.25s;
     }
   }
 
   img {
-    object-fit: fill;
-    height: 100%;
     width: 100%;
-    transition: 0.25s;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -81,7 +72,13 @@
 }
 
 .actions {
+  display: flex;
+  align-items: center;
   gap: 12px;
+
+  .app-button {
+    flex: 1;
+  }
 }
 
 .app-button {
@@ -89,21 +86,25 @@
   white-space: nowrap;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 820px) {
+  .card-container {
+    flex-direction: row;
+  }
   .card-body {
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
   }
 
   .actions {
+    flex-direction: column-reverse;
     gap: 10px;
-  }
-}
 
-@media (min-width: 960px) {
-  .card-container {
-    flex-direction: row;
+    .app-button {
+      width: 100%;
+      flex: none;
+    }
   }
 
   .image-container {
