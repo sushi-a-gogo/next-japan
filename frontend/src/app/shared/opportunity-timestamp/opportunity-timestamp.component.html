@@ -1,12 +1,12 @@
-<span class="material-symbols-outlined"> event </span>
-<div>
+<div class="nx-flex row al-c gap-5">
+  <span class="material-symbols-outlined"> event </span>
   <section class="date-time">
     {{ timestamp() }}
     <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
   </section>
-  @if(showNotes() && opportunity().notes) {
-  <div class="notes soft">
-    {{ opportunity().notes }}
-  </div>
-  }
 </div>
+@if(showNotes() && opportunity().notes) {
+<div class="notes soft">
+  {{ opportunity().notes }}
+</div>
+}

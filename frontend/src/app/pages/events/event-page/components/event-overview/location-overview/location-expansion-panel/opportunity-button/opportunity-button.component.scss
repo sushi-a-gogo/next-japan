@@ -9,6 +9,7 @@ button {
   flex-direction: column;
   background-color: transparent;
   padding: 12px 8px;
+  padding-right: 32px;
 
   &:hover:not(:disabled) {
     background-color: var(--next-surface-alt);
