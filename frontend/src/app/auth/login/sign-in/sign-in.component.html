@@ -1,30 +1,33 @@
-<div class="content fade-in nx-flex col jc-sb gap-20" [class.open]="loaded()">
-  <ul class="nx-flex col gap-20">
-    @for(user of users(); track user.userId) {
-    <li>
-      <button
-        class="app-button user nx-flex al-c gap-5"
-        [class.app-button-filled]="selectedUserId() === user.userId"
-        [class.app-button-outlined]="selectedUserId() !== user.userId"
-        (click)="select(user.userId)"
-      >
-        <app-user-avatar [user]="user" />
-        <span>{{ user.firstName }} {{ user.lastName }}</span>
+<div class="content fade-in nx-flex col al-c gap-5" [class.open]="loaded()">
+  @if(selectedUser()) {
+  <button class="avatar-button" (click)="switchUser()">
+    <app-user-avatar [user]="selectedUser()!" [size]="96" />
+  </button>
+  <form
+    class="nx-flex col gap-24"
+    #signInForm="ngForm"
+    (ngSubmit)="signIn.emit(selectedUser()!.userId)"
+  >
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Email Address</mat-label>
+      <input
+        matInput
+        name="email"
+        [(ngModel)]="selectedUser()!.email"
+        readonly=""
+      />
+    </mat-form-field>
+    <div class="nx-flex col gap-10">
+      <button type="submit" class="app-button dialog-button app-button-filled">
+        Continue
       </button>
-    </li>
-    }
-  </ul>
-  <div class="nx-flex col gap-10">
-    <button
-      class="app-button dialog-button app-button-filled"
-      (click)="signIn.emit(selectedUserId()!)"
-      [disabled]="!selectedUserId()"
-    >
-      Next
-    </button>
-    <div class="switchbox nx-flex row al-c gap-5">
-      Don't have an account?
-      <button class="text-button" (click)="goBack()">Sign up</button>
+      <div class="switchbox nx-flex row al-c gap-5">
+        Don't have an account?
+        <button type="button" class="text-button" (click)="goBack()">
+          Sign up
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
+  }
 </div>

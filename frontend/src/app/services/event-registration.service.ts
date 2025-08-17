@@ -5,7 +5,7 @@ import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
-import { catchError, Observable, shareReplay, switchMap, tap } from 'rxjs';
+import { catchError, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
 import { NotificationService } from './notification.service';
 
@@ -102,7 +102,10 @@ export class EventRegistrationService {
     return this.http.post(`${this.apiUri}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "post EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => this.registrationChange(resp.data)),
+      switchMap((resp) => {
+        this.registrationChange(resp.data);
+        return this.notificationService.sendRegistrationNotification$(resp.data);
+      }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
@@ -113,7 +116,10 @@ export class EventRegistrationService {
     return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => this.registrationChange(resp.data)),
+      switchMap((resp) => {
+        this.registrationChange(resp.data);
+        return this.notificationService.sendRegistrationNotification$(resp.data);
+      }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
       })
@@ -123,11 +129,13 @@ export class EventRegistrationService {
   private delete$(registration: EventRegistration) {
     return this.http.delete(`${this.apiUri}/${registration.registrationId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, "delete EventRegistration"),
-      tap((resp) => {
+      switchMap((resp) => {
         if (resp?.success) {
           registration.status = RegistrationStatus.Cancelled;
-          this.registrationChange(registration)
+          this.registrationChange(registration);
+          return this.notificationService.sendRegistrationNotification$(registration);
         }
+        return of(false);
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
@@ -136,7 +144,6 @@ export class EventRegistrationService {
   }
 
   private registrationChange(registration: EventRegistration) {
-    this.notificationService.sendRegistrationNotification(registration);
     this.userEventRegistrationsSignal.update((prev) => {
       if (registration.status === RegistrationStatus.Cancelled) {
         return prev.filter((r) => r.registrationId !== registration.registrationId);

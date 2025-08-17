@@ -23,7 +23,7 @@ export class LayoutComponent {
 
   private authService = inject(AuthMockService);
   isAuthenticated = this.authService.isAuthenticated;
-  isAuthenticating = this.authService.isAuthenticating;
+  authIsActivated = this.authService.activated;
 
   private dialogService = inject(DialogService);
   showProfileDialog = computed(() => this.dialogService.showDialog() === 'profile');

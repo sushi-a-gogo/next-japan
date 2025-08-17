@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthFlowComponent } from './auth/auth-flow/auth-flow.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'auth',
+    component: AuthFlowComponent
   },
   {
     path: 'logout',

@@ -9,30 +9,29 @@
   flex: 1;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
+form {
+  width: 100%;
+}
+
+.avatar-button {
+  border: 0;
+  border-radius: 100%;
+  cursor: pointer;
   padding: 0;
 }
 
-.app-button {
+.app-button-filled {
+  background-color: var(--red-torii-gate);
+  border-color: var(--red-torii-gate);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
   width: 100%;
-  border-radius: 4px;
 
-  &.user {
-    min-height: 60px;
-    font-weight: 700;
-    transition: 0.25s;
-    padding: 0 5px;
-
-    &.app-button-filled {
-      font-weight: 700;
-      transition: 0.25s ease-in-out;
-    }
-  }
-
-  &.dialog-button {
-    min-height: 48px;
+  &:hover {
+    background-color: #ab2c2c;
   }
 }
 

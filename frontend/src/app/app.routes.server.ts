@@ -42,6 +42,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
+    path: 'auth',
+    renderMode: RenderMode.Server
+  },
+  {
     path: 'logout',
     renderMode: RenderMode.Server
   },

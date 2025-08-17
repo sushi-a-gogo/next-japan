@@ -13,6 +13,7 @@ import organizationRouter from "./routes/organization.js";
 import registrationsRouter from "./routes/registrations.js";
 import searchRouter from "./routes/search.js";
 import userRouter from "./routes/user.js";
+import notificationRouter from "./routes/userNotifications.js";
 
 process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err.stack);
@@ -54,6 +55,7 @@ app.use("/api/registrations", registrationsRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
+app.use("/api/notifications", notificationRouter);
 
 app.use("/api/ai", apiLimiter);
 app.use("/api/ai", aiRouter);

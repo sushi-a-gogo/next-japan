@@ -2,8 +2,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { BehaviorSubject, delay, of, switchMap } from 'rxjs';
+import { BehaviorSubject, delay, forkJoin, map, of, switchMap } from 'rxjs';
 import { EventRegistrationService } from './event-registration.service';
+import { NotificationService } from './notification.service';
 import { StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
 import { UserProfileService } from './user-profile.service';
@@ -19,12 +20,13 @@ export class AuthMockService {
   private themeService = inject(ThemeService);
   private userService = inject(UserProfileService);
   private eventRegistrationService = inject(EventRegistrationService);
+  private notificationService = inject(NotificationService);
 
   private authenticated = signal<boolean>(false);
   isAuthenticated = this.authenticated.asReadonly();
 
-  private authenticating = signal<'sign-in' | 'sign-up' | null>(null);
-  isAuthenticating = this.authenticating.asReadonly();
+  private activatedSignal = signal<boolean>(false);
+  activated = this.activatedSignal.asReadonly();
 
   private authSubject = new BehaviorSubject<User | null>(null);
   auth$ = this.authSubject.asObservable();
@@ -40,30 +42,30 @@ export class AuthMockService {
       if (savedUserJson) {
         const savedUser = JSON.parse(savedUserJson);
         this.setUser(savedUser);
+
+        const returnTo = this.router.url;
+        const queryParams = { returnTo: returnTo };
+        this.router.navigate(['auth'], {
+          queryParams: queryParams,
+        }).then(() => {
+          this.activatedSignal.set(true)
+        });
+      } else {
+        this.activatedSignal.set(true)
       }
+    } else {
+      this.activatedSignal.set(true)
     }
-  }
-
-  authenticationStart(mode?: 'sign-in' | 'sign-up') {
-    if (this.authenticated()) {
-      return;
-    }
-
-    this.authenticating.set(mode || 'sign-in');
-  }
-
-  authenticationStop() {
-    this.authenticating.set(null);
   }
 
   login$(userId: string) {
     return this.userService.getUser$(userId).pipe(
       delay(1500), // simulate login process
       switchMap((resp) => {
-        this.authenticating.set(null);
         this.setUser(resp.data);
-        return resp.data ? this.eventRegistrationService.getUserEventRegistrations$(userId) : of([])
-      })
+        return resp.data ? this.fetchUserData$(userId) : of(null)
+      }),
+      map(() => this.user())
     );
   }
 
@@ -90,6 +92,13 @@ export class AuthMockService {
     this.setUser(updated);
   }
 
+  private fetchUserData$(userId: string) {
+    const observables = {
+      eventRegistrations: this.eventRegistrationService.getUserEventRegistrations$(userId),
+      notifications: this.notificationService.getUserNotifications$(userId)
+    }
+    return forkJoin(observables);
+  }
 
   private setUser(user: User | null) {
     const data = this.storeUser(user);
