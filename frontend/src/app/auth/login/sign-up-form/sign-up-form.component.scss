@@ -9,6 +9,21 @@
   flex: 1;
 }
 
+.app-button-filled {
+  background-color: var(--red-torii-gate);
+  border-color: var(--red-torii-gate);
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+
+  &:hover {
+    background-color: #ab2c2c;
+  }
+}
+
 .text-button {
   cursor: pointer;
   color: var(--next-link);
@@ -19,5 +34,15 @@
   &:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+}
+
+a {
+  font-size: 14px;
+  color: var(--next-link);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 }

@@ -1,20 +1,24 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { NewUserForm } from './new-user.form';
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {
+  private route = inject(ActivatedRoute);
+
   newUserForm = this.getForm();
   signUp = output<User>();
   cancel = output();
+  returnTo = this.route.snapshot.queryParams['returnTo'] || 'home';
 
   createUser() {
     const user: User = {

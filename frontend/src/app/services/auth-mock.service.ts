@@ -53,8 +53,6 @@ export class AuthMockService {
       } else {
         this.activatedSignal.set(true)
       }
-    } else {
-      this.activatedSignal.set(true)
     }
   }
 
