@@ -23,6 +23,10 @@
   flex-wrap: wrap;
 }
 
+.note {
+  color: var(--next-note);
+}
+
 a.get-directions {
   display: inline-block;
   font-weight: 600;

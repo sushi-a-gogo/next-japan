@@ -5,8 +5,6 @@
 }
 
 .image-button {
-  background-color: var(--next-surface);
-
   &:hover {
     .image-container {
       img {
@@ -53,9 +51,9 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .subtitle {
@@ -108,7 +106,14 @@
   }
 
   .image-container {
-    width: 224px;
+    //width: 224px;
     height: 128px;
+  }
+}
+
+@media (min-width: 960px) {
+  .image-container {
+    //width: 224px;
+    height: 160px;
   }
 }

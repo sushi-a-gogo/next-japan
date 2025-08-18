@@ -25,12 +25,6 @@ footer {
   border-bottom: 1px solid var(--next-border);
 }
 
-.note {
-  font-size: 0.75rem;
-  color: var(--next-text-soft);
-  line-height: 1.4;
-}
-
 .completed {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--next-border);
@@ -51,10 +45,8 @@ footer {
 }
 
 footer.dialog {
-  flex-direction: column;
-
   .app-button {
-    width: 100%;
+    width: 50%;
     border-radius: 24px;
   }
 }
@@ -69,7 +61,6 @@ footer.dialog {
 
     .app-button {
       width: auto;
-      border-radius: 4px;
     }
   }
 }
