@@ -27,6 +27,10 @@ export class OpportunityButtonComponent {
   context = computed(() => getRegistrationContext(this.opportunity(), this.registrationService.userEventRegistrations()));
 
   tooltipText = computed(() => {
+    if (!this.auth.user()) {
+      return 'Please sign in to register for an event.';
+    }
+
     if (this.context()?.registrationId) {
       const date = this.datePipe.transform(this.context()!.registrationCreatedAt, 'mediumDate');
       return `You registered for this event on ${date}`;

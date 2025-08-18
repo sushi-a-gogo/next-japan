@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 export const LOCAL_STORAGE_USER_KEY = 'nextjp.userid';
+export const LOCAL_STORAGE_STATUS_KEY = 'nextjp.visited';
 
 @Injectable({
   providedIn: 'root'

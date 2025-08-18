@@ -12,7 +12,7 @@ button {
   padding-right: 32px;
 
   &:hover:not(:disabled) {
-    background-color: var(--next-surface-alt);
+    background-color: var(--next-surface);
   }
 
   &:disabled {

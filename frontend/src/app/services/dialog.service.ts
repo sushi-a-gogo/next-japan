@@ -1,5 +1,5 @@
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
-import { StorageService } from './storage.service';
+import { LOCAL_STORAGE_STATUS_KEY, LOCAL_STORAGE_USER_KEY, StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,9 @@ export class DialogService {
 
   constructor() {
     afterNextRender(() => {
-      const savedStatus = this.storage.session.getItem('nextjp.status');
+      const savedStatus = this.storage.local.getItem(LOCAL_STORAGE_STATUS_KEY) || this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
       if (!savedStatus) {
-        this.storage.session.setItem('nextjp.status', '1');
+        this.storage.local.setItem(LOCAL_STORAGE_STATUS_KEY, '1');
         this.showDialogSignal.set('about');
       }
     });
