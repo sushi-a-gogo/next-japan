@@ -16,46 +16,42 @@ import { LoginStepsComponent } from "./login-steps/login-steps.component";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  showLogin = signal<boolean>(false);
+  showLoginSteps = signal<boolean>(false);
+
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
   private storage = inject(StorageService);
-
-  private destroyRef = inject(DestroyRef);
-
   private path = '/home';
 
   ngOnInit(): void {
     this.route.queryParams.pipe(
       switchMap((params) => {
-        let url = decodeURIComponent(params['returnTo']);
-        // If url starts with '/', remove it for router.navigate to treat it as an absolute path
-        url = url?.startsWith('/') ? url.substring(1) : url;
-        if (url) {
+        const returnToUrl = decodeURIComponent(params['returnTo']);
+        if (returnToUrl) {
+          // If route starts with '/', remove it for router.navigate to treat it as an absolute path
+          const url = returnToUrl?.startsWith('/') ? returnToUrl.substring(1) : returnToUrl;
           this.path = url;
         }
 
         const userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
-        if (userId) {
-          return this.auth.login$(userId);
-        }
-        return of(null);
+        return userId ? this.auth.login$(userId) : of(null);
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((user) => {
       if (user) {
         this.goBack();
       } else {
-        this.showLogin.set(true);
+        this.showLoginSteps.set(true);
       }
     })
   }
 
   login(userId: string) {
-    this.showLogin.set(false);
+    this.showLoginSteps.set(false);
     return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => this.router.navigate([this.path]),
       error: () => this.router.navigate([this.path])
@@ -63,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   signUp(user: User) {
-    this.showLogin.set(false);
+    this.showLoginSteps.set(false);
     this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
       .pipe(
         switchMap((resp) => this.auth.login$(resp.data.userId)),
