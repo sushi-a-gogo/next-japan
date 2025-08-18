@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { LOCAL_STORAGE_USER_KEY, StorageService } from '@app/services/storage.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { of, switchMap } from 'rxjs';
 import { LoginComponent } from "../login/login.component";
@@ -21,6 +22,8 @@ export class AuthFlowComponent implements OnInit {
 
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
+  private storage = inject(StorageService);
+
   private destroyRef = inject(DestroyRef);
 
   private path = '/home';
@@ -34,8 +37,10 @@ export class AuthFlowComponent implements OnInit {
         if (url) {
           this.path = url;
         }
-        if (this.auth.user()) {
-          return this.auth.login$(this.auth.user()!.userId);
+
+        const userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
+        if (userId) {
+          return this.auth.login$(userId);
         }
         return of(null);
       }),

@@ -1,15 +1,12 @@
-import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { BehaviorSubject, delay, forkJoin, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, delay, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { EventRegistrationService } from './event-registration.service';
 import { NotificationService } from './notification.service';
-import { StorageService } from './storage.service';
+import { LOCAL_STORAGE_USER_KEY, StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
 import { UserProfileService } from './user-profile.service';
-
-const LOCAL_STORAGE_KEY = 'nextjp.user';
 
 @Injectable({
   providedIn: 'root',
@@ -34,26 +31,8 @@ export class AuthMockService {
   private userSignal = signal<User | null>(null);
   user = this.userSignal.asReadonly();
 
-  private platformId = inject(PLATFORM_ID);
-
-  constructor() {
-    if (isPlatformBrowser(this.platformId)) {
-      const savedUserJson = this.storage.local.getItem(LOCAL_STORAGE_KEY);
-      if (savedUserJson) {
-        const savedUser = JSON.parse(savedUserJson);
-        this.setUser(savedUser);
-
-        const returnTo = this.router.url;
-        const queryParams = { returnTo: returnTo };
-        this.router.navigate(['auth'], {
-          queryParams: queryParams,
-        }).then(() => {
-          this.activatedSignal.set(true)
-        });
-      } else {
-        this.activatedSignal.set(true)
-      }
-    }
+  userStatusChecked() {
+    this.activatedSignal.set(true);
   }
 
   login$(userId: string) {
@@ -63,6 +42,7 @@ export class AuthMockService {
         this.setUser(resp.data);
         return resp.data ? this.fetchUserData$(userId) : of(null)
       }),
+      tap(() => this.userStatusChecked()),
       map(() => this.user())
     );
   }
@@ -118,10 +98,10 @@ export class AuthMockService {
         mode: user.mode
       };
 
-      this.storage.local.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+      this.storage.local.setItem(LOCAL_STORAGE_USER_KEY, user.userId);
       return data;
     } else {
-      this.storage.local.removeItem(LOCAL_STORAGE_KEY)
+      this.storage.local.removeItem(LOCAL_STORAGE_USER_KEY)
       return null;
     }
   }

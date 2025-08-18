@@ -10,7 +10,7 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
-    path: 'event/registrations',
+    path: 'user/registrations',
     renderMode: RenderMode.Client
   },
   {
@@ -39,10 +39,6 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'login',
-    renderMode: RenderMode.Server
-  },
-  {
-    path: 'auth',
     renderMode: RenderMode.Server
   },
   {

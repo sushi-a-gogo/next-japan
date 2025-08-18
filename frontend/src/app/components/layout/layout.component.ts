@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
@@ -17,12 +18,14 @@ import { UserProfileComponent } from "../user-profile/user-profile.component";
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
+  private platformId = inject(PLATFORM_ID);
+
   private eventSearch = inject(EventSearchService);
   inSearchMode = this.eventSearch.searchMode;
 
   private authService = inject(AuthMockService);
   isAuthenticated = this.authService.isAuthenticated;
-  authIsActivated = this.authService.activated;
+  authIsActivated = computed(() => isPlatformBrowser(this.platformId) && this.authService.activated());
 
   private dialogService = inject(DialogService);
   showProfileDialog = computed(() => this.dialogService.showDialog() === 'profile');

@@ -18,7 +18,7 @@ export class LoginButtonComponent {
   login() {
     const returnTo = this.router.url;
     const queryParams = this.signup() ? { signup: 'sign-up', returnTo: returnTo } : { returnTo: returnTo };
-    this.router.navigate(['auth'], {
+    this.router.navigate(['login'], {
       queryParams: queryParams,
     });
   }
