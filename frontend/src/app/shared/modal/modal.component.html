@@ -1,6 +1,7 @@
 <div
-  class="backdrop nx-flex al-c jc-c"
+  class="container nx-flex al-c jc-c"
   [class.open]="open()"
+  [class.backdrop]="showBackdrop()"
   (click)="onClose()"
 >
   <div

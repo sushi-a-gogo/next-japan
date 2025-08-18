@@ -1,4 +1,4 @@
-<app-modal [dynamicWidth]="true" (close)="cancel()">
+<app-modal [dynamicWidth]="true" [showBackdrop]="false">
   <div class="container">
     @if(busy()) {
     <div class="spinner">
@@ -13,20 +13,20 @@
       <header class="nx-flex row al-c jc-sb">
         <span> {{ modeHeaderText() }} </span>
       </header>
-      <main class="nx-flex col">
+      <main class="nx-flex col gap-10">
         @switch(mode()) {
         <!-- sign-in -->
         @case('sign-in') {
         <app-sign-in
           (signIn)="signIn($event)"
-          (cancel)="switchMode('sign-up')"
+          (switchToSignUp)="switchMode('sign-up')"
         />
         }
         <!-- sign-up -->
         @case('sign-up') {
         <app-sign-up-form
-          (signUp)="beginSignUp($event)"
-          (cancel)="switchMode('sign-in')"
+          (submit)="choosePlan($event)"
+          (switchToSignIn)="switchMode('sign-in')"
         />
         }
         <!-- choose-plan -->
@@ -38,10 +38,15 @@
         <app-plan-payment
           [user]="newUser()!"
           [plan]="subscriptionPlan()!"
-          (completePayment)="complete()"
-          (cancel)="beginSignUp(newUser()!)"
+          (completePayment)="completeSignUp()"
+          (cancel)="choosePlan(newUser()!)"
         />
         } }
+        <div>
+          <button matButton (click)="goBack.emit()">
+            ← Return to your adventure
+          </button>
+        </div>
       </main>
     </div>
   </div>

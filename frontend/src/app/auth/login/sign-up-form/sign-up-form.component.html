@@ -1,4 +1,4 @@
-<div class="content nx-flex col jc-sb gap-36">
+<div class="content nx-flex col gap-36">
   <form class="nx-flex col gap-20" [formGroup]="newUserForm">
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>First Name</mat-label>
@@ -40,10 +40,9 @@
     </button>
     <div class="switchbox nx-flex row al-c gap-5">
       Already have an account?
-      <button class="text-button" (click)="cancel.emit()">Sign in</button>
-    </div>
-    <div>
-      <a [routerLink]="returnTo">← Go Back</a>
+      <button class="text-button" (click)="switchToSignIn.emit()">
+        Sign in
+      </button>
     </div>
   </div>
 </div>

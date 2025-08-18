@@ -42,7 +42,7 @@ export class AuthFlowComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((user) => {
       if (user) {
-        this.router.navigate([this.path]);
+        this.goBack();
       } else {
         this.showLogin.set(true);
       }
@@ -69,4 +69,7 @@ export class AuthFlowComponent implements OnInit {
       });
   }
 
+  goBack() {
+    this.router.navigate([this.path]);
+  }
 }

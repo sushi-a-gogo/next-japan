@@ -23,7 +23,11 @@
       </button>
       <div class="switchbox nx-flex row al-c gap-5">
         Don't have an account?
-        <button type="button" class="text-button" (click)="goBack()">
+        <button
+          type="button"
+          class="text-button"
+          (click)="switchToSignUp.emit()"
+        >
           Sign up
         </button>
       </div>
@@ -34,7 +38,4 @@
     pre-filled and read-only to give you a taste of the real thing.
   </p>
   }
-</div>
-<div>
-  <a [routerLink]="returnTo">← Go Back</a>
 </div>

@@ -1,7 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
-import { LoginComponent } from '@app/auth/login/login.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { EventSearchService } from '@app/services/event-search.service';
@@ -13,7 +12,7 @@ import { UserProfileComponent } from "../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [HeaderComponent, FooterComponent, SignInBannerComponent, LoginComponent, UserProfileComponent],
+  imports: [HeaderComponent, FooterComponent, SignInBannerComponent, UserProfileComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

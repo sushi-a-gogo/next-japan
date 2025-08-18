@@ -29,12 +29,11 @@ export class LoginComponent implements OnInit {
 
   mode = signal<'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment' | null>(null);
   busy = signal<boolean>(false);
+  newUser = signal<User | null>(null);
+  subscriptionPlan = signal<Plan | null>(null);
   login = output<string>();
   signUp = output<User>();
-
-  ngOnInit(): void {
-    this.mode.set(this.route.snapshot.queryParams['signup'] || 'sign-in')
-  }
+  goBack = output();
 
   modeHeaderText = computed(() => {
     switch (this.mode()) {
@@ -50,40 +49,41 @@ export class LoginComponent implements OnInit {
     }
   })
 
-  newUser = signal<User | null>(null);
-  subscriptionPlan = signal<Plan | null>(null);
-
-  switchMode(mode?: 'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment') {
-    this.busy.set(true);
-    setTimeout(() => {
-      if (!mode) {
-        mode = this.mode() === 'sign-in' ? 'sign-up' : 'sign-in';
-      }
-      if (mode === 'sign-in') {
-        this.newUser.set(null);
-        this.subscriptionPlan.set(null);
-      }
-
-      this.mode.set(mode);
-      this.busy.set(false);
-    }, 500);
+  ngOnInit(): void {
+    this.mode.set(this.route.snapshot.queryParams['signup'] || 'sign-in')
   }
 
   cancel() {
+    this.goBack.emit();
+  }
+
+  switchMode(mode?: 'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment') {
+    this.busy.set(true);
+
+    if (!mode) {
+      mode = this.mode() === 'sign-in' ? 'sign-up' : 'sign-in';
+    }
+
+    if (mode === 'sign-in') {
+      this.newUser.set(null);
+      this.subscriptionPlan.set(null);
+    }
+
+    setTimeout(() => {
+      this.mode.set(mode);
+      this.busy.set(false);
+    }, 400);
   }
 
   signIn(userId: string) {
     this.login.emit(userId);
-    // this.authenticating.set(true);
-    // this.auth.login$(userId).pipe(
-    //   takeUntilDestroyed(this.destroyRef)
-    // ).subscribe({
-    //   complete: () => this.authenticating.set(false),
-    //   error: () => this.authenticating.set(false)
-    // });
   }
 
-  beginSignUp(user: User) {
+  beginSignUp() {
+    this.switchMode('sign-up');
+  }
+
+  choosePlan(user: User) {
     this.newUser.set(user);
     this.switchMode('choose-plan');
   }
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
     this.switchMode('plan-payment');
   }
 
-  complete() {
+  completeSignUp() {
     const user = this.newUser()!;
     this.signUp.emit(user);
   }

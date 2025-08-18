@@ -1,5 +1,9 @@
 @if(showLogin()) {
-<app-login (login)="login($event)" (signUp)="signUp($event)" />
+<app-login
+  (login)="login($event)"
+  (signUp)="signUp($event)"
+  (goBack)="goBack()"
+/>
 } @else {
 <div class="overlay">
   <div class="spinner nx-flex col al-c jc-c gap-10">
