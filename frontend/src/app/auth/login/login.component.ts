@@ -53,10 +53,6 @@ export class LoginComponent implements OnInit {
     this.mode.set(this.route.snapshot.queryParams['signup'] || 'sign-in')
   }
 
-  cancel() {
-    this.goBack.emit();
-  }
-
   switchMode(mode?: 'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment') {
     this.busy.set(true);
 
