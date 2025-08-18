@@ -1,20 +1,23 @@
-import { effect, ElementRef, inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
-import { NotificationDetail } from '@models/notification-detail.model';
-import { map, Observable, of, Subject } from 'rxjs';
-import { DateTimeService } from './date-time.service';
+import { EventNotification, UserNotification } from '@app/models/user-notification.model';
+import { debug, RxJsLoggingLevel } from '@app/operators/debug';
+import { environment } from '@environments/environment';
+import { catchError, Observable, switchMap, tap } from 'rxjs';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  private dateTime = inject(DateTimeService);
+  private http = inject(HttpClient);
+  private apiUri = `${environment.apiUrl}/api/notifications`;
+  private errorService = inject(ErrorService);
 
-  private notificationSignal = signal<NotificationDetail[]>([]);
+  private notificationSignal = signal<EventNotification[]>([]);
   notifications = this.notificationSignal.asReadonly();
-
-  private showNotificationSubject = new Subject<ElementRef>();
-  showNotifications$ = this.showNotificationSubject.asObservable();
 
   private unreadNotificationCountSignal = signal<number>(0);
   unreadNotificationCount = this.unreadNotificationCountSignal.asReadonly();
@@ -27,22 +30,33 @@ export class NotificationService {
     });
   }
 
-  markAsRead(notificationId: number) {
-    this.notificationSignal.update((prev) => {
-      return prev.map((n) => {
-        if (n.notificationId === notificationId) {
-          return {
-            ...n,
-            isRead: true
-          }
-        }
-
-        return n;
-      })
-    });
+  getUserNotifications$(userId: string) {
+    return this.fetchUserNotifications$(userId);
   }
 
-  markAllAsRead() {
+  sendRegistrationNotification$(reg: EventRegistration) {
+    const message = this.getRegistrationStatusMessage(reg.status);
+    const notification = {
+      userId: reg.userId,
+      opportunityId: reg.opportunity.opportunityId,
+      title: reg.eventTitle,
+      message,
+    };
+
+    return this.post$(notification);
+  }
+
+  getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
+    return this.http.get<ApiResponse<EventNotification>>(`${this.apiUri}/${notificationId}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getNotification')
+    )
+  }
+
+  markAsRead$(notification: EventNotification) {
+    return this.delete$(notification);
+  }
+
+  markAllAsRead$() {
     this.notificationSignal.update((prev) => {
       return prev.map((n) => {
         return {
@@ -51,50 +65,6 @@ export class NotificationService {
         }
       })
     });
-  }
-
-  sendRegistrationNotification(reg: EventRegistration) {
-    const message = this.getRegistrationStatusMessage(reg.status);
-    const notification: NotificationDetail = {
-      notificationId: ++this.id, //this.getRandomIntInclusive(1, 1000000),
-      notificationDate: new Date(),
-      eventDate: reg.opportunity.startDate,
-      eventTimeZone: reg.opportunity.timeZone,
-      eventTimeZoneAbbreviation: reg.opportunity.timeZoneAbbreviation,
-      userId: reg.userId || '',
-      eventId: reg.opportunity.eventId,
-      image: reg.image,
-      title: reg.eventTitle,
-      message,
-    };
-
-    this.notificationSignal.update((prev) => [notification, ...prev]);
-  }
-
-  showNotifications(elm: ElementRef) {
-    this.showNotificationSubject.next(elm);
-  }
-
-  getUnreadNotificationCount$() {
-    return this.getNotifications$().pipe(
-      map((notifications) => {
-        const count = notifications.filter((n: NotificationDetail) => !n.isRead).length;
-        this.unreadNotificationCountSignal.set(count);
-        return count;
-      }),
-    );
-  }
-
-  getNotifications$() {
-    return of(this.notificationSignal());
-  }
-
-  getNotification$(notificationId: number) {
-    return of(this.notificationSignal().find((n) => n.notificationId === notificationId))
-  }
-
-  updateNotifications$(notificationIds: number[], isRead: boolean) {
-    return of(true);
   }
 
   private getRegistrationStatusMessage(status?: RegistrationStatus) {
@@ -110,9 +80,30 @@ export class NotificationService {
     }
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      return of(result as T);
-    };
+  private fetchUserNotifications$(userId: string) {
+    return this.http.get<ApiResponse<EventNotification[]>>(`${this.apiUri}/user/${userId}`).pipe(
+      tap((resp) => this.notificationSignal.set(resp.data || [])),
+      debug(RxJsLoggingLevel.DEBUG, 'getNotifications')
+    );
+  }
+
+  private post$(notification: { userId: string, opportunityId: string, title: string, message: string }) {
+    return this.http.post(`${this.apiUri}`, notification).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "post User Notification"),
+      switchMap(() => this.fetchUserNotifications$(notification.userId)),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error saving Event Registration', true)
+      })
+    );
+  }
+
+  private delete$(notification: UserNotification) {
+    return this.http.delete(`${this.apiUri}/${notification.notificationId}`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, "delete Notification"),
+      switchMap(() => this.fetchUserNotifications$(notification.userId)),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error deleting notification', true)
+      })
+    );
   }
 }

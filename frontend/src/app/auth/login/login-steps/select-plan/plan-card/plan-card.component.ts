@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Plan } from '../../../../models/plan.interface';
+import { Plan } from '../../../../../models/plan.interface';
 
 @Component({
   selector: 'app-plan-card',

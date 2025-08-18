@@ -1,4 +1,4 @@
-<div class="app-container">
+<div class="app-container fade-in" [class.open]="authIsActivated()">
   <header>
     <app-header />
   </header>
@@ -25,10 +25,6 @@
   [class.open]="inSearchMode()"
   (click)="toggleSearchMode()"
 ></div>
-
-@if(isAuthenticating()) {
-<app-login />
-}
 
 <!-- My Profile -->
 @if(showProfileDialog()) {

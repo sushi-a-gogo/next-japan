@@ -1,6 +1,6 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { NotificationDetail } from '@app/models/notification-detail.model';
+import { EventNotification } from '@app/models/user-notification.model';
 import { DateTimeService } from '@app/services/date-time.service';
 import { ImageService } from '@app/services/image.service';
 import { environment } from '@environments/environment';
@@ -15,7 +15,7 @@ export class NotificationCardComponent {
   private dateTimeService = inject(DateTimeService);
   private imageService = inject(ImageService);
 
-  notification = input.required<NotificationDetail>();
+  notification = input.required<EventNotification>();
 
   resizedImage = computed(() => {
     return this.imageService.resizeImage(this.notification().image, 168, 96);

@@ -13,8 +13,8 @@ import { NewUserForm } from './new-user.form';
 })
 export class SignUpFormComponent {
   newUserForm = this.getForm();
-  signUp = output<User>();
-  cancel = output();
+  submit = output<User>();
+  switchToSignIn = output();
 
   createUser() {
     const user: User = {
@@ -29,7 +29,7 @@ export class SignUpFormComponent {
       },
       subscriptionPlan: ''
     };
-    this.signUp.emit(user);
+    this.submit.emit(user);
   }
 
   private getForm() {
@@ -47,5 +47,4 @@ export class SignUpFormComponent {
 
     return form;
   }
-
 }

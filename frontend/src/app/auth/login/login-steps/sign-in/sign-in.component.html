@@ -1,0 +1,41 @@
+<div class="content fade-in nx-flex col al-c gap-5" [class.open]="loaded()">
+  @if(selectedUser()) {
+  <button class="avatar-button" (click)="switchUser()">
+    <app-user-avatar [user]="selectedUser()!" [size]="96" />
+  </button>
+  <form
+    class="nx-flex col gap-24"
+    #signInForm="ngForm"
+    (ngSubmit)="signIn.emit(selectedUser()!.userId)"
+  >
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>Email Address</mat-label>
+      <input
+        matInput
+        name="email"
+        [(ngModel)]="selectedUser()!.email"
+        readonly=""
+      />
+    </mat-form-field>
+    <div class="nx-flex col gap-10">
+      <button type="submit" class="app-button dialog-button app-button-filled">
+        Continue
+      </button>
+      <div class="switchbox nx-flex row al-c gap-5">
+        Don't have an account?
+        <button
+          type="button"
+          class="text-button"
+          (click)="switchToSignUp.emit()"
+        >
+          Sign up
+        </button>
+      </div>
+    </div>
+  </form>
+  <p class="soft">
+    🎌 This demo world has sample accounts stored in the database. Logins are
+    pre-filled and read-only to give you a taste of the real thing.
+  </p>
+  }
+</div>

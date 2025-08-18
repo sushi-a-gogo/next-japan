@@ -49,7 +49,7 @@ router.get("/user/:userId", async (req, res) => {
       .lean();
 
     if (!registrations.length) {
-      return res.status(200).json({ success: true, data: [] }); // Your fix
+      return res.status(200).json({ success: true, data: [] });
     }
 
     const formattedRegistrations = registrations.map(formatRegistration);
@@ -223,7 +223,7 @@ router.put("/:registrationId", async (req, res) => {
   }
 });
 
-// PUT update registration (primarily for status)
+// DELETE registration
 router.delete("/:registrationId", async (req, res) => {
   try {
     const { registrationId } = req.params;

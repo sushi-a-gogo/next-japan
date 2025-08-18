@@ -16,17 +16,10 @@ export class LoginButtonComponent {
   private router = inject(Router);
 
   login() {
-    this.auth.authenticationStart();
-    return;
     const returnTo = this.router.url;
-    const queryParams = this.signup() ? { signup: 'signup', returnTo: returnTo } : { returnTo: returnTo };
+    const queryParams = this.signup() ? { signup: 'sign-up', returnTo: returnTo } : { returnTo: returnTo };
     this.router.navigate(['login'], {
       queryParams: queryParams,
     });
   }
-
-  signUp() {
-    this.auth.authenticationStart('sign-up');
-  }
-
 }

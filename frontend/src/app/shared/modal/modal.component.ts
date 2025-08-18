@@ -13,7 +13,10 @@ import { filter } from 'rxjs';
 export class ModalComponent implements OnInit {
   open = signal<boolean>(false);
   close = output<boolean>();
+
   dynamicWidth = input<boolean>(false);
+  showBackdrop = input<boolean>(true);
+
   private initialized = false;
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
