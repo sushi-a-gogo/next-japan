@@ -1,97 +1,80 @@
-import { Component, computed, inject, OnInit, output, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute } from '@angular/router';
-import { Plan } from '@app/models/plan.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { ModalComponent } from "@shared/modal/modal.component";
-import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
-import { SelectPlanComponent } from './select-plan/select-plan.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
+import { AuthMockService } from '@app/services/auth-mock.service';
+import { LOCAL_STORAGE_USER_KEY, StorageService } from '@app/services/storage.service';
+import { UserProfileService } from '@app/services/user-profile.service';
+import { of, switchMap } from 'rxjs';
+import { LoginStepsComponent } from "./login-steps/login-steps.component";
 
 @Component({
   selector: 'app-login',
-  imports: [
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    ModalComponent,
-    SignInComponent,
-    SignUpFormComponent,
-    SelectPlanComponent,
-    PlanPaymentComponent
-  ],
+  imports: [MatProgressSpinnerModule, LoginStepsComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
+  showLogin = signal<boolean>(false);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  mode = signal<'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment' | null>(null);
-  busy = signal<boolean>(false);
-  newUser = signal<User | null>(null);
-  subscriptionPlan = signal<Plan | null>(null);
-  login = output<string>();
-  signUp = output<User>();
-  goBack = output();
+  private auth = inject(AuthMockService);
+  private userService = inject(UserProfileService);
+  private storage = inject(StorageService);
 
-  modeHeaderText = computed(() => {
-    switch (this.mode()) {
-      case 'sign-up':
-        return "Create your account";
-      case 'choose-plan':
-        return "Choose your plan";
-      case 'plan-payment':
-        return "Enter payment details";
-      case 'sign-in':
-      default:
-        return "Log in to continue";
-    }
-  })
+  private destroyRef = inject(DestroyRef);
+
+  private path = '/home';
 
   ngOnInit(): void {
-    this.mode.set(this.route.snapshot.queryParams['signup'] || 'sign-in')
+    this.route.queryParams.pipe(
+      switchMap((params) => {
+        let url = decodeURIComponent(params['returnTo']);
+        // If url starts with '/', remove it for router.navigate to treat it as an absolute path
+        url = url?.startsWith('/') ? url.substring(1) : url;
+        if (url) {
+          this.path = url;
+        }
+
+        const userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
+        if (userId) {
+          return this.auth.login$(userId);
+        }
+        return of(null);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((user) => {
+      if (user) {
+        this.goBack();
+      } else {
+        this.showLogin.set(true);
+      }
+    })
   }
 
-  switchMode(mode?: 'sign-in' | 'sign-up' | 'choose-plan' | 'plan-payment') {
-    this.busy.set(true);
-
-    if (!mode) {
-      mode = this.mode() === 'sign-in' ? 'sign-up' : 'sign-in';
-    }
-
-    if (mode === 'sign-in') {
-      this.newUser.set(null);
-      this.subscriptionPlan.set(null);
-    }
-
-    setTimeout(() => {
-      this.mode.set(mode);
-      this.busy.set(false);
-    }, 400);
+  login(userId: string) {
+    this.showLogin.set(false);
+    return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => this.router.navigate([this.path]),
+      error: () => this.router.navigate([this.path])
+    });
   }
 
-  signIn(userId: string) {
-    this.login.emit(userId);
+  signUp(user: User) {
+    this.showLogin.set(false);
+    this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
+      .pipe(
+        switchMap((resp) => this.auth.login$(resp.data.userId)),
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next: () => this.router.navigate([this.path]),
+        error: () => this.router.navigate([this.path])
+      });
   }
 
-  beginSignUp() {
-    this.switchMode('sign-up');
-  }
-
-  choosePlan(user: User) {
-    this.newUser.set(user);
-    this.switchMode('choose-plan');
-  }
-
-  selectPlan(plan: Plan) {
-    this.subscriptionPlan.set(plan);
-    this.newUser.update((prev) => ({ ...prev!, subscriptionPlan: plan.name }));
-    this.switchMode('plan-payment');
-  }
-
-  completeSignUp() {
-    const user = this.newUser()!;
-    this.signUp.emit(user);
+  goBack() {
+    this.router.navigate([this.path]);
   }
 }

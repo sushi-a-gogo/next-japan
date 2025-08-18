@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  min-width: 300px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.25s ease-in-out;
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%); /* Shifts the element up by half its height */
+  z-index: 1000;
+  margin: 0 auto;
+}
+
+.content {
+  flex: 1;
+}
+
+header {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+main {
+  flex: 1;
+}

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthFlowComponent } from './auth/auth-flow/auth-flow.component';
+import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { userGuard } from './guards/user.guard';
 import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
@@ -19,7 +19,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: AuthFlowComponent
+    component: LoginComponent
   },
   {
     path: 'logout',

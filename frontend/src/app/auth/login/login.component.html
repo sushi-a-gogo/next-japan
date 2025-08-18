@@ -1,53 +1,14 @@
-<app-modal [dynamicWidth]="true" [showBackdrop]="false">
-  <div class="container">
-    @if(busy()) {
-    <div class="spinner">
-      <mat-spinner
-        diameter="40"
-        strokeWidth="5"
-        class="blue-spin"
-      ></mat-spinner>
-    </div>
-    }
-    <div class="content fade-in nx-flex col gap-36" [class.open]="!busy()">
-      <header class="nx-flex row al-c jc-sb">
-        <span> {{ modeHeaderText() }} </span>
-      </header>
-      <main class="nx-flex col gap-10">
-        @switch(mode()) {
-        <!-- sign-in -->
-        @case('sign-in') {
-        <app-sign-in
-          (signIn)="signIn($event)"
-          (switchToSignUp)="switchMode('sign-up')"
-        />
-        }
-        <!-- sign-up -->
-        @case('sign-up') {
-        <app-sign-up-form
-          (submit)="choosePlan($event)"
-          (switchToSignIn)="switchMode('sign-in')"
-        />
-        }
-        <!-- choose-plan -->
-        @case('choose-plan') {
-        <app-select-plan (select)="selectPlan($event)" />
-        }
-        <!-- plan-payment -->
-        @case('plan-payment') {
-        <app-plan-payment
-          [user]="newUser()!"
-          [plan]="subscriptionPlan()!"
-          (completePayment)="completeSignUp()"
-          (cancel)="choosePlan(newUser()!)"
-        />
-        } }
-        <div>
-          <button matButton (click)="goBack.emit()">
-            ← Return to your adventure
-          </button>
-        </div>
-      </main>
-    </div>
+@if(showLogin()) {
+<app-login-steps
+  (login)="login($event)"
+  (signUp)="signUp($event)"
+  (goBack)="goBack()"
+/>
+} @else {
+<div class="overlay">
+  <div class="spinner nx-flex col al-c jc-c gap-10">
+    <mat-spinner diameter="40" strokeWidth="5" class="blue-spin"></mat-spinner>
+    <div class="subhead">Signing in...</div>
   </div>
-</app-modal>
+</div>
+}
