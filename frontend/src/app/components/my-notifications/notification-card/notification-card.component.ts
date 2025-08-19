@@ -1,4 +1,4 @@
-import { DatePipe, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { EventNotification } from '@app/models/user-notification.model';
 import { DateTimeService } from '@app/services/date-time.service';
@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-notification-card',
-  imports: [NgOptimizedImage, DatePipe],
+  imports: [NgOptimizedImage],
   templateUrl: './notification-card.component.html',
   styleUrl: './notification-card.component.scss'
 })
@@ -22,7 +22,7 @@ export class NotificationCardComponent {
   });
 
   notificationDate = computed(() => {
-    const createdAt = new Date(this.notification().createdAt);
+    const createdAt = new Date(this.notification().sendAt);
     const now = new Date();
 
     const diffMs = now.getTime() - createdAt.getTime();

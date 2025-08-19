@@ -23,12 +23,11 @@ export class MyNotificationsComponent implements OnInit {
   userId = input.required<string>();
   notificationMenuTrigger = viewChild<MatMenuTrigger>('notificationMenuTrigger')
 
-  showClearAll = signal<boolean>(false);
   notifications = computed(() => {
     const items = this.notificationService.notifications();
     items.sort((a, b) => {
-      const t1 = new Date(a.createdAt).getTime();
-      const t2 = new Date(b.createdAt).getTime();
+      const t1 = new Date(a.sendAt).getTime();
+      const t2 = new Date(b.sendAt).getTime();
       return t2 - t1;
     });
     return items;
@@ -46,12 +45,11 @@ export class MyNotificationsComponent implements OnInit {
   }
 
   menuToggle(isOpen: boolean) {
-    if (isOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      setTimeout(() => this.showClearAll.set(false), 250);
-      document.body.classList.remove('no-scroll');
-    }
+    // if (isOpen) {
+    //   document.body.classList.add('no-scroll');
+    // } else {
+    //   document.body.classList.remove('no-scroll');
+    // }
   }
 
   markAsReadAndNavigate(notification: EventNotification) {
@@ -69,18 +67,11 @@ export class MyNotificationsComponent implements OnInit {
     });
   }
 
-  clickX(e: any) {
-    if (this.notifications().length) {
-      e.stopPropagation();
-      if (this.showClearAll()) {
-        this.markAllAsRead();
-      } else {
-        this.showClearAll.set(true);
-      }
-    }
+  clickX() {
+    this.notificationMenuTrigger()?.closeMenu();
   }
 
-  private markAllAsRead() {
+  markAllAsRead() {
     this.busy.set(true);
     this.notificationService.markAllAsRead$(this.userId()).pipe(
       takeUntilDestroyed(this.destroyRef)

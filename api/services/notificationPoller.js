@@ -1,48 +1,62 @@
 import EventRegistration from "../models/EventRegistration.js";
 import UserNotification from "../models/UserNotification.js";
 
-/**
- * notificationPoller.js
- *
- * This background process simulates a "real world" workflow.
- * In a production app, event registrations would be approved
- * by an admin or automated rule engine. Here, we fake it:
- *
- * - Users register for events -> system creates a pending notification.
- * - The poller wakes up periodically, finds due notifications,
- *   marks them delivered, and also flips the linked registration's
- *   status from "requested" to "registered".
- *
- * This makes the demo app feel more "alive" without requiring
- * an actual approval workflow or admin dashboard.
- *
- * NOTE: In a real-world system, notifications would typically
- * only reference the event or user. The registrationId link here
- * exists solely to make this simulation possible.
- */
-const notificationPoller = () => {
+const notificationPoller = (intervalMs = 60_000) => {
   return setInterval(async () => {
     const now = new Date();
 
-    const notifications = await UserNotification.find({
-      pending: true,
-      sendAt: { $lte: now },
-    });
+    try {
+      // Step 1: Find all notifications that are due
+      const notifications = await UserNotification.find({
+        pending: true,
+        sendAt: { $lte: now },
+      }).lean(); // lean = plain JS objects (faster for batch ops)
 
-    for (const notification of notifications) {
-      const reg = await EventRegistration.findById(notification.registrationId);
+      if (!notifications.length) return;
 
-      if (reg && reg.status !== "cancelled") {
-        reg.status = "registered"; // simulate approval
-        await reg.save();
+      const regIds = notifications.map((n) => n.registrationId);
+
+      // Step 2: Update all matching registrations that aren’t cancelled
+      const result = await EventRegistration.updateMany(
+        { _id: { $in: regIds }, status: { $ne: "cancelled" } },
+        { $set: { status: "registered" } }
+      );
+
+      // Step 3: Split notifications into "deliver" vs "delete"
+      const validRegIds = await EventRegistration.find(
+        { _id: { $in: regIds }, status: "registered" },
+        { _id: 1 }
+      ).lean();
+
+      const validIdSet = new Set(validRegIds.map((r) => r._id.toString()));
+
+      const deliverIds = notifications
+        .filter((n) => validIdSet.has(n.registrationId.toString()))
+        .map((n) => n._id);
+
+      const deleteIds = notifications
+        .filter((n) => !validIdSet.has(n.registrationId.toString()))
+        .map((n) => n._id);
+
+      // Step 4: Bulk update notifications
+      if (deliverIds.length) {
+        await UserNotification.updateMany(
+          { _id: { $in: deliverIds } },
+          { $set: { pending: false } }
+        );
       }
-      // Deliver notification (e.g., just mark pending=false)
-      notification.pending = false;
-      await notification.save();
 
-      // Optionally, push to a real-time service (Socket.io, Pusher, etc.)
+      if (deleteIds.length) {
+        await UserNotification.deleteMany({ _id: { $in: deleteIds } });
+      }
+
+      console.log(
+        `Poller processed ${notifications.length} notifications → delivered ${deliverIds.length}, deleted ${deleteIds.length}`
+      );
+    } catch (err) {
+      console.error("Poller batch error:", err);
     }
-  }, 60_000); // check every minute
+  }, intervalMs);
 };
 
 export default notificationPoller;

@@ -36,10 +36,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-//body:has(.cdk-overlay-container:not(:empty)),
+body:has(.cdk-overlay-backdrop-showing),
 body.no-scroll,
 body:has(.dialog) {
-  //overflow: clip;
+  overflow: clip;
 }
 
 button,

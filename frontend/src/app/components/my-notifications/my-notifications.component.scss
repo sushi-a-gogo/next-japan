@@ -35,7 +35,6 @@
   height: 48px;
   gap: 32px;
   min-width: 320px;
-  max-width: 94vw;
 
   font-size: 20px;
   line-height: 24px;
@@ -76,7 +75,7 @@
 
 .close-button {
   color: var(--next-text);
-  background-color: var(--next-surface);
+  background-color: var(--next-surface-alt);
   transition: 0.25s ease-out;
   font-size: 14px;
   border-radius: 100%;

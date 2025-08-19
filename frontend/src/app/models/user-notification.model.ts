@@ -4,6 +4,7 @@ export interface UserNotification {
   userId: string;
   notificationId: string;
   createdAt: string;
+  sendAt: string;
   title: string;
   message: string;
   image: AppImageData;

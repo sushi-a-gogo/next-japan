@@ -61,6 +61,7 @@ export const formatNotification = (notification) => ({
   eventTimeZone: notification.opportunityId.timeZone,
   eventTimeZoneAbbreviation: notification.opportunityId.timeZoneAbbreviation,
   createdAt: notification.createdAt,
+  sendAt: notification.sendAt,
 });
 
 export default UserNotification;

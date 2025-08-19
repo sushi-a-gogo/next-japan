@@ -109,7 +109,8 @@ router.post("/", async (req, res) => {
       opportunityId,
       registrationId: savedReg._id.toString(),
       title: "We have received your registration request!",
-      message: "Your registration request has been successfully received.",
+      message:
+        "Thanks for registering! Your request is in progress, and we're working to get you a spot.",
       sendAt: new Date(),
       pending: false,
     });
@@ -123,7 +124,8 @@ router.post("/", async (req, res) => {
       opportunityId,
       registrationId: savedReg._id.toString(),
       title: "Your request was approved!",
-      message: "We look forward to seeing you at the event!",
+      message:
+        "Your registration has been confirmed. We look forward to seeing you at the event!",
       sendAt,
       pending: true,
     });
