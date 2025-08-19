@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '@app/models/api-response.model';
-import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
-import { EventNotification, UserNotification } from '@app/models/user-notification.model';
+import { RegistrationStatus } from '@app/models/event/event-registration.model';
+import { EventNotification } from '@app/models/user-notification.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { catchError, Observable, switchMap, tap } from 'rxjs';
@@ -34,18 +34,6 @@ export class NotificationService {
     return this.fetchUserNotifications$(userId);
   }
 
-  sendRegistrationNotification$(reg: EventRegistration) {
-    const message = this.getRegistrationStatusMessage(reg.status);
-    const notification = {
-      userId: reg.userId,
-      opportunityId: reg.opportunity.opportunityId,
-      title: reg.eventTitle,
-      message,
-    };
-
-    return this.post$(notification);
-  }
-
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
     return this.http.get<ApiResponse<EventNotification>>(`${this.apiUri}/${notificationId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getNotification')
@@ -53,18 +41,11 @@ export class NotificationService {
   }
 
   markAsRead$(notification: EventNotification) {
-    return this.delete$(notification);
+    return this.delete$(notification.notificationId, notification.userId);
   }
 
-  markAllAsRead$() {
-    this.notificationSignal.update((prev) => {
-      return prev.map((n) => {
-        return {
-          ...n,
-          isRead: true
-        }
-      })
-    });
+  markAllAsRead$(userId: string) {
+    return this.delete$('all', userId);
   }
 
   private getRegistrationStatusMessage(status?: RegistrationStatus) {
@@ -97,10 +78,10 @@ export class NotificationService {
     );
   }
 
-  private delete$(notification: UserNotification) {
-    return this.http.delete(`${this.apiUri}/${notification.notificationId}`).pipe(
+  private delete$(id: string, userId: string) {
+    return this.http.delete(`${this.apiUri}/${id}?userId=${userId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, "delete Notification"),
-      switchMap(() => this.fetchUserNotifications$(notification.userId)),
+      switchMap(() => this.fetchUserNotifications$(userId)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error deleting notification', true)
       })

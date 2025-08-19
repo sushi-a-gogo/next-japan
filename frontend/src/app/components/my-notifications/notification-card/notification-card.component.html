@@ -9,15 +9,13 @@
 <section class="nx-flex col gap-5">
   <header class="nx-flex row al-c jc-sb gap-24">
     <span class="nx-flex col title">
-      {{ notification().title }}
+      {{ notification().eventTitle }}
       <span class="time">
         {{ fullDate() }}
         ({{ notification().eventTimeZoneAbbreviation }})
       </span>
     </span>
-    <span class="time">{{
-      notification().createdAt | date : "shortTime"
-    }}</span>
+    <span class="time">{{ notificationDate() }}</span>
   </header>
   <main>
     {{ notification().message }}

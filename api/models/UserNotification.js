@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+/**
+ * UserNotification Schema
+ *
+ * Represents a notification that a user will see.
+ * Notifications can be created immediately (pending=false),
+ * or scheduled for later delivery (pending=true + sendAt).
+ *
+ * NOTE: In production, notifications would not usually store
+ * registrationId. We include it here ONLY to simulate approval
+ * events in the poller (see notificationPoller.js).
+ */
 const userNotificationSchema = new mongoose.Schema(
   {
     userId: { type: String, required: true },
@@ -10,10 +21,15 @@ const userNotificationSchema = new mongoose.Schema(
       required: true,
       ref: "EventOpportunity",
     },
+    registrationId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "EventRegistration",
+      // NOTE: Only used for simulating approval in the poller.
+    },
+    sendAt: { type: Date, default: Date.now }, // when to deliver the notification
+    pending: { type: Boolean, default: false }, // true if scheduled for later
   },
-  {
-    timestamps: true, // Adds createdAt, updatedAt
-  }
+  { timestamps: true } // adds createdAt, updatedAt
 );
 
 const UserNotification = mongoose.model(
@@ -21,6 +37,11 @@ const UserNotification = mongoose.model(
   userNotificationSchema
 );
 
+/**
+ * formatNotification
+ *
+ * Normalizes notification objects for API responses.
+ */
 export const formatNotification = (notification) => ({
   notificationId: notification._id.toString(),
   userId: notification.userId,

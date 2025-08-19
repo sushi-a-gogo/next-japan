@@ -15,4 +15,6 @@ export interface EventNotification extends UserNotification {
   eventDate: string;
   eventTimeZone: string;
   eventTimeZoneAbbreviation: string;
+  eventTitle: string;
+  registrationId: string;
 }

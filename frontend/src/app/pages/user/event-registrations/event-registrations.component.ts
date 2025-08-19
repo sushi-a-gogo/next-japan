@@ -9,6 +9,7 @@ import { AddressStripComponent } from "@app/shared/address-strip/address-strip.c
 import { ConfirmModalComponent } from '@app/shared/modal/confirm-modal/confirm-modal.component';
 import { OpportunityTimestampComponent } from '@app/shared/opportunity-timestamp/opportunity-timestamp.component';
 import { PageLoadSpinnerComponent } from '@app/shared/page-load-spinner/page-load-spinner.component';
+import { interval, switchMap } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
 @Component({
@@ -50,11 +51,20 @@ export class EventRegistrationsComponent implements OnInit {
 
     const userId = this.authService.user()?.userId;
     if (userId) {
+
       this.registrationService.getUserEventRegistrations$(userId!).pipe(
         takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         this.loaded.set(true);
       })
+
+      // Start polling every 60 seconds
+      interval(60_000)
+        .pipe(
+          switchMap(() => this.registrationService.getUserEventRegistrations$(userId!, false)),
+          takeUntilDestroyed(this.destroyRef)
+        )
+        .subscribe();
     }
   }
 

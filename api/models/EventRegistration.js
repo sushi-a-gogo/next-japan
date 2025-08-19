@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+/**
+ * EventRegistration Schema
+ *
+ * Represents a user's request to join an event.
+ * Normally, admins or rules would approve/reject registrations.
+ * In this demo app, approvals are simulated automatically via
+ * the notification poller.
+ */
 const eventRegistrationSchema = new mongoose.Schema(
   {
     userId: {
@@ -29,6 +37,11 @@ const EventRegistration = mongoose.model(
   eventRegistrationSchema
 );
 
+/**
+ * formatRegistration
+ *
+ * Normalizes registration objects for API responses.
+ */
 export const formatRegistration = (reg) => ({
   registrationId: reg._id.toString(),
   userId: reg.userId,

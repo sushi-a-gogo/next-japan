@@ -28,7 +28,6 @@ export class LocationExpansionPanelComponent {
   opportunities = computed(() => {
     const items = this.eventService.eventData().opportunities
       .filter((opp) => opp.locationId === this.location().locationId);
-    items.sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1);
     return items;
   });
   expanded = signal<boolean>(true);

@@ -24,7 +24,6 @@ export class EventOpportunitiesComponent implements OnInit {
         const context = getRegistrationContext(opp, eventRegistrations);
         return !context;
       });
-    availableOpportunities.sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1);
     this.opportunities.set(availableOpportunities.slice(0, 3));
   }
 }

@@ -6,6 +6,7 @@ import EventRegistration, {
   formatRegistration,
 } from "../models/EventRegistration.js";
 import User from "../models/User.js";
+import UserNotification from "../models/UserNotification.js";
 
 dotenv.config();
 const router = express.Router();
@@ -60,51 +61,72 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
-// POST new registration
+/**
+ * POST /registrations
+ *
+ * Simulates a user registering for an event.
+ * - Creates a new EventRegistration with status "requested".
+ * - Sends a user notification that the registration has been received.
+ * - Schedules a pending notification for registration approval (delivered later by poller).
+ */
 router.post("/", async (req, res) => {
   try {
     const { userId, status, opportunityId } = req.body;
 
-    // Input validation
-    if (!userId || !status || !opportunityId) {
+    // --- VALIDATIONS ---
+    if (!userId || !status || !opportunityId)
       return res.status(400).json({ error: "Missing required fields" });
-    }
 
-    // Validate userId and opportunityId format
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(opportunityId)
-    ) {
+    )
       return res
         .status(400)
         .json({ error: "Invalid userId or opportunityId format" });
-    }
 
-    // Validate user and opportunity exist
-    const user = await User.findOne({
-      _id: new mongoose.Types.ObjectId(userId),
-    });
-    if (!user) {
-      return res.status(400).json({ error: "User not found" });
-    }
-    const opportunity = await EventOpportunity.findOne({
-      _id: new mongoose.Types.ObjectId(opportunityId),
-    });
-    if (!opportunity) {
+    const user = await User.findById(userId);
+    if (!user) return res.status(400).json({ error: "User not found" });
+
+    const opportunity = await EventOpportunity.findById(opportunityId);
+    if (!opportunity)
       return res.status(400).json({ error: "Invalid opportunityId" });
-    }
 
-    // Validate status
-    if (!["requested", "registered", "cancelled"].includes(status)) {
+    if (!["requested", "registered", "cancelled"].includes(status))
       return res.status(400).json({ error: "Invalid status value" });
-    }
 
+    // --- SAVE REGISTRATION ---
     const registration = new EventRegistration({
       userId,
       opportunityId,
       status,
     });
     const savedReg = await registration.save();
+
+    // --- CREATE IMMEDIATE NOTIFICATION ---
+    await UserNotification.create({
+      userId,
+      opportunityId,
+      registrationId: savedReg._id.toString(),
+      title: "We have received your registration request!",
+      message: "Your registration request has been successfully received.",
+      sendAt: new Date(),
+      pending: false,
+    });
+
+    // --- SCHEDULE FOLLOW-UP NOTIFICATION 10-20 MINUTES LATER ---
+    const followUpMinutes = Math.floor(Math.random() * 11) + 10; // 10–20 minutes
+    const sendAt = new Date(Date.now() + followUpMinutes * 60_000);
+
+    await UserNotification.create({
+      userId,
+      opportunityId,
+      registrationId: savedReg._id.toString(),
+      title: "Your request was approved!",
+      message: "We look forward to seeing you at the event!",
+      sendAt,
+      pending: true,
+    });
 
     res
       .status(201)
@@ -223,7 +245,13 @@ router.put("/:registrationId", async (req, res) => {
   }
 });
 
-// DELETE registration
+/**
+ * DELETE /registrations/:registrationId
+ *
+ * Cancels an event registration.
+ * - Deletes the EventRegistration.
+ * - Immediately creates a cancellation notification.
+ */
 router.delete("/:registrationId", async (req, res) => {
   try {
     const { registrationId } = req.params;
@@ -237,6 +265,16 @@ router.delete("/:registrationId", async (req, res) => {
     if (!result) {
       return res.status(404).json({ error: "Event Registration not found" });
     }
+
+    // --- CREATE IMMEDIATE NOTIFICATION ---
+    await UserNotification.create({
+      userId: result.userId,
+      opportunityId: result.opportunityId,
+      title: "Registration Cancelled",
+      message: "Your event registration has been cancelled.",
+      sendAt: new Date(),
+      pending: false,
+    });
 
     res
       .status(200)
