@@ -24,9 +24,9 @@ export class EventRegistrationService {
 
   private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
 
-  getUserEventRegistrations$(userId: string): Observable<ApiResponse<EventRegistration[]>> {
+  getUserEventRegistrations$(userId: string, allowCached = true): Observable<ApiResponse<EventRegistration[]>> {
     const key = `eventRegistrations`
-    if (this.eventRegistrationCache.existsInCache(key)) {
+    if (allowCached && this.eventRegistrationCache.existsInCache(key)) {
       const cached = this.eventRegistrationCache.get(key);
       if (cached) {
         return cached;
@@ -102,9 +102,8 @@ export class EventRegistrationService {
     return this.http.post(`${this.apiUri}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "post EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      switchMap((resp) => {
+      tap((resp) => {
         this.registrationChange(resp.data);
-        return this.notificationService.sendRegistrationNotification$(resp.data);
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
@@ -116,9 +115,8 @@ export class EventRegistrationService {
     return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
       debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
       switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      switchMap((resp) => {
+      tap((resp) => {
         this.registrationChange(resp.data);
-        return this.notificationService.sendRegistrationNotification$(resp.data);
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
@@ -129,11 +127,10 @@ export class EventRegistrationService {
   private delete$(registration: EventRegistration) {
     return this.http.delete(`${this.apiUri}/${registration.registrationId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, "delete EventRegistration"),
-      switchMap((resp) => {
+      tap((resp) => {
         if (resp?.success) {
           registration.status = RegistrationStatus.Cancelled;
           this.registrationChange(registration);
-          return this.notificationService.sendRegistrationNotification$(registration);
         }
         return of(false);
       }),

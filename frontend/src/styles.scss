@@ -36,10 +36,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-//body:has(.cdk-overlay-container:not(:empty)),
+body:has(.cdk-overlay-backdrop-showing),
 body.no-scroll,
 body:has(.dialog) {
-  //overflow: clip;
+  overflow: clip;
 }
 
 button,
@@ -285,6 +285,7 @@ footer.dialog {
     max-width: none;
     padding: 5px 0 15px 0;
     background-color: var(--next-surface);
+    position: relative;
   }
 }
 

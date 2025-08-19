@@ -4,6 +4,7 @@ export interface UserNotification {
   userId: string;
   notificationId: string;
   createdAt: string;
+  sendAt: string;
   title: string;
   message: string;
   image: AppImageData;
@@ -15,4 +16,6 @@ export interface EventNotification extends UserNotification {
   eventDate: string;
   eventTimeZone: string;
   eventTimeZoneAbbreviation: string;
+  eventTitle: string;
+  registrationId: string;
 }

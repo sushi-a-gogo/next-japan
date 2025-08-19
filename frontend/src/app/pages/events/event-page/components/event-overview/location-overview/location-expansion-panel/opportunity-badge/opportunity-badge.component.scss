@@ -12,11 +12,11 @@
 
 .material-symbols-outlined {
   &.verified {
-    font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
     color: var(--next-verified);
   }
-  &.pending_actions {
-    color: var(--next-verified);
+  &.calendar_check {
+    font-variation-settings: "FILL" 1;
+    color: var(--pink-cherry-blossoms);
   }
   &.calendar_add_on {
     color: var(--bright-blue-sky);

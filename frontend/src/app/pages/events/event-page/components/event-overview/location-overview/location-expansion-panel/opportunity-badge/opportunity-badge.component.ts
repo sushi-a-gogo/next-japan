@@ -13,10 +13,10 @@ export class OpportunityBadgeComponent {
 
   iconName = computed(() => {
     if (this.context()?.registrationStatus === RegistrationStatus.Registered) {
-      return 'verified';
+      return 'calendar_check';
     }
     if (this.context()?.registrationStatus === RegistrationStatus.Requested) {
-      return 'pending_actions';
+      return 'calendar_check';
     }
     if (this.context()?.conflicted) {
       return 'block';

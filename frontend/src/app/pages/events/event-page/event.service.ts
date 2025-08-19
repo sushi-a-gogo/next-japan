@@ -2,7 +2,6 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { EventInformation } from '@app/models/event/event-information.model';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { MapLocation } from '@app/models/map-location.model';
-import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventsService } from '@app/services/events.service';
 import { LocationService } from '@app/services/location.service';
 import { OpportunityService } from '@app/services/opportunity.service';
@@ -26,16 +25,15 @@ export class EventService {
   });
 
   private eventSignal = signal<EventInformation | null>(null);
-  event = this.eventSignal.asReadonly();
+  private event = this.eventSignal.asReadonly();
 
   private eventLocationsSignal = signal<MapLocation[]>([]);
-  eventLocations = this.eventLocationsSignal.asReadonly();
+  private eventLocations = this.eventLocationsSignal.asReadonly();
 
   private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
-  eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
+  private eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
 
   private eventsService = inject(EventsService);
-  private eventRegistrationService = inject(EventRegistrationService);
   private locationService = inject(LocationService);
   private opportunityService = inject(OpportunityService);
 
@@ -54,7 +52,11 @@ export class EventService {
       tap((res) => {
         this.eventSignal.set(res.event);
         this.eventLocationsSignal.set(res.locations);
-        this.eventOpportunitiesSignal.set(res.opportunities);
+        this.eventOpportunitiesSignal.set(res.opportunities?.sort((a, b) => {
+          const t1 = new Date(a.startDate).getTime();
+          const t2 = new Date(b.startDate).getTime();
+          return t1 - t2;
+        }));
       })
     );
   }
