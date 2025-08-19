@@ -23,8 +23,16 @@
   flex-wrap: wrap;
 }
 
-.note {
+.notes {
   color: var(--next-note);
+  font-weight: 500;
+}
+
+:host-context(.dark-theme) {
+  .notes {
+    color: var(--next-muted);
+    font-weight: 400;
+  }
 }
 
 a.get-directions {

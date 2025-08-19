@@ -23,8 +23,10 @@
   opacity: 0.5;
 }
 
-.notes {
-  color: var(--next-muted);
+:host-context(.dark-theme) {
+  .notes {
+    color: var(--next-muted);
+  }
 }
 
 @media (min-width: 600px) {
