@@ -76,26 +76,10 @@
 .close-button {
   color: var(--next-text);
   background-color: var(--next-surface-alt);
-  transition: 0.25s ease-out;
-  font-size: 14px;
   border-radius: 100%;
 
-  .button-text {
-    display: none;
-  }
-
-  &.clear-all {
-    width: 80px;
-    border-radius: 24px;
-
-    .material-symbols-outlined {
-      display: none;
-    }
-
-    .button-text {
-      display: inline-block;
-      font-weight: 600;
-    }
+  .material-symbols-outlined {
+    font-weight: 500;
   }
 }
 
