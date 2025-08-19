@@ -19,6 +19,19 @@
   }
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+
+  li:not(:last-child) {
+    border-bottom: 1px solid var(--next-border);
+  }
+}
+
 .app-button {
   height: 40px;
   width: 40px;

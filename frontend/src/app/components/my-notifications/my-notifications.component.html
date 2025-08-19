@@ -34,11 +34,17 @@
       </button>
     </div>
   </div>
-  @for(notification of notifications(); track notification.notificationId) {
-  <button mat-menu-item (click)="markAsReadAndNavigate(notification)">
-    <app-notification-card [notification]="notification" />
-  </button>
-  } @empty {
-  <div class="no-notifications">You don't have any notifications.</div>
-  }
+  <ul>
+    @for(notification of notifications(); track notification.notificationId) {
+    <li>
+      <button mat-menu-item (click)="markAsReadAndNavigate(notification)">
+        <app-notification-card [notification]="notification" />
+      </button>
+    </li>
+    } @empty {
+    <li>
+      <div class="no-notifications">You don't have any notifications.</div>
+    </li>
+    }
+  </ul>
 </mat-menu>
