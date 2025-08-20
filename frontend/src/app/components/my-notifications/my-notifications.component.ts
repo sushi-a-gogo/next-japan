@@ -34,6 +34,8 @@ export class MyNotificationsComponent implements OnInit {
   });
   busy = signal<boolean>(false);
 
+  private scrollPosition = 0;
+
   ngOnInit(): void {
     // Start polling every 60 seconds
     interval(60_000)
@@ -44,12 +46,16 @@ export class MyNotificationsComponent implements OnInit {
       .subscribe();
   }
 
-  menuToggle(isOpen: boolean) {
-    // if (isOpen) {
-    //   document.body.classList.add('no-scroll');
-    // } else {
-    //   document.body.classList.remove('no-scroll');
-    // }
+  menuToggle(menuOpen: boolean) {
+    if (menuOpen) {
+      this.scrollPosition = window.scrollY; // Store the current scroll position
+      document.body.classList.add('overflow-clip');
+      document.body.style.top = `-${this.scrollPosition}px`; // Apply negative top to maintain position
+    } else {
+      document.body.classList.remove('overflow-clip');
+      document.body.style.top = ''; // Remove the fixed position
+      window.scrollTo(0, this.scrollPosition); // Restore the scroll position
+    }
   }
 
   markAsReadAndNavigate(notification: EventNotification) {

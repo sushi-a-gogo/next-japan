@@ -98,8 +98,8 @@
   color: var(--next-text);
 }
 
-.cdk-overlay-backdrop.notification-backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+.cdk-overlay-backdrop.app-backdrop {
+  background-color: rgba(0, 0, 0, 0.32);
 }
 
 .cdk-virtual-scroll-content-wrapper {

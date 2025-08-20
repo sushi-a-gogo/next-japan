@@ -8,6 +8,7 @@ import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
 import { UserProfileService } from '@app/services/user-profile.service';
+import { UiService } from '@app/services/util.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { switchMap } from 'rxjs';
 
@@ -21,10 +22,21 @@ export class UserMenuComponent {
   private dialogService = inject(DialogService);
   private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
+  private uiService = inject(UiService);
   private destroyRef = inject(DestroyRef);
+  private scrollPosition = 0;
 
   user = input.required<User>();
   signout = output();
+
+  menuToggle(menuOpen: boolean) {
+    if (menuOpen) {
+      this.scrollPosition = window.scrollY; // Store the current scroll position
+      this.uiService.lockWindowScroll(this.scrollPosition);
+    } else {
+      this.uiService.unlockWindowScroll(this.scrollPosition);
+    }
+  }
 
   logout() {
     this.signout.emit();

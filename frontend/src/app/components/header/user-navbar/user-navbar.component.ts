@@ -34,8 +34,10 @@ export class UserNavbarComponent {
   logout() {
     const returnTo = this.router.url;
     const queryParams = { returnTo: returnTo };
-    this.router.navigate(['logout'], {
-      queryParams: queryParams,
-    });
+    setTimeout(() => {
+      this.router.navigate(['logout'], {
+        queryParams: queryParams,
+      });
+    }, 100);
   }
 }

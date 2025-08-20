@@ -26,7 +26,8 @@ footer {
 }
 
 .completed {
-  padding-bottom: 16px;
+  height: 132px;
+  border-top: 1px solid var(--next-border);
   border-bottom: 1px solid var(--next-border);
 
   .icon {
@@ -45,18 +46,29 @@ footer {
 }
 
 footer.dialog {
+  flex-direction: column;
+
   .app-button {
+    width: 100%;
+    font-weight: 700;
     border-radius: 24px;
+    padding: 12px 24px;
+  }
+
+  .app-button-outlined {
+    color: var(--next-text);
   }
 }
 
 @media (min-width: 600px) {
-  main {
-    max-width: 500px;
+  .dialog {
+    min-width: 360px;
+    max-width: 360px;
   }
 
-  footer.dialog {
-    flex-direction: row;
+  footer.dialog2 {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
 
     .app-button {
       width: auto;

@@ -49,7 +49,7 @@
     <a
       type="button"
       matRipple
-      class="app-button dialog-button app-button-outlined"
+      class="app-button dialog-button app-button-filled priority"
       routerLink="/user/registrations"
     >
       Manage Your Events
@@ -58,26 +58,26 @@
       (click)="closeDialog()"
       type="button"
       matRipple
-      class="app-button dialog-button app-button-filled"
+      class="app-button dialog-button app-button-outlined"
     >
       Done
     </button>
     } @else {
+    <button
+      (click)="sendRequest()"
+      type="button"
+      matRipple
+      class="app-button dialog-button app-button-filled priority"
+    >
+      Register
+    </button>
     <button
       type="button"
       matRipple
       class="app-button dialog-button app-button-outlined"
       (click)="closeDialog()"
     >
-      Close
-    </button>
-    <button
-      (click)="sendRequest()"
-      type="button"
-      matRipple
-      class="app-button dialog-button app-button-filled"
-    >
-      Register
+      Cancel
     </button>
     }
   </footer>
