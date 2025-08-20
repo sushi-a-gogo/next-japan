@@ -7,7 +7,6 @@ import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
 import { catchError, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { ErrorService } from './error.service';
-import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,14 +14,10 @@ import { NotificationService } from './notification.service';
 export class EventRegistrationService {
   private http = inject(HttpClient);
   private apiUri = `${environment.apiUrl}/api/registrations`;
-
-  private notificationService = inject(NotificationService);
   private errorService = inject(ErrorService);
-
+  private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
   private userEventRegistrationsSignal = signal<EventRegistration[]>([]);
   userEventRegistrations = this.userEventRegistrationsSignal.asReadonly();
-
-  private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
 
   getUserEventRegistrations$(userId: string, allowCached = true): Observable<ApiResponse<EventRegistration[]>> {
     const key = `eventRegistrations`
@@ -53,10 +48,15 @@ export class EventRegistrationService {
   }
 
   requestOpportunity$(userId: string, opportunityId: string): Observable<ApiResponse<EventRegistration[]>> {
-    return this.addRegistration$(opportunityId, userId).pipe(
+    const userRegistration = {
+      userId,
+      opportunityId,
+      status: RegistrationStatus.Requested,
+    }
+    return this.post$(userRegistration).pipe(
       switchMap(() => {
         this.eventRegistrationCache.clear();
-        return this.fetchRegistrations$(userId);
+        return this.getUserEventRegistrations$(userId);
       })
     );
   }
@@ -70,32 +70,6 @@ export class EventRegistrationService {
       tap((resp) => this.userEventRegistrationsSignal.set(resp.data || [])),
       debug(RxJsLoggingLevel.DEBUG, 'getRegistrations')
     );
-  }
-
-  private addRegistration$(opportunityId: string, userId: string) {
-    const userRegistration = {
-      userId,
-      opportunityId,
-      status: RegistrationStatus.Requested,
-    }
-    let registrationId: string | undefined = undefined;
-
-    const delayMs = Math.floor(Math.random() * (10 - 2 + 1) + 2) * 60000; // random between 2 and 10 minutes in ms
-    setTimeout(() => {
-      const registration = this.userEventRegistrationsSignal()
-        .find((r) => r.registrationId === registrationId && r.status !== RegistrationStatus.Cancelled);
-      if (registration) {
-        this.put$({
-          ...userRegistration,
-          registrationId: registration.registrationId!,
-          status: RegistrationStatus.Registered
-        }).subscribe();
-      }
-    }, delayMs);
-
-    return this.post$(userRegistration).pipe(tap((resp) => {
-      registrationId = resp.data.registrationId;
-    }));
   }
 
   private post$(registration: { userId: string, opportunityId: string, status: RegistrationStatus }) {
