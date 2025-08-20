@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { EventNotification } from '@app/models/user-notification.model';
 import { NotificationService } from '@app/services/notification.service';
+import { UiService } from '@app/services/ui.service';
 import { interval, switchMap } from 'rxjs';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
@@ -20,6 +21,7 @@ import { NotificationCardComponent } from "./notification-card/notification-card
 export class MyNotificationsComponent implements OnInit {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
+  private uiService = inject(UiService);
   private destroyRef = inject(DestroyRef);
 
   userId = input.required<string>();
@@ -37,8 +39,6 @@ export class MyNotificationsComponent implements OnInit {
   });
   busy = signal<boolean>(false);
 
-  private scrollPosition = 0;
-
   ngOnInit(): void {
     // Start polling every 60 seconds
     interval(60_000)
@@ -51,13 +51,9 @@ export class MyNotificationsComponent implements OnInit {
 
   menuToggle(menuOpen: boolean) {
     if (menuOpen) {
-      this.scrollPosition = window.scrollY; // Store the current scroll position
-      document.body.classList.add('overflow-clip');
-      document.body.style.top = `-${this.scrollPosition}px`; // Apply negative top to maintain position
+      this.uiService.lockWindowScroll();
     } else {
-      document.body.classList.remove('overflow-clip');
-      document.body.style.top = ''; // Remove the fixed position
-      window.scrollTo(0, this.scrollPosition); // Restore the scroll position
+      this.uiService.unlockWindowScroll();
     }
   }
 

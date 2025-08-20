@@ -32,8 +32,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.scrollPosition = window.scrollY; // Store the current scroll position
-    this.uiService.lockWindowScroll(this.scrollPosition);
+    this.uiService.lockWindowScroll();
 
     this.router.events.pipe(
       filter((e) => e instanceof NavigationStart),
@@ -49,7 +48,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.uiService.unlockWindowScroll(this.scrollPosition);
+    this.uiService.unlockWindowScroll();
   }
 
   @HostListener('document:keydown', ['$event'])

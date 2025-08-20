@@ -24,17 +24,15 @@ export class UserMenuComponent {
   private userProfileService = inject(UserProfileService);
   private uiService = inject(UiService);
   private destroyRef = inject(DestroyRef);
-  private scrollPosition = 0;
 
   user = input.required<User>();
   signout = output();
 
   menuToggle(menuOpen: boolean) {
     if (menuOpen) {
-      this.scrollPosition = window.scrollY; // Store the current scroll position
-      this.uiService.lockWindowScroll(this.scrollPosition);
+      this.uiService.lockWindowScroll();
     } else {
-      this.uiService.unlockWindowScroll(this.scrollPosition);
+      this.uiService.unlockWindowScroll();
     }
   }
 
