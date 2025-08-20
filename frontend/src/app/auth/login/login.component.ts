@@ -16,10 +16,6 @@ import { LoginStepsComponent } from "./login-steps/login-steps.component";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  showLoginSteps = signal<boolean>(false);
-  loaded = signal<boolean>(false);
-
-
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
@@ -28,6 +24,10 @@ export class LoginComponent implements OnInit {
   private userService = inject(UserProfileService);
   private storage = inject(StorageService);
   private path = '/home';
+
+  showLoginSteps = signal<boolean>(false);
+  userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
+  busy = signal<boolean>(false);
 
   ngOnInit(): void {
     this.route.queryParams.pipe(
@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
           this.path = url;
         }
 
-        const userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
-        return userId ? this.auth.login$(userId) : of(null);
+        return this.userId ? this.auth.login$(this.userId) : of(null);
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((user) => {
@@ -49,7 +48,6 @@ export class LoginComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.showLoginSteps.set(true);
-          this.loaded.set(true);
         }, 100);
       }
     })
@@ -57,6 +55,7 @@ export class LoginComponent implements OnInit {
 
   login(userId: string) {
     this.showLoginSteps.set(false);
+    this.busy.set(true);
     return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => this.router.navigate([this.path]),
       error: () => this.router.navigate([this.path])
