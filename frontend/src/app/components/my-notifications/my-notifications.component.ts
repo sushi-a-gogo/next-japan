@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { EventNotification } from '@app/models/user-notification.model';
 import { NotificationService } from '@app/services/notification.service';
+import { UiService } from '@app/services/ui.service';
 import { interval, switchMap } from 'rxjs';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
@@ -13,11 +14,14 @@ import { NotificationCardComponent } from "./notification-card/notification-card
   selector: 'app-my-notifications',
   imports: [MatButtonModule, MatMenuModule, MatTooltipModule, NotificationCardComponent],
   templateUrl: './my-notifications.component.html',
-  styleUrl: './my-notifications.component.scss'
+  styleUrl: './my-notifications.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class MyNotificationsComponent implements OnInit {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
+  private uiService = inject(UiService);
   private destroyRef = inject(DestroyRef);
 
   userId = input.required<string>();
@@ -30,6 +34,7 @@ export class MyNotificationsComponent implements OnInit {
       const t2 = new Date(b.sendAt).getTime();
       return t2 - t1;
     });
+
     return items;
   });
   busy = signal<boolean>(false);
@@ -44,12 +49,12 @@ export class MyNotificationsComponent implements OnInit {
       .subscribe();
   }
 
-  menuToggle(isOpen: boolean) {
-    // if (isOpen) {
-    //   document.body.classList.add('no-scroll');
-    // } else {
-    //   document.body.classList.remove('no-scroll');
-    // }
+  menuToggle(menuOpen: boolean) {
+    if (menuOpen) {
+      this.uiService.lockWindowScroll();
+    } else {
+      this.uiService.unlockWindowScroll();
+    }
   }
 
   markAsReadAndNavigate(notification: EventNotification) {

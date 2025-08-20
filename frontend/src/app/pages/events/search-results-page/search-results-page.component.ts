@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { EventData } from '@app/models/event/event-data.model';
@@ -14,7 +14,9 @@ import { SearchCardComponent } from "./search-card/search-card.component";
   selector: 'app-search-results-page',
   imports: [SearchCardComponent, PageLoadSpinnerComponent],
   templateUrl: './search-results-page.component.html',
-  styleUrl: './search-results-page.component.scss'
+  styleUrl: './search-results-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class SearchResultsPageComponent implements OnInit, OnChanges {
   q = input<string>()

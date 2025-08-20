@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from "@app/components/layout/layout.component";
 
@@ -6,6 +6,8 @@ import { LayoutComponent } from "@app/components/layout/layout.component";
   selector: 'app-ai',
   imports: [RouterOutlet, LayoutComponent],
   templateUrl: './ai.component.html',
-  styleUrl: './ai.component.scss'
+  styleUrl: './ai.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class AiComponent { }

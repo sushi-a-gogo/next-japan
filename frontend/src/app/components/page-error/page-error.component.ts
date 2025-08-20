@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
@@ -8,7 +8,9 @@ import { ImageService } from '@app/services/image.service';
   selector: 'app-page-error',
   imports: [NgOptimizedImage, RouterLink],
   templateUrl: './page-error.component.html',
-  styleUrl: './page-error.component.scss'
+  styleUrl: './page-error.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class PageErrorComponent {
   private imageService = inject(ImageService);

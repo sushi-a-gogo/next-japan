@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,6 @@ import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { ModalComponent } from "@shared/modal/modal.component";
-import { switchMap } from 'rxjs';
 import { UserProfileForm } from './user-profile.form';
 
 @Component({
@@ -20,7 +19,9 @@ import { UserProfileForm } from './user-profile.form';
   imports: [RouterLink, ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.scss'
+  styleUrl: './user-profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class UserProfileComponent implements OnInit {
   private authService = inject(AuthMockService);
@@ -52,8 +53,7 @@ export class UserProfileComponent implements OnInit {
       phoneControl?.updateValueAndValidity();
     });
 
-    this.authService.auth$.pipe(
-      switchMap((user) => this.userProfileService.getUser$(user!.userId)),
+    this.userProfileService.getUser$(this.authService.user()!.userId).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((resp) => {
       this.userProfile = resp.data;

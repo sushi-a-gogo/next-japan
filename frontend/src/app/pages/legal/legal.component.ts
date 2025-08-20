@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LayoutComponent } from "@app/components/layout/layout.component";
 
@@ -6,7 +6,9 @@ import { LayoutComponent } from "@app/components/layout/layout.component";
   selector: 'app-legal',
   imports: [RouterOutlet, LayoutComponent],
   templateUrl: './legal.component.html',
-  styleUrl: './legal.component.scss'
+  styleUrl: './legal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class LegalComponent {
 

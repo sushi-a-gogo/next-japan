@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppLogoComponent } from "@shared/app-logo/app-logo.component";
 
@@ -6,7 +6,9 @@ import { AppLogoComponent } from "@shared/app-logo/app-logo.component";
   selector: 'app-footer',
   imports: [RouterLink, AppLogoComponent],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class FooterComponent {
 }

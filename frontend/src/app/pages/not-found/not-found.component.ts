@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { PageErrorComponent } from '@app/components/page-error/page-error.component';
 import { ErrorService } from '@app/services/error.service';
 
@@ -6,7 +6,9 @@ import { ErrorService } from '@app/services/error.service';
   selector: 'app-not-found',
   imports: [PageErrorComponent],
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.scss'
+  styleUrl: './not-found.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class NotFoundComponent {
   private errorService = inject(ErrorService);

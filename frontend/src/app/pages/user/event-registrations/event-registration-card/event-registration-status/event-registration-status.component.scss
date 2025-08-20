@@ -8,24 +8,24 @@
   &.busy {
     opacity: 0;
   }
+}
 
-  .material-symbols-outlined {
-    display: none;
+.material-symbols-outlined {
+  display: none;
+}
+
+.requested {
+  .material-symbols-outlined.requested {
+    display: inline-block;
+    color: var(--next-note);
   }
+}
 
-  &.requested {
-    .material-symbols-outlined.requested {
-      display: inline-block;
-      color: var(--next-note);
-    }
-  }
-
-  &.registered {
-    .material-symbols-outlined.registered {
-      display: inline-block;
-      font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
-      color: var(--next-verified);
-    }
+.registered {
+  .material-symbols-outlined.registered {
+    display: inline-block;
+    font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
+    color: var(--next-verified);
   }
 }
 

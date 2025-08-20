@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
@@ -26,7 +26,9 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
   imports: [NgOptimizedImage, EventNavbarComponent, EventOverviewComponent,
     EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
-  styleUrl: './event-page.component.scss'
+  styleUrl: './event-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class EventPageComponent implements OnInit, OnChanges {
   private router = inject(Router);
