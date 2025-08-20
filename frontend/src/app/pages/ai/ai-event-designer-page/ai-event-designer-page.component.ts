@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressBar } from "@angular/material/progress-bar";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,6 +17,7 @@ import { filter } from 'rxjs';
   imports: [NgOptimizedImage, ContentGeneratorComponent, MatProgressBar],
   templateUrl: './ai-event-designer-page.component.html',
   styleUrl: './ai-event-designer-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [blurredSlideUp],
   host: { '[@blurredSlideUp]': 'in' }
 

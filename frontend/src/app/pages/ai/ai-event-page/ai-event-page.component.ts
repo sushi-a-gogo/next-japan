@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,6 +18,7 @@ import { filter } from 'rxjs';
   imports: [NgOptimizedImage, RouterLink, MatProgressBarModule, AiEventHeaderComponent],
   templateUrl: './ai-event-page.component.html',
   styleUrl: './ai-event-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeIn', [
       transition(':enter', [

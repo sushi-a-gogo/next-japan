@@ -39,7 +39,6 @@ export class RegistrationDialogComponent {
   completed = signal<boolean>(false);
 
   sendRequest() {
-    return this.completed.set(true);
     this.busy.set(true);
     this.requestSelected$()
       .pipe(takeUntilDestroyed(this.destroyRef))

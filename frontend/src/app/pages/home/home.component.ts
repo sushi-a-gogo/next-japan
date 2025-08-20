@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { LayoutComponent } from "@app/components/layout/layout.component";
@@ -19,7 +19,8 @@ import { HeroComponent } from "./hero/hero.component";
   selector: 'app-home',
   imports: [NgOptimizedImage, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   private title = inject(Title);

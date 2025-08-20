@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -13,7 +13,9 @@ import { NotificationCardComponent } from "./notification-card/notification-card
   selector: 'app-my-notifications',
   imports: [MatButtonModule, MatMenuModule, MatTooltipModule, NotificationCardComponent],
   templateUrl: './my-notifications.component.html',
-  styleUrl: './my-notifications.component.scss'
+  styleUrl: './my-notifications.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class MyNotificationsComponent implements OnInit {
   private router = inject(Router);
@@ -30,6 +32,7 @@ export class MyNotificationsComponent implements OnInit {
       const t2 = new Date(b.sendAt).getTime();
       return t2 - t1;
     });
+
     return items;
   });
   busy = signal<boolean>(false);

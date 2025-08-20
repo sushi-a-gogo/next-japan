@@ -7,8 +7,8 @@ import { RouterLink } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { DialogService } from '@app/services/dialog.service';
+import { UiService } from '@app/services/ui.service';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { UiService } from '@app/services/util.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { switchMap } from 'rxjs';
 

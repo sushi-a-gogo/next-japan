@@ -1,7 +1,7 @@
 import { Component, DestroyRef, HostListener, inject, input, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
-import { UiService } from '@app/services/util.service';
+import { UiService } from '@app/services/ui.service';
 import { filter } from 'rxjs';
 
 @Component({
