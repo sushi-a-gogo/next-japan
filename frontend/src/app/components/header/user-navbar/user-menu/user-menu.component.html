@@ -6,6 +6,8 @@
   matTooltip="Account"
   [matMenuTriggerFor]="userMenu"
   #menuTrigger="matMenuTrigger"
+  (menuOpened)="menuToggle(true)"
+  (menuClosed)="menuToggle(false)"
   [matTooltipShowDelay]="750"
   [matTooltipDisabled]="menuTrigger.menuOpen"
 >
@@ -15,7 +17,7 @@
   #userMenu="matMenu"
   xPosition="before"
   [hasBackdrop]="true"
-  backdropClass="notification-backdrop"
+  backdropClass="app-backdrop"
 >
   <header>
     <span> {{ user().firstName }} {{ user().lastName }} </span>

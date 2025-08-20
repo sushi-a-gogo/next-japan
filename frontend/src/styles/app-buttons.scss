@@ -52,6 +52,18 @@ a.app-button {
   border: 1px solid var(--next-confirm-bg);
   color: var(--next-confirm-text);
 
+  &.priority {
+    background-color: var(--red-torii-gate);
+    border-color: var(--red-torii-gate);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #ab2c2c;
+    }
+  }
+
   &:hover:not(:disabled) {
     opacity: 0.9;
   }

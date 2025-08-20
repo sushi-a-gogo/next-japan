@@ -32,7 +32,7 @@ export class SearchCardComponent implements OnInit {
   }
 
   goToEvent() {
-    this.router.navigate([this.routerLink], { queryParams: { q: this.query() } });
+    this.router.navigate([this.routerLink]);
   }
 
 }

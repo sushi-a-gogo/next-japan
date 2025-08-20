@@ -17,6 +17,8 @@ import { LoginStepsComponent } from "./login-steps/login-steps.component";
 })
 export class LoginComponent implements OnInit {
   showLoginSteps = signal<boolean>(false);
+  loaded = signal<boolean>(false);
+
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -45,7 +47,10 @@ export class LoginComponent implements OnInit {
       if (user) {
         this.goBack();
       } else {
-        this.showLoginSteps.set(true);
+        setTimeout(() => {
+          this.showLoginSteps.set(true);
+          this.loaded.set(true);
+        }, 100);
       }
     })
   }

@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { BehaviorSubject, delay, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { delay, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { EventRegistrationService } from './event-registration.service';
 import { NotificationService } from './notification.service';
 import { LOCAL_STORAGE_USER_KEY, StorageService } from './storage.service';
@@ -24,9 +24,6 @@ export class AuthMockService {
 
   private activatedSignal = signal<boolean>(false);
   activated = this.activatedSignal.asReadonly();
-
-  private authSubject = new BehaviorSubject<User | null>(null);
-  auth$ = this.authSubject.asObservable();
 
   private userSignal = signal<User | null>(null);
   user = this.userSignal.asReadonly();
@@ -58,14 +55,9 @@ export class AuthMockService {
   }
 
   updateUserData(userData: User) {
-    const authUser = this.authSubject.value;
-    if (!authUser) {
-      return;
-    }
-
     const updated: User = {
       ...userData,
-      email: authUser.email
+      email: this.user()!.email
     }
     this.setUser(updated);
   }
@@ -80,7 +72,6 @@ export class AuthMockService {
 
   private setUser(user: User | null) {
     const data = this.storeUser(user);
-    this.authSubject.next(data);
     this.userSignal.set(data);
     this.authenticated.set(!!data);
     this.themeService.setAppearanceMode(data?.mode);
