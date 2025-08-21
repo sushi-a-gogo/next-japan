@@ -37,6 +37,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+// body:has(.cdk-overlay-container:not(:empty)),
+// body.no-scroll,
+// body:has(.dialog) {
+//   overflow: clip;
+//   height: 100vh;
+// }
+
 body.overflow-clip {
   position: fixed;
   top: 0;

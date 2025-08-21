@@ -33,7 +33,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // janky on iPad because of course it is.
-    //this.uiService.lockWindowScroll();
+    this.uiService.lockWindowScroll();
 
     this.router.events.pipe(
       filter((e) => e instanceof NavigationStart),
@@ -50,7 +50,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // janky on iPad because of course it is.
-    //this.uiService.unlockWindowScroll();
+    this.uiService.unlockWindowScroll();
   }
 
   @HostListener('document:keydown', ['$event'])
