@@ -29,11 +29,12 @@ export class UserMenuComponent {
   signout = output();
 
   menuToggle(menuOpen: boolean) {
-    if (menuOpen) {
-      this.uiService.lockWindowScroll();
-    } else {
-      this.uiService.unlockWindowScroll();
-    }
+    // janky on iPad because of course it is.
+    // if (menuOpen) {
+    //   this.uiService.lockWindowScroll();
+    // } else {
+    //   this.uiService.unlockWindowScroll();
+    // }
   }
 
   logout() {
