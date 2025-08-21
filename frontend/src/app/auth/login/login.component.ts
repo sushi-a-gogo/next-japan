@@ -42,13 +42,19 @@ export class LoginComponent implements OnInit {
         return this.userId ? this.auth.login$(this.userId) : of(null);
       }),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((user) => {
-      if (user) {
+    ).subscribe({
+      next: (user) => {
+        if (user) {
+          this.goBack();
+        } else {
+          setTimeout(() => {
+            this.showLoginSteps.set(true);
+          }, 100);
+        }
+      },
+      error: () => {
+        this.storage.local.removeItem(LOCAL_STORAGE_USER_KEY);
         this.goBack();
-      } else {
-        setTimeout(() => {
-          this.showLoginSteps.set(true);
-        }, 100);
       }
     })
   }
