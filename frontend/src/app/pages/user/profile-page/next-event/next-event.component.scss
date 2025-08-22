@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subhead.title {
+}
+
+.card-title {
+  font-weight: 600;
+  color: var(--next-heading);
+}
+
+@media screen and (min-width: 820px) {
+  .card {
+    max-width: 400px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .card {
+    max-width: 500px;
+  }
+}

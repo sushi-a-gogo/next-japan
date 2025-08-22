@@ -1,123 +1,106 @@
-<app-modal (close)="close.emit(true)">
-  <header class="dialog">
-    <span>Your Profile</span>
-    <button
-      aria-label="Close dialog"
-      type="button"
-      class="dialog-close"
-      mat-icon-button
-      (click)="closeProfile()"
+<main>
+  <div class="profile" [class.disabled]="busy">
+    <form
+      class="nx-flex col fade-in"
+      [class.open]="userProfile"
+      [formGroup]="profileForm"
     >
-      <span class="material-symbols-outlined"> close </span>
-    </button>
-  </header>
-  <main class="dialog">
-    <div class="profile" [class.disabled]="busy">
-      <app-user-avatar [user]="user()!" [size]="96" />
-      <form
-        class="nx-flex col fade-in"
-        [class.open]="userProfile"
-        [formGroup]="profileForm"
-      >
-        <mat-form-field>
-          <mat-label>First Name</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            name="firstName"
-            formControlName="firstName"
-            autocomplete="off"
-          />
-          <mat-error>Please enter your first name.</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Last Name</mat-label>
-          <input
-            type="text"
-            matInput
-            required
-            name="lastName"
-            formControlName="lastName"
-            autocomplete="off"
-          />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input type="email" matInput name="email" formControlName="email" />
-        </mat-form-field>
-        <div class="form-pair">
-          <mat-form-field class="phone">
-            <mat-label>Phone</mat-label>
-            <input
-              type="text"
-              matInput
-              name="phone"
-              formControlName="phone"
-              autocomplete="off"
-            />
-            @if(profileForm.hasError('requiredPhone')) {
-            <mat-hint>
-              <span class="phone-required">
-                * A phone number is required.
-              </span>
-            </mat-hint>
-            }
-            <mat-error
-              ><span class="small"
-                >Enter phone in format: +12223335555</span
-              ></mat-error
-            >
-          </mat-form-field>
-          <mat-form-field class="contact">
-            <mat-label>Preferred Contact Method</mat-label>
-            <mat-select formControlName="preferredContactMethod">
-              @for(contactMethod of contactMethods; track contactMethod.value) {
-              <mat-option [value]="contactMethod.value">
-                {{ contactMethod.viewValue }}
-              </mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          class="disclaimer"
-          [class.open]="
-            'phone' === profileForm.get('preferredContactMethod')?.value
-          "
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input
+          type="text"
+          matInput
+          required
+          name="firstName"
+          formControlName="firstName"
+          autocomplete="off"
+        />
+        <mat-error>Please enter your first name.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input
+          type="text"
+          matInput
+          required
+          name="lastName"
+          formControlName="lastName"
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput name="email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="phone">
+        <mat-label>Phone</mat-label>
+        <input
+          type="text"
+          matInput
+          name="phone"
+          formControlName="phone"
+          autocomplete="off"
+        />
+        @if(profileForm.hasError('requiredPhone')) {
+        <mat-hint>
+          <span class="phone-required"> * A phone number is required. </span>
+        </mat-hint>
+        }
+        <mat-error
+          ><span class="small"
+            >Enter phone in format: +12223335555</span
+          ></mat-error
         >
-          <p>
-            By selecting <em>Phone</em> as your preferred contact method, you
-            agree to receive helpful text messages (like event updates) at the
-            number you provided. Message and data rates may apply. Message
-            frequency may vary. If you'd rather not get texts, you can always
-            choose a different contact method in your profile.
-          </p>
+      </mat-form-field>
+      <mat-form-field class="contact">
+        <mat-label>Preferred Contact Method</mat-label>
+        <mat-select formControlName="preferredContactMethod">
+          @for(contactMethod of contactMethods; track contactMethod.value) {
+          <mat-option [value]="contactMethod.value">
+            {{ contactMethod.viewValue }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div
+        class="disclaimer nx-flex col gap-10"
+        [class.open]="
+          'phone' === profileForm.get('preferredContactMethod')?.value
+        "
+      >
+        <div>
+          By selecting <em>Phone</em> as your preferred contact method, you
+          agree to receive helpful text messages (like event updates) at the
+          number you provided. Message and data rates may apply. Message
+          frequency may vary. If you'd rather not get texts, you can always
+          choose a different contact method in your profile.
+        </div>
+        <div>
           View our
           <a routerLink="/legal/tos" target="_blank">Terms of Service</a>
           and
           <a routerLink="/legal/privacy" target="_blank">Privacy Policy</a>.
         </div>
-      </form>
-    </div>
-  </main>
-  <footer class="dialog">
-    <button
-      type="button"
-      class="app-button dialog-button app-button-outlined"
-      matRipple
-      (click)="closeProfile()"
-    >
-      {{ profileForm.dirty ? "Cancel" : "Close" }}
-    </button>
-    <button
-      type="button"
-      class="app-button dialog-button app-button-filled"
-      matRipple
-      (click)="saveProfile()"
-      [disabled]="profileForm.pristine || !profileForm.valid"
-    >
-      Save
-    </button>
-  </footer>
-</app-modal>
+      </div>
+    </form>
+  </div>
+</main>
+<footer class="nx-flex responsive gap-10">
+  <button
+    type="button"
+    class="app-button dialog-button app-button-outlined"
+    matRipple
+    (click)="closeProfile()"
+  >
+    {{ profileForm.dirty ? "Cancel" : "Close" }}
+  </button>
+  <button
+    type="button"
+    class="app-button dialog-button app-button-filled"
+    matRipple
+    (click)="saveProfile()"
+    [disabled]="profileForm.pristine || !profileForm.valid"
+  >
+    Save
+  </button>
+</footer>

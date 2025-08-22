@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.badges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.badge-card {
+  padding: 10px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
+}
+
+.award_star {
+  background-color: var(--light-yellow-stars);
+  color: #111;
+}
+
+.favorite {
+  background-color: var(--red-torii-gate);
+  color: #fff;
+}
+
+.check {
+  background-color: var(--bright-blue-sky);
+  color: #fff;
+}
+
+img {
+  width: 48px;
+  height: 48px;
+}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,27 +7,28 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
+import fadeIn from '@app/animations/fadeIn.animation';
 import { UserProfile } from '@app/models/user-profile.model';
+import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { UserProfileService } from '@app/services/user-profile.service';
-import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
-import { ModalComponent } from "@shared/modal/modal.component";
 import { UserProfileForm } from './user-profile.form';
 
 @Component({
   selector: 'app-user-profile',
   imports: [RouterLink, ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule,
-    MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
+    MatFormFieldModule, MatSelectModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
+  animations: [fadeIn],
+  host: { '[@fadeIn]': 'in' },
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class UserProfileComponent implements OnInit {
   private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
 
-  user = this.authService.user;
+  user = input.required<User>();
   userProfile?: UserProfile;
   profileForm = this.getProfileForm();
   close = output<boolean>();
@@ -53,7 +54,7 @@ export class UserProfileComponent implements OnInit {
       phoneControl?.updateValueAndValidity();
     });
 
-    this.userProfileService.getUser$(this.authService.user()!.userId).pipe(
+    this.userProfileService.getUser$(this.user().userId).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((resp) => {
       this.userProfile = resp.data;

@@ -25,8 +25,3 @@
   [class.open]="inSearchMode()"
   (click)="toggleSearchMode()"
 ></div>
-
-<!-- My Profile -->
-@if(showProfileDialog()) {
-<app-user-profile (close)="closeProfileDialog()" />
-}

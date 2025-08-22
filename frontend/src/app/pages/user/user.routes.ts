@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@app/guards/auth.guard';
 import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { UserComponent } from './user.component';
 
 export const userRoutes: Routes = [
@@ -10,8 +11,13 @@ export const userRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'registrations',
+        redirectTo: 'profile',
         pathMatch: 'full'
+      },
+      {
+        path: 'profile',
+        component: ProfilePageComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'registrations',

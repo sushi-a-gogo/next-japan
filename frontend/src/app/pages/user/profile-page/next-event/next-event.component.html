@@ -1,0 +1,30 @@
+<div class="subhead title">Your Next Event</div>
+<mat-card class="card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="card-title">
+        {{ event()?.eventTitle }}
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <app-opportunity-timestamp
+        [showIcon]="false"
+        [showNotes]="false"
+        [opportunity]="event()!.opportunity"
+      ></app-opportunity-timestamp>
+    </mat-card-subtitle>
+  </mat-card-header>
+  @if(resizedImage()) {
+  <img mat-card-image [src]="resizedImage()!.src" alt="Photo of the event." />
+  }
+  <mat-card-content>
+    <p>
+      {{ event()?.opportunity?.notes }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>LIKE</button>
+    <button matButton>SHARE</button>
+    <a matButton [routerLink]="routerLink()"> VIEW EVENT </a>
+  </mat-card-actions>
+</mat-card>

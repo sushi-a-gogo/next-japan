@@ -1,0 +1,39 @@
+<div class="component-box">
+  <div class="cb-content pad">
+    @if(user()) {
+    <section class="left nx-flex col gap-20">
+      <ul class="nx-flex col gap-20">
+        <li class="nx-flex col gap-20">
+          <header class="user nx-flex col gap-10">
+            <app-user-avatar [user]="user()!" [size]="256" />
+            <div class="subhead">
+              {{ user()?.firstName }} {{ user()?.lastName }}
+            </div>
+          </header>
+          <main class="nx-flex col al-c gap-20">
+            <button
+              type="button"
+              class="app-button app-button-filled"
+              (click)="showProfileForm.set(true)"
+            >
+              Edit Profile
+            </button>
+            @if(showProfileForm()) {
+            <app-user-profile
+              [user]="user()!"
+              (close)="showProfileForm.set(false)"
+            />
+            }
+          </main>
+        </li>
+        <li>
+          <app-profile-badges />
+        </li>
+      </ul>
+    </section>
+    <section class="nx-flex col gap-36">
+      <app-next-event [user]="user()!" />
+    </section>
+    }
+  </div>
+</div>
