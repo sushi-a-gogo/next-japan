@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { UserProfileComponent } from '@app/components/user-profile/user-profile.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
@@ -21,9 +21,13 @@ export class ProfilePageComponent {
   user = this.auth.user;
   showProfileForm = signal<boolean>(false);
 
-  ngOnInit(): void {
-    this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
-    const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
-    this.meta.updateTags(this.title.getTitle(), description);
+  constructor() {
+    effect(() => {
+      if (this.user()) {
+        this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
+        const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
+        this.meta.updateTags(this.title.getTitle(), description);
+      }
+    })
   }
 }

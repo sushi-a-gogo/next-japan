@@ -1,10 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.subhead.title {
+  gap: 24px;
 }
 
 .card-title {
@@ -12,14 +9,34 @@
   color: var(--next-heading);
 }
 
-@media screen and (min-width: 820px) {
-  .card {
-    max-width: 400px;
+.banner {
+  padding: 20px 20px;
+  border: 1px solid var(--next-border);
+  border-radius: 10px;
+  background-color: var(--next-surface);
+}
+
+.card {
+  padding: 20px 0;
+  border: 1px solid var(--next-border);
+  border-radius: 10px;
+  background-color: var(--next-surface);
+  padding: 20px;
+
+  img {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 200px;
+    //width: 100%;
+    object-fit: cover;
+    background-color: var(--next-surface-alt);
   }
 }
 
 @media screen and (min-width: 1000px) {
   .card {
-    max-width: 500px;
+    img {
+      height: 240px;
+    }
   }
 }

@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 24px 0;
+  padding: 12px 0;
+  //margin-bottom: 48px;
 }
 
 .cb-content {
@@ -13,13 +14,16 @@
 
 .user {
   align-items: center;
+
+  .title-text {
+    width: 100%;
+  }
 }
 
-main {
+.profile {
   button {
     width: 100%;
     border-radius: 4px;
-    max-width: 400px;
   }
 }
 
@@ -28,20 +32,56 @@ ul {
   padding: 0;
   list-style: none;
 
-  li:not(:last-child) {
+  li {
     padding-bottom: 20px;
     border-bottom: 1px solid var(--next-border);
   }
 }
 
+.banner {
+  padding: 20px 20px;
+  border: 1px solid var(--next-border);
+  border-radius: 10px;
+  background-color: var(--next-surface);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+
+  .app-button-filled {
+    border-radius: 4px;
+    border-color: var(--red-torii-gate);
+    background-color: var(--red-torii-gate);
+    color: #fff;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .profile {
+    max-width: 340px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .user {
+    align-items: flex-start;
+  }
+}
+
 @media screen and (min-width: 820px) {
+  :host {
+    padding: 24px 0;
+  }
+
   .cb-content {
     flex-direction: row;
     gap: 48px;
   }
 
   .left {
-    width: 400px;
+    width: 340px;
   }
 
   .user {
@@ -50,5 +90,18 @@ ul {
 
   .nx-flex.responsive {
     gap: 48px;
+  }
+
+  ul {
+    li:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .buttons {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
   }
 }

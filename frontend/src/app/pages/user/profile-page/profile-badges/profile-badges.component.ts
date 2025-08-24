@@ -8,8 +8,8 @@ import { Component, signal } from '@angular/core';
 })
 export class ProfileBadgesComponent {
   badges = signal([
-    { name: 'Event Explorer', icon: 'award_star', earned: true },
-    { name: 'Profile Pro', icon: 'check', earned: true },
+    { name: 'Explorer', icon: 'star_shine', earned: true },
+    { name: 'Profile Pro', icon: 'rocket', earned: true },
     { name: 'Japan Lover', icon: 'favorite', earned: true }
   ]);
 }

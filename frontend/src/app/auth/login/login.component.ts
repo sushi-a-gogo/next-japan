@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
   private storage = inject(StorageService);
-  private path = '/home';
+  private path = '/user/profile';
 
   showLoginSteps = signal<boolean>(false);
   userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.showLoginSteps.set(false);
     this.busy.set(true);
     return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.router.navigate([this.path]),
+      next: () => this.router.navigate(["/user/profile"]),
       error: () => this.router.navigate([this.path])
     });
   }
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         switchMap((resp) => this.auth.login$(resp.data.userId)),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe({
-        next: () => this.router.navigate([this.path]),
+        next: () => this.router.navigate(["/user/profile"]),
         error: () => this.router.navigate([this.path])
       });
   }

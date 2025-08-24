@@ -1,30 +1,60 @@
-<div class="subhead title">Your Next Event</div>
-<mat-card class="card" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>
-      <div class="card-title">
-        {{ event()?.eventTitle }}
-      </div>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <app-opportunity-timestamp
-        [showIcon]="false"
-        [showNotes]="false"
-        [opportunity]="event()!.opportunity"
-      ></app-opportunity-timestamp>
-    </mat-card-subtitle>
-  </mat-card-header>
-  @if(resizedImage()) {
-  <img mat-card-image [src]="resizedImage()!.src" alt="Photo of the event." />
+<section class="fade-in" [class.open]="loaded()">
+  @if(event()) {
+  <section class="nx-flex col gap-10">
+    <div class="title-text">Your Next Event</div>
+    <div class="card nx-flex col gap-20">
+      <header>
+        <div class="subhead card-title">
+          {{ event()?.eventTitle }}
+        </div>
+        <app-opportunity-timestamp
+          [showIcon]="false"
+          [showNotes]="false"
+          [opportunity]="event()!.opportunity"
+        ></app-opportunity-timestamp>
+      </header>
+      <main>
+        @if(resizedImage()) {
+        <img [src]="resizedImage()!.src" alt="An image of the event." />
+        }
+      </main>
+      <footer>
+        <div>
+          {{ event()?.opportunity?.notes }}
+        </div>
+        <div class="nx-flex row al-c">
+          <button matButton>LIKE</button>
+          <button matButton>SHARE</button>
+          <a matButton [routerLink]="routerLink()"> VIEW EVENT </a>
+        </div>
+      </footer>
+    </div>
+  </section>
+  } @if(suggestedEvent()) {
+  <section class="nx-flex col gap-10">
+    <div class="title-text">Suggested for You</div>
+    <div class="card nx-flex col gap-20">
+      <header>
+        <div class="subhead card-title">
+          {{ suggestedEvent()!.eventTitle }}
+        </div>
+      </header>
+      <main>
+        @if(suggestedEventImage()) {
+        <img [src]="suggestedEventImage()!.src" alt="An image of the event." />
+        }
+      </main>
+      <footer>
+        <div>
+          {{ suggestedEvent()!.description }}
+        </div>
+        <div class="nx-flex row al-c">
+          <button matButton>LIKE</button>
+          <button matButton>SHARE</button>
+          <a matButton [routerLink]="routerLink()"> VIEW EVENT </a>
+        </div>
+      </footer>
+    </div>
+  </section>
   }
-  <mat-card-content>
-    <p>
-      {{ event()?.opportunity?.notes }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button matButton>LIKE</button>
-    <button matButton>SHARE</button>
-    <a matButton [routerLink]="routerLink()"> VIEW EVENT </a>
-  </mat-card-actions>
-</mat-card>
+</section>
