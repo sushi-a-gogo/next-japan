@@ -1,0 +1,23 @@
+<header class="dialog"></header>
+<main class="dialog pre-wrap">
+  @if(haiku()) {
+  {{ haiku() }}
+  } @else {
+  <ngx-spinner
+    [fullScreen]="false"
+    bdColor="rgba(0, 174, 239, 0.5)"
+    type="ball-scale-multiple"
+    size="medium"
+  >
+    <p class="loading">Hold on a minute...</p>
+  </ngx-spinner>
+  }
+</main>
+<footer class="dialog fade-in" [class.open]="haiku()">
+  <button
+    class="app-button app-button-filled priority"
+    (click)="dismiss.emit()"
+  >
+    If you say so
+  </button>
+</footer>

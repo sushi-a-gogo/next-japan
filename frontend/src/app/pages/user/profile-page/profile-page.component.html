@@ -5,11 +5,7 @@
       <ul class="nx-flex col gap-20">
         <li class="nx-flex col gap-20">
           <header class="user nx-flex col gap-10">
-            <app-user-avatar
-              [user]="avatar()!"
-              [size]="256"
-              [showDefault]="true"
-            />
+            <app-user-avatar [user]="avatar()!" [size]="256" />
             <div class="title-text">
               {{ user()?.firstName }} {{ user()?.lastName }}
             </div>
@@ -17,10 +13,7 @@
           <main class="nx-flex col gap-20">
             <div class="profile">
               @if(showProfileForm()) {
-              <app-user-profile
-                [user]="user()!"
-                (close)="showProfileForm.set(false)"
-              />
+              <app-user-profile [user]="user()!" (close)="hideProfile()" />
               } @else {
               <button
                 type="button"
@@ -103,28 +96,6 @@
 </div>
 @if(showSurprise()) {
 <app-modal (close)="showSurprise.set(false)">
-  <header class="dialog"></header>
-  <main class="dialog pre-wrap">
-    @if(haiku()) {
-    {{ haiku() }}
-    } @else {
-    <ngx-spinner
-      [fullScreen]="false"
-      bdColor="rgba(0, 174, 239, 0.5)"
-      type="ball-scale-multiple"
-      size="medium"
-    >
-      <p class="loading">Hold on a minute...</p>
-    </ngx-spinner>
-    }
-  </main>
-  <footer class="dialog fade-in" [class.open]="haiku()">
-    <button
-      class="app-button app-button-filled priority"
-      (click)="showSurprise.set(false)"
-    >
-      If you say so
-    </button>
-  </footer>
+  <app-surprise (dismiss)="showSurprise.set(false)" />
 </app-modal>
 }

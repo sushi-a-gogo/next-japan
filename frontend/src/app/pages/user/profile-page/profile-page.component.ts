@@ -6,21 +6,21 @@ import { UserProfileComponent } from '@app/components/user-profile/user-profile.
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
-import { AiService } from '@app/services/ai.service';
+import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventsService } from '@app/services/events.service';
 import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
-import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { of, switchMap } from 'rxjs';
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
+import { SurpriseComponent } from "./surprise/surprise.component";
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink, UserAvatarComponent, UserProfileComponent, ProfileBadgesComponent, NextEventComponent, ModalComponent, NgxSpinnerComponent],
+  imports: [RouterLink, UserAvatarComponent, UserProfileComponent, ProfileBadgesComponent, NextEventComponent, ModalComponent, SurpriseComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,14 +28,12 @@ import { ProfileBadgesComponent } from "./profile-badges/profile-badges.componen
 export class ProfilePageComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(MetaService);
-  private spinner = inject(NgxSpinnerService);
   private auth = inject(AuthMockService);
-  private aiService = inject(AiService);
   private eventsService = inject(EventsService);
   private registrationService = inject(EventRegistrationService);
   private destroyRef = inject(DestroyRef);
 
-  user = computed(() => this.auth.user());
+  user = signal<User | null>(null);
   avatar = computed(() => {
     const user = this.user();
     if (user && !user!.image.id) {
@@ -68,7 +66,8 @@ export class ProfilePageComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      if (this.user()) {
+      if (this.auth.user()) {
+        this.user.set(this.auth.user()!);
         this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
         const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
         this.meta.updateTags(this.title.getTitle(), description);
@@ -77,7 +76,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userId = this.auth.user()?.userId || '';
+    const userId = this.user()?.userId || '';
     this.registrationService.getUserEventRegistrations$(userId).pipe(
       switchMap((resp) => resp.data.length > 0 ? of([]) : this.eventsService.get$()),
       takeUntilDestroyed(this.destroyRef)
@@ -90,15 +89,17 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
-  getSurprise() {
-    this.haiku.set('');
-    this.showSurprise.set(true);
-    this.spinner.show();
-    this.aiService.generateHaiku$().subscribe((resp) => {
-      this.haiku.set(resp.data);
-    });
+  hideProfile(user?: User) {
+    if (user) {
+      this.user.set(user);
+    }
+
+    this.showProfileForm.set(false);
   }
 
+  getSurprise() {
+    this.showSurprise.set(true);
+  }
 
   private sortByDate(a: EventRegistration, b: EventRegistration) {
     return new Date(a.opportunity.startDate).getTime() - new Date(b.opportunity.startDate).getTime();

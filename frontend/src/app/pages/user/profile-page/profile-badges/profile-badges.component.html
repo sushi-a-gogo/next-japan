@@ -1,7 +1,12 @@
 <div class="title-text">Achievements</div>
-<div class="badges">
+<div class="badges" #badgeContainer>
   @for(badge of badges(); track badge.icon) {
-  <div class="badge-card nx-flex col al-c jc-c" [class]="badge.icon">
+  <div
+    class="badge-card nx-flex col al-c jc-c"
+    [class]="badge.icon"
+    [class.visible]="animationState() === 'in'"
+    [style.--animation-delay]="$index * 100 + 'ms'"
+  >
     <span class="material-symbols-outlined">
       {{ badge.icon }}
     </span>
