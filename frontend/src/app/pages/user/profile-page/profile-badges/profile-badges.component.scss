@@ -7,7 +7,7 @@
 
 .badges {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 4px;
 }
 
@@ -20,7 +20,7 @@
   text-align: center;
   font-size: 11px;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .material-symbols-outlined {
@@ -28,6 +28,11 @@
 }
 
 .star_shine {
+  background-color: var(--light-yellow-stars);
+  color: #111;
+}
+
+.bedroom_baby {
   background-color: var(--light-yellow-stars);
   color: #111;
 }
@@ -45,4 +50,10 @@
 img {
   width: 48px;
   height: 48px;
+}
+
+@media (min-width: 820px) {
+  .badges {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

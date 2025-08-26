@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
+import { User } from '@app/models/user.model';
 
 @Component({
   selector: 'app-profile-badges',
@@ -6,10 +7,24 @@ import { Component, signal } from '@angular/core';
   templateUrl: './profile-badges.component.html',
   styleUrl: './profile-badges.component.scss'
 })
-export class ProfileBadgesComponent {
+export class ProfileBadgesComponent implements OnInit {
+  user = input.required<User>();
+  eventRegistrationCount = input.required<number>();
+
   badges = signal([
-    { name: 'Explorer', icon: 'star_shine', earned: true },
-    { name: 'Profile Pro', icon: 'rocket', earned: true },
-    { name: 'Japan Lover', icon: 'favorite', earned: true }
+    { name: 'Explorer', icon: 'rocket', earned: true },
   ]);
+
+  ngOnInit(): void {
+    this.badges.update((prev) => {
+      const next =
+        [
+          ...prev,
+          { name: 'Newbie', icon: 'bedroom_baby', earned: !this.user().image.id && this.eventRegistrationCount() === 0 },
+          { name: 'Profile Pro', icon: 'star_shine', earned: !!this.user().image.id },
+          { name: 'Japan Lover', icon: 'favorite', earned: this.eventRegistrationCount() > 0 }
+        ];
+      return next.filter((badge) => badge.earned);
+    })
+  }
 }

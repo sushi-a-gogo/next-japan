@@ -1,11 +1,15 @@
 <div class="component-box">
-  <div class="cb-content pad">
+  <div class="cb-content pad fade-in" [class.open]="loaded()">
     @if(user()) {
     <section class="left nx-flex col gap-20">
       <ul class="nx-flex col gap-20">
         <li class="nx-flex col gap-20">
           <header class="user nx-flex col gap-10">
-            <app-user-avatar [user]="user()!" [size]="256" />
+            <app-user-avatar
+              [user]="avatar()!"
+              [size]="256"
+              [showDefault]="true"
+            />
             <div class="title-text">
               {{ user()?.firstName }} {{ user()?.lastName }}
             </div>
@@ -30,36 +34,42 @@
           </main>
         </li>
         <li>
-          <app-profile-badges />
+          <app-profile-badges
+            [user]="user()!"
+            [eventRegistrationCount]="nextEvent() ? 1 : 0"
+          />
         </li>
       </ul>
     </section>
     <section class="nx-flex col gap-36">
       <section class="nx-flex col gap-10">
-        <div class="title-text">Your Profile</div>
+        <div class="title-text">Your Dashboard</div>
         <div class="banner nx-flex col gap-20">
+          <!-- <div>
+            This is your launch page for all things Next Japan.
+            <p>
+              Open
+              <b>My Events</b> to view all of your registered events. To see the
+              full list of upcoming events, visit the <b>Landing Page</b>, or
+              get creative using our <b>AI Designer</b>!
+            </p>
+          </div> -->
           <div>
-            <!-- This is your launch page for all things Next Japan.
-        <p>
-          Open
-          <b>My Events</b> to view all of your registered events. To see the
-          full list of upcoming events, visit the <b>Landing Page</b>, or get
-          creative using our <b>AI Designer</b>!
-        </p> -->
-            This is your personal launch pad for all things <b>Next Japan</b>!
-            Think of this page as your travel hub in our imaginary world — a
-            place where you can catch your breath, check what's coming up next,
-            and set off on new adventures.
+            Welcome to your personal launch pad for all things
+            <b>Next Japan</b>! A place where you can check what's coming up next
+            or set off on new adventures.
+            <!-- From here, you'll see your closest
+            upcoming event, along with quick access to your profile and account
+            settings. -->
           </div>
           <div>
-            From here, you'll see your closest upcoming event right away, along
-            with quick access to your profile and account settings. Want to
-            explore everything that's happening across Next Japan? Head over to
-            the
-            <b>Landing Page</b> for a full list of events. Feeling adventurous?
-            Use our <b>AI Event Designer</b> to dream up your own one-of-a-kind
-            gathering, or dive into <b>My Events</b> to manage the experiences
-            you've already joined. ✨
+            Want to explore everything that's happening across Next Japan? Head
+            over to the
+            <b>Landing Page</b> for a full list of events.<br />
+            Feeling adventurous? Use our <b>AI Event Designer</b> to dream up
+            your own one-of-a-kind gathering.<br /><br />
+            Dive into <b>My Events</b> to manage the experiences you've already
+            joined.
           </div>
           <div class="buttons">
             <a routerLink="/home" class="app-button app-button-filled">
@@ -74,12 +84,47 @@
             >
               My Events
             </a>
-            <button class="app-button app-button-filled">Surprise Me!</button>
+            <button
+              class="app-button app-button-filled"
+              (click)="getSurprise()"
+            >
+              Surprise Me!
+            </button>
           </div>
         </div>
       </section>
-      <app-next-event [user]="user()!" />
+      <app-next-event
+        [nextEvent]="nextEvent()"
+        [suggestedEvent]="suggestedEvent()"
+      />
     </section>
     }
   </div>
 </div>
+@if(showSurprise()) {
+<app-modal (close)="showSurprise.set(false)">
+  <header class="dialog"></header>
+  <main class="dialog pre-wrap">
+    @if(haiku()) {
+    {{ haiku() }}
+    } @else {
+    <ngx-spinner
+      [fullScreen]="false"
+      bdColor="rgba(0, 174, 239, 0.5)"
+      type="ball-scale-multiple"
+      size="medium"
+    >
+      <p class="loading">Hold on a minute...</p>
+    </ngx-spinner>
+    }
+  </main>
+  <footer class="dialog fade-in" [class.open]="haiku()">
+    <button
+      class="app-button app-button-filled priority"
+      (click)="showSurprise.set(false)"
+    >
+      If you say so
+    </button>
+  </footer>
+</app-modal>
+}

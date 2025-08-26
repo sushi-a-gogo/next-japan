@@ -17,7 +17,6 @@ export class UserAvatarComponent {
   styleCss = computed(() => ({
     width: `${this.size()}px`,
     height: `${this.size()}px`,
-    fontSize: `${this.size() == 48 ? 18 : 34}px`
+    fontSize: `${this.size() / 2 - 6}px`
   }));
-
 }

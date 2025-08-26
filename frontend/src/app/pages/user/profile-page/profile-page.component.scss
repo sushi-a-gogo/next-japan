@@ -58,6 +58,23 @@ ul {
   }
 }
 
+.dialog {
+  min-width: 320px;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+
+  button {
+    width: 100%;
+    border-radius: 24px;
+  }
+}
+
+main.dialog {
+  min-height: 80px;
+}
+
 @media screen and (min-width: 600px) {
   .profile {
     max-width: 340px;

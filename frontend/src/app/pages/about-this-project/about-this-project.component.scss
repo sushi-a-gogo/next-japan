@@ -8,7 +8,7 @@
   justify-content: center;
   width: 100%;
   min-height: calc(var(--app-height));
-  padding: 24px 12px;
+  padding: 12px;
 }
 
 article {
@@ -19,10 +19,14 @@ article {
   max-width: 800px;
 
   header {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 22px;
+    line-height: 28px;
     font-weight: 700;
   }
+}
+
+.highlight {
+  color: var(--vivid-yellow-text);
 }
 
 ul {

@@ -1,5 +1,5 @@
 .app-button {
-  border-radius: 10px;
+  border-radius: 24px;
 }
 
 .app-button-filled {
@@ -23,18 +23,5 @@ footer {
   flex-direction: column;
   button {
     width: 100%;
-  }
-}
-
-@media (min-width: 600px) {
-  .app-button {
-    border-radius: 4px;
-  }
-
-  footer {
-    flex-direction: row;
-    button {
-      width: auto;
-    }
   }
 }
