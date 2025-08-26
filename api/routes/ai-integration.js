@@ -31,19 +31,14 @@ const providers = {
 
 router.get("/generate-haiku", async (req, res) => {
   const provider = providers.grok;
-  const oldprompt = `Generate a haiku in English that enigmatically describes 'Next Japan' - a Japanese vacation event planning website.
-    Each line must start with a unique emoji reflecting Japanese culture, travel, or mystery, chosen from a wide range (e.g., 🍵, 🏯, ⛩️, 🌊, 🪭, 🎎, 🍙, 🐟, 🌌).
-    Avoid using the same emojis or themes repeatedly.
-    Ensure the haiku is fresh, something you have never written before.
-    It should use distinct imagery and poetic tone, avoiding repetition of previous outputs.
-    Vary the style, such as modern, traditional, or surreal, to evoke the magic of Japanese travel.`;
   const prompt = `Generate a haiku in English that uniquely describes 'Next Japan' - a Japanese vacation event planning website.
-    Each line must start with a completely different emoji that embodies any aspect of Japanese culture, travel, or mystery,
-    chosen freely from Unicode emojis (no specific examples). Ensure the haiku explores a fresh, unpredictable theme—e.g.,
-    urban Tokyo nightlife, ancient samurai lore, futuristic bullet trains, or hidden coastal villages.
-    Vary the poetic style (e.g., minimalist, surreal, narrative)
-    and perspective (e.g., traveler, spirit, city) to create a distinct, non-repetitive haiku every time.
-    Make it vibrant, evocative, and tied to the magic of Japanese travel.`;
+  Each line must start with a completely different, randomly chosen Unicode emoji embodying any aspect of Japanese culture, travel, or mystery (no examples provided).
+  Explore a bold, unpredictable theme (e.g., cyberpunk Osaka, ancient tea rituals, haunted Aomori forests, futuristic Hokkaido farms),
+  explicitly avoiding any repeated imagery, themes, or emojis from past outputs.
+  Randomly switch between poetic styles (e.g., haiku with haibun flair, free-verse twist, or mythic tone) and perspectives
+  (e.g., a lost tourist, a wandering fox spirit, a futuristic AI guide).
+  Ensure the haiku is vibrant, evocative, and captures the diverse magic of Japanese travel.
+  If you want, provide a brief explanation (explanation only, 25 words or less, and do NOT label it as an 'explanation') of the haiku's meaning - but this is optional.`;
 
   try {
     const haiku = await fetchHaikuResultFromAI(provider, prompt);
@@ -137,9 +132,9 @@ async function fetchHaikuResultFromAI(provider, prompt) {
       { role: "user", content: prompt },
     ],
     max_tokens: 512,
-    temperature: 1.0, // Upped to max creativity (from 0.9)
-    top_p: 0.9, // Slightly tightened to keep coherence
-    n: 3, // Generate 3 options, pick one randomly
+    temperature: 1.1, // Upped to max creativity (from 0.9)
+    top_p: 0.85, // Slightly tightened to keep coherence
+    n: 4, // Generate 3 options, pick one randomly
   });
   // Randomly select one of the generated haikus
   const randomIndex = Math.floor(Math.random() * textResponse.choices.length);
