@@ -60,7 +60,7 @@ export class ProfilePageComponent implements OnInit {
   loaded = signal(false);
   showProfileForm = signal<boolean>(false);
   showSurprise = signal<boolean>(false);
-  haiku = signal<string>('');
+  surpriseBusy = signal<boolean>(false);
 
   private events = signal<EventData[]>([]);
 
@@ -101,8 +101,19 @@ export class ProfilePageComponent implements OnInit {
     this.showProfileForm.set(false);
   }
 
-  getSurprise() {
+  openSurprise() {
     this.showSurprise.set(true);
+    this.surpriseBusy.set(true);
+  }
+
+  surpriseReady(ready: boolean) {
+    this.surpriseBusy.set(!ready);
+  }
+
+  closeSurprise() {
+    if (!this.surpriseBusy()) {
+      this.showSurprise.set(false);
+    }
   }
 
   private sortByDate(a: EventRegistration, b: EventRegistration) {
