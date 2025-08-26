@@ -1,7 +1,7 @@
 <header class="dialog"></header>
-<main class="dialog pre-wrap">
+<main class="dialog">
   @if(haiku()) {
-  {{ haiku() }}
+  <div class="pre-wrap">{{ haiku() }}</div>
   } @else {
   <ngx-spinner
     [fullScreen]="false"

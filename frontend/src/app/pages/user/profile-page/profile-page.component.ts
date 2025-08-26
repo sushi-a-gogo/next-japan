@@ -2,18 +2,18 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, injec
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { UserProfileComponent } from '@app/components/user-profile/user-profile.component';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { User } from '@app/models/user.model';
+import { UserProfileComponent } from '@app/pages/user/profile-page/user-profile/user-profile.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventsService } from '@app/services/events.service';
 import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
-import { of, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
 import { SurpriseComponent } from "./surprise/surprise.component";
@@ -45,7 +45,12 @@ export class ProfilePageComponent implements OnInit {
     return user;
   });
 
-  suggestedEvent = signal<EventData | undefined>(undefined);
+  suggestedEvent = computed(() => {
+    const registeredIds = this.registrationService.userEventRegistrations().map((r) => r.opportunity.eventId);
+    const events = this.events().filter((e) => !registeredIds.includes(e.eventId));
+    const randomIndex = Math.floor(Math.random() * events.length);
+    return randomIndex ? events[randomIndex] : undefined;
+  });
 
   nextEvent = computed(() => {
     const registrations = this.registrationService.userEventRegistrations();
@@ -56,6 +61,8 @@ export class ProfilePageComponent implements OnInit {
   showProfileForm = signal<boolean>(false);
   showSurprise = signal<boolean>(false);
   haiku = signal<string>('');
+
+  private events = signal<EventData[]>([]);
 
   private defaultAvatar: AppImageData = {
     width: 1792,
@@ -78,13 +85,10 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.user()?.userId || '';
     this.registrationService.getUserEventRegistrations$(userId).pipe(
-      switchMap((resp) => resp.data.length > 0 ? of([]) : this.eventsService.get$()),
+      switchMap(() => this.eventsService.get$()),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((events) => {
-      if (events.length) {
-        const randomIndex = Math.floor(Math.random() * events.length);
-        this.suggestedEvent.set(events[randomIndex]);
-      }
+      this.events.set(events);
       this.loaded.set(true);
     })
   }

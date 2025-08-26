@@ -31,10 +31,22 @@ const providers = {
 
 router.get("/generate-haiku", async (req, res) => {
   const provider = providers.grok;
-  const prompt =
-    "Generate a haiku in English that enigmatically describes 'Next Japan' - a Japanese vacation event planning website. Each line of the haiku must begin with an emoji that reflects the theme of Japanese culture, travel, or mystery (e.g., 🌸, 🗻, 🎑). Ensure the emojis enhance the enigmatic and poetic tone.";
+  const oldprompt = `Generate a haiku in English that enigmatically describes 'Next Japan' - a Japanese vacation event planning website.
+    Each line must start with a unique emoji reflecting Japanese culture, travel, or mystery, chosen from a wide range (e.g., 🍵, 🏯, ⛩️, 🌊, 🪭, 🎎, 🍙, 🐟, 🌌).
+    Avoid using the same emojis or themes repeatedly.
+    Ensure the haiku is fresh, something you have never written before.
+    It should use distinct imagery and poetic tone, avoiding repetition of previous outputs.
+    Vary the style, such as modern, traditional, or surreal, to evoke the magic of Japanese travel.`;
+  const prompt = `Generate a haiku in English that uniquely describes 'Next Japan' - a Japanese vacation event planning website.
+    Each line must start with a completely different emoji that embodies any aspect of Japanese culture, travel, or mystery,
+    chosen freely from Unicode emojis (no specific examples). Ensure the haiku explores a fresh, unpredictable theme—e.g.,
+    urban Tokyo nightlife, ancient samurai lore, futuristic bullet trains, or hidden coastal villages.
+    Vary the poetic style (e.g., minimalist, surreal, narrative)
+    and perspective (e.g., traveler, spirit, city) to create a distinct, non-repetitive haiku every time.
+    Make it vibrant, evocative, and tied to the magic of Japanese travel.`;
+
   try {
-    const haiku = await fetchTextResultFromAI(provider, prompt);
+    const haiku = await fetchHaikuResultFromAI(provider, prompt);
     res.json({
       success: true,
       data: haiku.choices[0].message.content,
@@ -110,6 +122,28 @@ router.post("/generate-content", async (req, res) => {
 async function isPromptSafe(userPrompt) {
   const moderation = await openai.moderations.create({ input: userPrompt });
   return !moderation.results[0].flagged;
+}
+
+async function fetchHaikuResultFromAI(provider, prompt) {
+  console.log(`Call ${provider.name} API for text creation: ` + prompt);
+  const textResponse = await provider.client.chat.completions.create({
+    model: provider.model,
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a wildly creative assistant crafting unique haikus for a Japanese travel agency. Each haiku must be entirely distinct in theme, imagery, and emojis, drawing from diverse facets of Japanese culture, travel, or mystery. Avoid repeating any patterns or ideas from previous outputs, and experiment with bold, varied styles.",
+      },
+      { role: "user", content: prompt },
+    ],
+    max_tokens: 512,
+    temperature: 1.0, // Upped to max creativity (from 0.9)
+    top_p: 0.9, // Slightly tightened to keep coherence
+    n: 3, // Generate 3 options, pick one randomly
+  });
+  // Randomly select one of the generated haikus
+  const randomIndex = Math.floor(Math.random() * textResponse.choices.length);
+  return { choices: [textResponse.choices[randomIndex]] };
 }
 
 async function fetchTextResultFromAI(provider, prompt) {

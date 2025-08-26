@@ -1,5 +1,6 @@
 .dialog {
   min-width: 320px;
+  max-width: 320px;
 
   button {
     width: 100%;
@@ -8,5 +9,10 @@
 }
 
 main.dialog {
-  min-height: 80px;
+  min-height: 100px;
+  padding-bottom: 10px;
+
+  .pre-wrap {
+    line-height: 24px;
+  }
 }
