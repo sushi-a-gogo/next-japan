@@ -12,6 +12,7 @@ export class SurpriseComponent implements OnInit {
   private spinner = inject(NgxSpinnerService);
   private aiService = inject(AiService);
 
+  ready = output<boolean>();
   dismiss = output();
   haiku = signal<string>('');
 
@@ -19,6 +20,7 @@ export class SurpriseComponent implements OnInit {
     this.spinner.show();
     this.aiService.generateHaiku$().subscribe((resp) => {
       this.haiku.set(resp.data);
+      this.ready.emit(true);
     });
   }
 }

@@ -79,7 +79,7 @@
             </a>
             <button
               class="app-button app-button-filled"
-              (click)="getSurprise()"
+              (click)="openSurprise()"
             >
               Surprise Me!
             </button>
@@ -95,7 +95,7 @@
   </div>
 </div>
 @if(showSurprise()) {
-<app-modal (close)="showSurprise.set(false)">
-  <app-surprise (dismiss)="showSurprise.set(false)" />
+<app-modal (close)="closeSurprise()">
+  <app-surprise (ready)="surpriseReady($event)" (dismiss)="closeSurprise()" />
 </app-modal>
 }

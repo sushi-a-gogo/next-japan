@@ -37,7 +37,7 @@ export class ProfileBadgesComponent implements OnChanges {
           { name: 'Japan Lover', icon: 'favorite', earned: this.eventRegistrationCount() > 0 }
         ];
       const next = items.filter((badge) => badge.earned);
-      animate = next.map((b) => b.icon).join() !== prev.map((b) => b.icon).join();
+      animate = !changed.firstChange && next.map((b) => b.icon).join() !== prev.map((b) => b.icon).join();
       return next;
     });
 
