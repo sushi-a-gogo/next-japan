@@ -57,7 +57,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private platformId = inject(PLATFORM_ID);
   private breakpointObserver = inject(BreakpointObserver);
   private cdr = inject(ChangeDetectorRef);
-  private hasAnimated = false;
 
   disablePrevButton = computed(() => this.currentIndex() === 0);
   disableNextButton = computed(() => this.currentIndex() >= this.sortedEvents().length - this.eventsPerView());

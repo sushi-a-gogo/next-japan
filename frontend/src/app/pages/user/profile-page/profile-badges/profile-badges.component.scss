@@ -1,0 +1,79 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.badge-card {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  background: #f0f0f0;
+  font-weight: 700;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 700;
+  opacity: 0; /* Added to ensure initial state */
+}
+
+.badge-card.visible {
+  animation: fadeSlide 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation-delay: var(--animation-delay);
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-15px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+}
+
+.star_shine {
+  background-color: var(--light-yellow-stars);
+  color: #111;
+}
+
+.bedroom_baby {
+  border: 1px solid var(--next-border);
+}
+
+.favorite {
+  background-color: var(--pink-cherry-blossoms);
+  color: #fff;
+}
+
+.rocket {
+  background-color: var(--bright-blue-sky);
+  color: #fff;
+}
+
+img {
+  width: 48px;
+  height: 48px;
+}
+
+@media (min-width: 820px) {
+  .badges {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

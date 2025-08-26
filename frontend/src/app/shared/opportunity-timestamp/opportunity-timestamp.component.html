@@ -1,5 +1,7 @@
 <div class="nx-flex row al-c gap-5">
+  @if(showIcon()) {
   <span class="material-symbols-outlined"> event </span>
+  }
   <section class="date-time">
     {{ timestamp() }}
     <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>

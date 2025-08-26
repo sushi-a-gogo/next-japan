@@ -25,10 +25,25 @@ const providers = {
       baseURL: "https://api.x.ai/v1", // Override for Grok
     }),
     model: "grok-3", // Adjust based on xAI docs
-    imageModel: "grok-2-image-1212", //"grok-2-image",
+    imageModel: "grok-2-image-latest", //"grok-2-image",
   },
 };
 
+router.get("/generate-haiku", async (req, res) => {
+  const provider = providers.grok;
+  const prompt =
+    "Generate a haiku in English that enigmatically describes 'Next Japan' - a Japanese vacation event planning website. Each line of the haiku must begin with an emoji that reflects the theme of Japanese culture, travel, or mystery (e.g., 🌸, 🗻, 🎑). Ensure the emojis enhance the enigmatic and poetic tone.";
+  try {
+    const haiku = await fetchTextResultFromAI(provider, prompt);
+    res.json({
+      success: true,
+      data: haiku.choices[0].message.content,
+    });
+  } catch (error) {
+    console.error("Error with AI API:", error);
+    res.status(500).json({ error: "Failed to generate content" });
+  }
+});
 // POST endpoint to handle text and image generation
 router.post("/generate-content", async (req, res) => {
   // Expecting params from Angular front-end

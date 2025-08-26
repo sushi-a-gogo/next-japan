@@ -22,6 +22,12 @@
   <header>
     <span> {{ user().firstName }} {{ user().lastName }} </span>
   </header>
+  <a type="button" class="app-button" mat-menu-item routerLink="/user/profile">
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> description </span>
+      My Dashboard
+    </div>
+  </a>
   <a
     type="button"
     class="app-button"
@@ -33,12 +39,6 @@
       My Events
     </div>
   </a>
-  <button mat-menu-item (click)="openUserProfile()">
-    <div class="menu-item">
-      <span class="material-symbols-outlined"> description </span>
-      Profile
-    </div>
-  </button>
   <button mat-menu-item [matMenuTriggerFor]="modes">
     <div class="menu-item">
       <span class="material-symbols-outlined"> palette </span>

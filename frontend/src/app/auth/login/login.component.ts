@@ -6,12 +6,13 @@ import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { LOCAL_STORAGE_USER_KEY, StorageService } from '@app/services/storage.service';
 import { UserProfileService } from '@app/services/user-profile.service';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { of, switchMap } from 'rxjs';
 import { LoginStepsComponent } from "./login-steps/login-steps.component";
 
 @Component({
   selector: 'app-login',
-  imports: [MatProgressSpinnerModule, LoginStepsComponent],
+  imports: [MatProgressSpinnerModule, LoginStepsComponent, NgxSpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -19,17 +20,19 @@ export class LoginComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
+  private spinner = inject(NgxSpinnerService);
 
   private auth = inject(AuthMockService);
   private userService = inject(UserProfileService);
   private storage = inject(StorageService);
-  private path = '/home';
+  private path = '/user/profile';
 
   showLoginSteps = signal<boolean>(false);
   userId = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
   busy = signal<boolean>(false);
 
   ngOnInit(): void {
+    this.spinner.show();
     this.route.queryParams.pipe(
       switchMap((params) => {
         const returnToUrl = decodeURIComponent(params['returnTo']);
@@ -48,6 +51,7 @@ export class LoginComponent implements OnInit {
           this.goBack();
         } else {
           setTimeout(() => {
+            this.spinner.hide();
             this.showLoginSteps.set(true);
           }, 100);
         }
@@ -62,20 +66,23 @@ export class LoginComponent implements OnInit {
   login(userId: string) {
     this.showLoginSteps.set(false);
     this.busy.set(true);
+    this.spinner.show();
     return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.router.navigate([this.path]),
+      next: () => this.router.navigate([this.path || '/user/profile']),
       error: () => this.router.navigate([this.path])
     });
   }
 
   signUp(user: User) {
     this.showLoginSteps.set(false);
+    this.busy.set(true);
+    this.spinner.show();
     this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
       .pipe(
         switchMap((resp) => this.auth.login$(resp.data.userId)),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe({
-        next: () => this.router.navigate([this.path]),
+        next: () => this.router.navigate(["/user/profile"]),
         error: () => this.router.navigate([this.path])
       });
   }

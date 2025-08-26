@@ -9,11 +9,10 @@ import { filter } from 'rxjs';
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
 import { SignInBannerComponent } from '../sign-in-banner/sign-in-banner.component';
-import { UserProfileComponent } from "../user-profile/user-profile.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [HeaderComponent, FooterComponent, SignInBannerComponent, UserProfileComponent],
+  imports: [HeaderComponent, FooterComponent, SignInBannerComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

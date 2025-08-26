@@ -16,17 +16,17 @@
   <footer class="dialog">
     <button
       matRipple
-      class="app-button dialog-button app-button-outlined"
-      (click)="onDialogClose()"
-    >
-      I changed my mind.
-    </button>
-    <button
-      matRipple
       class="app-button dialog-button app-button-filled"
       (click)="onConfirm()"
     >
       Yes, I'm sure
+    </button>
+    <button
+      matRipple
+      class="app-button dialog-button app-button-outlined"
+      (click)="onDialogClose()"
+    >
+      No, I changed my mind.
     </button>
   </footer>
 </app-modal>

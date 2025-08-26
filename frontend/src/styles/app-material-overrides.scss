@@ -66,38 +66,6 @@
   );
 }
 
-.mat-tab-hide-tabs {
-  .mat-mdc-tab-header {
-    display: none;
-  }
-}
-
-// ------------- //
-// mat-accordion //
-// ------------- //
-.app-accordion.mat-accordion > .mat-expansion-panel {
-  border: 0;
-  box-shadow: none;
-  overflow: visible;
-}
-
-.app-accordion.mat-accordion .mat-expansion-panel-content {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 19px;
-  color: var(--next-text);
-}
-
-.app-accordion.mat-accordion
-  .mat-expansion-panel-content
-  > .mat-expansion-panel-body {
-  padding: 0;
-}
-
-.app-accordion.mat-accordion .mat-expansion-indicator::after {
-  color: var(--next-text);
-}
-
 .cdk-overlay-backdrop.app-backdrop {
   background-color: rgba(0, 0, 0, 0.32);
 }

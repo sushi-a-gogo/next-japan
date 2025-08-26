@@ -14,6 +14,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
+    path: 'user/profile',
+    renderMode: RenderMode.Client
+  },
+  {
     path: 'user/registrations',
     renderMode: RenderMode.Client
   },

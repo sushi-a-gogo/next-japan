@@ -13,6 +13,10 @@
   }
 }
 
+header.dialog > span {
+  font-weight: 700;
+}
+
 footer {
   button:disabled {
     opacity: 0.5;
