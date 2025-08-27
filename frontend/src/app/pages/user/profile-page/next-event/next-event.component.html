@@ -1,4 +1,4 @@
-@if(nextEvent()) {
+@if(nextEvent() && nextEventRegistration()) {
 <section class="nx-flex col gap-10">
   <div class="title-text">Your Next Event</div>
   <div class="card nx-flex col gap-20">
@@ -9,7 +9,7 @@
       <app-opportunity-timestamp
         [showIcon]="false"
         [showNotes]="false"
-        [opportunity]="nextEvent()!.opportunity"
+        [opportunity]="nextEventRegistration()!.opportunity"
       ></app-opportunity-timestamp>
     </header>
     <main>
@@ -17,13 +17,13 @@
       <img [src]="resizedImage()!.src" alt="An image of the event." />
       }
     </main>
-    <footer>
+    <footer class="nx-flex col gap-10">
       <div>
-        {{ nextEvent()?.opportunity?.notes }}
+        {{ nextEventRegistration()?.opportunity?.notes }}
       </div>
-      <div class="nx-flex row al-c">
-        <button matButton>LIKE</button>
-        <button matButton>SHARE</button>
+      <div class="nx-flex row al-c gap-10">
+        <app-like-button [eventId]="nextEvent()!.eventId" colorHex="#000" />
+        <app-share-button [event]="nextEvent()!" colorHex="#000" />
         <a matButton [routerLink]="nextRouterLink()"> VIEW EVENT </a>
       </div>
     </footer>
@@ -43,13 +43,16 @@
       <img [src]="suggestedEventImage()!.src" alt="An image of the event." />
       }
     </main>
-    <footer>
+    <footer class="nx-flex col gap-10">
       <div>
         {{ suggestedEvent()!.description }}
       </div>
-      <div class="nx-flex row al-c">
-        <button matButton>LIKE</button>
-        <button matButton>SHARE</button>
+      <div class="nx-flex row al-c gap-10">
+        <app-like-button
+          [eventId]="suggestedEvent()!.eventId"
+          colorHex="#000"
+        />
+        <app-share-button [event]="suggestedEvent()!" colorHex="#000" />
         <a matButton [routerLink]="suggestedRouterLink()"> VIEW EVENT </a>
       </div>
     </footer>

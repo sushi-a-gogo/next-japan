@@ -10,8 +10,10 @@ import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
 import registrationsRouter from "./routes/eventRegistrations.js";
 import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
+import likeEventRouter from "./routes/like-event.js";
 import organizationRouter from "./routes/organization.js";
 import searchRouter from "./routes/search.js";
+import shareEventRouter from "./routes/share-event.js";
 import userRouter from "./routes/user.js";
 import notificationRouter from "./routes/userNotifications.js";
 
@@ -56,6 +58,8 @@ app.use("/api/search", searchRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 app.use("/api/notifications", notificationRouter);
+app.use("/api/like-event", likeEventRouter);
+app.use("/api/share-event", shareEventRouter);
 
 app.use("/api/ai", apiLimiter);
 app.use("/api/ai", aiRouter);

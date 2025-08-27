@@ -1,0 +1,33 @@
+.share-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  height: 24px;
+  line-height: 24px;
+  min-width: 32px;
+  border-radius: 10px;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .soft {
+    line-height: 24px;
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.icon-image {
+  width: 20px;
+  height: 20px;
+  border-radius: 0.25rem;
+}

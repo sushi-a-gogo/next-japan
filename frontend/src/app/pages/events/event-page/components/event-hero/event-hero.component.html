@@ -8,41 +8,57 @@
   [alt]="event()?.eventTitle"
 />
 }
-<div class="hero-overlay nx-flex col al-c jc-c gap-12">
-  <div class="cb-content nx-flex row al-c">
-    <div class="headline">
-      {{ event()?.eventTitle }}
-    </div>
-  </div>
-  @if(locationCount()) {
-  <div
-    class="cb-content nx-flex row al-c gap-10"
-    [class.open]="locationCount()"
-  >
-    <span class="material-symbols-outlined icon-map"> map </span>
-    <span>
-      {{ locationCount() | displayCount }}
-      @if(locationCount() !== 1) {
-      <span>Locations</span>
-      } @else {
-      <span>Location</span>
-      }
-    </span>
-  </div>
-  }
-  <div class="cb-content nx-flex row al-c gap-10">
-    @if(eventDateRange()) {
-    <!-- date range start -->
-    <span class="material-symbols-outlined icon-note">date_range</span>
-    <span>{{ eventDateRange() }}</span>
-    } @else {
-    <div class="nx-flex col gap-10">
-      <div class="description">
-        {{ event()?.description }}
+<div class="hero-overlay nx-flex jc-c">
+  <div class="cb-content hero-content">
+    <div class="nx-flex col gap-12">
+      <div class="headline">
+        {{ event()?.eventTitle }}
       </div>
+      @if(locationCount()) {
       <div class="nx-flex row al-c gap-10">
-        <span class="material-symbols-outlined icon-campaign">campaign</span>
-        Coming Soon
+        <span class="material-symbols-outlined icon-map"> map </span>
+        <span>
+          {{ locationCount() | displayCount }}
+          @if(locationCount() !== 1) {
+          <span>Locations</span>
+          } @else {
+          <span>Location</span>
+          }
+        </span>
+      </div>
+      }
+      <div class="nx-flex row al-c gap-10">
+        @if(eventDateRange()) {
+        <!-- date range start -->
+        <span class="material-symbols-outlined icon-note">date_range</span>
+        <span>{{ eventDateRange() }}</span>
+        <app-like-button [eventId]="event()!.eventId" />
+        <app-share-button [event]="event()!" />
+        } @else {
+        <div class="nx-flex col gap-10">
+          <div class="description">
+            {{ event()?.description }}
+          </div>
+          <div class="nx-flex row al-c gap-10">
+            <span class="material-symbols-outlined icon-campaign"
+              >campaign</span
+            >
+            Coming Soon
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    @if(eventRegistration()) {
+    <div class="registration-overlay">
+      <div>
+        You registered for this event on
+        {{ eventRegistration()?.createdAt | date }}
+      </div>
+      <!-- <app-event-registration-status [status]="eventRegistration()!.status" /> -->
+      <div class="nx-flex row al-c gap-10">
+        <button>VIEW REGISTRATION</button>
+        <a routerLink="/user/registrations"> MANAGE EVENTS </a>
       </div>
     </div>
     }

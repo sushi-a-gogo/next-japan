@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     this.busy.set(true);
     this.spinner.show();
     return this.auth.login$(userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.router.navigate([this.path || '/user/profile']),
+      next: () => this.router.navigate(['/user/profile']),
       error: () => this.router.navigate([this.path])
     });
   }

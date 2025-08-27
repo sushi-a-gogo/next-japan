@@ -52,9 +52,14 @@ export class ProfilePageComponent implements OnInit {
     return randomIndex ? events[randomIndex] : undefined;
   });
 
-  nextEvent = computed(() => {
+  nextEventRegistration = computed(() => {
     const registrations = this.registrationService.userEventRegistrations();
     return registrations.length ? [...registrations].sort(this.sortByDate)[0] : undefined;
+  });
+
+  nextEvent = computed(() => {
+    const eventId = this.nextEventRegistration()?.opportunity.eventId;
+    return eventId ? this.events().find((e) => e.eventId === eventId) : undefined;
   });
 
   loaded = signal(false);

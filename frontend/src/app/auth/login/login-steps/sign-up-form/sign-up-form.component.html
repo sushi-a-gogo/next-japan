@@ -1,4 +1,4 @@
-<div class="content nx-flex col gap-36">
+<div class="content nx-flex col gap-5">
   <form class="nx-flex col gap-20" [formGroup]="newUserForm">
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>First Name</mat-label>
@@ -24,7 +24,7 @@
       />
       <mat-error>Please enter your last name.</mat-error>
     </mat-form-field>
-    <mat-form-field subscriptSizing="dynamic">
+    <mat-form-field>
       <mat-label>Email</mat-label>
       <input type="email" matInput name="email" formControlName="email" />
       <mat-error>Please enter a valid email.</mat-error>
@@ -45,4 +45,8 @@
       </button>
     </div>
   </div>
+  <p class="soft xs">
+    🎌 This is a demo portfolio app. You can create a new user account using any
+    values you like. No real information is required!
+  </p>
 </div>
