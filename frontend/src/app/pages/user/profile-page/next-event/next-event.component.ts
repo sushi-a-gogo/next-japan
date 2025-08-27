@@ -19,7 +19,8 @@ export class NextEventComponent {
   nextEvent = input<EventRegistration>();
   suggestedEvent = input<EventData>();
 
-  routerLink = computed(() => `/event/${this.nextEvent()?.opportunity.eventId}`);
+  nextRouterLink = computed(() => `/event/${this.nextEvent()?.opportunity.eventId}`);
+  suggestedRouterLink = computed(() => `/event/${this.suggestedEvent()?.eventId}`);
 
   resizedImage = computed(() => {
     return this.nextEvent() ? this.imageService.resizeImage(this.nextEvent()!.image, 384, 256) : null;
