@@ -27,7 +27,7 @@
     border-radius: 4px;
     overflow: hidden;
     height: 200px;
-    //width: 100%;
+    width: 100%;
     object-fit: cover;
     background-color: var(--next-surface-alt);
   }
@@ -37,6 +37,7 @@
   .card {
     img {
       height: 240px;
+      max-width: 360px;
     }
   }
 }
