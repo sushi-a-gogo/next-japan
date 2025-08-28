@@ -2,14 +2,13 @@
 <button
   aria-label="Share"
   type="button"
-  class="share-button nx-flex al-c gap-2"
+  class="share-button nx-flex al-c gap-5"
   matTooltip="Share"
   (click)="share()"
-  [style.color]="colorHex()"
 >
   <span class="material-symbols-outlined"> send </span>
   <span class="soft">
-    {{ shareCount() }}
+    {{ count() }}
   </span>
 </button>
 } @else {
@@ -24,7 +23,7 @@
 >
   <span class="material-symbols-outlined"> send </span>
   <span class="soft">
-    {{ shareCount() }}
+    {{ count() }}
   </span>
 </button>
 <mat-menu #shareMenu="matMenu" xPosition="before" yPosition="above">

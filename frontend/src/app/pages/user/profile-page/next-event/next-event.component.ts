@@ -5,13 +5,11 @@ import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { ImageService } from '@app/services/image.service';
-import { LikeButtonComponent } from "@app/shared/like-button/like-button.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
-import { ShareButtonComponent } from "@app/shared/share-button/share-button.component";
 
 @Component({
   selector: 'app-next-event',
-  imports: [MatCardModule, MatButtonModule, RouterLink, OpportunityTimestampComponent, LikeButtonComponent, ShareButtonComponent],
+  imports: [MatCardModule, MatButtonModule, RouterLink, OpportunityTimestampComponent],
   templateUrl: './next-event.component.html',
   styleUrl: './next-event.component.scss'
 })

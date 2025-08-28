@@ -34,6 +34,12 @@
   }
 }
 
+:host-context(.dark-theme) {
+  .container.backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
 .dialog.dynamic {
   width: auto;
   max-width: 94vw;

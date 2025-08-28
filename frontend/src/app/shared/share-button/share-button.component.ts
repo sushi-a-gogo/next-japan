@@ -8,6 +8,7 @@ import { EventData } from '@app/models/event/event-data.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
 import { ShareService } from '@app/services/share.service';
 import { environment } from '@environments/environment';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-share-button',
@@ -22,13 +23,16 @@ export class ShareButtonComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   event = input.required<EventData>();
-  colorHex = input<string>();
   shareCount = signal<number>(0);
+  count = computed(() => this.shareCount() + this.uniqueNum());
+
   shareUrl = signal('');
   twitterUrl = signal('');
 
   userId = computed(() => this.auth.user()?.userId);
   navigatorShare = computed(() => isPlatformBrowser(this.platformId) ? !!navigator.share : false);
+
+  private uniqueNum = signal<number>(0);
 
   ngOnInit(): void {
     this.shareUrl.set(`${environment.baseUrl}/event/${this.event().eventId}`);
@@ -37,8 +41,15 @@ export class ShareButtonComponent implements OnInit {
     );
 
     // Fetch initial share count
-    this.shareService.getShareCount$(this.event().eventId).subscribe({
-      next: (response) => this.shareCount.set(response.data.shareCount),
+    const observables = {
+      shareCount: this.shareService.getShareCount$(this.event().eventId),
+      uniqueNum: this.getUniqueNumberFromString(this.event().eventId, this.event().createdAt),
+    };
+    forkJoin(observables).subscribe({
+      next: (response) => {
+        this.shareCount.set(response.shareCount.data.shareCount);
+        this.uniqueNum.set(response.uniqueNum);
+      },
       error: (error) => console.error(error),
     });
   }
@@ -78,4 +89,41 @@ export class ShareButtonComponent implements OnInit {
     }
   }
 
+  private async getUniqueNumberFromString(inputString: string, createdAt: string) {
+    const days = this.getDaysSince(createdAt);
+    if (days === 0) {
+      return 0;
+    }
+
+    // Encode the input string to an array of UTF-8 bytes.
+    const encoder = new TextEncoder();
+    const data = encoder.encode(inputString);
+
+    // Compute the SHA-256 hash.
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+    // Convert the ArrayBuffer hash to a hexadecimal string.
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    // Convert the hexadecimal string to a BigInt.
+    const bigInt = BigInt(`0x${hexHash}`);
+    if (days < 4) {
+      return Number(bigInt.toString().substring(0, 1));
+    }
+    return Number(bigInt.toString().substring(0, 2));
+  }
+
+  private getDaysSince(dateString: string) {
+    const startDate = new Date(dateString);
+    const currentDate = new Date();
+
+    const startMs = startDate.getTime();
+    const currentMs = currentDate.getTime();
+
+    const diffMs = currentMs - startMs;
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    return Math.round(diffMs / oneDay);
+  }
 }

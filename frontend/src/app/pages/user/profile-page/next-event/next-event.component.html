@@ -22,9 +22,12 @@
         {{ nextEventRegistration()?.opportunity?.notes }}
       </div>
       <div class="nx-flex row al-c gap-10">
-        <app-like-button [eventId]="nextEvent()!.eventId" colorHex="#000" />
-        <app-share-button [event]="nextEvent()!" colorHex="#000" />
-        <a matButton [routerLink]="nextRouterLink()"> VIEW EVENT </a>
+        <a
+          class="app-button app-button-filled priority"
+          [routerLink]="nextRouterLink()"
+        >
+          Event Details
+        </a>
       </div>
     </footer>
   </div>
@@ -48,12 +51,12 @@
         {{ suggestedEvent()!.description }}
       </div>
       <div class="nx-flex row al-c gap-10">
-        <app-like-button
-          [eventId]="suggestedEvent()!.eventId"
-          colorHex="#000"
-        />
-        <app-share-button [event]="suggestedEvent()!" colorHex="#000" />
-        <a matButton [routerLink]="suggestedRouterLink()"> VIEW EVENT </a>
+        <a
+          class="app-button app-button-filled priority"
+          [routerLink]="suggestedRouterLink()"
+        >
+          Event Details
+        </a>
       </div>
     </footer>
   </div>

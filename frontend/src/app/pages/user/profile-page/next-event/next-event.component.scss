@@ -6,7 +6,7 @@
 
 .card-title {
   font-weight: 600;
-  color: var(--next-heading);
+  color: var(--next-note);
 }
 
 .banner {
@@ -31,6 +31,10 @@
     object-fit: cover;
     background-color: var(--next-surface-alt);
   }
+}
+
+.app-button {
+  border-radius: 4px;
 }
 
 @media screen and (min-width: 1000px) {

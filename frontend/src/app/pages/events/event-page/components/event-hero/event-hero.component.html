@@ -33,11 +33,12 @@
           <span class="material-symbols-outlined icon-note">date_range</span>
           <span>{{ eventDateRange() }}</span>
         </div>
+        @if(event()) {
         <div class="nx-flex row gap-10">
-          <app-like-button [eventId]="event()!.eventId" />
+          <app-like-button [event]="event()!" />
           <app-share-button [event]="event()!" />
         </div>
-        } @else {
+        } } @else {
         <div class="nx-flex col gap-10">
           <div class="description">
             {{ event()?.description }}
@@ -49,10 +50,12 @@
               </span>
               Coming Soon
             </div>
+            @if(event()) {
             <div class="nx-flex row gap-10">
-              <app-like-button [eventId]="event()!.eventId" />
+              <app-like-button [event]="event()!" />
               <app-share-button [event]="event()!" />
             </div>
+            }
           </div>
         </div>
         }

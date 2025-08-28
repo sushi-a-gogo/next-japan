@@ -3,7 +3,6 @@ import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
-import { AuthMockService } from '@app/services/auth-mock.service';
 import { DateTimeService } from '@app/services/date-time.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { ImageService } from '@app/services/image.service';
@@ -19,7 +18,6 @@ import { ShareButtonComponent } from "@app/shared/share-button/share-button.comp
 })
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
-  private auth = inject(AuthMockService);
   private eventService = inject(EventService);
   private eventRegistrationService = inject(EventRegistrationService);
   private imageService = inject(ImageService);

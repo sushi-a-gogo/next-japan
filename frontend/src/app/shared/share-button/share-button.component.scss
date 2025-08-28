@@ -8,12 +8,14 @@
   min-width: 32px;
   border-radius: 10px;
   outline: none;
+  color: #fff;
 
   &:hover {
     cursor: pointer;
   }
 
   .soft {
+    font-weight: 500;
     line-height: 24px;
   }
 }
