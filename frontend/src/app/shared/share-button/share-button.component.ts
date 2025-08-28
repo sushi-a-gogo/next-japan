@@ -25,6 +25,7 @@ export class ShareButtonComponent implements OnInit {
   event = input.required<EventData>();
   shareCount = signal<number>(0);
   count = computed(() => this.shareCount() + this.uniqueNum());
+  loaded = signal<boolean>(false);
 
   shareUrl = signal('');
   twitterUrl = signal('');
@@ -49,6 +50,7 @@ export class ShareButtonComponent implements OnInit {
       next: (response) => {
         this.shareCount.set(response.shareCount.data.shareCount);
         this.uniqueNum.set(response.uniqueNum);
+        this.loaded.set(true);
       },
       error: (error) => console.error(error),
     });
