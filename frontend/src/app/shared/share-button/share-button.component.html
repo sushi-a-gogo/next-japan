@@ -2,8 +2,8 @@
 <button
   aria-label="Share"
   type="button"
-  class="share-button nx-flex al-c gap-5"
-  matTooltip="Share"
+  class="share-button nx-flex al-c gap-5 fade-in"
+  [class.open]="loaded()"
   (click)="share()"
 >
   <span class="material-symbols-outlined"> send </span>

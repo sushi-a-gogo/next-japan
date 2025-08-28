@@ -19,6 +19,7 @@
 .banner-subhead {
   font-size: 20px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .cb-content {
@@ -38,7 +39,7 @@
 
 @media screen and (min-width: 820px) {
   .banner {
-    height: 96px;
+    height: 110px;
   }
 
   .banner-subhead {
@@ -52,7 +53,7 @@
   }
 
   .announcement {
-    max-width: 768px;
+    max-width: 600px;
   }
 
   .buttons {

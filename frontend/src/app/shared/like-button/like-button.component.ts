@@ -20,6 +20,7 @@ export class LikeButtonComponent implements OnInit {
   event = input.required<EventData>();
   likeCount = signal<number>(0);
   likedByCurrent = signal<boolean>(false);
+  loaded = signal<boolean>(false);
 
   count = computed(() => this.likeCount() + this.uniqueNum());
   userId = computed(() => this.auth.user()?.userId);
@@ -37,6 +38,7 @@ export class LikeButtonComponent implements OnInit {
       this.uniqueNum.set(res.uniqueNum);
       this.likeCount.set(res.likeCount.data.likeCount);
       this.likedByCurrent.set(!!res.likedByUser?.data.liked);
+      this.loaded.set(true);
     });
   }
 
