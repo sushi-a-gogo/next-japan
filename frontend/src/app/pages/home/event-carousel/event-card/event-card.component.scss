@@ -25,16 +25,7 @@
 }
 
 .button:hover {
-  //cursor: pointer;
   border-color: var(--next-border);
-}
-
-.button:hover .image-container img {
-  //filter: brightness(80%);
-}
-
-.button:hover .image-container img.no-image {
-  //filter: brightness(95%);
 }
 
 .image-container {
@@ -117,6 +108,7 @@
 }
 
 .upcoming .material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
   color: var(--red-torii-gate);
 }
 
@@ -125,5 +117,5 @@
 }
 
 .upcoming .coming-soon .banner {
-  opacity: 0.5;
+  //opacity: 0.5;
 }
