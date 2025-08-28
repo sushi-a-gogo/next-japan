@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
@@ -23,7 +23,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 
 @Component({
   selector: 'app-event-page',
-  imports: [NgOptimizedImage, EventNavbarComponent, EventOverviewComponent,
+  imports: [EventNavbarComponent, EventOverviewComponent,
     EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
@@ -49,14 +49,14 @@ export class EventPageComponent implements OnInit, OnChanges {
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 
-  heroImage = computed(() => {
-    const event = this.eventService.eventData().event;
-    if (event && isPlatformBrowser(this.platformId)) {
-      const resizedImage = this.imageService.resizeImage(event!.image, 384, 256);
-      return resizedImage.src;
-    }
-    return undefined;
-  });
+  // heroImage = computed(() => {
+  //   const event = this.eventService.eventData().event;
+  //   if (event && isPlatformBrowser(this.platformId)) {
+  //     const resizedImage = this.imageService.resizeImage(event!.image, 384, 256);
+  //     return resizedImage.src;
+  //   }
+  //   return undefined;
+  // });
 
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
@@ -98,8 +98,6 @@ export class EventPageComponent implements OnInit, OnChanges {
           if (!event) {
             this.errorService.sendError(new Error("The requested event was not found."));
             this.router.navigate(['./not-found']);
-          } else {
-            //this.loaded.set(true);
           }
         },
         error: (e) => {
