@@ -4,6 +4,7 @@ button {
   background: transparent;
   outline: none;
   color: #fff;
+  min-width: 50px;
 
   &:hover {
     cursor: pointer;
