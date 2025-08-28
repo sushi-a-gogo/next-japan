@@ -16,10 +16,11 @@ import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp
 export class NextEventComponent {
   private imageService = inject(ImageService);
 
-  nextEvent = input<EventRegistration>();
+  nextEventRegistration = input<EventRegistration>();
+  nextEvent = input<EventData>();
   suggestedEvent = input<EventData>();
 
-  nextRouterLink = computed(() => `/event/${this.nextEvent()?.opportunity.eventId}`);
+  nextRouterLink = computed(() => `/event/${this.nextEvent()?.eventId}`);
   suggestedRouterLink = computed(() => `/event/${this.suggestedEvent()?.eventId}`);
 
   resizedImage = computed(() => {

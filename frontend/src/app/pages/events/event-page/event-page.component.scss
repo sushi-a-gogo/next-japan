@@ -27,6 +27,7 @@ article {
 
 header {
   width: 100%;
+  overflow: hidden;
   img {
     object-fit: cover;
     filter: brightness(50%) blur(5px);

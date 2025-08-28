@@ -19,7 +19,7 @@ export const debug = (level: number, message: string) => (source: Observable<any
   source.pipe(
     tap((val) => {
       if (level >= rxJsLoggingLevel && isDevMode()) {
-        console.log(message + ': ', val);
+        console.log(message + ': ', val?.data || val);
       }
     })
   );

@@ -1,0 +1,14 @@
+<button
+  class="nx-flex al-c gap-5"
+  matTooltip="Like"
+  [disabled]="!userId()"
+  [matTooltipDisabled]="!userId()"
+  (click)="like()"
+>
+  <span class="material-symbols-outlined" [class.filled]="likedByCurrent()">
+    favorite
+  </span>
+  <span class="soft">
+    {{ count() }}
+  </span>
+</button>

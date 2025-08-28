@@ -1,0 +1,54 @@
+@if(navigatorShare()) {
+<button
+  aria-label="Share"
+  type="button"
+  class="share-button nx-flex al-c gap-5"
+  matTooltip="Share"
+  (click)="share()"
+>
+  <span class="material-symbols-outlined"> send </span>
+  <span class="soft">
+    {{ count() }}
+  </span>
+</button>
+} @else {
+<button
+  aria-label="Share"
+  type="button"
+  class="share-button nx-flex al-c gap-2"
+  matTooltip="Share"
+  [matMenuTriggerFor]="shareMenu"
+  #menuTrigger="matMenuTrigger"
+  [matTooltipDisabled]="!userId()"
+>
+  <span class="material-symbols-outlined"> send </span>
+  <span class="soft">
+    {{ count() }}
+  </span>
+</button>
+<mat-menu #shareMenu="matMenu" xPosition="before" yPosition="above">
+  <a
+    type="button"
+    class="app-button nx-flex al-c jc-c"
+    mat-menu-item
+    [href]="twitterUrl()"
+    target="_"
+  >
+    <div class="nx-flex al-c jc-c">
+      <img src="/assets/images/x-logo-black.png" alt="X" class="icon-image" />
+    </div>
+  </a>
+  <button type="button" class="app-button" mat-menu-item (click)="sendEmail()">
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> mail </span>
+      Email
+    </div>
+  </button>
+  <button mat-menu-item class="app-button" (click)="copyLink()">
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> content_copy </span>
+      Copy Link
+    </div>
+  </button>
+</mat-menu>
+}

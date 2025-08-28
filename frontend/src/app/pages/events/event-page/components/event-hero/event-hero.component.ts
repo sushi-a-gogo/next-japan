@@ -3,11 +3,15 @@ import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { DateTimeService } from '@app/services/date-time.service';
+import { EventRegistrationService } from '@app/services/event-registration.service';
 import { ImageService } from '@app/services/image.service';
+import { LikeButtonComponent } from "@app/shared/like-button/like-button.component";
+import { ShareButtonComponent } from "@app/shared/share-button/share-button.component";
+import { RegistrationAlertComponent } from "../registration-alert/registration-alert.component";
 
 @Component({
   selector: 'app-event-hero',
-  imports: [NgOptimizedImage, DisplayCountPipe],
+  imports: [NgOptimizedImage, DisplayCountPipe, LikeButtonComponent, ShareButtonComponent, RegistrationAlertComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
 
@@ -15,6 +19,7 @@ import { ImageService } from '@app/services/image.service';
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
   private eventService = inject(EventService);
+  private eventRegistrationService = inject(EventRegistrationService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
   private eventData = this.eventService.eventData;
@@ -47,4 +52,10 @@ export class EventHeroComponent {
 
     return null;
   });
+
+  eventRegistration = computed(() => {
+    const eventId = this.event()?.eventId;
+    const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
+    return registrations.length ? registrations[0] : null;
+  })
 }
