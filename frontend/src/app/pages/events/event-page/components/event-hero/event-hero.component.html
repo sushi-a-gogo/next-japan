@@ -62,17 +62,10 @@
       </div>
     </div>
     @if(eventRegistration()) {
-    <div class="registration-overlay">
-      <div>
-        You registered for this event on
-        {{ eventRegistration()?.createdAt | date }}
-      </div>
-      <!-- <app-event-registration-status [status]="eventRegistration()!.status" /> -->
-      <div class="nx-flex row al-c gap-10">
-        <button>VIEW REGISTRATION</button>
-        <a routerLink="/user/registrations"> MANAGE EVENTS </a>
-      </div>
-    </div>
+    <app-registration-alert
+      class="alert"
+      [eventRegistration]="eventRegistration()!"
+    />
     }
   </div>
 </div>
