@@ -82,6 +82,15 @@ footer.dialog {
       }
     }
 
+    &.app-button.cancel {
+      font-weight: 600;
+      color: var(--next-note);
+
+      &:hover {
+        background-color: var(--next-surface-alt);
+      }
+    }
+
     &.priority:hover {
       background-color: var(--red-torii-gate);
     }

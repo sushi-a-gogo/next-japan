@@ -2,15 +2,21 @@
 <section class="nx-flex col gap-10">
   <div class="title-text">Your Next Event</div>
   <div class="card nx-flex col gap-20">
-    <header>
+    <header class="nx-flex col gap-10">
       <div class="subhead card-title">
         {{ nextEvent()?.eventTitle }}
       </div>
-      <app-opportunity-timestamp
-        [showIcon]="false"
-        [showNotes]="false"
-        [opportunity]="nextEventRegistration()!.opportunity"
-      ></app-opportunity-timestamp>
+      <div>
+        <app-address-strip
+          [location]="nextEventRegistration()!.location"
+          [showDirections]="true"
+          [showAddress]="false"
+        />
+        <app-opportunity-timestamp
+          [showNotes]="false"
+          [opportunity]="nextEventRegistration()!.opportunity"
+        ></app-opportunity-timestamp>
+      </div>
     </header>
     <main>
       @if(resizedImage()) {
@@ -32,7 +38,7 @@
     </footer>
   </div>
 </section>
-} @if(suggestedEvent()) {
+} @if(suggestedEvent() && !nextEvent()) {
 <section class="nx-flex col gap-10">
   <div class="title-text">Suggested for You</div>
   <div class="card nx-flex col gap-20">

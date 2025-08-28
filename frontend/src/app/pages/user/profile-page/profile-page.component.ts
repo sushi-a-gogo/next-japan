@@ -13,7 +13,7 @@ import { EventsService } from '@app/services/events.service';
 import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
-import { switchMap } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
 import { SurpriseComponent } from "./surprise/surprise.component";
@@ -45,29 +45,14 @@ export class ProfilePageComponent implements OnInit {
     return user;
   });
 
-  suggestedEvent = computed(() => {
-    const registeredIds = this.registrationService.userEventRegistrations().map((r) => r.opportunity.eventId);
-    const events = this.events().filter((e) => !registeredIds.includes(e.eventId));
-    const randomIndex = Math.floor(Math.random() * events.length);
-    return randomIndex ? events[randomIndex] : undefined;
-  });
-
-  nextEventRegistration = computed(() => {
-    const registrations = this.registrationService.userEventRegistrations();
-    return registrations.length ? [...registrations].sort(this.sortByDate)[0] : undefined;
-  });
-
-  nextEvent = computed(() => {
-    const eventId = this.nextEventRegistration()?.opportunity.eventId;
-    return eventId ? this.events().find((e) => e.eventId === eventId) : undefined;
-  });
+  nextEventRegistration = signal<EventRegistration | undefined>(undefined);
+  nextEvent = signal<EventData | undefined>(undefined);
+  suggestedEvent = signal<EventData | undefined>(undefined);
 
   loaded = signal(false);
   showProfileForm = signal<boolean>(false);
   showSurprise = signal<boolean>(false);
   surpriseBusy = signal<boolean>(false);
-
-  private events = signal<EventData[]>([]);
 
   private defaultAvatar: AppImageData = {
     width: 1792,
@@ -89,11 +74,27 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = this.user()?.userId || '';
-    this.registrationService.getUserEventRegistrations$(userId).pipe(
-      switchMap(() => this.eventsService.get$()),
+    const observables = {
+      events: this.eventsService.get$(),
+      registrations: this.registrationService.getUserEventRegistrations$(userId)
+    };
+    forkJoin(observables).pipe(
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((events) => {
-      this.events.set(events);
+    ).subscribe((resp) => {
+      const registrations = resp.registrations.data;
+      const next = registrations.length ? [...registrations].sort(this.sortByDate)[0] : undefined;
+      this.nextEventRegistration.set(next);
+
+      const eventId = next?.opportunity.eventId;
+      const event = eventId ? resp.events.find((e) => e.eventId === eventId) : undefined;
+      this.nextEvent.set(event);
+
+      const registeredIds = registrations.map((r) => r.opportunity.eventId);
+      const unregisteredEvents = resp.events.filter((e) => !registeredIds.includes(e.eventId));
+      const randomIndex = Math.floor(Math.random() * unregisteredEvents.length);
+      const suggestion = randomIndex ? unregisteredEvents[randomIndex] : undefined;
+      this.suggestedEvent.set(suggestion);
+
       this.loaded.set(true);
     })
   }

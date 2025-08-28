@@ -92,7 +92,8 @@ export class EventPageComponent implements OnInit, OnChanges {
           this.meta.updateTags(eventTitle, description);
           const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
           this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
-
+          this.meta.updateTag({ property: 'og:image:width', content: '384' });
+          this.meta.updateTag({ property: 'og:image:height', content: '256' });
 
           if (!event) {
             this.errorService.sendError(new Error("The requested event was not found."));
