@@ -21,8 +21,8 @@ button {
   transition: 0.25s ease-in-out;
 
   &:hover {
-    background-color: transparent;
-    color: var(--vivid-yellow-text);
+    background-color: rgba(255, 255, 255, 0.1);
+    //color: var(--vivid-yellow-text);
   }
 }
 
