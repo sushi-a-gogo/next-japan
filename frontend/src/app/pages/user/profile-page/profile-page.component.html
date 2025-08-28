@@ -86,11 +86,13 @@
           </div>
         </div>
       </section>
+      @if(loaded()) {
       <app-next-event
         [nextEventRegistration]="nextEventRegistration()"
         [nextEvent]="nextEvent()"
         [suggestedEvent]="suggestedEvent()"
       />
+      }
     </section>
     }
   </div>

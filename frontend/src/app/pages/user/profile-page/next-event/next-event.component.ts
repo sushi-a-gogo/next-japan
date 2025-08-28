@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { ImageService } from '@app/services/image.service';
+import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 
 @Component({
   selector: 'app-next-event',
-  imports: [MatCardModule, MatButtonModule, RouterLink, OpportunityTimestampComponent],
+  imports: [MatCardModule, MatButtonModule, RouterLink, AddressStripComponent, OpportunityTimestampComponent],
   templateUrl: './next-event.component.html',
   styleUrl: './next-event.component.scss'
 })
