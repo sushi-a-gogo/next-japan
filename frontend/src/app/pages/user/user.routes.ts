@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@app/guards/auth.guard';
-import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { UserComponent } from './user.component';
 
@@ -19,11 +18,11 @@ export const userRoutes: Routes = [
         component: ProfilePageComponent,
         canActivate: [authGuard]
       },
-      {
-        path: 'registrations',
-        component: EventRegistrationsComponent,
-        canActivate: [authGuard]
-      },
+      //{
+      //   path: 'registrations',
+      //   component: EventRegistrationsComponent,
+      //   canActivate: [authGuard]
+      // },
     ]
   },
 ];

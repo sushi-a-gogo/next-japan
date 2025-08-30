@@ -1,43 +1,46 @@
 <div class="component-box">
   <div class="cb-content pad fade-in" [class.open]="loaded()">
     @if(user()) {
-    <section class="left nx-flex col gap-20">
-      <ul class="nx-flex col gap-20">
-        <li class="nx-flex col gap-20">
-          <header class="user nx-flex col gap-10">
-            <app-user-avatar [user]="avatar()!" [size]="256" />
-            <div class="title-text">
-              {{ user()?.firstName }} {{ user()?.lastName }}
-            </div>
-          </header>
-          <main class="nx-flex col gap-20">
-            <div class="profile">
-              @if(showProfileForm()) {
-              <app-user-profile [user]="user()!" (close)="hideProfile()" />
-              } @else {
+    <section class="nx-flex col gap-20">
+      <ul class="header">
+        <li>
+          <div class="user nx-flex row gap-10">
+            <app-user-avatar [user]="avatar()!" [size]="128" />
+            <div class="nx-flex col jc-c gap-10">
+              <div>
+                <span class="title-text">
+                  {{ user()?.firstName }} {{ user()?.lastName }}
+                </span>
+                <span class="nx-flex al-c gap-2 muted">
+                  <span class="material-symbols-outlined">
+                    calendar_month
+                  </span>
+                  <span class="soft">
+                    Joined {{ user()?.createdAt | date }}
+                  </span>
+                </span>
+              </div>
               <button
                 type="button"
-                class="app-button app-button-filled"
-                (click)="showProfileForm.set(true)"
+                class="app-button app-button-filled user-profile"
+                (click)="openProfile()"
               >
                 Edit Profile
               </button>
-              }
             </div>
-          </main>
+          </div>
         </li>
-        <li>
+        <!-- <li>
           <app-profile-badges
             [user]="user()!"
-            [eventRegistrationCount]="nextEvent() ? 1 : 0"
+            [eventRegistrationCount]="nextEventRegistration() ? 1 : 0"
           />
-        </li>
+        </li> -->
       </ul>
     </section>
-    <section class="nx-flex col gap-36">
-      <section class="nx-flex col gap-10">
-        <div class="title-text">Your Dashboard</div>
-        <div class="banner nx-flex col gap-20">
+    <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex">
+      <mat-tab label="Start">
+        <div class="tab-content banner">
           <!-- <div>
             This is your launch page for all things Next Japan.
             <p>
@@ -47,57 +50,89 @@
               get creative using our <b>AI Designer</b>!
             </p>
           </div> -->
-          <div>
-            Welcome to your personal launch pad for all things
-            <b>Next Japan</b>! A place where you can check what's coming up next
-            or set off on new adventures.
-            <!-- From here, you'll see your closest
-            upcoming event, along with quick access to your profile and account
-            settings. -->
-          </div>
-          <div>
-            Want to explore everything that's happening across Next Japan? Head
-            over to the
-            <b>Landing Page</b> for a full list of events.<br />
-            Feeling adventurous? Use our <b>AI Event Designer</b> to dream up
-            your own one-of-a-kind gathering.<br /><br />
-            Dive into <b>My Events</b> to manage the experiences you've already
-            joined.
-          </div>
-          <div class="buttons">
-            <a routerLink="/home" class="app-button app-button-filled">
-              Landing Page
-            </a>
-            <a routerLink="/ai/create" class="app-button app-button-filled">
-              AI Designer
-            </a>
-            <a
-              routerLink="/user/registrations"
-              class="app-button app-button-filled"
-            >
-              My Events
-            </a>
-            <button
-              class="app-button app-button-filled"
-              (click)="openSurprise()"
-            >
-              Surprise Me!
-            </button>
+          <div
+            class="nx-flex col gap-24"
+            style="max-width: 800px; line-height: 22px"
+          >
+            <div>
+              Welcome to your personal launch pad for all things
+              <b>Next Japan</b> - A place where you can check what's coming up
+              next or set off on new adventures. From here, you'll see your
+              upcoming events, along with quick access to your profile and
+              account settings, achievements, suggested events, and more!
+            </div>
+            <div>
+              <div>
+                <b> Where to Go Next </b>
+              </div>
+              Want to explore everything that's happening across Next Japan?
+              Head over to the
+              <b>Landing Page</b> for a full list of events. Feeling
+              adventurous? Use our <b>AI Event Designer</b> to dream up your own
+              one-of-a-kind gathering.
+            </div>
+            <div class="buttons">
+              <a routerLink="/home" class="app-button app-button-filled">
+                Open Landing Page
+              </a>
+              <a routerLink="/ai/create" class="app-button app-button-filled">
+                Open AI Designer
+              </a>
+              <button
+                class="app-button app-button-filled"
+                (click)="openSurprise()"
+              >
+                Surprise Me!
+              </button>
+            </div>
           </div>
         </div>
-      </section>
-      @if(loaded()) {
-      <app-next-event
-        [nextEventRegistration]="nextEventRegistration()"
-        [nextEvent]="nextEvent()"
-        [suggestedEvent]="suggestedEvent()"
-      />
-      }
-    </section>
+      </mat-tab>
+      <!-- <mat-tab label="Your Next Event">
+        <div class="tab-content">
+          @if(nextEventRegistration()) {
+          <app-next-event [nextEventRegistration]="nextEventRegistration()" />
+          } @else {
+          <div class="banner">
+            You haven't registered for any events yet.<br />
+            Start planning your adventure and your next event will appear here!
+          </div>
+          }
+        </div>
+      </mat-tab> -->
+      <mat-tab label="Your Events">
+        <div class="tab-content banner">
+          <app-event-registrations />
+        </div>
+      </mat-tab>
+      <mat-tab label="Achievements">
+        <!-- <div class="title-text">Achievements</div> -->
+        <div class="tab-content banner">
+          <app-profile-badges
+            [user]="user()!"
+            [eventRegistrationCount]="nextEventRegistration() ? 1 : 0"
+          />
+        </div>
+      </mat-tab>
+      <mat-tab label="Suggested for You">
+        @if(suggestedEvent()) {
+        <div class="tab-content">
+          <!-- <div class="title-text">Suggested For You</div> -->
+          <div style="max-width: 840px">
+            <app-next-event [suggestedEvent]="suggestedEvent()" />
+          </div>
+        </div>
+        }
+      </mat-tab>
+      <mat-tab label="Manage Subscription">Content 3</mat-tab>
+    </mat-tab-group>
     }
   </div>
 </div>
-@if(showSurprise()) {
+<!-- My Profile -->
+@if(showProfileForm()) {
+<app-user-profile [user]="user()!" (close)="closeProfileDialog()" />
+} @if(showSurprise()) {
 <app-modal (close)="closeSurprise()">
   <app-surprise (ready)="surpriseReady($event)" (dismiss)="closeSurprise()" />
 </app-modal>

@@ -3,7 +3,7 @@ button {
   border: 0;
   background: transparent;
   outline: none;
-  color: #fff;
+  color: var(--next-text);
   min-width: 50px;
 
   &:hover {

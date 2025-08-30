@@ -1,10 +1,9 @@
-@if(nextEvent() && nextEventRegistration()) {
+@if(nextEventRegistration()) {
 <section class="nx-flex col gap-10">
-  <div class="title-text">Your Next Event</div>
   <div class="card nx-flex col gap-20">
     <header class="nx-flex col gap-10">
       <div class="subhead card-title">
-        {{ nextEvent()?.eventTitle }}
+        {{ nextEventRegistration()?.eventTitle }}
       </div>
       <div>
         <app-address-strip
@@ -28,19 +27,15 @@
         {{ nextEventRegistration()?.opportunity?.notes }}
       </div>
       <div class="nx-flex row al-c gap-10">
-        <a
-          class="app-button app-button-filled priority"
-          [routerLink]="nextRouterLink()"
-        >
-          Event Details
+        <a class="app-button app-button-filled" [routerLink]="nextRouterLink()">
+          Open Event Details
         </a>
       </div>
     </footer>
   </div>
 </section>
-} @if(suggestedEvent() && !nextEvent()) {
+} @if(suggestedEvent() && !nextEventRegistration()) {
 <section class="nx-flex col gap-10">
-  <div class="title-text">Suggested for You</div>
   <div class="card nx-flex col gap-20">
     <header>
       <div class="subhead card-title">
@@ -58,11 +53,13 @@
       </div>
       <div class="nx-flex row al-c gap-10">
         <a
-          class="app-button app-button-filled priority"
+          class="app-button app-button-filled"
           [routerLink]="suggestedRouterLink()"
         >
-          Event Details
+          Open Event Details
         </a>
+        <app-like-button [event]="suggestedEvent()!" />
+        <app-share-button [event]="suggestedEvent()!" />
       </div>
     </footer>
   </div>

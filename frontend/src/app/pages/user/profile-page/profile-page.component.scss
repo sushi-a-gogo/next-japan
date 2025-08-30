@@ -9,37 +9,55 @@
 .cb-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
-.user {
-  align-items: center;
+.app-button-filled.user-profile {
+  //width: 100%;
+  border-radius: 24px;
+  background-color: var(--next-surface);
+  border-color: var(--next-border);
+  color: var(--next-text);
 
-  .title-text {
-    width: 100%;
+  &:hover {
+    background-color: var(--next-surface-alt);
   }
 }
 
-.profile {
-  button {
-    width: 100%;
-    border-radius: 4px;
-  }
+.mat-mdc-tab-group {
+  width: 100%;
 }
 
-ul {
+.tab-content {
+  margin: 16px 0;
+  width: 100%;
+}
+
+.muted {
+  color: var(--next-note);
+}
+
+.app-button {
+  border-radius: 24px;
+}
+
+ul.header {
   margin: 0;
   padding: 0;
   list-style: none;
 
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
   li {
-    padding-bottom: 20px;
     border-bottom: 1px solid var(--next-border);
   }
 }
 
 .banner {
-  padding: 20px 20px;
+  padding: 24px 24px;
   border: 1px solid var(--next-border);
   border-radius: 10px;
   background-color: var(--next-surface);
@@ -47,61 +65,56 @@ ul {
 
 .buttons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
+  max-width: 700px;
 
   .app-button-filled {
-    border-radius: 4px;
-    border-color: var(--red-torii-gate);
-    background-color: var(--red-torii-gate);
-    color: #fff;
+    border-radius: 24px;
+    //border-color: var(--red-torii-gate);
+    //background-color: var(--red-torii-gate);
+    //color: #fff;
   }
 }
 
 @media screen and (min-width: 600px) {
   .profile {
-    max-width: 340px;
+    //min-width: 400px;
+  }
+
+  ul.header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    li {
+      border: 0;
+    }
   }
 }
 
 @media screen and (min-width: 768px) {
-  .user {
-    align-items: flex-start;
+  .buttons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 }
 
-@media screen and (min-width: 820px) {
+@media screen and (min-width: 1040px) {
   :host {
     padding: 24px 0;
   }
 
   .cb-content {
-    flex-direction: row;
-    gap: 48px;
+    //flex-direction: row;
+    //gap: 48px;
   }
 
-  .left {
-    width: 340px;
-  }
-
-  .user {
-    align-items: flex-start;
-  }
+  // .left {
+  //   min-width: 320px;
+  // }
 
   .nx-flex.responsive {
     gap: 48px;
-  }
-
-  ul {
-    li:last-child {
-      border-bottom: 0;
-    }
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .buttons {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
   }
 }

@@ -8,7 +8,9 @@
     <button (click)="showDialog.set(true)">VIEW REGISTRATION</button>
   </li>
   <li>
-    <a routerLink="/user/registrations"> MANAGE YOUR EVENTS </a>
+    <a routerLink="/user/profile" [queryParams]="{ action: 'manage' }">
+      MANAGE YOUR EVENTS
+    </a>
   </li>
 </ul>
 

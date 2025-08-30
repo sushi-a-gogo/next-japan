@@ -1,8 +1,12 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
+  gap: 16px;
+}
+
+.soft {
+  font-weight: 500;
+  color: var(--next-note);
 }
 
 .badges {
@@ -12,8 +16,9 @@
 }
 
 .badge-card {
-  height: 80px;
-  width: 80px;
+  cursor: default;
+  height: 72px;
+  width: 72px;
   border-radius: 100%;
   background: #f0f0f0;
   font-weight: 700;
@@ -72,8 +77,49 @@ img {
   height: 48px;
 }
 
+div.responsive {
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  background-color: var(--next-surface);
+  border-radius: 4px;
+
+  thead > tr {
+  }
+
+  th {
+    background-color: var(--navy-blue-mountain);
+    font-weight: 700;
+    color: #fff;
+  }
+
+  td {
+    font-weight: 500;
+  }
+}
+
+.highlight {
+  color: #000;
+  background-color: var(--light-yellow-stars);
+}
+
+@media (min-width: 600px) {
+  .badges {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 @media (min-width: 820px) {
   .badges {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .badges {
+    grid-template-columns: repeat(14, 1fr);
   }
 }

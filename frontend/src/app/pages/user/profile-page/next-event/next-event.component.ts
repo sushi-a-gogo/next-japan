@@ -6,11 +6,13 @@ import { EventData } from '@app/models/event/event-data.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { ImageService } from '@app/services/image.service';
 import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
+import { LikeButtonComponent } from "@app/shared/like-button/like-button.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
+import { ShareButtonComponent } from "@app/shared/share-button/share-button.component";
 
 @Component({
   selector: 'app-next-event',
-  imports: [MatCardModule, MatButtonModule, RouterLink, AddressStripComponent, OpportunityTimestampComponent],
+  imports: [MatCardModule, MatButtonModule, RouterLink, AddressStripComponent, OpportunityTimestampComponent, LikeButtonComponent, ShareButtonComponent],
   templateUrl: './next-event.component.html',
   styleUrl: './next-event.component.scss'
 })
@@ -18,14 +20,13 @@ export class NextEventComponent {
   private imageService = inject(ImageService);
 
   nextEventRegistration = input<EventRegistration>();
-  nextEvent = input<EventData>();
   suggestedEvent = input<EventData>();
 
-  nextRouterLink = computed(() => `/event/${this.nextEvent()?.eventId}`);
+  nextRouterLink = computed(() => `/event/${this.nextEventRegistration()?.opportunity.eventId}`);
   suggestedRouterLink = computed(() => `/event/${this.suggestedEvent()?.eventId}`);
 
   resizedImage = computed(() => {
-    return this.nextEvent() ? this.imageService.resizeImage(this.nextEvent()!.image, 384, 256) : null;
+    return this.nextEventRegistration() ? this.imageService.resizeImage(this.nextEventRegistration()!.image, 384, 256) : null;
   });
 
   suggestedEventImage = computed(() => {

@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/models/event/event-data.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
+import { DateTimeService } from '@app/services/date-time.service';
 import { LikeService } from '@app/services/like.service';
 import { forkJoin, of } from 'rxjs';
 
@@ -15,11 +16,13 @@ import { forkJoin, of } from 'rxjs';
 export class LikeButtonComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   private auth = inject(AuthMockService);
+  private dateTime = inject(DateTimeService);
   private likeService = inject(LikeService);
 
   event = input.required<EventData>();
   likeCount = signal<number>(0);
   likedByCurrent = signal<boolean>(false);
+  color = input<string>();
   loaded = signal<boolean>(false);
 
   count = computed(() => this.likeCount() + this.uniqueNum());
@@ -28,6 +31,7 @@ export class LikeButtonComponent implements OnInit {
   private uniqueNum = signal<number>(0);
 
   ngOnInit(): void {
+    console.log(this.color());
     const eventId = this.event().eventId;
     const observables = {
       likeCount: this.likeService.getLikeCount$(eventId),
@@ -56,7 +60,7 @@ export class LikeButtonComponent implements OnInit {
   }
 
   private async getUniqueNumberFromString(inputString: string, createdAt: string) {
-    const days = this.getDaysSince(createdAt);
+    const days = this.dateTime.getDaysSince(createdAt);
     if (days === 0) {
       return 0;
     }
@@ -78,18 +82,5 @@ export class LikeButtonComponent implements OnInit {
       return Number(bigInt.toString().substring(0, 2));
     }
     return Number(bigInt.toString().substring(0, 3));
-  }
-
-  private getDaysSince(dateString: string) {
-    const startDate = new Date(dateString);
-    const currentDate = new Date();
-
-    const startMs = startDate.getTime();
-    const currentMs = currentDate.getTime();
-
-    const diffMs = currentMs - startMs;
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    return Math.round(diffMs / oneDay);
   }
 }
