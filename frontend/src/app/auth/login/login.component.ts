@@ -96,6 +96,10 @@ export class LoginComponent implements OnInit {
       .split('/')
       .filter(segment => segment.length > 0); // Remove empty segments (e.g., leading '/')
 
+    if (pathSegments.length == 0) {
+      pathSegments.push('home');
+    }
+
     // Extract query parameters
     const queryParams: { [key: string]: string } = {};
     parsedUrl.searchParams.forEach((value, key) => {

@@ -8,6 +8,7 @@
     [class.visible]="animationState() === 'in'"
     [style.--animation-delay]="$index * 100 + 'ms'"
     [matTooltip]="badge.tooltip"
+    [matTooltipShowDelay]="200"
   >
     <span class="material-symbols-outlined">
       {{ badge.icon }}
@@ -16,11 +17,21 @@
   </div>
   }
 </div>
+<div>
+  Badges are special achievements you can earn as you participate in activities
+  and events with Next Japan. Each badge represents a unique milestone—such as
+  attending your first event, volunteering, or reaching a participation goal.
+  Collecting badges is a fun way to track your progress and celebrate your
+  involvement in the community. Want some extra motivation? Challenge a friend
+  to see who can unlock the next badge first! Explore the different badges
+  available and set your sights on new goals as you continue your journey with
+  us.
+</div>
 <div class="title-text">Rewards Points</div>
 <div>
-  You currently have <b>0 rewards points</b>. Rewards points are earned
-  automatically when you attend a registered event. These points can be
-  collected and later redeemed for delicious food items or exclusive gifts at
+  You currently have <b>{{ rewardPoints }} rewards points</b>. Rewards points
+  are earned automatically when you attend a registered event. These points can
+  be collected and later redeemed for delicious food items or exclusive gifts at
   upcoming events! Participating in more events means more points and more
   opportunities to enjoy special perks. Keep an eye on your points balance here,
   and don't miss out on the chance to treat yourself at our future gatherings!
@@ -32,8 +43,9 @@
 </div>
 <div>
   <div>
-    Points highlighted in <span class="highlight">&nbsp;yellow&nbsp;</span> will
-    expire soon within 90 days.
+    Points highlighted in
+    <strong class="highlight">&nbsp;yellow&nbsp;</strong> will expire soon
+    within 90 days.
   </div>
   <div>Points highlighted in gray have already expired.</div>
 </div>

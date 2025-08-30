@@ -7,13 +7,12 @@ import { NotificationService } from '@app/services/notification.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
 import { ConfirmModalComponent } from '@app/shared/modal/confirm-modal/confirm-modal.component';
 import { OpportunityTimestampComponent } from '@app/shared/opportunity-timestamp/opportunity-timestamp.component';
-import { PageLoadSpinnerComponent } from '@app/shared/page-load-spinner/page-load-spinner.component';
 import { interval, switchMap } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
 @Component({
   selector: 'app-event-registrations',
-  imports: [PageLoadSpinnerComponent, EventRegistrationCardComponent, ConfirmModalComponent, OpportunityTimestampComponent, AddressStripComponent],
+  imports: [EventRegistrationCardComponent, ConfirmModalComponent, OpportunityTimestampComponent, AddressStripComponent],
   templateUrl: './event-registrations.component.html',
   styleUrl: './event-registrations.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

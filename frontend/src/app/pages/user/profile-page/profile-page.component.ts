@@ -16,7 +16,6 @@ import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { switchMap } from 'rxjs';
-import { EventRegistrationCardComponent } from "../event-registrations/event-registration-card/event-registration-card.component";
 import { EventRegistrationsComponent } from "../event-registrations/event-registrations.component";
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
@@ -24,7 +23,7 @@ import { SurpriseComponent } from "./surprise/surprise.component";
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink, MatTabsModule, UserAvatarComponent, DatePipe, UserProfileComponent, ProfileBadgesComponent, NextEventComponent, ModalComponent, SurpriseComponent, EventRegistrationsComponent, EventRegistrationCardComponent],
+  imports: [RouterLink, MatTabsModule, UserAvatarComponent, DatePipe, UserProfileComponent, ProfileBadgesComponent, NextEventComponent, ModalComponent, SurpriseComponent, EventRegistrationsComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -84,7 +83,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedIndex = this.route.snapshot.queryParams['action'] === 'manage' ? 2 : 0;
+    this.selectedIndex = this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0;
     const userId = this.user()?.userId || '';
     const observables = {
       events: this.eventsService.get$(),

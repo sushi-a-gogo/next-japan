@@ -82,11 +82,16 @@ export class ProfileBadgesComponent implements OnChanges {
   ]);
 
   rewards = computed(() => {
-    return REWARD_DATA.map((reward) => ({
-      ...reward,
-      expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
-    })).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime())
-  })
+    return REWARD_DATA.map((reward) => {
+      this.rewardPoints += reward.pointsRemaining;
+      return ({
+        ...reward,
+        expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
+      });
+    }).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime())
+  });
+
+  rewardPoints = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
     const changed = changes['user'] || changes['eventRegistrationCount'];
@@ -96,7 +101,7 @@ export class ProfileBadgesComponent implements OnChanges {
     this.badges.update((prev) => {
       const items =
         [
-          { name: 'Explorer', icon: 'rocket', tooltip: 'You earned this badge by creating a subscription!', earned: true },
+          { name: 'Explorer', icon: 'rocket', tooltip: 'You earned this badge by starting a subscription!', earned: true },
           { name: 'Newbie', icon: 'bedroom_baby', tooltip: '', earned: !this.user().image.id && this.eventRegistrationCount() === 0 },
           { name: 'Profile Pro', icon: 'star_shine', tooltip: 'You completed your profile to earn this badge!', earned: !!this.user().image.id },
           { name: 'Japan Lover', icon: 'favorite', tooltip: 'You attended more than 5 events to earn this badge!', earned: this.eventRegistrationCount() > 0 }

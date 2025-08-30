@@ -3,12 +3,12 @@
 :root {
   @include mat.tabs-overrides(
     (
-      active-indicator-height: 4px,
-      //active-indicator-color: var(--red-torii-gate),
-      //active-focus-indicator-color: var(--red-torii-gate),
+      active-indicator-height: 5px,
+      active-indicator-color: var(--bright-blue-sky),
+      active-focus-indicator-color: var(--bright-blue-sky),
       label-text-size: 16px,
       label-text-weight: 700,
-      active-label-text-color: var(--next-text),
+      //active-label-text-color: var(--next-text),
       inactive-label-text-color: var(--next-note),
     )
   );
