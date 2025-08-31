@@ -1,55 +1,30 @@
 <div class="component-box">
   <div class="cb-content pad fade-in" [class.open]="loaded()">
     @if(user()) {
-    <section class="nx-flex col gap-20">
-      <ul class="header">
-        <li>
-          <div class="user nx-flex row gap-10">
-            <app-user-avatar [user]="avatar()!" [size]="128" />
-            <div class="nx-flex col jc-c gap-10">
-              <div>
-                <span class="title-text">
-                  {{ user()?.firstName }} {{ user()?.lastName }}
-                </span>
-                <span class="nx-flex al-c gap-2 muted">
-                  <span class="material-symbols-outlined">
-                    calendar_month
-                  </span>
-                  <span class="soft">
-                    Joined {{ user()?.createdAt | date }}
-                  </span>
-                </span>
-              </div>
-              <button
-                type="button"
-                class="app-button app-button-filled user-profile"
-                (click)="openProfile()"
-              >
-                Edit Profile
-              </button>
-            </div>
-          </div>
-        </li>
-        <!-- <li>
-          <app-profile-badges
-            [user]="user()!"
-            [eventRegistrationCount]="nextEventRegistration() ? 1 : 0"
-          />
-        </li> -->
-      </ul>
-    </section>
+    <header class="nx-flex row gap-10">
+      <app-user-avatar [user]="avatar()!" [size]="128" />
+      <div class="nx-flex col jc-c gap-10">
+        <div>
+          <span class="title-text">
+            {{ user()?.firstName }} {{ user()?.lastName }}
+          </span>
+          <span class="nx-flex al-c gap-2 muted">
+            <span class="material-symbols-outlined"> calendar_month </span>
+            <span class="soft"> Joined {{ user()?.createdAt | date }} </span>
+          </span>
+        </div>
+        <button
+          type="button"
+          class="app-button app-button-filled user-profile"
+          (click)="openProfile()"
+        >
+          Edit Profile
+        </button>
+      </div>
+    </header>
     <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex">
       <mat-tab label="Start">
         <div class="tab-content banner">
-          <!-- <div>
-            This is your launch page for all things Next Japan.
-            <p>
-              Open
-              <b>My Events</b> to view all of your registered events. To see the
-              full list of upcoming events, visit the <b>Landing Page</b>, or
-              get creative using our <b>AI Designer</b>!
-            </p>
-          </div> -->
           <div
             class="nx-flex col gap-24"
             style="max-width: 800px; line-height: 22px"
@@ -88,25 +63,12 @@
           </div>
         </div>
       </mat-tab>
-      <!-- <mat-tab label="Your Next Event">
-        <div class="tab-content">
-          @if(nextEventRegistration()) {
-          <app-next-event [nextEventRegistration]="nextEventRegistration()" />
-          } @else {
-          <div class="banner">
-            You haven't registered for any events yet.<br />
-            Start planning your adventure and your next event will appear here!
-          </div>
-          }
-        </div>
-      </mat-tab> -->
       <mat-tab label="Your Events">
         <div class="tab-content banner">
           <app-event-registrations />
         </div>
       </mat-tab>
       <mat-tab label="Achievements">
-        <!-- <div class="title-text">Achievements</div> -->
         <div class="tab-content banner">
           <app-profile-badges
             [user]="user()!"
@@ -117,10 +79,7 @@
       <mat-tab label="Suggested for You">
         @if(suggestedEvent()) {
         <div class="tab-content">
-          <!-- <div class="title-text">Suggested For You</div> -->
-          <div style="max-width: 840px">
-            <app-next-event [suggestedEvent]="suggestedEvent()" />
-          </div>
+          <app-next-event [suggestedEvent]="suggestedEvent()!" />
         </div>
         }
       </mat-tab>

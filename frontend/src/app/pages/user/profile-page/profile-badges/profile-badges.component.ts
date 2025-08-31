@@ -1,61 +1,12 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserReward } from '@app/models/user-reward.model';
 import { User } from '@app/models/user.model';
 import { DateTimeService } from '@app/services/date-time.service';
-
-export interface Reward {
-  pointsEarned: number;
-  pointsRemaining: number;
-  dateOfIssue: string;
-  expiration: string;
-  description: string; // e.g. 'Attended weekend camping trip', 'Special End of Summer Promotion'. etc.
-  expiresSoon: boolean;
-}
-
-const REWARD_DATA: Reward[] = [
-  {
-    pointsEarned: 100,
-    pointsRemaining: 100,
-    dateOfIssue: '2025-04-15T00:00:00+09:00',
-    expiration: '2025-10-15T00:00:00+09:00',
-    description: 'Attended weekend camping trip',
-    expiresSoon: false
-  },
-  {
-    pointsEarned: 50,
-    pointsRemaining: 30,
-    dateOfIssue: '2025-04-10T00:00:00+09:00',
-    expiration: '2025-10-10T00:00:00+09:00',
-    description: 'Special Early Spring Promotion',
-    expiresSoon: false
-  },
-  {
-    pointsEarned: 75,
-    pointsRemaining: 75,
-    dateOfIssue: '2025-05-05T00:00:00+09:00',
-    expiration: '2025-11-30T00:00:00+09:00',
-    description: 'Completed profile setup',
-    expiresSoon: false
-  },
-  {
-    pointsEarned: 120,
-    pointsRemaining: 60,
-    dateOfIssue: '2025-06-01T00:00:00+09:00',
-    expiration: '2025-12-01T00:00:00+09:00',
-    description: 'Referred a friend',
-    expiresSoon: false
-  },
-  {
-    pointsEarned: 200,
-    pointsRemaining: 200,
-    dateOfIssue: '2025-06-20T00:00:00+09:00',
-    expiration: '2025-12-20T00:00:00+09:00',
-    description: 'Attended Japan Culture Festival',
-    expiresSoon: false
-  }
-];
+import { UserProfileService } from '@app/services/user-profile.service';
 
 @Component({
   selector: 'app-profile-badges',
@@ -63,35 +14,42 @@ const REWARD_DATA: Reward[] = [
   templateUrl: './profile-badges.component.html',
   styleUrl: './profile-badges.component.scss'
 })
-export class ProfileBadgesComponent implements OnChanges {
+export class ProfileBadgesComponent implements OnInit, OnChanges {
+  private dateTime = inject(DateTimeService);
+  private userService = inject(UserProfileService)
+
+  private platformId = inject(PLATFORM_ID);
+  private cdr = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
+
   @ViewChild('badgeContainer') badgeContainer!: ElementRef;
   user = input.required<User>();
   eventRegistrationCount = input.required<number>();
   animationState = signal('out');
+  loaded = signal<boolean>(false);
 
-  displayedColumns: string[] = ['pointsEarned', 'pointsRemaining', 'dateOfIssue', 'expiration', 'description'];
-  dataSource = REWARD_DATA;
-
-  private dateTime = inject(DateTimeService);
-
-  private platformId = inject(PLATFORM_ID);
-  private cdr = inject(ChangeDetectorRef);
 
   badges = signal([
     { name: 'Explorer', icon: 'rocket', tooltip: '', earned: true },
   ]);
 
-  rewards = computed(() => {
-    return REWARD_DATA.map((reward) => {
-      this.rewardPoints += reward.pointsRemaining;
-      return ({
-        ...reward,
-        expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
-      });
-    }).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime())
-  });
-
+  displayedColumns: string[] = ['pointsEarned', 'pointsRemaining', 'dateOfIssue', 'expiration', 'description'];
+  rewards = signal<UserReward[]>([]);
   rewardPoints = 0;
+
+  ngOnInit(): void {
+    this.userService.getUserRewards$(this.user().userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((resp) => {
+      const rewards = resp.data.map((reward) => {
+        this.rewardPoints += reward.pointsRemaining;
+        return ({
+          ...reward,
+          expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
+        });
+      }).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime());
+      this.rewards.set(rewards);
+      this.loaded.set(true);
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const changed = changes['user'] || changes['eventRegistrationCount'];
@@ -136,7 +94,6 @@ export class ProfileBadgesComponent implements OnChanges {
           item.style.transform = '';
         });
       });
-      //observer?.disconnect();
     });
   }
 

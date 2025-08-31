@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '@app/models/api-response.model';
+import { UserReward } from '@app/models/user-reward.model';
 import { User } from '@app/models/user.model';
 import { debug, RxJsLoggingLevel } from '@app/operators/debug';
 import { environment } from '@environments/environment';
@@ -27,6 +28,13 @@ export class UserProfileService {
     return this.http.get<ApiResponse<UserProfile>>(`${this.apiUri}/${id}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getUser'),
       catchError((e) => this.errorService.handleError(e, 'Error fetching user.', true))
+    );
+  }
+
+  getUserRewards$(id: string): Observable<ApiResponse<UserReward[]>> {
+    return this.http.get<ApiResponse<UserReward[]>>(`${this.apiUri}/${id}/rewards`).pipe(
+      debug(RxJsLoggingLevel.DEBUG, 'getUserRewards'),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching user rewards.', true))
     );
   }
 
