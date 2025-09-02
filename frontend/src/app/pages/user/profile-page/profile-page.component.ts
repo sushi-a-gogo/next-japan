@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
@@ -55,7 +55,7 @@ export class ProfilePageComponent implements OnInit {
   });
 
 
-  selectedIndex = 0;
+  selectedIndex = signal<number>(0);
 
   loaded = signal(false);
   showProfileForm = signal<boolean>(false);
@@ -81,7 +81,12 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedIndex = this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0;
+    this.selectedIndex.set(this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0);
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    this.clearQueryParams();
+    this.selectedIndex.set(event.index);
   }
 
   clearQueryParams() {
