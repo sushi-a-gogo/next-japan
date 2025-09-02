@@ -50,7 +50,8 @@
       type="button"
       matRipple
       class="app-button dialog-button app-button-filled priority"
-      routerLink="/user/registrations"
+      routerLink="/user/profile"
+      [queryParams]="{ action: 'manage' }"
     >
       Manage Your Events
     </a>

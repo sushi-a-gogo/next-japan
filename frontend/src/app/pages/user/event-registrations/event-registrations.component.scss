@@ -3,7 +3,7 @@ ul {
   padding: 0;
   list-style: none;
 
-  li {
+  li.event:not(:last-child) {
     padding-bottom: 36px;
   }
 
@@ -26,7 +26,7 @@ ul {
     gap: 10px;
   }
 
-  li:first-child,
+  li:first-child:not(:last-child),
   li:not(:last-child) {
     border-bottom: 1px solid var(--next-border);
   }
