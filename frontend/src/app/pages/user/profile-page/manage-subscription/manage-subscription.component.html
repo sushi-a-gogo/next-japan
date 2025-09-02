@@ -4,7 +4,7 @@
   <app-plan-payment
     [user]="user()!"
     [plan]="subscriptionPlan()!"
-    (updatePayment)="update()"
+    (updatePayment)="update($event)"
   />
 </div>
 }

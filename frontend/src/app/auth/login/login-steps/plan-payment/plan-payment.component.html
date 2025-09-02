@@ -59,7 +59,7 @@
     <button
       class="app-button dialog-button app-button-filled"
       (click)="updateSubscription()"
-      [disabled]="paymentForm.invalid"
+      [disabled]="paymentForm.invalid || busy()"
     >
       Update Subscription
     </button>

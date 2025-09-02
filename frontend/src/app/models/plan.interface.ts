@@ -14,7 +14,7 @@ export interface Plan {
 const SUBSCRIPTION_PLANS: Plan[] = [
   {
     name: 'Basic',
-    title: 'BASIC PLAN',
+    title: 'BASIC',
     description: 'Get started with limited access',
     benefits: [
       'Browse public events',
@@ -28,7 +28,7 @@ const SUBSCRIPTION_PLANS: Plan[] = [
   },
   {
     name: 'Solo',
-    title: 'SOLO PLAN',
+    title: 'SOLO',
     description: 'Perfect for casual travelers',
     benefits: [
       'Register for standard events',

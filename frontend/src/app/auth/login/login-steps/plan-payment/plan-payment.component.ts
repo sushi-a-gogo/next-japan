@@ -1,10 +1,15 @@
-import { Component, input, OnInit, output } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { UserProfile } from '@app/models/user-profile.model';
 import { User } from '@app/models/user.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
+import { UserProfileService } from '@app/services/user-profile.service';
 import { Plan } from '@models/plan.interface';
+import { delay, switchMap } from 'rxjs';
 import { PaymentForm } from './payment.form';
 
 
@@ -15,12 +20,17 @@ import { PaymentForm } from './payment.form';
   styleUrl: './plan-payment.component.scss'
 })
 export class PlanPaymentComponent implements OnInit {
+  private authService = inject(AuthMockService);
+  private userService = inject(UserProfileService);
+  private destroyRef = inject(DestroyRef);
+
   user = input.required<User>();
   plan = input.required<Plan>();
   paymentForm = this.getForm();
   completePayment = output();
-  updatePayment = output();
+  updatePayment = output<string>();
   cancel = output();
+  busy = signal<boolean>(false);
 
   ngOnInit(): void {
     this.paymentForm.get('nameOnCard')?.setValue(`${this.user().firstName} ${this.user().lastName}`);
@@ -38,7 +48,29 @@ export class PlanPaymentComponent implements OnInit {
       expirationMonth: this.paymentForm.value.expirationMonth!,
       expirationYear: this.paymentForm.value.expirationYear!
     };
-    this.updatePayment.emit();
+
+    this.busy.set(true);
+    this.userService.getUser$(this.user().userId).pipe(
+      switchMap((resp) => {
+        const profile: UserProfile = {
+          ...resp.data,
+          subscriptionPlan: this.plan()!.name
+        };
+        return this.userService.updateProfile$(profile);
+      }),
+      delay(500),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: (resp) => {
+        this.user().subscriptionPlan = resp.data.subscriptionPlan;
+        this.authService.updateUserData(resp.data);
+        this.updatePayment.emit(resp.data.subscriptionPlan);
+        this.busy.set(false);
+      },
+      error: () => {
+        this.busy.set(false);
+      }
+    });
   }
 
   private getForm() {
