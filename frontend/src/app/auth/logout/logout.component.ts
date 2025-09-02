@@ -4,7 +4,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import fadeIn from '@app/animations/fadeIn.animation';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { environment } from '@environments/environment';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { delay } from 'rxjs';
 
@@ -28,7 +27,7 @@ export class LogoutComponent implements OnInit {
       delay(1500), // simulate a logout process
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((params) => {
-      const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : environment.baseUrl);
+      const returnUrl = encodeURIComponent(params['returnTo'] ? params['returnTo'] : '');
       this.auth.logout(returnUrl);
     });
   }
