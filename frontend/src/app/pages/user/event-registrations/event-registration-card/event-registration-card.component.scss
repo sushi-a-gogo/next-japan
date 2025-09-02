@@ -71,11 +71,12 @@
 
 .actions {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 12px;
 
   .app-button {
-    flex: 1;
+    width: 100%;
   }
 }
 
@@ -84,19 +85,33 @@
   white-space: nowrap;
 }
 
-@media (min-width: 820px) {
-  .card-container {
-    flex-direction: row;
-  }
+@media (min-width: 600px) {
   .card-body {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
   }
+}
 
+@media (min-width: 768px) {
+  .card-container {
+    flex-direction: row;
+  }
+  .card-body {
+    flex-direction: column;
+  }
   .actions {
-    flex-direction: column-reverse;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-body {
+    flex-direction: row;
+  }
+  .actions {
+    flex-direction: column;
     gap: 10px;
 
     .app-button {
@@ -113,7 +128,7 @@
 
 @media (min-width: 960px) {
   .image-container {
-    width: 224px;
-    height: 160px;
+    width: 384px;
+    height: 256px;
   }
 }

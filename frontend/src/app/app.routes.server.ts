@@ -18,10 +18,6 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client
   },
   {
-    path: 'user/registrations',
-    renderMode: RenderMode.Client
-  },
-  {
     path: 'event/search',
     renderMode: RenderMode.Server
   },

@@ -88,6 +88,25 @@ export class LoginComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate([this.path]);
+    const baseUrl = 'https://nextjapan'; // Dummy base for parsing
+    const parsedUrl = new URL(this.path, baseUrl);
+
+    // Extract path segments and remove empty ones
+    const pathSegments = parsedUrl.pathname
+      .split('/')
+      .filter(segment => segment.length > 0); // Remove empty segments (e.g., leading '/')
+
+    if (pathSegments.length == 0) {
+      pathSegments.push('home');
+    }
+
+    // Extract query parameters
+    const queryParams: { [key: string]: string } = {};
+    parsedUrl.searchParams.forEach((value, key) => {
+      queryParams[key] = value;
+    });
+
+    // Navigate using Angular router
+    this.router.navigate(pathSegments, { queryParams });
   }
 }

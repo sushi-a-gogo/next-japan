@@ -1,7 +1,9 @@
-@for(plan of plans; track $index) {
+@for(plan of plans(); track $index) {
 <app-plan-card
   [plan]="plan"
   [class.popular-card]="plan.mostPopular"
+  [class.selected]="plan.selected"
+  [class.subscribed]="plan.subscribed"
   (selected)="select.emit(plan)"
 />
 }

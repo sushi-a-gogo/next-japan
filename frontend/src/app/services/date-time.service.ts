@@ -8,6 +8,32 @@ import { getTimezoneOffset } from 'date-fns-tz';
 export class DateTimeService {
   private datePipe = inject(DatePipe);
 
+  getDaysSince(dateString: string) {
+    const startDate = new Date(dateString);
+    const currentDate = new Date();
+
+    const startMs = startDate.getTime();
+    const currentMs = currentDate.getTime();
+
+    const diffMs = currentMs - startMs;
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    return Math.round(diffMs / oneDay);
+  }
+
+  getDaysUntil(dateString: string) {
+    const endDate = new Date(dateString);
+    const currentDate = new Date();
+
+    const endMs = endDate.getTime();
+    const currentMs = currentDate.getTime();
+
+    const diffMs = endMs - currentMs;
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    return Math.round(diffMs / oneDay);
+  }
+
   getTimezoneOffset(timeZone: string, date: Date) {
     const effectiveOffset = getTimezoneOffset(timeZone, date) / 36e5; // Convert ms to hours
     const isPositive = effectiveOffset >= 0;

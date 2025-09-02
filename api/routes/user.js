@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import User from "../models/User.js";
+import UserReward from "../models/UserReward.js";
 
 dotenv.config();
 
@@ -170,6 +171,17 @@ router.get("/:id", async (req, res) => {
       createdAt: user.createdAt,
     };
     res.status(200).json({ success: true, data: formattedUser });
+  } catch (error) {
+    res.status(400).json({ message: "Invalid user id" });
+  }
+});
+
+router.get("/:id/rewards", async (req, res) => {
+  try {
+    const rewards = await UserReward.find({ userId: req.params.id }).lean();
+    if (!rewards) return res.status(200).json({ success: true, data: [] });
+
+    res.status(200).json({ success: true, data: rewards });
   } catch (error) {
     res.status(400).json({ message: "Invalid user id" });
   }

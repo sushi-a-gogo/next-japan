@@ -2,7 +2,7 @@ import { Component, computed, inject, OnInit, output, signal } from '@angular/co
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { Plan } from '@app/models/plan.interface';
+import SUBSCRIPTION_PLANS, { Plan } from '@app/models/plan.interface';
 import { User } from '@app/models/user.model';
 import { ModalComponent } from "@shared/modal/modal.component";
 import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
@@ -31,6 +31,7 @@ export class LoginStepsComponent implements OnInit {
   busy = signal<boolean>(false);
   newUser = signal<User | null>(null);
   subscriptionPlan = signal<Plan | null>(null);
+  plans = SUBSCRIPTION_PLANS.map((p) => ({ ...p }));
   login = output<string>();
   signUp = output<User>();
   goBack = output();

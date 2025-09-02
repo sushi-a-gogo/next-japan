@@ -52,36 +52,29 @@
   flex: 1;
 }
 
+.app-button {
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  padding: 12px 24px;
+}
+
 .app-button-filled {
   background-color: var(--red-torii-gate);
   border-color: var(--red-torii-gate);
   color: white;
   font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: #ab2c2c;
   }
 
   &:disabled {
-    background-color: #ccc;
-    color: #666;
+    opacity: 0.5;
   }
 }
 
-.text-button {
-  cursor: pointer;
-  color: var(--next-link);
-  border: 0;
-  background-color: transparent;
-  transition: 0.25s ease-in-out;
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
+.app-button-outlined {
+  color: var(--next-note);
 }
 
 .legalese {

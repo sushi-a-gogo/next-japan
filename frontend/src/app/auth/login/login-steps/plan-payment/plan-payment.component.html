@@ -55,6 +55,18 @@
     </p>
   </div>
   <div class="nx-flex col gap-10">
+    @if(user().userId) {
+    <button
+      class="app-button dialog-button app-button-filled"
+      (click)="updateSubscription()"
+      [disabled]="paymentForm.invalid || busy()"
+    >
+      Update Subscription
+    </button>
+    <button class="app-button dialog-button app-button-outlined">
+      Cancel Subscription
+    </button>
+    } @else {
     <button
       class="app-button dialog-button app-button-filled"
       (click)="createSubscription()"
@@ -62,9 +74,6 @@
     >
       Submit Payment
     </button>
-    <div class="switchbox nx-flex row al-c gap-5">
-      Want to review your plan options?
-      <button class="text-button" (click)="cancel.emit()">Go back</button>
-    </div>
+    }
   </div>
 </div>

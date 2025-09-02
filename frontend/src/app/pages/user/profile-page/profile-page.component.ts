@@ -1,26 +1,36 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
-import { EventData } from '@app/models/event/event-data.model';
-import { EventRegistration } from '@app/models/event/event-registration.model';
 import { User } from '@app/models/user.model';
 import { UserProfileComponent } from '@app/pages/user/profile-page/user-profile/user-profile.component';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { EventRegistrationService } from '@app/services/event-registration.service';
-import { EventsService } from '@app/services/events.service';
 import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
-import { forkJoin } from 'rxjs';
+import { EventRegistrationsComponent } from "../event-registrations/event-registrations.component";
+import { ManageSubscriptionComponent } from "./manage-subscription/manage-subscription.component";
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
 import { SurpriseComponent } from "./surprise/surprise.component";
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink, UserAvatarComponent, UserProfileComponent, ProfileBadgesComponent, NextEventComponent, ModalComponent, SurpriseComponent],
+  imports: [
+    RouterLink,
+    MatTabsModule,
+    UserAvatarComponent,
+    DatePipe,
+    UserProfileComponent,
+    ProfileBadgesComponent,
+    NextEventComponent,
+    ModalComponent,
+    SurpriseComponent,
+    EventRegistrationsComponent,
+    ManageSubscriptionComponent
+  ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -29,9 +39,7 @@ export class ProfilePageComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(MetaService);
   private auth = inject(AuthMockService);
-  private eventsService = inject(EventsService);
-  private registrationService = inject(EventRegistrationService);
-  private destroyRef = inject(DestroyRef);
+  private route = inject(ActivatedRoute);
 
   user = signal<User | null>(null);
   avatar = computed(() => {
@@ -45,9 +53,8 @@ export class ProfilePageComponent implements OnInit {
     return user;
   });
 
-  nextEventRegistration = signal<EventRegistration | undefined>(undefined);
-  nextEvent = signal<EventData | undefined>(undefined);
-  suggestedEvent = signal<EventData | undefined>(undefined);
+
+  selectedIndex = 0;
 
   loaded = signal(false);
   showProfileForm = signal<boolean>(false);
@@ -73,37 +80,15 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userId = this.user()?.userId || '';
-    const observables = {
-      events: this.eventsService.get$(),
-      registrations: this.registrationService.getUserEventRegistrations$(userId)
-    };
-    forkJoin(observables).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((resp) => {
-      const registrations = resp.registrations.data;
-      const next = registrations.length ? [...registrations].sort(this.sortByDate)[0] : undefined;
-      this.nextEventRegistration.set(next);
-
-      const eventId = next?.opportunity.eventId;
-      const event = eventId ? resp.events.find((e) => e.eventId === eventId) : undefined;
-      this.nextEvent.set(event);
-
-      const registeredIds = registrations.map((r) => r.opportunity.eventId);
-      const unregisteredEvents = resp.events.filter((e) => !registeredIds.includes(e.eventId));
-      const randomIndex = Math.floor(Math.random() * unregisteredEvents.length);
-      const suggestion = randomIndex ? unregisteredEvents[randomIndex] : undefined;
-      this.suggestedEvent.set(suggestion);
-
-      this.loaded.set(true);
-    })
+    this.selectedIndex = this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0;
   }
 
-  hideProfile(user?: User) {
-    if (user) {
-      this.user.set(user);
-    }
+  openProfile() {
+    this.showProfileForm.set(true);
+  }
 
+
+  closeProfileDialog() {
     this.showProfileForm.set(false);
   }
 
@@ -121,9 +106,4 @@ export class ProfilePageComponent implements OnInit {
       this.showSurprise.set(false);
     }
   }
-
-  private sortByDate(a: EventRegistration, b: EventRegistration) {
-    return new Date(a.opportunity.startDate).getTime() - new Date(b.opportunity.startDate).getTime();
-  }
-
 }

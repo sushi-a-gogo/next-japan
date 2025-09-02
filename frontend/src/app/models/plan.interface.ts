@@ -4,15 +4,17 @@ export interface Plan {
   description: string;
   benefits: string[];
   price: number;
-  mostPopular?: boolean;
   imageUrl: string;
   icon: string;
+  mostPopular?: boolean;
+  subscribed?: boolean;
+  selected?: boolean
 }
 
-const plans: Plan[] = [
+const SUBSCRIPTION_PLANS: Plan[] = [
   {
     name: 'Basic',
-    title: 'BASIC PLAN',
+    title: 'BASIC',
     description: 'Get started with limited access',
     benefits: [
       'Browse public events',
@@ -26,7 +28,7 @@ const plans: Plan[] = [
   },
   {
     name: 'Solo',
-    title: 'SOLO PLAN',
+    title: 'SOLO',
     description: 'Perfect for casual travelers',
     benefits: [
       'Register for standard events',
@@ -69,4 +71,4 @@ const plans: Plan[] = [
   }
 ];
 
-export default plans;
+export default SUBSCRIPTION_PLANS;

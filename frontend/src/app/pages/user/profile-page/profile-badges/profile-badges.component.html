@@ -1,11 +1,14 @@
-<div class="title-text">Achievements</div>
+<!-- <div class="">Achievements</div> -->
+<div class="title-text">Badges</div>
 <div class="badges" #badgeContainer>
-  @for(badge of badges(); track badge.icon) {
+  @for(badge of earnedBadges(); track badge.icon) {
   <div
     class="badge-card nx-flex col al-c jc-c"
     [class]="badge.icon"
     [class.visible]="animationState() === 'in'"
     [style.--animation-delay]="$index * 100 + 'ms'"
+    [matTooltip]="badge.tooltip"
+    [matTooltipShowDelay]="200"
   >
     <span class="material-symbols-outlined">
       {{ badge.icon }}
@@ -13,4 +16,108 @@
     {{ badge.name }}
   </div>
   }
+</div>
+<div>
+  Badges are special achievements you can earn as you participate in activities
+  and events with Next Japan. Each badge represents a unique milestone—such as
+  attending your first event, volunteering, or reaching a participation goal.
+  Collecting badges is a fun way to track your progress and celebrate your
+  involvement in the community. Want some extra motivation? Challenge a friend
+  to see who can unlock the next badge first! Explore the different badges
+  available and set your sights on new goals as you continue your journey with
+  us.
+</div>
+<div class="title-text">Rewards Points</div>
+<div>
+  You currently have <b>{{ rewardPoints }} rewards points</b>. Rewards points
+  are earned automatically when you attend a registered event. These points can
+  be collected and later redeemed for delicious food items or exclusive gifts at
+  upcoming events! Participating in more events means more points and more
+  opportunities to enjoy special perks. Keep an eye on your points balance here,
+  and don't miss out on the chance to treat yourself at our future gatherings!
+</div>
+<b>Expiration Date</b>
+<div>
+  Each portion of rewards points have different expiration date. Please note
+  that all dates are in Japan Standard Time (UTC+0900).
+</div>
+<div>
+  <div>
+    Points highlighted in
+    <strong class="highlight">&nbsp;yellow&nbsp;</strong> will expire soon
+    within 90 days.
+  </div>
+  <div>Points highlighted in gray have already expired.</div>
+</div>
+
+<div class="responsive">
+  <table
+    mat-table
+    [dataSource]="rewards()"
+    class="mat-elevation-z8 fade-in"
+    [class.open]="loaded()"
+  >
+    <!-- pointsEarned Column -->
+    <ng-container matColumnDef="pointsEarned">
+      <th mat-header-cell *matHeaderCellDef>Points Earned</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        {{ element.pointsEarned }}
+      </td>
+    </ng-container>
+
+    <!-- pointsRemaining Column -->
+    <ng-container matColumnDef="pointsRemaining">
+      <th mat-header-cell *matHeaderCellDef>Points Remaining</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        {{ element.pointsRemaining }}
+      </td>
+    </ng-container>
+
+    <!-- dateOfIssue Column -->
+    <ng-container matColumnDef="dateOfIssue">
+      <th mat-header-cell *matHeaderCellDef>Issue Date</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        {{ element.dateOfIssue | date }}
+      </td>
+    </ng-container>
+
+    <!-- expiration Column -->
+    <ng-container matColumnDef="expiration">
+      <th mat-header-cell *matHeaderCellDef>Expiration</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        {{ element.expiration | date }}
+      </td>
+    </ng-container>
+
+    <!-- description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>

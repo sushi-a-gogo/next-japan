@@ -1,70 +1,27 @@
-@if(nextEvent() && nextEventRegistration()) {
-<section class="nx-flex col gap-10">
-  <div class="title-text">Your Next Event</div>
-  <div class="card nx-flex col gap-20">
-    <header class="nx-flex col gap-10">
-      <div class="subhead card-title">
-        {{ nextEvent()?.eventTitle }}
-      </div>
-      <div>
-        <app-address-strip
-          [location]="nextEventRegistration()!.location"
-          [showDirections]="true"
-          [showAddress]="false"
-        />
-        <app-opportunity-timestamp
-          [showNotes]="false"
-          [opportunity]="nextEventRegistration()!.opportunity"
-        ></app-opportunity-timestamp>
-      </div>
-    </header>
-    <main>
-      @if(resizedImage()) {
-      <img [src]="resizedImage()!.src" alt="An image of the event." />
-      }
-    </main>
-    <footer class="nx-flex col gap-10">
-      <div>
-        {{ nextEventRegistration()?.opportunity?.notes }}
-      </div>
-      <div class="nx-flex row al-c gap-10">
-        <a
-          class="app-button app-button-filled priority"
-          [routerLink]="nextRouterLink()"
-        >
-          Event Details
-        </a>
-      </div>
-    </footer>
-  </div>
-</section>
-} @if(suggestedEvent() && !nextEvent()) {
-<section class="nx-flex col gap-10">
-  <div class="title-text">Suggested for You</div>
-  <div class="card nx-flex col gap-20">
-    <header>
-      <div class="subhead card-title">
-        {{ suggestedEvent()!.eventTitle }}
-      </div>
-    </header>
-    <main>
-      @if(suggestedEventImage()) {
-      <img [src]="suggestedEventImage()!.src" alt="An image of the event." />
-      }
-    </main>
-    <footer class="nx-flex col gap-10">
-      <div>
-        {{ suggestedEvent()!.description }}
-      </div>
-      <div class="nx-flex row al-c gap-10">
-        <a
-          class="app-button app-button-filled priority"
-          [routerLink]="suggestedRouterLink()"
-        >
-          Event Details
-        </a>
-      </div>
-    </footer>
-  </div>
-</section>
+@if(suggestedEvent()) {
+<div class="nx-flex col gap-20">
+  <header>
+    <div class="subhead card-title">
+      {{ suggestedEvent()!.eventTitle }}
+    </div>
+  </header>
+  <main>
+    @if(suggestedEventImage()) {
+    <img [src]="suggestedEventImage()!.src" alt="An image of the event." />
+    }
+    <p>
+      {{ suggestedEvent()!.description }}
+    </p>
+  </main>
+  <footer class="nx-flex row al-c gap-10">
+    <a
+      class="app-button app-button-filled"
+      [routerLink]="suggestedRouterLink()"
+    >
+      Open Event Details
+    </a>
+    <app-like-button [event]="suggestedEvent()!" />
+    <app-share-button [event]="suggestedEvent()!" />
+  </footer>
+</div>
 }

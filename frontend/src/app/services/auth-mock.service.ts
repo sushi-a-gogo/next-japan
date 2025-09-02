@@ -57,6 +57,7 @@ export class AuthMockService {
   updateUserData(userData: User) {
     const updated: User = {
       ...userData,
+      createdAt: this.user()!.createdAt,
       email: this.user()!.email
     }
     this.setUser(updated);
@@ -86,6 +87,7 @@ export class AuthMockService {
         email: user.email,
         image: user.image,
         subscriptionPlan: user.subscriptionPlan,
+        createdAt: user.createdAt,
         mode: user.mode
       };
 
