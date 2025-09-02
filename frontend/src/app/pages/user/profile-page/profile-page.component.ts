@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { User } from '@app/models/user.model';
 import { UserProfileComponent } from '@app/pages/user/profile-page/user-profile/user-profile.component';
@@ -40,6 +40,7 @@ export class ProfilePageComponent implements OnInit {
   private meta = inject(MetaService);
   private auth = inject(AuthMockService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   user = signal<User | null>(null);
   avatar = computed(() => {
@@ -81,6 +82,10 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedIndex = this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0;
+  }
+
+  clearQueryParams() {
+    this.router.navigate([], { queryParams: {} });
   }
 
   openProfile() {

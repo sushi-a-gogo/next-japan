@@ -21,16 +21,8 @@ export class NextEventComponent implements OnInit {
   private registrationService = inject(EventRegistrationService);
   private imageService = inject(ImageService);
   private destroyRef = inject(DestroyRef);
-  private events = signal<EventData[]>([]);
 
-  suggestedEvent = computed(() => {
-    const registrations = this.registrationService.userEventRegistrations();
-    const registeredIds = registrations.map((r) => r.opportunity.eventId);
-    const unregisteredEvents = this.events().filter((e) => !registeredIds.includes(e.eventId));
-    const randomIndex = Math.floor(Math.random() * unregisteredEvents.length);
-    const suggestion = randomIndex >= 0 ? unregisteredEvents[randomIndex] : undefined;
-    return suggestion;
-  });
+  suggestedEvent = signal<EventData | null>(null);
   suggestedRouterLink = computed(() => `/event/${this.suggestedEvent()?.eventId}`);
 
   suggestedEventImage = computed(() => {
@@ -38,8 +30,13 @@ export class NextEventComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.eventsService.get$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((resp) => {
-      this.events.set(resp);
+    this.eventsService.get$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
+      const registrations = this.registrationService.userEventRegistrations();
+      const registeredIds = registrations.map((r) => r.opportunity.eventId);
+      const unregisteredEvents = events.filter((e) => !registeredIds.includes(e.eventId));
+      const randomIndex = Math.floor(Math.random() * unregisteredEvents.length);
+      const suggestion = randomIndex >= 0 ? unregisteredEvents[randomIndex] : null;
+      this.suggestedEvent.set(suggestion);
     });
   }
 }

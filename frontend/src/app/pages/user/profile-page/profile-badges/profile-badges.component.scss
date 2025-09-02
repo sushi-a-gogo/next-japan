@@ -91,13 +91,25 @@ table {
   }
 
   th {
-    background-color: var(--navy-blue-mountain);
+    background-color: var(--next-confirm-bg);
     font-weight: 700;
     color: #fff;
+    display: none;
+
+    &.desc {
+      //width: 50%;
+    }
   }
 
   td {
     font-weight: 500;
+    display: none;
+  }
+
+  th.mobile,
+  td.mobile {
+    display: table-cell;
+    padding: 10px;
   }
 }
 
@@ -109,6 +121,16 @@ table {
 @media (min-width: 600px) {
   .badges {
     grid-template-columns: repeat(6, 1fr);
+  }
+  table {
+    th,
+    td {
+      display: table-cell;
+    }
+    th.mobile,
+    td.mobile {
+      display: none;
+    }
   }
 }
 
