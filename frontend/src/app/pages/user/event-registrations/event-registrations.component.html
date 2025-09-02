@@ -2,7 +2,7 @@
   <main>
     <ul class="nx-flex col gap-36">
       @for(event of events(); track event.registrationId) {
-      <li>
+      <li class="event">
         <app-event-registration-card
           [event]="event"
           (cancelRegistration)="confirmCancel(event)"
@@ -10,7 +10,7 @@
       </li>
       } @empty {
       <li>
-        You haven't registered for any events yet.<br />
+        You haven't registered for any events.<br />
         Start planning your next adventure and your events will appear here!
       </li>
       }
