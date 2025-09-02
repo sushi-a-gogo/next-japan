@@ -22,7 +22,11 @@
         </button>
       </div>
     </header>
-    <mat-tab-group dynamicHeight [selectedIndex]="selectedIndex">
+    <mat-tab-group
+      dynamicHeight
+      [selectedIndex]="selectedIndex"
+      (selectedTabChange)="clearQueryParams()"
+    >
       <mat-tab label="Start">
         <div class="tab-content banner">
           <div

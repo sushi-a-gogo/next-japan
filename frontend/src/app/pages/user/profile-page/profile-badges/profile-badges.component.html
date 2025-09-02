@@ -38,16 +38,13 @@
 </div>
 <b>Expiration Date</b>
 <div>
-  Each portion of rewards points have different expiration date. Please note
+  Each portion of rewards points have a different expiration date. Please note
   that all dates are in Japan Standard Time (UTC+0900).
 </div>
 <div>
-  <div>
-    Points highlighted in
-    <strong class="highlight">&nbsp;yellow&nbsp;</strong> will expire soon
-    within 90 days.
-  </div>
-  <div>Points highlighted in gray have already expired.</div>
+  Points highlighted in
+  <strong class="highlight">&nbsp;yellow&nbsp;</strong> will expire soon (within
+  90 days). Points highlighted in gray have already expired.
 </div>
 
 <div class="responsive">
@@ -57,10 +54,30 @@
     class="mat-elevation-z8 fade-in"
     [class.open]="loaded()"
   >
+    <!-- mobile column -->
+    <ng-container matColumnDef="mobile">
+      <th class="mobile" mat-header-cell *matHeaderCellDef>Rewards Points</th>
+      <td
+        class="mobile"
+        mat-cell
+        *matCellDef="let element"
+        [class.highlight]="element.expiresSoon"
+      >
+        <div class="nx-flex col gap-2">
+          <div>
+            <b>Points</b> (Remaining/Earned):
+            <b>{{ element.pointsRemaining }}/{{ element.pointsEarned }}</b>
+          </div>
+          <div><b>Expiration</b>: {{ element.expiration | date }}</div>
+          <div><b>Description</b>: {{ element.description }}</div>
+        </div>
+      </td>
+    </ng-container>
     <!-- pointsEarned Column -->
     <ng-container matColumnDef="pointsEarned">
-      <th mat-header-cell *matHeaderCellDef>Points Earned</th>
+      <th class="number" mat-header-cell *matHeaderCellDef>Points Earned</th>
       <td
+        class="number"
         mat-cell
         *matCellDef="let element"
         [class.highlight]="element.expiresSoon"
@@ -71,8 +88,9 @@
 
     <!-- pointsRemaining Column -->
     <ng-container matColumnDef="pointsRemaining">
-      <th mat-header-cell *matHeaderCellDef>Points Remaining</th>
+      <th class="number" mat-header-cell *matHeaderCellDef>Points Remaining</th>
       <td
+        class="number"
         mat-cell
         *matCellDef="let element"
         [class.highlight]="element.expiresSoon"
@@ -107,7 +125,7 @@
 
     <!-- description Column -->
     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <th class="desc" mat-header-cell *matHeaderCellDef>Description</th>
       <td
         mat-cell
         *matCellDef="let element"

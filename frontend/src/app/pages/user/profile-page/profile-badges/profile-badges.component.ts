@@ -48,7 +48,7 @@ export class ProfileBadgesComponent implements OnInit {
     return earned;
   });
 
-  displayedColumns: string[] = ['pointsEarned', 'pointsRemaining', 'dateOfIssue', 'expiration', 'description'];
+  displayedColumns: string[] = ['mobile', 'pointsEarned', 'pointsRemaining', 'dateOfIssue', 'expiration', 'description'];
   rewards = signal<UserReward[]>([]);
   rewardPoints = 0;
 
