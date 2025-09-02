@@ -17,7 +17,7 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-:host(.popular-card) {
+:host(.selected) {
   border-color: var(--vivid-yellow-text);
   box-shadow: 0 0 0 3px rgba(200, 70, 70, 0.3);
 }
@@ -50,6 +50,12 @@ header {
   gap: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  &.subscribed {
+    background-color: var(--next-surface);
+    color: var(--next-text);
+    border: 1px solid var(--next-border);
+  }
 }
 
 main {

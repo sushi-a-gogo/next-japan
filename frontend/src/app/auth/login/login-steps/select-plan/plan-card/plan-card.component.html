@@ -2,12 +2,19 @@
   <div class="nx-flex row al-c">
     <span class="plan-icon">{{ plan().icon }}</span> {{ plan().title }}
   </div>
-  @if(plan().mostPopular){
-  <div class="showcase nx-flex row al-c gap-5">
-    <span class="material-symbols-outlined"> star_shine </span>
-    Most Popular
+  <div class="nx-flex col gap-5">
+    @if(plan().mostPopular){
+    <div class="showcase nx-flex row al-c gap-5">
+      <span class="material-symbols-outlined"> star_shine </span>
+      Most Popular
+    </div>
+    } @if(plan().subscribed){
+    <div class="showcase subscribed nx-flex row al-c gap-5">
+      <span class="material-symbols-outlined"> check </span>
+      Current Plan
+    </div>
+    }
   </div>
-  }
 </header>
 <main class="nx-flex col gap-10">
   <div class="price">{{ plan().price | currency : "¥" }}/month</div>

@@ -4,12 +4,14 @@ export interface Plan {
   description: string;
   benefits: string[];
   price: number;
-  mostPopular?: boolean;
   imageUrl: string;
   icon: string;
+  mostPopular?: boolean;
+  subscribed?: boolean;
+  selected?: boolean
 }
 
-const plans: Plan[] = [
+const SUBSCRIPTION_PLANS: Plan[] = [
   {
     name: 'Basic',
     title: 'BASIC PLAN',
@@ -69,4 +71,4 @@ const plans: Plan[] = [
   }
 ];
 
-export default plans;
+export default SUBSCRIPTION_PLANS;

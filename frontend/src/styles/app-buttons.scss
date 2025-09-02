@@ -78,3 +78,16 @@ a.app-button {
     background-color: var(--next-surface-alt);
   }
 }
+
+.text-button {
+  cursor: pointer;
+  color: var(--next-link);
+  border: 0;
+  background-color: transparent;
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}

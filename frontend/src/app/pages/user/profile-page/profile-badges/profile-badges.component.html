@@ -1,7 +1,7 @@
 <!-- <div class="">Achievements</div> -->
 <div class="title-text">Badges</div>
 <div class="badges" #badgeContainer>
-  @for(badge of badges(); track badge.icon) {
+  @for(badge of earnedBadges(); track badge.icon) {
   <div
     class="badge-card nx-flex col al-c jc-c"
     [class]="badge.icon"

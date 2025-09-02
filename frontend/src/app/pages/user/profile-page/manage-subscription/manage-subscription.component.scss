@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-box {
+  padding: 24px;
+  background-color: var(--next-surface);
+  border: 2px solid var(--next-border);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@media screen and (min-width: 600px) {
+  :host {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

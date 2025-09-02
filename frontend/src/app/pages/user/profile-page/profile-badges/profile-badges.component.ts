@@ -1,11 +1,12 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserReward } from '@app/models/user-reward.model';
 import { User } from '@app/models/user.model';
 import { DateTimeService } from '@app/services/date-time.service';
+import { EventRegistrationService } from '@app/services/event-registration.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 
 @Component({
@@ -14,8 +15,9 @@ import { UserProfileService } from '@app/services/user-profile.service';
   templateUrl: './profile-badges.component.html',
   styleUrl: './profile-badges.component.scss'
 })
-export class ProfileBadgesComponent implements OnInit, OnChanges {
+export class ProfileBadgesComponent implements OnInit {
   private dateTime = inject(DateTimeService);
+  private registrationService = inject(EventRegistrationService);
   private userService = inject(UserProfileService)
 
   private platformId = inject(PLATFORM_ID);
@@ -24,14 +26,27 @@ export class ProfileBadgesComponent implements OnInit, OnChanges {
 
   @ViewChild('badgeContainer') badgeContainer!: ElementRef;
   user = input.required<User>();
-  eventRegistrationCount = input.required<number>();
   animationState = signal('out');
   loaded = signal<boolean>(false);
 
 
-  badges = signal([
+  badges = [
     { name: 'Explorer', icon: 'rocket', tooltip: '', earned: true },
-  ]);
+  ];
+
+  earnedBadges = computed(() => {
+    const eventRegistrationCount = this.registrationService.userEventRegistrations()?.length || 0;
+    const items =
+      [
+        { name: 'Explorer', icon: 'rocket', tooltip: 'You earned this badge by starting a subscription!', earned: true },
+        { name: 'Newbie', icon: 'bedroom_baby', tooltip: '', earned: !this.user().image.id && eventRegistrationCount === 0 },
+        { name: 'Profile Pro', icon: 'star_shine', tooltip: 'You completed your profile to earn this badge!', earned: !!this.user().image.id },
+        { name: 'Japan Lover', icon: 'favorite', tooltip: 'You attended more than 5 events to earn this badge!', earned: eventRegistrationCount > 0 }
+      ];
+
+    const earned = items.filter((badge) => badge.earned);
+    return earned;
+  });
 
   displayedColumns: string[] = ['pointsEarned', 'pointsRemaining', 'dateOfIssue', 'expiration', 'description'];
   rewards = signal<UserReward[]>([]);
@@ -49,30 +64,6 @@ export class ProfileBadgesComponent implements OnInit, OnChanges {
       this.rewards.set(rewards);
       this.loaded.set(true);
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const changed = changes['user'] || changes['eventRegistrationCount'];
-    if (!changed) return;
-
-    let animate = false;
-    this.badges.update((prev) => {
-      const items =
-        [
-          { name: 'Explorer', icon: 'rocket', tooltip: 'You earned this badge by starting a subscription!', earned: true },
-          { name: 'Newbie', icon: 'bedroom_baby', tooltip: '', earned: !this.user().image.id && this.eventRegistrationCount() === 0 },
-          { name: 'Profile Pro', icon: 'star_shine', tooltip: 'You completed your profile to earn this badge!', earned: !!this.user().image.id },
-          { name: 'Japan Lover', icon: 'favorite', tooltip: 'You attended more than 5 events to earn this badge!', earned: this.eventRegistrationCount() > 0 }
-        ];
-      const next = items.filter((badge) => badge.earned);
-      animate = !changed.firstChange && next.map((b) => b.icon).join() !== prev.map((b) => b.icon).join();
-      return next;
-    });
-
-    if (isPlatformBrowser(this.platformId) && animate) {
-      this.animationState.set('out');
-      this.animateIn();
-    }
   }
 
   ngAfterViewInit(): void {

@@ -1,4 +1,5 @@
-<div class="card nx-flex col gap-20">
+@if(suggestedEvent()) {
+<div class="nx-flex col gap-20">
   <header>
     <div class="subhead card-title">
       {{ suggestedEvent()!.eventTitle }}
@@ -23,3 +24,4 @@
     <app-share-button [event]="suggestedEvent()!" />
   </footer>
 </div>
+}

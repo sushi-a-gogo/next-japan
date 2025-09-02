@@ -1,5 +1,5 @@
 <div class="component-box">
-  <div class="cb-content pad fade-in" [class.open]="loaded()">
+  <div class="cb-content pad">
     @if(user()) {
     <header class="nx-flex row gap-10">
       <app-user-avatar [user]="avatar()!" [size]="128" />
@@ -70,20 +70,21 @@
       </mat-tab>
       <mat-tab label="Achievements">
         <div class="tab-content banner">
-          <app-profile-badges
-            [user]="user()!"
-            [eventRegistrationCount]="nextEventRegistration() ? 1 : 0"
-          />
+          <app-profile-badges [user]="user()!" />
         </div>
       </mat-tab>
       <mat-tab label="Suggested for You">
-        @if(suggestedEvent()) {
         <div class="tab-content">
-          <app-next-event [suggestedEvent]="suggestedEvent()!" />
+          <div class="banner">
+            <app-next-event />
+          </div>
         </div>
-        }
       </mat-tab>
-      <mat-tab label="Manage Subscription">Content 3</mat-tab>
+      <mat-tab label="Manage Subscription">
+        <div class="tab-content">
+          <app-manage-subscription [user]="user()!" />
+        </div>
+      </mat-tab>
     </mat-tab-group>
     }
   </div>

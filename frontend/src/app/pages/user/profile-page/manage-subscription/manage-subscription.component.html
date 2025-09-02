@@ -1,0 +1,6 @@
+<app-select-plan [plans]="plans()" (select)="selectPlan($event)" />
+@if(subscriptionPlan()) {
+<div class="payment-box">
+  <app-plan-payment [user]="user()!" [plan]="subscriptionPlan()!" />
+</div>
+}
