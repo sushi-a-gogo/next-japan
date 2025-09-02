@@ -24,8 +24,8 @@
     </header>
     <mat-tab-group
       dynamicHeight
-      [selectedIndex]="selectedIndex"
-      (selectedTabChange)="clearQueryParams()"
+      [selectedIndex]="selectedIndex()"
+      (selectedTabChange)="onTabChange($event)"
     >
       <mat-tab label="Start">
         <div class="tab-content banner">
@@ -86,7 +86,10 @@
       </mat-tab>
       <mat-tab label="Manage Subscription">
         <div class="tab-content">
-          <app-manage-subscription [user]="user()!" />
+          <app-manage-subscription
+            [user]="user()!"
+            [selectedIndex]="selectedIndex()"
+          />
         </div>
       </mat-tab>
     </mat-tab-group>
