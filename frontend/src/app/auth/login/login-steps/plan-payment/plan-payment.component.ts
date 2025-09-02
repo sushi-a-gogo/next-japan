@@ -19,6 +19,7 @@ export class PlanPaymentComponent implements OnInit {
   plan = input.required<Plan>();
   paymentForm = this.getForm();
   completePayment = output();
+  updatePayment = output();
   cancel = output();
 
   ngOnInit(): void {
@@ -26,14 +27,18 @@ export class PlanPaymentComponent implements OnInit {
   }
 
   createSubscription() {
+    this.completePayment.emit();
+  }
+
+  updateSubscription() {
     const subscription = {
-      userId: 0,
+      userId: this.user().userId,
       nameOnCard: this.paymentForm.value.nameOnCard!,
       creditCardNumber: this.paymentForm.value.creditCardNumber!,
       expirationMonth: this.paymentForm.value.expirationMonth!,
       expirationYear: this.paymentForm.value.expirationYear!
     };
-    this.completePayment.emit();
+    this.updatePayment.emit();
   }
 
   private getForm() {

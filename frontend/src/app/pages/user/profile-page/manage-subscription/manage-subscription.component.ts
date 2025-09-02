@@ -1,8 +1,12 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { PlanPaymentComponent } from "@app/auth/login/login-steps/plan-payment/plan-payment.component";
 import { SelectPlanComponent } from "@app/auth/login/login-steps/select-plan/select-plan.component";
 import SUBSCRIPTION_PLANS, { Plan } from '@app/models/plan.interface';
+import { UserProfile } from '@app/models/user-profile.model';
 import { User } from '@app/models/user.model';
+import { AuthMockService } from '@app/services/auth-mock.service';
+import { UserProfileService } from '@app/services/user-profile.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-manage-subscription',
@@ -11,6 +15,8 @@ import { User } from '@app/models/user.model';
   styleUrl: './manage-subscription.component.scss'
 })
 export class ManageSubscriptionComponent implements OnInit {
+  private authService = inject(AuthMockService);
+  private userService = inject(UserProfileService);
   user = input.required<User>();
   plans = signal<Plan[]>([]);
   subscriptionPlan = signal<Plan | null>(null);
@@ -33,6 +39,34 @@ export class ManageSubscriptionComponent implements OnInit {
       selected: p.name === plan.name
     })));
     this.subscriptionPlan.set(plan);
+  }
+
+  update() {
+    const profile = {
+      ...this.user(),
+      subscriptionPlan: this.subscriptionPlan()
+    };
+    this.userService.getUser$(this.user().userId).pipe(
+      switchMap((resp) => {
+        const profile: UserProfile = {
+          ...resp.data,
+          subscriptionPlan: this.subscriptionPlan()!.name
+        };
+        return this.userService.updateProfile$(profile);
+      })
+    ).subscribe({
+      next: (resp) => {
+        this.plans.update((prev) => prev.map((p) => ({
+          ...p,
+          subscribed: p.name === resp.data.subscriptionPlan
+        })));
+
+        this.user().subscriptionPlan = resp.data.subscriptionPlan;
+        this.authService.updateUserData(resp.data);
+      },
+      error: () => { }
+    });
+
   }
 
 }

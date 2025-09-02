@@ -52,9 +52,7 @@ header {
   letter-spacing: 0.5px;
 
   &.subscribed {
-    background-color: var(--next-surface);
-    color: var(--next-text);
-    border: 1px solid var(--next-border);
+    background-color: var(--bright-green-grass);
   }
 }
 
