@@ -36,7 +36,7 @@ export class UserNavbarComponent {
     const queryParams = { returnTo: returnTo };
     setTimeout(() => {
       this.router.navigate(['logout'], {
-        queryParams: queryParams,
+        //queryParams: queryParams,
       });
     }, 100);
   }
