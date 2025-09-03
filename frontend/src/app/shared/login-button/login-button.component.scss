@@ -15,6 +15,11 @@ button {
   }
 }
 
+.app-button-filled {
+  background-color: var(--red-torii-gate);
+  border-color: var(--red-torii-gate);
+}
+
 .app-button-outlined {
   border-color: #fff;
   color: #fff;

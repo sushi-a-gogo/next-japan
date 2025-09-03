@@ -1,7 +1,7 @@
 <app-modal (close)="close.emit(true)">
   <div class="progress-spinner nx-flex row al-c jc-c" [class.open]="busy()">
     @if(busy()) {
-    <app-loading-spinner message="Sending Requests..." />
+    <app-loading-spinner message="Sending Requests..." [delay]="0" />
     }
   </div>
   <header class="dialog">

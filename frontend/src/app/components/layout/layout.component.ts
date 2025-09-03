@@ -1,9 +1,9 @@
+
 import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { DialogService } from '@app/services/dialog.service';
 import { EventSearchService } from '@app/services/event-search.service';
 import { filter } from 'rxjs';
 import { FooterComponent } from "../footer/footer.component";
@@ -26,9 +26,6 @@ export class LayoutComponent {
   isAuthenticated = this.authService.isAuthenticated;
   authIsActivated = computed(() => isPlatformBrowser(this.platformId) && this.authService.activated());
 
-  private dialogService = inject(DialogService);
-  showProfileDialog = computed(() => this.dialogService.showDialog() === 'profile');
-
   constructor(router: Router) {
     router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
@@ -40,9 +37,5 @@ export class LayoutComponent {
 
   toggleSearchMode() {
     this.eventSearch.toggleSearchMode();
-  }
-
-  closeProfileDialog() {
-    this.dialogService.closeDialog('profile');
   }
 }

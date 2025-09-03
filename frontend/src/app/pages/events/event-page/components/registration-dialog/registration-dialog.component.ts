@@ -13,7 +13,7 @@ import { AddressStripComponent } from '@app/shared/address-strip/address-strip.c
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 
 
 @Component({
@@ -41,7 +41,10 @@ export class RegistrationDialogComponent {
   sendRequest() {
     this.busy.set(true);
     this.requestSelected$()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(
+        delay(500),
+        takeUntilDestroyed(this.destroyRef)
+      )
       .subscribe(() => {
         this.busy.set(false);
         this.selectionService.clearSelected();

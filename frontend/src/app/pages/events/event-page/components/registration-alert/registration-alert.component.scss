@@ -1,46 +1,49 @@
 :host {
-  border: 1px solid var(--vivid-yellow-text);
-  background: rgba($color: #ffe779, $alpha: 0.15);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 6px;
   font-size: 14px;
   line-height: 24px;
   font-weight: 600;
   text-align: left;
+}
 
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.host {
+  border: 1px solid var(--vivid-yellow-text);
+  background: rgba($color: #000, $alpha: 0.45);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
 
-    li {
-      button,
-      a {
-        color: var(--vivid-yellow-text);
-        cursor: pointer;
-        border: 0;
-        border-radius: 24px;
-        text-transform: uppercase;
-        font-size: 12px;
-        line-height: 14px;
-        line-height: 24px;
-        background-color: transparent;
-        padding: 0;
-        text-decoration: none;
-        font-weight: 600;
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-        &:hover {
-          text-decoration: underline;
-        }
+  li {
+    button,
+    a {
+      color: var(--vivid-yellow-text);
+      cursor: pointer;
+      border: 0;
+      border-radius: 24px;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 14px;
+      line-height: 24px;
+      background-color: transparent;
+      padding: 0;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
+  }
 
-    li:not(:last-child)::after {
-      content: "|";
-      margin: 0 8px; /* Adjust spacing as needed */
-      color: var(--vivid-yellow-text); /* Adjust color as needed */
-    }
+  li:not(:last-child)::after {
+    content: "|";
+    margin: 0 8px; /* Adjust spacing as needed */
+    color: var(--vivid-yellow-text); /* Adjust color as needed */
   }
 }
 

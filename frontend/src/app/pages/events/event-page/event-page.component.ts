@@ -49,15 +49,6 @@ export class EventPageComponent implements OnInit, OnChanges {
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 
-  // heroImage = computed(() => {
-  //   const event = this.eventService.eventData().event;
-  //   if (event && isPlatformBrowser(this.platformId)) {
-  //     const resizedImage = this.imageService.resizeImage(event!.image, 384, 256);
-  //     return resizedImage.src;
-  //   }
-  //   return undefined;
-  // });
-
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
   ngOnInit(): void {

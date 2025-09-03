@@ -2,6 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
+import { AboutComponent } from "@app/components/about/about.component";
 import { LayoutComponent } from "@app/components/layout/layout.component";
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
@@ -17,7 +18,7 @@ import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent],
+  imports: [NgOptimizedImage, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -55,7 +56,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle(`${organization.name}`);
     // Set meta tags
-    this.meta.updateTags(this.title.getTitle(), organization.infoDescription);
+    const description = 'Discover Next Japan: a modern Angular and Node.js web app with AI features, built to showcase skills and deliver engaging user experiences.';
+    this.meta.updateTags(this.title.getTitle(), description);
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
 
