@@ -30,12 +30,13 @@ footer {
 }
 
 .backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   opacity: 0;
   transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
   &.open {
+    bottom: 0;
     height: 100%;
     width: 100%;
     z-index: 100;

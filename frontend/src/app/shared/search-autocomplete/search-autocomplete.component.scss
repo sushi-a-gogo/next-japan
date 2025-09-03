@@ -3,7 +3,7 @@
 :host {
   display: none;
   opacity: 0;
-  transition: opacity 400ms ease-in-out;
+  transition: none;
 
   &.show {
     display: block;
@@ -12,6 +12,7 @@
 
   &.open {
     opacity: 1;
+    transition: opacity 400ms ease-in-out;
   }
 }
 
