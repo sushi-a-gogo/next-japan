@@ -87,18 +87,11 @@ table {
   background-color: var(--next-surface);
   border-radius: 4px;
 
-  thead > tr {
-  }
-
   th {
-    background-color: var(--bright-blue-sky);
+    background-color: var(--next-confirm-bg);
     font-weight: 700;
-    color: #fff;
+    color: var(--next-confirm-text);
     display: none;
-
-    &.desc {
-      //width: 50%;
-    }
   }
 
   td {

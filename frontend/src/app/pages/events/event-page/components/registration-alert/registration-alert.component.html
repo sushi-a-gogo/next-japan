@@ -1,21 +1,23 @@
-<div>
-  You registered for this event on
-  {{ eventRegistration().createdAt | date }}
+@if(eventRegistration()) {
+<div class="host">
+  <div>
+    You registered for this event on
+    {{ eventRegistration()!.createdAt | date }}
+  </div>
+  <ul class="nx-flex row al-c">
+    <li>
+      <button (click)="showDialog.set(true)">VIEW REGISTRATION</button>
+    </li>
+    <li>
+      <a routerLink="/user/profile" [queryParams]="{ action: 'manage' }">
+        MANAGE YOUR EVENTS
+      </a>
+    </li>
+  </ul>
 </div>
-<!-- <app-event-registration-status [status]="eventRegistration()!.status" /> -->
-<ul class="nx-flex row al-c">
-  <li>
-    <button (click)="showDialog.set(true)">VIEW REGISTRATION</button>
-  </li>
-  <li>
-    <a routerLink="/user/profile" [queryParams]="{ action: 'manage' }">
-      MANAGE YOUR EVENTS
-    </a>
-  </li>
-</ul>
-
-@if(showDialog()) {
+} @if(showDialog()) {
 <app-modal (close)="closeDialog()">
+  @if(eventRegistration()) {
   <header class="dialog">
     <span> Your Event Registration </span>
     <button
@@ -29,15 +31,15 @@
   </header>
   <main class="dialog nx-flex col gap-5">
     <span class="title">
-      {{ eventRegistration().eventTitle }}
+      {{ eventRegistration()!.eventTitle }}
     </span>
     <app-address-strip
-      [location]="eventRegistration().location"
+      [location]="eventRegistration()!.location"
       [showDirections]="true"
       [showAddress]="false"
     />
     <app-opportunity-timestamp
-      [opportunity]="eventRegistration().opportunity"
+      [opportunity]="eventRegistration()!.opportunity"
     />
   </main>
   <footer class="dialog nx-flex col gap-10">
@@ -45,7 +47,12 @@
       Are you <span>sure</span> you want to cancel?
     </div>
     @if(confirmCancel()) {
-    <button class="app-button app-button-filled priority">Yes, I'm sure</button>
+    <button
+      class="app-button app-button-filled priority"
+      (click)="cancelEvent()"
+    >
+      Yes, I'm sure
+    </button>
     <button
       class="app-button app-button-outlined"
       (click)="confirmCancel.set(false)"
@@ -64,5 +71,27 @@
     </button>
     }
   </footer>
+  } @else {
+  <header class="dialog">
+    <span> Event Registration </span>
+    <button
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="closeDialog()"
+    >
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </header>
+  <main class="dialog">Your event registration has been cancelled.</main>
+  <footer class="dialog">
+    <button
+      class="app-button app-button-filled priority"
+      (click)="closeDialog()"
+    >
+      OK
+    </button>
+  </footer>
+  }
 </app-modal>
 }

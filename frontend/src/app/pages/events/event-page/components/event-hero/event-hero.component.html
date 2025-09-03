@@ -61,11 +61,9 @@
         }
       </div>
     </div>
-    @if(eventRegistration()) {
     <app-registration-alert
       class="alert"
-      [eventRegistration]="eventRegistration()!"
+      [eventRegistration]="eventRegistration()"
     />
-    }
   </div>
 </div>

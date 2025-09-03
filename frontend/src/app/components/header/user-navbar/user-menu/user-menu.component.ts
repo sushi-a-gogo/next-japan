@@ -6,8 +6,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { AuthMockService } from '@app/services/auth-mock.service';
-import { DialogService } from '@app/services/dialog.service';
-import { UiService } from '@app/services/ui.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { switchMap } from 'rxjs';
@@ -19,30 +17,15 @@ import { switchMap } from 'rxjs';
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {
-  private dialogService = inject(DialogService);
   private authService = inject(AuthMockService);
   private userProfileService = inject(UserProfileService);
-  private uiService = inject(UiService);
   private destroyRef = inject(DestroyRef);
 
   user = input.required<User>();
   signout = output();
 
-  menuToggle(menuOpen: boolean) {
-    // janky on iPad because of course it is.
-    // if (menuOpen) {
-    //   this.uiService.lockWindowScroll();
-    // } else {
-    //   this.uiService.unlockWindowScroll();
-    // }
-  }
-
   logout() {
     this.signout.emit();
-  }
-
-  openUserProfile() {
-    this.dialogService.showProfileDialog();
   }
 
   changeAppearanceMode(mode?: 'light' | 'dark') {

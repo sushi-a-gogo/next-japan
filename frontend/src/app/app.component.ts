@@ -1,7 +1,6 @@
 import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { interval } from 'rxjs';
-import { AboutComponent } from "./components/about/about.component";
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { ThemeService } from './services/theme.service';
 
@@ -10,7 +9,6 @@ import { ThemeService } from './services/theme.service';
   imports: [
     RouterOutlet,
     ErrorBarComponent,
-    AboutComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
