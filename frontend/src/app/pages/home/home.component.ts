@@ -56,7 +56,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle(`${organization.name}`);
     // Set meta tags
-    this.meta.updateTags(this.title.getTitle(), organization.infoDescription);
+    const description = 'Discover Next Japan: a modern Angular and Node.js web app with AI features, built to showcase skills and deliver engaging user experiences.';
+    this.meta.updateTags(this.title.getTitle(), description);
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
 
