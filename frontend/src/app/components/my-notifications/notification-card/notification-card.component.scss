@@ -3,8 +3,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  min-width: 50vw;
-  max-width: 84vw;
+  width: 320px;
 
   font-size: 14px;
   line-height: 19px;
@@ -48,14 +47,13 @@ header {
 }
 
 section {
-  //width: 100%;
-  min-width: 120px;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
   :host {
     flex-direction: row;
-    width: auto;
+    width: 480px;
     max-width: 640px;
   }
 }
