@@ -18,6 +18,7 @@ button {
 .app-button-filled {
   background-color: var(--red-torii-gate);
   border-color: var(--red-torii-gate);
+  color: #fff;
 }
 
 .app-button-outlined {
@@ -29,8 +30,4 @@ button {
     background-color: rgba(255, 255, 255, 0.1);
     //color: var(--vivid-yellow-text);
   }
-}
-
-:host-context(.dark-theme) .app-button-filled {
-  background-color: #fff;
 }
