@@ -1,4 +1,4 @@
-<div class="app-container fade-in" [class.open]="authIsActivated()">
+<div class="app-container">
   <header>
     <app-header />
   </header>
@@ -9,15 +9,7 @@
     <footer>
       <app-footer />
     </footer>
-    @defer(on timer(50ms)) {
-    <!-- defer sign-in banner -->
-    @if(!isAuthenticated()) {
-    <app-sign-in-banner />
-    }
-    <!-- end defer -->
-    } @placeholder {
-    <i></i>
-    }
+    <app-sign-in-banner [remove]="isAuthenticated()" />
   </main>
 </div>
 <div

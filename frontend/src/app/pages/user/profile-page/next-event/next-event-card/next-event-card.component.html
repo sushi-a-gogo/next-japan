@@ -1,0 +1,26 @@
+<header>
+  <div class="card-title">
+    {{ event().eventTitle }}
+  </div>
+</header>
+<main>
+  @if(eventImage()) {
+  <img
+    [ngSrc]="eventImage()!.src"
+    [width]="eventImage()!.image.width"
+    [height]="eventImage()!.image.height"
+    placeholder
+    alt="An image of the event."
+  />
+  }
+  <p>
+    {{ event().description }}
+  </p>
+</main>
+<footer class="nx-flex row al-c gap-10">
+  <a class="app-button app-button-filled" [routerLink]="routerLink()">
+    Open Event Details
+  </a>
+  <app-like-button [event]="event()" />
+  <app-share-button [event]="event()" />
+</footer>

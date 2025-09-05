@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background-color: var(--next-surface);
+  border: 2px solid var(--next-border);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--next-accent);
+}
+
+img {
+  border-radius: 4px;
+  overflow: hidden;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  background-color: var(--next-surface-alt);
+}
+
+.app-button {
+  border-radius: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  :host {
+    //max-width: 420px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  img {
+    height: 240px;
+    max-width: 360px;
+  }
+}

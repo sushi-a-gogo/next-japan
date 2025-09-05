@@ -4,6 +4,12 @@
   bottom: 0;
   display: flex;
   justify-content: center;
+
+  &.removed {
+    .banner {
+      display: none;
+    }
+  }
 }
 
 .banner {

@@ -92,6 +92,7 @@ export class EventPageComponent implements OnInit, OnChanges {
           }
         },
         error: (e) => {
+          this.loaded.set(true);
           this.errorService.sendError(new Error('Error fetching requested event.'));
           this.router.navigate(['./not-found']);
         },

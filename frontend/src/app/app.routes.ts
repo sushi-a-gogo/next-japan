@@ -11,8 +11,11 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    pathMatch: 'full',
+    data: { canonicalPath: '/' },
     canActivate: [userGuard]
   },
+  { path: 'home', component: HomeComponent, pathMatch: 'full', data: { canonicalPath: '/' } },
   {
     path: 'ping',
     component: PingComponent
@@ -27,12 +30,9 @@ export const routes: Routes = [
   },
   {
     path: 'about-this-project',
-    component: AboutThisProjectComponent
-  },
-  {
-    path: 'home',
-    redirectTo: '',
-    pathMatch: 'full'
+    component: AboutThisProjectComponent,
+    pathMatch: 'full',
+    data: { canonicalPath: '/about-this-project' }
   },
   {
     path: 'legal',
@@ -55,6 +55,4 @@ export const routes: Routes = [
     canActivate: [userGuard]
   },
   { path: '**', component: NotFoundComponent },
-
-
 ];

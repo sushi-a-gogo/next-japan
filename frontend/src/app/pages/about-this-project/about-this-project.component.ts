@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CanonicalService } from '@app/services/canonical.service';
 import { MetaService } from '@app/services/meta.service';
 
 @Component({
@@ -14,8 +15,11 @@ import { MetaService } from '@app/services/meta.service';
 export class AboutThisProjectComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(MetaService);
+  private route = inject(ActivatedRoute);
+  private canonicalService = inject(CanonicalService);
 
   ngOnInit(): void {
+    this.canonicalService.setCanonicalURL(this.route.snapshot.data['canonicalPath'] || '/about-this-project');
     this.title.setTitle('About Next Japan');
 
     // Set meta tags
