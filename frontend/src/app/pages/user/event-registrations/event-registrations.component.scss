@@ -3,24 +3,18 @@ ul {
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  align-items: stretch;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
   gap: 16px;
+  justify-content: center; /* keeps them centered if fewer items fit */
+  margin: 0 auto; /* keeps the item centered in its grid cell */
+}
+
+ul li {
+  width: 100%; /* let it shrink to fit */
+  margin: 0 auto; /* keeps the item centered in its grid cell */
 }
 
 .confirm-title {
   font-weight: 700;
-}
-
-@media (min-width: 768px) {
-  ul {
-    grid-template-columns: repeat(2, 0fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  ul {
-    grid-template-columns: repeat(3, 0fr);
-  }
 }

@@ -22,8 +22,8 @@ export class EventRegistrationCardComponent implements OnInit {
   isGrokEvent = computed(() => false); //this.event().aiProvider === 'Grok');
 
   resizedImage = computed(() => {
-    const width = this.isGrokEvent() ? 384 : 384;
-    return this.imageService.resizeImage(this.event().image, width, 256);
+    const width = this.isGrokEvent() ? 385 : 385;
+    return this.imageService.resizeImage(this.event().image, width, 220);
   });
 
   registrationStatus = RegistrationStatus;
