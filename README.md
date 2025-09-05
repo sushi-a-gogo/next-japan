@@ -5,22 +5,23 @@ integration, and cloud deployment — all wrapped in a playful, visually engagin
 
 Goals
 - Demonstrate Angular v20 component-driven development
-- Learn 'modern' reactive angular programming techniques: signals, computed() and effect()
-- Implement a real-world REST API with Express
+- Learn modern reactive angular programming techniques with signals, computed(), and effect()
+- Implement a real-world REST API with Node.js/Express
 - Deploy both frontend and backend to the cloud (Render)
-- Integrate OpenAI API to enhance interactivity
+- Integrate OpenAI and xAI APIs to enhance interactivity
+- Cloudflare Images integration for optimized, globally cached image delivery
 - SSR for optimized performance and SEO
 
 Tech Stack
 
 Layer Tools Used
-- Frontend Angular v20, Angular Router, Angular Material
+- Frontend Angular v20, Angular Material
 - Backend Node.js, Express, serverless-style API design
 - MongoDB for persistent event storage and dynamic content management
 - Hosting Render (static + web service)
+- Cloudflare Image Hosting
 - Integration OpenAI and xAI APIs (text and image generation, assistant logic)
-- Data Source Simulated API with local JSON file mock data
-- Environment .env variables, prod/staging configs, CORS, rate limiting
+- Environment .env variables, prod/dev configs, CORS, rate limiting for AI endpoints
 
 ### AI-Generated Events
-Events can be generated using OpenAI/xAI integration. The backend ensures all events, including AI-generated ones, are saved to MongoDB.
+Events can be generated using OpenAI/xAI integration. The backend ensures all events, including AI-generated ones, can be saved to MongoDB.
