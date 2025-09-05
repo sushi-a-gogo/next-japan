@@ -2,10 +2,12 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { AboutComponent } from "@app/components/about/about.component";
 import { LayoutComponent } from "@app/components/layout/layout.component";
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
+import { CanonicalService } from '@app/services/canonical.service';
 import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -29,6 +31,8 @@ export class HomeComponent implements OnInit {
   events = signal<EventData[]>([]);
   eventsLoaded = signal(false);
 
+  private route = inject(ActivatedRoute);
+  private canonicalService = inject(CanonicalService);
   private eventsService = inject(EventsService);
   private opportunityService = inject(OpportunityService);
   private imageService = inject(ImageService);
@@ -54,6 +58,7 @@ export class HomeComponent implements OnInit {
   org = organization;
 
   ngOnInit(): void {
+    this.canonicalService.setCanonicalURL(this.route.snapshot.data['canonicalPath'] || '/');
     this.title.setTitle(`${organization.name}`);
     // Set meta tags
     const description = 'Discover Next Japan: a modern Angular and Node.js web app with AI features, built to showcase skills and deliver engaging user experiences.';
@@ -61,9 +66,14 @@ export class HomeComponent implements OnInit {
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
 
-    this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((events) => {
-      this.events.set(events)
-      this.eventsLoaded.set(true);
+    this.fetchEvents$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (events) => {
+        this.events.set(events)
+        this.eventsLoaded.set(true);
+      },
+      error: () => {
+        this.eventsLoaded.set(true);
+      },
     })
   }
 

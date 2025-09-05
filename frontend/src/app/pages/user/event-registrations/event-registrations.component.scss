@@ -2,32 +2,25 @@ ul {
   margin: 0;
   padding: 0;
   list-style: none;
-
-  li.event:not(:last-child) {
-    padding-bottom: 36px;
-  }
-
-  li:not(:last-child) {
-    border-bottom: 1px solid var(--next-border);
-  }
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: stretch;
+  justify-content: center;
+  gap: 16px;
 }
 
 .confirm-title {
   font-weight: 700;
 }
 
-.card {
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--next-border);
+@media (min-width: 768px) {
+  ul {
+    grid-template-columns: repeat(2, 0fr);
+  }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 1200px) {
   ul {
-    gap: 10px;
-  }
-
-  li:first-child:not(:last-child),
-  li:not(:last-child) {
-    border-bottom: 1px solid var(--next-border);
+    grid-template-columns: repeat(3, 0fr);
   }
 }

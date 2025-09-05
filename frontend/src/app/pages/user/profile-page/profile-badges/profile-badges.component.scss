@@ -4,6 +4,12 @@
   gap: 16px;
 }
 
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  //color: var(--next-note);
+}
+
 .soft {
   font-weight: 500;
   color: var(--next-note);
@@ -63,7 +69,7 @@
 }
 
 .favorite {
-  background-color: var(--pink-cherry-blossoms);
+  background-color: var(--red-torii-gate);
   color: #fff;
 }
 

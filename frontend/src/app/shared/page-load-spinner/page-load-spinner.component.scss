@@ -1,32 +1,10 @@
-section {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 101;
-  transition: 0.25s ease-in;
-
-  &.overlay {
-    background-color: rgba($color: #000, $alpha: 0.66);
-  }
-}
-
-.spinner-box {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%); /* Shifts the element up by half its height */
-  z-index: 1000;
-  margin: 0 auto;
-  opacity: 0;
-
-  &.show {
-    opacity: 1;
+:host {
+  &.removed {
+    display: none;
   }
 }
 
 .loading-message {
   color: var(--vivid-yellow-text);
+  font-weight: 600;
 }

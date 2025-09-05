@@ -1,19 +1,29 @@
-import { Component, input, OnInit, signal } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Component, HostBinding, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-page-load-spinner',
-  imports: [MatProgressSpinnerModule],
+  imports: [NgxSpinnerComponent],
   templateUrl: './page-load-spinner.component.html',
   styleUrl: './page-load-spinner.component.scss'
 })
-export class PageLoadSpinnerComponent implements OnInit {
+export class PageLoadSpinnerComponent implements OnInit, OnChanges {
+  @HostBinding('class.removed') removed = false;
+
   delay = input<number>(250);
-  showSpinner = signal(false);
+  remove = input<boolean>(false);
+  private spinner = inject(NgxSpinnerService);
 
   ngOnInit() {
+    this.spinner.hide();
     setTimeout(() => {
-      this.showSpinner.set(true);
+      this.spinner.show();
     }, this.delay());
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['remove']) {
+      this.removed = changes['remove']?.currentValue || false;
+    }
   }
 }

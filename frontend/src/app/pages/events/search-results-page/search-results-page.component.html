@@ -1,8 +1,4 @@
-<!-- load spinner-->
-@if(!loaded()) {
-<app-page-load-spinner />
-}
-
+<app-page-load-spinner [remove]="loaded()" [delay]="100" />
 <article
   class="component-box nx-flex flex-column gap-24 fade-in"
   [class.open]="loaded()"

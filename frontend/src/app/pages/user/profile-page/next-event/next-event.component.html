@@ -1,27 +1,3 @@
-@if(suggestedEvent()) {
-<div class="nx-flex col gap-20">
-  <header>
-    <div class="subhead card-title">
-      {{ suggestedEvent()!.eventTitle }}
-    </div>
-  </header>
-  <main>
-    @if(suggestedEventImage()) {
-    <img [src]="suggestedEventImage()!.src" alt="An image of the event." />
-    }
-    <p>
-      {{ suggestedEvent()!.description }}
-    </p>
-  </main>
-  <footer class="nx-flex row al-c gap-10">
-    <a
-      class="app-button app-button-filled"
-      [routerLink]="suggestedRouterLink()"
-    >
-      Open Event Details
-    </a>
-    <app-like-button [event]="suggestedEvent()!" />
-    <app-share-button [event]="suggestedEvent()!" />
-  </footer>
-</div>
+@for(event of suggestedEvents(); track event.eventId) {
+<app-next-event-card [event]="event" />
 }
