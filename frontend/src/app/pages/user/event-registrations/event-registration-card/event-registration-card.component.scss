@@ -11,20 +11,6 @@
   height: 100%;
 }
 
-.image-button {
-  &:hover {
-    .image-container {
-      img {
-        filter: brightness(85%);
-
-        &.no-image {
-          filter: brightness(95%);
-        }
-      }
-    }
-  }
-}
-
 .image-container {
   border-radius: 4px;
   background: url("/assets/images/no-image.png");
