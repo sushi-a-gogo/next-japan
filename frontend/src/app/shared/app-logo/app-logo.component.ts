@@ -18,7 +18,7 @@ export class AppLogoComponent {
     height: 1024
   };
 
-  width = input<number>(92);
+  width = input<number>(96);
 
   image = computed(() => {
     const height = Math.ceil(this.width() * 2 / 3);
