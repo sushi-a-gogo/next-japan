@@ -1,16 +1,14 @@
 <div class="card-container">
-  <a type="button" [routerLink]="routerLink" class="image-button">
-    <div class="image-container" [class.grok]="isGrokEvent()">
-      <img
-        alt="Event Image"
-        [ngSrc]="resizedImage().src"
-        [width]="resizedImage().image.width"
-        [height]="resizedImage().image.height"
-        placeholder
-        priority
-      />
-    </div>
-  </a>
+  <div class="image-container" [class.grok]="isGrokEvent()">
+    <img
+      alt="Event Image"
+      [ngSrc]="resizedImage().src"
+      [width]="resizedImage().image.width"
+      [height]="resizedImage().image.height"
+      placeholder
+      priority
+    />
+  </div>
   <div class="card-body">
     <div class="nx-flex col gap-10">
       <div class="title break-word">

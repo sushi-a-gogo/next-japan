@@ -11,20 +11,6 @@
   height: 100%;
 }
 
-.image-button {
-  &:hover {
-    .image-container {
-      img {
-        filter: brightness(85%);
-
-        &.no-image {
-          filter: brightness(95%);
-        }
-      }
-    }
-  }
-}
-
 .image-container {
   border-radius: 4px;
   background: url("/assets/images/no-image.png");
@@ -57,9 +43,10 @@
 }
 
 .title {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--next-muted);
 }
 
 .subtitle {

@@ -48,7 +48,7 @@ export class AuthMockService {
     this.setUser(null);
     this.eventRegistrationService.clearUserRegistrations();
 
-    const url = decodeURIComponent(redirectTo) || '/home';
+    const url = decodeURIComponent(redirectTo) || '/';
     // If url starts with '/', remove it for router.navigate to treat it as an absolute path
     const path = url.startsWith('/') ? url.substring(1) : url;
     this.router.navigate([path]).then(() => { });
