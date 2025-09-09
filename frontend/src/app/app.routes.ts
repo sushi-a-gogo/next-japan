@@ -15,7 +15,13 @@ export const routes: Routes = [
     data: { canonicalPath: '/' },
     canActivate: [userGuard]
   },
-  { path: 'home', component: HomeComponent, pathMatch: 'full', data: { canonicalPath: '/' } },
+  {
+    path: 'home',
+    component: HomeComponent,
+    pathMatch: 'full',
+    data: { canonicalPath: '/' },
+    canActivate: [userGuard]
+  },
   {
     path: 'ping',
     component: PingComponent
