@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input, Input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { ImageService } from '@app/services/image.service';
 import { Avatar } from 'src/app/models/avatar.model';
 
@@ -13,11 +13,11 @@ export class AvatarComponent {
   private imageService = inject(ImageService);
 
   avatar = input.required<Avatar>();
-  @Input() size: number = 33;
-  @Input() altText = 'Avatar';
+  size = input<number>(33);
+  altText = input<string>('A user avatar');
 
   resizedImage = computed(() => {
-    const imageSize = this.size * 2;// Math.max(this.size, this.MIN_IMAGE_SIZE);
+    const imageSize = this.size() * 2;// Math.max(this.size, this.MIN_IMAGE_SIZE);
     return this.imageService.resizeImage(this.avatar().image, imageSize, imageSize);
   });
 
