@@ -1,4 +1,4 @@
-@if(show) {
+@if(isComponentActive()) {
 <form class="search-container" (ngSubmit)="search()">
   <mat-form-field
     appearance="outline"
@@ -23,7 +23,7 @@
       #auto="matAutocomplete"
       (optionSelected)="onOptionSelected($event)"
     >
-      @for (event of filteredEvents; track event.eventId) {
+      @for (event of filteredEvents(); track event.eventId) {
       <mat-option [value]="event.eventTitle">{{ event.eventTitle }}</mat-option>
       }
     </mat-autocomplete>

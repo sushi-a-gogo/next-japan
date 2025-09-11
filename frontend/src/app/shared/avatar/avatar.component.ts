@@ -22,7 +22,7 @@ export class AvatarComponent {
   });
 
   styleCss = computed(() => ({
-    width: `${this.size}px`,
-    height: `${this.size}px`,
+    width: `${this.size()}px`,
+    height: `${this.size()}px`,
   }));
 }
