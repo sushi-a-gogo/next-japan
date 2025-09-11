@@ -59,10 +59,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.canonicalService.setCanonicalURL(this.route.snapshot.data['canonicalPath'] || '/');
-    this.title.setTitle(`${organization.name}`);
+    this.title.setTitle(`${organization.title}`);
+
     // Set meta tags
-    const description = 'Discover Next Japan: a modern Angular and Node.js web app with AI features, built to showcase skills and deliver engaging user experiences.';
-    this.meta.updateTags(this.title.getTitle(), description);
+    this.meta.updateTags(this.title.getTitle(), organization.description);
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
 

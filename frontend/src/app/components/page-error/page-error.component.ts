@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ImageService } from '@app/services/image.service';
@@ -26,8 +26,6 @@ export class PageErrorComponent {
   });
 
   errorMessage = input<string>(`We're sorry. The requested page could not be loaded.`);
-  @Input() errorTitle = 'Page not available.';
-  @Input() routerLink?: string;
-  @Input() routerLinkText?: string;
+  errorTitle = input<string>('Page not available.');
 
 }

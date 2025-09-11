@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, effect, ElementRef, HostBinding, HostListener, inject, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -14,23 +14,26 @@ import { debounceTime, filter, of, switchMap } from 'rxjs';
   selector: 'app-search-autocomplete',
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './search-autocomplete.component.html',
-  styleUrl: './search-autocomplete.component.scss'
+  styleUrl: './search-autocomplete.component.scss',
+  host: {
+    '[class.show]': 'isComponentActive()',
+    '[class.open]': 'isOpen()'
+  }
 })
 export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
-  @HostBinding('class.show') show = false;
-  @HostBinding('class.open') open = false;
-
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (this.open && event.key === 'Escape') {
+    if (this.isOpen() && event.key === 'Escape') {
       this.eventSearchService.toggleSearchMode();
     }
   }
 
   searchQuery = new FormControl('');
-  filteredEvents: EventData[] = [];
+  filteredEvents = signal<EventData[]>([]);
   selectedValue?: string;
+  isComponentActive = signal<boolean>(false);
 
+  private isOpen = signal<boolean>(false);
   private searchInput = viewChild<ElementRef>('searchInput');
   private trigger = viewChild<MatAutocompleteTrigger>('autocompleteInput');
   private router = inject(Router);
@@ -42,14 +45,14 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
     effect(() => {
       const inSearchMode = this.eventSearchService.searchMode();
       if (inSearchMode) {
-        this.show = true;
+        this.isComponentActive.set(true);
         setTimeout(() => {
-          this.open = true;
+          this.isOpen.set(true);
           this.searchInput()?.nativeElement.click();
         }, 100);
       } else {
-        this.open = false;
-        setTimeout(() => this.show = false, 10);
+        this.isOpen.set(false);
+        setTimeout(() => this.isComponentActive.set(false), 10);
       }
     });
   }
@@ -71,7 +74,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(events => {
-      this.filteredEvents = events;
+      this.filteredEvents.set(events);
     });
   }
 
@@ -89,7 +92,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
   onOptionSelected(event: any) {
     this.selectedValue = event.option.value;
     console.log('onOptionSelected: ' + this.selectedValue);
-    const selectedEvent = this.filteredEvents.find(e => e.eventTitle === this.selectedValue);
+    const selectedEvent = this.filteredEvents().find(e => e.eventTitle === this.selectedValue);
     if (selectedEvent) {
       // Navigate to event page
       this.router.navigate([`/event/${selectedEvent.eventId}`]);
