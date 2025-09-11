@@ -6,6 +6,7 @@ integration, and cloud deployment — all wrapped in a playful, visually engagin
 Goals
 - Demonstrate Angular v20 component-driven development
 - Learn modern reactive angular programming techniques with signals, computed(), and effect()
+- Zoneless architecture – removed Zone.js in favor of Angular’s new provideZonelessChangeDetection() for optimal performance.
 - Implement a real-world REST API with Node.js/Express
 - Deploy both frontend and backend to the cloud (Render)
 - Integrate OpenAI and xAI APIs to enhance interactivity
