@@ -1,7 +1,8 @@
 import { OrganizationInformation } from "@app/models/organization-information.model";
 
 const organization: OrganizationInformation = {
-  name: "Next Japan",
+  title: "Next Japan - Zoneless Angular v20 Demo",
+  description: 'Discover Next Japan: a zoneless, 100% signal-driven Angular v20 demo app with SSR and AI-enabled features, built from scratch to showcase the future of Angular performance and modern web development.',
   image: {
     id: "tokyo-night.png",
     cloudflareImageId: "d3734dbe-2b91-4728-331e-f78c8284a500",
