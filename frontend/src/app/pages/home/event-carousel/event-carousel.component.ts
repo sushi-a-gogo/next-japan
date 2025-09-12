@@ -1,9 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
+import { NgxConveyerDirective, NgxConveyerModule } from '@egjs/ngx-conveyer';
 import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
@@ -22,7 +23,7 @@ const BreakpointsConfig = [
 @Component({
   selector: 'app-event-carousel',
   standalone: true,
-  imports: [EventCardComponent],
+  imports: [NgxConveyerModule, EventCardComponent],
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +45,8 @@ const BreakpointsConfig = [
 })
 export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
+  @ViewChild("conveyer") conveyer!: NgxConveyerDirective;
+
   animationState = signal('out');
 
   events = input<EventData[]>([]);
@@ -56,7 +59,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private destroyRef = inject(DestroyRef);
   private platformId = inject(PLATFORM_ID);
   private breakpointObserver = inject(BreakpointObserver);
-  private cdr = inject(ChangeDetectorRef);
 
   disablePrevButton = computed(() => this.currentIndex() === 0);
   disableNextButton = computed(() => this.currentIndex() >= this.sortedEvents().length - this.eventsPerView());
@@ -64,17 +66,15 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['events']) {
       this.sortedEvents.set([...this.events().sort(this.sortByDate)]);
-      this.cdr.markForCheck();
     }
   }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.setupBreakpoints();
-      this.scrollToIndex(this.currentIndex());
-      this.setupScrollListener();
       const items = this.carouselTrack.nativeElement.querySelectorAll('.event-item');
       this.animateIn(items);
+      this.setupScrollListener();
     }
   }
 
@@ -112,7 +112,6 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
           this.currentIndex.set(0);
         }
         this.scrollToIndex(this.currentIndex());
-        this.cdr.markForCheck();
       });
   }
 
@@ -125,17 +124,14 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
           const newIndex = Math.ceil(scrollLeft / CARD_WIDTH);
           if (newIndex !== this.currentIndex()) {
             this.currentIndex.set(newIndex);
-            this.cdr.markForCheck();
           }
         });
     }
   }
 
-  private animateIn(items: HTMLElement[], observer?: IntersectionObserver) {
+  private animateIn(items: HTMLElement[]) {
     requestAnimationFrame(() => {
       this.animationState.set('in');
-      this.cdr.markForCheck();
-      //this.hasAnimated = true;
       // Force repaint
       requestAnimationFrame(() => {
         items.forEach((item: HTMLElement, index: number) => {
@@ -144,16 +140,17 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
           item.style.transform = '';
         });
       });
-      //observer?.disconnect();
     });
   }
 
   private scrollToIndex(index: number) {
-    if (this.carouselTrack && isPlatformBrowser(this.platformId)) {
-      const cardSlotWidth = CARD_WIDTH;
-      this.carouselTrack.nativeElement.scrollLeft = index * cardSlotWidth;
+    if (isPlatformBrowser(this.platformId)) {
+      /*
+      -- pure css solution --
+      this.carouselTrack.nativeElement.scrollLeft = index * CARD_WIDTH;
+      */
+      this.conveyer?.scrollTo(index * CARD_WIDTH, 500);
       this.currentIndex.set(index);
-      this.cdr.markForCheck();
     }
   }
 }
