@@ -4,7 +4,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { getRegistrationContext } from '@app/models/event/event-registration.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 
@@ -15,7 +15,7 @@ import { EventSelectionService } from '@app/services/event-selection.service';
   styleUrl: './opportunity-selector.component.scss'
 })
 export class OpportunitySelectorComponent {
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);
 

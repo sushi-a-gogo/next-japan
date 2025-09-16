@@ -6,7 +6,7 @@
   <form
     class="nx-flex col gap-24"
     #signInForm="ngForm"
-    (ngSubmit)="signIn.emit(selectedUser()!.userId)"
+    (ngSubmit)="signIn.emit(selectedUser()!.email)"
   >
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Email Address</mat-label>

@@ -1,19 +1,19 @@
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
-import { LOCAL_STORAGE_USER_KEY, StorageService } from './storage.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
-  private storage = inject(StorageService);
+  private tokenService = inject(TokenService);
 
   private showDialogSignal = signal<string>('');
   showDialog = this.showDialogSignal.asReadonly();
 
   constructor() {
     afterNextRender(() => {
-      const savedStatus = this.storage.local.getItem(LOCAL_STORAGE_USER_KEY);
-      if (!savedStatus) {
+      const auth = this.tokenService.getToken();
+      if (!auth) {
         this.showDialogSignal.set('about');
       }
     });

@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { UserProfile } from '@app/models/user-profile.model';
 import { User } from '@app/models/user.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { Plan } from '@models/plan.interface';
 import { delay, switchMap } from 'rxjs';
@@ -20,7 +20,7 @@ import { PaymentForm } from './payment.form';
   styleUrl: './plan-payment.component.scss'
 })
 export class PlanPaymentComponent implements OnInit {
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private userService = inject(UserProfileService);
   private destroyRef = inject(DestroyRef);
 

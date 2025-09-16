@@ -22,11 +22,8 @@ article {
     font-size: 22px;
     line-height: 28px;
     font-weight: 700;
+    color: var(--vivid-yellow-text);
   }
-}
-
-.highlight {
-  color: var(--vivid-yellow-text);
 }
 
 ul {
@@ -50,7 +47,8 @@ ul {
 }
 
 a {
-  color: var(--vivid-yellow-text);
+  color: var(--bright-blue-sky);
+  font-weight: 500;
 
   &.home {
     color: var(--bright-blue-sky);

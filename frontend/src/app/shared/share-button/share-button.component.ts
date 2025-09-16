@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/models/event/event-data.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { DateTimeService } from '@app/services/date-time.service';
 import { ShareService } from '@app/services/share.service';
 import { environment } from '@environments/environment';
@@ -18,7 +18,7 @@ import { forkJoin } from 'rxjs';
   styleUrl: './share-button.component.scss'
 })
 export class ShareButtonComponent implements OnInit {
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private dateTime = inject(DateTimeService);
   private shareService = inject(ShareService);
   private platformId = inject(PLATFORM_ID);

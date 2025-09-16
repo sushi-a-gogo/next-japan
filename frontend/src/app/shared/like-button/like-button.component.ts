@@ -2,7 +2,7 @@ import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/models/event/event-data.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { DateTimeService } from '@app/services/date-time.service';
 import { LikeService } from '@app/services/like.service';
 import { forkJoin, of } from 'rxjs';
@@ -15,7 +15,7 @@ import { forkJoin, of } from 'rxjs';
 })
 export class LikeButtonComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private dateTime = inject(DateTimeService);
   private likeService = inject(LikeService);
 
@@ -31,7 +31,6 @@ export class LikeButtonComponent implements OnInit {
   private uniqueNum = signal<number>(0);
 
   ngOnInit(): void {
-    console.log(this.color());
     const eventId = this.event().eventId;
     const observables = {
       likeCount: this.likeService.getLikeCount$(eventId),

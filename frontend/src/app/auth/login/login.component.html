@@ -4,7 +4,7 @@
   (signUp)="signUp($event)"
   (goBack)="goBack()"
 />
-} @else if(userId || busy()) {
+} @else if(authToken || busy()) {
 <div class="overlay">
   <div class="spinner nx-flex col al-c jc-c gap-10">
     <ngx-spinner [fullScreen]="false" type="ball-scale-multiple" size="large">

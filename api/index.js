@@ -4,6 +4,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import aiRouter from "./routes/ai-integration.js";
+import authRouter from "./routes/auth.js";
 import eventRouter from "./routes/event.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
@@ -48,6 +49,7 @@ app.use(
 connectDB().catch((err) => console.error("MongoDB connection error:", err));
 
 // Mount routers
+app.use("/api/auth", authRouter);
 app.use("/api/organization", organizationRouter); // JSON app data
 app.use("/api/event", eventRouter); // JSON events
 app.use("/api/events", eventsRouter); // MongoDB events

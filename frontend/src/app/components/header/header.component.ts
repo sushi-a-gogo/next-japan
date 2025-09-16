@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { ColorBarComponent } from "./color-bar/color-bar.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { UserNavbarComponent } from "./user-navbar/user-navbar.component";
@@ -13,7 +13,7 @@ import { UserNavbarComponent } from "./user-navbar/user-navbar.component";
 
 })
 export class HeaderComponent {
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   isAuthenticated = this.authService.isAuthenticated;
   user = this.authService.user;
 }

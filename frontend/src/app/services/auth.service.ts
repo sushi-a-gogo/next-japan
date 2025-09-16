@@ -1,45 +1,50 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiResponse } from '@app/models/api-response.model';
 import { User } from '@app/models/user.model';
-import { delay, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { environment } from '@environments/environment';
+import { catchError, delay, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { ErrorService } from './error.service';
 import { EventRegistrationService } from './event-registration.service';
 import { NotificationService } from './notification.service';
-import { LOCAL_STORAGE_USER_KEY, StorageService } from './storage.service';
 import { ThemeService } from './theme.service';
-import { UserProfileService } from './user-profile.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthMockService2 {
+export class AuthService {
+  private http = inject(HttpClient);
   private router = inject(Router);
-  private storage = inject(StorageService);
-  private themeService = inject(ThemeService);
-  private userService = inject(UserProfileService);
+
+  private errorService = inject(ErrorService);
   private eventRegistrationService = inject(EventRegistrationService);
   private notificationService = inject(NotificationService);
+  private themeService = inject(ThemeService);
+  private tokenService = inject(TokenService);
 
-  private authenticated = signal<boolean>(false);
-  isAuthenticated = this.authenticated.asReadonly();
-
-  private activatedSignal = signal<boolean>(false);
-  activated = this.activatedSignal.asReadonly();
+  private apiUrl = `${environment.apiUrl}/api/auth`;
 
   private userSignal = signal<User | null>(null);
   user = this.userSignal.asReadonly();
 
-  userStatusChecked() {
-    this.activatedSignal.set(true);
-  }
+  isAuthenticated = computed(() => !!this.user());
 
-  login$(userId: string) {
-    return this.userService.getUser$(userId).pipe(
-      delay(1500), // simulate login process
-      switchMap((resp) => {
-        this.setUser(resp.data);
-        return resp.data ? this.fetchUserData$(userId) : of(null)
+  login$(email: string, delayInMs = 1500): Observable<User | null> {
+    return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }).pipe(
+      delay(delayInMs),
+      switchMap((res) => {
+        if (res.success) {
+          this.setUser(res.data.user);
+          this.tokenService.setToken(res.data.token);
+        }
+
+        return res.success ? this.fetchUserData$(res.data.user.userId) : of(null)
       }),
-      tap(() => this.userStatusChecked()),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error logging in User', true)
+      }),
       map(() => this.user())
     );
   }
@@ -52,6 +57,15 @@ export class AuthMockService2 {
     // If url starts with '/', remove it for router.navigate to treat it as an absolute path
     const path = url.startsWith('/') ? url.substring(1) : url;
     this.router.navigate([path]).then(() => { });
+  }
+
+  hydrateFromToken$() {
+    const payload = this.tokenService.decodeToken();
+    if (payload) {
+      return this.login$(payload.email, 0);
+    }
+
+    return of(null);
   }
 
   updateUserData(userData: User) {
@@ -71,11 +85,10 @@ export class AuthMockService2 {
     return forkJoin(observables);
   }
 
-  private setUser(user: User | null) {
-    const data = this.storeUser(user);
-    this.userSignal.set(data);
-    this.authenticated.set(!!data);
-    this.themeService.setAppearanceMode(data?.mode);
+  private setUser(user2: User | null) {
+    const user = this.storeUser(user2);
+    this.userSignal.set(user);
+    this.themeService.setAppearanceMode(user?.mode);
   }
 
   private storeUser(user: User | null): User | null {
@@ -90,12 +103,12 @@ export class AuthMockService2 {
         createdAt: user.createdAt,
         mode: user.mode
       };
-
-      this.storage.local.setItem(LOCAL_STORAGE_USER_KEY, user.userId);
       return data;
     } else {
-      this.storage.local.removeItem(LOCAL_STORAGE_USER_KEY)
+      this.tokenService.clearToken();
       return null;
     }
   }
+
+
 }

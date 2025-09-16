@@ -1,7 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { AuthMockService } from '@app/services/auth-mock.service';
 
 @Component({
   selector: 'app-login-button',
@@ -11,8 +10,6 @@ import { AuthMockService } from '@app/services/auth-mock.service';
 })
 export class LoginButtonComponent {
   signup = input<boolean>(false);
-
-  private auth = inject(AuthMockService);
   private router = inject(Router);
 
   login() {

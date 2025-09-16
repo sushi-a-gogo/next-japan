@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventRegistration } from '@app/models/event/event-registration.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { NotificationService } from '@app/services/notification.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
@@ -21,7 +21,7 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
 export class EventRegistrationsComponent implements OnInit {
   private registrationService = inject(EventRegistrationService);
   private notificationService = inject(NotificationService);
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
 
   loaded = signal(false);

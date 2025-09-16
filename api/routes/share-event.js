@@ -1,6 +1,7 @@
 import express from "express";
 import Event from "../models/Event.js";
 import Share from "../models/Share.js";
+import { authorized } from "../utils/authHelpers.js";
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ router.post("/", async (req, res) => {
   }
 
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     await Share.updateOne(
       { userId, eventId },
       { shared: true, createdAt: new Date() },

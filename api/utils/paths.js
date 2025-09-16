@@ -1,6 +1,11 @@
 import { resolveRoot } from "./resolveRoot.js";
 
 export const USERS_JSON = resolveRoot("data", "users", "default-users.json");
+export const USERS_REWARDS_JSON = resolveRoot(
+  "data",
+  "users",
+  "user-rewards.json"
+);
 export const EVENTS_JSON = resolveRoot("data", "events", "events.json");
 export const LOCATIONS_JSON = resolveRoot(
   "data",

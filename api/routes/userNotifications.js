@@ -1,18 +1,23 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import { authMiddleware } from "../middleware/auth.js";
 import EventOpportunity from "../models/EventOpportunity.js";
 import User from "../models/User.js";
 import UserNotification, {
   formatNotification,
 } from "../models/UserNotification.js";
+import { authorized } from "../utils/authHelpers.js";
 
 dotenv.config();
 const router = express.Router();
 
 // GET notifications for a specific userId
-router.get("/user/:userId", async (req, res) => {
+router.get("/user/:userId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res, true)) {
+      return;
+    }
     const { userId } = req.params;
 
     // Validate userId format
@@ -58,8 +63,12 @@ router.get("/user/:userId", async (req, res) => {
 });
 
 // POST new notification
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { userId, title, message, opportunityId } = req.body;
 
     // Input validation
@@ -143,8 +152,12 @@ router.get("/:notificationId", async (req, res) => {
 });
 
 // PUT update notification
-router.put("/:notificationId", async (req, res) => {
+router.put("/:notificationId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { notificationId } = req.params;
     const { userId, title, message, opportunityId } = req.body;
 
@@ -204,8 +217,12 @@ router.put("/:notificationId", async (req, res) => {
 //   → deletes a single notification
 // - DELETE /notifications/all?userId=...
 //   → deletes ALL notifications for the user
-router.delete("/:notificationId", async (req, res) => {
+router.delete("/:notificationId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { notificationId } = req.params;
     const { userId } = req.query; // required for "all"
 

@@ -11,7 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
 import { AiEvent } from '@app/models/event/ai-event.model';
 import { AiService } from '@app/services/ai.service';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-content-generator',
@@ -20,7 +20,7 @@ import { AuthMockService } from '@app/services/auth-mock.service';
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent implements OnInit {
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private aiService = inject(AiService);
   private destroyRef = inject(DestroyRef);
 

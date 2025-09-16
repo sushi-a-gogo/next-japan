@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import fadeIn from '@app/animations/fadeIn.animation';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { delay } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { delay } from 'rxjs';
 })
 export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private spinner = inject(NgxSpinnerService);
   private destroyRef = inject(DestroyRef);
 

@@ -1,9 +1,8 @@
 
-import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventSearchService } from '@app/services/event-search.service';
 import { filter } from 'rxjs';
 import { FooterComponent } from "../footer/footer.component";
@@ -22,9 +21,8 @@ export class LayoutComponent {
   private eventSearch = inject(EventSearchService);
   inSearchMode = this.eventSearch.searchMode;
 
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   isAuthenticated = this.authService.isAuthenticated;
-  authIsActivated = computed(() => isPlatformBrowser(this.platformId) && this.authService.activated());
 
   constructor(router: Router) {
     router.events.pipe(

@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
@@ -23,7 +23,7 @@ import { delay, of } from 'rxjs';
   styleUrl: './registration-dialog.component.scss'
 })
 export class RegistrationDialogComponent {
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private eventService = inject(EventService);
   private registrationService = inject(EventRegistrationService);
   private selectionService = inject(EventSelectionService);

@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UserProfile } from '@app/models/user-profile.model';
 import { User } from '@app/models/user.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { ModalComponent } from "@shared/modal/modal.component";
@@ -22,7 +22,7 @@ import { UserProfileForm } from './user-profile.form';
   styleUrl: './user-profile.component.scss'
 })
 export class UserProfileComponent implements OnInit {
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private userProfileService = inject(UserProfileService);
 
   user = input.required<User>();
