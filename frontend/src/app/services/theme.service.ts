@@ -14,18 +14,17 @@ export class ThemeService {
   }
 
   manageTheme() {
-    const useDarkTheme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && this.isDeviceSetToDarkTheme());
-    if (useDarkTheme) {
-      document?.body?.classList.add('dark-theme');
-    } else {
-      document?.body?.classList.remove('dark-theme');
+    if (isPlatformBrowser(this.platformId)) {
+      const useDarkTheme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && this.preferDarkTheme());
+      if (useDarkTheme) {
+        document?.body?.classList.add('dark-theme');
+      } else {
+        document?.body?.classList.remove('dark-theme');
+      }
     }
   }
 
-  private isDeviceSetToDarkTheme() {
-    if (isPlatformBrowser(this.platformId)) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-    }
-    return false;
+  private preferDarkTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
   }
 }

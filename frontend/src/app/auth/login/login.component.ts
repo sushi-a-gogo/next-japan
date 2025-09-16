@@ -4,7 +4,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { AuthService } from '@app/services/auth.service';
-import { TokenService } from '@app/services/token.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { of, switchMap } from 'rxjs';
@@ -24,31 +23,28 @@ export class LoginComponent implements OnInit {
 
   private auth = inject(AuthService);
   private userService = inject(UserProfileService);
-  private tokenService = inject(TokenService);
   private path = '/user/profile';
 
   showLoginSteps = signal<boolean>(false);
-  authToken = this.tokenService.getToken();
   busy = signal<boolean>(false);
 
   ngOnInit(): void {
     this.spinner.show();
     this.route.queryParams.pipe(
       switchMap((params) => {
-        const returnToUrl = decodeURIComponent(params['returnTo']);
+        const returnToUrl = params['returnTo'] ? decodeURIComponent(params['returnTo']) : '/';
         if (returnToUrl) {
           // If route starts with '/', remove it for router.navigate to treat it as an absolute path
           const url = returnToUrl?.startsWith('/') ? returnToUrl.substring(1) : returnToUrl;
           this.path = url;
         }
 
-        const email = this.tokenService.decodeToken()?.email;
-        return email ? this.auth.login$(email) : of(null);
+        return of(this.auth.token);
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (user) => {
-        if (user) {
+      next: (token) => {
+        if (token) {
           this.goBack();
         } else {
           setTimeout(() => {
@@ -58,7 +54,6 @@ export class LoginComponent implements OnInit {
         }
       },
       error: () => {
-        this.tokenService.clearToken();
         this.goBack();
       }
     })
