@@ -154,13 +154,13 @@ router.put("/update", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/:id", authMiddleware, async (req, res) => {
+router.get("/:userId", authMiddleware, async (req, res) => {
   try {
     if (!authorized(req, res, true)) {
       return;
     }
 
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const formattedUser = {
@@ -186,12 +186,12 @@ router.get("/:id", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/:id/rewards", authMiddleware, async (req, res) => {
+router.get("/:userId/rewards", authMiddleware, async (req, res) => {
   try {
     if (!authorized(req, res, true)) {
       return;
     }
-    const rewards = await UserReward.find({ userId: req.params.id }).lean();
+    const rewards = await UserReward.find({ userId: req.params.userId }).lean();
     if (!rewards) return res.status(200).json({ success: true, data: [] });
 
     res.status(200).json({ success: true, data: rewards });

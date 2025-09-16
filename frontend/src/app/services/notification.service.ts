@@ -34,6 +34,10 @@ export class NotificationService {
     return this.fetchUserNotifications$(userId);
   }
 
+  clearUserNotifications() {
+    return this.notificationSignal.set([]);
+  }
+
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
     return this.http.get<ApiResponse<EventNotification>>(`${this.apiUri}/${notificationId}`).pipe(
       debug(RxJsLoggingLevel.DEBUG, 'getNotification')

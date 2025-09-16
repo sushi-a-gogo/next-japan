@@ -11,7 +11,7 @@ import { UserProfileService } from './user-profile.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthMockService2 {
+export class AuthMockService {
   private router = inject(Router);
   private storage = inject(StorageService);
   private themeService = inject(ThemeService);

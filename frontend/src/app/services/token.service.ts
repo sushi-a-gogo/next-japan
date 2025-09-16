@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { StorageService } from './storage.service';
 
 interface DecodedToken {
-  id: string;
+  userId: string;
   email: string;
   exp: number; // expiration timestamp (seconds since epoch)
   iat: number; // issued at

@@ -10,12 +10,12 @@ function getJwtSecret() {
   return process.env.JWT_SECRET;
 }
 
-export function generateToken(id, email) {
+export function generateToken(userId, email) {
   const JWT_SECRET = getJwtSecret();
-  const token = jwt.sign({ id, email }, JWT_SECRET, {
+  const token = jwt.sign({ userId, email }, JWT_SECRET, {
     expiresIn: JWT_EXPIRES_IN,
   });
-  console.log("generatedToken", { id, email, token });
+  console.log("generatedToken", { userId, email, token });
   return token;
 }
 

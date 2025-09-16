@@ -11,8 +11,8 @@ export function authorized(req, res, matchParamId = false) {
     return false;
   }
 
-  const userId = req.params.id || req.params.userId;
-  if (matchParamId && req.user.id !== userId) {
+  const userId = req.params.userId;
+  if (matchParamId && req.user.userId !== userId) {
     res.status(403).json({ message: "Forbidden: user mismatch" });
     return false;
   }

@@ -13,7 +13,7 @@ export function authMiddleware(req, res, next) {
 
   try {
     const decoded = verifyToken(token);
-    req.user = decoded; // { id, email }
+    req.user = decoded; // { userId, email }
     next();
   } catch (err) {
     console.error(err);
