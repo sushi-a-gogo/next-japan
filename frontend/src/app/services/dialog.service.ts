@@ -1,18 +1,18 @@
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
-import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
-  private auth = inject(AuthService);
+  private tokenService = inject(TokenService);
 
   private showDialogSignal = signal<string>('');
   showDialog = this.showDialogSignal.asReadonly();
 
   constructor() {
     afterNextRender(() => {
-      if (!this.auth.token) {
+      if (!this.tokenService.getToken()) {
         this.showDialogSignal.set('about');
       }
     });

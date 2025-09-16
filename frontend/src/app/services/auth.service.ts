@@ -30,11 +30,12 @@ export class AuthService {
 
   hydrateUser$() {
     const userToken = this.tokenService.decodeToken();
-    if (userToken) {
-      return this.login$(userToken?.email, 0);
+    if (userToken && !this.tokenService.isTokenExpired()) {
+      return this.login$(userToken.email, 0);
     }
 
     this.loginStatus.set('idle');
+    this.tokenService.clearToken();
     return of(null);
   }
 
