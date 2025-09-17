@@ -49,7 +49,8 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      path: "/api/auth", // restrict to auth route
+      path: "/api/auth",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     res.json({
