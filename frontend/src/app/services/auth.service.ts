@@ -80,9 +80,8 @@ export class AuthService {
     );
   }
 
-
   logout(redirectTo: string) {
-    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
+    this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => {
         this.loginStatus.set('idle');
         this.tokenService.clearToken();

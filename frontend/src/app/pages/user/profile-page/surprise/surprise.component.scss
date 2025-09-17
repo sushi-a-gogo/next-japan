@@ -1,18 +1,26 @@
-.dialog {
-  min-width: 320px;
-  max-width: 320px;
-
-  button {
-    width: 100%;
-    border-radius: 10px;
-  }
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 210px;
+  transition: 0.25s ease-in-out;
 }
 
 main.dialog {
-  min-height: 100px;
-  padding-bottom: 10px;
-
   .pre-wrap {
+    font-weight: 500;
     line-height: 24px;
+  }
+}
+
+button {
+  width: 100%;
+  border-radius: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .dialog {
+    min-width: 320px;
+    max-width: 320px;
   }
 }
