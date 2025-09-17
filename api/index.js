@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -37,11 +38,13 @@ dotenv.config();
 console.log("CORS origin:", process.env.ANGULAR_APP_URI);
 
 app.use(express.json()); // Parse JSON bodies
+app.use(cookieParser());
 
 // CORS
 app.use(
   cors({
     origin: process.env.ANGULAR_APP_URI, // Set in .env
+    credentials: true,
   })
 );
 
