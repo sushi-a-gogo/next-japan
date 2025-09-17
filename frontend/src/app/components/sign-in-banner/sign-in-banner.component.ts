@@ -1,5 +1,5 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
-import { LOCAL_STORAGE_USER_KEY, StorageService } from '@app/services/storage.service';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { AuthService } from '@app/services/auth.service';
 import { LoginButtonComponent } from '@app/shared/login-button/login-button.component';
 
 @Component({
@@ -13,14 +13,15 @@ import { LoginButtonComponent } from '@app/shared/login-button/login-button.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInBannerComponent implements OnChanges {
+  private auth = inject(AuthService);
+
   remove = input<boolean>(false);
   isRemoved = signal<boolean>(false);
-
-  private storage = inject(StorageService);
+  visible = computed(() => this.auth.loginStatus() === 'idle');
 
   constructor() {
     afterNextRender(() => {
-      this.isRemoved.set(!!this.storage.local.getItem(LOCAL_STORAGE_USER_KEY));
+      this.isRemoved.set(!!this.auth.token);
     });
   }
 

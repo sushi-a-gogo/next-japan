@@ -37,6 +37,7 @@ export class AiService {
   }
 
   generateContent$(params: any): Observable<AiEvent> {
+    //return this.generateMock$();
     this.promptParamsSignal.set(params);
     return this.http.post<AiEvent>(`${this.uri}/generate-content`, {
       promptParams: params

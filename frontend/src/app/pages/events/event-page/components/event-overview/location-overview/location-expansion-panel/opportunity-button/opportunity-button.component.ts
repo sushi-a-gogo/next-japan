@@ -3,7 +3,7 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { getRegistrationContext } from '@app/models/event/event-registration.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 import { OpportunityBadgeComponent } from "../opportunity-badge/opportunity-badge.component";
@@ -16,7 +16,7 @@ import { OpportunityBadgeComponent } from "../opportunity-badge/opportunity-badg
 })
 export class OpportunityButtonComponent {
   private datePipe = inject(DatePipe);
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private registrationService = inject(EventRegistrationService);
 
   opportunity = input.required<EventOpportunity>();

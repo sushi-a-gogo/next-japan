@@ -1,10 +1,12 @@
 import express from "express";
+import { authMiddleware } from "../middleware/auth.js";
 import Event from "../models/Event.js";
 import Like from "../models/Like.js";
+import { authorized } from "../utils/authHelpers.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   const { userId, eventId, liked } = req.body;
 
   if (!userId || !eventId) {
@@ -12,6 +14,10 @@ router.post("/", async (req, res) => {
   }
 
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     await Like.updateOne(
       { userId, eventId },
       { liked, createdAt: new Date() },
@@ -37,10 +43,14 @@ router.get("/count/:eventId", async (req, res) => {
   }
 });
 
-router.get("/:eventId/user/:userId", async (req, res) => {
+router.get("/:eventId/user/:userId", authMiddleware, async (req, res) => {
   const { eventId, userId } = req.params;
 
   try {
+    if (!authorized(req, res, true)) {
+      return;
+    }
+
     const like = await Like.findOne({ eventId, userId, liked: true });
     return res.json({ success: true, data: { liked: !!like } });
   } catch (error) {

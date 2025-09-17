@@ -13,11 +13,7 @@
           {{ org.infoDescription }}
         </div>
       </div>
-      @defer (on viewport) {
       <app-event-carousel [events]="events()" />
-      } @placeholder {
-      <app-event-carousel class="hidden" [events]="events()" />
-      }
       <app-ai-banner />
     </main>
   </article>

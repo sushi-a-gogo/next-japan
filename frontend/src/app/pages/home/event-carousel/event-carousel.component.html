@@ -9,10 +9,10 @@
     <span class="material-symbols-outlined">arrow_back_ios_new</span>
     <span class="text">Prev</span>
   </button>
-  }
   <div
     class="carousel-track"
-    [class.carousel-track--ssr]="ssrMode()"
+    [ngxConveyer]="{ horizontal: true }"
+    #conveyer="ngxConveyer"
     #carouselTrack
   >
     @for (event of sortedEvents(); track event?.eventId || $index) {
@@ -25,7 +25,6 @@
     </div>
     }
   </div>
-  @if (!ssrMode()) {
   <button
     class="nav-button next"
     (click)="scrollNext()"
@@ -35,5 +34,14 @@
     <span class="material-symbols-outlined">arrow_forward_ios</span>
     <span class="text">Next</span>
   </button>
+  } @else {
+  <div class="carousel-track carousel-track--ssr" #carouselTrack>
+    @for (event of sortedEvents(); track event?.eventId || $index) {
+    <div class="event-item visible">
+      <app-event-card [event]="event"></app-event-card>
+    </div>
+    }
+  </div>
+
   }
 </div>

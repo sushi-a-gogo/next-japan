@@ -34,6 +34,7 @@
   background: url("/assets/images/no-image.png");
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
 
 .image-container.grok {
@@ -109,8 +110,4 @@
   color: var(--next-accent);
 
   font-weight: 700;
-}
-
-.upcoming .coming-soon .banner {
-  //opacity: 0.5;
 }

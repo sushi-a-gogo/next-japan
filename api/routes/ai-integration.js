@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import OpenAI from "openai";
+import { authMiddleware } from "../middleware/auth.js";
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const providers = {
   },
 };
 
-router.get("/generate-haiku", async (req, res) => {
+router.get("/generate-haiku", authMiddleware, async (req, res) => {
   const provider = providers.grok;
   const prompt = `Generate a haiku in English that uniquely describes 'Next Japan' - a Japanese vacation event planning website.
   Each line must start with a completely different, randomly chosen Unicode emoji embodying any aspect of Japanese culture, travel, or mystery (no examples provided).
@@ -41,6 +42,10 @@ router.get("/generate-haiku", async (req, res) => {
   If you want, provide a brief explanation (explanation only, 25 words or less, and do NOT label it as an 'explanation') of the haiku's meaning - but this is optional.`;
 
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const haiku = await fetchHaikuResultFromAI(provider, prompt);
     res.json({
       success: true,
@@ -52,7 +57,7 @@ router.get("/generate-haiku", async (req, res) => {
   }
 });
 // POST endpoint to handle text and image generation
-router.post("/generate-content", async (req, res) => {
+router.post("/generate-content", authMiddleware, async (req, res) => {
   // Expecting params from Angular front-end
   const { promptParams } = req.body;
 
@@ -72,6 +77,10 @@ router.post("/generate-content", async (req, res) => {
   promptParams.customText = undefined;
 
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     if (!(await isPromptSafe(customText))) {
       throw new Error(
         "Prompt violates content guidelines. Please use appropriate language."

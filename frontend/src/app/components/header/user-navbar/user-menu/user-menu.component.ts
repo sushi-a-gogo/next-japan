@@ -5,7 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { User } from '@app/models/user.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { switchMap } from 'rxjs';
@@ -17,7 +17,7 @@ import { switchMap } from 'rxjs';
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private userProfileService = inject(UserProfileService);
   private destroyRef = inject(DestroyRef);
 

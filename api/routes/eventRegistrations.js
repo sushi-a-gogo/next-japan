@@ -1,24 +1,29 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import { authMiddleware } from "../middleware/auth.js";
 import EventOpportunity from "../models/EventOpportunity.js";
 import EventRegistration, {
   formatRegistration,
 } from "../models/EventRegistration.js";
 import User from "../models/User.js";
 import UserNotification from "../models/UserNotification.js";
+import { authorized } from "../utils/authHelpers.js";
 
 dotenv.config();
 const router = express.Router();
 
 // GET registrations for a specific userId
-router.get("/user/:userId", async (req, res) => {
+router.get("/user/:userId", authMiddleware, async (req, res) => {
   try {
-    const { userId } = req.params;
+    if (!authorized(req, res, true)) {
+      return;
+    }
 
+    const { userId } = req.params;
     // Validate userId format
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ error: "Invalid userId format" });
+      //return res.status(400).json({ error: "Invalid userId format" });
     }
 
     // Validate user exists
@@ -69,8 +74,12 @@ router.get("/user/:userId", async (req, res) => {
  * - Sends a user notification that the registration has been received.
  * - Schedules a pending notification for registration approval (delivered later by poller).
  */
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { userId, status, opportunityId } = req.body;
 
     // --- VALIDATIONS ---
@@ -140,8 +149,12 @@ router.post("/", async (req, res) => {
 });
 
 // GET registration
-router.get("/:registrationId", async (req, res) => {
+router.get("/:registrationId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { registrationId } = req.params;
 
     // Validate registrationId
@@ -180,8 +193,12 @@ router.get("/:registrationId", async (req, res) => {
 });
 
 // PUT update registration (primarily for status)
-router.put("/:registrationId", async (req, res) => {
+router.put("/:registrationId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { registrationId } = req.params;
     const { userId, status, opportunityId } = req.body;
 
@@ -254,8 +271,12 @@ router.put("/:registrationId", async (req, res) => {
  * - Deletes the EventRegistration.
  * - Immediately creates a cancellation notification.
  */
-router.delete("/:registrationId", async (req, res) => {
+router.delete("/:registrationId", authMiddleware, async (req, res) => {
   try {
+    if (!authorized(req, res)) {
+      return;
+    }
+
     const { registrationId } = req.params;
 
     // Validate registrationId

@@ -1,6 +1,5 @@
 import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { interval } from 'rxjs';
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
 import { ThemeService } from './services/theme.service';
 
@@ -21,7 +20,6 @@ export class AppComponent {
     afterNextRender(() => {
       this.configureAppHeight();
       this.themeService.setAppearanceMode();
-      interval(60_000).subscribe(() => this.themeService.manageTheme());
     });
   }
 

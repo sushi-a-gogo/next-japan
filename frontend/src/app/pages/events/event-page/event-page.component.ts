@@ -6,7 +6,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { DialogService } from '@app/services/dialog.service';
 import { ErrorService } from '@app/services/error.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -37,7 +37,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   private platformId = inject(PLATFORM_ID);
   private destroyRef = inject(DestroyRef);
 
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private dialogService = inject(DialogService);
   private eventService = inject(EventService);
   private eventRegistrationService = inject(EventRegistrationService);

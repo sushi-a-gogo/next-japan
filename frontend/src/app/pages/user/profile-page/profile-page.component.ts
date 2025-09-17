@@ -6,7 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { User } from '@app/models/user.model';
 import { UserProfileComponent } from '@app/pages/user/profile-page/user-profile/user-profile.component';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { MetaService } from '@app/services/meta.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
@@ -38,7 +38,7 @@ import { SurpriseComponent } from "./surprise/surprise.component";
 export class ProfilePageComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(MetaService);
-  private auth = inject(AuthMockService);
+  private auth = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 

@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { EventRegistration } from '@app/models/event/event-registration.model';
-import { AuthMockService } from '@app/services/auth-mock.service';
+import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { NotificationService } from '@app/services/notification.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
@@ -21,7 +21,7 @@ import { switchMap } from 'rxjs';
 export class RegistrationAlertComponent {
   private registrationService = inject(EventRegistrationService);
   private notificationService = inject(NotificationService);
-  private authService = inject(AuthMockService);
+  private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
 
   eventRegistration = input<EventRegistration | null>(null);

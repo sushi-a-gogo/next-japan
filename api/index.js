@@ -1,9 +1,11 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import aiRouter from "./routes/ai-integration.js";
+import authRouter from "./routes/auth.js";
 import eventRouter from "./routes/event.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
@@ -36,11 +38,13 @@ dotenv.config();
 console.log("CORS origin:", process.env.ANGULAR_APP_URI);
 
 app.use(express.json()); // Parse JSON bodies
+app.use(cookieParser());
 
 // CORS
 app.use(
   cors({
     origin: process.env.ANGULAR_APP_URI, // Set in .env
+    credentials: true,
   })
 );
 
@@ -48,6 +52,7 @@ app.use(
 connectDB().catch((err) => console.error("MongoDB connection error:", err));
 
 // Mount routers
+app.use("/api/auth", authRouter);
 app.use("/api/organization", organizationRouter); // JSON app data
 app.use("/api/event", eventRouter); // JSON events
 app.use("/api/events", eventsRouter); // MongoDB events

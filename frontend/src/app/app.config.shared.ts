@@ -1,10 +1,11 @@
 import { DatePipe, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { environment } from '@environments/environment';
 import { routes } from './app.routes';
+import { authInterceptor } from './auth/auth.interceptor';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -15,7 +16,10 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling
 export const sharedProviders = [
   DatePipe,
   provideAnimations(),
-  provideHttpClient(withFetch()),
+  provideHttpClient(
+    withFetch(),
+    withInterceptors([authInterceptor])
+  ),
   {
     provide: IMAGE_LOADER,
     useValue: (config: ImageLoaderConfig) => {
