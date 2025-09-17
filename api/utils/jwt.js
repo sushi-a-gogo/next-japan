@@ -28,7 +28,7 @@ function verifyToken(token, secret) {
 
 export function generateAccessToken(userId, email) {
   const secret = getJwtSecret();
-  return generateToken(userId, email, "30s", secret);
+  return generateToken(userId, email, "1d", secret);
 }
 
 export function generateRefreshToken(userId, email) {
