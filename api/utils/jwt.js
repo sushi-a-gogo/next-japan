@@ -1,8 +1,6 @@
 // jwt.js
 import jwt from "jsonwebtoken";
 
-const JWT_EXPIRES_IN = "1y"; // demo-friendly, but still keeps exp in payload
-
 function getJwtSecret() {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET not set in environment");
@@ -10,18 +8,40 @@ function getJwtSecret() {
   return process.env.JWT_SECRET;
 }
 
-export function generateToken(userId, email) {
-  const JWT_SECRET = getJwtSecret();
-  const token = jwt.sign({ userId, email }, JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN,
+function getJwtRefreshSecret() {
+  if (!process.env.JWT_REFRESH_SECRET) {
+    throw new Error("JWT_REFRESH_SECRET not set in environment");
+  }
+  return process.env.JWT_REFRESH_SECRET;
+}
+
+function generateToken(userId, email, expiresIn, secret) {
+  const token = jwt.sign({ userId, email }, secret, {
+    expiresIn,
   });
-  console.log("generatedToken", { userId, email, token });
   return token;
 }
 
-export function verifyToken(token) {
-  const JWT_SECRET = getJwtSecret();
-  const verify = jwt.verify(token, JWT_SECRET);
-  console.log("verifyToken", { verify, token });
-  return verify;
+function verifyToken(token, secret) {
+  return jwt.verify(token, secret);
+}
+
+export function generateAccessToken(userId, email) {
+  const secret = getJwtSecret();
+  return generateToken(userId, email, "30s", secret);
+}
+
+export function generateRefreshToken(userId, email) {
+  const secret = getJwtRefreshSecret();
+  return generateToken(userId, email, "7d", secret);
+}
+
+export function verifyAccessToken(token) {
+  const secret = getJwtSecret();
+  return verifyToken(token, secret);
+}
+
+export function verifyRefreshToken(token) {
+  const secret = getJwtRefreshSecret();
+  return verifyToken(token, secret);
 }

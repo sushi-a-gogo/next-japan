@@ -1,4 +1,4 @@
-import { verifyToken } from "../utils/jwt.js";
+import { verifyAccessToken } from "../utils/jwt.js";
 
 export function authMiddleware(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -12,11 +12,11 @@ export function authMiddleware(req, res, next) {
   }
 
   try {
-    const decoded = verifyToken(token);
+    const decoded = verifyAccessToken(token);
     req.user = decoded; // { userId, email }
     next();
   } catch (err) {
-    console.error(err);
-    return res.status(403).json({ message: "Invalid or expired token" });
+    console.error("Token validation failed: " + err.message);
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 }

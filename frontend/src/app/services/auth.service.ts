@@ -64,16 +64,43 @@ export class AuthService {
     );
   }
 
-  logout(redirectTo: string) {
-    this.loginStatus.set('idle');
-    this.tokenService.clearToken();
-    this.userSignal.set(null);
+  refreshToken$() {
+    return this.http.post<ApiResponse<{ token: string }>>(
+      `${this.apiUrl}/refresh`,
+      {},
+      { withCredentials: true } // required so cookie is sent
+    ).pipe(
+      map((res) => {
+        if (res.success) {
+          this.tokenService.setToken(res.data.token);
+          return res.data.token;
+        }
+        throw new Error('Refresh failed');
+      })
+    );
+  }
 
-    const url = decodeURIComponent(redirectTo) || '/';
-    this.router.navigateByUrl(url);
-    // If url starts with '/', remove it for router.navigate to treat it as an absolute path
-    // const path = url.startsWith('/') ? url.substring(1) : url;
-    // this.router.navigate([path]).then(() => { });
+
+  logout(redirectTo: string) {
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
+      next: () => {
+        this.loginStatus.set('idle');
+        this.tokenService.clearToken();
+        this.userSignal.set(null);
+
+        const url = decodeURIComponent(redirectTo) || '/';
+        this.router.navigateByUrl(url);
+        // If url starts with '/', remove it for router.navigate to treat it as an absolute path
+        // const path = url.startsWith('/') ? url.substring(1) : url;
+        // this.router.navigate([path]).then(() => { });
+        // Optionally, clear any stored user data or tokens
+      },
+      error: (err) => {
+        console.error('Logout failed', err);
+      },
+    });
+
+
   }
 
   updateUserData(userData: User) {

@@ -1,22 +1,48 @@
 // auth.interceptor.ts
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { TokenService } from '@app/services/token.service';
+import { AuthService } from '@app/services/auth.service';
 import { environment } from '@environments/environment';
+import { catchError, switchMap, throwError } from 'rxjs';
+
+let isRefreshing = false;
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiUrl = environment.apiUrl;
-  const tokenService = inject(TokenService);
+  const auth = inject(AuthService);
 
-  const token = tokenService.getToken();
-  if (token && req.url.startsWith(apiUrl)) {
-    const cloned = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+  // Only attach token for API calls
+  if (auth.token && req.url.startsWith(apiUrl)) {
+    req = req.clone({
+      setHeaders: { Authorization: `Bearer ${auth.token}` }
     });
-    return next(cloned);
   }
 
-  return next(req);
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401 && !isRefreshing) {
+        isRefreshing = true;
+
+        // Call refresh endpoint
+        return auth.refreshToken$().pipe(
+          switchMap((newToken) => {
+            isRefreshing = false;
+
+            // Retry original request with fresh token
+            const retryReq = req.clone({
+              setHeaders: { Authorization: `Bearer ${newToken}` }
+            });
+            return next(retryReq);
+          }),
+          catchError((refreshErr) => {
+            isRefreshing = false;
+            auth.logout('/'); // clear state & redirect
+            return throwError(() => refreshErr);
+          })
+        );
+      }
+
+      return throwError(() => error);
+    })
+  );
 };
