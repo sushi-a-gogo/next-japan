@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "none",
+      sameSite: "lax", // switch to "none" for dev/localhost
       path: "/api/auth",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
