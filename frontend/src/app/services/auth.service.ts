@@ -41,7 +41,7 @@ export class AuthService {
 
   login$(email: string, delayInMs = 1500): Observable<User | null> {
     this.loginStatus.set('pending');
-    return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }, { withCredentials: true }).pipe(
+    return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }).pipe(
       delay(delayInMs),
       map((res) => {
         if (res.success) {
@@ -67,8 +67,7 @@ export class AuthService {
   refreshToken$() {
     return this.http.post<ApiResponse<{ token: string }>>(
       `${this.apiUrl}/refresh`,
-      {},
-      { withCredentials: true } // required so cookie is sent
+      {}
     ).pipe(
       map((res) => {
         if (res.success) {
@@ -80,8 +79,9 @@ export class AuthService {
     );
   }
 
+
   logout(redirectTo: string) {
-    this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe({
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
       next: () => {
         this.loginStatus.set('idle');
         this.tokenService.clearToken();
@@ -98,8 +98,6 @@ export class AuthService {
         console.error('Logout failed', err);
       },
     });
-
-
   }
 
   updateUserData(userData: User) {

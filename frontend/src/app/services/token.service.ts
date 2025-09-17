@@ -14,7 +14,7 @@ interface DecodedToken {
   providedIn: 'root',
 })
 export class TokenService {
-  private readonly TOKEN_KEY = 'nextjp.token';
+  private readonly TOKEN_KEY = 'nextjp.uid';
   private storage = inject(StorageService);
 
   getToken(): string | null {
