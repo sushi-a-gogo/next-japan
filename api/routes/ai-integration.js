@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import OpenAI from "openai";
 import { authMiddleware } from "../middleware/auth.js";
+import { authorized } from "../utils/authHelpers.js";
 
 dotenv.config();
 
@@ -56,6 +57,7 @@ router.get("/generate-haiku", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Failed to generate content" });
   }
 });
+
 // POST endpoint to handle text and image generation
 router.post("/generate-content", authMiddleware, async (req, res) => {
   // Expecting params from Angular front-end
