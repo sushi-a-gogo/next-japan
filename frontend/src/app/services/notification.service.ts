@@ -68,7 +68,8 @@ export class NotificationService {
   private fetchUserNotifications$(userId: string) {
     return this.http.get<ApiResponse<EventNotification[]>>(`${this.apiUri}/user/${userId}`).pipe(
       tap((resp) => this.notificationSignal.set(resp.data || [])),
-      debug(RxJsLoggingLevel.DEBUG, 'getNotifications')
+      debug(RxJsLoggingLevel.DEBUG, 'getNotifications'),
+      catchError((e) => this.errorService.handleError(e, 'Error fetching notifications', true))
     );
   }
 
@@ -77,7 +78,7 @@ export class NotificationService {
       debug(RxJsLoggingLevel.DEBUG, "post User Notification"),
       switchMap(() => this.fetchUserNotifications$(notification.userId)),
       catchError((e) => {
-        return this.errorService.handleError(e, 'Error saving Event Registration', true)
+        return this.errorService.handleError(e, 'Error saving notification', true)
       })
     );
   }

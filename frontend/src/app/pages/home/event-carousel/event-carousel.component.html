@@ -9,12 +9,7 @@
     <span class="material-symbols-outlined">arrow_back_ios_new</span>
     <span class="text">Prev</span>
   </button>
-  <div
-    class="carousel-track"
-    [ngxConveyer]="{ horizontal: true }"
-    #conveyer="ngxConveyer"
-    #carouselTrack
-  >
+  <div class="carousel-track" #carouselTrack>
     @for (event of sortedEvents(); track event?.eventId || $index) {
     <div
       class="event-item"

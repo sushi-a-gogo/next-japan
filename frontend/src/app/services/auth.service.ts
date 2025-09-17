@@ -41,7 +41,7 @@ export class AuthService {
 
   login$(email: string, delayInMs = 1500): Observable<User | null> {
     this.loginStatus.set('pending');
-    return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }).pipe(
+    return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }, { withCredentials: true }).pipe(
       delay(delayInMs),
       map((res) => {
         if (res.success) {

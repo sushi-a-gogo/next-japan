@@ -4,7 +4,6 @@ import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/models/event/event-data.model';
-import { NgxConveyerDirective, NgxConveyerModule } from '@egjs/ngx-conveyer';
 import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
@@ -23,7 +22,7 @@ const BreakpointsConfig = [
 @Component({
   selector: 'app-event-carousel',
   standalone: true,
-  imports: [NgxConveyerModule, EventCardComponent],
+  imports: [EventCardComponent],
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,7 +44,7 @@ const BreakpointsConfig = [
 })
 export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
-  @ViewChild("conveyer") conveyer!: NgxConveyerDirective;
+  //@ViewChild("conveyer") conveyer!: NgxConveyerDirective;
 
   animationState = signal('out');
 
@@ -147,10 +146,10 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       /*
       -- pure css solution --
-      this.carouselTrack.nativeElement.scrollLeft = index * CARD_WIDTH;
       */
-      this.conveyer?.scrollTo(index * CARD_WIDTH, 500);
-      this.currentIndex.set(index);
+      this.carouselTrack.nativeElement.scrollLeft = index * CARD_WIDTH;
+      // this.conveyer?.scrollTo(index * CARD_WIDTH, 500);
+      // this.currentIndex.set(index);
     }
   }
 }
