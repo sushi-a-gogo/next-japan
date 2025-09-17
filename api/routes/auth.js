@@ -39,11 +39,19 @@ router.post("/login", async (req, res) => {
       formattedUser.userId,
       formattedUser.email
     );
+    // set access token as httpOnly cookie
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
     const refreshToken = generateRefreshToken(
       formattedUser.userId,
       formattedUser.email
     );
-
     // set refresh token as httpOnly cookie
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -57,7 +65,7 @@ router.post("/login", async (req, res) => {
       success: true,
       data: {
         user: formattedUser,
-        token: accessToken,
+        token: generateAccessToken("--", formattedUser.email),
       },
     });
   } catch (err) {
@@ -77,13 +85,22 @@ router.post("/refresh", (req, res) => {
 
   try {
     const payload = verifyRefreshToken(refreshToken);
+
     const newAccessToken = generateAccessToken(payload.userId, payload.email);
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
 
     return res.json({
       success: true,
-      data: { token: newAccessToken },
+      data: { token: generateAccessToken("--", payload.email) },
     });
   } catch (err) {
+    console.error("Verify failed " + err);
     return res
       .status(401)
       .json({ success: false, message: "Invalid refresh token" });
@@ -91,6 +108,7 @@ router.post("/refresh", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
+  res.clearCookie("accessToken", { path: "/" });
   res.clearCookie("refreshToken", { path: "/api/auth" });
   return res.json({ success: true, message: "Logged out" });
 });

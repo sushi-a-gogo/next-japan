@@ -12,9 +12,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
 
   // Only attach token for API calls
-  if (auth.token && req.url.startsWith(apiUrl)) {
+  if (req.url.startsWith(apiUrl)) {
     req = req.clone({
-      setHeaders: { Authorization: `Bearer ${auth.token}` }
+      withCredentials: true
     });
   }
 
@@ -30,7 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
             // Retry original request with fresh token
             const retryReq = req.clone({
-              setHeaders: { Authorization: `Bearer ${newToken}` }
+              withCredentials: true
             });
             return next(retryReq);
           }),
