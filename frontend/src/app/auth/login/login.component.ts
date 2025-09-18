@@ -6,7 +6,7 @@ import { User } from '@app/models/user.model';
 import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
-import { of, switchMap } from 'rxjs';
+import { delay, of, switchMap } from 'rxjs';
 import { LoginStepsComponent } from "./login-steps/login-steps.component";
 
 @Component({
@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
           this.path = url;
         }
 
-        return of(this.auth.token);
+        return of(this.auth.user());
       }),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (token) => {
-        if (token) {
+      next: (user) => {
+        if (user) {
           this.goBack();
         } else {
           setTimeout(() => {
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.showLoginSteps.set(false);
     this.busy.set(true);
     this.spinner.show();
-    return this.auth.login$(email).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    return this.auth.login$(email).pipe(delay(1500), takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => this.router.navigate(['/user/profile']),
       error: () => this.router.navigate([this.path])
     });

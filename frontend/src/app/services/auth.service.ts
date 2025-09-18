@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
 import { User } from '@app/models/user.model';
 import { environment } from '@environments/environment';
-import { catchError, delay, map, Observable, of, throwError } from 'rxjs';
-import { TokenService } from './token.service';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 type LoginStatus = 'idle' | 'pending' | 'success' | 'error';
 
@@ -16,7 +15,6 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
 
-  private tokenService = inject(TokenService);
   private apiUrl = `${environment.apiUrl}/api/auth`;
   private userSignal = signal<User | null>(null);
 
@@ -24,29 +22,32 @@ export class AuthService {
   loginStatus = signal<LoginStatus | null>(null);
   isAuthenticated = computed(() => !!this.user());
 
-  get token() {
-    return this.tokenService.getToken();
-  }
-
   hydrateUser$() {
-    const userToken = this.tokenService.decodeToken();
-    if (userToken && !this.tokenService.isTokenExpired()) {
-      return this.login$(userToken.email, 0);
-    }
-
-    this.loginStatus.set('idle');
-    this.tokenService.clearToken();
-    return of(null);
+    return this.http.get<ApiResponse<User>>(`${this.apiUrl}/user`).pipe(
+      map((res) => {
+        if (res.success) {
+          this.loginStatus.set('success');
+          this.userSignal.set(res.data);
+          return res.data;
+        } else {
+          this.loginStatus.set('idle');
+          return null;
+        }
+      }),
+      catchError((e) => {
+        this.loginStatus.set('error');
+        this.userSignal.set(null);
+        return throwError(() => e);
+      })
+    );
   }
 
-  login$(email: string, delayInMs = 1500): Observable<User | null> {
+  login$(email: string): Observable<User | null> {
     this.loginStatus.set('pending');
     return this.http.post<ApiResponse<{ user: User; token: string }>>(`${this.apiUrl}/login`, { email }).pipe(
-      delay(delayInMs),
       map((res) => {
         if (res.success) {
           this.userSignal.set(res.data.user);
-          this.tokenService.setToken(res.data.token);
           this.loginStatus.set('success');
           return res.data.user;
         } else {
@@ -57,7 +58,6 @@ export class AuthService {
       }),
       catchError((e) => {
         this.loginStatus.set('error');
-        this.tokenService.clearToken();
         this.userSignal.set(null);
         return throwError(() => e);
       })
@@ -65,14 +65,14 @@ export class AuthService {
   }
 
   refreshToken$() {
-    return this.http.post<ApiResponse<{ token: string }>>(
+    return this.http.post<ApiResponse<{ user: User }>>(
       `${this.apiUrl}/refresh`,
       {}
     ).pipe(
       map((res) => {
         if (res.success) {
-          this.tokenService.setToken(res.data.token);
-          return res.data.token;
+          this.userSignal.set(res.data.user);
+          return res.data.user;
         }
         throw new Error('Refresh failed');
       })
@@ -84,7 +84,6 @@ export class AuthService {
     this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
       next: () => {
         this.loginStatus.set('idle');
-        this.tokenService.clearToken();
         this.userSignal.set(null);
 
         const url = decodeURIComponent(redirectTo) || '/';
