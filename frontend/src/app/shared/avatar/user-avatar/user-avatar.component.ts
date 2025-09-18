@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { User } from '@app/models/user.model';
 import { AvatarComponent } from "../avatar.component";
 
@@ -6,9 +6,12 @@ import { AvatarComponent } from "../avatar.component";
   selector: 'app-user-avatar',
   imports: [AvatarComponent],
   templateUrl: './user-avatar.component.html',
-  styleUrl: './user-avatar.component.scss'
+  styleUrl: './user-avatar.component.scss',
+  host: {
+    '[class.open]': 'onInit()'
+  },
 })
-export class UserAvatarComponent {
+export class UserAvatarComponent implements OnInit {
   user = input.required<User>();
   size = input<48 | 96 | 128 | 256>(48);
 
@@ -19,4 +22,10 @@ export class UserAvatarComponent {
     height: `${this.size()}px`,
     fontSize: `${this.size() / 2 - 6}px`
   }));
+
+  private onInit = signal<boolean>(false);
+
+  ngOnInit(): void {
+    this.onInit.set(true);
+  }
 }
