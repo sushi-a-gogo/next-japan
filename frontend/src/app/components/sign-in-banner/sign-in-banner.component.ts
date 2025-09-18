@@ -21,7 +21,7 @@ export class SignInBannerComponent implements OnChanges {
 
   constructor() {
     afterNextRender(() => {
-      this.isRemoved.set(!!this.auth.token);
+      this.isRemoved.set(!!this.auth.user());
     });
   }
 
