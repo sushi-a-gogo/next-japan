@@ -1,3 +1,11 @@
+:host {
+  opacity: 0;
+  transition: opacity 0.25s ease-in;
+
+  &.open {
+    opacity: 1;
+  }
+}
 .user_initials {
   border-radius: 100%;
   background-color: var(--pink-cherry-blossoms);
