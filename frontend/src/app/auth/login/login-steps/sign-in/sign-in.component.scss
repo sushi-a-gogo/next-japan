@@ -22,18 +22,11 @@ form {
 }
 
 .app-button-filled {
-  background-color: var(--red-torii-gate);
-  border-color: var(--red-torii-gate);
-  color: white;
   font-weight: 600;
   padding: 12px 24px;
-  border-radius: 10px;
+  border-radius: 6px;
   transition: background-color 0.3s ease;
   width: 100%;
-
-  &:hover {
-    background-color: #ab2c2c;
-  }
 }
 
 .flex-button {

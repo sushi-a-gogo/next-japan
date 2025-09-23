@@ -17,15 +17,8 @@ header {
   }
 }
 
-.app-button-filled.user-profile {
-  border-radius: 24px;
-  background-color: var(--next-surface);
+.app-button-outlined {
   border-color: var(--next-border);
-  color: var(--next-text);
-
-  &:hover {
-    background-color: var(--next-surface-alt);
-  }
 }
 
 .mat-mdc-tab-group {
@@ -39,10 +32,6 @@ header {
 
 .muted {
   color: var(--next-note);
-}
-
-.app-button {
-  border-radius: 24px;
 }
 
 .banner {
