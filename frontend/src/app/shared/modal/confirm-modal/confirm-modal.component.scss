@@ -1,21 +1,5 @@
-.app-button {
-  border-radius: 24px;
-}
-
-.app-button-filled {
-  background-color: var(--red-torii-gate);
-  border-color: var(--red-torii-gate);
-  color: #fff;
-}
-
 .app-button-outlined {
-  color: var(--next-text);
   font-weight: 600;
-  background-color: var(--next-surface-alt);
-
-  &:hover {
-    opacity: 0.75;
-  }
 }
 
 footer {

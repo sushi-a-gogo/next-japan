@@ -7,7 +7,6 @@
 button {
   font-size: 16px;
   font-weight: 700;
-  border-radius: 24px;
   padding: 0 12px;
   width: 100%;
   &:hover {
@@ -15,13 +14,8 @@ button {
   }
 }
 
-.app-button-filled {
-  background-color: var(--red-torii-gate);
-  border-color: var(--red-torii-gate);
-  color: #fff;
-}
-
 .app-button-outlined {
+  background-color: transparent;
   border-color: #fff;
   color: #fff;
   transition: 0.25s ease-in-out;

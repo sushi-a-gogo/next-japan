@@ -114,7 +114,7 @@ table {
 
 .highlight {
   color: #000;
-  background-color: var(--light-yellow-stars);
+  background-color: rgba($color: #ffe779, $alpha: 0.5);
 }
 
 @media (min-width: 600px) {

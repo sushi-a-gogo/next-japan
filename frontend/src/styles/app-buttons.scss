@@ -1,4 +1,5 @@
 .app-button {
+  border-radius: 24px;
   border: 0;
   background-color: inherit;
   cursor: pointer;
@@ -22,7 +23,6 @@
 
   &.dialog-button {
     font-weight: 600;
-    border-radius: 4px;
     min-width: 120px;
   }
 
@@ -59,20 +59,22 @@ a.app-button {
     font-weight: 600;
     transition: background-color 0.3s ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: #ab2c2c;
+      border-color: #ab2c2c;
+      opacity: 1;
     }
   }
 
   &:hover:not(:disabled) {
-    opacity: 0.9;
+    opacity: 0.85;
   }
 }
 
 .app-button-outlined {
-  background-color: transparent;
-  color: var(--next-outlined-text);
-  border: 1px solid var(--next-outlined-border);
+  background-color: var(--next-surface);
+  color: var(--next-text);
+  border: 1px solid var(--next-border-alt);
 
   &:hover:not(:disabled) {
     background-color: var(--next-surface-alt);
