@@ -16,7 +16,8 @@ Inspired by Japanese Anime, the app simulates a Japanese travel planning web sit
 - Deploy both **SSR-enabled Angular frontend** and **Node.js/Express backend** as separate web services on Render  
 - Integrate **OpenAI and xAI APIs** for interactive features  
 - Use **Cloudflare Images** for optimized, globally cached delivery  
-- Enable **Server-Side Rendering (SSR)** for performance and SEO  
+- Enable **Server-Side Rendering (SSR)** for performance and SEO
+- Implement JWT authentication for secure API access  
 
 ---
 
@@ -28,6 +29,7 @@ Inspired by Japanese Anime, the app simulates a Japanese travel planning web sit
 | Backend API  | Node.js, Express, MongoDB |
 | Hosting      | Render (two web services: Angular SSR frontend + Node.js/Express backend) |
 | Database     | MongoDB Atlas (event storage & dynamic content) |
+| Authentication | JWT-based user authentication |
 | Images       | Cloudflare Image Hosting |
 | Integration  | OpenAI & xAI APIs (text + image generation, assistant logic) |
 | Environment  | .env configs, CORS, prod/dev configs, AI endpoint rate limiting |
@@ -40,4 +42,15 @@ Events can be dynamically generated using **OpenAI** and **xAI** integrations. T
 ---
 
 ## Screenshots
-*(Optional – add one or two clean screenshots or GIFs here to show off the UI)*  
+
+![Homepage](./screenshots/homepage.png)
+*Homepage of Next Japan – responsive Angular SSR front end.*
+
+![Event Registration Form](./screenshots/eventpage.png)
+*Event page with available opportunities.*
+
+![AI Event Generation](./screenshots/aipage.png)
+*AI-generated events created using user selectable prompts, stored in MongoDB.*
+
+![User Home](./screenshots/userpage.png)
+*Launch pad for logged in users with navigation, user even registrations, achievements, suggestions, and subscription management.*
