@@ -54,3 +54,6 @@ Events can be dynamically generated using **OpenAI** and **xAI** integrations. T
 
 ![User Home](./screenshots/userpage.png)
 *Launch pad for logged in users with navigation, user even registrations, achievements, suggestions, and subscription management.*
+
+![Switchable Light and Dark Modes](./screenshots/darkmode.png)
+*The app allows users to select a light or dark theme, or have the theme auto-adjust to their device settings.*
