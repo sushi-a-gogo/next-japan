@@ -91,7 +91,9 @@ div.responsive {
 table {
   width: 100%;
   background-color: var(--next-surface);
+  border: 1px solid var(--next-border-alt);
   border-radius: 4px;
+  overflow: hidden;
 
   th {
     background-color: var(--next-confirm-bg);
@@ -114,7 +116,7 @@ table {
 
 .highlight {
   color: #000;
-  background-color: rgba($color: #ffe779, $alpha: 0.5);
+  background-color: var(--light-yellow-stars);
 }
 
 @media (min-width: 600px) {

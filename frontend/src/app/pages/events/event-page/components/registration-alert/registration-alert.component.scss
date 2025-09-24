@@ -6,9 +6,9 @@
 }
 
 .host {
-  border: 1px solid var(--vivid-yellow-text);
+  border: 1px solid #a7acb1;
   background: rgba($color: #000, $alpha: 0.45);
-  color: #fff;
+  color: var(--creamy-white-clouds);
   padding: 8px 16px;
   border-radius: 6px;
 }
@@ -43,7 +43,7 @@ ul {
   li:not(:last-child)::after {
     content: "|";
     margin: 0 8px; /* Adjust spacing as needed */
-    color: var(--vivid-yellow-text); /* Adjust color as needed */
+    color: var(--creamy-white-clouds); /* Adjust color as needed */
   }
 }
 
