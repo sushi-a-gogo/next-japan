@@ -1,8 +1,3 @@
-Next Japan is a full-stack demo app that exists in an imaginary world inspired by Japanese Anime, allowing
-imaginary users to register for special events hosted at various locales in Japan.
-Built as a portfolio project, it demonstrates modern front-end architecture, full REST API design, OpenAI
-integration, and cloud deployment — all wrapped in a playful, visually engaging concept.
-
 # Next Japan
 
 Next Japan is a full-stack demo app built with **Angular v20** and **Node.js/Express**, deployed on **Render** as two web services (SSR-enabled Angular frontend + REST API backend).  
