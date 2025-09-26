@@ -15,49 +15,15 @@ img {
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
   transform: scale(1);
-  //animation: zoom-in 30s ease-in-out infinite;
   z-index: 0;
+  animation: zoom-in 30s ease-in-out infinite;
+  &:nth-child(even) {
+    animation: zoom-out 30s ease-in-out infinite;
+  }
 
   &.active {
     opacity: 1;
     z-index: 1;
-  }
-}
-
-img:nth-child(even) {
-  //animation: zoom-out 30s ease-in-out infinite;
-}
-
-@keyframes zoom-in {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes zoom-out {
-  0% {
-    transform: scale(1.2);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.2);
-  }
-}
-
-@keyframes zoom {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.2) translate(-2%, -2%);
   }
 }
 
@@ -66,7 +32,7 @@ img:nth-child(even) {
   bottom: 0;
   z-index: 1;
   width: 100%;
-  background: rgba($color: #000000, $alpha: 0.7);
+  background: rgba($color: #000000, $alpha: 0.75);
   padding: 18px 24px;
   color: #fff;
   animation: fadeText 1.5s ease-in-out;
@@ -74,6 +40,15 @@ img:nth-child(even) {
 
 .headline {
   color: var(--vivid-yellow-text);
+}
+
+a {
+  color: var(--vivid-yellow-text);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 p {
@@ -90,6 +65,39 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+  50% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.2) translate(-2%, -2%);
   }
 }
 

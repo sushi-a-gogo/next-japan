@@ -26,6 +26,18 @@ article {
   }
 }
 
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 1);
+  border: 1px solid var(--vivid-yellow-text);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -47,17 +59,12 @@ ul {
 }
 
 a {
-  color: var(--bright-blue-sky);
+  color: var(--vivid-yellow-text);
   font-weight: 500;
 
   &.home {
     color: var(--bright-blue-sky);
-    text-decoration: none;
-    font-weight: 700;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    font-weight: 600;
   }
 }
 
