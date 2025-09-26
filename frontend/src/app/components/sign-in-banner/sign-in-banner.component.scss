@@ -33,6 +33,10 @@
   opacity: 1;
 }
 
+.banner:not(.open) {
+  pointer-events: none; /* 🔑 prevents invisible banner from blocking taps */
+}
+
 .banner-subhead {
   font-size: 16px;
   font-weight: 700;
