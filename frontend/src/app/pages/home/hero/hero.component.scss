@@ -16,9 +16,9 @@ img {
   transition: opacity 1.5s ease-in-out;
   transform: scale(1);
   z-index: 0;
-  animation: zoom-in 30s ease-in-out infinite;
+  //animation: zoom-in 30s ease-in-out infinite;
   &:nth-child(even) {
-    animation: zoom-out 30s ease-in-out infinite;
+    //animation: zoom-out 30s ease-in-out infinite;
   }
 
   &.active {
