@@ -24,12 +24,17 @@ export class AppComponent {
   }
 
   private configureAppHeight(): void {
-    const appHeight = () => {
+    const calcAppHeight = () => {
+      console.log("calcAppHeight");
       const doc = document.documentElement;
       doc.style.setProperty('--app-height', `${window.innerHeight}px`);
     };
 
-    window.addEventListener('resize', appHeight);
-    appHeight();
+    window.addEventListener('resize', calcAppHeight);
+    window.addEventListener('focusout', () => {
+      setTimeout(calcAppHeight, 100); // small delay to allow viewport to settle
+    });
+
+    calcAppHeight();
   }
 }
