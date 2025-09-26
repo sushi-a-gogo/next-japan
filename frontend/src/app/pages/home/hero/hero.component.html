@@ -1,7 +1,22 @@
-<img [ngSrc]="heroImage.src" fill priority placeholder alt="Tokyo at night" />
+@for(image of heroImages(); track image) {
+<img
+  [ngSrc]="image.src"
+  [class.active]="$index === currentImageIndex()"
+  fill
+  alt="Next Japan Banner"
+/>
+}
 <div class="hero-overlay nx-flex col al-c jc-c">
-  <div class="cb-content headline">{{ org.bannerTitle }}</div>
+  <div class="cb-content headline">Next Japan. Experience the Future.</div>
   <p class="cb-content">
-    {{ org.bannerDescription }}
+    <span>
+      Next Japan is a full-stack demo project built with <b>Angular v20</b> and
+      <b>Node.js/Express</b>, hosted on <b>Render</b>. Inspired by Japanese
+      Anime, it simulates a Japanese travel planning web site, where imaginary
+      users register for imaginary special events hosted at various locales in
+      Japan. The app showcases modern front-end architecture, real-world API
+      design, AI integration, and cloud deployment - all wrapped in a playful,
+      visually engaging concept.
+    </span>
   </p>
 </div>

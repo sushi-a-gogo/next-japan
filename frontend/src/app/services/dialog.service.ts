@@ -1,4 +1,4 @@
-import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -10,13 +10,13 @@ export class DialogService {
   private showDialogSignal = signal<string>('');
   showDialog = this.showDialogSignal.asReadonly();
 
-  constructor() {
-    afterNextRender(() => {
-      if (!this.auth.user()) {
-        this.showDialogSignal.set('about');
-      }
-    });
-  }
+  // constructor() {
+  //   afterNextRender(() => {
+  //     if (!this.auth.user()) {
+  //       this.showDialogSignal.set('about');
+  //     }
+  //   });
+  // }
 
   showProfileDialog() {
     this.showDialogSignal.set('profile');

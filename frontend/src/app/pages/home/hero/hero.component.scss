@@ -7,10 +7,58 @@
   height: 640px;
   max-width: var(--max-content-width);
   margin: 0 auto;
+  overflow: hidden;
 }
 
 img {
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  transform: scale(1);
+  //animation: zoom-in 30s ease-in-out infinite;
+  z-index: 0;
+
+  &.active {
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+img:nth-child(even) {
+  //animation: zoom-out 30s ease-in-out infinite;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
 }
 
 .hero-overlay {
@@ -19,17 +67,39 @@ img {
   z-index: 1;
   width: 100%;
   background: rgba($color: #000000, $alpha: 0.7);
-  padding: 24px;
+  padding: 18px 24px;
   color: #fff;
+  animation: fadeText 1.5s ease-in-out;
 }
 
 .headline {
   color: var(--vivid-yellow-text);
 }
 
+p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@keyframes fadeText {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 600px) {
   :host {
     height: 600px;
+  }
+
+  .hero-overlay {
+    padding: 24px;
   }
 
   p {

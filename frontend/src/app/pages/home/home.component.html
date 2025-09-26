@@ -1,8 +1,10 @@
 <app-layout>
-  <article class="nx-flex col al-c">
+  <article class="nx-flex col al-c fade-in" [class.open]="eventsLoaded()">
     <header class="component-box">
-      <img [ngSrc]="heroImage()" alt="Hero Image" fill placeholder />
-      <app-hero />
+      <img [ngSrc]="heroImage()" alt="Hero Image" fill priority placeholder />
+      @if(events().length) {
+      <app-hero [events]="events()" />
+      }
     </header>
     <main class="component-box nx-flex col al-c">
       <div class="cb-content pad nx-flex col al-c gap-20">
