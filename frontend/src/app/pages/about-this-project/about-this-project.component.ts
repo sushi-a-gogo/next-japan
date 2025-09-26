@@ -1,15 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import fadeIn from '@app/animations/fadeIn.animation';
 import { CanonicalService } from '@app/services/canonical.service';
 import { MetaService } from '@app/services/meta.service';
 
 @Component({
   selector: 'app-about-this-project',
-  imports: [RouterLink],
+  imports: [RouterLink, MatButtonModule],
   templateUrl: './about-this-project.component.html',
   styleUrl: './about-this-project.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn],
+  host: {
+    '[@fadeIn]': 'in'
+  }
 
 })
 export class AboutThisProjectComponent implements OnInit {

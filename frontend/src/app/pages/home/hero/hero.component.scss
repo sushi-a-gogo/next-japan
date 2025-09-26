@@ -7,10 +7,24 @@
   height: 640px;
   max-width: var(--max-content-width);
   margin: 0 auto;
+  overflow: hidden;
 }
 
 img {
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  transform: scale(1);
+  z-index: 0;
+  //animation: zoom-in 30s ease-in-out infinite;
+  &:nth-child(even) {
+    //animation: zoom-out 30s ease-in-out infinite;
+  }
+
+  &.active {
+    opacity: 1;
+    z-index: 1;
+  }
 }
 
 .hero-overlay {
@@ -18,18 +32,82 @@ img {
   bottom: 0;
   z-index: 1;
   width: 100%;
-  background: rgba($color: #000000, $alpha: 0.7);
-  padding: 24px;
+  background: rgba($color: #000000, $alpha: 0.75);
+  padding: 18px 24px;
   color: #fff;
+  animation: fadeText 1.5s ease-in-out;
 }
 
 .headline {
   color: var(--vivid-yellow-text);
 }
 
+a {
+  color: var(--vivid-yellow-text);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@keyframes fadeText {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+  50% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.2) translate(-2%, -2%);
+  }
+}
+
 @media (min-width: 600px) {
   :host {
     height: 600px;
+  }
+
+  .hero-overlay {
+    padding: 24px;
   }
 
   p {
