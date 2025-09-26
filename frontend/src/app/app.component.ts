@@ -25,7 +25,6 @@ export class AppComponent {
 
   private configureAppHeight(): void {
     const calcAppHeight = () => {
-      console.log("calcAppHeight");
       const doc = document.documentElement;
       doc.style.setProperty('--app-height', `${window.innerHeight}px`);
     };
