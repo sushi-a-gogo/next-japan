@@ -21,6 +21,16 @@
   justify-content: center;
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
   border-top: 1px solid var(--creamy-white-clouds);
+
+  /* animation bits */
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.banner.open {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .banner-subhead {
