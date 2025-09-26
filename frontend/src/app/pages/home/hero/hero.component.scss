@@ -39,22 +39,22 @@ img {
 }
 
 .headline {
+  font-size: 22px;
   color: var(--vivid-yellow-text);
 }
 
 a {
-  color: var(--vivid-yellow-text);
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  font-weight: 600;
+  width: 100%;
+  max-width: 440px;
 }
 
 p {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+  gap: 10px;
 }
 
 @keyframes fadeText {
@@ -110,9 +110,18 @@ p {
     padding: 24px;
   }
 
+  .headline {
+    font-size: 48px;
+  }
+
   p {
+    gap: 24px;
     font-size: 18px;
     line-height: 24px;
     font-weight: 400;
+  }
+
+  a {
+    max-width: 200px;
   }
 }
