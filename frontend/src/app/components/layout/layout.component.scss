@@ -4,6 +4,13 @@
   min-height: calc(var(--app-height));
 }
 
+:host-context(.ios-safari) {
+  .app-container {
+    height: var(--app-height); /* force exact height on iOS Safari */
+    min-height: auto;
+  }
+}
+
 header {
   position: fixed;
   top: 0px;
