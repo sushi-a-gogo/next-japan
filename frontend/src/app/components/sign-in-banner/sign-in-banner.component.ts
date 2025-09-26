@@ -37,7 +37,7 @@ export class SignInBannerComponent implements OnInit, OnChanges {
         takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         const scrolled = window.scrollY || document.documentElement.scrollTop;
-        if (scrolled > 100) {
+        if (scrolled > 0) {
           this.visible.set(true);
         } else {
           this.visible.set(false);
