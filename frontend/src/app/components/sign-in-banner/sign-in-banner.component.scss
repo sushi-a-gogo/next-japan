@@ -17,9 +17,7 @@
   transition: transform 0.4s ease, opacity 0.4s ease;
 
   &.removed {
-    .banner {
-      display: none;
-    }
+    display: none;
   }
 
   &.open {
