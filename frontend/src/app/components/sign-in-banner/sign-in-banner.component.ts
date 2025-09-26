@@ -11,6 +11,7 @@ import { fromEvent } from 'rxjs';
   templateUrl: './sign-in-banner.component.html',
   styleUrl: './sign-in-banner.component.scss',
   host: {
+    '[class.open]': 'open() && visible()',
     '[class.removed]': 'isRemoved()'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +38,7 @@ export class SignInBannerComponent implements OnInit, OnChanges {
         takeUntilDestroyed(this.destroyRef)
       ).subscribe(() => {
         const scrolled = window.scrollY || document.documentElement.scrollTop;
-        if (scrolled > 0) {
+        if (scrolled > 80) {
           this.visible.set(true);
         } else {
           this.visible.set(false);
