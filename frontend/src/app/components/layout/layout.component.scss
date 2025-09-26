@@ -1,18 +1,11 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: calc(var(--app-height));
-}
-
-:host-context(.ios-safari) {
-  .app-container {
-    height: var(--app-height); /* force exact height on iOS Safari */
-    min-height: auto;
-  }
+  min-height: var(--app-height);
 }
 
 header {
-  position: fixed;
+  position: sticky;
   top: 0px;
   left: 0;
   z-index: 101;
@@ -23,9 +16,8 @@ header {
 }
 
 main {
-  flex: 1;
+  flex: 1 1 auto;
   width: 100%;
-  margin-top: calc(var(--navbar-height) + var(--color-bar-height));
 
   .router-content {
     flex: 1;

@@ -29,14 +29,6 @@ export class AppComponent {
       doc.style.setProperty('--app-height', `${window.innerHeight}px`);
     };
 
-    const isIosSafari = /iP(ad|hone|od)/.test(navigator.userAgent) &&
-      /WebKit/.test(navigator.userAgent) &&
-      !/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent);
-
-    if (isIosSafari) {
-      document.body.classList.add('ios-safari');
-    }
-
     window.addEventListener('resize', appHeight);
     appHeight();
   }
