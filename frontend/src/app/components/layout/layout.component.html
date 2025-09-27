@@ -9,9 +9,9 @@
     <footer>
       <app-footer />
     </footer>
+    <app-sign-in-banner [remove]="isAuthenticated()" />
   </main>
 </div>
-<app-sign-in-banner [remove]="isAuthenticated()" />
 <div
   class="backdrop"
   [class.open]="inSearchMode()"

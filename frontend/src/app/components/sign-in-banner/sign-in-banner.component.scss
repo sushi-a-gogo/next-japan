@@ -1,21 +1,18 @@
 :host {
-  z-index: 10;
+  z-index: 101;
   position: sticky;
-  bottom: 0;
   bottom: env(safe-area-inset-bottom, 0);
   width: 100%;
-  height: 160px;
   color: #fff;
   background: var(--navy-blue-mountain);
   display: flex;
   justify-content: center;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
-  border-top: 1px solid var(--creamy-white-clouds);
 
   /* animation bits */
   transform: translateY(100%);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  height: 0;
+  transition: transform 0.4s ease, height 0.4s ease;
+  overflow: hidden;
 
   &.removed {
     display: none;
@@ -23,11 +20,22 @@
 
   &.open {
     transform: translateY(0);
-    opacity: 1;
+    height: 160px;
+    border-top: 1px solid var(--creamy-white-clouds);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+
+    .component-box {
+      opacity: 1;
+    }
   }
 
   &:not(.open) {
     pointer-events: none; /* 🔑 prevents invisible banner from blocking taps */
+  }
+
+  .component-box {
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 }
 
@@ -54,7 +62,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  :host {
+  :host.open {
     height: 110px;
   }
 
