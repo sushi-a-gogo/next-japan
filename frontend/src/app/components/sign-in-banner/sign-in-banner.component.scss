@@ -1,7 +1,7 @@
 :host {
   z-index: 101;
   position: sticky;
-  bottom: env(safe-area-inset-bottom, 0);
+  bottom: 0; //env(safe-area-inset-bottom, 40);
   width: 100%;
   color: #fff;
   background: var(--navy-blue-mountain);
@@ -11,7 +11,8 @@
   /* animation bits */
   transform: translateY(100%);
   height: 0;
-  transition: transform 0.4s ease, height 0.4s ease;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease, height 0.4s ease;
   overflow: hidden;
 
   &.removed {
@@ -20,22 +21,16 @@
 
   &.open {
     transform: translateY(0);
-    height: 160px;
+    height: 180px;
+    opacity: 1;
     border-top: 1px solid var(--creamy-white-clouds);
+    border-bottom: 1px solid var(--creamy-white-clouds);
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
-
-    .component-box {
-      opacity: 1;
-    }
+    transition: transform 0.4s ease, opacity 0.4s ease, height 0.4s ease;
   }
 
   &:not(.open) {
     pointer-events: none; /* 🔑 prevents invisible banner from blocking taps */
-  }
-
-  .component-box {
-    opacity: 0;
-    transition: opacity 0.4s ease;
   }
 }
 
