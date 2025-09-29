@@ -2,7 +2,6 @@
   <section class="nx-flex col gap-10">
     <header class="nx-flex al-c gap-10">
       <a
-        matIconButton
         class="back-button"
         aria-label="Return to the Home Page"
         routerLink="/"
@@ -68,7 +67,7 @@
       </li>
       <li>
         <span>📄</span> View
-        <a href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer">
+        <a href="#" rel="noopener noreferrer" (click)="openResume($event)">
           My Resume
         </a>
       </li>
@@ -79,3 +78,6 @@
     </ul>
   </section>
 </article>
+@if(viewResume()) {
+<app-my-resume (close)="viewResume.set(false)" />
+}

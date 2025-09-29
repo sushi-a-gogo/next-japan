@@ -1,0 +1,13 @@
+<app-modal (close)="close.emit(true)">
+  <main class="dialog">
+    <div class="resume-container">
+      <markdown [data]="resumeContent()"></markdown>
+      <a href="/assets/resume.md" download>Download Resume (Markdown)</a>
+    </div>
+  </main>
+  <footer class="dialog">
+    <button class="app-button app-button-filled dialog" (click)="closeResume()">
+      Close
+    </button>
+  </footer>
+</app-modal>
