@@ -5,7 +5,6 @@ import { MatProgressBar } from "@angular/material/progress-bar";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
-import blurredSlideUp from '@app/animations/blurredSlideUp.animation';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { ContentGeneratorComponent } from "@app/pages/ai/ai-event-designer-page/content-generator/content-generator.component";
 import { ImageService } from '@app/services/image.service';
@@ -18,8 +17,7 @@ import { filter } from 'rxjs';
   templateUrl: './ai-event-designer-page.component.html',
   styleUrl: './ai-event-designer-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [blurredSlideUp],
-  host: { '[@blurredSlideUp]': 'in' }
+  host: { '[class.blurred-slide-up]': 'true' }
 
 })
 export class AiEventDesignerPageComponent implements OnInit {

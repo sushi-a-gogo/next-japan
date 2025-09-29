@@ -1,0 +1,19 @@
+.blurred-slide-up {
+  opacity: 0;
+  filter: blur(2px);
+  transform: translateY(40px);
+  animation: blurredSlideUp 600ms ease-out forwards;
+}
+
+@keyframes blurredSlideUp {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}

@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
-import fadeIn from '@app/animations/fadeIn.animation';
 import { AuthService } from '@app/services/auth.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { delay } from 'rxjs';
@@ -12,8 +11,7 @@ import { delay } from 'rxjs';
   imports: [MatProgressSpinnerModule, NgxSpinnerComponent],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss',
-  animations: [fadeIn],
-  host: { '[@fadeIn]': 'in' }
+  host: { '[class.fade-in]': 'true' }
 })
 export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);

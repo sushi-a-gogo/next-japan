@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
@@ -26,21 +25,6 @@ const BreakpointsConfig = [
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('cardFadeSlide', [
-      state('out', style({
-        opacity: 0,
-        transform: 'translateX(-30px) !important'
-      })),
-      state('in', style({
-        opacity: 1,
-        transform: 'translateX(0) !important'
-      })),
-      transition('out => in', [
-        animate('600ms {{delay}}ms ease-out')
-      ], { params: { delay: 0 } })
-    ])
-  ]
 })
 export class EventCarouselComponent implements OnChanges, AfterViewInit {
   @ViewChild('carouselTrack') carouselTrack!: ElementRef;
