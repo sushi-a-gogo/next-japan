@@ -1,6 +1,5 @@
 [
   {
-    "opportunityId": 1,
     "eventId": "6877d692b6e3e16642880012",
     "locationId": "6877dc3a4631391c135597b3",
     "startDate": "2025-10-21T00:00:00",
@@ -11,7 +10,6 @@
     "notes": "Bring a fishing pole and live bait (preferably anchovies)."
   },
   {
-    "opportunityId": 100,
     "eventId": "6877d692b6e3e16642880012",
     "locationId": "6877dc3a4631391c135597b5",
     "startDate": "2025-11-21T00:00:00",
@@ -22,7 +20,6 @@
     "notes": "Relax by Mt. Fuji with fresh air and spectacular views."
   },
   {
-    "opportunityId": 2,
     "eventId": "6877d692b6e3e16642880012",
     "locationId": "6877dc3a4631391c135597b5",
     "startDate": "2025-10-21T00:00:00",
@@ -33,7 +30,6 @@
     "notes": "Parking is available at the viewing platform."
   },
   {
-    "opportunityId": 200,
     "eventId": "6877d692b6e3e16642880012",
     "locationId": "6877dc3a4631391c135597b3",
     "startDate": "2025-12-01T01:00:00",
@@ -44,7 +40,6 @@
     "notes": "Enjoy sunrise views and bring a camera for photos."
   },
   {
-    "opportunityId": 201,
     "eventId": "6877d692b6e3e16642880012",
     "locationId": "6877dc3a4631391c135597b5",
     "startDate": "2025-12-11T01:00:00",
@@ -55,7 +50,6 @@
     "notes": "Experience the early autumn colors and cool mountain breeze."
   },
   {
-    "opportunityId": 3,
     "eventId": "6877d692b6e3e16642880016",
     "locationId": "6877dc3a4631391c135597b7",
     "startDate": "2025-08-27T00:00:00",
@@ -66,7 +60,6 @@
     "notes": "Guided tours available in English and Japanese. Don't forget your camera for this unforgettable Kyoto landmark."
   },
   {
-    "opportunityId": 4,
     "eventId": "6877d692b6e3e16642880016",
     "locationId": "6877dc3a4631391c135597b9",
     "startDate": "2025-09-15T00:00:00",
@@ -77,7 +70,6 @@
     "notes": "This area offers a quieter perspective of the temple grounds and is perfect for reflection or sketching the scenery."
   },
   {
-    "opportunityId": 5,
     "eventId": "6877d692b6e3e1664288001a",
     "locationId": "6877dc3a4631391c135597bb",
     "startDate": "2025-08-21T08:00:00",
@@ -88,7 +80,6 @@
     "notes": "Gather around the campfire for a cookout by the sea. Bring a blanket for extra comfort."
   },
   {
-    "opportunityId": 6,
     "eventId": "6877d692b6e3e1664288001a",
     "locationId": "6877dc3a4631391c135597bb",
     "startDate": "2025-10-01T08:00:00",
@@ -99,7 +90,6 @@
     "notes": "Perfect for families and friends to share stories, roast treats, and watch the sunset together."
   },
   {
-    "opportunityId": 7,
     "eventId": "6877d692b6e3e1664288002b",
     "locationId": "6877dc3a4631391c135597bd",
     "startDate": "2025-08-31T04:00:00",
@@ -110,7 +100,6 @@
     "notes": "Beat the summer heat at Tower Records—enjoy cool music, limited summer releases, and refreshing in-store events."
   },
   {
-    "opportunityId": 8,
     "eventId": "6877d692b6e3e1664288002b",
     "locationId": "6877dc3a4631391c135597bd",
     "startDate": "2025-10-01T02:00:00",
@@ -121,7 +110,6 @@
     "notes": "Explore the iconic Tower Records, discover rare music finds, and enjoy exclusive in-store events."
   },
   {
-    "opportunityId": 9,
     "eventId": "6877d692b6e3e1664288002f",
     "locationId": "6877dc3a4631391c135597bf",
     "startDate": "2025-10-01T01:00:00",
@@ -132,7 +120,6 @@
     "notes": "Be aware of heavy traffic in and around Tokyo Tower. Plan extra travel time."
   },
   {
-    "opportunityId": 10,
     "eventId": "6877d692b6e3e1664288002f",
     "locationId": "6877dc3a4631391c135597bf",
     "startDate": "2025-10-31T01:00:00",
@@ -143,7 +130,6 @@
     "notes": "Spooky surprises await at Tokyo Tower this Halloween—watch out for ghosts, ghouls, and festive crowds!"
   },
   {
-    "opportunityId": 11,
     "eventId": "6877d692b6e3e16642880022",
     "locationId": "6877dc3a4631391c135597c2",
     "startDate": "2025-10-14T01:00:00",
@@ -154,7 +140,6 @@
     "notes": "Meet at The Sky Garden, Yokohama Landmark Tower to begin your Yokohama Discovery day. Enjoy panoramic views and get ready for a day of exploration and fun."
   },
   {
-    "opportunityId": 12,
     "eventId": "6877d692b6e3e16642880022",
     "locationId": "6877dc3a4631391c135597c2",
     "startDate": "2025-10-30T01:00:00",
@@ -165,7 +150,6 @@
     "notes": "This is the last event of the fall season—join us for a memorable finale at The Sky Garden, Yokohama Landmark Tower. Enjoy panoramic views and celebrate the season's end together."
   },
   {
-    "opportunityId": 13,
     "eventId": "6877d692b6e3e1664288001e",
     "locationId": "6877dc3b4631391c135597c6",
     "startDate": "2025-10-06T01:00:00",
@@ -176,7 +160,6 @@
     "notes": "Meet at this location to begin a day-long adventure exploring the magnificent Himeji Castle and its historic grounds."
   },
   {
-    "opportunityId": 14,
     "eventId": "6877d692b6e3e16642880026",
     "locationId": "6877dc3b4631391c135597c8",
     "startDate": "2025-11-06T01:00:00",
