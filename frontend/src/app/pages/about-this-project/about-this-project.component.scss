@@ -32,9 +32,14 @@ article {
   justify-content: center;
   background-color: rgba(0, 0, 0, 1);
   border: 1px solid var(--vivid-yellow-text);
+  color: var(--vivid-yellow-text);
+  text-decoration: none;
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -59,13 +64,8 @@ ul {
 }
 
 a {
-  color: var(--vivid-yellow-text);
+  color: var(--bright-blue-sky);
   font-weight: 500;
-
-  &.home {
-    color: var(--bright-blue-sky);
-    font-weight: 600;
-  }
 }
 
 footer {
