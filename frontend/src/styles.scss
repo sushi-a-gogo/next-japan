@@ -3,6 +3,8 @@
 @use "./styles/themes/next-japan-theme.scss";
 @use "./styles/themes/next-japan-dark-theme.scss";
 @use "./styles/themes/custom-theme-tokens";
+@use "./styles/animations/fadeIn.animation.scss";
+@use "./styles/animations/blurredSlideUp.animation.scss";
 @use "./styles/app-buttons.scss";
 @use "./styles/app-material-overrides.scss";
 

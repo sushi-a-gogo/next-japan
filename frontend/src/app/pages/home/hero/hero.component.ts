@@ -2,7 +2,6 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import fadeIn from '@app/animations/fadeIn.animation';
 import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
 import { interval } from 'rxjs';
@@ -14,10 +13,7 @@ import organization from 'src/lib/organization-data';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn],
-  host: {
-    '[@fadeIn]': 'in'
-  }
+  host: { '[class.fade-in]': 'true' }
 })
 export class HeroComponent implements OnInit {
   animationState = 'in';

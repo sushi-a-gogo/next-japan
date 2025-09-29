@@ -9,9 +9,9 @@ Experienced software developer with 20+ years of expertise in Angular, .NET (ASP
 
 ## Technical Skills
 
-- JavaScript • TypeScript • HTML5 • CSS3 • Angular (v20+) • Material Design • REST APIs
-- .NET Core • ASP.NET MVC • C# • SQL Server • Azure DevOps • Node.js • OpenAI API
-- Git • CI/CD • Agile/Scrum • Responsive Design • MongoDB • Performance Optimization
+• JavaScript • TypeScript • HTML5 • CSS3 • Angular (v20+) • Material Design • REST APIs\
+• .NET Core • ASP.NET MVC • C# • SQL Server • Azure DevOps • Node.js • OpenAI API\
+• Git • CI/CD • Agile/Scrum • Responsive Design • MongoDB • Performance Optimization
 
 ## Experience
 

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { MatButtonModule } from '@angular/material/button';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import fadeIn from '@app/animations/fadeIn.animation';
 import { CanonicalService } from '@app/services/canonical.service';
 import { MetaService } from '@app/services/meta.service';
 import { MyResumeComponent } from "./my-resume/my-resume.component";
@@ -13,11 +12,7 @@ import { MyResumeComponent } from "./my-resume/my-resume.component";
   templateUrl: './about-this-project.component.html',
   styleUrl: './about-this-project.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn],
-  host: {
-    '[@fadeIn]': 'in'
-  }
-
+  host: { '[class.fade-in]': 'true' }
 })
 export class AboutThisProjectComponent implements OnInit {
   private title = inject(Title);

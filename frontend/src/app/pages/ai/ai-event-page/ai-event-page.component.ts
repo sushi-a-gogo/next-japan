@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -19,15 +18,7 @@ import { filter } from 'rxjs';
   templateUrl: './ai-event-page.component.html',
   styleUrl: './ai-event-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 }))
-      ])
-    ])
-  ],
-  host: { '[@fadeIn]': '' }
+  host: { '[class.fade-in]': 'true' }
 })
 export class AiEventPageComponent implements OnInit {
   private router = inject(Router);
