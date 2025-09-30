@@ -5,7 +5,7 @@ Austin, TX | joe.svatek@icloud.com | [github.com/sushi-a-gogo](https://github.co
 
 ## Profile
 
-Experienced software developer with 20+ years of expertise in Angular, .NET (ASP.NET MVC through .NET Core), and SQL Server, building responsive, API-driven web applications. Skilled in front-end UI/UX and API integration, with additional experience in Node.js and emerging technologies like AI-powered services. Proven collaborator on Agile/Scrum teams, delivering high-quality features for complex systems, from legacy to modern frameworks.
+Experienced software developer with 20+ years of expertise in Angular and modern front-end development, specializing in responsive UI/UX and component-driven web applications. Skilled at integrating front-end features with .NET (ASP.NET MVC through .NET Core) and SQL Server backends, with additional experience in Node.js and emerging technologies like AI-powered services. Proven collaborator on Agile/Scrum teams, delivering high-quality features for complex systems, from legacy migrations to cutting-edge frameworks.
 
 ## Technical Skills
 
@@ -20,7 +20,7 @@ Experienced software developer with 20+ years of expertise in Angular, .NET (ASP
 Led front-end development of SaaS applications using Angular and TypeScript, integrating with .NET Core, SQL Server, and GCP.
 
 - Built responsive web components from Figma wireframes.
-- Developed and maintained RESTful Web APIs with .NET Core and SQL Server.
+- Support and maintenance of RESTful Web APIs with .NET Core and SQL Server.
 - Defined app requirements and workflows with Product Managers.
 - Delivered features in 2-week Agile sprints, prioritizing user-focused requirements.
 
