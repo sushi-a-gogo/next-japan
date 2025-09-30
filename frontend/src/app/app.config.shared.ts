@@ -1,6 +1,7 @@
 import { DatePipe, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { environment } from '@environments/environment';
 import { provideMarkdown } from 'ngx-markdown';
@@ -15,6 +16,7 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling
 
 export const sharedProviders = [
   DatePipe,
+  provideAnimations(), // <- deprecated but needed by NgxSpinner :(
   provideHttpClient(
     withFetch(),
     withInterceptors([authInterceptor])
