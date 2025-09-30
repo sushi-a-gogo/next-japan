@@ -12,7 +12,7 @@ import { MyResumeComponent } from "./my-resume/my-resume.component";
   templateUrl: './about-this-project.component.html',
   styleUrl: './about-this-project.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.fade-in]': 'true' }
+  host: { '[class.fade-in-animate]': 'true' }
 })
 export class AboutThisProjectComponent implements OnInit {
   private title = inject(Title);

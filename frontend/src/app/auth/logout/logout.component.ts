@@ -11,7 +11,7 @@ import { delay } from 'rxjs';
   imports: [MatProgressSpinnerModule, NgxSpinnerComponent],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss',
-  host: { '[class.fade-in]': 'true' }
+  host: { '[class.fade-in-animate]': 'true' }
 })
 export class LogoutComponent implements OnInit {
   private route = inject(ActivatedRoute);
