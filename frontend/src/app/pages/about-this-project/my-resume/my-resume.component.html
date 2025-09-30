@@ -2,10 +2,15 @@
   <main class="dialog">
     <div class="resume-container">
       <markdown [data]="resumeContent()"></markdown>
-      <a href="/assets/resume.md" download>Download Resume (Markdown)</a>
     </div>
   </main>
   <footer class="dialog">
+    <a
+      class="app-button app-button-outlined dialog"
+      href="/assets/resume.md"
+      download
+      >Download Resume (Markdown)</a
+    >
     <button class="app-button app-button-filled dialog" (click)="closeResume()">
       Close
     </button>

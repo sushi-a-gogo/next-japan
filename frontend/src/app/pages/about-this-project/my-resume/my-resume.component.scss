@@ -43,8 +43,8 @@ a,
 :host ::ng-deep a {
   color: var(--next-link);
   text-decoration: none;
+}
 
-  &:hover {
-    text-decoration: underline;
-  }
+footer.dialog {
+  justify-content: space-between;
 }
