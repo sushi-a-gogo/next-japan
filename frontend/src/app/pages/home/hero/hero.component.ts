@@ -13,7 +13,7 @@ import organization from 'src/lib/organization-data';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.fade-in]': 'true' }
+  host: { '[class.fade-in-animate]': 'true' }
 })
 export class HeroComponent implements OnInit {
   animationState = 'in';

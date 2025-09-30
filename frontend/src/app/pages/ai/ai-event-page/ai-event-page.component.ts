@@ -18,7 +18,7 @@ import { filter } from 'rxjs';
   templateUrl: './ai-event-page.component.html',
   styleUrl: './ai-event-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.fade-in]': 'true' }
+  host: { '[class.fade-in-animate]': 'true' }
 })
 export class AiEventPageComponent implements OnInit {
   private router = inject(Router);
