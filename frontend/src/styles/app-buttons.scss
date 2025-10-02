@@ -58,16 +58,6 @@ a.app-button {
     color: white;
     font-weight: 600;
     transition: background-color 0.3s ease;
-
-    &:hover:not(:disabled) {
-      background-color: #ab2c2c;
-      border-color: #ab2c2c;
-      opacity: 1;
-    }
-  }
-
-  &:hover:not(:disabled) {
-    opacity: 0.85;
   }
 }
 
@@ -75,10 +65,6 @@ a.app-button {
   background-color: var(--next-surface);
   color: var(--next-text);
   border: 1px solid var(--next-border-alt);
-
-  &:hover:not(:disabled) {
-    background-color: var(--next-surface-alt);
-  }
 }
 
 .text-button {
@@ -87,8 +73,24 @@ a.app-button {
   border: 0;
   background-color: transparent;
   transition: 0.25s ease-in-out;
+}
 
-  &:hover {
+@media only screen and (min-width: 992px) {
+  .app-button-filled:hover:not(:disabled) {
+    background-color: var(--next-confirm-bg-hover);
+
+    &.priority {
+      background-color: #ab2c2c;
+      border-color: #ab2c2c;
+      opacity: 1;
+    }
+  }
+
+  .app-button-outlined:hover:not(:disabled) {
+    background-color: var(--next-surface-alt);
+  }
+
+  .text-button:hover:not(:disabled) {
     text-decoration: underline;
     text-underline-offset: 4px;
   }
