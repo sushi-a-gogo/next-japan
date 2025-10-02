@@ -10,18 +10,6 @@ button {
   transition: 0.25s ease-in-out;
   background-color: var(--next-surface);
   cursor: pointer;
-
-  &:hover {
-    .image-container {
-      img {
-        filter: brightness(85%);
-
-        &.no-image {
-          filter: brightness(95%);
-        }
-      }
-    }
-  }
 }
 
 .image-container {
@@ -87,5 +75,19 @@ button {
   .image-container {
     width: 224px;
     height: 128px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  button:hover {
+    .image-container {
+      img {
+        filter: brightness(85%);
+
+        &.no-image {
+          filter: brightness(95%);
+        }
+      }
+    }
   }
 }

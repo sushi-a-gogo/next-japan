@@ -48,10 +48,6 @@ form {
     text-decoration: none;
     cursor: pointer;
     color: var(--next-link);
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 
@@ -65,5 +61,11 @@ form {
     align-items: flex-start;
     gap: 10px;
     width: 500px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  a:hover {
+    text-decoration: underline;
   }
 }

@@ -57,21 +57,6 @@
   padding: 12px 24px;
 }
 
-.app-button-filled {
-  background-color: var(--red-torii-gate);
-  border-color: var(--red-torii-gate);
-  color: white;
-  font-weight: 600;
-
-  &:hover {
-    background-color: #ab2c2c;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-  }
-}
-
 .app-button-outlined {
   color: var(--next-note);
 }
@@ -86,9 +71,11 @@
     color: var(--next-link);
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+}
 
-    &:hover {
-      color: var(--next-link-hover);
-    }
+@media only screen and (min-width: 992px) {
+  a:hover {
+    text-decoration: underline;
   }
 }

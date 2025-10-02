@@ -83,7 +83,6 @@
   gap: 4px;
   transition: background 0.25s ease-in-out, opacity 0.25s ease-in-out;
 
-  &:hover,
   &:visited {
     background: rgba(var(--next-text-rgb), 0.1);
   }
