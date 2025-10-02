@@ -1,7 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { MatRippleModule } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
 import { interval } from 'rxjs';
@@ -9,14 +10,14 @@ import organization from 'src/lib/organization-data';
 
 @Component({
   selector: 'app-hero',
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, MatRippleModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.fade-in-animate]': 'true' }
 })
 export class HeroComponent implements OnInit {
-  animationState = 'in';
+  private router = inject(Router);
   private imageService = inject(ImageService);
 
   org = organization;
@@ -42,5 +43,9 @@ export class HeroComponent implements OnInit {
         this.currentImageIndex.set(nextIndex);
       }
     })
+  }
+
+  navigateToAboutPage() {
+    this.router.navigate(['./about-this-project']);
   }
 }
