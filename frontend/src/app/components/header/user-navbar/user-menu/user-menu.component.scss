@@ -22,10 +22,6 @@
   height: 54px;
   width: 54px;
   min-width: 54px;
-
-  &:hover {
-    background-color: var(--next-surface-alt);
-  }
 }
 
 header {
@@ -82,5 +78,11 @@ header {
       line-clamp: 1;
       -webkit-box-orient: vertical;
     }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .profile-button:hover {
+    background-color: var(--next-surface-alt);
   }
 }

@@ -22,12 +22,6 @@ form {
   border-color: #007b72;
   color: var(--vivid-yellow-text);
   transition: 0.25s ease-in-out;
-
-  &:hover {
-    background-color: var(--bright-blue-sky);
-    border-color: var(--bright-blue-sky);
-    color: #000; /* flip text to black for better contrast */
-  }
 }
 
 @media (min-width: 600px) {
@@ -42,5 +36,13 @@ form {
     align-items: center;
     flex-wrap: wrap;
     padding-bottom: 40px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .app-button.app-button-filled:hover {
+    background-color: var(--bright-blue-sky);
+    border-color: var(--bright-blue-sky);
+    color: #000; /* flip text to black for better contrast */
   }
 }

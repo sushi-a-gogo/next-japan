@@ -33,10 +33,6 @@ ul {
       padding: 0;
       text-decoration: none;
       font-weight: 600;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 
@@ -79,19 +75,11 @@ footer.dialog {
       color: var(--next-text);
       font-weight: 600;
       background-color: var(--next-surface-alt);
-
-      &:hover {
-        opacity: 0.75;
-      }
     }
 
     &.app-button.cancel {
       font-weight: 600;
       color: var(--next-note);
-
-      &:hover {
-        background-color: var(--next-surface-alt);
-      }
     }
   }
 }
@@ -99,5 +87,26 @@ footer.dialog {
 @media screen and (min-width: 600px) {
   .dialog {
     width: 320px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  ul {
+    li {
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  footer.dialog {
+    button {
+      &.app-button-outlined:hover {
+        opacity: 0.75;
+      }
+
+      &.app-button.cancel:hover {
+        background-color: var(--next-surface-alt);
+      }
+    }
   }
 }

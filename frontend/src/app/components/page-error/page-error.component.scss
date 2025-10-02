@@ -41,15 +41,20 @@ img {
     font-weight: 600;
     color: var(--vivid-yellow-text);
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-      text-underline-offset: 5px;
-    }
   }
 
   .material-symbols-outlined {
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .error-link {
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
   }
 }

@@ -24,19 +24,10 @@
   border: 0;
   background-color: transparent;
   transition: 0.25s ease-in-out;
-
-  &:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
 }
 
 a {
   font-size: 14px;
   color: var(--next-link);
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }

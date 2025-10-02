@@ -12,8 +12,10 @@ a {
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
+}
 
-  &:hover {
+@media only screen and (min-width: 992px) {
+  a:hover {
     text-decoration: underline;
   }
 }

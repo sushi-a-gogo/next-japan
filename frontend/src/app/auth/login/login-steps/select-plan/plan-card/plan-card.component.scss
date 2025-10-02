@@ -12,11 +12,6 @@
   width: 100%;
 }
 
-:host(:hover) {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
 :host(.selected) {
   border-color: var(--vivid-yellow-text);
   box-shadow: 0 0 0 3px rgba(200, 70, 70, 0.3);
@@ -101,4 +96,11 @@ footer {
 
 button[matbutton] {
   min-width: 100%;
+}
+
+@media only screen and (min-width: 992px) {
+  :host(:hover) {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
 }

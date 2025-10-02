@@ -10,10 +10,6 @@
   outline: none;
   color: var(--next-text);
 
-  &:hover {
-    cursor: pointer;
-  }
-
   .soft {
     font-weight: 500;
     line-height: 24px;
@@ -32,4 +28,10 @@
   width: 20px;
   height: 20px;
   border-radius: 0.25rem;
+}
+
+@media only screen and (min-width: 992px) {
+  .share-button:hover {
+    cursor: pointer;
+  }
 }

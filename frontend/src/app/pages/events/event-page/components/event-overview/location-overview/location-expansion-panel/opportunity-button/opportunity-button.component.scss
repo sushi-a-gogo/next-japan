@@ -11,10 +11,6 @@ button {
   padding: 12px 8px;
   padding-right: 32px;
 
-  &:hover:not(:disabled) {
-    background-color: var(--next-surface);
-  }
-
   &:disabled {
     cursor: default;
   }
@@ -24,4 +20,10 @@ button {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+@media only screen and (min-width: 992px) {
+  button:hover:not(:disabled) {
+    background-color: var(--next-surface);
+  }
 }
