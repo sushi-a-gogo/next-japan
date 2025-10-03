@@ -37,6 +37,10 @@ li {
   padding: 0;
   height: 100%;
 
+  &.logo {
+    width: 96px;
+  }
+
   .app-button {
     background-color: transparent;
     padding: 0 20px;

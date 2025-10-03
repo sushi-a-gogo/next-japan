@@ -1,8 +1,6 @@
 import { Component, computed, DestroyRef, inject, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRippleModule } from '@angular/material/core';
-import { RouterLink } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
@@ -10,6 +8,8 @@ import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
 import { AddressStripComponent } from '@app/shared/address-strip/address-strip.component';
+import { AnchorComponent } from '@app/shared/anchor/anchor.component';
+import { ButtonComponent } from '@app/shared/button/button.component';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
@@ -18,7 +18,7 @@ import { delay, of } from 'rxjs';
 
 @Component({
   selector: 'app-registration-dialog',
-  imports: [RouterLink, MatButtonModule, MatRippleModule, ModalComponent, LoadingSpinnerComponent, AddressStripComponent, OpportunityTimestampComponent],
+  imports: [MatButtonModule, ModalComponent, ButtonComponent, AnchorComponent, LoadingSpinnerComponent, AddressStripComponent, OpportunityTimestampComponent],
   templateUrl: './registration-dialog.component.html',
   styleUrl: './registration-dialog.component.scss'
 })

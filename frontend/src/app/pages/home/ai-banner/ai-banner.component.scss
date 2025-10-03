@@ -33,27 +33,13 @@ main {
   line-height: 20px;
 }
 
-a.app-button.app-button-filled {
+.anchor-label {
   font-size: 18px;
-  height: 48px;
-  font-weight: 600;
-
-  background: #007b72;
-  border-color: #007b72;
-  color: var(--vivid-yellow-text);
-  background-color: #00675f;
-  border-color: #00675f;
+  line-height: 48px;
 }
 
 @media screen and (min-width: 600px) {
   main {
     font-size: 16px;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  a.app-button.app-button-filled:hover {
-    background-color: #00675f;
-    border-color: #00675f;
   }
 }

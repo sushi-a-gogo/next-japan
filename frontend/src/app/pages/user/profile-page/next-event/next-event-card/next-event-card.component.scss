@@ -36,6 +36,10 @@ main {
 }
 
 @media screen and (min-width: 1000px) {
+  .anchor {
+    min-width: 240px;
+    max-width: 240px;
+  }
   img {
     height: 240px;
     max-width: 360px;

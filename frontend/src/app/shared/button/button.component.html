@@ -1,0 +1,11 @@
+<button
+  matRipple
+  [aria-label]="label()"
+  [type]="buttonType()"
+  [matTooltip]="tooltip()"
+  [class]="cssClass()"
+  [disabled]="disabled()"
+  (click)="click.emit($event)"
+>
+  <ng-content />
+</button>

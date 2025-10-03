@@ -8,6 +8,7 @@ import { UserProfile } from '@app/models/user-profile.model';
 import { User } from '@app/models/user.model';
 import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
+import { ButtonComponent } from '@app/shared/button/button.component';
 import { Plan } from '@models/plan.interface';
 import { delay, switchMap } from 'rxjs';
 import { PaymentForm } from './payment.form';
@@ -15,7 +16,7 @@ import { PaymentForm } from './payment.form';
 
 @Component({
   selector: 'app-plan-payment',
-  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, ButtonComponent],
   templateUrl: './plan-payment.component.html',
   styleUrl: './plan-payment.component.scss'
 })

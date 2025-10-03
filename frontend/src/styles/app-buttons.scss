@@ -1,3 +1,8 @@
+button,
+a {
+  touch-action: manipulation;
+}
+
 .app-button {
   border-radius: 24px;
   border: 0;
@@ -52,6 +57,12 @@ a.app-button {
   border: 1px solid var(--next-confirm-bg);
   color: var(--next-confirm-text);
 
+  &.ai-theme {
+    color: var(--vivid-yellow-text);
+    background-color: #00675f;
+    border-color: #00675f;
+  }
+
   &.priority {
     background-color: var(--red-torii-gate);
     border-color: var(--red-torii-gate);
@@ -65,6 +76,10 @@ a.app-button {
   background-color: var(--next-surface);
   color: var(--next-text);
   border: 1px solid var(--next-border-alt);
+
+  &.softer {
+    border-color: var(--next-border);
+  }
 }
 
 .text-button {
@@ -78,6 +93,10 @@ a.app-button {
 @media only screen and (min-width: 992px) {
   .app-button-filled:hover:not(:disabled) {
     background-color: var(--next-confirm-bg-hover);
+    &.ai-theme {
+      background: #007b72;
+      border-color: #007b72;
+    }
 
     &.priority {
       background-color: #ab2c2c;

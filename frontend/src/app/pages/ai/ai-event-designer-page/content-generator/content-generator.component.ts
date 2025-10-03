@@ -3,19 +3,18 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, FormsModule, NgForm } from '@angular/forms';
-import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
 import { AiEvent } from '@app/models/event/ai-event.model';
 import { AiService } from '@app/services/ai.service';
 import { AuthService } from '@app/services/auth.service';
+import { ButtonComponent } from '@app/shared/button/button.component';
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatRippleModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule],
+  imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ButtonComponent],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })

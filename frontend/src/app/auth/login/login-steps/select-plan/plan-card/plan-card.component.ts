@@ -1,11 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { Plan } from '../../../../../models/plan.interface';
+import { Plan } from '@app/models/plan.interface';
+import { ButtonComponent } from '@app/shared/button/button.component';
 
 @Component({
   selector: 'app-plan-card',
-  imports: [CurrencyPipe, MatButtonModule],
+  imports: [CurrencyPipe, ButtonComponent],
   templateUrl: './plan-card.component.html',
   styleUrl: './plan-card.component.scss'
 })

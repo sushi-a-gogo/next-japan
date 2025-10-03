@@ -25,9 +25,13 @@ form {
 }
 
 @media (min-width: 600px) {
-  .app-button {
+  .button-text {
     font-size: 18px;
+    line-height: 48px;
     font-weight: 600;
+  }
+
+  .button {
     width: 212px;
   }
 

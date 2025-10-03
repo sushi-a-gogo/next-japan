@@ -46,40 +46,35 @@
   </main>
   <footer class="dialog">
     @if(completed()) {
-    <a
-      type="button"
-      matRipple
-      class="app-button dialog-button app-button-filled priority"
-      routerLink="/user/profile"
+    <app-anchor
+      cssClass="app-button dialog-button app-button-filled priority"
+      link="/user/profile"
       [queryParams]="{ action: 'manage' }"
     >
       Manage Your Events
-    </a>
-    <button
+    </app-anchor>
+    <app-button
+      label="Close dialog"
+      cssClass="app-button dialog-button app-button-outlined"
       (click)="closeDialog()"
-      type="button"
-      matRipple
-      class="app-button dialog-button app-button-outlined"
     >
       Done
-    </button>
+    </app-button>
     } @else {
-    <button
+    <app-button
+      label="Register for Event"
+      cssClass="app-button dialog-button app-button-filled priority"
       (click)="sendRequest()"
-      type="button"
-      matRipple
-      class="app-button dialog-button app-button-filled priority"
     >
       Register
-    </button>
-    <button
-      type="button"
-      matRipple
-      class="app-button dialog-button app-button-outlined"
+    </app-button>
+    <app-button
+      label="Close dialog"
+      cssClass="app-button dialog-button app-button-outlined"
       (click)="closeDialog()"
     >
       Cancel
-    </button>
+    </app-button>
     }
   </footer>
 </app-modal>

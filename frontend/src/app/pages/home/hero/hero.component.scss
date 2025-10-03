@@ -124,7 +124,8 @@ p {
     font-weight: 400;
   }
 
-  button {
-    min-width: 200px;
+  .button {
+    min-width: 240px;
+    max-width: 240px;
   }
 }

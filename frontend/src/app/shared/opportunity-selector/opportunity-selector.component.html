@@ -1,36 +1,31 @@
 @if(isAuthenticated()) {
 <!-- registered -->
 @if(context()?.registrationStatus) {
-<button
-  type="button"
-  matRipple
-  class="app-button app-button-filled flex-button"
-  disabled
+<app-button
+  cssClass="app-button app-button-filled flex-button"
+  disabled="disabled"
 >
   @switch(context()?.registrationStatus) { @case('requested') {
   <span class="material-symbols-outlined">pending_actions</span> }
   @case('registered') { <span class="material-symbols-outlined">verified</span>}
   }
   {{ context()?.registrationStatus | titlecase }}
-</button>
+</app-button>
 } @else { @if(context()?.conflicted) {
-<button
-  type="button"
-  class="app-button inactive"
+<app-button
+  cssClass="app-button inactive"
   disabled="disabled"
-  matTooltip="This event conflicts with one you've already registered for."
+  tooltip="This event conflicts with one you've already registered for."
 >
   Conflict
-</button>
+</app-button>
 } @else {
-<button
-  type="button"
-  matRipple
-  class="app-button app-button-filled nx-flex al-c jc-c gap-5"
+<app-button
+  cssClass="app-button app-button-filled nx-flex al-c jc-c gap-5"
   (click)="selectOpportunity()"
 >
   Select
-</button>
+</app-button>
 } }
 <!-- End Authenticated -->
 }

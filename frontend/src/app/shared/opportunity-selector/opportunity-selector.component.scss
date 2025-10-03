@@ -1,22 +1,7 @@
 :host {
   display: inline-block;
-  //min-width: 192px;
   width: 100%;
-}
-
-.app-button {
-  padding: 0 10px;
-  text-align: center;
   min-width: 120px;
-  width: 100%;
-  letter-spacing: 0.006rem;
-
-  &.registered:disabled {
-    opacity: 1;
-    background-color: var(--bright-blue-sky);
-    border-color: var(--bright-blue-sky);
-    color: var(--creamy-white-clouds);
-  }
 }
 
 .label {
