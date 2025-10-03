@@ -34,7 +34,7 @@
       </app-anchor>
       <app-button
         cssClass="app-button app-button-outlined"
-        (click)="confirmCancel()"
+        (buttonClick)="confirmCancel()"
         [disabled]="event().status === registrationStatus.Cancelled"
       >
         Cancel Registration

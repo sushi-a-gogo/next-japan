@@ -5,7 +5,7 @@
   [matTooltip]="tooltip()"
   [class]="cssClass()"
   [disabled]="disabled()"
-  (click)="click.emit($event)"
+  (click)="onClick($event)"
 >
   <ng-content />
 </button>
