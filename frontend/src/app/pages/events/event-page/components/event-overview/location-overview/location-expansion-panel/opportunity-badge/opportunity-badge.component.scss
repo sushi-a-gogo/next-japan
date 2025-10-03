@@ -1,29 +1,35 @@
+:host {
+  padding: 2px;
+}
 .badge {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 30px;
   width: 30px;
-  border: 1px solid var(--next-border);
-  border-right: 0;
-  border-bottom: 0;
   border-top-left-radius: 10px;
-}
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 4px;
+  overflow: hidden;
 
-.material-symbols-outlined {
   &.verified {
-    color: var(--next-verified);
+    background-color: var(--next-verified);
   }
   &.calendar_check {
     font-variation-settings: "FILL" 1;
-    color: var(--pink-cherry-blossoms);
+    background-color: var(--pink-cherry-blossoms);
   }
   &.calendar_add_on {
-    color: var(--bright-blue-sky);
+    background-color: var(--bright-blue-sky);
   }
-  &.block {
+  &.event_busy {
     //font-variation-settings: "FILL" 2, "wght" 700, "GRAD" 0, "opsz" 48;
     font-weight: 600;
-    color: var(--next-note);
+    background-color: var(--next-note);
   }
+}
+
+.material-symbols-outlined {
+  color: var(--creamy-white-clouds);
 }

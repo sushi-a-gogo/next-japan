@@ -19,7 +19,7 @@ export class OpportunityBadgeComponent {
       return 'calendar_check';
     }
     if (this.context()?.conflicted) {
-      return 'block';
+      return 'event_busy';
     }
     return 'calendar_add_on';
   });
