@@ -21,24 +21,9 @@ form {
   padding: 0;
 }
 
-.app-button-filled {
+.button-text {
   font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.flex-button {
-  justify-content: flex-start;
-}
-
-.text-button {
-  cursor: pointer;
-  color: var(--next-link);
-  border: 0;
-  background-color: transparent;
-  transition: 0.25s ease-in-out;
+  line-height: 52px;
 }
 
 a {

@@ -6,10 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { User } from '@app/models/user.model';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
+import { ButtonComponent } from '@app/shared/button/button.component';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, UserAvatarComponent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, UserAvatarComponent, ButtonComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })

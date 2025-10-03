@@ -1,5 +1,6 @@
 <button
   (click)="onSelect(tooltip)"
+  (touchend)="onSelect(tooltip)"
   [matTooltip]="tooltipText()"
   [matTooltipDisabled]="tooltipDisabled"
   #tooltip="matTooltip"

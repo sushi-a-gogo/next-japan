@@ -13,10 +13,10 @@
   }
 </main>
 <footer class="dialog fade-in" [class.open]="haiku()">
-  <button
-    class="app-button app-button-filled priority"
-    (click)="dismiss.emit()"
+  <app-button
+    cssClass="app-button app-button-filled priority"
+    (buttonClick)="dismiss.emit()"
   >
     If you say so
-  </button>
+  </app-button>
 </footer>

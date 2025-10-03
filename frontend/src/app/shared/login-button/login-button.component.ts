@@ -1,10 +1,10 @@
 import { Component, inject, input } from '@angular/core';
-import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-login-button',
-  imports: [MatRippleModule],
+  imports: [ButtonComponent],
   templateUrl: './login-button.component.html',
   styleUrl: './login-button.component.scss'
 })

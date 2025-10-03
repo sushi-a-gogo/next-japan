@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { AiService } from '@app/services/ai.service';
+import { ButtonComponent } from '@app/shared/button/button.component';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-surprise',
-  imports: [NgxSpinnerComponent],
+  imports: [NgxSpinnerComponent, ButtonComponent],
   templateUrl: './surprise.component.html',
   styleUrl: './surprise.component.scss'
 })
