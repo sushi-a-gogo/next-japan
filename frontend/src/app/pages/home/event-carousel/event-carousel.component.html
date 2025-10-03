@@ -3,6 +3,7 @@
   <button
     class="nav-button prev"
     (click)="scrollPrev()"
+    (touchend)="scrollPrev()"
     [disabled]="disablePrevButton()"
     aria-label="Previous events"
   >
@@ -23,6 +24,7 @@
   <button
     class="nav-button next"
     (click)="scrollNext()"
+    (touchend)="scrollNext()"
     [disabled]="disableNextButton()"
     aria-label="Next events"
   >

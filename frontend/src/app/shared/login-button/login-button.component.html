@@ -1,13 +1,15 @@
 @if(signup()) {
-<button
-  mat-ripple
-  class="app-button app-button-filled priority"
-  (click)="login()"
+<app-button
+  cssClass="app-button app-button-filled priority"
+  (buttonClick)="login()"
 >
-  Get Started
-</button>
+  <span class="button-text"> Get Started </span>
+</app-button>
 } @else {
-<button mat-ripple class="app-button app-button-outlined" (click)="login()">
-  Sign In
-</button>
+<app-button
+  cssClass="app-button app-button-outlined transparent"
+  (buttonClick)="login()"
+>
+  <span class="button-text">Sign In</span>
+</app-button>
 }

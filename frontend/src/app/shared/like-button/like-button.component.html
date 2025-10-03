@@ -3,6 +3,7 @@
   [class.open]="loaded()"
   [disabled]="!userId()"
   (click)="like()"
+  (touchend)="like()"
   [style.color]="color()"
 >
   <span class="material-symbols-outlined" [class.filled]="likedByCurrent()">

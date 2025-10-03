@@ -48,3 +48,10 @@ a,
 footer.dialog {
   justify-content: space-between;
 }
+
+@media only screen and (min-width: 992px) {
+  a:hover,
+  :host ::ng-deep a:hover {
+    text-decoration: underline;
+  }
+}

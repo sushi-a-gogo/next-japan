@@ -1,17 +1,14 @@
 :host {
   display: inline-block;
   width: 100%;
-  min-width: 120px;
+  min-width: 124px;
 }
 
-button {
+.button-text {
   font-size: 16px;
+  line-height: 42px;
   font-weight: 700;
-  padding: 0 12px;
-  width: 100%;
-  &:hover {
-    cursor: pointer;
-  }
+  color: var(--creamy-white-clouds);
 }
 
 .app-button-outlined {
