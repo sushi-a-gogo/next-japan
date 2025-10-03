@@ -14,6 +14,7 @@ export class ButtonComponent {
   label = input<string>();
   tooltip = input<string>();
   disabled = input<boolean | 'disabled'>();
+  touchAware = input<boolean>();
   buttonClick = output<MouseEvent | TouchEvent>();
 
   handleClick($event: MouseEvent) {
@@ -21,6 +22,8 @@ export class ButtonComponent {
   }
 
   handleTouchEnd($event: TouchEvent) {
-    this.buttonClick.emit($event);
+    if (this.touchAware()) {
+      this.buttonClick.emit($event);
+    }
   }
 }
