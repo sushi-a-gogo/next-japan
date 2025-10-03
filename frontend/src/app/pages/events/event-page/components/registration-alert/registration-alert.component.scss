@@ -65,22 +65,10 @@ ul {
 footer.dialog {
   align-items: flex-start;
   padding-top: 0;
-  button {
-    border-radius: 24px;
-    width: 100%;
-    font-weight: 700;
 
-    &.app-button-outlined {
-      color: var(--red-torii-gate);
-      color: var(--next-text);
-      font-weight: 600;
-      background-color: var(--next-surface-alt);
-    }
-
-    &.app-button.cancel {
-      font-weight: 600;
-      color: var(--next-note);
-    }
+  .cancel-text {
+    font-weight: 600;
+    color: var(--next-note);
   }
 }
 

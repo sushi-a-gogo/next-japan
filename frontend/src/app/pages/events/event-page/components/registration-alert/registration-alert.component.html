@@ -47,28 +47,28 @@
       Are you <span>sure</span> you want to cancel?
     </div>
     @if(confirmCancel()) {
-    <button
-      class="app-button app-button-filled priority"
-      (click)="cancelEvent()"
+    <app-button
+      cssClass="app-button app-button-filled priority"
+      (buttonClick)="cancelEvent()"
     >
       Yes, I'm sure
-    </button>
-    <button
-      class="app-button app-button-outlined"
-      (click)="confirmCancel.set(false)"
+    </app-button>
+    <app-button
+      cssClass="app-button app-button-outlined"
+      (buttonClick)="confirmCancel.set(false)"
     >
       No, I changed my mind.
-    </button>
+    </app-button>
     } @else {
-    <button
-      class="app-button app-button-filled priority"
-      (click)="closeDialog()"
+    <app-button
+      cssClass="app-button app-button-filled priority"
+      (buttonClick)="closeDialog()"
     >
       OK
-    </button>
-    <button class="app-button cancel" (click)="confirmCancel.set(true)">
-      Cancel Registration
-    </button>
+    </app-button>
+    <app-button cssClass="app-button" (buttonClick)="confirmCancel.set(true)">
+      <span class="cancel-text"> Cancel Registration </span>
+    </app-button>
     }
   </footer>
   } @else {
@@ -85,12 +85,12 @@
   </header>
   <main class="dialog">Your event registration has been cancelled.</main>
   <footer class="dialog">
-    <button
-      class="app-button app-button-filled priority"
-      (click)="closeDialog()"
+    <app-button
+      cssClass="app-button app-button-filled priority"
+      (buttonClick)="closeDialog()"
     >
       OK
-    </button>
+    </app-button>
   </footer>
   }
 </app-modal>

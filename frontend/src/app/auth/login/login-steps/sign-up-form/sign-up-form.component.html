@@ -31,18 +31,23 @@
     </mat-form-field>
   </form>
   <div class="nx-flex col gap-10">
-    <button
-      class="app-button dialog-button app-button-filled priority"
-      (click)="createUser()"
+    <app-button
+      cssClass="app-button dialog-button app-button-filled priority"
+      (buttonClick)="createUser()"
       [disabled]="newUserForm.invalid"
     >
-      Next
-    </button>
+      <span class="button-text">Next</span>
+    </app-button>
     <div class="switchbox nx-flex row al-c gap-5">
       Already have an account?
-      <button class="text-button" (click)="switchToSignIn.emit()">
-        Sign in
-      </button>
+      <div>
+        <app-button
+          cssClass="text-button"
+          (buttonClick)="switchToSignIn.emit()"
+        >
+          Sign in
+        </app-button>
+      </div>
     </div>
   </div>
   <p class="soft xs">

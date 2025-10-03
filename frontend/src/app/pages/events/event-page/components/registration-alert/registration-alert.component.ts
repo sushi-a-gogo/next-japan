@@ -8,13 +8,14 @@ import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { NotificationService } from '@app/services/notification.service';
 import { AddressStripComponent } from "@app/shared/address-strip/address-strip.component";
+import { ButtonComponent } from '@app/shared/button/button.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
 import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-registration-alert',
-  imports: [DatePipe, RouterLink, MatButtonModule, ModalComponent, OpportunityTimestampComponent, AddressStripComponent],
+  imports: [DatePipe, RouterLink, MatButtonModule, ModalComponent, ButtonComponent, OpportunityTimestampComponent, AddressStripComponent],
   templateUrl: './registration-alert.component.html',
   styleUrl: './registration-alert.component.scss'
 })

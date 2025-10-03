@@ -18,21 +18,22 @@
       />
     </mat-form-field>
     <div class="nx-flex col gap-10">
-      <button
-        type="submit"
-        class="app-button dialog-button app-button-filled priority"
+      <app-button
+        buttonType="submit"
+        cssClass="app-button dialog-button app-button-filled priority"
       >
-        Continue
-      </button>
+        <span class="button-text">Continue</span>
+      </app-button>
       <div class="switchbox nx-flex row al-c gap-5">
         Don't have an account?
-        <button
-          type="button"
-          class="text-button"
-          (click)="switchToSignUp.emit()"
-        >
-          Sign up
-        </button>
+        <div>
+          <app-button
+            cssClass="text-button"
+            (buttonClick)="switchToSignUp.emit()"
+          >
+            Sign up
+          </app-button>
+        </div>
       </div>
     </div>
   </form>
