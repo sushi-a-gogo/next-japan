@@ -56,24 +56,24 @@
   </div>
   <div class="nx-flex col gap-10">
     @if(user().userId) {
-    <button
-      class="app-button dialog-button app-button-filled priority"
+    <app-button
+      cssClass="app-button dialog-button app-button-filled priority"
       (click)="updateSubscription()"
       [disabled]="paymentForm.invalid || busy()"
     >
       Update Subscription
-    </button>
-    <button class="app-button dialog-button app-button-outlined">
+    </app-button>
+    <app-button cssClass="app-button dialog-button app-button-outlined">
       Cancel Subscription
-    </button>
+    </app-button>
     } @else {
-    <button
-      class="app-button dialog-button app-button-filled priority"
+    <app-button
+      cssClass="app-button dialog-button app-button-filled priority"
       (click)="createSubscription()"
       [disabled]="paymentForm.invalid"
     >
       Submit Payment
-    </button>
+    </app-button>
     }
   </div>
 </div>

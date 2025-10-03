@@ -1,16 +1,15 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { MatRippleModule } from '@angular/material/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { getRegistrationContext } from '@app/models/event/event-registration.model';
 import { AuthService } from '@app/services/auth.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { EventSelectionService } from '@app/services/event-selection.service';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-opportunity-selector',
-  imports: [TitleCasePipe, MatRippleModule, MatTooltipModule],
+  imports: [TitleCasePipe, ButtonComponent],
   templateUrl: './opportunity-selector.component.html',
   styleUrl: './opportunity-selector.component.scss'
 })

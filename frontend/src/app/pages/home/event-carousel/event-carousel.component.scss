@@ -66,6 +66,7 @@
 }
 
 .nav-button {
+  touch-action: manipulation;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

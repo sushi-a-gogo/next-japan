@@ -75,22 +75,24 @@
         placeholder="Enter text"
       />
     </mat-form-field>
-    @if(disabled()) {
-    <button
-      class="app-button app-button-filled"
-      disabled
-      matTooltip="Sign in or create an account to use the content generator."
-    >
-      Generate
-    </button>
-    } @else {
-    <button
-      class="app-button app-button-filled generate"
-      type="submit"
-      [disabled]="busy()"
-    >
-      Generate
-    </button>
-    }
+    <div class="button">
+      @if(disabled()) {
+      <app-button
+        cssClass="app-button app-button-filled ai-theme"
+        disabled="disabled"
+        tooltip="Sign in or create an account to use the content generator."
+      >
+        <span class="button-text">Generate</span>
+      </app-button>
+      } @else {
+      <app-button
+        cssClass="app-button app-button-filled ai-theme"
+        type="submit"
+        [disabled]="busy()"
+      >
+        <span class="button-text">Generate</span>
+      </app-button>
+      }
+    </div>
   </form>
 </div>

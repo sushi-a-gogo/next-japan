@@ -2,15 +2,17 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { User } from '@app/models/user.model';
 import { UserProfileComponent } from '@app/pages/user/profile-page/user-profile/user-profile.component';
 import { AuthService } from '@app/services/auth.service';
 import { MetaService } from '@app/services/meta.service';
+import { AnchorComponent } from '@app/shared/anchor/anchor.component';
 import { UserAvatarComponent } from '@app/shared/avatar/user-avatar/user-avatar.component';
+import { ButtonComponent } from '@app/shared/button/button.component';
 import { ModalComponent } from "@app/shared/modal/modal.component";
-import { EventRegistrationsComponent } from "../event-registrations/event-registrations.component";
+import { EventRegistrationsComponent } from "./event-registrations/event-registrations.component";
 import { ManageSubscriptionComponent } from "./manage-subscription/manage-subscription.component";
 import { NextEventComponent } from "./next-event/next-event.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
@@ -19,10 +21,11 @@ import { SurpriseComponent } from "./surprise/surprise.component";
 @Component({
   selector: 'app-profile-page',
   imports: [
-    RouterLink,
     MatTabsModule,
     UserAvatarComponent,
     DatePipe,
+    AnchorComponent,
+    ButtonComponent,
     UserProfileComponent,
     ProfileBadgesComponent,
     NextEventComponent,

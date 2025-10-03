@@ -1,11 +1,10 @@
 import { Component, inject, input } from '@angular/core';
 
-import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '@app/models/user.model';
 import { EventSearchService } from '@app/services/event-search.service';
+import { AnchorComponent } from '@app/shared/anchor/anchor.component';
 import { AppLogoComponent } from "@shared/app-logo/app-logo.component";
 import { SearchAutocompleteComponent } from "../../../shared/search-autocomplete/search-autocomplete.component";
 import { MyNotificationsComponent } from "../../my-notifications/my-notifications.component";
@@ -13,9 +12,7 @@ import { UserMenuComponent } from "./user-menu/user-menu.component";
 
 @Component({
   selector: 'app-user-navbar',
-  imports: [RouterLink, MatMenuModule, MatTooltipModule,
-    MatRippleModule,
-    MyNotificationsComponent, AppLogoComponent, UserMenuComponent, SearchAutocompleteComponent],
+  imports: [MatMenuModule, MyNotificationsComponent, AnchorComponent, AppLogoComponent, UserMenuComponent, SearchAutocompleteComponent],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.scss'
 })

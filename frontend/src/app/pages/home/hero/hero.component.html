@@ -15,8 +15,12 @@
       Inspired by Japanese Anime, it playfully simulates a travel site where
       users register for <em>imaginary</em> events across Japan.
     </span>
-    <a routerLink="/about-this-project" class="app-button app-button-filled">
+    <app-button
+      class="button"
+      cssClass="app-button app-button-filled"
+      (click)="navigateToAboutPage()"
+    >
       About This Project
-    </a>
+    </app-button>
   </p>
 </div>

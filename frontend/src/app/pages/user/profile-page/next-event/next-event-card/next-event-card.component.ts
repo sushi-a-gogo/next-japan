@@ -1,14 +1,14 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { ImageService } from '@app/services/image.service';
+import { AnchorComponent } from '@app/shared/anchor/anchor.component';
 import { LikeButtonComponent } from "@app/shared/like-button/like-button.component";
 import { ShareButtonComponent } from "@app/shared/share-button/share-button.component";
 
 @Component({
   selector: 'app-next-event-card',
-  imports: [RouterLink, NgOptimizedImage, LikeButtonComponent, ShareButtonComponent],
+  imports: [NgOptimizedImage, AnchorComponent, LikeButtonComponent, ShareButtonComponent],
   templateUrl: './next-event-card.component.html',
   styleUrl: './next-event-card.component.scss'
 })
