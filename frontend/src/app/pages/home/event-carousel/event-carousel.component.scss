@@ -70,8 +70,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(var(--next-text-rgb), 0.1);
-  color: var(--next-note);
+  background: rgba(var(--next-text-rgb), 0.5);
+  color: var(--next-bg);
   border: none;
   cursor: pointer;
   z-index: 10;
@@ -85,7 +85,7 @@
   transition: background 0.25s ease-in-out, opacity 0.25s ease-in-out;
 
   &:visited {
-    background: rgba(var(--next-text-rgb), 0.1);
+    background: rgba(0, 0, 0, 0.5);
   }
 
   .material-symbols-outlined {
@@ -114,7 +114,6 @@
   .nav-button {
     top: 100%;
     background: rgba(var(--next-muted-rgb), 0.75);
-    color: var(--next-bg);
     border-radius: 24px;
     height: 40px;
     width: 80px;
