@@ -58,7 +58,7 @@
     @if(user().userId) {
     <app-button
       cssClass="app-button dialog-button app-button-filled priority"
-      (click)="updateSubscription()"
+      (buttonClick)="updateSubscription()"
       [disabled]="paymentForm.invalid || busy()"
     >
       Update Subscription
@@ -69,7 +69,7 @@
     } @else {
     <app-button
       cssClass="app-button dialog-button app-button-filled priority"
-      (click)="createSubscription()"
+      (buttonClick)="createSubscription()"
       [disabled]="paymentForm.invalid"
     >
       Submit Payment

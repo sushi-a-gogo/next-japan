@@ -14,6 +14,10 @@ export class ButtonComponent {
   label = input<string>();
   tooltip = input<string>();
   disabled = input<boolean | 'disabled'>();
-  click = output<any>();
+  buttonClick = output<MouseEvent>();
+
+  onClick($event: MouseEvent) {
+    this.buttonClick.emit($event);
+  }
 
 }
