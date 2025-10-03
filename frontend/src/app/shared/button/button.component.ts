@@ -14,10 +14,13 @@ export class ButtonComponent {
   label = input<string>();
   tooltip = input<string>();
   disabled = input<boolean | 'disabled'>();
-  buttonClick = output<MouseEvent>();
+  buttonClick = output<MouseEvent | TouchEvent>();
 
-  onClick($event: MouseEvent) {
+  handleClick($event: MouseEvent) {
     this.buttonClick.emit($event);
   }
 
+  handleTouchEnd($event: TouchEvent) {
+    this.buttonClick.emit($event);
+  }
 }
