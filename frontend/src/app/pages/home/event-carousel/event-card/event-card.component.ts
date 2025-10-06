@@ -2,18 +2,19 @@ import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
+import { AuthService } from '@app/services/auth.service';
 import { ImageService } from '@app/services/image.service';
-import { OpportunityDateComponent } from "@shared/opportunity-date/opportunity-date.component";
 
 @Component({
   selector: 'app-event-card',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink, OpportunityDateComponent],
+  imports: [NgOptimizedImage, RouterLink],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.scss'
 })
 export class EventCardComponent {
   private platformId = inject(PLATFORM_ID);
+  private auth = inject(AuthService);
   private imageService = inject(ImageService);
 
   event = input.required<EventData>();
@@ -27,4 +28,16 @@ export class EventCardComponent {
   });
 
   routerLink = computed(() => `/event/${this.event().eventId}`);
+  registerLink = computed(() => {
+    if (this.auth.isAuthenticated()) {
+      return this.routerLink();
+    }
+    return '/login';
+  });
+  registerQueryParams = computed(() => {
+    if (this.auth.isAuthenticated()) {
+      return undefined;
+    }
+    return { returnTo: this.routerLink() };
+  });
 }

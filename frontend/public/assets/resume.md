@@ -5,13 +5,14 @@ Austin, TX | joe.svatek@icloud.com | [github.com/sushi-a-gogo](https://github.co
 
 ## Profile
 
-Experienced software developer with 20+ years of expertise in Angular and modern front-end development, specializing in responsive UI/UX and component-driven web applications. Skilled at integrating front-end features with .NET (ASP.NET MVC through .NET Core) and SQL Server backends, with additional experience in Node.js and emerging technologies like AI-powered services. Proven collaborator on Agile/Scrum teams, delivering high-quality features for complex systems, from legacy migrations to cutting-edge frameworks.
+Adaptable software developer with deep experience in Angular, modern front-end development, and responsive UI/UX. Skilled at integrating front-end features with .NET (ASP.NET MVC through .NET Core) and SQL Server backends, with additional work in Node.js and AI-driven services. Proven collaborator on Agile/Scrum teams, delivering maintainable, high-quality features for enterprise and SaaS applications.
 
 ## Technical Skills
 
-• JavaScript • TypeScript • HTML5 • CSS3 • Angular (v20+) • Material Design • REST APIs\
-• .NET Core • ASP.NET MVC • C# • SQL Server • Azure DevOps • Node.js • OpenAI API\
-• Git • CI/CD • Agile/Scrum • Responsive Design • MongoDB • Performance Optimization
+• TypeScript • JavaScript • Angular (v20+) • HTML5 • CSS3 • Responsive Design
+• Material Design • Performance Optimization • .NET Core • ASP.NET MVC
+• C# • REST APIs • Node.js • MongoDB • SQL Server • Git • CI/CD • Azure DevOps
+• Agile/Scrum • OpenAI API, AI-powered integrations • Cloud platforms (Azure, GCP)
 
 ## Experience
 
@@ -26,7 +27,7 @@ Led front-end development of SaaS applications using Angular and TypeScript, int
 
 ### Senior Software Developer | Kantar – Austin, TX | 2000 – 2021
 
-Full stack development for enterprise web tools, specializing in modern, responsive interfaces with Angular while supporting .NET Core and SQL Server back-ends.
+Contributed to Angular front-end and .NET Core APIs on agile teams, specializing in modern, responsive web interfaces while supporting .NET Core and SQL Server back-ends.
 
 - Front-end development for Azure-based apps (Angular, .NET Core, SQL)
 - Extensive experience across ASP.NET MVC, .NET Core, and Web API projects.
@@ -36,9 +37,12 @@ Full stack development for enterprise web tools, specializing in modern, respons
 
 ## Projects
 
-### Next Japan App | 2025 – Present
+### Next Japan Web Application | Freelance Developer | August 2025 – Present
 
-- Built full-stack app with Angular v20, Node.js, MongoDB, and AI-driven features.
+- Designed and deployed a full stack, fully modern web app using Angular v20 (zoneless, signals), Node.js/Express, MongoDB, and JWT authentication.
+- Implemented AI-driven event generation with OpenAI/xAI APIs.
+- Engineered responsive UI with selectable light/dark themes and SSR for performance.
+- Hosted on Render with GitHub repository for code review.
 
 ## Education
 
