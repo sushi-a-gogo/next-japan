@@ -1,4 +1,6 @@
-<a type="button" [routerLink]="routerLink()" class="button">
+<a [routerLink]="routerLink()" class="event-link"></a>
+
+<div class="card">
   <div class="image-container" [class.grok]="isGrokEvent()">
     @if (resizedImage()) {
     <img
@@ -20,13 +22,15 @@
     }
   </div>
   <div class="card-body">
-    <div class="title multi-line-box break-word">
-      {{ event().eventTitle || "Title Not Available" }}
+    <div class="nx-flex col al-c gap-16">
+      <div class="title multi-line-box break-word">
+        {{ event().eventTitle || "Title Not Available" }}
+      </div>
+      <div class="description multi-line-box break-word">
+        {{ event().description }}
+      </div>
     </div>
-    <div class="description multi-line-box break-word">
-      {{ event().description }}
-    </div>
-    <div class="upcoming">
+    <!-- <div class="upcoming">
       @if (event().nextOpportunityDate) {
       <div class="banner">Next Opportunity</div>
       <app-opportunity-date
@@ -38,6 +42,18 @@
         <div class="banner disabled">Coming Soon</div>
       </div>
       }
+    </div> -->
+    <div class="nx-flex row al-c jc-c gap-16">
+      <a class="app-button app-button-filled" [routerLink]="routerLink()">
+        Learn More
+      </a>
+      <a
+        class="app-button app-button-outlined"
+        [routerLink]="registerLink()"
+        [queryParams]="registerQueryParams()"
+      >
+        Register
+      </a>
     </div>
   </div>
-</a>
+</div>
