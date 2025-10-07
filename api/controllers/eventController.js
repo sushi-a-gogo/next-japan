@@ -1,7 +1,7 @@
 // controllers/eventController.js
 import * as eventService from "../services/eventService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { NotFoundError, ValidationError } from "../utils/errors.js";
+import { NotFoundError } from "../utils/errors.js";
 
 export const getEvents = asyncHandler(async (req, res) => {
   const events = await eventService.getRecentEvents();
@@ -22,9 +22,6 @@ export const getEventById = asyncHandler(async (req, res) => {
 });
 
 export const saveEvent = asyncHandler(async (req, res) => {
-  if (!req.body.eventTitle)
-    throw new ValidationError("Event title is required");
-
   const saved = await eventService.saveEvent(req.body);
   res.status(201).json({ success: true, data: saved });
 });

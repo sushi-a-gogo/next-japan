@@ -46,15 +46,4 @@ router.get("/:eventId/opportunities", async (req, res) => {
   }
 });
 
-// POST a new event opportunity
-router.post("/", async (req, res) => {
-  try {
-    const opportunity = new EventOpportunity(req.body);
-    await opportunity.save();
-    res.status(201).json(opportunity);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
 export default router;

@@ -4,7 +4,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { authorized } from "../utils/authHelpers.js";
 import { NotFoundError } from "../utils/errors.js";
 
-// ✅ Get all registrations for a user
 export const getUserRegistrations = asyncHandler(async (req, res) => {
   if (!authorized(req, res, true)) return;
 
@@ -14,7 +13,6 @@ export const getUserRegistrations = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: registrations });
 });
 
-// ✅ Create new registration
 export const createRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
@@ -31,7 +29,6 @@ export const createRegistration = asyncHandler(async (req, res) => {
     .json({ success: true, data: { registrationId: registration._id } });
 });
 
-// ✅ Get single registration
 export const getRegistrationById = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
@@ -45,7 +42,6 @@ export const getRegistrationById = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: registration });
 });
 
-// ✅ Update registration
 export const updateRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
@@ -66,7 +62,6 @@ export const updateRegistration = asyncHandler(async (req, res) => {
     .json({ success: true, data: { registrationId: registration._id } });
 });
 
-// ✅ Delete registration
 export const deleteRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
