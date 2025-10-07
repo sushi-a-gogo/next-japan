@@ -4,12 +4,12 @@ import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 import aiRouter from "./routes/ai-integration.js";
 import authRouter from "./routes/auth.js";
-import eventRouter from "./routes/event.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
-import registrationsRouter from "./routes/eventRegistrations.js";
+import eventRegistrationsRouter from "./routes/eventRegistrations.js";
 import eventsRouter from "./routes/events.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import likeEventRouter from "./routes/like-event.js";
@@ -54,11 +54,10 @@ connectDB().catch((err) => console.error("MongoDB connection error:", err));
 // Mount routers
 app.use("/api/auth", authRouter);
 app.use("/api/organization", organizationRouter); // JSON app data
-app.use("/api/event", eventRouter); // JSON events
 app.use("/api/events", eventsRouter); // MongoDB events
 app.use("/api/event-locations", eventLocationsRouter); // MongoDB event locations
 app.use("/api/event-opportunities", eventOpportunitiesRouter); // MongoDB event opportunities
-app.use("/api/registrations", registrationsRouter);
+app.use("/api/event-registrations", eventRegistrationsRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
@@ -82,10 +81,6 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "404 - Not Found" });
 });
 
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error("Global error:", err.stack);
-  res.status(500).json({ error: "Something went wrong" });
-});
+app.use(errorHandler);
 
 export default app;

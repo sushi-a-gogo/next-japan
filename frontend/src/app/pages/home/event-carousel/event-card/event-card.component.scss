@@ -13,7 +13,6 @@
   text-decoration: none;
   text-align: center;
 
-  margin-right: 10px;
   position: relative;
   overflow: hidden;
 }
@@ -52,8 +51,8 @@
   overflow: hidden;
 }
 
-.image-container.grok {
-  width: 270px;
+.image-container.grok img {
+  object-fit: contain;
 }
 
 .image-container img {

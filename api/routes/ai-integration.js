@@ -178,7 +178,7 @@ async function fetchImageResultFromAI(provider, prompt) {
     n: 1,
   };
 
-  if (provider.imageModel === "dall-e-3") {
+  if (provider.name === "OpenAI") {
     requestParams.size = "1792x1024";
   }
 
@@ -213,12 +213,13 @@ function createImagePrompt(promptParams, customText) {
 }
 
 function createGrokImagePrompt(promptParams, customText) {
-  return `Generate a digital painting, using warm glowing tones and bright pastels,
-  with a landscape focus, no text, family-friendly, high resolution.
+  return `Ultra-wide 16:9 landscape ONLY, cinematic 1920x1080 horizontal panoramic frame,
+  ABSOLUTELY NO portrait or vertical composition.
+  Generate a digital painting, using warm glowing tones and bright pastels,
+  with no text, family-friendly, high resolution.
   The theme should be inspired by Studio Ghibli movies, '${customText}', and these parameters: ${JSON.stringify(
     promptParams
   )}.
-  The image should have landscape dimensions 1024x585.
   The image should have a cel-shaded, anime look-think Speed Racer.
   The image should have the appearance of a Japanese animated movie.
   Keep focus on the landscape and mood; characters should feel like a natural part of the scene.

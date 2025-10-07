@@ -6,7 +6,7 @@ import { EventData } from '@app/models/event/event-data.model';
 import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
-const CARD_WIDTH = 325; // 315px card + 5px padding per side
+const CARD_WIDTH = 335; // 325px card + 10px gap
 
 const BreakpointsConfig = [
   { query: '(max-width: 689.98px)', eventsPerView: 1 },
