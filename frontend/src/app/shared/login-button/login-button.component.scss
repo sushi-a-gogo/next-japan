@@ -10,16 +10,3 @@
   font-weight: 700;
   color: var(--creamy-white-clouds);
 }
-
-.app-button-outlined {
-  background-color: transparent;
-  border-color: #fff;
-  color: #fff;
-  transition: 0.25s ease-in-out;
-}
-
-@media only screen and (min-width: 992px) {
-  .app-button-outlined:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-}

@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 })
 export class AnchorComponent {
   cssClass = input<string>();
+  rippleEnabled = input<boolean>(true);
   label = input<string>();
   tooltip = input<string>();
   link = input.required<string>();
