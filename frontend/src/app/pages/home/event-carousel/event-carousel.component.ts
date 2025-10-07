@@ -74,12 +74,18 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private sortByDate(a: EventData, b: EventData) {
     const dateA = a.nextOpportunityDate ? new Date(a.nextOpportunityDate?.startDate) : null;
     const dateB = b.nextOpportunityDate ? new Date(b.nextOpportunityDate?.startDate) : null;
+    if (!dateA && !dateB) {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    }
+
     if (!dateA) {
       return 1;
     }
+
     if (!dateB) {
       return -1;
     }
+
     return dateA.getTime() - dateB.getTime();
   }
 
