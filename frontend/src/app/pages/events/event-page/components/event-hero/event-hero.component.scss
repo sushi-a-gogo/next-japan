@@ -11,7 +11,16 @@ img {
   object-fit: cover;
 
   &.grok {
+    width: 100%;
+    aspect-ratio: 16 / 9;
     object-fit: contain;
+    background: linear-gradient(
+      to right,
+      #0f2b56,
+      transparent 50%,
+      transparent 50%,
+      #0f2b56
+    ); /* Night sky gradient */
   }
 }
 

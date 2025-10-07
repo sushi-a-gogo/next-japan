@@ -13,7 +13,6 @@
   text-decoration: none;
   text-align: center;
 
-  margin-right: 10px;
   position: relative;
   overflow: hidden;
 }
@@ -52,14 +51,21 @@
   overflow: hidden;
 }
 
-.image-container.grok {
-  width: 270px;
-}
-
 .image-container img {
   object-fit: fill;
   height: 100%;
   width: 100%;
+}
+
+.image-container.grok img {
+  object-fit: contain;
+  background: linear-gradient(
+    to right,
+    #0f2b56,
+    transparent 50%,
+    transparent 50%,
+    #0f2b56
+  ); /* Night sky gradient */
 }
 
 .card-body {

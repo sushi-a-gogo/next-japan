@@ -13,6 +13,7 @@
   height: 400px;
   display: flex;
   flex-direction: row;
+  gap: 10px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -29,11 +30,14 @@
 }
 
 .carousel-track--ssr {
-  gap: 16px;
-  justify-content: center;
-  overflow-x: visible;
-  flex-wrap: wrap;
   height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+  gap: 10px;
+  justify-content: center; /* centers the grid items horizontally */
+  align-items: center; /* centers the grid items vertically */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .event-item {
@@ -41,8 +45,6 @@
   scroll-snap-stop: always;
   width: 325px;
   height: 100%;
-  box-sizing: border-box;
-  padding: 0 5px;
   flex: 0 0 auto;
   opacity: 0; /* Added to ensure initial state */
 }

@@ -13,7 +13,7 @@ import { ErrorService } from './error.service';
 })
 export class EventRegistrationService {
   private http = inject(HttpClient);
-  private apiUri = `${environment.apiUrl}/api/registrations`;
+  private apiUri = `${environment.apiUrl}/api/event-registrations`;
   private errorService = inject(ErrorService);
   private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
   private userEventRegistrationsSignal = signal<EventRegistration[]>([]);

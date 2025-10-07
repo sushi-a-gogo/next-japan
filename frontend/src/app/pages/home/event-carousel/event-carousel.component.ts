@@ -6,7 +6,7 @@ import { EventData } from '@app/models/event/event-data.model';
 import { fromEvent } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
-const CARD_WIDTH = 325; // 315px card + 5px padding per side
+const CARD_WIDTH = 335; // 325px card + 10px gap
 
 const BreakpointsConfig = [
   { query: '(max-width: 689.98px)', eventsPerView: 1 },
@@ -74,12 +74,18 @@ export class EventCarouselComponent implements OnChanges, AfterViewInit {
   private sortByDate(a: EventData, b: EventData) {
     const dateA = a.nextOpportunityDate ? new Date(a.nextOpportunityDate?.startDate) : null;
     const dateB = b.nextOpportunityDate ? new Date(b.nextOpportunityDate?.startDate) : null;
+    if (!dateA && !dateB) {
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    }
+
     if (!dateA) {
       return 1;
     }
+
     if (!dateB) {
       return -1;
     }
+
     return dateA.getTime() - dateB.getTime();
   }
 
