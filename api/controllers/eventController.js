@@ -1,6 +1,7 @@
 // controllers/eventController.js
 import * as eventService from "../services/eventService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { authorized } from "../utils/authHelpers.js";
 import { NotFoundError } from "../utils/errors.js";
 
 export const getEvents = asyncHandler(async (req, res) => {
@@ -16,6 +17,8 @@ export const getEventById = asyncHandler(async (req, res) => {
 });
 
 export const saveEvent = asyncHandler(async (req, res) => {
+  if (!authorized(req, res)) return;
+
   const saved = await eventService.saveEvent(req.body);
   res.status(201).json({ success: true, data: saved });
 });

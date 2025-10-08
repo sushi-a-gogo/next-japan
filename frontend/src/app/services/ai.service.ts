@@ -39,11 +39,11 @@ export class AiService {
   generateContent$(params: any): Observable<AiEvent> {
     //return this.generateMock$();
     this.promptParamsSignal.set(params);
-    return this.http.post<AiEvent>(`${this.uri}/generate-content`, {
+    return this.http.post<ApiResponse<AiEvent>>(`${this.uri}/generate-content`, {
       promptParams: params
     }).pipe(
       debug(RxJsLoggingLevel.DEBUG, "AI:generateContent"),
-      tap((event) => this.aiEventSignal.set(event)),
+      tap((resp) => this.aiEventSignal.set(resp.data)),
       catchError((e) => this.errorService.handleError(e, 'Error fetching result from Open AI', true))
     );
   }
