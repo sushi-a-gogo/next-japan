@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
+import { ApiResponse } from '@app/models/api-response.model';
 import { AiEvent } from '@app/models/event/ai-event.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventInformation } from '@app/models/event/event-information.model';
@@ -56,8 +57,8 @@ export class EventsService {
     return obs$;
   }
 
-  saveEvent$(event: AiEvent) {
-    return this.http.post<AiEvent>(`${this.eventsUrl}/save`, event).pipe(
+  saveEvent$(event: AiEvent): Observable<ApiResponse<EventData>> {
+    return this.http.post<ApiResponse<EventData>>(`${this.eventsUrl}/save`, event).pipe(
       debug(RxJsLoggingLevel.DEBUG, "saveEvent"),
       tap(() => this.eventsCache.clear()),
       catchError((e) => this.errorService.handleError(e, 'Error saving event', true))
@@ -65,16 +66,16 @@ export class EventsService {
   }
 
   private fetchEvent$(eventId: string): Observable<EventInformation> {
-    return this.http.get<{ event: EventInformation }>(`${this.eventsUrl}/${eventId}`).pipe(
-      map((resp) => resp.event as EventInformation),
+    return this.http.get<ApiResponse<EventInformation>>(`${this.eventsUrl}/${eventId}`).pipe(
+      map((resp) => resp.data as EventInformation),
       debug(RxJsLoggingLevel.DEBUG, "getEvent"),
       catchError((e) => this.errorService.handleError(e, 'Error getting event', true))
     );
   }
 
   private fetchEvents$(): Observable<EventData[]> {
-    return this.http.get<{ events: EventData[] }>(`${this.eventsUrl}`).pipe(
-      map((resp) => resp.events),
+    return this.http.get<ApiResponse<EventData[]>>(`${this.eventsUrl}`).pipe(
+      map((resp) => resp.data),
       debug(RxJsLoggingLevel.DEBUG, "getEvents"),
       catchError((e) => this.errorService.handleError(e, 'Error getting events', true))
     );

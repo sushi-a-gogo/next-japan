@@ -6,14 +6,14 @@ import { NotFoundError } from "../utils/errors.js";
 
 export const getEvents = asyncHandler(async (req, res) => {
   const events = await eventService.getRecentEvents();
-  res.status(200).json({ success: true, events });
+  res.status(200).json({ success: true, data: events });
 });
 
 export const getEventById = asyncHandler(async (req, res) => {
   const event = await eventService.getEventById(req.params.id);
   if (!event) throw new NotFoundError("Event not found");
 
-  res.status(200).json({ success: true, event });
+  res.status(200).json({ success: true, data: event });
 });
 
 export const saveEvent = asyncHandler(async (req, res) => {
