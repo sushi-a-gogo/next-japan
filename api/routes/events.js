@@ -6,7 +6,6 @@ router.use(express.json());
 
 // Routes -> Controllers
 router.get("/", eventController.getEvents);
-router.get("/search", eventController.searchEvents);
 router.post("/save", eventController.saveEvent);
 router.get("/:id", eventController.getEventById);
 
