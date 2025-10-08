@@ -11,10 +11,9 @@ import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";
 import eventRegistrationsRouter from "./routes/eventRegistrations.js";
 import eventsRouter from "./routes/events.js";
+import eventSearchRouter from "./routes/eventSearch.js";
 import imageResizeRouter from "./routes/image-resize.js";
 import likeEventRouter from "./routes/like-event.js";
-import organizationRouter from "./routes/organization.js";
-import searchRouter from "./routes/search.js";
 import shareEventRouter from "./routes/share-event.js";
 import userRouter from "./routes/user.js";
 import notificationRouter from "./routes/userNotifications.js";
@@ -53,12 +52,11 @@ connectDB().catch((err) => console.error("MongoDB connection error:", err));
 
 // Mount routers
 app.use("/api/auth", authRouter);
-app.use("/api/organization", organizationRouter); // JSON app data
 app.use("/api/events", eventsRouter); // MongoDB events
 app.use("/api/event-locations", eventLocationsRouter); // MongoDB event locations
 app.use("/api/event-opportunities", eventOpportunitiesRouter); // MongoDB event opportunities
 app.use("/api/event-registrations", eventRegistrationsRouter);
-app.use("/api/search", searchRouter);
+app.use("/api/search", eventSearchRouter);
 app.use("/api/image", imageResizeRouter);
 app.use("/api/user", userRouter);
 app.use("/api/notifications", notificationRouter);

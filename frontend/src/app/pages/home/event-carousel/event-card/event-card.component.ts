@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
 import { AuthService } from '@app/services/auth.service';
 import { ImageService } from '@app/services/image.service';
+import { AnchorComponent } from '@app/shared/anchor/anchor.component';
 
 @Component({
   selector: 'app-event-card',
   standalone: true,
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, RouterLink, AnchorComponent],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.scss'
 })

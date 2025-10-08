@@ -18,10 +18,8 @@ export const getLocationById = asyncHandler(async (req, res) => {
 });
 
 export const getEventLocations = asyncHandler(async (req, res) => {
-  console.log("getEventLocations: " + req.params.eventId);
   const locations = await eventLocationService.getEventLocations(
     req.params.eventId
   );
-  console.log(locations);
   res.status(200).json({ success: true, data: locations });
 });

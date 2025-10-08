@@ -43,17 +43,22 @@
       </div>
       }
     </div> -->
-    <div class="nx-flex row al-c jc-c gap-16">
-      <a class="app-button app-button-filled" [routerLink]="routerLink()">
+    <div class="nx-flex row al-c jc-c gap-12">
+      <app-anchor
+        class="anchor"
+        cssClass="app-button app-button-filled"
+        [link]="routerLink()"
+      >
         Learn More
-      </a>
-      <a
-        class="app-button app-button-outlined"
-        [routerLink]="registerLink()"
+      </app-anchor>
+      <app-anchor
+        class="anchor"
+        cssClass="app-button app-button-outlined"
+        [link]="registerLink()"
         [queryParams]="registerQueryParams()"
       >
         Register
-      </a>
+      </app-anchor>
     </div>
   </div>
 </div>
