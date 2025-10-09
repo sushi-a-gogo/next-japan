@@ -25,7 +25,7 @@ export const getEventLikeCount = asyncHandler(async (req, res) => {
 export const likedByUser = asyncHandler(async (req, res) => {
   const { eventId, userId } = req.params;
   const liked = await isEventLikedByUser(userId, eventId);
-  res.json({ success: true, data: { liked: !!liked } });
+  res.json({ success: true, data: { likedByUser: !!liked } });
 });
 
 export const shareEvent = asyncHandler(async (req, res) => {

@@ -7,7 +7,6 @@ import {
 const router = express.Router();
 
 router.post("/", shareEvent);
-
 router.get("/count/:eventId", getEventShareCount);
 
 export default router;
