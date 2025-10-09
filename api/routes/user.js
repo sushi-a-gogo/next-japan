@@ -1,203 +1,29 @@
-import dotenv from "dotenv";
+// routes/user.js
 import express from "express";
-
+import {
+  createUser,
+  getUserProfile,
+  getUserRewards,
+  getUsers,
+  updateUserProfile,
+} from "../controllers/userController.js";
 import { authMiddleware } from "../middleware/auth.js";
-import User from "../models/User.js";
-import UserReward from "../models/UserReward.js";
-import { authorized } from "../utils/authHelpers.js";
-
-dotenv.config();
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const users = await User.find();
-  const formattedUsers = users.map((user) => ({
-    userId: user._id.toString(), // Use _id as eventId
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    subscriptionPlan: user.subscriptionPlan,
-    image: {
-      id: user.imageId,
-      cloudflareImageId: user.cloudflareImageId,
-      width: user.imageWidth,
-      height: user.imageHeight,
-    },
-    mode: user.mode,
-    createdAt: user.createdAt,
-  }));
+// Public endpoint to get all users
+router.get("/", getUsers);
 
-  res.status(200).json({ success: true, data: formattedUsers });
-});
+// Public endpoint to create a new user
+router.post("/signup", createUser);
 
-router.post("/signup", async (req, res) => {
-  try {
-    const { firstName, lastName, email, subscriptionPlan } = req.body;
+// Protected endpoint to update user profile
+router.put("/update", authMiddleware, updateUserProfile);
 
-    // Input validation
-    if (!firstName || !lastName || !email || !subscriptionPlan) {
-      return res.status(400).json({
-        error: "Missing required fields: name, email, plan",
-      });
-    }
+// Protected endpoint to get user profile by ID
+router.get("/:userId", authMiddleware, getUserProfile);
 
-    // Save to MongoDB
-    const user = new User({
-      firstName,
-      lastName,
-      email,
-      subscriptionPlan,
-      isEmailPreferred: true,
-    });
-    const savedUser = await user.save();
-
-    return res.status(201).json({
-      success: true,
-      data: {
-        userId: savedUser._id.toString(), // Pass _id as eventId
-        firstName: savedUser.firstName,
-        lastName: savedUser.lastName,
-        email: savedUser.email,
-        subscriptionPlan: savedUser.subscriptionPlan,
-        isEmailPreferred: savedUser.isEmailPreferred,
-      },
-    });
-  } catch (error) {
-    console.error("Save user error:", error.message || error);
-    return res.status(500).json({
-      success: false,
-      error: error.message || "Failed to save user",
-    });
-  }
-});
-
-router.put("/update", authMiddleware, async (req, res) => {
-  try {
-    if (!authorized(req, res)) {
-      return;
-    }
-
-    const {
-      userId,
-      firstName,
-      lastName,
-      email,
-      subscriptionPlan,
-      image,
-      phone,
-      isEmailPreferred,
-      mode,
-    } = req.body;
-
-    // Input validation
-    if (
-      !userId ||
-      !firstName ||
-      !lastName ||
-      !email ||
-      !image ||
-      !subscriptionPlan
-    ) {
-      return res.status(400).json({
-        error: "Missing required fields",
-      });
-    }
-
-    // Save to MongoDB
-    const savedUser = await User.findByIdAndUpdate(
-      userId,
-      {
-        firstName,
-        lastName,
-        email,
-        subscriptionPlan,
-        imageId: image.id,
-        imageHeight: image.height,
-        imageWidth: image.width,
-        cloudflareImageId: image.cloudflareImageId,
-        phone,
-        isEmailPreferred,
-        mode: mode || null,
-      },
-      { new: true }
-    );
-    if (!savedUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    return res.status(201).json({
-      success: true,
-      data: {
-        userId: savedUser._id.toString(), // Pass _id as eventId
-        firstName: savedUser.firstName,
-        lastName: savedUser.lastName,
-        email: savedUser.email,
-        subscriptionPlan: savedUser.subscriptionPlan,
-        image: {
-          id: savedUser.imageId,
-          cloudflareImageId: savedUser.cloudflareImageId,
-          width: savedUser.imageWidth,
-          height: savedUser.imageHeight,
-        },
-        phone: savedUser.phone,
-        isEmailPreferred: savedUser.isEmailPreferred,
-        mode: savedUser.mode,
-      },
-    });
-  } catch (error) {
-    console.error("Save user error:", error.message || error);
-    return res.status(500).json({
-      success: false,
-      error: error.message || "Failed to save user",
-    });
-  }
-});
-
-router.get("/:userId", authMiddleware, async (req, res) => {
-  try {
-    if (!authorized(req, res, true)) {
-      return;
-    }
-
-    const user = await User.findById(req.params.userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const formattedUser = {
-      userId: user._id.toString(), // Use _id as eventId
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      subscriptionPlan: user.subscriptionPlan,
-      image: {
-        id: user.imageId,
-        cloudflareImageId: user.cloudflareImageId,
-        width: user.imageWidth,
-        height: user.imageHeight,
-      },
-      phone: user.phone,
-      isEmailPreferred: user.isEmailPreferred,
-      mode: user.mode,
-      createdAt: user.createdAt,
-    };
-    res.status(200).json({ success: true, data: formattedUser });
-  } catch (error) {
-    res.status(400).json({ message: "Invalid user id" });
-  }
-});
-
-router.get("/:userId/rewards", authMiddleware, async (req, res) => {
-  try {
-    if (!authorized(req, res, true)) {
-      return;
-    }
-    const rewards = await UserReward.find({ userId: req.params.userId }).lean();
-    if (!rewards) return res.status(200).json({ success: true, data: [] });
-
-    res.status(200).json({ success: true, data: rewards });
-  } catch (error) {
-    res.status(400).json({ message: "Invalid user id" });
-  }
-});
+// Protected endpoint to get user's rewards
+router.get("/:userId/rewards", authMiddleware, getUserRewards);
 
 export default router;
