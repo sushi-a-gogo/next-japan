@@ -26,9 +26,11 @@ export class SignInComponent implements OnInit {
   switchToSignUp = output();
 
   ngOnInit(): void {
-    this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((resp) => {
-      this.users.set(resp.data);
-      this.selectedUser.set(resp.data[1]);
+    this.userService.getUsers$().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
+      if (res.success && res.data) {
+        this.users.set(res.data);
+        this.selectedUser.set(res.data[1]);
+      }
       this.loaded.set(true);
     })
   }

@@ -39,8 +39,8 @@ export class LikeButtonComponent implements OnInit {
     };
     forkJoin(observables).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
       this.uniqueNum.set(res.uniqueNum);
-      this.likeCount.set(res.likeCount.data.likeCount);
-      this.likedByCurrent.set(!!res.likedByUser?.data.liked);
+      this.likeCount.set(res.likeCount.data?.likeCount || 0);
+      this.likedByCurrent.set(!!res.likedByUser?.data?.likedByUser);
       this.loaded.set(true);
     });
   }
@@ -51,7 +51,7 @@ export class LikeButtonComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          this.likeCount.set(res.data.likeCount);
+          this.likeCount.set(res.data?.likeCount || this.likeCount());
           this.likedByCurrent.set(liked);
         },
         error: () => { }

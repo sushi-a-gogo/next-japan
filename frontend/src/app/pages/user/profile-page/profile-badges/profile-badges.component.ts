@@ -53,15 +53,17 @@ export class ProfileBadgesComponent implements OnInit {
   rewardPoints = 0;
 
   ngOnInit(): void {
-    this.userService.getUserRewards$(this.user().userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((resp) => {
-      const rewards = resp.data.map((reward) => {
-        this.rewardPoints += reward.pointsRemaining;
-        return ({
-          ...reward,
-          expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
-        });
-      }).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime());
-      this.rewards.set(rewards);
+    this.userService.getUserRewards$(this.user().userId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
+      if (res.success && res.data) {
+        const rewards = res.data.map((reward) => {
+          this.rewardPoints += reward.pointsRemaining;
+          return ({
+            ...reward,
+            expiresSoon: this.dateTime.getDaysUntil(reward.expiration) < 90
+          });
+        }).sort((a, b) => new Date(a.expiration).getTime() - new Date(b.expiration).getTime());
+        this.rewards.set(rewards);
+      }
       this.loaded.set(true);
     });
   }

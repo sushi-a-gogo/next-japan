@@ -77,11 +77,19 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
     this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
       .pipe(
-        switchMap((resp) => this.auth.login$(resp.data.email)),
+        switchMap((res) => {
+          if (res.success && res.data) {
+            return this.auth.login$(res.data.email)
+          }
+          return of(res);
+        }),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe({
         next: () => this.router.navigate([this.path]),
-        error: () => this.router.navigate([this.path])
+        error: (err) => {
+          console.error('API Error', err.message);
+          this.router.navigate([this.path])
+        }
       });
   }
 

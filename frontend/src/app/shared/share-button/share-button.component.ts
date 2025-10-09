@@ -51,9 +51,9 @@ export class ShareButtonComponent implements OnInit {
       uniqueNum: this.getUniqueNumberFromString(this.event().eventId, this.event().createdAt),
     };
     forkJoin(observables).subscribe({
-      next: (response) => {
-        this.shareCount.set(response.shareCount.data.shareCount);
-        this.uniqueNum.set(response.uniqueNum);
+      next: (res) => {
+        this.shareCount.set(res.shareCount.data?.shareCount || 0);
+        this.uniqueNum.set(res.uniqueNum);
         this.loaded.set(true);
       },
       error: (error) => console.error(error),
@@ -64,7 +64,7 @@ export class ShareButtonComponent implements OnInit {
     this.shareService.logShare$(this.userId() || 'anonymous-user', this.event().eventId).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (resp) => this.shareCount.set(resp.data.shareCount),
+      next: (res) => this.shareCount.set(res.data?.shareCount || this.shareCount()),
     });
   }
 

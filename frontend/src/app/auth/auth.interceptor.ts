@@ -1,9 +1,13 @@
-// auth.interceptor.ts
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpInterceptorFn,
+  HttpResponse,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
+import { ApiResponse } from '@app/models/api-response.model';
 import { AuthService } from '@app/services/auth.service';
 import { environment } from '@environments/environment';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, map, switchMap, throwError } from 'rxjs';
 
 let isRefreshing = false;
 
@@ -11,38 +15,54 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiUrl = environment.apiUrl;
   const auth = inject(AuthService);
 
-  // Only attach token for API calls
+  // Attach cookies for API calls
   if (req.url.startsWith(apiUrl)) {
-    req = req.clone({
-      withCredentials: true
-    });
+    req = req.clone({ withCredentials: true });
   }
 
   return next(req).pipe(
+    map((event) => {
+      if (event instanceof HttpResponse && event.url?.startsWith(apiUrl)) {
+        const body = event.body as Partial<ApiResponse<unknown>>;
+
+        const normalized = {
+          success: body?.success ?? true,
+          data: body?.data ?? body ?? null,
+          message: body?.message ?? '',
+        };
+
+        return event.clone({ body: normalized });
+      }
+      return event;
+    }),
+
+    // Handle 401 errors + refresh flow
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !isRefreshing) {
         isRefreshing = true;
 
-        // Call refresh endpoint
         return auth.refreshToken$().pipe(
-          switchMap((newToken) => {
+          switchMap(() => {
             isRefreshing = false;
-
-            // Retry original request with fresh token
-            const retryReq = req.clone({
-              withCredentials: true
-            });
+            const retryReq = req.clone({ withCredentials: true });
             return next(retryReq);
           }),
           catchError((refreshErr) => {
             isRefreshing = false;
-            auth.logout('/'); // clear state & redirect
+            auth.logout('/');
             return throwError(() => refreshErr);
           })
         );
       }
 
-      return throwError(() => error);
+      // Normalize errors too
+      const normalizedError = {
+        success: false,
+        data: null,
+        message:
+          error.error?.message || error.statusText || 'Something went wrong',
+      };
+      return throwError(() => normalizedError);
     })
   );
 };

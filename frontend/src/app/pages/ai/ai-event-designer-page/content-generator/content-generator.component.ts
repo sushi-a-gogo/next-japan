@@ -82,8 +82,10 @@ export class ContentGeneratorComponent implements OnInit {
     this.aiService.generateContent$(this.params).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (aiEvent) => {
-        this.eventCreated.emit(aiEvent);
+      next: (res) => {
+        if (res.success && res.data) {
+          this.eventCreated.emit(res.data);
+        }
         promptForm.form.enable();
       },
       error: (e) => {

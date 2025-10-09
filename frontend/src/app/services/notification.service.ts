@@ -1,19 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '@app/models/api-response.model';
-import { RegistrationStatus } from '@app/models/event/event-registration.model';
 import { EventNotification } from '@app/models/user-notification.model';
-import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { environment } from '@environments/environment';
 import { catchError, Observable, switchMap, tap } from 'rxjs';
+import { ApiService } from './api.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  private http = inject(HttpClient);
-  private apiUri = `${environment.apiUrl}/api/notifications`;
+  private apiService = inject(ApiService);
+  private apiUri = 'api/notifications';
   private errorService = inject(ErrorService);
 
   private notificationSignal = signal<EventNotification[]>([]);
@@ -39,9 +36,7 @@ export class NotificationService {
   }
 
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
-    return this.http.get<ApiResponse<EventNotification>>(`${this.apiUri}/${notificationId}`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, 'getNotification')
-    )
+    return this.apiService.get<EventNotification>(`${this.apiUri}/${notificationId}`);
   }
 
   markAsRead$(notification: EventNotification) {
@@ -52,30 +47,15 @@ export class NotificationService {
     return this.delete$('all', userId);
   }
 
-  private getRegistrationStatusMessage(status?: RegistrationStatus) {
-    switch (status) {
-      case RegistrationStatus.Requested:
-        return 'We have received your registration request!';
-      case RegistrationStatus.Registered:
-        return 'Your event registration has been confirmed. We look forward to seeing you!';
-      case RegistrationStatus.Cancelled:
-        return 'Your event registration has been cancelled.';
-      default:
-        return 'Registration status not found.'
-    }
-  }
-
   private fetchUserNotifications$(userId: string) {
-    return this.http.get<ApiResponse<EventNotification[]>>(`${this.apiUri}/user/${userId}`).pipe(
-      tap((resp) => this.notificationSignal.set(resp.data || [])),
-      debug(RxJsLoggingLevel.DEBUG, 'getNotifications'),
+    return this.apiService.get<EventNotification[]>(`${this.apiUri}/user/${userId}`).pipe(
+      tap((res) => this.notificationSignal.set(res.data || [])),
       catchError((e) => this.errorService.handleError(e, 'Error fetching notifications', true))
     );
   }
 
   private post$(notification: { userId: string, opportunityId: string, title: string, message: string }) {
-    return this.http.post(`${this.apiUri}`, notification).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "post User Notification"),
+    return this.apiService.post(`${this.apiUri}`, notification).pipe(
       switchMap(() => this.fetchUserNotifications$(notification.userId)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving notification', true)
@@ -84,8 +64,7 @@ export class NotificationService {
   }
 
   private delete$(id: string, userId: string) {
-    return this.http.delete(`${this.apiUri}/${id}?userId=${userId}`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "delete Notification"),
+    return this.apiService.delete(`${this.apiUri}/${id}?userId=${userId}`).pipe(
       switchMap(() => this.fetchUserNotifications$(userId)),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error deleting notification', true)
