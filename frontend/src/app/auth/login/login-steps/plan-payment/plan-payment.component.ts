@@ -10,7 +10,7 @@ import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { ButtonComponent } from '@app/shared/button/button.component';
 import { Plan } from '@models/plan.interface';
-import { delay, switchMap } from 'rxjs';
+import { delay, of, switchMap } from 'rxjs';
 import { PaymentForm } from './payment.form';
 
 
@@ -52,23 +52,29 @@ export class PlanPaymentComponent implements OnInit {
 
     this.busy.set(true);
     this.userService.getUser$(this.user().userId).pipe(
-      switchMap((resp) => {
-        const profile: UserProfile = {
-          ...resp.data,
-          subscriptionPlan: this.plan()!.name
-        };
-        return this.userService.updateProfile$(profile);
+      switchMap((res) => {
+        if (res.success && res.data) {
+          const profile: UserProfile = {
+            ...res.data,
+            subscriptionPlan: this.plan()!.name
+          };
+          return this.userService.updateProfile$(profile);
+        }
+        return of(res);
       }),
       delay(500),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (resp) => {
-        this.user().subscriptionPlan = resp.data.subscriptionPlan;
-        this.authService.updateUserData(resp.data);
-        this.updatePayment.emit(resp.data.subscriptionPlan);
+      next: (res) => {
+        if (res.success && res.data) {
+          this.user().subscriptionPlan = res.data.subscriptionPlan;
+          this.authService.updateUserData(res.data);
+          this.updatePayment.emit(res.data.subscriptionPlan);
+        }
         this.busy.set(false);
       },
-      error: () => {
+      error: (err) => {
+        console.error('API Error', err.message);
         this.busy.set(false);
       }
     });

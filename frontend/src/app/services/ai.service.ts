@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { AiPromptParams } from '@app/models/ai-prompt-params.model';
-import { ApiResponse } from '@app/models/api-response.model';
 import { AiEvent } from '@app/models/event/ai-event.model';
-import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { environment } from '@environments/environment';
-import { catchError, delay, Observable, of, tap } from 'rxjs';
+import { catchError, delay, of, tap } from 'rxjs';
+import { ApiService } from './api.service';
 import { ErrorService } from './error.service';
 import { ImageService } from './image.service';
 
@@ -13,7 +10,8 @@ import { ImageService } from './image.service';
   providedIn: 'root'
 })
 export class AiService {
-  private uri = `${environment.apiUrl}/api/ai`;
+  private uri = 'api/ai';
+  private apiService = inject(ApiService);
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
@@ -23,11 +21,8 @@ export class AiService {
   private aiEventSignal = signal<AiEvent | null>(null)
   aiEvent = this.aiEventSignal.asReadonly();
 
-  constructor(private http: HttpClient) { }
-
   generateHaiku$() {
-    return this.http.get<ApiResponse<string>>(`${this.uri}/generate-haiku`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "AI: haiku"),
+    return this.apiService.get<string>(`${this.uri}/generate-haiku`).pipe(
       catchError((e) => this.errorService.handleError(e, 'Error fetching result from AI', true))
     )
   }
@@ -36,14 +31,13 @@ export class AiService {
     this.promptParamsSignal.set(null);
   }
 
-  generateContent$(params: any): Observable<AiEvent> {
+  generateContent$(params: any) {
     //return this.generateMock$();
     this.promptParamsSignal.set(params);
-    return this.http.post<ApiResponse<AiEvent>>(`${this.uri}/generate-content`, {
+    return this.apiService.post<AiEvent>(`${this.uri}/generate-content`, {
       promptParams: params
     }).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "AI:generateContent"),
-      tap((resp) => this.aiEventSignal.set(resp.data)),
+      tap((res) => this.aiEventSignal.set(res.data)),
       catchError((e) => this.errorService.handleError(e, 'Error fetching result from Open AI', true))
     );
   }

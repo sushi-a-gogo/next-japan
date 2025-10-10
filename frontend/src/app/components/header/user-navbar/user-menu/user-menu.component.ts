@@ -8,7 +8,7 @@ import { User } from '@app/models/user.model';
 import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-menu',
@@ -30,13 +30,19 @@ export class UserMenuComponent {
 
   changeAppearanceMode(mode?: 'light' | 'dark') {
     this.userProfileService.getUser$(this.user().userId).pipe(
-      switchMap((resp) => {
-        resp.data.mode = mode;
-        return this.userProfileService.updateProfile$(resp.data);
+      switchMap((res) => {
+        if (res.success && res.data) {
+          res.data.mode = mode;
+          return this.userProfileService.updateProfile$(res.data);
+        }
+
+        return of(res);
       }),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((resp) => {
-      this.authService.updateUserData(resp.data);
+    ).subscribe((res) => {
+      if (res.success && res.data) {
+        this.authService.updateUserData(res.data);
+      }
     });
   }
 }

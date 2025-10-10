@@ -1,19 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
 import { ApiResponse } from '@app/models/api-response.model';
 import { EventRegistration, RegistrationStatus } from '@app/models/event/event-registration.model';
-import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { environment } from '@environments/environment';
 import { catchError, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
+import { ApiService } from './api.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventRegistrationService {
-  private http = inject(HttpClient);
-  private apiUri = `${environment.apiUrl}/api/event-registrations`;
+  private apiService = inject(ApiService);
+  private apiUri = 'api/event-registrations';
   private errorService = inject(ErrorService);
   private eventRegistrationCache = new HttpClientCache<ApiResponse<EventRegistration[]>>(60, 1);
   private userEventRegistrationsSignal = signal<EventRegistration[]>([]);
@@ -42,9 +40,7 @@ export class EventRegistrationService {
   }
 
   getRegistration$(registrationId: string): Observable<ApiResponse<EventRegistration>> {
-    return this.http.get<ApiResponse<EventRegistration>>(`${this.apiUri}/${registrationId}`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, 'getRegistration')
-    )
+    return this.apiService.get<EventRegistration>(`${this.apiUri}/${registrationId}`);
   }
 
   requestOpportunity$(userId: string, opportunityId: string): Observable<ApiResponse<EventRegistration[]>> {
@@ -66,18 +62,18 @@ export class EventRegistrationService {
   }
 
   private fetchRegistrations$(userId: string) {
-    return this.http.get<ApiResponse<EventRegistration[]>>(`${this.apiUri}/user/${userId}`).pipe(
-      tap((resp) => this.userEventRegistrationsSignal.set(resp.data || [])),
-      debug(RxJsLoggingLevel.DEBUG, 'getRegistrations')
+    return this.apiService.get<EventRegistration[]>(`${this.apiUri}/user/${userId}`).pipe(
+      tap((res) => this.userEventRegistrationsSignal.set(res.data || []))
     );
   }
 
   private post$(registration: { userId: string, opportunityId: string, status: RegistrationStatus }) {
-    return this.http.post(`${this.apiUri}`, registration).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "post EventRegistration"),
-      switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => {
-        this.registrationChange(resp.data);
+    return this.apiService.post<EventRegistration>(`${this.apiUri}`, registration).pipe(
+      switchMap((res) => res.success && res.data ? this.getRegistration$(res.data.registrationId) : of(res)),
+      tap((res) => {
+        if (res.success && res.data) {
+          this.registrationChange(res.data);
+        }
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
@@ -86,11 +82,12 @@ export class EventRegistrationService {
   }
 
   private put$(registration: { registrationId: string, userId: string, opportunityId: string, status: RegistrationStatus }) {
-    return this.http.put(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "put EventRegistration"),
-      switchMap((resp) => this.getRegistration$(resp.data.registrationId)),
-      tap((resp) => {
-        this.registrationChange(resp.data);
+    return this.apiService.put<EventRegistration>(`${this.apiUri}/${registration.registrationId}`, registration).pipe(
+      switchMap((res) => this.getRegistration$(registration.registrationId)),
+      tap((res) => {
+        if (res.success && res.data) {
+          this.registrationChange(res.data);
+        }
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving Event Registration', true)
@@ -99,10 +96,9 @@ export class EventRegistrationService {
   }
 
   private delete$(registration: EventRegistration) {
-    return this.http.delete(`${this.apiUri}/${registration.registrationId}`).pipe(
-      debug(RxJsLoggingLevel.DEBUG, "delete EventRegistration"),
-      tap((resp) => {
-        if (resp?.success) {
+    return this.apiService.delete(`${this.apiUri}/${registration.registrationId}`).pipe(
+      tap((res) => {
+        if (res?.success) {
           registration.status = RegistrationStatus.Cancelled;
           this.registrationChange(registration);
         }

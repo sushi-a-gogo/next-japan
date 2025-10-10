@@ -11,15 +11,17 @@ import mongoose from "mongoose";
  * registrationId. We include it here ONLY to simulate approval
  * events in the poller (see notificationPoller.js).
  */
-const userNotificationSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+const userNotificationSchema = new Schema(
   {
-    userId: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
     opportunityId: {
-      type: String,
-      required: true,
+      type: Schema.Types.ObjectId,
       ref: "EventOpportunity",
+      required: true,
     },
     registrationId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,41 +29,42 @@ const userNotificationSchema = new mongoose.Schema(
       // NOTE: Only used for simulating approval in the poller.
     },
     sendAt: { type: Date, default: Date.now }, // when to deliver the notification
-    pending: { type: Boolean, default: false }, // true if scheduled for later
+    pending: { type: Boolean, default: false },
   },
-  { timestamps: true } // adds createdAt, updatedAt
+  { timestamps: true }
 );
 
-const UserNotification = mongoose.model(
-  "UserNotification",
-  userNotificationSchema
-);
+export const formatNotification = (notification) => {
+  const opportunity = notification.opportunityId || {};
+  const event = opportunity.eventId || {};
 
-/**
- * formatNotification
- *
- * Normalizes notification objects for API responses.
- */
-export const formatNotification = (notification) => ({
-  notificationId: notification._id.toString(),
-  userId: notification.userId,
-  title: notification.title,
-  message: notification.message,
-  image: notification.opportunityId?.eventId
-    ? {
-        id: notification.opportunityId.eventId.imageId,
-        cloudflareImageId: notification.opportunityId.eventId.cloudflareImageId,
-        width: notification.opportunityId.eventId.imageWidth,
-        height: notification.opportunityId.eventId.imageHeight,
-      }
-    : null,
-  eventId: notification.opportunityId?.eventId?._id.toString() || null,
-  eventTitle: notification.opportunityId?.eventId?.eventTitle || null,
-  eventDate: notification.opportunityId.startDate,
-  eventTimeZone: notification.opportunityId.timeZone,
-  eventTimeZoneAbbreviation: notification.opportunityId.timeZoneAbbreviation,
-  createdAt: notification.createdAt,
-  sendAt: notification.sendAt,
-});
+  return {
+    notificationId: notification._id,
+    userId: notification.userId,
+    title: notification.title ?? "",
+    message: notification.message ?? "",
+    pending: notification.pending ?? false,
+    createdAt: notification.createdAt ?? null,
+    updatedAt: notification.updatedAt ?? null,
+    sendAt: notification.sendAt,
+    opportunity: {
+      opportunityId: opportunity._id ?? null,
+      startDate: opportunity.startDate ?? null,
+      endDate: opportunity.endDate ?? null,
+      timeZone: opportunity.timeZone ?? null,
+      timeZoneAbbreviation: opportunity.timeZoneAbbreviation ?? null,
+      event: {
+        eventId: event._id ?? null,
+        eventTitle: event.eventTitle ?? "",
+        image: {
+          id: event.imageId ?? null,
+          cloudflareImageId: event.cloudflareImageId ?? null,
+          width: event.imageWidth ?? null,
+          height: event.imageHeight ?? null,
+        },
+      },
+    },
+  };
+};
 
-export default UserNotification;
+export default model("UserNotification", userNotificationSchema);

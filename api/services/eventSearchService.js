@@ -3,7 +3,7 @@ import EventLocation from "../models/EventLocation.js";
 import EventOpportunity from "../models/EventOpportunity.js"; // Adjust path
 import formatEvent from "../utils/formatEvent.js";
 
-export const searchEvents = async (query) => {
+export const findEvents = async (query) => {
   const events = await Event.find().sort({ createdAt: -1 });
   const locations = await EventLocation.find().limit(50);
   const opportunities = await EventOpportunity.find().limit(100);

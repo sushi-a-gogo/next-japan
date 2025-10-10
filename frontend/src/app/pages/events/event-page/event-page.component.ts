@@ -81,12 +81,13 @@ export class EventPageComponent implements OnInit, OnChanges {
 
           this.title.setTitle(eventTitle);
           this.meta.updateTags(eventTitle, description);
-          const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
-          this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
-          this.meta.updateTag({ property: 'og:image:width', content: '384' });
-          this.meta.updateTag({ property: 'og:image:height', content: '256' });
 
-          if (!event) {
+          if (event) {
+            const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
+            this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+            this.meta.updateTag({ property: 'og:image:width', content: '384' });
+            this.meta.updateTag({ property: 'og:image:height', content: '256' });
+          } else {
             this.errorService.sendError(new Error("The requested event was not found."));
             this.router.navigate(['./not-found']);
           }
@@ -120,7 +121,7 @@ export class EventPageComponent implements OnInit, OnChanges {
       }
     }
 
-    const emptyResp: ApiResponse<EventRegistration[]> = { data: [] };
+    const emptyResp: ApiResponse<EventRegistration[]> = { success: true, data: [] };
     return of(emptyResp);
   }
 

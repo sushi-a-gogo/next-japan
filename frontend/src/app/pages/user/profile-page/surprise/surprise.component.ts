@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AiService } from '@app/services/ai.service';
 import { ButtonComponent } from '@app/shared/button/button.component';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
@@ -11,6 +12,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 })
 export class SurpriseComponent implements OnInit {
   private spinner = inject(NgxSpinnerService);
+  private destroyRef = inject(DestroyRef);
   private aiService = inject(AiService);
 
   ready = output<boolean>();
@@ -19,8 +21,12 @@ export class SurpriseComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinner.show();
-    this.aiService.generateHaiku$().subscribe((resp) => {
-      this.haiku.set(resp.data);
+    this.aiService.generateHaiku$().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((res) => {
+      if (res.success && res.data) {
+        this.haiku.set(res.data);
+      }
       this.ready.emit(true);
     });
   }

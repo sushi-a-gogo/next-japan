@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/cache/http-client-cache';
-import { ApiResponse } from '@app/models/api-response.model';
 import { MapLocation } from '@app/models/map-location.model';
-import { debug, RxJsLoggingLevel } from '@app/operators/debug';
-import { environment } from '@environments/environment';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
+import { ApiService } from './api.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -13,15 +10,14 @@ import { ErrorService } from './error.service';
 })
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-  private http = inject(HttpClient);
+  private apiService = inject(ApiService);
   private errorService = inject(ErrorService);
-  private apiUrl = `${environment.apiUrl}/api/event-locations`;
+  private apiUrl = 'api/event-locations';
   private eventCache = new HttpClientCache<MapLocation[]>();
 
   getLocations$(): Observable<MapLocation[]> {
-    return this.http.get<ApiResponse<MapLocation[]>>(this.apiUrl).pipe(
-      map((resp) => resp.data),
-      debug(RxJsLoggingLevel.DEBUG, "getLocations"),
+    return this.apiService.get<MapLocation[]>(this.apiUrl).pipe(
+      map((resp) => resp.data || []),
       catchError((e) => this.errorService.handleError(e, 'Error getting locations', true))
     );
   }
@@ -43,18 +39,16 @@ export class LocationService {
     return obs$;
   }
 
-  getLocation$(locationId: string): Observable<MapLocation> {
-    return this.http.get<ApiResponse<MapLocation>>(`${this.apiUrl}/${locationId}`).pipe(
+  getLocation$(locationId: string): Observable<MapLocation | null> {
+    return this.apiService.get<MapLocation>(`${this.apiUrl}/${locationId}`).pipe(
       map((resp) => resp.data),
-      debug(RxJsLoggingLevel.DEBUG, "getLocation"),
       catchError((e) => this.errorService.handleError(e, 'Error getting location', true))
     );
   }
 
   private fetchEventLocations$(eventId: string): Observable<MapLocation[]> {
-    return this.http.get<ApiResponse<MapLocation[]>>(`${this.apiUrl}/${eventId}/locations`).pipe(
-      map((resp) => resp.data),
-      debug(RxJsLoggingLevel.DEBUG, "getEventLocations"),
+    return this.apiService.get<MapLocation[]>(`${this.apiUrl}/${eventId}/locations`).pipe(
+      map((resp) => resp.data || []),
       catchError((e) => this.errorService.handleError(e, 'Error getting event locations', true))
     );
   }

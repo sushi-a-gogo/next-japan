@@ -59,7 +59,7 @@ export class RegistrationDialogComponent {
   private requestSelected$() {
     const event = this.eventService.eventData().event;
     if (!event) {
-      const emptyResp: ApiResponse<EventRegistration[]> = { data: [] };
+      const emptyResp: ApiResponse<EventRegistration[]> = { success: true, data: [] };
       return of(emptyResp);
     }
 

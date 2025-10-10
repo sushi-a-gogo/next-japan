@@ -10,10 +10,10 @@
 <section class="nx-flex col gap-10">
   <header class="nx-flex row al-c jc-sb gap-24">
     <span class="nx-flex col title">
-      {{ notification().eventTitle }}
+      {{ notification().opportunity.event.eventTitle }}
       <span class="time">
         {{ fullDate() }}
-        ({{ notification().eventTimeZoneAbbreviation }})
+        ({{ notification().opportunity.timeZoneAbbreviation }})
       </span>
     </span>
     <span class="soft">{{ notificationDate() }}</span>

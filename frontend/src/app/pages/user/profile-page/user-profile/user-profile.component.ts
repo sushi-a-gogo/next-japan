@@ -53,15 +53,17 @@ export class UserProfileComponent implements OnInit {
 
     this.userProfileService.getUser$(this.user()!.userId).pipe(
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe((resp) => {
-      this.userProfile = resp.data;
-      this.profileForm.setValue({
-        firstName: this.userProfile.firstName,
-        lastName: this.userProfile.lastName,
-        email: this.userProfile.email,
-        phone: this.userProfile.phone || null,
-        preferredContactMethod: this.userProfile.isEmailPreferred ? 'email' : 'phone'
-      });
+    ).subscribe((res) => {
+      if (res.success && res.data) {
+        this.userProfile = res.data;
+        this.profileForm.setValue({
+          firstName: this.userProfile.firstName,
+          lastName: this.userProfile.lastName,
+          email: this.userProfile.email,
+          phone: this.userProfile.phone || null,
+          preferredContactMethod: this.userProfile.isEmailPreferred ? 'email' : 'phone'
+        });
+      }
     });
   }
 
@@ -79,9 +81,11 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.updateProfile$(newProfile).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (resp) => {
+      next: (res) => {
+        if (res.success && res.data) {
+          this.authService.updateUserData(res.data);
+        }
         this.busy = false;
-        this.authService.updateUserData(resp.data);
         this.closeProfile();
       },
       error: () => { this.busy = false; }

@@ -12,10 +12,22 @@ export interface UserNotification {
 }
 
 export interface EventNotification extends UserNotification {
-  eventId: string;
-  eventDate: string;
-  eventTimeZone: string;
-  eventTimeZoneAbbreviation: string;
-  eventTitle: string;
+  opportunity: {
+    opportunityId: string,
+    startDate: string,
+    endDate: string,
+    timeZone: string,
+    timeZoneAbbreviation: string,
+    event: {
+      eventId: string,
+      eventTitle: string,
+      image: {
+        id: string,
+        cloudflareImageId: string,
+        width: number,
+        height: number,
+      },
+    },
+  }
   registrationId: string;
 }

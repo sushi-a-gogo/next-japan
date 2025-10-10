@@ -60,7 +60,6 @@ export class AiEventPageComponent implements OnInit {
     this.busy.set(true);
     this.eventsService.saveEvent$(this.dreamEvent()!).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
-        console.log('Saved:', res.data);
         this.savedEvent.set(res.data); // Update with Cloudflare URL
         this.openSaveMessage();
       },

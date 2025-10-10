@@ -1,4 +1,16 @@
-export function createTextPrompt(promptParams, customText) {
+export const haikuPrompt = `Generate a haiku in English that uniquely describes 'Next Japan'
+- a Japanese vacation event planning website.
+  Each line must start with a completely different, randomly chosen Unicode emoji embodying any aspect of
+  Japanese culture, travel, or mystery (no examples provided).
+  Explore a bold, unpredictable theme (e.g., cyberpunk Osaka, ancient tea rituals, haunted Aomori forests, futuristic Hokkaido farms),
+  explicitly avoiding any repeated imagery, themes, or emojis from past outputs.
+  Randomly switch between poetic styles (e.g., haiku with haibun flair, free-verse twist, or mythic tone) and perspectives
+  (e.g., a lost tourist, a wandering fox spirit, a futuristic AI guide).
+  Ensure the haiku is vibrant, evocative, and captures the diverse magic of Japanese travel.
+  If you want, provide a brief explanation (explanation only, 25 words or less, and do NOT label it as an 'explanation')
+  of the haiku's meaning - but this is optional.`;
+
+export function eventDescriptionPrompt(promptParams, customText) {
   return `Generate a raw JSON object describing a day long special event in Japan based on these parameters:
 ${JSON.stringify(promptParams)}.
 User input: ${customText}.
@@ -11,7 +23,7 @@ Do not include Markdown, code blocks, or extra text—output valid JSON only.
 Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }.`;
 }
 
-export function createImagePrompt(promptParams, customText) {
+export function eventImagePrompt(promptParams, customText) {
   return `Create an anime-style digital painting in a cel-shaded, anime style,
 using a color palette of warm glowing tones together with bright pastels,
 and a theme inspired by Studio Ghibli movies, '${customText}' and these parameters: ${JSON.stringify(
@@ -24,7 +36,7 @@ Avoid close-up or foreground characters.
 The image should not contain any text or symbols.`;
 }
 
-export function createGrokImagePrompt(promptParams, customText) {
+export function grokEventImagePrompt(promptParams, customText) {
   return `Ultra-wide 16:9 landscape ONLY, cinematic 1920x1080 horizontal panoramic frame,
 ABSOLUTELY NO portrait or vertical composition.
 Generate a digital painting, using warm glowing tones and bright pastels,
@@ -39,7 +51,7 @@ Characters should be depicted in anime style and should take up only a small por
 The image should not contain any text or symbols.`;
 }
 
-export function createGhibliStylePrompt({
+export function ghibliStylePrompt({
   destination,
   tone,
   mood,
