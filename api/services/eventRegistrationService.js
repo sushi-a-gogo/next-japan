@@ -40,7 +40,9 @@ export const getUserRegistrations = async (userId) => {
 };
 
 // ✅ Create new registration
-export const createUserRegistration = async (userId, status, opportunityId) => {
+export const createUserRegistration = async (data) => {
+  const { userId, status, opportunityId } = data;
+
   if (!userId || !status || !opportunityId) {
     throw new ValidationError("Missing required fields");
   }
@@ -127,12 +129,9 @@ export const getRegistrationById = async (registrationId) => {
 };
 
 // ✅ Update registration
-export const updateRegistration = async (
-  registrationId,
-  userId,
-  status,
-  opportunityId
-) => {
+export const updateRegistration = async (registrationId, data) => {
+  const { userId, status, opportunityId } = data;
+
   if (!mongoose.Types.ObjectId.isValid(registrationId))
     throw new ValidationError("Invalid registrationId");
   if (!userId || !mongoose.Types.ObjectId.isValid(userId))

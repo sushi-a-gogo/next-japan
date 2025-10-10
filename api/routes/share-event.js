@@ -1,12 +1,9 @@
 import express from "express";
-import {
-  getEventShareCount,
-  shareEvent,
-} from "../controllers/eventSocialController.js";
+import * as eventSocialController from "../controllers/eventSocialController.js";
 
 const router = express.Router();
 
-router.post("/", shareEvent);
-router.get("/count/:eventId", getEventShareCount);
+router.post("/", eventSocialController.shareEvent);
+router.get("/count/:eventId", eventSocialController.getEventShareCount);
 
 export default router;

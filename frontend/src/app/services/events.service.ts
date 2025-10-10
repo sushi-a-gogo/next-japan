@@ -56,7 +56,7 @@ export class EventsService {
   }
 
   saveEvent$(event: AiEvent): Observable<ApiResponse<EventData>> {
-    return this.apiService.post<EventData>(`${this.eventsUrl}/save`, event).pipe(
+    return this.apiService.post<EventData>(`${this.eventsUrl}`, event).pipe(
       tap(() => this.eventsCache.clear()),
       catchError((e) => this.errorService.handleError(e, 'Error saving event', true))
     );

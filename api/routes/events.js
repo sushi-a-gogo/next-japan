@@ -6,7 +6,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.get("/", eventController.getEvents);
-router.post("/save", authMiddleware, eventController.saveEvent);
+router.post("/", authMiddleware, eventController.saveEvent);
 router.get("/:id", eventController.getEventById);
 
 export default router;

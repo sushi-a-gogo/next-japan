@@ -4,11 +4,13 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { authorized } from "../utils/authHelpers.js";
 import { NotFoundError } from "../utils/errors.js";
 
+// GET all events
 export const getEvents = asyncHandler(async (req, res) => {
   const events = await eventService.getRecentEvents();
   res.status(200).json({ success: true, data: events });
 });
 
+// GET event by id
 export const getEventById = asyncHandler(async (req, res) => {
   const event = await eventService.getEventById(req.params.id);
   if (!event) throw new NotFoundError("Event not found");
@@ -16,6 +18,7 @@ export const getEventById = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: event });
 });
 
+// POST new event
 export const saveEvent = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 

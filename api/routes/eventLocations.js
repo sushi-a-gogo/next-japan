@@ -3,11 +3,8 @@ import * as eventLocationController from "../controllers/eventLocationController
 
 const router = express.Router();
 
-// GET all event locations
 router.get("/", eventLocationController.getLocations);
-// GET by locationId
 router.get("/:locationId", eventLocationController.getLocationById);
-// GET event locations
 router.get("/:eventId/locations", eventLocationController.getEventLocations);
 
 export default router;

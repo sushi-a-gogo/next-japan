@@ -2,6 +2,7 @@ import { fetchGeneratedContent, fetchHaiku } from "../services/aiService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { authorized } from "../utils/authHelpers.js";
 
+// GET ai-generated haiku
 export const generateHaiku = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
@@ -12,6 +13,7 @@ export const generateHaiku = asyncHandler(async (req, res) => {
   });
 });
 
+// POST ai-event content generation
 export const generateContent = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 

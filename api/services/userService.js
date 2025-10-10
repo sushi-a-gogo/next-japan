@@ -38,8 +38,16 @@ export const saveUser = async (data) => {
     subscriptionPlan,
     isEmailPreferred: true,
   });
+
   const savedUser = await user.save();
-  return savedUser;
+  return {
+    userId: savedUser._id.toString(),
+    firstName: savedUser.firstName,
+    lastName: savedUser.lastName,
+    email: savedUser.email,
+    subscriptionPlan: savedUser.subscriptionPlan,
+    createdAt: savedUser.createdAt,
+  };
 };
 
 export const findUserByIdAndUpdate = async (data) => {
