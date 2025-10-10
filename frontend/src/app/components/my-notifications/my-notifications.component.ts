@@ -67,8 +67,8 @@ export class MyNotificationsComponent implements OnInit {
     ).subscribe({
       next: () => {
         this.busy.set(false);
-        if (notification.eventId) {
-          this.router.navigate([`/event/${notification.eventId}`]);
+        if (notification.opportunity.event.eventId) {
+          this.router.navigate([`/event/${notification.opportunity.event.eventId}`]);
         }
       },
       error: () => this.busy.set(false)

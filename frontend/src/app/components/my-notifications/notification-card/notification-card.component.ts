@@ -18,7 +18,12 @@ export class NotificationCardComponent {
   notification = input.required<EventNotification>();
 
   resizedImage = computed(() => {
-    return this.imageService.resizeImage(this.notification().image, 168, 96);
+    const image = this.notification().opportunity.event.image;
+    if (image.cloudflareImageId) {
+      return this.imageService.resizeImage(this.notification().opportunity.event.image, 168, 96);
+    }
+
+    return { src: 'assets/images/default-event.avif', image: { width: 1792, height: 1024 } };
   });
 
   notificationDate = computed(() => {
@@ -75,8 +80,8 @@ export class NotificationCardComponent {
   });
 
   fullDate = computed(() => {
-    const date = new Date(this.notification().eventDate);
-    const formattedDate = this.dateTimeService.formatDateInLocaleTime(date, 'fullDate', this.notification().eventTimeZone);
+    const date = new Date(this.notification().opportunity.startDate);
+    const formattedDate = this.dateTimeService.formatDateInLocaleTime(date, 'fullDate', this.notification().opportunity.timeZone);
     return formattedDate;
   });
 
