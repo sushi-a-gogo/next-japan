@@ -91,7 +91,6 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
 
   onOptionSelected(event: any) {
     this.selectedValue = event.option.value;
-    console.log('onOptionSelected: ' + this.selectedValue);
     const selectedEvent = this.filteredEvents().find(e => e.eventTitle === this.selectedValue);
     if (selectedEvent) {
       // Navigate to event page

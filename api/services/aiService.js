@@ -1,10 +1,6 @@
 import dotenv from "dotenv";
 import OpenAI from "openai";
-import {
-  createGrokImagePrompt,
-  createImagePrompt,
-  createTextPrompt,
-} from "../utils/aiPrompts.js";
+import * as aiPrompts from "../utils/aiPrompts.js";
 
 dotenv.config();
 
@@ -27,7 +23,7 @@ const providers = {
 };
 
 export async function fetchHaiku() {
-  const prompt = `Generate a haiku in English that uniquely describes 'Next Japan' ...`;
+  const prompt = aiPrompts.haikuPrompt;
   const result = await fetchHaikuResultFromAI(providers.grok, prompt);
   return result.choices[0].message.content;
 }
@@ -42,11 +38,11 @@ export async function fetchGeneratedContent(promptParams) {
     throw new Error("Prompt violates content guidelines.");
   }
 
-  const textPrompt = createTextPrompt(promptParams, customText);
+  const textPrompt = aiPrompts.eventDescriptionPrompt(promptParams, customText);
   const imagePrompt =
     provider.name === "Grok"
-      ? createGrokImagePrompt(promptParams, customText)
-      : createImagePrompt(promptParams, customText);
+      ? aiPrompts.grokEventImagePrompt(promptParams, customText)
+      : aiPrompts.eventImagePrompt(promptParams, customText);
 
   // text
   const textResponse = await fetchTextResultFromAI(provider, textPrompt);

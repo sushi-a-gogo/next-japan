@@ -25,7 +25,6 @@ export const fetchUserNotifications = async (userId) => {
       ],
     })
     .lean();
-  console.log(notifications);
   return notifications.map(formatNotification);
 };
 
