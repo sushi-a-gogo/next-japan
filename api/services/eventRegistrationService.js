@@ -1,4 +1,3 @@
-// services/eventRegistrationService.js
 import mongoose from "mongoose";
 import EventOpportunity from "../models/EventOpportunity.js";
 import EventRegistration, {

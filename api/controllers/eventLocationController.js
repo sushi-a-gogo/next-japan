@@ -1,4 +1,3 @@
-// controllers/eventController.js
 import * as eventLocationService from "../services/eventLocationService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { NotFoundError } from "../utils/errors.js";

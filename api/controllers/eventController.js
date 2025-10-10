@@ -1,4 +1,3 @@
-// controllers/eventController.js
 import * as eventService from "../services/eventService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { authorized } from "../utils/authHelpers.js";
