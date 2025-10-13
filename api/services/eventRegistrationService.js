@@ -7,7 +7,7 @@ import User from "../models/User.js";
 import UserNotification from "../models/UserNotification.js";
 import { NotFoundError, ValidationError } from "../utils/errors.js";
 
-export const getUserRegistrations = async (userId) => {
+export const getEventRegistrationsForUser = async (userId) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     throw new ValidationError("Invalid userId format");
   }
@@ -37,7 +37,7 @@ export const getUserRegistrations = async (userId) => {
   return registrations.map(formatRegistration);
 };
 
-export const createUserRegistration = async (data) => {
+export const createEventRegistration = async (data) => {
   const { userId, status, opportunityId } = data;
 
   if (!userId || !status || !opportunityId) {
@@ -97,7 +97,7 @@ export const createUserRegistration = async (data) => {
   return registration;
 };
 
-export const getRegistrationById = async (registrationId) => {
+export const getEventRegistrationById = async (registrationId) => {
   if (!mongoose.Types.ObjectId.isValid(registrationId)) {
     throw new ValidationError("Invalid registrationId format");
   }
@@ -124,7 +124,7 @@ export const getRegistrationById = async (registrationId) => {
   return registration ? formatRegistration(registration) : null;
 };
 
-export const updateRegistration = async (registrationId, data) => {
+export const updateEventRegistration = async (registrationId, data) => {
   const { userId, status, opportunityId } = data;
 
   if (!mongoose.Types.ObjectId.isValid(registrationId))
@@ -152,7 +152,7 @@ export const updateRegistration = async (registrationId, data) => {
   return updated ? formatRegistration(updated.toObject()) : null;
 };
 
-export const deleteRegistration = async (registrationId) => {
+export const deleteEventRegistration = async (registrationId) => {
   if (!mongoose.Types.ObjectId.isValid(registrationId)) {
     throw new ValidationError("Invalid registrationId");
   }

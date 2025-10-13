@@ -4,21 +4,23 @@ import { authorized } from "../utils/authHelpers.js";
 import { NotFoundError } from "../utils/errors.js";
 
 // GET event registrations for user
-export const getUserRegistrations = asyncHandler(async (req, res) => {
+export const getEventRegistrationsForUser = asyncHandler(async (req, res) => {
   if (!authorized(req, res, true)) return;
 
   const { userId } = req.params;
-  const registrations = await registrationService.getUserRegistrations(userId);
+  const registrations = await registrationService.getEventRegistrationsForUser(
+    userId
+  );
 
   res.status(200).json({ success: true, data: registrations });
 });
 
 // GET event registration by id
-export const getRegistrationById = asyncHandler(async (req, res) => {
+export const getEventRegistrationById = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
   const { registrationId } = req.params;
-  const registration = await registrationService.getRegistrationById(
+  const registration = await registrationService.getEventRegistrationById(
     registrationId
   );
 
@@ -28,10 +30,10 @@ export const getRegistrationById = asyncHandler(async (req, res) => {
 });
 
 // POST new event registration
-export const createRegistration = asyncHandler(async (req, res) => {
+export const createEventRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
-  const registration = await registrationService.createUserRegistration(
+  const registration = await registrationService.createEventRegistration(
     req.body
   );
 
@@ -41,12 +43,12 @@ export const createRegistration = asyncHandler(async (req, res) => {
 });
 
 // PUT update event registration
-export const updateRegistration = asyncHandler(async (req, res) => {
+export const updateEventRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
   const { registrationId } = req.params;
 
-  const registration = await registrationService.updateRegistration(
+  const registration = await registrationService.updateEventRegistration(
     registrationId,
     req.body
   );
@@ -59,11 +61,13 @@ export const updateRegistration = asyncHandler(async (req, res) => {
 });
 
 // DELETE event registration
-export const deleteRegistration = asyncHandler(async (req, res) => {
+export const deleteEventRegistration = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
   const { registrationId } = req.params;
-  const deleted = await registrationService.deleteRegistration(registrationId);
+  const deleted = await registrationService.deleteEventRegistration(
+    registrationId
+  );
 
   if (!deleted) throw new NotFoundError("Event Registration not found");
 

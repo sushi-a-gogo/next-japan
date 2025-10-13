@@ -7,27 +7,31 @@ const router = express.Router();
 router.get(
   "/user/:userId",
   authMiddleware,
-  registrationController.getUserRegistrations
+  registrationController.getEventRegistrationsForUser
 );
 
-router.post("/", authMiddleware, registrationController.createRegistration);
+router.post(
+  "/",
+  authMiddleware,
+  registrationController.createEventRegistration
+);
 
 router.get(
   "/:registrationId",
   authMiddleware,
-  registrationController.getRegistrationById
+  registrationController.getEventRegistrationById
 );
 
 router.put(
   "/:registrationId",
   authMiddleware,
-  registrationController.updateRegistration
+  registrationController.updateEventRegistration
 );
 
 router.delete(
   "/:registrationId",
   authMiddleware,
-  registrationController.deleteRegistration
+  registrationController.deleteEventRegistration
 );
 
 export default router;

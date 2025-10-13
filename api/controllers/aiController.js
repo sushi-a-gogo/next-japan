@@ -1,4 +1,4 @@
-import { fetchGeneratedContent, fetchHaiku } from "../services/aiService.js";
+import * as aiService from "../services/aiService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { authorized } from "../utils/authHelpers.js";
 
@@ -6,7 +6,7 @@ import { authorized } from "../utils/authHelpers.js";
 export const generateHaiku = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;
 
-  const haiku = await fetchHaiku();
+  const haiku = await aiService.fetchHaiku();
   res.json({
     success: true,
     data: haiku,
@@ -22,6 +22,6 @@ export const generateContent = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Missing promptParams" });
   }
 
-  const content = await fetchGeneratedContent(promptParams);
+  const content = await aiService.fetchGeneratedContent(promptParams);
   res.json({ success: true, data: content });
 });
