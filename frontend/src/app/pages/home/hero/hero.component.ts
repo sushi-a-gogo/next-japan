@@ -26,8 +26,8 @@ export class HeroComponent implements OnInit {
 
   currentImageIndex = signal<number | null>(null);
   heroImages = computed(() => [...this.events().map((e) => {
-    const image = e.image;
-    return this.imageService.resizeImage(image, image.width, image.height);
+    const hero = this.imageService.resizeImage(e.image, e.image.width, e.image.height);
+    return { ...hero, grokImage: e.aiProvider === 'Grok' };
   })]);
 
   private destroyRef = inject(DestroyRef);

@@ -1,44 +1,23 @@
 <div class="carousel-container">
-  @if (!ssrMode()) {
-  <button
-    class="nav-button prev"
-    (click)="scrollPrev()"
-    (touchend)="scrollPrev()"
-    [disabled]="disablePrevButton()"
-    aria-label="Previous events"
-  >
-    <span class="material-symbols-outlined">arrow_back_ios_new</span>
-    <span class="text">Prev</span>
-  </button>
-  <div class="carousel-track" #carouselTrack>
-    @for (event of sortedEvents(); track event?.eventId || $index) {
-    <div
-      class="event-item"
-      [class.visible]="animationState() === 'in'"
-      [style.--animation-delay]="$index * 100 + 'ms'"
-    >
+  @if(ssrMode()) {
+  <div class="carousel-ssr">
+    @for (event of sortedEvents(); track event.eventId) {
+    <div class="event-item">
       <app-event-card [event]="event"></app-event-card>
     </div>
     }
   </div>
-  <button
-    class="nav-button next"
-    (click)="scrollNext()"
-    (touchend)="scrollNext()"
-    [disabled]="disableNextButton()"
-    aria-label="Next events"
-  >
-    <span class="material-symbols-outlined">arrow_forward_ios</span>
-    <span class="text">Next</span>
-  </button>
   } @else {
-  <div class="carousel-track carousel-track--ssr" #carouselTrack>
-    @for (event of sortedEvents(); track event?.eventId || $index) {
-    <div class="event-item visible">
-      <app-event-card [event]="event"></app-event-card>
-    </div>
-    }
-  </div>
-
+  <p-carousel
+    [value]="sortedEvents()"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    [showIndicators]="showIndicators()"
+    styleClass="app-carousel"
+  >
+    <ng-template let-event #item>
+      <app-event-card [event]="event" />
+    </ng-template>
+  </p-carousel>
   }
 </div>
