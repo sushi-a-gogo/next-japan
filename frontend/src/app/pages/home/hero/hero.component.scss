@@ -23,6 +23,19 @@ img {
     z-index: 1; /* keeps layering predictable */
   }
 
+  &.grok {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: linear-gradient(
+      to right,
+      #0f2b56,
+      transparent 50%,
+      transparent 50%,
+      #0f2b56
+    ); /* Night sky gradient */
+  }
+
   //animation: zoom-in 30s ease-in-out infinite;
   // &:nth-child(even) {
   //   animation: zoom-out 30s ease-in-out infinite;
