@@ -2,24 +2,22 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  padding: 16px;
-  padding-top: 0;
-  padding-bottom: 36px;
+  //padding: 0 16px;
 }
 
 @media (max-width: 480px) {
   :host {
-    padding: 8px;
-    padding-top: 0;
-    padding-bottom: 24px;
-    gap: 16px;
+    // padding: 8px;
+    // padding-top: 0;
+    // padding-bottom: 24px;
+    // gap: 16px;
   }
 }
 
 @media (min-width: 768px) {
   :host {
-    min-width: 640px;
-    max-width: 660px;
+    //min-width: 640px;
+    //max-width: 660px;
   }
 }
 

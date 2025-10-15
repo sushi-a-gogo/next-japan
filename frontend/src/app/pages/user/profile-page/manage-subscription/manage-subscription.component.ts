@@ -1,16 +1,20 @@
-import { Component, computed, input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, computed, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { PlanPaymentComponent } from "@app/auth/login/login-steps/plan-payment/plan-payment.component";
 import { SelectPlanComponent } from "@app/auth/login/login-steps/select-plan/select-plan.component";
 import SUBSCRIPTION_PLANS, { Plan } from '@app/models/plan.interface';
 import { User } from '@app/models/user.model';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-manage-subscription',
-  imports: [SelectPlanComponent, PlanPaymentComponent],
+  imports: [ToastModule, SelectPlanComponent, PlanPaymentComponent],
   templateUrl: './manage-subscription.component.html',
   styleUrl: './manage-subscription.component.scss'
 })
 export class ManageSubscriptionComponent implements OnChanges {
+  private messageService = inject(MessageService);
+
   user = input.required<User>();
   selectedIndex = input.required<number>();
   selectedPlanName = signal<string | null>(null);
@@ -46,5 +50,10 @@ export class ManageSubscriptionComponent implements OnChanges {
 
   update(subscriptionPlanName: string) {
     this.selectedPlanName.set(subscriptionPlanName);
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Subscription Updated!',
+      detail: 'Your subscription was updated successfully.'
+    });
   }
 }

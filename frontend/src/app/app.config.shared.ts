@@ -6,6 +6,7 @@ import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, with
 import { environment } from '@environments/environment';
 import Material from '@primeuix/themes/material';
 import { provideMarkdown } from 'ngx-markdown';
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './auth/auth.interceptor';
@@ -19,6 +20,7 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling
 export const sharedProviders = [
   DatePipe,
   provideAnimations(), // <- deprecated but needed by NgxSpinner :(
+  MessageService,
   providePrimeNG({
     theme: {
       preset: Material
