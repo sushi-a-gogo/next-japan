@@ -21,7 +21,14 @@ button {
   overflow: hidden;
 
   &.grok {
-    background: transparent;
+    background: linear-gradient(
+      to right,
+      #0f2b56,
+      transparent 50%,
+      transparent 50%,
+      #0f2b56
+    ); /* Night sky gradient */
+
     img {
       object-fit: contain;
     }

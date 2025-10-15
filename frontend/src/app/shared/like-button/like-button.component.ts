@@ -1,6 +1,6 @@
 import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRippleModule } from '@angular/material/core';
 import { EventData } from '@app/models/event/event-data.model';
 import { AuthService } from '@app/services/auth.service';
 import { DateTimeService } from '@app/services/date-time.service';
@@ -9,7 +9,7 @@ import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-like-button',
-  imports: [MatTooltipModule],
+  imports: [MatRippleModule],
   templateUrl: './like-button.component.html',
   styleUrl: './like-button.component.scss'
 })

@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AboutComponent } from "@app/components/about/about.component";
 import { LayoutComponent } from "@app/components/layout/layout.component";
+import { FadeInOnScrollDirective } from '@app/directives/fade-in-on-scroll.directive';
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { CanonicalService } from '@app/services/canonical.service';
@@ -20,7 +21,7 @@ import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent],
+  imports: [NgOptimizedImage, FadeInOnScrollDirective, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

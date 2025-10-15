@@ -1,4 +1,6 @@
 <button
+  matRipple
+  aria-label="Like this event"
   class="nx-flex al-c gap-5 fade-in"
   [class.open]="loaded()"
   [disabled]="!userId()"
@@ -9,7 +11,7 @@
   <span class="material-symbols-outlined" [class.filled]="likedByCurrent()">
     favorite
   </span>
-  <span class="soft">
-    {{ count() }}
-  </span>
 </button>
+<span class="soft">
+  {{ count() }}
+</span>

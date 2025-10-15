@@ -4,6 +4,7 @@
 @use "./styles/themes/next-japan-dark-theme.scss";
 @use "./styles/themes/custom-theme-tokens";
 @use "./styles/animations/fadeIn.animation.scss";
+@use "./styles/animations/fadeInOnScroll.animation.scss";
 @use "./styles/animations/blurredSlideUp.animation.scss";
 @use "./styles/app-buttons.scss";
 @use "./styles/app-material-overrides.scss";
@@ -306,6 +307,52 @@ footer.dialog {
     background-color: var(--next-surface);
     position: relative;
   }
+}
+
+.app-carousel {
+  --p-carousel-indicator-active-background: var(--pink-cherry-blossoms);
+}
+
+.app-toast {
+  /* ERROR (Red Torii Gate theme) */
+  --p-toast-error-color: var(--red-torii-gate);
+  --p-toast-error-background: color-mix(
+    in srgb,
+    var(--red-torii-gate) 15%,
+    var(--white-snow-cap)
+  );
+  --p-toast-error-border-color: var(--red-torii-gate);
+  --p-toast-error-detail-color: var(--red-torii-gate);
+
+  /* INFO (Bright Blue Sky theme) */
+  --p-toast-info-color: var(--navy-blue-mountain);
+  --p-toast-info-background: color-mix(
+    in srgb,
+    var(--bright-blue-sky) 15%,
+    var(--white-snow-cap)
+  );
+  --p-toast-info-border-color: var(--bright-blue-sky);
+  --p-toast-info-detail-color: var(--navy-blue-mountain);
+
+  /* SUCCESS (Bright Green Grass theme) */
+  --p-toast-success-color: var(--bright-green-grass);
+  --p-toast-success-background: color-mix(
+    in srgb,
+    var(--bright-green-grass) 15%,
+    var(--white-snow-cap)
+  );
+  --p-toast-success-border-color: var(--bright-green-grass);
+  --p-toast-success-detail-color: var(--bright-green-grass);
+
+  /* WARN (Vivid Yellow Text theme) */
+  --p-toast-warn-color: var(--dark-brown-tree);
+  --p-toast-warn-background: color-mix(
+    in srgb,
+    var(--vivid-yellow-text) 20%,
+    var(--white-snow-cap)
+  );
+  --p-toast-warn-border-color: var(--vivid-yellow-text);
+  --p-toast-warn-detail-color: var(--dark-brown-tree);
 }
 
 @media only screen and (min-width: 768px) {

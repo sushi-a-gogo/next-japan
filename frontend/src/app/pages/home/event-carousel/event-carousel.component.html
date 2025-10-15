@@ -1,23 +1,21 @@
-<div class="carousel-container">
-  @if(ssrMode()) {
-  <div class="carousel-ssr">
-    @for (event of sortedEvents(); track event.eventId) {
-    <div class="event-item">
-      <app-event-card [event]="event"></app-event-card>
-    </div>
-    }
+@if(ssrMode()) {
+<div class="carousel-ssr">
+  @for (event of sortedEvents(); track event.eventId) {
+  <div class="event-item">
+    <app-event-card [event]="event"></app-event-card>
   </div>
-  } @else {
-  <p-carousel
-    [value]="sortedEvents()"
-    [circular]="true"
-    [responsiveOptions]="responsiveOptions"
-    [showIndicators]="showIndicators()"
-    styleClass="app-carousel"
-  >
-    <ng-template let-event #item>
-      <app-event-card [event]="event" />
-    </ng-template>
-  </p-carousel>
   }
 </div>
+} @else {
+<p-carousel
+  [value]="sortedEvents()"
+  [circular]="true"
+  [responsiveOptions]="responsiveOptions"
+  [showIndicators]="showIndicators()"
+  styleClass="app-carousel"
+>
+  <ng-template let-event #item>
+    <app-event-card [event]="event" />
+  </ng-template>
+</p-carousel>
+}

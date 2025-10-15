@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 400px;
+  width: 280px;
+  height: 100%;
 }
 
 .content {
@@ -71,6 +72,12 @@
     color: var(--next-link);
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  :host {
+    width: 100%;
   }
 }
 
