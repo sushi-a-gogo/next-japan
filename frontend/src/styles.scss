@@ -4,6 +4,7 @@
 @use "./styles/themes/next-japan-dark-theme.scss";
 @use "./styles/themes/custom-theme-tokens";
 @use "./styles/animations/fadeIn.animation.scss";
+@use "./styles/animations/fadeInOnScroll.animation.scss";
 @use "./styles/animations/blurredSlideUp.animation.scss";
 @use "./styles/app-buttons.scss";
 @use "./styles/app-material-overrides.scss";
@@ -305,6 +306,12 @@ footer.dialog {
     padding: 5px 0 15px 0;
     background-color: var(--next-surface);
     position: relative;
+  }
+}
+
+.app-carousel {
+  .p-carousel-content-container {
+    background-color: var(--next-bg);
   }
 }
 

@@ -16,7 +16,9 @@
         </div>
       </div>
       <app-event-carousel [events]="events()" />
-      <app-ai-banner />
+      <div class="ai-banner">
+        <app-ai-banner [fadeInOnScroll]="{}" />
+      </div>
     </main>
   </article>
 </app-layout>

@@ -1,14 +1,25 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
 button {
-  padding: 0;
-  border: 0;
+  padding: 4px;
   background: transparent;
   outline: none;
   color: var(--next-text);
-  min-width: 50px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: 0.25s ease-in-out;
 
-  .soft {
-    line-height: 24px;
-    font-weight: 500;
+  &:hover {
+    border-color: var(--next-border);
+    background-color: rgba($color: #fff, $alpha: 0.2);
+
+    .material-symbols-outlined {
+      color: var(--pink-cherry-blossoms);
+    }
   }
 
   &:disabled {
@@ -21,8 +32,13 @@ button {
 }
 
 .filled {
-  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
   color: var(--pink-cherry-blossoms);
+}
+
+.soft {
+  line-height: 24px;
+  font-weight: 500;
 }
 
 @media only screen and (min-width: 992px) {

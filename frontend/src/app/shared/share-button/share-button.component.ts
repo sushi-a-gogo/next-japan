@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, DestroyRef, inject, input, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EventData } from '@app/models/event/event-data.model';
@@ -13,7 +14,7 @@ import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-share-button',
-  imports: [MatButtonModule, MatMenuModule, MatTooltipModule],
+  imports: [MatButtonModule, MatRippleModule, MatMenuModule, MatTooltipModule],
   templateUrl: './share-button.component.html',
   styleUrl: './share-button.component.scss'
 })
