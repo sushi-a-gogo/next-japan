@@ -3,7 +3,7 @@
   aria-label="Like this event"
   class="nx-flex al-c gap-5 fade-in"
   [class.open]="loaded()"
-  [disabled]="!userId()"
+  [disabled]="disabled()"
   (click)="like()"
   (touchend)="like()"
   [style.color]="color()"

@@ -27,6 +27,7 @@ export class LikeButtonComponent implements OnInit {
 
   count = computed(() => this.likeCount() + this.uniqueNum());
   userId = computed(() => this.auth.user()?.userId);
+  disabled = computed(() => !this.userId());
 
   private uniqueNum = signal<number>(0);
 
@@ -46,6 +47,8 @@ export class LikeButtonComponent implements OnInit {
   }
 
   like() {
+    if (this.disabled()) return;
+
     const liked = !this.likedByCurrent();
     this.likeService.toggleLike$(this.userId()!, this.event().eventId, liked).pipe(
       takeUntilDestroyed(this.destroyRef))
