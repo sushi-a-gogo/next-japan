@@ -1,7 +1,7 @@
 :host {
   display: block;
   position: relative;
-  width: calc(100vw - 40px);
+  width: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
 }
@@ -15,4 +15,11 @@
   align-items: center; /* centers the grid items vertically */
   margin-left: auto;
   margin-right: auto;
+}
+
+@media screen and (min-width: 600px) {
+  :host {
+    width: calc(100vw - 40px);
+    max-width: var(--max-content-width);
+  }
 }

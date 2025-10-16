@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventData } from '@app/models/event/event-data.model';
@@ -21,11 +21,8 @@ export class EventCardComponent {
   event = input.required<EventData>();
   isGrokEvent = computed(() => this.event().aiProvider === 'Grok');
   resizedImage = computed(() => {
-    if (isPlatformBrowser(this.platformId)) {
-      const width = this.isGrokEvent() ? 342 : 448;
-      return this.imageService.resizeImage(this.event().image, 448, 256);
-    }
-    return null;
+    const width = this.isGrokEvent() ? 342 : 448;
+    return this.imageService.resizeImage(this.event().image, 448, 256);
   });
 
   routerLink = computed(() => `/event/${this.event().eventId}`);

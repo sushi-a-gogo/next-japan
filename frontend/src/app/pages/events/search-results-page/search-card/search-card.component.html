@@ -1,13 +1,13 @@
 <div class="card-container nx-flex col gap-12">
   <button type="button" (click)="goToEvent()" class="border-box">
-    <div class="image-container" [class.grok]="isGrokEvent()">
-      <img
-        alt="Event Image"
-        [ngSrc]="resizedImage().src"
-        [width]="resizedImage().image.width"
-        [height]="resizedImage().image.height"
-      />
-    </div>
+    <img
+      alt="Event Image"
+      class="hero"
+      [class.grok]="isGrokEvent()"
+      [ngSrc]="resizedImage().src"
+      [width]="resizedImage().image.width"
+      [height]="resizedImage().image.height"
+    />
   </button>
   <div class="card-body">
     <div>

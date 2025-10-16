@@ -1,6 +1,7 @@
 @for(image of heroImages(); track image) {
 <img
   [ngSrc]="image.src"
+  class="hero"
   [class.active]="$index === currentImageIndex()"
   [class.grok]="image.grokImage"
   fill
