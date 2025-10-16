@@ -31,6 +31,12 @@ export class EventCarouselComponent {
     ),
     { initialValue: isPlatformBrowser(this.platformId) ? this.breakpointObserver.isMatched('(min-width: 768px)') : false }
   );
+  hideCarousel = toSignal(
+    this.breakpointObserver.observe(['(min-width: 2500px)']).pipe(
+      map(result => result.matches)
+    ),
+    { initialValue: isPlatformBrowser(this.platformId) ? this.breakpointObserver.isMatched('(min-width: 2500px)') : false }
+  );
 
   responsiveOptions = [
     { breakpoint: '689.98px', numVisible: 1, numScroll: 1 },

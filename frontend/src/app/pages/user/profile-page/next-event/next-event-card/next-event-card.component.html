@@ -6,6 +6,7 @@
 <main>
   @if(eventImage()) {
   <img
+    class="hero"
     [class.grok]="event().aiProvider === 'Grok'"
     [ngSrc]="eventImage()!.src"
     [width]="eventImage()!.image.width"

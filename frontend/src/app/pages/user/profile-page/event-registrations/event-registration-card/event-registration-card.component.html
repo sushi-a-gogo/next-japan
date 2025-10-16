@@ -1,14 +1,14 @@
 <div class="card-container">
-  <div class="image-container" [class.grok]="isGrokEvent()">
-    <img
-      alt="Event Image"
-      [ngSrc]="resizedImage().src"
-      [width]="resizedImage().image.width"
-      [height]="resizedImage().image.height"
-      placeholder
-      priority
-    />
-  </div>
+  <img
+    alt="Event Image"
+    class="hero"
+    [class.grok]="isGrokEvent()"
+    [ngSrc]="resizedImage().src"
+    [width]="resizedImage().image.width"
+    [height]="resizedImage().image.height"
+    placeholder
+    priority
+  />
   <div class="card-body">
     <div class="nx-flex col gap-10">
       <div class="title break-word">
