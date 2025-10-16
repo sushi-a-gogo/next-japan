@@ -5,6 +5,7 @@
 }
 
 button {
+  cursor: pointer;
   padding: 4px;
   background: transparent;
   outline: none;
@@ -13,7 +14,7 @@ button {
   border-radius: 6px;
   transition: 0.25s ease-in-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--next-border);
     background-color: rgba($color: #fff, $alpha: 0.2);
 
@@ -23,7 +24,7 @@ button {
   }
 
   &:disabled {
-    cursor: default;
+    cursor: default !important;
   }
 }
 
