@@ -1,5 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
+import { CalendarDate } from '@app/models/calendar-date.model';
+import { EventOpportunity } from '@app/models/event/event-opportunity.model';
 import { getTimezoneOffset } from 'date-fns-tz';
 
 @Injectable({
@@ -7,6 +9,21 @@ import { getTimezoneOffset } from 'date-fns-tz';
 })
 export class DateTimeService {
   private datePipe = inject(DatePipe);
+
+  mapToCalendarDate(opportunity: EventOpportunity) {
+    const date: CalendarDate = {
+      startDate: opportunity.startDate,
+      endDate: opportunity.endDate,
+      timeZone: opportunity.timeZone,
+      timeZoneAbbreviation: opportunity.timeZoneAbbreviation,
+      timeZoneOffset: opportunity.timeZoneOffset
+    };
+    return date;
+  }
+
+  sortCalendarDates(a: CalendarDate, b: CalendarDate) {
+    return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+  }
 
   getDaysSince(dateString: string) {
     const startDate = new Date(dateString);

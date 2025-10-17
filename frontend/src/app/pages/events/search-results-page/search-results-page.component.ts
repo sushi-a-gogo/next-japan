@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { EventData } from '@app/models/event/event-data.model';
 import { EventOpportunity } from '@app/models/event/event-opportunity.model';
+import { DateTimeService } from '@app/services/date-time.service';
 import { EventSearchService } from '@app/services/event-search.service';
 import { MetaService } from '@app/services/meta.service';
 import { OpportunityService } from '@app/services/opportunity.service';
@@ -27,6 +28,7 @@ export class SearchResultsPageComponent implements OnInit, OnChanges {
   private meta = inject(MetaService);
   private eventSearchService = inject(EventSearchService);
   private opportunityService = inject(OpportunityService);
+  private dateTime = inject(DateTimeService);
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
@@ -58,8 +60,8 @@ export class SearchResultsPageComponent implements OnInit, OnChanges {
       next: (res) => {
         const events = res.events;
         events.forEach((event) => {
-          const opportunities = res.opportunities.filter((o) => o.eventId === event.eventId).sort(this.sortByDate);
-          event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
+          const opportunities = res.opportunities.filter((o) => o.eventId === event.eventId).sort(this.dateTime.sortCalendarDates);
+          event.nextOpportunityDate = opportunities.length ? this.dateTime.mapToCalendarDate(opportunities[0]) : undefined;
         });
         this.events.set(events);
       },

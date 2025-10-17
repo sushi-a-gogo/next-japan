@@ -76,10 +76,10 @@
     flex-direction: row;
     align-items: center;
     gap: 24px;
-    //justify-content: space-between;
+    justify-content: space-between;
 
     .alert {
-      align-self: flex-end;
+      align-self: flex-start;
     }
   }
 }
