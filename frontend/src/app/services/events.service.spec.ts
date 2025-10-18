@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { AiEvent } from '@app/models/event/ai-event.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { environment } from '@environments/environment';
 import { firstValueFrom } from 'rxjs';
@@ -65,7 +66,7 @@ describe('EventsService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // ensures no unexpected HTTP calls
+    httpMock.verify();
   });
 
   it('should fetch a list of events', async () => {
@@ -79,17 +80,6 @@ describe('EventsService', () => {
     expect(events[0].eventTitle).toBe('Magical Hokkaido');
   });
 
-  // it('should fetch a list of events', () => {
-  //   service.get$().subscribe(events => {
-  //     expect(events.length).toBe(2);
-  //     expect(events[0].eventTitle).toBe('Magical Hokkaido');
-  //   });
-
-  //   const req = httpMock.expectOne(apiUrl);
-  //   expect(req.request.method).toBe('GET');
-  //   req.flush(mockEvents);
-  // });
-
   it('should fetch a single event by ID', async () => {
     const eventId = '1';
     const promise = firstValueFrom(service.getEvent$(eventId));
@@ -102,44 +92,37 @@ describe('EventsService', () => {
     expect(event).toBeTruthy();
     expect(event?.eventId).toBe('1');
     expect(event?.eventTitle).toBe('Magical Hokkaido');
-
-    // service.getEvent$(eventId).subscribe(event => {
-    //   expect(event).toBeTruthy();
-    //   expect(event?.eventId).toBe('1');
-    //   expect(event?.eventTitle).toBe('Magical Hokkaido');
-    // });
-
   });
 
-  // it('should create a new event', () => {
-  //   const newEvent: AiEvent = {
-  //     eventTitle: 'New Year Bash',
-  //     description: 'Big Fun Night',
-  //     image: { id: 'image_1', width: 256, height: 256 },
-  //     imageUrl: 'https://image.url',
-  //     aiProvider: 'OpenAI'
-  //   };
+  it('should create a new event', () => {
+    const newEvent: AiEvent = {
+      eventTitle: 'New Year Bash',
+      description: 'Big Fun Night',
+      image: { id: 'image_1', width: 256, height: 256 },
+      imageUrl: 'https://image.url',
+      aiProvider: 'OpenAI'
+    };
 
-  //   service.saveEvent$(newEvent).subscribe(res => {
-  //     expect(res.data).toBeTruthy();
-  //     expect(res.data?.eventTitle).toBe('New Year Bash');
-  //   });
+    service.saveEvent$(newEvent).subscribe(res => {
+      expect(res.data).toBeTruthy();
+      expect(res.data?.eventTitle).toBe('New Year Bash');
+    });
 
-  //   const req = httpMock.expectOne(apiUrl);
-  //   expect(req.request.method).toBe('POST');
-  //   expect(req.request.body).toEqual(newEvent);
-  //   req.flush({ ...newEvent, id: '3' });
-  // });
+    const req = httpMock.expectOne(apiUrl);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newEvent);
+    req.flush({ data: { ...newEvent } });
+  });
 
-  // it('should handle HTTP errors gracefully', () => {
-  //   service.get$().subscribe({
-  //     next: () => fail('Expected an error'),
-  //     error: (error) => {
-  //       expect(error.status).toBe(500);
-  //     }
-  //   });
+  it('should handle HTTP errors gracefully', () => {
+    service.get$().subscribe({
+      next: () => fail('Expected an error'),
+      error: (error) => {
+        expect(error.status).toBe(500);
+      }
+    });
 
-  //   const req = httpMock.expectOne(apiUrl);
-  //   req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
-  // });
+    const req = httpMock.expectOne(apiUrl);
+    req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
+  });
 });
