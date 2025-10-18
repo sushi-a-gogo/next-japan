@@ -47,11 +47,11 @@ button {
 @media (min-width: 600px) {
   .card-container {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 24px;
   }
 
-  .image-container {
+  button {
     width: 224px;
     height: 128px;
   }
