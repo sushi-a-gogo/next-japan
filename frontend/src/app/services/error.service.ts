@@ -25,7 +25,7 @@ export class ErrorService {
       this.errorMessageSignal.set(message)
 
     }
-    return throwError(() => new Error(message));
+    return throwError(() => error);
   }
 
   logError(error: Error) {

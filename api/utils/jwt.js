@@ -1,4 +1,3 @@
-// jwt.js
 import jwt from "jsonwebtoken";
 
 function getJwtSecret() {

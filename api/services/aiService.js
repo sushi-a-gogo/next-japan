@@ -1,26 +1,14 @@
 import dotenv from "dotenv";
-import OpenAI from "openai";
 import * as aiPrompts from "../utils/aiPrompts.js";
+import getProviders from "../utils/aiProviders.js";
 
 dotenv.config();
 
-const providers = {
-  openai: {
-    name: "OpenAI",
-    client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY }),
-    model: "gpt-4o-mini",
-    imageModel: "dall-e-3",
-  },
-  grok: {
-    name: "Grok",
-    client: new OpenAI({
-      apiKey: process.env.XAI_API_KEY,
-      baseURL: "https://api.x.ai/v1",
-    }),
-    model: "grok-3",
-    imageModel: "grok-2-image-latest",
-  },
+const keys = {
+  openai: process.env?.OPENAI_API_KEY || "OPENAI_API_KEY",
+  xai: process.env?.XAI_API_KEY || "XAI_API_KEY",
 };
+const providers = getProviders(keys);
 
 export async function fetchHaiku() {
   const prompt = aiPrompts.haikuPrompt;
@@ -29,30 +17,26 @@ export async function fetchHaiku() {
 }
 
 export async function fetchGeneratedContent(promptParams) {
+  console.log("fetchGeneratedContent called with:", promptParams);
   const providerKey = promptParams.aiProvider || "openai";
   const provider = providers[providerKey.toLowerCase()];
-
+  if (!provider) throw new Error("Invalid AI provider");
   const customText = promptParams.customText || "Happy day.";
-
   if (!(await isPromptSafe(customText))) {
     throw new Error("Prompt violates content guidelines.");
   }
-
   const textPrompt = aiPrompts.eventDescriptionPrompt(promptParams, customText);
   const imagePrompt =
     provider.name === "Grok"
       ? aiPrompts.grokEventImagePrompt(promptParams, customText)
       : aiPrompts.eventImagePrompt(promptParams, customText);
-
   // text
   const textResponse = await fetchTextResultFromAI(provider, textPrompt);
   const aiGeneratedEvent = JSON.parse(textResponse.choices[0].message.content);
-
   // image
   const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
   const imageUrl = imageResponse.data[0].url;
   const imageName = `event-image-${Date.now()}.png`;
-
   return {
     ...aiGeneratedEvent,
     image: { id: imageName, width: 1792, height: 1024 },
@@ -107,10 +91,8 @@ async function fetchImageResultFromAI(provider, prompt) {
     prompt,
     n: 1,
   };
-
   if (provider.name === "OpenAI") {
     params.size = "1792x1024";
   }
-
   return provider.client.images.generate(params);
 }

@@ -9,6 +9,7 @@ import { FadeInOnScrollDirective } from '@app/directives/fade-in-on-scroll.direc
 import { AppImageData } from '@app/models/app-image-data.model';
 import { EventData } from '@app/models/event/event-data.model';
 import { CanonicalService } from '@app/services/canonical.service';
+import { DateTimeService } from '@app/services/date-time.service';
 import { EventsService } from '@app/services/events.service';
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
   private eventsService = inject(EventsService);
   private opportunityService = inject(OpportunityService);
   private imageService = inject(ImageService);
+  private dateTime = inject(DateTimeService);
   private destroyRef = inject(DestroyRef);
 
   private aiImage: AppImageData = {
@@ -90,8 +92,8 @@ export class HomeComponent implements OnInit {
         events.forEach((event) => {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)
-            .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-          event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+            .sort(this.dateTime.sortCalendarDates);
+          event.nextOpportunityDate = eventOpportunities.length > 0 ? this.dateTime.mapToCalendarDate(eventOpportunities[0]) : undefined;
         });
         return events;
       })

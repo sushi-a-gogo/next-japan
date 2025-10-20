@@ -1,43 +1,60 @@
 name: CI
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  build-and-test:
+  frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Frontend: Cache and install
+      - uses: actions/checkout@v4
       - name: Setup Node.js for frontend
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
           cache-dependency-path: frontend/package-lock.json
       - name: Install frontend dependencies
         run: npm ci
         working-directory: frontend
       - name: Lint frontend
-        run: npm run lint || echo "Linting not configured"
+        run: npm run lint -- --max-warnings=0 || echo "Linting failed"
         working-directory: frontend
-      - name: Test frontend
-        run: npm test -- --watch=false || echo "Tests not configured"
+      - name: Run frontend tests
+        run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
         working-directory: frontend
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: frontend/coverage/
       - name: Build frontend SSR
         run: npm run build:ssr
         working-directory: frontend
-      # Backend: Cache and install
+
+  backend:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
       - name: Setup Node.js for backend
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
           cache-dependency-path: api/package-lock.json
       - name: Install backend dependencies
         run: npm ci
         working-directory: api
-      - name: Test backend
-        run: npm test || echo "Tests not configured"
+      - name: Run backend tests
+        run: npm test -- --coverage --verbose --detectOpenHandles
         working-directory: api
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: api/coverage/
