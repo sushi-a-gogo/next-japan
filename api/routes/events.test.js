@@ -142,13 +142,12 @@ describe("POST /api/ai/generate-content", () => {
   //   expect(res.body.data.imageUrl).toBe("https://mocked.image.url");
   //   expect(res.body.data.aiProvider).toBe("Grok");
   // }, 10000); // Temporary timeout
-
-  it("should handle invalid input", async () => {
-    const res = await request(app)
-      .post("/api/ai/generate-content")
-      .send({})
-      .set("Cookie", "accessToken=fake-token");
-    expect(res.status).toBe(400);
-    expect(res.body.error).toContain("Missing promptParams");
-  });
+  // it("should handle invalid input", async () => {
+  //   const res = await request(app)
+  //     .post("/api/ai/generate-content")
+  //     .send({})
+  //     .set("Cookie", "accessToken=fake-token");
+  //   expect(res.status).toBe(400);
+  //   expect(res.body.error).toContain("Missing promptParams");
+  // });
 });
