@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
-import connectDB from "./config/db.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import aiRouter from "./routes/ai-integration.js";
 import authRouter from "./routes/auth.js";
@@ -46,9 +45,6 @@ app.use(
     credentials: true,
   })
 );
-
-// Connect to MongoDB
-connectDB().catch((err) => console.error("MongoDB connection error:", err));
 
 // Mount routers
 app.use("/api/auth", authRouter);
