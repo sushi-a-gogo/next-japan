@@ -6,5 +6,5 @@ module.exports = {
   clearMocks: true,
   moduleFileExtensions: ["js", "json"],
   roots: ["<rootDir>/routes"],
-  setupFilesAfterEnv: ["./setupTests.js"],
+  setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
 };
