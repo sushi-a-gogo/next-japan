@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import request from "supertest";
 
 // Mock OpenAI
-jest.mock("OpenAI", () => {
+jest.mock("openai", () => {
   const mockOpenAI = {
     OpenAI: jest.fn().mockImplementation(() => {
       console.log("OpenAI mock instantiated"); // Debug
