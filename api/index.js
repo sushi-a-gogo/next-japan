@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./middleware/errorHandler.js";
-import aiRouter from "./routes/ai-integration.js";
+import aiRouter from "./routes/ai.js";
 import authRouter from "./routes/auth.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
 import eventOpportunitiesRouter from "./routes/eventOpportunities.js";

@@ -1,38 +1,23 @@
 import dotenv from "dotenv";
-import OpenAI from "openai";
 import * as aiPrompts from "../utils/aiPrompts.js";
+import getProviders from "../utils/aiProviders.js";
 
 dotenv.config();
 
-function getProviders() {
-  return {
-    openai: {
-      name: "OpenAI",
-      client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY }),
-      model: "gpt-4o-mini",
-      imageModel: "dall-e-3",
-    },
-    grok: {
-      name: "Grok",
-      client: new OpenAI({
-        apiKey: process.env.XAI_API_KEY,
-        baseURL: "https://api.x.ai/v1",
-      }),
-      model: "grok-3",
-      imageModel: "grok-2-image-latest",
-    },
-  };
-}
+const keys = {
+  openai: process.env?.OPENAI_API_KEY || "OPENAI_API_KEY",
+  xai: process.env?.XAI_API_KEY || "XAI_API_KEY",
+};
+const providers = getProviders(keys);
 
 export async function fetchHaiku() {
-  const providers = getProviders();
   const prompt = aiPrompts.haikuPrompt;
   const result = await fetchHaikuResultFromAI(providers.grok, prompt);
   return result.choices[0].message.content;
 }
 
 export async function fetchGeneratedContent(promptParams) {
-  const providers = getProviders();
+  console.log("fetchGeneratedContent called with:", promptParams);
   const providerKey = promptParams.aiProvider || "openai";
   const provider = providers[providerKey.toLowerCase()];
   if (!provider) throw new Error("Invalid AI provider");
@@ -63,7 +48,6 @@ export async function fetchGeneratedContent(promptParams) {
 
 // --- Private helpers ---
 async function isPromptSafe(userPrompt) {
-  const providers = getProviders();
   const moderation = await providers.openai.client.moderations.create({
     input: userPrompt,
   });
