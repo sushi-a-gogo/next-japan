@@ -31,7 +31,7 @@ export class AiService {
     this.promptParamsSignal.set(null);
   }
 
-  generateContent$(params: any) {
+  generateContent$(params: AiPromptParams) {
     //return this.generateMock$();
     this.promptParamsSignal.set(params);
     return this.apiService.post<AiEvent>(`${this.uri}/generate-content`, {
