@@ -41,25 +41,9 @@ export class OpportunityButtonComponent {
 
   onSelect(tooltip: MatTooltip) {
     if (this.tooltipText()) {
-      this.toggleTooltip(tooltip);
       return;
     }
 
     this.select.emit();
-  }
-
-  private toggleTooltip(tooltip: MatTooltip) {
-    if (tooltip.disabled) {
-      tooltip.disabled = false; // Enable tooltip
-      tooltip.show(); // Show the tooltip
-      // Optionally, hide after a delay
-      setTimeout(() => {
-        tooltip.hide();
-        tooltip.disabled = true; // Disable again after hiding
-      }, 2000); // Hide after 2 seconds
-    } else {
-      tooltip.hide(); // Hide if already visible
-      tooltip.disabled = true; // Disable after hiding
-    }
   }
 }

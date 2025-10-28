@@ -6,17 +6,34 @@
     } -->
     <app-event-hero />
   </header>
-  <main class="component-box nx-flex col al-c">
-    <app-event-navbar (setFocus)="setFocusChild($event)"></app-event-navbar>
-    <div class="event-panels cb-content pad nx-flex row jc-sb">
-      <div class="overview">
-        <app-event-overview [focusChild]="focusChild" />
-      </div>
-      <div>
-        @if(loaded()) {
-        <app-event-opportunities />
-        }
-      </div>
+  <main class="component-box">
+    <div class="cb-content pad">
+      <mat-tab-group
+        dynamicHeight
+        [selectedIndex]="selectedIndex()"
+        (selectedTabChange)="onTabChange($event)"
+      >
+        <mat-tab label="Overview">
+          <div class="tab-content pre-wrap">{{ event()?.fullDescription }}</div>
+        </mat-tab>
+        <mat-tab label="Upcoming Opportunities">
+          <div class="tab-content">
+            @if(loaded()) {
+            <app-event-opportunities />
+            }
+          </div>
+        </mat-tab>
+        <mat-tab label="Locations">
+          <div class="tab-content">
+            <app-location-overview></app-location-overview>
+          </div>
+        </mat-tab>
+        <mat-tab label="Event Coordinators">
+          <div class="tab-content">
+            <app-coordinator-overview />
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </main>
 </article>

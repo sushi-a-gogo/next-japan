@@ -28,4 +28,12 @@
 </app-button>
 } }
 <!-- End Authenticated -->
+} @else {
+<app-button
+  cssClass="app-button app-button-filled nx-flex al-c jc-c gap-5"
+  [disabled]="true"
+  tooltip="Please sign in to register for an event."
+>
+  Select
+</app-button>
 }

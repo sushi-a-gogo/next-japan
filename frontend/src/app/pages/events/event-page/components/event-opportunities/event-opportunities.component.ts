@@ -24,6 +24,6 @@ export class EventOpportunitiesComponent implements OnInit {
         const context = getRegistrationContext(opp, eventRegistrations);
         return !context;
       });
-    this.opportunities.set(availableOpportunities.slice(0, 3));
+    this.opportunities.set(availableOpportunities.slice(0, 4));
   }
 }
