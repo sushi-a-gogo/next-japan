@@ -5,6 +5,7 @@ const coordinatorSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+  biography: { type: String },
   imageId: { type: String },
   cloudflareImageId: { type: String },
   imageWidth: { type: Number },
