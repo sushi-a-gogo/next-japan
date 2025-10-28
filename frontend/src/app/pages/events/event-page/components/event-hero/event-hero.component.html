@@ -65,6 +65,13 @@
     <app-registration-alert
       class="alert"
       [eventRegistration]="eventRegistration()"
+      (viewRegistration)="viewRegistration.set(true)"
     />
   </div>
 </div>
+@if(viewRegistration()) {
+<app-view-registration-dialog
+  [eventRegistration]="eventRegistration()"
+  (close)="viewRegistration.set(false)"
+/>
+}

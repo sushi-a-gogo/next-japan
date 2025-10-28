@@ -24,6 +24,7 @@ function mapCoordinator(c) {
     firstName: c.firstName,
     lastName: c.lastName,
     email: c.email,
+    biography: c.biography,
     image: {
       id: c.imageId,
       cloudflareImageId: c.cloudflareImageId,
