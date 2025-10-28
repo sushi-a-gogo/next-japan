@@ -18,8 +18,8 @@ export class OpportunityTimestampComponent {
   timestamp = computed(() => {
     const startDate = new Date(this.opportunity().startDate);
     const endDate = new Date(this.opportunity().endDate);
-    const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(startDate, 'EEE, MMM d, yyyy h:mma', this.opportunity().timeZone);
-    const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(endDate, 'h:mma', this.opportunity().timeZone);
+    const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(startDate, 'EEE, MMM d, yyyy h:mm a', this.opportunity().timeZone);
+    const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(endDate, 'h:mm a', this.opportunity().timeZone);
     return `${formattedStartDate} - ${formattedEndDate}`;
   });
 }
