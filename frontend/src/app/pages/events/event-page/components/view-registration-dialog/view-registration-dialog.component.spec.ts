@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ViewRegistrationDialogComponent } from './view-registration-dialog.component';
 
 describe('ViewRegistrationDialogComponent', () => {
@@ -8,9 +11,14 @@ describe('ViewRegistrationDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewRegistrationDialogComponent]
+      imports: [ViewRegistrationDialogComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideZonelessChangeDetection(),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ViewRegistrationDialogComponent);
     component = fixture.componentInstance;
