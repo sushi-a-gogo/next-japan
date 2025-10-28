@@ -1,21 +1,25 @@
-<div class="nx-flex col gap-10 opportunity-card">
-  <header class="title break-word">
-    {{ location()?.locationName }}
-  </header>
-  <main class="nx-flex col gap-5">
+<div class="nx-flex col gap-20 opportunity-card">
+  <div class="nx-flex col gap-5">
+    <app-opportunity-timestamp
+      [opportunity]="opportunity()"
+      [showNotes]="false"
+    />
     @if(location()) {
     <app-address-strip
       [location]="location()!"
       [showDirections]="true"
     ></app-address-strip>
     }
+  </div>
+  <div class="notes soft">
+    {{ opportunity().notes }}
+  </div>
+  <div class="nx-flex gap-10">
+    <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
     <div>
-      <app-opportunity-timestamp
-        [opportunity]="opportunity()"
-      ></app-opportunity-timestamp>
+      <app-button cssClass="app-button text-button">
+        <span class="text">See details</span>
+      </app-button>
     </div>
-  </main>
-</div>
-<div class="actions nx-flex col">
-  <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
+  </div>
 </div>

@@ -1,0 +1,44 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: stretch;
+  justify-content: center;
+  gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  :host {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.c-card {
+  flex-direction: column;
+  background-color: var(--next-surface);
+  border: 1px solid var(--next-border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.name {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--next-muted);
+}
+
+a {
+  text-decoration: none;
+  font-size: 14px;
+  //line-height: 16px;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 992px) {
+  a:hover {
+    text-decoration: underline;
+  }
+}

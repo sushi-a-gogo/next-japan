@@ -35,6 +35,16 @@ header {
   position: relative;
 }
 
+.mat-mdc-tab-group {
+  width: 100%;
+  margin: 12px 0;
+}
+
+.tab-content {
+  padding: 24px 0;
+  width: 100%;
+}
+
 .event-panels {
   .overview {
     flex: 1;
@@ -42,9 +52,7 @@ header {
 }
 
 @media (min-width: 992px) {
-  .event-panels {
-    .overview {
-      padding-right: 16px;
-    }
+  .tab-content {
+    min-height: 400px;
   }
 }

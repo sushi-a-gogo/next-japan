@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
@@ -15,15 +16,15 @@ import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { filter, of, switchMap } from 'rxjs';
+import { CoordinatorOverviewComponent } from './components/coordinator-overview/coordinator-overview.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
-import { EventNavbarComponent } from "./components/event-navbar/event-navbar.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
-import { EventOverviewComponent } from "./components/event-overview/event-overview.component";
+import { LocationOverviewComponent } from './components/location-overview/location-overview.component';
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 
 @Component({
   selector: 'app-event-page',
-  imports: [EventNavbarComponent, EventOverviewComponent,
+  imports: [MatTabsModule, CoordinatorOverviewComponent, LocationOverviewComponent,
     EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
@@ -46,8 +47,10 @@ export class EventPageComponent implements OnInit, OnChanges {
   private imageService = inject(ImageService);
 
   eventId = input.required<string>();
+  event = computed(() => this.eventService.eventData().event);
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
+  selectedIndex = signal<number>(0);
 
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
 
@@ -101,11 +104,8 @@ export class EventPageComponent implements OnInit, OnChanges {
       });
   }
 
-  setFocusChild(child: string) {
-    this.focusChild = child;
-    setTimeout(() => {
-      this.focusChild = null;
-    }, 250);
+  onTabChange(event: MatTabChangeEvent) {
+    this.selectedIndex.set(event.index);
   }
 
   closeRegistrationDialog() {

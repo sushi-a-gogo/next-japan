@@ -1,0 +1,22 @@
+@for(coordinator of eventCoordinators(); track $index) {
+<div class="c-card nx-flex al-s gap-10">
+  <div class="nx-flex al-c gap-10">
+    <app-avatar [avatar]="coordinator" [size]="84"></app-avatar>
+    <div class="nx-flex col">
+      <div class="name break-word">
+        {{ coordinator.firstName }} {{ coordinator.lastName }}
+      </div>
+      <a
+        class="link-text"
+        [href]="'mailto: ' + coordinator.email"
+        [title]="coordinator.email"
+      >
+        Contact Me
+      </a>
+    </div>
+  </div>
+  <div>
+    <p class="soft muted">{{ coordinator.biography }}</p>
+  </div>
+</div>
+} @empty { There are no Coordinators for this Event. }

@@ -1,5 +1,7 @@
 @if(locations().length) {
 <!-- locations loop -->
+<div>Select a location below to see all available opportunities.</div>
+
 <mat-accordion class="accordion">
   @for(location of locations(); track location.locationId) {
   <mat-expansion-panel>

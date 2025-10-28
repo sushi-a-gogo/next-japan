@@ -5,4 +5,5 @@ export interface EventCoordinator extends Avatar {
   firstName: string;
   lastName: string;
   email: string;
+  biography: string;
 }
