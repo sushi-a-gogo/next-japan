@@ -16,10 +16,10 @@ import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
 import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-load-spinner.component";
 import { filter, of, switchMap } from 'rxjs';
+import { CoordinatorOverviewComponent } from './components/coordinator-overview/coordinator-overview.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
-import { CoordinatorOverviewComponent } from './components/event-overview/coordinator-overview/coordinator-overview.component';
-import { LocationOverviewComponent } from './components/event-overview/location-overview/location-overview.component';
+import { LocationOverviewComponent } from './components/location-overview/location-overview.component';
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 
 @Component({
