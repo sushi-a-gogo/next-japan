@@ -1,7 +1,6 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, inject, output, PLATFORM_ID, signal } from '@angular/core';
 import { EventService } from '@app/pages/events/event-page/event.service';
-import { DisplayCountPipe } from "@app/pipes/display-count.pipe";
 import { DateTimeService } from '@app/services/date-time.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { ImageService } from '@app/services/image.service';
@@ -12,7 +11,7 @@ import { ViewRegistrationDialogComponent } from '../view-registration-dialog/vie
 
 @Component({
   selector: 'app-event-hero',
-  imports: [NgOptimizedImage, DisplayCountPipe, LikeButtonComponent, ShareButtonComponent, RegistrationAlertComponent, ViewRegistrationDialogComponent],
+  imports: [NgOptimizedImage, LikeButtonComponent, ShareButtonComponent, RegistrationAlertComponent, ViewRegistrationDialogComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
 
@@ -25,9 +24,11 @@ export class EventHeroComponent {
   private platformId = inject(PLATFORM_ID);
   private eventData = this.eventService.eventData;
 
+  onGetTickets = output();
+
   event = computed(() => this.eventData().event);
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
-  locationCount = computed(() => this.eventData().locations.length);
+  location = computed(() => this.eventData().location);
   viewRegistration = signal(false);
 
   bannerImage = computed(() => {

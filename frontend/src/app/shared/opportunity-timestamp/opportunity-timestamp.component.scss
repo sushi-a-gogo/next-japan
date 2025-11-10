@@ -5,12 +5,13 @@
 
   font-size: 14px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .material-symbols-outlined {
   color: var(--bright-blue-sky);
   align-self: flex-start;
+  font-weight: 600;
 }
 
 .date-time {
@@ -20,7 +21,8 @@
 .tz {
   font-weight: 400;
   font-size: 12px;
-  opacity: 0.5;
+  opacity: 0.75;
+  color: #000;
 }
 
 :host-context(.dark-theme) {

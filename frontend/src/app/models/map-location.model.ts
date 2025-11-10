@@ -10,4 +10,5 @@ export interface MapLocation {
   longitude?: number;
   latitude?: number;
   locationNotes?: string;
+  mapsUrl?: string;
 }

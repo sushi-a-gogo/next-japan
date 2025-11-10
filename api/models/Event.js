@@ -20,6 +20,11 @@ const eventSchema = new mongoose.Schema({
   imageHeight: { type: Number, required: true },
   imageWidth: { type: Number, required: true },
   cloudflareImageId: { type: String, required: true },
+  locationId: {
+    type: String,
+    required: true,
+    ref: "EventLocation",
+  },
   createdAt: { type: Date, default: Date.now },
   aiProvider: { type: String, enum: ["OpenAI", "Grok"], default: "OpenAI" },
   imagePrompt: { type: String },

@@ -15,57 +15,55 @@
       <div class="headline">
         {{ event()?.eventTitle }}
       </div>
-      @if(locationCount()) {
-      <div class="nx-flex row al-c gap-10">
-        <span class="material-symbols-outlined icon-map"> map </span>
-        <span>
-          {{ locationCount() | displayCount }}
-          @if(locationCount() !== 1) {
-          <span>Locations</span>
-          } @else {
-          <span>Location</span>
-          }
-        </span>
-      </div>
-      }
-      <div class="nx-flex row al-c gap-24">
-        @if(eventDateRange()) {
+      <div class="nx-flex col gap-2">
+        @if(location()) {
         <div class="nx-flex row al-c gap-10">
-          <span class="material-symbols-outlined icon-note">date_range</span>
-          <span>{{ eventDateRange() }}</span>
-        </div>
-        @if(event()) {
-        <div class="nx-flex row gap-10">
-          <app-like-button [event]="event()!" color="white" />
-          <app-share-button [event]="event()!" color="white" />
-        </div>
-        } } @else {
-        <div class="nx-flex col gap-10">
-          <div class="description">
-            {{ event()?.description }}
-          </div>
-          <div class="nx-flex row al-c gap-24">
-            <div class="nx-flex row al-c gap-10">
-              <span class="material-symbols-outlined icon-campaign">
-                campaign
-              </span>
-              Coming Soon
-            </div>
-            @if(event()) {
-            <div class="nx-flex row al-c gap-16">
-              <app-like-button [event]="event()!" color="white" />
-              <app-share-button [event]="event()!" color="white" />
-            </div>
-            }
-          </div>
+          <span class="material-symbols-outlined icon-map"> map </span>
+          <span>
+            {{ location()?.locationName }}
+          </span>
         </div>
         }
+        <div class="nx-flex row al-c gap-24">
+          @if(eventDateRange()) {
+          <div class="nx-flex row al-c gap-10">
+            <span class="material-symbols-outlined icon-note">date_range</span>
+            <span>{{ eventDateRange() }}</span>
+          </div>
+          @if(event()) {
+          <div class="nx-flex row gap-10">
+            <app-like-button [event]="event()!" color="white" />
+            <app-share-button [event]="event()!" color="white" />
+          </div>
+          } } @else {
+          <div class="nx-flex col gap-10">
+            <div class="description">
+              {{ event()?.description }}
+            </div>
+            <div class="nx-flex row al-c gap-24">
+              <div class="nx-flex row al-c gap-10">
+                <span class="material-symbols-outlined icon-campaign">
+                  campaign
+                </span>
+                Coming Soon
+              </div>
+              @if(event()) {
+              <div class="nx-flex row al-c gap-16">
+                <app-like-button [event]="event()!" color="white" />
+                <app-share-button [event]="event()!" color="white" />
+              </div>
+              }
+            </div>
+          </div>
+          }
+        </div>
       </div>
     </div>
     <app-registration-alert
       class="alert"
       [eventRegistration]="eventRegistration()"
       (viewRegistration)="viewRegistration.set(true)"
+      (startRegistration)="onGetTickets.emit()"
     />
   </div>
 </div>

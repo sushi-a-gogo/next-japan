@@ -19,7 +19,7 @@ export class EventService {
   eventData = computed(() => {
     return {
       event: this.event(),
-      locations: this.eventLocations(),
+      location: this.eventLocation(),
       opportunities: this.eventOpportunities()
     };
   });
@@ -27,8 +27,8 @@ export class EventService {
   private eventSignal = signal<EventInformation | null>(null);
   private event = this.eventSignal.asReadonly();
 
-  private eventLocationsSignal = signal<MapLocation[]>([]);
-  private eventLocations = this.eventLocationsSignal.asReadonly();
+  private eventLocationSignal = signal<MapLocation | null>(null);
+  private eventLocation = this.eventLocationSignal.asReadonly();
 
   private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
   private eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
@@ -39,19 +39,21 @@ export class EventService {
 
   loadEvent$(eventId: string) {
     this.eventSignal.set(null);
-    this.eventLocationsSignal.set([]);
+    this.eventLocationSignal.set(null);
     this.eventOpportunitiesSignal.set([]);
 
     const observables = {
       event: this.getEventById$(eventId),
+      location: this.getEventLocation$(eventId),
       locations: this.getEventLocations$(eventId),
       opportunities: this.getEventOpportunities$(eventId)
     };
 
     return forkJoin(observables).pipe(
       tap((res) => {
+
         this.eventSignal.set(res.event);
-        this.eventLocationsSignal.set(res.locations);
+        this.eventLocationSignal.set(res.location);
         this.eventOpportunitiesSignal.set(res.opportunities?.sort((a, b) => {
           const t1 = new Date(a.startDate).getTime();
           const t2 = new Date(b.startDate).getTime();
@@ -63,6 +65,10 @@ export class EventService {
 
   private getEventById$(eventId: string) {
     return this.eventsService.getEvent$(eventId);
+  }
+
+  private getEventLocation$(eventId: string): Observable<MapLocation | null> {
+    return this.locationService.getEventLocation$(eventId);
   }
 
   private getEventLocations$(eventId: string): Observable<MapLocation[]> {

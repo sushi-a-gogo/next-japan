@@ -21,16 +21,16 @@
 </app-button>
 } @else {
 <app-button
-  cssClass="app-button app-button-filled nx-flex al-c jc-c gap-5"
+  cssClass="app-button app-button-filled"
   (buttonClick)="selectOpportunity()"
 >
-  Select
+  Register
 </app-button>
 } }
 <!-- End Authenticated -->
 } @else {
 <app-button
-  cssClass="app-button app-button-filled nx-flex al-c jc-c gap-5"
+  cssClass="app-button app-button-filled"
   [disabled]="true"
   tooltip="Please sign in to register for an event."
 >

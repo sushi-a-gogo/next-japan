@@ -3,6 +3,7 @@ import { CalendarDate } from "@app/models/calendar-date.model";
 
 export interface EventData {
   eventId: string;
+  locationId: string;
   createdAt: string;
   eventTitle: string;
   description: string;

@@ -13,7 +13,7 @@ export class LocationService {
   private apiService = inject(ApiService);
   private errorService = inject(ErrorService);
   private apiUrl = 'api/event-locations';
-  private eventCache = new HttpClientCache<MapLocation[]>();
+  private eventCache = new HttpClientCache<MapLocation | null>();
 
   getLocations$(): Observable<MapLocation[]> {
     return this.apiService.get<MapLocation[]>(this.apiUrl).pipe(
@@ -22,8 +22,9 @@ export class LocationService {
     );
   }
 
-  getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    const key = `locations:${eventId}`;
+
+  getEventLocation$(eventId: string): Observable<MapLocation | null> {
+    const key = `location:${eventId}`;
     if (this.eventCache.existsInCache(key)) {
       const cached = this.eventCache.get(key);
       if (cached) {
@@ -31,10 +32,27 @@ export class LocationService {
       }
     }
 
-    const obs$ = this.fetchEventLocations$(eventId).pipe(
+    const obs$ = this.fetchEventLocation$(eventId).pipe(
       shareReplay(1)
     );
     this.eventCache.set(key, obs$);
+
+    return obs$;
+  }
+
+  getEventLocations$(eventId: string): Observable<MapLocation[]> {
+    // const key = `locations:${eventId}`;
+    // if (this.eventCache.existsInCache(key)) {
+    //   const cached = this.eventCache.get(key);
+    //   if (cached) {
+    //     return cached;
+    //   }
+    // }
+
+    const obs$ = this.fetchEventLocations$(eventId).pipe(
+      shareReplay(1)
+    );
+    //this.eventCache.set(key, obs$);
 
     return obs$;
   }
@@ -43,6 +61,13 @@ export class LocationService {
     return this.apiService.get<MapLocation>(`${this.apiUrl}/${locationId}`).pipe(
       map((resp) => resp.data),
       catchError((e) => this.errorService.handleError(e, 'Error getting location', true))
+    );
+  }
+
+  private fetchEventLocation$(eventId: string): Observable<MapLocation | null> {
+    return this.apiService.get<MapLocation>(`${this.apiUrl}/${eventId}/location`).pipe(
+      map((resp) => resp.data),
+      catchError((e) => this.errorService.handleError(e, 'Error getting event location', true))
     );
   }
 
