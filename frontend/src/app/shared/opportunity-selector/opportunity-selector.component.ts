@@ -19,7 +19,9 @@ export class OpportunitySelectorComponent {
   private selectionService = inject(EventSelectionService);
 
   opportunity = input.required<EventOpportunity>();
-  isAuthenticated = this.auth.isAuthenticated;
+  isAuthenticated = computed(() => {
+    return this.auth.isAuthenticated;
+  });
 
   context = computed(() => getRegistrationContext(this.opportunity(), this.registrationService.userEventRegistrations()));
 
