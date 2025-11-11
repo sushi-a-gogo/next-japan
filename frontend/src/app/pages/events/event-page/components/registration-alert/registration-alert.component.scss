@@ -43,10 +43,14 @@ ul {
   }
 }
 
+.button {
+  min-width: 148px;
+}
+
 .button-text {
   display: inline-block;
   padding: 12px 24px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
 }
 

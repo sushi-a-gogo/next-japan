@@ -60,5 +60,5 @@ export class EventHeroComponent {
     const eventId = this.event()?.eventId;
     const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
     return registrations.length ? registrations[0] : null;
-  })
+  });
 }

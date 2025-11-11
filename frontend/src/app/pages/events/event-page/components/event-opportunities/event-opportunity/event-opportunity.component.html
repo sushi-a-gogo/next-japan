@@ -1,19 +1,12 @@
-<div class="nx-flex col gap-20 opportunity-card">
-  <div class="nx-flex col gap-5">
-    <app-opportunity-timestamp
-      [opportunity]="opportunity()"
-      [showNotes]="false"
-    />
-  </div>
-  <div class="notes soft muted">
-    {{ opportunity().notes }}
-  </div>
-  <div class="nx-flex gap-10">
-    <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
-    <div>
-      <app-button cssClass="app-button text-button">
-        <span class="text">See details</span>
-      </app-button>
-    </div>
+<app-opportunity-timestamp [opportunity]="opportunity()" [showNotes]="false" />
+<div class="notes soft muted">
+  {{ opportunity().notes }}
+</div>
+<div class="nx-flex gap-10">
+  <app-opportunity-selector class="selector" [opportunity]="opportunity()" />
+  <div>
+    <app-button cssClass="app-button text-button">
+      <span class="text">See details</span>
+    </app-button>
   </div>
 </div>
