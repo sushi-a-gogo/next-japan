@@ -1,5 +1,6 @@
 import { Component, computed, inject, output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RegistrationStatus } from '@app/models/event/event-registration.model';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
 import { ButtonComponent } from "@app/shared/button/button.component";
@@ -22,8 +23,12 @@ export class EventLocationComponent {
   location = computed(() => this.eventService.eventData().location);
   nextOpportunity = computed(() => this.eventService.eventData().opportunities.length ? this.eventService.eventData().opportunities[0] : null);
   nextOpportunityRegistered = computed(() => {
-    const registered = this.eventRegistrationService.userEventRegistrations().find((r) => r.opportunity.opportunityId === this.nextOpportunity()?.opportunityId);
-    return registered;
+    const registered = this.eventRegistrationService.userEventRegistrations()
+      .find((r) => r.opportunity.opportunityId === this.nextOpportunity()?.opportunityId);
+    if (registered) {
+      return registered.status === RegistrationStatus.Requested ? "Registration requested." : "You're registered!"
+    }
+    return null;
   })
 
   mapsUrl = computed(() => {

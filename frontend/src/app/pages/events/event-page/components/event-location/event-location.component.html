@@ -29,8 +29,8 @@
         <h2>Next Opportunity</h2>
         <div class="nx-flex col gap-5">
           <app-opportunity-date [opportunity]="nextOpportunity()!" />
-          @if(nextOpportunityRegistered()) {
-          <div class="vivid">You're registered!</div>
+          @if(!!nextOpportunityRegistered()) {
+          <div class="vivid">{{ nextOpportunityRegistered() }}</div>
           }
         </div>
         }

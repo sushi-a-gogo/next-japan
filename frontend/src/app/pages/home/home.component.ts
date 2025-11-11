@@ -16,13 +16,14 @@ import { MetaService } from '@app/services/meta.service';
 import { OpportunityService } from '@app/services/opportunity.service';
 import { forkJoin, map } from 'rxjs';
 import organization from 'src/lib/organization-data';
+import { AboutSiteBannerComponent } from "./about-site-banner/about-site-banner.component";
 import { AiBannerComponent } from "./ai-banner/ai-banner.component";
 import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage, FadeInOnScrollDirective, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent],
+  imports: [NgOptimizedImage, FadeInOnScrollDirective, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent, AboutSiteBannerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -89,6 +90,11 @@ export class HomeComponent implements OnInit {
     return forkJoin(observables).pipe(
       map((res) => {
         const events = res.events;
+        const items = events.map((e) => ({ id: e.eventId, eventTitle: e.eventTitle, locationName: "", locationId: "" }));
+        console.log(items);
+        const objs = events.map((e) => ({ eventTitle: e.eventTitle, locationName: "", id: "", mapsUrl: "" }));
+        console.log(objs);
+
         events.forEach((event) => {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)
