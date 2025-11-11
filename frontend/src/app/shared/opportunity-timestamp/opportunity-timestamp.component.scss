@@ -5,7 +5,7 @@
 
   font-size: 14px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .material-symbols-outlined {
@@ -20,7 +20,8 @@
 .tz {
   font-weight: 400;
   font-size: 12px;
-  opacity: 0.5;
+  opacity: 0.75;
+  color: #000;
 }
 
 :host-context(.dark-theme) {

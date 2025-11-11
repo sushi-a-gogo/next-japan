@@ -24,23 +24,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     map((event) => {
       if (event instanceof HttpResponse && event.url?.startsWith(apiUrl)) {
         const body = event.body as Partial<ApiResponse<unknown>>;
-
         const normalized = {
           success: body?.success ?? true,
-          data: body?.data ?? body ?? null,
+          data: body?.data !== undefined ? body.data : null, // Use body.data or null
           message: body?.message ?? '',
         };
-
         return event.clone({ body: normalized });
       }
       return event;
     }),
-
     // Handle 401 errors + refresh flow
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !isRefreshing) {
         isRefreshing = true;
-
         return auth.refreshToken$().pipe(
           switchMap(() => {
             isRefreshing = false;
@@ -54,7 +50,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           })
         );
       }
-
       // Normalize errors too
       const normalizedError = {
         success: false,

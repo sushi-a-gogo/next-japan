@@ -1,0 +1,58 @@
+<div class="cb-content">
+  <h1>{{ event()?.eventTitle }}</h1>
+  <div class="location-content nx-flex col">
+    <div class="main-content">
+      <div class="nx-flex col">
+        <h2>About this Event</h2>
+        <div>
+          {{ event()?.description }}
+        </div>
+      </div>
+      <div class="nx-flex col">
+        @if(location()) {
+        <h2>Address</h2>
+        <div class="nx-flex col gap-5">
+          <div>
+            {{ location()!.locationName }}
+          </div>
+          <div>{{ location()!.addressLine1 }},</div>
+          <div>
+            {{ location()!.city }},
+            {{ location()!.state }}
+            {{ location()!.zip }}
+          </div>
+        </div>
+        }
+      </div>
+      <div class="nx-flex col">
+        @if(nextOpportunity()) {
+        <h2>Next Opportunity</h2>
+        <div class="nx-flex col gap-5">
+          <app-opportunity-date [opportunity]="nextOpportunity()!" />
+          @if(!!nextOpportunityRegistered()) {
+          <div class="vivid">{{ nextOpportunityRegistered() }}</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="button">
+        <app-button
+          cssClass="app-button app-button-filled square priority"
+          (buttonClick)="onGetTickets.emit()"
+        >
+          <div class="button-text">Get Tickets</div>
+        </app-button>
+      </div>
+    </div>
+    @if(mapsUrl()) {
+    <iframe
+      [src]="mapsUrl()"
+      height="450"
+      style="border: 0; width: 100%"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+    }
+  </div>
+</div>

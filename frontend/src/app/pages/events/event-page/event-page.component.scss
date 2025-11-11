@@ -9,6 +9,7 @@ article {
   height: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
   background-color: var(--next-surface);
+  padding-bottom: 24px;
 
   header,
   main {
@@ -41,8 +42,18 @@ header {
 }
 
 .tab-content {
-  padding: 24px 0;
+  padding-top: 48px;
   width: 100%;
+  font-size: 18px;
+}
+
+.page-component {
+  margin: 48px 0;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .event-panels {
@@ -53,6 +64,6 @@ header {
 
 @media (min-width: 992px) {
   .tab-content {
-    min-height: 400px;
+    // min-height: 400px;
   }
 }

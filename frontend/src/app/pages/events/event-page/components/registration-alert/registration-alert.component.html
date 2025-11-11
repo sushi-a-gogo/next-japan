@@ -15,4 +15,11 @@
     </li>
   </ul>
 </div>
+} @else {
+<app-button
+  cssClass="app-button app-button-filled priority"
+  (buttonClick)="startRegistration.emit()"
+>
+  <div class="button-text">Reserve Your Spot Now!</div>
+</app-button>
 }

@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
@@ -18,14 +18,14 @@ import { PageLoadSpinnerComponent } from "@app/shared/page-load-spinner/page-loa
 import { filter, of, switchMap } from 'rxjs';
 import { CoordinatorOverviewComponent } from './components/coordinator-overview/coordinator-overview.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
+import { EventLocationComponent } from "./components/event-location/event-location.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
-import { LocationOverviewComponent } from './components/location-overview/location-overview.component';
 import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 
 @Component({
   selector: 'app-event-page',
-  imports: [MatTabsModule, CoordinatorOverviewComponent, LocationOverviewComponent,
-    EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent],
+  imports: [MatTabsModule, CoordinatorOverviewComponent,
+    EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventLocationComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -53,6 +53,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   selectedIndex = signal<number>(0);
 
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
+  @ViewChild('opportunities') opportunities?: ElementRef;
 
   ngOnInit(): void {
     this.router.events
@@ -106,6 +107,10 @@ export class EventPageComponent implements OnInit, OnChanges {
 
   onTabChange(event: MatTabChangeEvent) {
     this.selectedIndex.set(event.index);
+  }
+
+  scrollToOpportunities() {
+    this.opportunities?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   closeRegistrationDialog() {

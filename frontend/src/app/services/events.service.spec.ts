@@ -17,6 +17,7 @@ describe('EventsService', () => {
   const mockEvents: EventData[] = [
     {
       "eventId": "1",
+      "locationId": "1",
       "eventTitle": "Magical Hokkaido",
       "description": "A joyful, enchanting experience in Hokkaido’s vibrant fall foliage, where golden paths and cozy fireside moments create unforgettable memories.",
       "image": {
@@ -37,6 +38,7 @@ describe('EventsService', () => {
     },
     {
       "eventId": "2",
+      "locationId": "2",
       "eventTitle": "Tokyo Skyline Evening",
       "description": "A joyful exploration of Tokyo's vibrant skyline during a summer evening.",
       "image": {

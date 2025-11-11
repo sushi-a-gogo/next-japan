@@ -10,6 +10,7 @@ const eventLocationSchema = new mongoose.Schema(
     zip: { type: String, required: true },
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
+    mapsUrl: { type: String, required: true },
   },
   {
     timestamps: true, // Adds createdAt, updatedAt

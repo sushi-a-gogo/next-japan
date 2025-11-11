@@ -19,6 +19,10 @@ a {
   text-align: center;
   color: var(--next-text);
 
+  &.square {
+    border-radius: 3px;
+  }
+
   &.flex-button {
     display: flex;
     align-items: center;

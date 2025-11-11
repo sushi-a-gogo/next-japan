@@ -32,9 +32,7 @@ export class RegistrationDialogComponent {
   close = output<boolean>();
 
   opportunity = this.selectionService.selectedOpportunity;
-  location = computed(() =>
-    this.eventService.eventData().locations.find((l) => l.locationId === this.opportunity()?.locationId)
-  );
+  location = computed(() => this.eventService.eventData().location);
   busy = signal<boolean>(false);
   completed = signal<boolean>(false);
 

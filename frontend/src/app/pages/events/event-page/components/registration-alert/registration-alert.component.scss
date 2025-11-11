@@ -43,39 +43,14 @@ ul {
   }
 }
 
-.dialog {
-  color: var(--next-text);
+.button {
+  min-width: 148px;
 }
 
-.title {
+.button-text {
+  display: inline-block;
   font-size: 16px;
   font-weight: 600;
-}
-
-.confirm-text {
-  line-height: 24px;
-  transition: 0.25s ease-in-out;
-  height: 0;
-
-  &.open {
-    height: 24px;
-  }
-}
-
-footer.dialog {
-  align-items: flex-start;
-  padding-top: 0;
-
-  .cancel-text {
-    font-weight: 600;
-    color: var(--next-note);
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .dialog {
-    width: 320px;
-  }
 }
 
 @media only screen and (min-width: 992px) {
@@ -84,17 +59,6 @@ footer.dialog {
       button:hover,
       a:hover {
         text-decoration: underline;
-      }
-    }
-  }
-  footer.dialog {
-    button {
-      &.app-button-outlined:hover {
-        opacity: 0.75;
-      }
-
-      &.app-button.cancel:hover {
-        background-color: var(--next-surface-alt);
       }
     }
   }

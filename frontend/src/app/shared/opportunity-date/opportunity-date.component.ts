@@ -1,10 +1,11 @@
+import { LowerCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { CalendarDate } from '@app/models/calendar-date.model';
 import { DateTimeService } from '@app/services/date-time.service';
 
 @Component({
   selector: 'app-opportunity-date',
-  imports: [],
+  imports: [LowerCasePipe],
   templateUrl: './opportunity-date.component.html',
   styleUrl: './opportunity-date.component.scss'
 })
