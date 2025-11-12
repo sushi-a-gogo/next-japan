@@ -19,18 +19,16 @@ export const getEventRegistrationsForUser = async (userId) => {
     .populate({
       path: "opportunityId",
       select:
-        "locationId startDate endDate timeZone timeZoneAbbreviation timeZoneOffset notes",
-      populate: [
-        {
-          path: "eventId",
-          select:
-            "_id eventTitle imageId cloudflareImageId imageWidth imageHeight",
-        },
-        {
+        "eventId startDate endDate timeZone timeZoneAbbreviation timeZoneOffset notes",
+      populate: {
+        path: "eventId",
+        select:
+          "_id eventTitle imageId cloudflareImageId imageWidth imageHeight locationId",
+        populate: {
           path: "locationId",
           select: "locationName addressLine1 city state zip latitude longitude",
         },
-      ],
+      },
     })
     .lean();
 
