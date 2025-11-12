@@ -38,47 +38,53 @@ const EventRegistration = mongoose.model(
 );
 
 /**
- * formatRegistration
- *
- * Normalizes registration objects for API responses.
+ * Normalizes an EventRegistration document for API responses.
+ * @param reg - Raw EventRegistration document from MongoDB.
+ * @returns Normalized registration object for the frontend.
  */
-export const formatRegistration = (reg) => ({
-  registrationId: reg._id.toString(),
-  userId: reg.userId,
-  status: reg.status,
-  opportunity: reg.opportunityId
-    ? {
-        opportunityId: reg.opportunityId._id.toString(),
-        eventId: reg.opportunityId.eventId?._id.toString(), // Add eventId (string from EventOpportunity)
-        startDate: reg.opportunityId.startDate,
-        endDate: reg.opportunityId.endDate,
-        timeZone: reg.opportunityId.timeZone,
-        timeZoneAbbreviation: reg.opportunityId.timeZoneAbbreviation,
-        timeZoneOffset: reg.opportunityId.timeZoneOffset,
-        notes: reg.opportunityId.notes,
-      }
-    : null,
-  eventTitle: reg.opportunityId?.eventId?.eventTitle || null,
-  location: reg.opportunityId?.locationId
-    ? {
-        locationName: reg.opportunityId.locationId.locationName,
-        addressLine1: reg.opportunityId.locationId.addressLine1,
-        city: reg.opportunityId.locationId.city,
-        state: reg.opportunityId.locationId.state,
-        zip: reg.opportunityId.locationId.zip,
-        latitude: reg.opportunityId.locationId.latitude,
-        longitude: reg.opportunityId.locationId.longitude,
-      }
-    : null,
-  image: reg.opportunityId?.eventId
-    ? {
-        id: reg.opportunityId.eventId.imageId,
-        cloudflareImageId: reg.opportunityId.eventId.cloudflareImageId,
-        width: reg.opportunityId.eventId.imageWidth,
-        height: reg.opportunityId.eventId.imageHeight,
-      }
-    : null,
-  createdAt: reg.createdAt,
-});
+export const formatRegistration = (reg) => {
+  // Extract nested objects for readability
+  const opportunity = reg.opportunityId || null;
+  const event = opportunity?.eventId || null;
+  const location = event?.locationId || null;
 
+  return {
+    registrationId: reg._id?.toString() || null,
+    userId: reg.userId || null,
+    status: reg.status || null,
+    opportunity: opportunity
+      ? {
+          opportunityId: opportunity._id?.toString() || null,
+          eventId: event?._id?.toString() || null,
+          startDate: opportunity.startDate || null,
+          endDate: opportunity.endDate || null,
+          timeZone: opportunity.timeZone || "Asia/Tokyo",
+          timeZoneAbbreviation: opportunity.timeZoneAbbreviation || "JST",
+          timeZoneOffset: opportunity.timeZoneOffset ?? 9,
+          notes: opportunity.notes || "",
+        }
+      : null,
+    eventTitle: event?.eventTitle || null,
+    location: location
+      ? {
+          locationName: location.locationName || "",
+          addressLine1: location.addressLine1 || "",
+          city: location.city || "",
+          state: location.state || "",
+          zip: location.zip || "",
+          latitude: location.latitude ?? null,
+          longitude: location.longitude ?? null,
+        }
+      : null,
+    image: event
+      ? {
+          id: event.imageId || null,
+          cloudflareImageId: event.cloudflareImageId || null,
+          width: event.imageWidth ?? null,
+          height: event.imageHeight ?? null,
+        }
+      : null,
+    createdAt: reg.createdAt || null,
+  };
+};
 export default EventRegistration;
