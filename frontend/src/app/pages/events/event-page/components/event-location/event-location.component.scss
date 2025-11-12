@@ -65,9 +65,10 @@ h2 {
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
+    gap: 12px;
 
     > .nx-flex {
-      max-width: 360px;
+      max-width: 300px;
     }
   }
   .button {
