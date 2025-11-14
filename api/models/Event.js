@@ -22,7 +22,6 @@ const eventSchema = new mongoose.Schema({
   cloudflareImageId: { type: String, required: true },
   locationId: {
     type: String,
-    required: true,
     ref: "EventLocation",
   },
   createdAt: { type: Date, default: Date.now },

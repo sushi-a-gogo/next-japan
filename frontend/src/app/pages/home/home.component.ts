@@ -90,11 +90,6 @@ export class HomeComponent implements OnInit {
     return forkJoin(observables).pipe(
       map((res) => {
         const events = res.events;
-        const items = events.map((e) => ({ id: e.eventId, eventTitle: e.eventTitle, locationName: "", locationId: "" }));
-        console.log(items);
-        const objs = events.map((e) => ({ eventTitle: e.eventTitle, locationName: "", id: "", mapsUrl: "" }));
-        console.log(objs);
-
         events.forEach((event) => {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)
