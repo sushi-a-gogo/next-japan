@@ -4,8 +4,9 @@
   height: var(--color-bar-height);
   background: linear-gradient(
     to right,
-    var(--bright-blue-sky),
-    #33c1e7,
-    #66d4ef
+    var(--navy-blue-mountain, #06213f) 0%,
+    #0b59d6 30%,
+    #00b4ff 60%,
+    #2fb1a3 100%
   );
 }

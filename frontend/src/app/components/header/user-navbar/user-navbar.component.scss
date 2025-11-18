@@ -27,6 +27,8 @@ ul {
   list-style: none;
   width: 100%;
   height: var(--navbar-height);
+  gap: 10px;
+  padding-right: 10px;
 }
 
 li {
@@ -56,6 +58,13 @@ li {
 
     &.search {
       background-color: var(--next-surface-alt);
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+
+      .button-text {
+        display: none;
+      }
 
       &:hover {
         opacity: 0.66;
@@ -66,10 +75,6 @@ li {
       background-color: var(--next-surface-alt);
     }
   }
-
-  &:last-child {
-    padding-right: 24px;
-  }
 }
 
 li.spacer {
@@ -77,10 +82,6 @@ li.spacer {
 }
 
 @media (min-width: 430px) {
-  ul {
-    gap: 5px;
-  }
-
   li {
     .app-button {
       padding: 0 20px;
@@ -90,11 +91,25 @@ li.spacer {
 
 @media (min-width: 600px) {
   ul {
-    gap: 10px;
+    padding: 0 10px 0 2px;
   }
 
   li {
     .app-button {
+      &.search {
+        width: auto;
+        height: auto;
+        min-width: inherit;
+
+        .button-text {
+          display: inline;
+        }
+
+        &:hover {
+          opacity: 0.66;
+        }
+      }
+
       &:hover:not(.logo) {
         @media (pointer: fine) {
           background-color: var(--next-surface-alt);
