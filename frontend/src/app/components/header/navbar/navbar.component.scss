@@ -91,6 +91,10 @@ li.spacer {
 
 @media (min-width: 600px) {
   li {
+    &.sign-in {
+      min-width: 114px;
+    }
+
     .app-button {
       &.search {
         width: auto;
