@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,15 @@ import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 export class ThemeService {
   private platformId = inject(PLATFORM_ID);
   private currentMode = signal<'light' | 'dark' | 'device'>('device');
-  appearanceMode = this.currentMode.asReadonly();
+
+  selectedTheme = computed(() => {
+    if (isPlatformBrowser(this.platformId)) {
+      const theme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && this.preferDarkTheme()) ? 'dark' : 'light';
+      return theme;
+    }
+
+    return 'device';
+  });
 
   setAppearanceMode(theme?: 'light' | 'dark') {
     this.currentMode.set(theme || 'device');
@@ -16,8 +24,7 @@ export class ThemeService {
 
   manageTheme() {
     if (isPlatformBrowser(this.platformId)) {
-      const useDarkTheme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && this.preferDarkTheme());
-      if (useDarkTheme) {
+      if (this.selectedTheme() === 'dark') {
         document?.body?.classList.add('dark-theme');
       } else {
         document?.body?.classList.remove('dark-theme');

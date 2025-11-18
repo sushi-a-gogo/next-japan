@@ -32,7 +32,7 @@ export class AppLogoComponent {
   mode = input<'light' | 'dark'>('light');
 
   inDarkMode = computed(() => {
-    return this.mode() === 'dark' || this.themeService.appearanceMode() === 'dark';
+    return this.mode() === 'dark' || this.themeService.selectedTheme() === 'dark';
   });
 
   image = computed(() => {
