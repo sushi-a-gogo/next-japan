@@ -5,8 +5,9 @@ import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class ThemeService {
-  private currentMode = signal<'light' | 'dark' | 'device'>('device');
   private platformId = inject(PLATFORM_ID);
+  private currentMode = signal<'light' | 'dark' | 'device'>('device');
+  appearanceMode = this.currentMode.asReadonly();
 
   setAppearanceMode(theme?: 'light' | 'dark') {
     this.currentMode.set(theme || 'device');

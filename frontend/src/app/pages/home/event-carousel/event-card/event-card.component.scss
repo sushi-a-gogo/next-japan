@@ -14,6 +14,12 @@
 
   position: relative;
   overflow: hidden;
+
+  &:hover {
+    img.hero {
+      filter: none;
+    }
+  }
 }
 
 .event-link {
@@ -44,6 +50,8 @@
 
 img.hero {
   height: 180px;
+  filter: grayscale(15%) saturate(120%) contrast(105%) brightness(95%);
+  transition: filter 0.3s ease;
 }
 
 .card-body {

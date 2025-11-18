@@ -1,9 +1,10 @@
 <div class="logo-container nx-flex row al-c jc-c" [style]="style()">
   <img
     [ngSrc]="image().src"
+    [class.dark]="inDarkMode()"
     alt="Next Japan"
-    [width]="image().image.width"
-    [height]="image().image.height"
+    [width]="156"
+    [height]="59"
     priority
   />
 </div>

@@ -7,7 +7,6 @@
 
 .logo-container {
   background-color: transparent;
-
   overflow: hidden;
 
   img {
@@ -16,4 +15,8 @@
     width: 100%;
     vertical-align: top;
   }
+}
+
+img.dark {
+  transform: scale(80%);
 }

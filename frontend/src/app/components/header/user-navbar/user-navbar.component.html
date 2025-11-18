@@ -2,7 +2,7 @@
   <div class="nav-content">
     <ul class="nx-flex row al-c jc-sb">
       <li class="logo">
-        <app-anchor cssClass="app-button" link="/" [rippleEnabled]="false">
+        <app-anchor cssClass="app-button logo" link="/" [rippleEnabled]="false">
           <app-logo />
         </app-anchor>
       </li>
@@ -11,12 +11,12 @@
         <button
           aria-label="Search Events"
           type="button"
-          class="app-button flex-button transparent"
+          class="app-button flex-button search"
           [class.active]="inSearchMode()"
           (click)="toggleSearchPanel($event)"
         >
           <span class="material-symbols-outlined"> search </span>
-          Search Events
+          <span class="button-text">Search</span>
         </button>
       </li>
       <li>
