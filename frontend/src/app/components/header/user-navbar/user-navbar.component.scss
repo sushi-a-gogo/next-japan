@@ -11,7 +11,7 @@ nav {
   transition: grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &.search-mode {
-    grid-template-rows: calc(var(--navbar-height) * 2); /* expanded */
+    grid-template-rows: calc(var(--navbar-height) * 1.8); /* expanded */
   }
 
   /* children are flex column inside the one grid cell */
@@ -38,14 +38,13 @@ li {
   height: 100%;
 
   &.logo {
-    width: 96px;
+    width: 156px;
   }
 
   .app-button {
     background-color: transparent;
-    padding: 0 20px;
+    padding: 0 8px;
     white-space: nowrap;
-    transition: 0.25s;
     font-weight: 500;
 
     &.logo,
@@ -55,18 +54,38 @@ li {
       background-color: transparent;
     }
 
+    &.search {
+      background-color: var(--next-surface-alt);
+
+      &:hover {
+        opacity: 0.66;
+      }
+    }
+
     &.active {
       background-color: var(--next-surface-alt);
     }
   }
 
   &:last-child {
-    padding-right: 12px;
+    padding-right: 24px;
   }
 }
 
 li.spacer {
   flex: 1;
+}
+
+@media (min-width: 430px) {
+  ul {
+    gap: 5px;
+  }
+
+  li {
+    .app-button {
+      padding: 0 20px;
+    }
+  }
 }
 
 @media (min-width: 600px) {
