@@ -8,22 +8,28 @@
   alt="Next Japan Banner"
 />
 }
-<div class="hero-overlay nx-flex col al-c jc-c">
-  <div class="cb-content headline">Experience the Future</div>
-  <p class="cb-content nx-flex col al-c">
-    <span>
-      <b>Next Japan</b> is a full-stack <em>portfolio project</em> built with
-      <b>Angular v20</b> and <b>Node.js/Express</b>, hosted on <b>Render</b>.
-      Inspired by Japanese Anime, it playfully simulates a travel site where
-      users register for <em>imaginary</em> events across Japan.
-    </span>
-    <app-button
-      class="button"
-      cssClass="app-button app-button-filled priority"
-      (buttonClick)="navigateToAboutPage()"
-      [touchAware]="true"
-    >
-      About This Project
-    </app-button>
-  </p>
+<div class="hero-overlay nx-flex jc-c">
+  <div class="cb-content pad nx-flex col al-c gap-16">
+    <header>
+      <div class="headline">Experience the Future</div>
+    </header>
+    <section class="nx-flex col al-c">
+      <div>
+        <b>Next Japan</b> is a full-stack <em>portfolio project</em> built with
+        <b>Angular v20</b> and <b>Node.js/Express</b>, hosted on <b>Render</b>.
+        Inspired by Japanese Anime, it playfully simulates a travel site where
+        users register for <em>imaginary</em> events across Japan.
+      </div>
+      <div class="cta">
+        <app-button
+          class="button"
+          cssClass="app-button app-button-filled priority"
+          (buttonClick)="navigateToAboutPage()"
+          [touchAware]="true"
+        >
+          About This Project
+        </app-button>
+      </div>
+    </section>
+  </div>
 </div>

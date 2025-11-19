@@ -4,7 +4,9 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-  height: 640px;
+  height: calc(
+    var(--app-height) - var(--navbar-height) - var(--color-bar-height)
+  );
   max-width: var(--max-page-width);
   margin: 0 auto;
   overflow: hidden;
@@ -29,13 +31,13 @@ img.hero {
   z-index: 20;
   width: 100%;
   background: rgba($color: #000000, $alpha: 0.75);
-  padding: 18px 24px;
+  padding: 24px;
+  padding-bottom: 36px;
   color: #fff;
   animation: fadeText 0.5s ease-in-out;
 }
 
 .headline {
-  font-size: 22px;
   color: var(--vivid-yellow-text);
 }
 
@@ -47,11 +49,19 @@ a {
   color: var(--creamy-white-clouds);
 }
 
-p {
+section {
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
-  gap: 10px;
+  gap: 24px;
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 430px;
 }
 
 @keyframes fadeText {
@@ -98,16 +108,12 @@ p {
   }
 }
 
-@media (min-width: 600px) {
-  .hero-overlay {
-    padding: 24px;
+@media (min-width: 769px) {
+  :host {
+    height: 640px;
   }
 
-  .headline {
-    font-size: 48px;
-  }
-
-  p {
+  section {
     gap: 24px;
     font-size: 18px;
     line-height: 24px;
