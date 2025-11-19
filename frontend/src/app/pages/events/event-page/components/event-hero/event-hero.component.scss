@@ -1,9 +1,7 @@
 :host {
   display: block;
   width: 100%;
-  height: calc(
-    var(--app-height) - var(--navbar-height) - var(--color-bar-height)
-  );
+  height: calc(100lvh - var(--navbar-height) - var(--color-bar-height));
   position: relative;
   max-width: var(--max-page-width);
   margin: 0 auto;
