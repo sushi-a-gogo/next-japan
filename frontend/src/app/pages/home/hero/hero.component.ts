@@ -25,7 +25,7 @@ export class HeroComponent implements OnInit {
   events = input<EventData[]>([]);
 
   currentImageIndex = signal<number | null>(null);
-  heroImages = computed(() => [...this.events().map((e) => {
+  heroImages = computed(() => [...this.events().filter((e) => e.aiProvider !== 'Grok').map((e) => {
     const hero = this.imageService.resizeImage(e.image, e.image.width, e.image.height);
     return { ...hero, grokImage: e.aiProvider === 'Grok' };
   })]);
@@ -36,10 +36,10 @@ export class HeroComponent implements OnInit {
     interval(10000).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       const current = this.currentImageIndex();
       if (current === null) {
-        const rndIndex = Math.floor(Math.random() * this.events().length);
+        const rndIndex = Math.floor(Math.random() * this.heroImages().length);
         this.currentImageIndex.set(rndIndex);
       } else {
-        const nextIndex = (current + 1) % this.events().length;
+        const nextIndex = (current + 1) % this.heroImages().length;
         this.currentImageIndex.set(nextIndex);
       }
     })
