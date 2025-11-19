@@ -11,8 +11,8 @@ header {
   z-index: 101;
   width: 100%;
   background-color: rgba(var(--next-surface-rgb), 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 main {
