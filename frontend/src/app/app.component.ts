@@ -18,22 +18,7 @@ export class AppComponent {
 
   constructor() {
     afterNextRender(() => {
-      this.configureAppHeight();
       this.themeService.setAppearanceMode();
     });
-  }
-
-  private configureAppHeight(): void {
-    const calcAppHeight = () => {
-      const doc = document.documentElement;
-      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
-    };
-
-    window.addEventListener('resize', calcAppHeight);
-    window.addEventListener('focusout', () => {
-      setTimeout(calcAppHeight, 100); // small delay to allow viewport to settle
-    });
-
-    calcAppHeight();
   }
 }
