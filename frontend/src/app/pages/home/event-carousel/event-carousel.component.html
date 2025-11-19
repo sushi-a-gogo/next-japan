@@ -6,10 +6,14 @@
 </div>
 } @else {
 <p-carousel
+  [attr.aria-label]="'Featured events carousel'"
   [value]="sortedEvents()"
   [circular]="true"
   [responsiveOptions]="responsiveOptions"
   [showIndicators]="showIndicators()"
+  [prevButtonProps]="{ ariaLabel: 'Navigate to previous events' }"
+  [nextButtonProps]="{ ariaLabel: 'Navigate to next events' }"
+  role="region"
 >
   <ng-template let-event #item>
     <app-event-card [event]="event" />
