@@ -34,7 +34,7 @@ export class ImageService {
       height
     };
     const src = `${environment.cloudfareUrl}/${environment.cloudfareAccountHash}/${image.cloudflareImageId}` +
-      `/public?w=${width}&h=${height}&format=webp&quality=100`
+      `/public?w=${width}&h=${height}&format=auto&quality=85`
 
     return { image: resizedImage, src }
 

@@ -42,7 +42,7 @@ export const sharedProviders = [
       const cloudflareImageId = parts.pop();
       const cloudfareAccountHash = parts.pop();
       const dimQuery = width ? `w=${width}&h=${width / 1.75}` : '';
-      return `${baseUrl}/${cloudfareAccountHash}/${cloudflareImageId}/public?${dimQuery}&format=webp&quality=100`;
+      return `${baseUrl}/${cloudfareAccountHash}/${cloudflareImageId}/public?${dimQuery}&format=auto&quality=85`;
     }
   },
   provideRouter(
