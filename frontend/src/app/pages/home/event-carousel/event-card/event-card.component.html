@@ -1,5 +1,6 @@
-<a [routerLink]="routerLink()" class="event-link"></a>
-
+<a [routerLink]="routerLink()" class="event-link">
+  {{ learnMoreLabel() }}
+</a>
 <div class="card">
   <img
     [alt]="event().eventTitle"
@@ -26,16 +27,20 @@
         class="anchor"
         cssClass="app-button app-button-filled"
         [link]="routerLink()"
+        [label]="learnMoreLabel()"
       >
         Learn More
+        <span class="link-text">{{ learnMoreLabel() }}</span>
       </app-anchor>
       <app-anchor
         class="anchor"
         cssClass="app-button app-button-outlined"
         [link]="registerLink()"
         [queryParams]="registerQueryParams()"
+        [label]="registerLabel()"
       >
         Register
+        <span class="link-text">{{ registerLabel() }}</span>
       </app-anchor>
     </div>
   </div>

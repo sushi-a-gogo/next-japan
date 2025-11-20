@@ -44,7 +44,8 @@
         </app-button>
       </div>
     </div>
-    @if(mapsUrl()) {
+
+    @if(mapsUrl()) { @defer (on viewport) {
     <iframe
       [src]="mapsUrl()"
       height="450"
@@ -53,6 +54,8 @@
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
-    }
+    } @placeholder {
+    <p>Loading map location...</p>
+    } }
   </div>
 </div>

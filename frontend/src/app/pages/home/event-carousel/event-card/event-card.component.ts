@@ -20,10 +20,14 @@ export class EventCardComponent {
 
   event = input.required<EventData>();
   isGrokEvent = computed(() => this.event().aiProvider === 'Grok');
+
   resizedImage = computed(() => {
     const width = this.isGrokEvent() ? 342 : 448;
     return this.imageService.resizeImage(this.event().image, 448, 256);
   });
+
+  learnMoreLabel = computed(() => `Go to the '${this.event().eventTitle}' event page to learn more.`)
+  registerLabel = computed(() => `Go to the '${this.event().eventTitle}' event page to register.`)
 
   routerLink = computed(() => `/event/${this.event().eventId}`);
   registerLink = computed(() => {
@@ -32,6 +36,7 @@ export class EventCardComponent {
     }
     return '/login';
   });
+
   registerQueryParams = computed(() => {
     if (this.auth.isAuthenticated()) {
       return undefined;
