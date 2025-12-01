@@ -17,12 +17,7 @@ export const userRoutes: Routes = [
         path: 'profile',
         component: ProfilePageComponent,
         canActivate: [authGuard]
-      },
-      //{
-      //   path: 'registrations',
-      //   component: EventRegistrationsComponent,
-      //   canActivate: [authGuard]
-      // },
+      }
     ]
   },
 ];
