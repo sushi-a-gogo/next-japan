@@ -33,7 +33,7 @@ export class SearchAutocompleteComponent implements OnInit, AfterViewInit {
   selectedValue?: string;
   isComponentActive = signal<boolean>(false);
 
-  private isOpen = signal<boolean>(false);
+  isOpen = signal<boolean>(false);
   private searchInput = viewChild<ElementRef>('searchInput');
   private trigger = viewChild<MatAutocompleteTrigger>('autocompleteInput');
   private router = inject(Router);
