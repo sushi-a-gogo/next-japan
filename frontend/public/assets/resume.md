@@ -12,7 +12,7 @@ committed to clean, maintainable code.
 
 ## Technical Skills
 
-**Front-End:** TypeScript, JavaScript, Angular (v20+), HTML5, CSS3, Material Design,
+**Front-End:** TypeScript, JavaScript, Angular (v21+), HTML5, CSS3, Material Design,
 Responsive Design, Signals, SSR\
 **Back-End:** .NET Core, ASP.NET MVC, C#, Node.js, REST APIs, MongoDB, SQL Server\
 **DevOps / Tools:** Git, CI/CD, Azure DevOps, GCP\
@@ -22,7 +22,7 @@ Responsive Design, Signals, SSR\
 
 ### Software Developer - Self-Employed | 2025
 
-Continued development with Angular v20+ (signals, zoneless), Node.js, and AI-assisted
+Continued development with Angular v21+ (signals, zoneless), Node.js, and AI-assisted
 workflows. Built full-stack examples to strengthen modern architecture and UX practices.
 
 ### Software Developer II | Common Forge Ventures - Remote | 2022 – 2025
@@ -51,7 +51,7 @@ MVC, .NET Core, and SQL Server stacks.
 
 A full-stack, production-quality demo application showcasing modern Angular patterns.
 
-- Built with Angular v20 (signals, zoneless), Node.js/Express, MongoDB, and JWT auth.
+- Built with Angular v21 (signals, zoneless), Node.js/Express, MongoDB, and JWT auth.
 - Integrated AI-driven event generation using OpenAI/xAI APIs.
 - Designed responsive UI with light/dark themes and SSR optimizations.
 - Deployed on Render; source available on GitHub.
