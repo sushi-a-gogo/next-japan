@@ -55,7 +55,14 @@
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
     } @placeholder {
-    <p>Loading map location...</p>
+    <div class="map-placeholder">
+      <p class="loading-text">Map loading...</p>
+    </div>
+    } @loading (after 100ms; minimum 1s) {
+    <div class="map-placeholder">
+      <div class="shimmer"></div>
+      <p class="loading-text">Map loading...</p>
+    </div>
     } }
   </div>
 </div>

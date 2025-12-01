@@ -30,8 +30,8 @@ export class ContentGeneratorComponent implements OnInit {
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
 
-  tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy', 'festive', 'rustic', 'exotic'];
-  moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified'];
+  tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy', 'festive', 'rustic', 'exotic', 'focused'];
+  moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified', 'open minded'];
   seasons = ['Spring', 'Summer', 'Fall', 'Winter', 'Monsoon', 'Cherry Blossom', 'Maple Season'];
   destinations = [
     'Hakuba Valley',
@@ -46,6 +46,7 @@ export class ContentGeneratorComponent implements OnInit {
     'Tokyo',
     'Yokohama',
     'Yonaha Maehama Beach',
+    'Corporate Office'
   ];
   activities = [
     'Explore', 'Local Experience', 'Cookout', 'Festival', 'Hiking', 'Cultural Tour', 'Skiing', 'Hot Spring Soak', 'Boat Ride', 'Unique Experience'

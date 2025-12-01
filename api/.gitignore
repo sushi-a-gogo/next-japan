@@ -37,6 +37,7 @@ yarn-error.log
 testem.log
 /typings
 /cache
+/~scripts
 .env
 
 # System files
