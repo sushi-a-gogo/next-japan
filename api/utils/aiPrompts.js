@@ -23,6 +23,19 @@ Do not include Markdown, code blocks, or extra text—output valid JSON only.
 Output should look like: { 'eventTitle': 'title...', 'description': 'text...', 'fullDescription': 'text...' }.`;
 }
 
+export function customImagePrompt(promptParams, customText) {
+  return `Create an anime-style digital painting in a cel-shaded, anime style,
+using a color palette of warm glowing tones together with bright pastels,
+and a theme inspired by Studio Ghibli movies.
+The image should depict two Studio Ghibli inspired anime characters - one anime male character and one anime female character, viewed in profile - working in
+a corporate office environment. A bright open office space - each anime figure staring intently at their laptop screen. Keyboards and equipment are visible.
+Two young, energetic workers - each one could have stepped right out of a studio ghibli movie - focused on the task at hand.
+The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,
+adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
+Keep focus on the mood; characters should feel like a natural part of the scene.
+The image should not contain any text or symbols.`;
+}
+
 export function eventImagePrompt(promptParams, customText) {
   return `Create an anime-style digital painting in a cel-shaded, anime style,
 using a color palette of warm glowing tones together with bright pastels,
