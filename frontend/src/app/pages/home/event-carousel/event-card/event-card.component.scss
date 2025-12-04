@@ -17,7 +17,7 @@
 
   &:hover {
     img.hero {
-      filter: none;
+      //filter: none;
     }
   }
 }
@@ -58,7 +58,8 @@
 
 img.hero {
   height: 180px;
-  filter: grayscale(15%) saturate(120%) contrast(105%) brightness(95%);
+  filter: brightness(103%) contrast(96%) saturate(81%) blur(0px)
+    hue-rotate(336deg);
   transition: filter 0.3s ease;
 }
 

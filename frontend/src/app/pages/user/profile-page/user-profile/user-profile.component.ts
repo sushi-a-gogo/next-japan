@@ -1,6 +1,6 @@
-import { Component, DestroyRef, inject, input, OnInit, output } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { debounce, email, Field, form, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,11 +12,18 @@ import { AuthService } from '@app/services/auth.service';
 import { UserProfileService } from '@app/services/user-profile.service';
 import { UserAvatarComponent } from "@shared/avatar/user-avatar/user-avatar.component";
 import { ModalComponent } from "@shared/modal/modal.component";
-import { UserProfileForm } from './user-profile.form';
+
+interface UserProfileForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  preferredContactMethod: 'email' | 'phone';
+}
 
 @Component({
   selector: 'app-user-profile',
-  imports: [ReactiveFormsModule, MatButtonModule, MatRippleModule, MatInputModule,
+  imports: [Field, MatButtonModule, MatRippleModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
@@ -27,7 +34,31 @@ export class UserProfileComponent implements OnInit {
 
   user = input.required<User>();
   userProfile?: UserProfile;
-  profileForm = this.getProfileForm();
+
+  private profileModel = signal<UserProfileForm>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    preferredContactMethod: 'email'
+  });
+
+  profileForm = form(this.profileModel, (schemaPath) => {
+    required(schemaPath.firstName);
+    required(schemaPath.lastName);
+
+    debounce(schemaPath.email, 500);
+    required(schemaPath.email);
+    email(schemaPath.email);
+
+    required(schemaPath.phone, {
+      message: 'Phone is required',
+      when: ({ valueOf }) => valueOf(schemaPath.preferredContactMethod) === 'phone'
+    });
+  });
+
+  showPhoneHint = computed(() => this.profileForm.phone().errors().find((e) => e.message === 'Phone is required'));
+
   close = output<boolean>();
 
   contactMethods = [
@@ -39,28 +70,16 @@ export class UserProfileComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.profileForm.get('preferredContactMethod')?.valueChanges.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(val => {
-      const phoneControl = this.profileForm.get('phone');
-      if (val === 'phone') {
-        phoneControl?.setValidators([Validators.required]);
-      } else {
-        phoneControl?.clearValidators();
-      }
-      phoneControl?.updateValueAndValidity();
-    });
-
     this.userProfileService.getUser$(this.user()!.userId).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((res) => {
       if (res.success && res.data) {
         this.userProfile = res.data;
-        this.profileForm.setValue({
+        this.profileModel.set({
           firstName: this.userProfile.firstName,
           lastName: this.userProfile.lastName,
           email: this.userProfile.email,
-          phone: this.userProfile.phone || null,
+          phone: this.userProfile.phone || '',
           preferredContactMethod: this.userProfile.isEmailPreferred ? 'email' : 'phone'
         });
       }
@@ -68,13 +87,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   saveProfile() {
-    const newProfile = {
+    const newProfile: UserProfile = {
       ...this.userProfile!,
-      ...this.profileForm.value,
-      firstName: this.profileForm.value.firstName!,
-      lastName: this.profileForm.value.lastName!,
-      email: this.profileForm.value.email!,
-      isEmailPreferred: this.profileForm.get('preferredContactMethod')?.value === 'email',
+      ...this.profileForm().value(),
+      isEmailPreferred: this.profileForm().value().preferredContactMethod === 'email',
     };
 
     this.busy = true;
@@ -94,21 +110,5 @@ export class UserProfileComponent implements OnInit {
 
   closeProfile() {
     this.close.emit(true);
-  }
-
-  private getProfileForm() {
-    const textValidators = [Validators.maxLength(100)];
-
-    const form = new FormGroup<UserProfileForm>(
-      {
-        firstName: new FormControl<string | null>(null, [Validators.required, ...textValidators]),
-        lastName: new FormControl<string | null>(null, [Validators.required, ...textValidators]),
-        email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-        phone: new FormControl<string | null>(null),
-        preferredContactMethod: new FormControl<'email' | 'phone' | null>(null),
-      }
-    );
-
-    return form;
   }
 }
