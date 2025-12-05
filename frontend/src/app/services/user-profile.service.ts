@@ -47,7 +47,7 @@ export class UserProfileService {
   }
 
   initGlobalUserData(user: User) {
-    this.themeService.setAppearanceMode(user.mode);
+    this.themeService.setAppearance(user.mode);
 
     const observables = {
       notifications: this.notificationService.getUserNotifications$(user.userId),
@@ -59,7 +59,7 @@ export class UserProfileService {
   clearUserData() {
     this.eventRegistrationService.clearUserRegistrations();
     this.notificationService.clearUserNotifications();
-    this.themeService.setAppearanceMode();
+    this.themeService.setAppearance();
   }
 
   getUserRewards$(id: string): Observable<ApiResponse<UserReward[]>> {

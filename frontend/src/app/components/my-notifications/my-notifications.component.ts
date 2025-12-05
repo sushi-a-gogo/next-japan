@@ -6,7 +6,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { EventNotification } from '@app/models/user-notification.model';
 import { NotificationService } from '@app/services/notification.service';
-import { ThemeService } from '@app/services/theme.service';
 import { interval, switchMap } from 'rxjs';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
@@ -21,7 +20,6 @@ import { NotificationCardComponent } from "./notification-card/notification-card
 export class MyNotificationsComponent implements OnInit {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
-  private themeService = inject(ThemeService);
   private destroyRef = inject(DestroyRef);
 
   userId = input.required<string>();
@@ -46,9 +44,7 @@ export class MyNotificationsComponent implements OnInit {
         switchMap(() => this.notificationService.getUserNotifications$(this.userId())),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(() => {
-        this.themeService.manageTheme();
-      });
+      .subscribe();
   }
 
   menuToggle(menuOpen: boolean) {
