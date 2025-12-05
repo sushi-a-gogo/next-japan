@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { computed, inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
+import { inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +7,9 @@ import { computed, inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@a
 export class ThemeService {
   private platformId = inject(PLATFORM_ID);
   private appearance = signal<'light' | 'dark' | 'device'>('device');
+  private darkMode = signal(false);
 
-  isDarkAppearance = computed(() => {
-    const currentAppearance = this.appearance();
-    return this.isDarkModeActivated(currentAppearance);
-  });
+  inDarkMode = this.darkMode.asReadonly();
 
   setAppearance(theme?: 'light' | 'dark') {
     this.appearance.set(theme || 'device');
@@ -27,8 +25,10 @@ export class ThemeService {
     if (isPlatformBrowser(this.platformId)) {
       if (this.isDarkModeActivated(currentAppearance)) {
         document?.body?.classList.add('dark-theme');
+        this.darkMode.set(true);
       } else {
         document?.body?.classList.remove('dark-theme');
+        this.darkMode.set(false);
       }
     }
   }
