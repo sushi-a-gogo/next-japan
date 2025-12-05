@@ -4,10 +4,9 @@ import { uploadImageToCloudflare } from "../utils/cloudflare.js";
 import formatEvent from "../utils/formatEvent.js";
 
 export const getRecentEvents = async () => {
-  const events = await Event.find().sort({ createdAt: -1 }).limit(20);
+  const events = await Event.find().sort({ createdAt: -1 }).limit(25);
   return events.map(formatEvent);
 };
-
 export const saveEvent = async (data) => {
   const {
     eventTitle,
