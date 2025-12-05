@@ -1,30 +1,31 @@
 import { isPlatformBrowser } from '@angular/common';
-import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
   private platformId = inject(PLATFORM_ID);
-  private currentMode = signal<'light' | 'dark' | 'device'>('device');
+  private appearance = signal<'light' | 'dark' | 'device'>('device');
 
-  selectedTheme = computed(() => {
-    if (isPlatformBrowser(this.platformId)) {
-      const theme = this.currentMode() === 'dark' || (this.currentMode() === 'device' && this.preferDarkTheme()) ? 'dark' : 'light';
-      return theme;
-    }
-
-    return 'device';
+  isDarkAppearance = computed(() => {
+    const currentAppearance = this.appearance();
+    return this.isDarkModeActivated(currentAppearance);
   });
 
-  setAppearanceMode(theme?: 'light' | 'dark') {
-    this.currentMode.set(theme || 'device');
-    this.manageTheme();
+  setAppearance(theme?: 'light' | 'dark') {
+    this.appearance.set(theme || 'device');
+    this.manageAppearance();
   }
 
-  manageTheme() {
+  manageAppearance() {
+    const currentAppearance = this.appearance();
+    if (isDevMode()) {
+      console.log(`theme.service -> manageAppearance -> currentAppearance = '${currentAppearance}'`);
+    }
+
     if (isPlatformBrowser(this.platformId)) {
-      if (this.selectedTheme() === 'dark') {
+      if (this.isDarkModeActivated(currentAppearance)) {
         document?.body?.classList.add('dark-theme');
       } else {
         document?.body?.classList.remove('dark-theme');
@@ -32,7 +33,16 @@ export class ThemeService {
     }
   }
 
-  private preferDarkTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  private isDarkModeActivated(currentAppearance: string) {
+    if (currentAppearance === 'dark') {
+      return true;
+    }
+
+    if (currentAppearance === 'device' && isPlatformBrowser(this.platformId)) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      return mediaQuery.matches
+    }
+
+    return false;;
   }
 }
