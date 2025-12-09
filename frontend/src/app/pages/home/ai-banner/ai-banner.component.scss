@@ -40,7 +40,11 @@ main {
 
 @media screen and (min-width: 600px) {
   :host {
-    height: 640px;
+    height: 800px;
+  }
+
+  .banner {
+    padding: 72px 24px;
   }
 
   main {
