@@ -31,7 +31,7 @@ export class ContentGeneratorComponent implements OnInit {
   error = signal<string | null>(null);
 
   tones = ['adventurous', 'serene', 'nostalgic', 'magical', 'dreamy', 'festive', 'rustic', 'exotic', 'focused'];
-  moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified', 'open minded'];
+  moods = ['excited', 'serene', 'curious', 'joyful', 'peaceful', 'inspired', 'terrified', 'fearless'];
   seasons = ['Spring', 'Summer', 'Fall', 'Winter', 'Monsoon', 'Cherry Blossom', 'Maple Season'];
   destinations = [
     'Hakuba Valley',
