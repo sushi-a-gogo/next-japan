@@ -78,6 +78,14 @@ a.app-button {
     font-weight: 600;
     transition: background-color 0.3s ease;
   }
+
+  &.dark {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
 }
 
 .app-button-outlined {
@@ -115,6 +123,11 @@ a.app-button {
       background-color: #ab2c2c;
       border-color: #ab2c2c;
       opacity: 1;
+    }
+
+    &.dark {
+      background-color: #1a1a1a;
+      opacity: 0.85;
     }
   }
 

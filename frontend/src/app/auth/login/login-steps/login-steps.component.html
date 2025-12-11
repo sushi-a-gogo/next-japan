@@ -35,17 +35,19 @@
         }
         <!-- plan-payment -->
         @case('plan-payment') {
-        <app-plan-payment
-          [user]="newUser()!"
-          [plan]="subscriptionPlan()!"
-          (completePayment)="completeSignUp()"
-          (cancel)="choosePlan(newUser()!)"
-        />
-        <div class="switchbox nx-flex row al-c jc-c gap-5">
-          Want to review your plan options?
-          <button class="text-button" (click)="choosePlan(newUser()!)">
-            Go back
-          </button>
+        <div class="payment nx-flex col gap-10">
+          <app-plan-payment
+            [user]="newUser()!"
+            [plan]="subscriptionPlan()!"
+            (completePayment)="completeSignUp()"
+            (cancel)="choosePlan(newUser()!)"
+          />
+          <div class="switchbox nx-flex row al-c jc-c gap-5">
+            Want to review your plan options?
+            <button class="text-button" (click)="choosePlan(newUser()!)">
+              Go back
+            </button>
+          </div>
         </div>
         } }
         <div>
