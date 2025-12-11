@@ -70,6 +70,7 @@
   );
   animation: shimmer 1.8s infinite;
   transform: translateX(-100%);
+  pointer-events: none;
 }
 
 @keyframes shimmer {

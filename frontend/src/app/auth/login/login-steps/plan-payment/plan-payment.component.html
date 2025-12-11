@@ -57,7 +57,7 @@
   <div class="nx-flex col gap-10">
     @if(user().userId) {
     <app-button
-      cssClass="app-button dialog-button app-button-filled priority"
+      cssClass="app-button dialog-button app-button-filled dark"
       (buttonClick)="updateSubscription()"
       [disabled]="paymentForm.invalid || busy()"
     >
@@ -68,7 +68,7 @@
     </app-button>
     } @else {
     <app-button
-      cssClass="app-button dialog-button app-button-filled priority"
+      cssClass="app-button dialog-button app-button-filled dark"
       (buttonClick)="createSubscription()"
       [disabled]="paymentForm.invalid"
     >
