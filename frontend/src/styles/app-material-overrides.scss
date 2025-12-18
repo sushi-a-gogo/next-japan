@@ -23,7 +23,8 @@
   @include mat.progress-bar-overrides(
     (
       active-indicator-color: var(--bright-blue-sky),
-      active-indicator-height: 5px,
+      active-indicator-height: 6px,
+      track-height: 6px,
     )
   );
 }

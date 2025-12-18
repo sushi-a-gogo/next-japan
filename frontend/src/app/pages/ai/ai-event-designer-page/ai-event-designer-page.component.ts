@@ -17,8 +17,6 @@ import { filter } from 'rxjs';
   templateUrl: './ai-event-designer-page.component.html',
   styleUrl: './ai-event-designer-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[class.blurred-slide-up]': 'true' }
-
 })
 export class AiEventDesignerPageComponent implements OnInit {
   private imageService = inject(ImageService);

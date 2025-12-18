@@ -1,15 +1,15 @@
 .blurred-slide-up {
   opacity: 0;
   filter: blur(2px);
-  transform: translateY(40px);
-  animation: blurredSlideUp 600ms ease-out forwards;
+  transform: translateY(24px);
+  animation: blurredSlideUp 400ms ease-out forwards;
 }
 
 @keyframes blurredSlideUp {
   from {
     opacity: 0;
     filter: blur(2px);
-    transform: translateY(40px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;

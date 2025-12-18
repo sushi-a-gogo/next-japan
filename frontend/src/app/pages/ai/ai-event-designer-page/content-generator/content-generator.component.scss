@@ -10,18 +10,7 @@ form {
   gap: 10px;
   width: 100%;
   padding: 20px 0;
-}
-
-.app-button.app-button-filled {
-  border-radius: 6px;
-  font-size: 20px;
-  font-weight: 700;
-  height: 56px;
-
-  background: #007b72;
-  border-color: #007b72;
-  color: var(--vivid-yellow-text);
-  transition: 0.25s ease-in-out;
+  padding-bottom: 24px;
 }
 
 @media (min-width: 600px) {
@@ -39,7 +28,7 @@ form {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    padding-bottom: 40px;
+    padding-bottom: 36px;
   }
 }
 

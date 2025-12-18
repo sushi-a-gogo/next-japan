@@ -90,7 +90,7 @@
     <div class="button">
       @if(disabled()) {
       <app-button
-        cssClass="app-button app-button-filled ai-theme"
+        cssClass="app-button app-button-filled ai-theme square"
         disabled="disabled"
         tooltip="Sign in or create an account to use the content generator."
       >
@@ -98,7 +98,7 @@
       </app-button>
       } @else {
       <app-button
-        cssClass="app-button app-button-filled ai-theme"
+        cssClass="app-button app-button-filled ai-theme square"
         buttonType="submit"
         [disabled]="busy()"
       >
