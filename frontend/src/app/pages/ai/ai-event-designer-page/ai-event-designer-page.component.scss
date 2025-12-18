@@ -10,7 +10,6 @@
 header {
   width: 100%;
   position: relative;
-
   height: 600px;
 
   img {
@@ -38,6 +37,7 @@ header {
 main {
   flex: 1;
   width: 100%;
+  background-color: var(--next-bg);
 }
 
 .full-text {
@@ -49,8 +49,8 @@ main {
 }
 
 .backdrop {
-  z-index: 3;
-  position: absolute;
+  z-index: 300;
+  position: fixed;
   top: 0;
   left: 0;
   width: 0;
@@ -67,14 +67,16 @@ main {
 }
 
 .progress {
-  z-index: 4;
+  position: fixed;
+  z-index: 400;
   width: 100%;
-  height: 5px;
+  //height: 5px;
+  bottom: 0;
 }
 
 .snackbar {
-  z-index: 4;
-  position: absolute;
+  z-index: 400;
+  position: fixed;
   width: 0;
   height: 0;
   opacity: 0;
@@ -82,7 +84,7 @@ main {
 
   &.open {
     opacity: 1;
-    bottom: 16px;
+    bottom: 24px;
     left: 50%;
     transform: translate(-50%, 0);
     width: auto;

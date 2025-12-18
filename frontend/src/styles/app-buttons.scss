@@ -66,9 +66,11 @@ a.app-button {
   color: var(--next-confirm-text);
 
   &.ai-theme {
-    color: var(--vivid-yellow-text);
+    color: var(--light-yellow-stars);
     background-color: #00675f;
     border-color: #00675f;
+    //border-radius: 4px;
+    //height: 54px;
   }
 
   &.priority {
