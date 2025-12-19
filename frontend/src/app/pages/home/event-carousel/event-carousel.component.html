@@ -8,8 +8,11 @@
 <p-carousel
   [attr.aria-label]="'Featured events carousel'"
   [value]="sortedEvents()"
+  [numVisible]="3"
+  [numScroll]="1"
   [circular]="true"
   [responsiveOptions]="responsiveOptions"
+  [autoplayInterval]="6000"
   [showIndicators]="showIndicators()"
   [prevButtonProps]="{ ariaLabel: 'Navigate to previous events' }"
   [nextButtonProps]="{ ariaLabel: 'Navigate to next events' }"
