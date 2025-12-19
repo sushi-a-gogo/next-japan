@@ -46,7 +46,19 @@ Soft pastel colors, gentle lighting, expressive characters,
 lush natural environments, warm and nostalgic atmosphere,
 and a theme inspired by '${customText}' and these parameters: ${JSON.stringify(
     promptParams
-  )}.
+  )},
+stylized anime proportions,
+slightly oversized eyes,
+simplified facial features,
+soft linework,
+no hyper-detailed textures,
+dense foliage,
+layered clouds,
+hand-painted background look,
+rich but soft color gradients.
+
+
+
 The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,
 adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
 Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
