@@ -40,7 +40,7 @@ export class EventCarouselComponent {
 
   responsiveOptions = [
     { breakpoint: '739.98px', numVisible: 1, numScroll: 1 },
-    { breakpoint: '1041.98px', numVisible: 2, numScroll: 2 },
+    { breakpoint: '1023.98px', numVisible: 2, numScroll: 2 },
     { breakpoint: '1339.98px', numVisible: 3, numScroll: 3 },
     { breakpoint: '1664.98px', numVisible: 3, numScroll: 3 },
     { breakpoint: '1989.98px', numVisible: 3, numScroll: 3 },

@@ -1,4 +1,4 @@
-@if(ssrMode() || hideCarousel()) {
+@if(ssrMode() || hideCarousel() || sortedEvents().length < 2) {
 <div class="carousel-ssr">
   @for (event of sortedEvents(); track event.eventId) {
   <app-event-card [event]="event"></app-event-card>
@@ -8,11 +8,9 @@
 <p-carousel
   [attr.aria-label]="'Featured events carousel'"
   [value]="sortedEvents()"
-  [numVisible]="3"
-  [numScroll]="1"
   [circular]="true"
-  [responsiveOptions]="responsiveOptions"
   [autoplayInterval]="6000"
+  [responsiveOptions]="responsiveOptions"
   [showIndicators]="showIndicators()"
   [prevButtonProps]="{ ariaLabel: 'Navigate to previous events' }"
   [nextButtonProps]="{ ariaLabel: 'Navigate to next events' }"

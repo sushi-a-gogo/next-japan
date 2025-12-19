@@ -45,7 +45,6 @@
 }
 
 .card {
-  position: relative;
   pointer-events: none;
   z-index: 4;
   display: flex;
@@ -126,6 +125,11 @@ img.hero {
 
 .upcoming .banner {
   color: var(--next-accent);
-
   font-weight: 700;
+}
+
+@media screen and (max-width: 400px) {
+  :host {
+    width: 260px;
+  }
 }
