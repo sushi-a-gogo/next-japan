@@ -26,7 +26,7 @@ export class EventCarouselComponent {
   });
   ssrMode = computed(() => !isPlatformBrowser(this.platformId));
   showIndicators = toSignal(
-    this.breakpointObserver.observe(['(min-width: 1024px)']).pipe(
+    this.breakpointObserver.observe(['(min-width: 768px)']).pipe(
       map(result => result.matches)
     ),
     { initialValue: isPlatformBrowser(this.platformId) ? this.breakpointObserver.isMatched('(min-width: 768px)') : false }
@@ -39,13 +39,13 @@ export class EventCarouselComponent {
   );
 
   responsiveOptions = [
-    { breakpoint: '689.98px', numVisible: 1, numScroll: 1 },
-    { breakpoint: '1014.98px', numVisible: 2, numScroll: 2 },
+    { breakpoint: '739.98px', numVisible: 1, numScroll: 1 },
+    { breakpoint: '1041.98px', numVisible: 2, numScroll: 2 },
     { breakpoint: '1339.98px', numVisible: 3, numScroll: 3 },
-    { breakpoint: '1664.98px', numVisible: 4, numScroll: 4 },
-    { breakpoint: '1989.98px', numVisible: 5, numScroll: 5 },
-    { breakpoint: '2314.98px', numVisible: 6, numScroll: 6 },
-    { breakpoint: '2500px', numVisible: 7, numScroll: 7 },
+    { breakpoint: '1664.98px', numVisible: 3, numScroll: 3 },
+    { breakpoint: '1989.98px', numVisible: 3, numScroll: 3 },
+    { breakpoint: '2314.98px', numVisible: 3, numScroll: 3 },
+    { breakpoint: '2500px', numVisible: 3, numScroll: 3 },
   ];
 
   private sortByDate(a: EventData, b: EventData) {
