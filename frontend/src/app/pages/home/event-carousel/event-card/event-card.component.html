@@ -29,8 +29,9 @@
         [link]="routerLink()"
         [label]="learnMoreLabel()"
       >
-        Learn More
-        <span class="link-text">{{ learnMoreLabel() }}</span>
+        <span>
+          Learn More<i class="link-text">{{ learnMoreLabel() }}</i>
+        </span>
       </app-anchor>
       <app-anchor
         class="anchor"
@@ -39,8 +40,9 @@
         [queryParams]="registerQueryParams()"
         [label]="registerLabel()"
       >
-        Register
-        <span class="link-text">{{ registerLabel() }}</span>
+        <span>
+          Register<i class="link-text">{{ registerLabel() }}</i>
+        </span>
       </app-anchor>
     </div>
   </div>

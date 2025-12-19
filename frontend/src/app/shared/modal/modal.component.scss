@@ -49,7 +49,7 @@
 @media (min-width: 600px) {
   .dialog:not(.dynamic) {
     width: auto;
-    max-height: calc(100lvh - 20px);
+    max-height: calc(100lvh - 200px);
   }
 }
 
