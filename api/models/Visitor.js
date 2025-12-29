@@ -1,14 +1,14 @@
-// models/Visitor.js
 import mongoose from "mongoose";
 
 const VisitorSchema = new mongoose.Schema(
   {
     path: { type: String, required: true },
-    ip: { type: String }, // optional, hashed
+    ip: { type: String },
     userAgent: { type: String },
-    referrer: { type: String }, // often empty/missing
+    referrer: { type: String },
+    country: { type: String },
   },
-  { timestamps: true } // createdAt will be our accurate server timestamp
+  { timestamps: true }
 );
 
 export default mongoose.model("Visitor", VisitorSchema);

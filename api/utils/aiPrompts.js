@@ -26,9 +26,15 @@ Output should look like: { 'eventTitle': 'title...', 'description': 'text...', '
 export function customImagePrompt(promptParams, customText) {
   return `Create a digital painting using a cel-shaded
 anime illustration style with a whimsical, hand-painted look.
-Soft pastel colors, gentle lighting, expressive characters,
-lush natural environments, and a warm, nostalgic atmosphere.
-The image should depict a street cafe. A young anime woman is sipping tea and winking at the camera.
+Bright colors, gentle lighting, expressive characters,
+stylized anime proportions,
+slightly oversized eyes,
+simplified facial features,
+soft linework,
+hand-painted background look,
+rich but soft color gradients.
+
+The image should depict a restaurant with a mid-century modern look and a theme inspired by '${customText}'
 
 Do not use:
 - realistic photography
