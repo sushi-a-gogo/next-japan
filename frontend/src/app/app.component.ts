@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { interval } from 'rxjs';
 import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
+import { VisitTrackerComponent } from "./components/visit-tracker/visit-tracker.component";
 import { ThemeService } from './services/theme.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ThemeService } from './services/theme.service';
   imports: [
     RouterOutlet,
     ErrorBarComponent,
+    VisitTrackerComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

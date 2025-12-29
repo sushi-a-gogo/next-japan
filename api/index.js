@@ -16,6 +16,7 @@ import likeEventRouter from "./routes/like-event.js";
 import shareEventRouter from "./routes/share-event.js";
 import userRouter from "./routes/user.js";
 import notificationRouter from "./routes/userNotifications.js";
+import visitorRouter from "./routes/visitor.js";
 
 process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err.stack);
@@ -58,6 +59,7 @@ app.use("/api/user", userRouter);
 app.use("/api/notifications", notificationRouter);
 app.use("/api/like-event", likeEventRouter);
 app.use("/api/share-event", shareEventRouter);
+app.use("/api/visitors", visitorRouter);
 
 app.use("/api/ai", apiLimiter);
 app.use("/api/ai", aiRouter);
