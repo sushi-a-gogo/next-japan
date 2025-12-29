@@ -24,9 +24,7 @@ Responsive Design, Signals, SSR\
 
 Continued development with Angular v21+ (signals, zoneless), Node.js, and AI-assisted
 workflows. Built full-stack examples to strengthen modern architecture and UX practices.
-Built and maintained public-facing WordPress sites using Elementor, custom post types, popup builders, and theme customization.
-Managed hosting, migrations, caching optimization (LiteSpeed), and troubleshooting on Hostinger.
-Improved site content and mobile responsiveness through iterative design and CSS tweaks.
+Hands-on experience with quick website setup, customization, and deployment using WordPress.
 
 ### Software Developer II | Common Forge Ventures - Remote | 2022 – 2025
 

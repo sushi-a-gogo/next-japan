@@ -29,7 +29,7 @@ export async function fetchGeneratedContent(promptParams) {
   const imagePrompt =
     provider.name === "Grok"
       ? aiPrompts.grokEventImagePrompt(promptParams, customText)
-      : aiPrompts.eventImagePrompt(promptParams, customText);
+      : aiPrompts.customImagePrompt(promptParams, customText);
   // text
   const textResponse = await fetchTextResultFromAI(provider, textPrompt);
   const aiGeneratedEvent = JSON.parse(textResponse.choices[0].message.content);
