@@ -35,7 +35,7 @@
 <main class="component-box">
   <app-content-generator
     (eventCreating)="onEventCreating()"
-    (eventCreated)="onEventCreated()"
+    (eventCreated)="onEventCreated($event)"
   />
   @if(busy()) {
   <div class="progress">

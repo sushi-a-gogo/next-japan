@@ -25,7 +25,7 @@ export class ContentGeneratorComponent implements OnInit {
 
   promptForm?: FormGroup;
   eventCreating = output<boolean>();
-  eventCreated = output<AiEvent>();
+  eventCreated = output<AiEvent | null>();
 
   busy = signal<boolean>(false);
   error = signal<string | null>(null);
@@ -86,10 +86,13 @@ export class ContentGeneratorComponent implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.eventCreated.emit(res.data);
+        } else {
+          this.eventCreated.emit(null);
         }
         promptForm.form.enable();
       },
       error: (e) => {
+        this.eventCreated.emit(null);
         this.error.set(e.message);
         this.busy.set(false);
         promptForm.form.enable();
