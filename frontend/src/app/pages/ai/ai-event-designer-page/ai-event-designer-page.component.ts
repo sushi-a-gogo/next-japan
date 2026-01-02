@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 import { AppImageData } from '@app/models/app-image-data.model';
+import { AiEvent } from '@app/models/event/ai-event.model';
 import { ContentGeneratorComponent } from "@app/pages/ai/ai-event-designer-page/content-generator/content-generator.component";
 import { ImageService } from '@app/services/image.service';
 import { MetaService } from '@app/services/meta.service';
@@ -57,8 +58,12 @@ export class AiEventDesignerPageComponent implements OnInit {
     this.busy.set(true);
   }
 
-  onEventCreated() {
-    this.router.navigate(['/ai/event']);
+  onEventCreated(event: AiEvent | null) {
+    if (event) {
+      this.router.navigate(['/ai/event']);
+    } else {
+      this.busy.set(false);
+    }
   }
 }
 

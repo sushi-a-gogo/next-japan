@@ -18,28 +18,69 @@ export async function fetchHaiku() {
 
 export async function fetchGeneratedContent(promptParams) {
   console.log("fetchGeneratedContent called with:", promptParams);
+
   const providerKey = promptParams.aiProvider || "openai";
   const provider = providers[providerKey.toLowerCase()];
   if (!provider) throw new Error("Invalid AI provider");
+
   const customText = promptParams.customText || "Happy day.";
+
   if (!(await isPromptSafe(customText))) {
     throw new Error("Prompt violates content guidelines.");
   }
+
   const textPrompt = aiPrompts.eventDescriptionPrompt(promptParams, customText);
   const imagePrompt =
     provider.name === "Grok"
       ? aiPrompts.grokEventImagePrompt(promptParams, customText)
-      : aiPrompts.customImagePrompt(promptParams, customText);
-  // text
+      : aiPrompts.eventImagePrompt(promptParams, customText);
+
+  // Text generation
   const textResponse = await fetchTextResultFromAI(provider, textPrompt);
-  const aiGeneratedEvent = JSON.parse(textResponse.choices[0].message.content);
-  // image
-  const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
-  const imageUrl = imageResponse.data[0].url;
+
+  let aiGeneratedEvent = null,
+    aiTextResponse = null;
+
+  try {
+    aiTextResponse = textResponse.choices[0].message.content;
+    const content = aiTextResponse.trim();
+    // Optional: strip code block if present
+    const jsonString = content.replace(/^```json\n?|\n?```$/g, "").trim();
+    aiGeneratedEvent = JSON.parse(jsonString);
+    console.log("AI generated event", aiGeneratedEvent);
+  } catch (parseError) {
+    console.error("Malformed AI text response:", aiTextResponse);
+    throw new Error(
+      `Failed to parse ${provider.name} text response: ${parseError.message}`
+    );
+  }
+
+  // Basic structure validation
+  if (!aiGeneratedEvent?.eventTitle || !aiGeneratedEvent?.description) {
+    throw new Error("AI returned incomplete event data");
+  }
+
+  // Image generation
+  let imageUrl = null;
+  try {
+    const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
+    if (!imageResponse?.data?.[0]?.url) {
+      throw new Error("No image URL returned");
+    }
+    imageUrl = imageResponse.data[0].url;
+  } catch (imgError) {
+    console.warn(
+      `Image generation failed for ${provider.name}:`,
+      imgError.message
+    );
+    throw imgError;
+  }
+
   const imageName = `event-image-${Date.now()}.png`;
+
   return {
     ...aiGeneratedEvent,
-    image: { id: imageName, width: 1792, height: 1024 },
+    image: imageUrl ? { id: imageName, width: 1792, height: 1024 } : null,
     imageUrl,
     aiProvider: provider.name,
     prompt: { text: textPrompt, image: imagePrompt },
