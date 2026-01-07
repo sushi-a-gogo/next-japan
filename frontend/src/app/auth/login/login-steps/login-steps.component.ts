@@ -46,7 +46,7 @@ export class LoginStepsComponent implements OnInit {
         return "Enter payment details";
       case 'sign-in':
       default:
-        return "Log in to continue";
+        return "Demo the full user experience";
     }
   })
 

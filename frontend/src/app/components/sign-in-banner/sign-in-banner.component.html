@@ -1,15 +1,27 @@
-<div class="component-box nx-flex row al-c jc-c">
-  <div class="cb-content pad nx-flex">
-    <section class="announcement nx-flex col gap-10">
-      <h1 class="banner-subhead">Next Japan - Zoneless Angular v21 App</h1>
+<div class="component-box nj-flex row align-center justify-center">
+  <div class="component-box-content pad nj-flex">
+    <section class="announcement nj-flex col gap-10">
+      <h1 class="banner-subhead hidden">
+        Next Japan - Zoneless Angular v21 App
+      </h1>
+      <h1 class="banner-subhead">Try the full Next Japan demo</h1>
       <div class="soft">
-        <b>Sign in</b> using a pre-filled sample account to try liking, sharing,
-        and designing AI-crafted experiences.
+        Explore a real Angular app with user accounts and AI-powered event
+        design. Use a pre-filled demo login to like, save, and create
+        experiences in seconds.
       </div>
     </section>
     <section class="buttons">
       <app-login-button></app-login-button>
-      <app-login-button [signup]="true"></app-login-button>
+      <div class="close-button">
+        <app-button
+          cssClass="app-button app-button-outlined transparent"
+          [touchAware]="true"
+          (buttonClick)="removeBanner()"
+        >
+          <span class="button-text"> I'm Good </span>
+        </app-button>
+      </div>
     </section>
   </div>
 </div>

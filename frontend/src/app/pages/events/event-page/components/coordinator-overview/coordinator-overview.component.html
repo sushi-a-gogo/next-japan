@@ -1,8 +1,8 @@
 @for(coordinator of eventCoordinators(); track $index) {
-<div class="c-card nx-flex al-s gap-10">
-  <div class="nx-flex al-c gap-20">
+<div class="c-card nj-flex align-start gap-10">
+  <div class="nj-flex align-center gap-20">
     <app-avatar [avatar]="coordinator" [size]="120"></app-avatar>
-    <div class="nx-flex col">
+    <div class="nj-flex col">
       <div class="name break-word">
         {{ coordinator.firstName }} {{ coordinator.lastName }}
       </div>

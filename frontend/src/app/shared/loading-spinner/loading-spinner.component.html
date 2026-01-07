@@ -1,6 +1,9 @@
 @if(showSpinner) {
 <div class="spinner-backdrop"></div>
-<div class="spinner-box nx-flex al-c jc-c" [class.show]="showSpinner">
+<div
+  class="spinner-box nj-flex align-center justify-center"
+  [class.show]="showSpinner"
+>
   <div>
     <mat-spinner diameter="80" strokeWidth="10" class="blue-spin"></mat-spinner>
   </div>

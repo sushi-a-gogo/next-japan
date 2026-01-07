@@ -1,10 +1,10 @@
 <img [ngSrc]="image().src" alt="An image of sadness" fill priority />
-<div class="nx-flex col al-c jc-c gap-10 error-content">
+<div class="nj-flex col align-center justify-center gap-10 error-content">
   <span class="material-symbols-outlined alert"> crisis_alert </span>
-  <div class="nx-flex col al-c gap-20 error-block">
+  <div class="nj-flex col align-center gap-20 error-block">
     <div class="error-header alert">{{ errorTitle() }}</div>
     {{ errorMessage() }}
-    <div class="nx-flex row al-c error-link">
+    <div class="nj-flex row align-center error-link">
       <span class="material-symbols-outlined"> arrow_forward_ios </span>
       <a routerLink="/">Go to the home page.</a>
     </div>

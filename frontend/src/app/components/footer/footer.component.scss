@@ -13,7 +13,7 @@
   padding: 40px 0;
 }
 
-.cb-content {
+.component-box-content {
   align-items: center;
   gap: 24px;
 }
@@ -45,7 +45,7 @@ a {
 }
 
 @media (min-width: 1200px) {
-  .cb-content {
+  .component-box-content {
     align-items: flex-start;
     gap: 36px;
   }

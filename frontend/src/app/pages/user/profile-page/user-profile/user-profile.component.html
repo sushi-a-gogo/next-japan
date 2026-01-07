@@ -14,7 +14,7 @@
   <main class="dialog">
     <div class="profile" [class.disabled]="busy">
       <app-user-avatar [user]="user()!" [size]="96" />
-      <form class="nx-flex col fade-in" [class.open]="userProfile">
+      <form class="nj-flex col fade-in" [class.open]="userProfile">
         <mat-form-field>
           <mat-label>First Name</mat-label>
           <input
@@ -38,7 +38,7 @@
           <mat-label>Email</mat-label>
           <input type="email" matInput [field]="profileForm.email" />
         </mat-form-field>
-        <div class="nx-flex row gap-5">
+        <div class="nj-flex row gap-5">
           <mat-form-field class="phone">
             <mat-label>Phone</mat-label>
             <input

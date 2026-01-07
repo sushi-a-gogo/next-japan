@@ -1,4 +1,4 @@
-<article class="nx-flex col gap-20">
+<article class="nj-flex col gap-20">
   <main>
     <ul>
       @for(event of events(); track event.registrationId) {
@@ -22,7 +22,7 @@
   (confirmed)="cancelEvent($event)"
   headerText="Cancel My Registration"
 >
-  <div class="card nx-flex col gap-10">
+  <div class="card nj-flex col gap-10">
     <div class="confirm-title">{{ eventToCancel()!.eventTitle }}</div>
     <div>
       <app-address-strip

@@ -107,7 +107,7 @@ h1 {
   align-items: center;
   max-width: var(--max-page-width);
 
-  .cb-content {
+  .component-box-content {
     width: 100%;
     max-width: var(--max-content-width);
 
@@ -122,22 +122,22 @@ h1 {
 }
 
 @media screen and (min-width: 1201px) {
-  .component-box .cb-content.rounded {
+  .component-box .component-box-content.rounded {
     border-radius: 10px;
   }
-  .component-box .cb-content.rounded-top {
+  .component-box .component-box-content.rounded-top {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
 }
 
 @media screen and (min-width: 1240px) {
-  .component-box .cb-content.pad {
+  .component-box .component-box-content.pad {
     padding: 0;
   }
 }
 
-.nx-flex {
+.nj-flex {
   display: flex;
 
   &.row {
@@ -148,31 +148,31 @@ h1 {
     flex-direction: column;
   }
 
-  &.al-c {
+  &.align-center {
     align-items: center;
   }
 
-  &.al-start {
+  &.align-start {
     align-items: flex-start;
   }
 
-  &.al-end {
+  &.align-end {
     align-items: flex-end;
   }
 
-  &.jc-c {
+  &.justify-center {
     justify-content: center;
   }
 
-  &.jc-start {
+  &.justify-start {
     justify-content: flex-start;
   }
 
-  &.jc-end {
+  &.justify-end {
     justify-content: flex-end;
   }
 
-  &.jc-sb {
+  &.justify-space-between {
     justify-content: space-between;
   }
 
@@ -213,12 +213,12 @@ h1 {
   }
 }
 
-.nx-flex.responsive {
+.nj-flex.responsive {
   flex-direction: column;
 }
 
 @media screen and (min-width: 600px) {
-  .nx-flex.responsive {
+  .nj-flex.responsive {
     flex-direction: row;
   }
 }

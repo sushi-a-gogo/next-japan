@@ -40,9 +40,16 @@
   line-height: 1;
   margin: 0;
   text-align: left;
+
+  &.hidden {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
 }
 
-.cb-content {
+.component-box-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +61,17 @@
   flex-direction: row;
   gap: 10px;
   width: 100%;
+
+  .close-button {
+    min-width: 124px;
+  }
+
+  .button-text {
+    font-size: 16px;
+    line-height: 42px;
+    font-weight: 700;
+    color: var(--creamy-white-clouds);
+  }
 }
 
 .shimmer {
@@ -84,7 +102,7 @@
     height: 140px;
   }
 
-  .cb-content {
+  .component-box-content {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

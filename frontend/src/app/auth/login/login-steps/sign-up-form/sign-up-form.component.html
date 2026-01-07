@@ -1,5 +1,5 @@
-<div class="content nx-flex col gap-5">
-  <form class="nx-flex col gap-20" [formGroup]="newUserForm">
+<div class="content nj-flex col gap-5">
+  <form class="nj-flex col gap-20" [formGroup]="newUserForm">
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>First Name</mat-label>
       <input
@@ -30,7 +30,7 @@
       <mat-error>Please enter a valid email.</mat-error>
     </mat-form-field>
   </form>
-  <div class="nx-flex col gap-10">
+  <div class="nj-flex col gap-10">
     <app-button
       cssClass="app-button dialog-button app-button-filled priority"
       (buttonClick)="createUser()"
@@ -38,20 +38,20 @@
     >
       <span class="button-text">Next</span>
     </app-button>
-    <div class="switchbox nx-flex row al-c gap-5">
-      Already have an account?
+    <div class="switchbox nj-flex row align-center gap-5">
+      Not sure?
       <div>
         <app-button
           cssClass="text-button"
           (buttonClick)="switchToSignIn.emit()"
         >
-          Sign in
+          Return to the demo sign-in
         </app-button>
       </div>
     </div>
   </div>
   <p class="soft xs">
-    🎌 This is a demo portfolio app. You can create a new user account using any
-    values you like. No real information is required!
+    This is a demo app. Use the pre-filled sample account to try out features
+    instantly.
   </p>
 </div>

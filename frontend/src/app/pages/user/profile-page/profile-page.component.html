@@ -1,14 +1,14 @@
 <div class="component-box">
-  <div class="cb-content pad">
+  <div class="component-box-content pad">
     @if(user()) {
-    <header class="nx-flex row gap-10">
+    <header class="nj-flex row gap-10">
       <app-user-avatar [user]="avatar()!" [size]="128" />
-      <div class="nx-flex col jc-c gap-10">
-        <div class="nx-flex col gap-5">
+      <div class="nj-flex col justify-center gap-10">
+        <div class="nj-flex col gap-5">
           <span class="title-text">
             {{ user()?.firstName }} {{ user()?.lastName }}
           </span>
-          <span class="nx-flex al-c gap-2 muted">
+          <span class="nj-flex align-center gap-2 muted">
             <span class="material-symbols-outlined"> calendar_month </span>
             <span class="soft"> Joined {{ user()?.createdAt | date }} </span>
           </span>
@@ -29,7 +29,7 @@
       <mat-tab label="Start">
         <div class="tab-content banner">
           <div
-            class="nx-flex col gap-24"
+            class="nj-flex col gap-24"
             style="max-width: 800px; line-height: 22px"
           >
             <div>

@@ -9,11 +9,11 @@
       ></mat-spinner>
     </div>
     }
-    <div class="content fade-in nx-flex col gap-36" [class.open]="!busy()">
-      <header class="nx-flex row al-c jc-sb">
+    <div class="content fade-in nj-flex col gap-36" [class.open]="!busy()">
+      <header class="nj-flex row align-center justify-space-between">
         <span> {{ modeHeaderText() }} </span>
       </header>
-      <main class="nx-flex col gap-10">
+      <main class="nj-flex col gap-10">
         @switch(mode()) {
         <!-- sign-in -->
         @case('sign-in') {
@@ -35,14 +35,14 @@
         }
         <!-- plan-payment -->
         @case('plan-payment') {
-        <div class="payment nx-flex col gap-10">
+        <div class="payment nj-flex col gap-10">
           <app-plan-payment
             [user]="newUser()!"
             [plan]="subscriptionPlan()!"
             (completePayment)="completeSignUp()"
             (cancel)="choosePlan(newUser()!)"
           />
-          <div class="switchbox nx-flex row al-c jc-c gap-5">
+          <div class="switchbox nj-flex row align-center justify-center gap-5">
             Want to review your plan options?
             <button class="text-button" (click)="choosePlan(newUser()!)">
               Go back
