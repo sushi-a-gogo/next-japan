@@ -1,17 +1,17 @@
-<div class="cb-content pad">
+<div class="component-box-content pad">
   <h1>{{ event()?.eventTitle }}</h1>
-  <div class="location-content nx-flex col">
+  <div class="location-content nj-flex col">
     <div class="main-content">
-      <div class="nx-flex col">
+      <div class="nj-flex col">
         <h2>About this Event</h2>
         <div>
           {{ event()?.description }}
         </div>
       </div>
-      <div class="nx-flex col">
+      <div class="nj-flex col">
         @if(location()) {
         <h2>Address</h2>
-        <div class="nx-flex col gap-5">
+        <div class="nj-flex col gap-5">
           <div>
             {{ location()!.locationName }}
           </div>
@@ -24,10 +24,10 @@
         </div>
         }
       </div>
-      <div class="nx-flex col">
+      <div class="nj-flex col">
         @if(nextOpportunity()) {
         <h2>Next Opportunity</h2>
-        <div class="nx-flex col gap-5">
+        <div class="nj-flex col gap-5">
           <app-opportunity-date [opportunity]="nextOpportunity()!" />
           @if(!!nextOpportunityRegistered()) {
           <div class="vivid">{{ nextOpportunityRegistered() }}</div>

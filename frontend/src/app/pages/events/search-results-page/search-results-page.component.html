@@ -1,9 +1,9 @@
 <app-page-load-spinner [remove]="loaded()" [delay]="100" />
 <article
-  class="component-box nx-flex flex-column gap-24 fade-in"
+  class="component-box nj-flex flex-column gap-24 fade-in"
   [class.open]="loaded()"
 >
-  <header class="cb-content pad">
+  <header class="component-box-content pad">
     <small
       >{{ events().length }}
       {{ events().length === 1 ? "result" : "results" }} for
@@ -19,8 +19,8 @@
     </span>
     }
   </header>
-  <main class="cb-content pad">
-    <ul class="nx-flex col gap-24">
+  <main class="component-box-content pad">
+    <ul class="nj-flex col gap-24">
       @for(event of events(); track event.eventId) {
       <li>
         <app-search-card [event]="event" [query]="q()" />

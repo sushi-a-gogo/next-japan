@@ -1,6 +1,6 @@
 @if(signup()) {
 <app-button
-  cssClass="app-button app-button-filled priority"
+  cssClass="app-button app-button-outlined transparent"
   [touchAware]="true"
   (buttonClick)="login()"
 >
@@ -8,10 +8,10 @@
 </app-button>
 } @else {
 <app-button
-  cssClass="app-button app-button-outlined transparent"
+  cssClass="app-button app-button-filled priority"
   [touchAware]="true"
   (buttonClick)="login()"
 >
-  <span class="button-text">Sign In</span>
+  <span class="button-text">Try Demo</span>
 </app-button>
 }

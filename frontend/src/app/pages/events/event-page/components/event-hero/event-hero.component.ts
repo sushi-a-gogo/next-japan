@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, output, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, output, PLATFORM_ID, signal, viewChild } from '@angular/core';
 import { EventService } from '@app/pages/events/event-page/event.service';
 import { DateTimeService } from '@app/services/date-time.service';
 import { EventRegistrationService } from '@app/services/event-registration.service';
@@ -14,7 +14,9 @@ import { ViewRegistrationDialogComponent } from '../view-registration-dialog/vie
   imports: [NgOptimizedImage, LikeButtonComponent, ShareButtonComponent, RegistrationAlertComponent, ViewRegistrationDialogComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
-
+  host: {
+    '(window:scroll)': 'handleScroll()'
+  }
 })
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
@@ -23,7 +25,9 @@ export class EventHeroComponent {
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
   private eventData = this.eventService.eventData;
+  private ticking = false;
 
+  heroImg = viewChild<ElementRef>('heroImg');
   onGetTickets = output();
 
   event = computed(() => this.eventData().event);
@@ -32,10 +36,11 @@ export class EventHeroComponent {
   viewRegistration = signal(false);
 
   bannerImage = computed(() => {
-    const ev = this.event();
-    const image = ev && isPlatformBrowser(this.platformId) ? ev!.image : null;
-    return image ?
-      this.imageService.resizeImage(image, image?.width, image?.height) : null;
+    const image = this.event()?.image;
+    if (image && isPlatformBrowser(this.platformId)) {
+      return this.imageService.resizeImage(image, image.width, image.height)
+    }
+    return { src: "assets/images/default-event.avif" };
   });
 
   eventDateRange = computed(() => {
@@ -61,4 +66,20 @@ export class EventHeroComponent {
     const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
     return registrations.length ? registrations[0] : null;
   });
+
+  handleScroll() {
+    if (!isPlatformBrowser(this.platformId) || this.ticking) return;
+
+    this.ticking = true;
+
+    requestAnimationFrame(() => {
+      const factor = window.innerWidth < 768 ? 0.15 : 0.25;
+      const offset = window.scrollY * factor;
+
+      this.heroImg()!.nativeElement.style.transform =
+        `translateY(${offset}px)`;
+
+      this.ticking = false;
+    });
+  }
 }

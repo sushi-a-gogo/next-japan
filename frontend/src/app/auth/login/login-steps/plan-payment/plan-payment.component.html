@@ -1,10 +1,10 @@
-<div class="content nx-flex col jc-sb gap-24">
-  <div class="payment-card nx-flex col gap-20">
+<div class="content nj-flex col justify-space-between gap-24">
+  <div class="payment-card nj-flex col gap-20">
     <!-- <div class="fake-card">
         <div class="card-number">4242 4242 4242 4242</div>
         <div class="card-meta">Exp 12/29 • VISA</div>
       </div> -->
-    <form class="nx-flex col gap-20" [formGroup]="paymentForm">
+    <form class="nj-flex col gap-20" [formGroup]="paymentForm">
       <mat-form-field subscriptSizing="dynamic">
         <mat-label>Name on Card</mat-label>
         <input
@@ -28,7 +28,7 @@
           readonly="true"
         />
       </mat-form-field>
-      <div class="nx-flex row gap-20">
+      <div class="nj-flex row gap-20">
         <mat-form-field class="half-width" subscriptSizing="dynamic">
           <mat-label>Exp Month</mat-label>
           <input matInput formControlName="expirationMonth" readonly="true" />
@@ -41,7 +41,7 @@
     </form>
   </div>
   <div class="payment-summary">
-    <div class="nx-flex row jc-sb al-c">
+    <div class="nj-flex row justify-space-between align-center">
       <span>Total</span>
       <span class="amount">¥{{ plan().price }}/month</span>
     </div>
@@ -54,7 +54,7 @@
       payment will be processed because this is a pretend web site.
     </p>
   </div>
-  <div class="nx-flex col gap-10">
+  <div class="nj-flex col gap-10">
     @if(user().userId) {
     <app-button
       cssClass="app-button dialog-button app-button-filled dark"
@@ -72,7 +72,7 @@
       (buttonClick)="createSubscription()"
       [disabled]="paymentForm.invalid"
     >
-      Submit Payment
+      Submit Pretend Payment
     </app-button>
     }
   </div>

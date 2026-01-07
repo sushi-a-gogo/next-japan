@@ -1,7 +1,10 @@
 @if(user().image.id) {
 <app-avatar [avatar]="user()" [size]="size()" />
 } @else {
-<div class="user_initials nx-flex al-c jc-c" [style]="styleCss()">
+<div
+  class="user_initials nj-flex align-center justify-center"
+  [style]="styleCss()"
+>
   {{ initials() }}
 </div>
 }

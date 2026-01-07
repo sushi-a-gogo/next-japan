@@ -2,7 +2,7 @@
 <div class="badges" #badgeContainer>
   @for(badge of earnedBadges(); track badge.icon) {
   <div
-    class="badge-card nx-flex col al-c jc-c"
+    class="badge-card nj-flex col align-center justify-center"
     [class]="badge.icon"
     [class.visible]="animationState() === 'in'"
     [style.--animation-delay]="$index * 100 + 'ms'"
@@ -61,7 +61,7 @@
         *matCellDef="let element"
         [class.highlight]="element.expiresSoon"
       >
-        <div class="nx-flex col gap-2">
+        <div class="nj-flex col gap-2">
           <div>
             <b>Points</b> (Remaining/Earned):
             <b>{{ element.pointsRemaining }}/{{ element.pointsEarned }}</b>

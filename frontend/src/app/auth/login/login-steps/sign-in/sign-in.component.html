@@ -1,10 +1,13 @@
-<div class="content fade-in nx-flex col al-c gap-5" [class.open]="loaded()">
+<div
+  class="content fade-in nj-flex col align-center gap-5"
+  [class.open]="loaded()"
+>
   @if(selectedUser()) {
   <button class="avatar-button" (click)="switchUser()">
     <app-user-avatar [user]="selectedUser()!" [size]="96" />
   </button>
   <form
-    class="nx-flex col gap-24"
+    class="nj-flex col gap-24"
     #signInForm="ngForm"
     (ngSubmit)="signIn.emit(selectedUser()!.email)"
   >
@@ -17,29 +20,29 @@
         readonly=""
       />
     </mat-form-field>
-    <div class="nx-flex col gap-10">
+    <div class="nj-flex col gap-10">
       <app-button
         buttonType="submit"
         cssClass="app-button dialog-button app-button-filled priority"
       >
         <span class="button-text">Continue</span>
       </app-button>
-      <div class="switchbox nx-flex row al-c gap-5">
-        Don't have an account?
+      <div class="switchbox nj-flex row align-center gap-5">
+        Feeling adventurous?
         <div>
           <app-button
             cssClass="text-button"
             (buttonClick)="switchToSignUp.emit()"
           >
-            Sign up
+            Create an account
           </app-button>
         </div>
       </div>
     </div>
   </form>
   <p class="soft xs">
-    🎌 This is a demo/portfolio app. You can log in using this sample account,
-    to simulate a real world experience.
+    This is a demo app. Use the pre-filled sample account to try out features
+    instantly.
   </p>
   }
 </div>

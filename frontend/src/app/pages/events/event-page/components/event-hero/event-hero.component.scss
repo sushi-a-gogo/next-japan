@@ -7,6 +7,19 @@
   margin: 0 auto;
 }
 
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero {
+  object-fit: cover;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 .hero-overlay {
   position: absolute;
   bottom: 0;
@@ -41,8 +54,8 @@
 }
 
 .icon-campaign {
-  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
   color: var(--vivid-yellow-text);
+  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
 }
 
 @media screen and (min-width: 420px) {
@@ -53,10 +66,6 @@
 }
 
 @media (min-width: 768px) {
-  .content {
-    padding: 24px;
-  }
-
   .hero-content {
     flex-direction: row;
     align-items: center;

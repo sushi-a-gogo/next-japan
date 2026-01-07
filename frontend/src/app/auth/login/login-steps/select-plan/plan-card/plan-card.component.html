@@ -1,22 +1,22 @@
 <header>
-  <div class="nx-flex row al-c">
+  <div class="nj-flex row align-center">
     <span class="plan-icon">{{ plan().icon }}</span> {{ plan().title }}
   </div>
-  <div class="nx-flex col gap-5">
+  <div class="nj-flex col gap-5">
     @if(plan().mostPopular){
-    <div class="showcase nx-flex row al-c gap-5">
+    <div class="showcase nj-flex row align-center gap-5">
       <span class="material-symbols-outlined"> star_shine </span>
       Most Popular
     </div>
     } @if(plan().subscribed){
-    <div class="showcase subscribed nx-flex row al-c gap-5">
+    <div class="showcase subscribed nj-flex row align-center gap-5">
       <span class="material-symbols-outlined"> check </span>
       Subscribed
     </div>
     }
   </div>
 </header>
-<main class="nx-flex col gap-10">
+<main class="nj-flex col gap-10">
   <div class="price">{{ plan().price | currency : "¥" }}/month</div>
   <div class="description">{{ plan().description }}</div>
   <ul>

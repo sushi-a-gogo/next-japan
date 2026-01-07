@@ -3,7 +3,7 @@
   matRipple
   aria-label="Share event details"
   type="button"
-  class="share-button nx-flex al-c gap-5 fade-in"
+  class="share-button nj-flex align-center gap-5 fade-in"
   [class.open]="loaded()"
   [style.color]="color()"
   (click)="share()"
@@ -17,7 +17,7 @@
 <button
   aria-label="Share"
   type="button"
-  class="share-button nx-flex al-c gap-2"
+  class="share-button nj-flex align-center gap-2"
   matTooltip="Share"
   [matMenuTriggerFor]="shareMenu"
   #menuTrigger="matMenuTrigger"
@@ -31,12 +31,12 @@
 <mat-menu #shareMenu="matMenu" xPosition="before" yPosition="above">
   <a
     type="button"
-    class="app-button nx-flex al-c jc-c"
+    class="app-button nj-flex align-center justify-center"
     mat-menu-item
     [href]="twitterUrl()"
     target="_"
   >
-    <div class="nx-flex al-c jc-c">
+    <div class="nj-flex align-center justify-center">
       <img src="/assets/images/x-logo-black.png" alt="X" class="icon-image" />
     </div>
   </a>

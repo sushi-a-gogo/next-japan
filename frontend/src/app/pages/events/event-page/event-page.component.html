@@ -1,10 +1,10 @@
 <app-page-load-spinner [remove]="loaded()" [delay]="1000" />
-<article class="nx-flex col al-c" [class.open]="loaded()">
+<article class="nj-flex col align-center" [class.open]="loaded()">
   <header class="component-box">
     <app-event-hero (onGetTickets)="scrollToOpportunities()" />
   </header>
   <main class="component-box">
-    <div class="cb-content pad">
+    <div class="component-box-content pad">
       <div class="page-component description pre-wrap">
         <span>{{ event()?.fullDescription }}</span>
       </div>
@@ -16,7 +16,7 @@
     @if(selectedIndex() === 0) {
     <app-event-location (onGetTickets)="scrollToOpportunities()" />
     } @if(loaded()) {
-    <div class="cb-content pad" #opportunities>
+    <div class="component-box-content pad" #opportunities>
       <div class="page-component">
         <h1>Upcoming Opportunities</h1>
         <app-event-opportunities />

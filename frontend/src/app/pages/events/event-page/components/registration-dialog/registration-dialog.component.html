@@ -1,5 +1,8 @@
 <app-modal (close)="close.emit(true)">
-  <div class="progress-spinner nx-flex row al-c jc-c" [class.open]="busy()">
+  <div
+    class="progress-spinner nj-flex row align-center justify-center"
+    [class.open]="busy()"
+  >
     @if(busy()) {
     <app-loading-spinner message="Sending Requests..." [delay]="0" />
     }
@@ -15,10 +18,10 @@
       <span class="material-symbols-outlined"> close </span>
     </button>
   </header>
-  <main class="dialog nx-flex col gap-16" #main>
+  <main class="dialog nj-flex col gap-16" #main>
     @if(completed()) {
-    <div class="completed nx-flex row al-c gap-16">
-      <div class="icon nx-flex al-c jc-c">
+    <div class="completed nj-flex row align-center gap-16">
+      <div class="icon nj-flex align-center justify-center">
         <span class="material-symbols-outlined"> star_shine </span>
       </div>
       <p>
@@ -27,7 +30,7 @@
       </p>
     </div>
     } @else {
-    <div class="card nx-flex col gap-5">
+    <div class="card nj-flex col gap-5">
       <app-address-strip
         [location]="location()!"
         [showAddress]="false"

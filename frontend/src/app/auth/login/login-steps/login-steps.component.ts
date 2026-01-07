@@ -43,10 +43,10 @@ export class LoginStepsComponent implements OnInit {
       case 'choose-plan':
         return "Choose your plan";
       case 'plan-payment':
-        return "Enter payment details";
+        return "Enter pretend payment details";
       case 'sign-in':
       default:
-        return "Log in to continue";
+        return "Demo the full user experience";
     }
   })
 

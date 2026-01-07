@@ -11,7 +11,7 @@
       <span class="material-symbols-outlined"> close </span>
     </button>
   </header>
-  <main class="dialog nx-flex col gap-5">
+  <main class="dialog nj-flex col gap-5">
     <span class="title">
       {{ eventRegistration()!.eventTitle }}
     </span>
@@ -24,7 +24,7 @@
       [opportunity]="eventRegistration()!.opportunity"
     />
   </main>
-  <footer class="dialog nx-flex col gap-10">
+  <footer class="dialog nj-flex col gap-10">
     <div class="confirm-text fade-in" [class.open]="confirmCancel()">
       Are you <span>sure</span> you want to cancel?
     </div>

@@ -35,14 +35,21 @@
 }
 
 .banner-subhead {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1;
   margin: 0;
   text-align: left;
+
+  &.hidden {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
 }
 
-.cb-content {
+.component-box-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +61,17 @@
   flex-direction: row;
   gap: 10px;
   width: 100%;
+
+  > * {
+    flex: 1;
+  }
+
+  .button-text {
+    font-size: 16px;
+    line-height: 42px;
+    font-weight: 700;
+    color: var(--creamy-white-clouds);
+  }
 }
 
 .shimmer {
@@ -84,27 +102,28 @@
     height: 140px;
   }
 
-  .cb-content {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (min-width: 820px) {
   .banner-subhead {
     font-size: 20px;
   }
 
+  .component-box-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .buttons {
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
   .banner-subhead {
     font-size: 28px;
   }
 
   .announcement {
     max-width: 640px;
-  }
-
-  .buttons {
-    width: auto;
   }
 }

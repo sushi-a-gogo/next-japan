@@ -14,7 +14,7 @@ h2 {
   font-weight: 400;
 }
 
-.cb-content {
+.component-box-content {
   padding: 0 16px;
 }
 
@@ -93,7 +93,7 @@ h2 {
     margin-bottom: 36px;
   }
 
-  .cb-content {
+  .component-box-content {
     padding: 0;
   }
 
@@ -107,7 +107,7 @@ h2 {
     justify-content: space-between;
     gap: 12px;
 
-    > .nx-flex {
+    > .nj-flex {
       max-width: 300px;
     }
   }

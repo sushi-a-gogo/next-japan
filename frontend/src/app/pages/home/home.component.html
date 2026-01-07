@@ -1,13 +1,16 @@
 <app-layout>
-  <article class="nx-flex col al-c fade-in" [class.open]="eventsLoaded()">
+  <article
+    class="nj-flex col align-center fade-in"
+    [class.open]="eventsLoaded()"
+  >
     <header class="component-box">
       <img [ngSrc]="heroImage()" alt="Hero Image" fill priority placeholder />
       @if(events().length) {
       <app-hero [events]="events()" />
       }
     </header>
-    <main class="component-box nx-flex col al-c">
-      <div class="cb-content pad nx-flex col al-c gap-20">
+    <main class="component-box nj-flex col align-center">
+      <div class="component-box-content pad nj-flex col align-center gap-20">
         <div class="subhead">
           {{ org.infoTitle }}
         </div>
@@ -19,7 +22,7 @@
       <div class="ai-banner">
         <app-ai-banner [fadeInOnScroll]="{}" />
       </div>
-      <div class="cb-content pad">
+      <div class="component-box-content pad">
         <app-about-site-banner />
       </div>
     </main>

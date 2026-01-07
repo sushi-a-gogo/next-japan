@@ -25,9 +25,9 @@
   class="notification-panel"
 >
   <div class="panel-overlay" [class.visible]="busy()"></div>
-  <div class="nx-flex row al-c jc-sb menu-title">
+  <div class="nj-flex row align-center justify-space-between menu-title">
     <span>Notifications</span>
-    <div class="nx-flex row al-c gap-10">
+    <div class="nj-flex row align-center gap-10">
       <button matButton (click)="markAllAsRead()">Clear Notifications</button>
       <button class="close-button" mat-icon-button (click)="clickX()">
         <span class="material-symbols-outlined"> close </span>
