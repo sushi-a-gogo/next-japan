@@ -13,15 +13,13 @@
     </section>
     <section class="buttons">
       <app-login-button></app-login-button>
-      <div class="close-button">
-        <app-button
-          cssClass="app-button app-button-outlined transparent"
-          [touchAware]="true"
-          (buttonClick)="removeBanner()"
-        >
-          <span class="button-text"> I'm Good </span>
-        </app-button>
-      </div>
+      <app-button
+        cssClass="app-button app-button-outlined transparent"
+        [touchAware]="true"
+        (buttonClick)="removeBanner()"
+      >
+        <span class="button-text"> I'm Good </span>
+      </app-button>
     </section>
   </div>
 </div>

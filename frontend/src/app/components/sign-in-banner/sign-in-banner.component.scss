@@ -35,7 +35,7 @@
 }
 
 .banner-subhead {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1;
   margin: 0;
@@ -62,9 +62,8 @@
   gap: 10px;
   width: 100%;
 
-  .close-button {
-    width: 100%;
-    min-width: 124px;
+  > * {
+    flex: 1;
   }
 
   .button-text {
@@ -103,27 +102,28 @@
     height: 140px;
   }
 
-  .component-box-content {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (min-width: 820px) {
   .banner-subhead {
     font-size: 20px;
   }
 
+  .component-box-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .buttons {
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
   .banner-subhead {
     font-size: 28px;
   }
 
   .announcement {
     max-width: 640px;
-  }
-
-  .buttons {
-    width: auto;
   }
 }
