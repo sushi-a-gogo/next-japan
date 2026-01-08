@@ -7,6 +7,7 @@ export const getRecentEvents = async () => {
   const events = await Event.find().sort({ createdAt: -1 }).limit(25);
   return events.map(formatEvent);
 };
+
 export const saveEvent = async (data) => {
   const {
     eventTitle,
@@ -14,7 +15,6 @@ export const saveEvent = async (data) => {
     fullDescription,
     image,
     imageUrl,
-    eventCoordinators,
     aiProvider,
     prompt,
   } = data;
@@ -31,6 +31,8 @@ export const saveEvent = async (data) => {
     imageUrl
   );
 
+  const eventCoordinators = coordinator.pickTwoUnique();
+
   // Save to DB
   const event = new Event({
     eventTitle,
@@ -43,12 +45,7 @@ export const saveEvent = async (data) => {
     aiProvider,
     textPrompt: prompt?.text,
     imagePrompt: prompt?.image,
-    eventCoordinators:
-      eventCoordinators && eventCoordinators.length > 0
-        ? eventCoordinators.map((c) =>
-            coordinator.getCoordinatorDetails(c.eventCoordinatorId)
-          )
-        : [coordinator.getCoordinatorDetails("coord1")],
+    eventCoordinators,
   });
 
   const saved = await event.save();
