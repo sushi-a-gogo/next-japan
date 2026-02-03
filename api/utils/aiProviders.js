@@ -15,7 +15,7 @@ const getProviders = (keys) => {
         baseURL: "https://api.x.ai/v1",
       }),
       model: "grok-3",
-      imageModel: "grok-2-image-latest",
+      imageModel: "grok-imagine-image",
     },
   };
   return providers;
