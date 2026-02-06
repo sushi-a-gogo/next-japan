@@ -51,7 +51,7 @@ anime illustration style with a whimsical, hand-painted look.
 Soft pastel colors, gentle lighting, expressive characters,
 lush natural environments, warm and nostalgic atmosphere,
 and a theme inspired by '${customText}' and these parameters: ${JSON.stringify(
-    promptParams
+    promptParams,
   )},
 stylized anime proportions,
 slightly oversized eyes,
@@ -79,12 +79,10 @@ Do not use:
 }
 
 export function grokEventImagePrompt(promptParams, customText) {
-  return `Ultra-wide 16:9 landscape ONLY, cinematic 1920x1080 horizontal panoramic frame,
-ABSOLUTELY NO portrait or vertical composition.
-Generate a digital painting, using warm glowing tones and bright pastels,
+  return `Generate a digital painting, using warm glowing tones and bright pastels,
 with no text, family-friendly, high resolution.
 The theme should be inspired by Studio Ghibli movies, '${customText}', and these parameters: ${JSON.stringify(
-    promptParams
+    promptParams,
   )}.
 The image should have a cel-shaded, anime look-think Speed Racer.
 The image should have the appearance of a Japanese animated movie.
