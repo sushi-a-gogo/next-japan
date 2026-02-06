@@ -122,15 +122,3 @@ Visual feel:
 - Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
 `.trim();
 }
-
-export function umamiImagePrompt(customText) {
-  return `Create an image using a cel-shaded
-anime illustration style depicting a menu item for a
-Japanese-Inspired Gourmet Pizza restaurant.
-
-This is the menu item - '${customText}'
-
-The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,
-adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
-The image should be rendered in an anime art style. It should not be photo-realistic`;
-}
