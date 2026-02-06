@@ -51,7 +51,7 @@ export async function fetchGeneratedContent(promptParams) {
   } catch (parseError) {
     console.error("Malformed AI text response:", aiTextResponse);
     throw new Error(
-      `Failed to parse ${provider.name} text response: ${parseError.message}`
+      `Failed to parse ${provider.name} text response: ${parseError.message}`,
     );
   }
 
@@ -71,7 +71,7 @@ export async function fetchGeneratedContent(promptParams) {
   } catch (imgError) {
     console.warn(
       `Image generation failed for ${provider.name}:`,
-      imgError.message
+      imgError.message,
     );
     throw imgError;
   }
@@ -135,5 +135,11 @@ async function fetchImageResultFromAI(provider, prompt) {
   if (provider.name === "OpenAI") {
     params.size = "1792x1024";
   }
+
+  if (provider.name === "Grok") {
+    params.aspect_ratio = "16:9";
+  }
+
+  console.log("Sending image request:", params);
   return provider.client.images.generate(params);
 }

@@ -51,7 +51,7 @@ anime illustration style with a whimsical, hand-painted look.
 Soft pastel colors, gentle lighting, expressive characters,
 lush natural environments, warm and nostalgic atmosphere,
 and a theme inspired by '${customText}' and these parameters: ${JSON.stringify(
-    promptParams
+    promptParams,
   )},
 stylized anime proportions,
 slightly oversized eyes,
@@ -79,12 +79,10 @@ Do not use:
 }
 
 export function grokEventImagePrompt(promptParams, customText) {
-  return `Ultra-wide 16:9 landscape ONLY, cinematic 1920x1080 horizontal panoramic frame,
-ABSOLUTELY NO portrait or vertical composition.
-Generate a digital painting, using warm glowing tones and bright pastels,
+  return `Generate a digital painting, using warm glowing tones and bright pastels,
 with no text, family-friendly, high resolution.
 The theme should be inspired by Studio Ghibli movies, '${customText}', and these parameters: ${JSON.stringify(
-    promptParams
+    promptParams,
   )}.
 The image should have a cel-shaded, anime look-think Speed Racer.
 The image should have the appearance of a Japanese animated movie.
@@ -123,4 +121,16 @@ Visual feel:
 - Emulate animation cels or watercolor backgrounds.
 - Keep focus on the landscape and mood; characters should feel like a natural part of the scene.
 `.trim();
+}
+
+export function umamiImagePrompt(customText) {
+  return `Create an image using a cel-shaded
+anime illustration style depicting a menu item for a
+Japanese-Inspired Gourmet Pizza restaurant.
+
+This is the menu item - '${customText}'
+
+The image should be family-friendly, non-violent, non-offensive and suitable for all audiences,
+adhering to strict content moderation guidelines. Avoid nudity, gore, hate symbols, or any inappropriate content.
+The image should be rendered in an anime art style. It should not be photo-realistic`;
 }
