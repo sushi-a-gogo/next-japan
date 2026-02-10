@@ -1,80 +1,80 @@
 <div class="component-box-content pad">
-  <form #promptForm="ngForm" (ngSubmit)="generateContent(promptForm)">
+  <form [formGroup]="aiPrompts" (ngSubmit)="generateContent()">
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Destination</mat-label>
-      <mat-select [(ngModel)]="params.destination" name="destination">
+      <mat-select formControlName="destination" name="destination">
         @for (destination of destinations; track $index) {
-        <mat-option [id]="destination" [value]="destination">{{
-          destination | titlecase
-        }}</mat-option>
+          <mat-option [id]="destination" [value]="destination">{{
+            destination | titlecase
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Tone</mat-label>
-      <mat-select [(ngModel)]="params.tone" name="tone">
+      <mat-select formControlName="tone" name="tone">
         @for (tone of tones; track $index) {
-        <mat-option [id]="tone" [value]="tone">{{
-          tone | titlecase
-        }}</mat-option>
+          <mat-option [id]="tone" [value]="tone">{{
+            tone | titlecase
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Attitude</mat-label>
-      <mat-select [(ngModel)]="params.mood" name="mood">
+      <mat-select formControlName="mood" name="mood">
         @for (mood of moods; track $index) {
-        <mat-option [id]="mood" [value]="mood">{{
-          mood | titlecase
-        }}</mat-option>
+          <mat-option [id]="mood" [value]="mood">{{
+            mood | titlecase
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Time of Year</mat-label>
-      <mat-select [(ngModel)]="params.season" name="season">
+      <mat-select formControlName="season" name="season">
         @for (season of seasons; track $index) {
-        <mat-option [id]="season" [value]="season">{{ season }}</mat-option>
+          <mat-option [id]="season" [value]="season">{{ season }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Activity</mat-label>
-      <mat-select [(ngModel)]="params.activity" name="activity">
+      <mat-select formControlName="activity" name="activity">
         @for (activity of activities; track $index) {
-        <mat-option [id]="activity" [value]="activity">{{
-          activity
-        }}</mat-option>
+          <mat-option [id]="activity" [value]="activity">{{
+            activity
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Group Size</mat-label>
-      <mat-select [(ngModel)]="params.groupSize" name="groupSize">
+      <mat-select formControlName="groupSize" name="groupSize">
         @for (groupSize of groupSizes; track $index) {
-        <mat-option [id]="groupSize" [value]="groupSize">{{
-          groupSize
-        }}</mat-option>
+          <mat-option [id]="groupSize" [value]="groupSize">{{
+            groupSize
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>Time of Day</mat-label>
-      <mat-select [(ngModel)]="params.timeOfDay" name="timeOfDay">
+      <mat-select formControlName="timeOfDay" name="timeOfDay">
         @for (timeOfDay of timesOfDay; track $index) {
-        <mat-option [id]="timeOfDay" [value]="timeOfDay">{{
-          timeOfDay
-        }}</mat-option>
+          <mat-option [id]="timeOfDay" [value]="timeOfDay">{{
+            timeOfDay
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <mat-form-field subscriptSizing="dynamic">
       <mat-label>AI Engine</mat-label>
-      <mat-select [(ngModel)]="params.aiProvider" name="aiProvider">
+      <mat-select formControlName="aiProvider" name="aiProvider">
         @for (provider of aiProviders; track $index) {
-        <mat-option [id]="provider" [value]="provider">{{
-          provider
-        }}</mat-option>
+          <mat-option [id]="provider" [value]="provider">{{
+            provider
+          }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -82,28 +82,28 @@
       <mat-label>Enter any special text</mat-label>
       <input
         matInput
-        [(ngModel)]="params.customText"
+        formControlName="customText"
         name="customText"
         placeholder="Enter text"
       />
     </mat-form-field>
     <div class="button">
-      @if(disabled()) {
-      <app-button
-        cssClass="app-button app-button-filled ai-theme square"
-        disabled="disabled"
-        tooltip="Sign in or create an account to use the content generator."
-      >
-        <span class="button-text">Generate</span>
-      </app-button>
+      @if (disabled()) {
+        <app-button
+          cssClass="app-button app-button-filled ai-theme square"
+          disabled="disabled"
+          tooltip="Sign in or create an account to use the content generator."
+        >
+          <span class="button-text">Generate</span>
+        </app-button>
       } @else {
-      <app-button
-        cssClass="app-button app-button-filled ai-theme square"
-        buttonType="submit"
-        [disabled]="busy()"
-      >
-        <span class="button-text">Generate</span>
-      </app-button>
+        <app-button
+          cssClass="app-button app-button-filled ai-theme square"
+          buttonType="submit"
+          [disabled]="busy()"
+        >
+          <span class="button-text">Generate</span>
+        </app-button>
       }
     </div>
   </form>

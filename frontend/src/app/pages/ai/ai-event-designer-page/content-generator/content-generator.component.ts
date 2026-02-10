@@ -2,7 +2,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormGroup, FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -11,10 +11,11 @@ import { AiEvent } from '@app/models/event/ai-event.model';
 import { AiService } from '@app/services/ai.service';
 import { AuthService } from '@app/services/auth.service';
 import { ButtonComponent } from '@app/shared/button/button.component';
+import { AiPromptsForm } from './ai-prompts.form';
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ButtonComponent],
+  imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ButtonComponent, ReactiveFormsModule],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })
@@ -69,18 +70,26 @@ export class ContentGeneratorComponent implements OnInit {
 
   aiProviders = ['OpenAI', 'Grok'];
   disabled = computed(() => !this.auth.isAuthenticated())
+  aiPrompts = this.buildForm();
 
   ngOnInit(): void {
   }
 
-  generateContent(promptForm: NgForm) {
-    promptForm.form.disable();
+  generateContent() {
+    if (this.aiPrompts.invalid) {
+      return; // shouldn't happen - submit is disabled in this case
+    }
+
+    this.aiPrompts.disable();
     this.eventCreating.emit(true);
 
     this.error.set(null);
     this.busy.set(true);
 
-    this.aiService.generateContent$(this.params).pipe(
+    const requestParams: AiPromptParams = {
+      ...this.aiPrompts.value as AiPromptParams
+    };
+    this.aiService.generateContent$(requestParams).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (res) => {
@@ -89,15 +98,29 @@ export class ContentGeneratorComponent implements OnInit {
         } else {
           this.eventCreated.emit(null);
         }
-        promptForm.form.enable();
+        this.aiPrompts.enable();
       },
       error: (e) => {
         this.eventCreated.emit(null);
         this.error.set(e.message);
         this.busy.set(false);
-        promptForm.form.enable();
+        this.aiPrompts.enable();
       },
       complete: () => this.busy.set(false)
+    });
+  }
+
+  private buildForm(): FormGroup<AiPromptsForm> {
+    return new FormGroup<AiPromptsForm>({
+      destination: new FormControl<string | null>(this.params.destination, [Validators.required]),
+      tone: new FormControl<string | null>(this.params.tone, [Validators.required]),
+      mood: new FormControl<string | null>(this.params.mood, [Validators.required]),
+      season: new FormControl<string | null>(this.params.season, [Validators.required]),
+      activity: new FormControl<string | null>(this.params.activity, [Validators.required]),
+      groupSize: new FormControl<string | null>(this.params.groupSize, [Validators.required]),
+      timeOfDay: new FormControl<string | null>(this.params.timeOfDay, [Validators.required]),
+      aiProvider: new FormControl<string | null>(this.params.aiProvider, [Validators.required]),
+      customText: new FormControl<string | null>(this.params.customText || '')
     });
   }
 }
