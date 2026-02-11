@@ -5,7 +5,7 @@ import { EventData } from '@app/models/event/event-data.model';
 import { AuthService } from '@app/services/auth.service';
 import { DateTimeService } from '@app/services/date-time.service';
 import { LikeService } from '@app/services/like.service';
-import { forkJoin, of } from 'rxjs';
+import { finalize, forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-like-button',
@@ -28,6 +28,7 @@ export class LikeButtonComponent implements OnInit {
   count = computed(() => this.likeCount() + this.uniqueNum());
   userId = computed(() => this.auth.user()?.userId);
   disabled = computed(() => !this.userId());
+  busy = signal<boolean>(false);
 
   private uniqueNum = signal<number>(0);
 
@@ -47,17 +48,29 @@ export class LikeButtonComponent implements OnInit {
   }
 
   like() {
-    if (this.disabled()) return;
+    if (this.disabled() || this.busy()) return;
 
-    const liked = !this.likedByCurrent();
-    this.likeService.toggleLike$(this.userId()!, this.event().eventId, liked).pipe(
-      takeUntilDestroyed(this.destroyRef))
+    this.busy.set(true);
+
+    // Optimistic updates for likes
+    const prevLiked = this.likedByCurrent();
+    const prevCount = this.likeCount();
+    const nowLiked = !prevLiked;
+
+    this.likeCount.set(Math.max(0, nowLiked ? prevCount + 1 : prevCount - 1));
+    this.likedByCurrent.set(nowLiked);
+
+    this.likeService.toggleLike$(this.userId()!, this.event().eventId, nowLiked).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.busy.set(false)))
       .subscribe({
         next: (res) => {
-          this.likeCount.set(res.data?.likeCount || this.likeCount());
-          this.likedByCurrent.set(liked);
+          this.likeCount.set(res.data?.likeCount ?? this.likeCount());
         },
-        error: () => { }
+        error: () => {
+          this.likeCount.set(prevCount);
+          this.likedByCurrent.set(prevLiked);
+        }
       });
   }
 

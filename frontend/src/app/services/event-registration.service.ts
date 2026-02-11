@@ -18,7 +18,7 @@ export class EventRegistrationService {
   userEventRegistrations = this.userEventRegistrationsSignal.asReadonly();
 
   getUserEventRegistrations$(userId: string, allowCached = true): Observable<ApiResponse<EventRegistration[]>> {
-    const key = `eventRegistrations`
+    const key = `eventRegistrations_${userId}`
     if (allowCached && this.eventRegistrationCache.existsInCache(key)) {
       const cached = this.eventRegistrationCache.get(key);
       if (cached) {
@@ -27,7 +27,7 @@ export class EventRegistrationService {
     }
 
     const obs$ = this.fetchRegistrations$(userId).pipe(
-      shareReplay(1)
+      shareReplay({ bufferSize: 1, refCount: true })
     );
     this.eventRegistrationCache.set(key, obs$);
 
