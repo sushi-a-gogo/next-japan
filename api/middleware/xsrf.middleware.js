@@ -13,7 +13,7 @@ export function setXsrfCookie(req, res, next) {
     res.cookie("XSRF-TOKEN", xsrfToken, {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax", // or 'strict' — 'lax' is usually safer in dev
+      sameSite: "none",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000, // 24h,
       domain: process.env.APP_DOMAIN || undefined,
