@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, OnInit, PLATFORM_ID, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 import { ApiResponse } from '@app/models/api-response.model';
@@ -24,7 +23,7 @@ import { RegistrationDialogComponent } from "./components/registration-dialog/re
 
 @Component({
   selector: 'app-event-page',
-  imports: [MatTabsModule, CoordinatorOverviewComponent,
+  imports: [CoordinatorOverviewComponent,
     EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventLocationComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
@@ -50,7 +49,6 @@ export class EventPageComponent implements OnInit, OnChanges {
   event = computed(() => this.eventService.eventData().event);
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
-  selectedIndex = signal<number>(0);
 
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
   @ViewChild('opportunities') opportunities?: ElementRef;
@@ -103,10 +101,6 @@ export class EventPageComponent implements OnInit, OnChanges {
         },
         complete: () => this.loaded.set(true)
       });
-  }
-
-  onTabChange(event: MatTabChangeEvent) {
-    this.selectedIndex.set(event.index);
   }
 
   scrollToOpportunities() {

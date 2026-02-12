@@ -105,17 +105,15 @@ export const getEventRegistrationById = async (registrationId) => {
       path: "opportunityId",
       select:
         "locationId startDate endDate timeZone timeZoneAbbreviation timeZoneOffset notes",
-      populate: [
-        {
-          path: "eventId",
-          select:
-            "_id eventTitle imageId cloudflareImageId imageWidth imageHeight",
-        },
-        {
+      populate: {
+        path: "eventId",
+        select:
+          "_id eventTitle imageId cloudflareImageId imageWidth imageHeight locationId",
+        populate: {
           path: "locationId",
           select: "locationName addressLine1 city state zip latitude longitude",
         },
-      ],
+      },
     })
     .lean();
 
@@ -144,7 +142,7 @@ export const updateEventRegistration = async (registrationId, data) => {
   const updated = await EventRegistration.findByIdAndUpdate(
     registrationId,
     { userId, opportunityId, status },
-    { new: true }
+    { new: true },
   );
 
   return updated ? formatRegistration(updated.toObject()) : null;

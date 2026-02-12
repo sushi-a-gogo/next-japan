@@ -45,7 +45,6 @@ export class EventService {
     const observables = {
       event: this.getEventById$(eventId),
       location: this.getEventLocation$(eventId),
-      locations: this.getEventLocations$(eventId),
       opportunities: this.getEventOpportunities$(eventId)
     };
 
@@ -69,10 +68,6 @@ export class EventService {
 
   private getEventLocation$(eventId: string): Observable<MapLocation | null> {
     return this.locationService.getEventLocation$(eventId);
-  }
-
-  private getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    return this.locationService.getEventLocations$(eventId);
   }
 
   private getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {

@@ -1,5 +1,9 @@
-{{ datestamp() }}
-<div>
-  {{ timestamp() | lowercase }}
-  <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
-</div>
+@if (datestamp() && timestamp()) {
+  {{ datestamp() }}
+  <div>
+    {{ timestamp() | lowercase }}
+    <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
+  </div>
+} @else {
+  <div>Error loading next opportunity date - please check back later.</div>
+}

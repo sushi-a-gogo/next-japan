@@ -9,35 +9,38 @@
         </div>
       </div>
       <div class="nj-flex col">
-        @if(location()) {
-        <h2>Address</h2>
-        <div class="nj-flex col gap-5">
-          <div>
-            {{ location()!.locationName }}
+        @if (location()) {
+          <h2>Address</h2>
+          <div class="nj-flex col gap-5">
+            <div>
+              {{ location()!.locationName }}
+            </div>
+            <div>{{ location()!.addressLine1 }},</div>
+            <div>
+              {{ location()!.city }},
+              {{ location()!.state }}
+              {{ location()!.zip }}
+            </div>
           </div>
-          <div>{{ location()!.addressLine1 }},</div>
-          <div>
-            {{ location()!.city }},
-            {{ location()!.state }}
-            {{ location()!.zip }}
-          </div>
-        </div>
         }
       </div>
       <div class="nj-flex col">
-        @if(nextOpportunity()) {
-        <h2>Next Opportunity</h2>
-        <div class="nj-flex col gap-5">
-          <app-opportunity-date [opportunity]="nextOpportunity()!" />
-          @if(!!nextOpportunityRegistered()) {
-          <div class="vivid">{{ nextOpportunityRegistered() }}</div>
-          }
-        </div>
+        @if (nextOpportunity()) {
+          <h2>Next Opportunity</h2>
+          <div class="nj-flex col gap-5">
+            <app-opportunity-date [opportunity]="nextOpportunity()!" />
+            @if (!!nextOpportunityRegistered()) {
+              <div class="vivid nj-flex align-center gap-2">
+                <span class="material-symbols-outlined"> check_circle </span>
+                {{ nextOpportunityRegistered() }}
+              </div>
+            }
+          </div>
         }
       </div>
       <div class="button">
         <app-button
-          cssClass="app-button app-button-filled square priority"
+          cssClass="app-button app-button-filled priority"
           (buttonClick)="onGetTickets.emit()"
         >
           <div class="button-text">Get Tickets</div>
@@ -45,24 +48,26 @@
       </div>
     </div>
 
-    @if(mapsUrl()) { @defer (on viewport) {
-    <iframe
-      [src]="mapsUrl()"
-      height="450"
-      style="border: 0; width: 100%"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
-    } @placeholder {
-    <div class="map-placeholder">
-      <p class="loading-text">Map loading...</p>
-    </div>
-    } @loading (after 100ms; minimum 1s) {
-    <div class="map-placeholder">
-      <div class="shimmer"></div>
-      <p class="loading-text">Map loading...</p>
-    </div>
-    } }
+    @if (mapsUrl()) {
+      @defer (on viewport) {
+        <iframe
+          [src]="mapsUrl()"
+          height="450"
+          style="border: 0; width: 100%"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      } @placeholder {
+        <div class="map-placeholder">
+          <p class="loading-text">Map loading...</p>
+        </div>
+      } @loading (after 100ms; minimum 1s) {
+        <div class="map-placeholder">
+          <div class="shimmer"></div>
+          <p class="loading-text">Map loading...</p>
+        </div>
+      }
+    }
   </div>
 </div>

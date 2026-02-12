@@ -10,6 +10,11 @@ import { getTimezoneOffset } from 'date-fns-tz';
 export class DateTimeService {
   private datePipe = inject(DatePipe);
 
+  isValidDate(d: Date) {
+    // Check if it is a Date object and if its time value is not NaN
+    return d instanceof Date && !isNaN(d.getTime());
+  }
+
   mapToCalendarDate(opportunity: EventOpportunity) {
     const date: CalendarDate = {
       startDate: opportunity.startDate,
@@ -62,13 +67,17 @@ export class DateTimeService {
   }
 
   formatDateInLocaleTime(date: Date, format: string, timeZone: string, locale = 'en-US') {
-    const timeZoneOffset = this.getTimezoneOffset(timeZone, date);
-    const formattedDate = this.datePipe.transform(
-      date,
-      format,
-      timeZoneOffset,
-      locale
-    );
-    return formattedDate;
+    try {
+      const timeZoneOffset = this.getTimezoneOffset(timeZone, date);
+      const formattedDate = this.datePipe.transform(
+        date,
+        format,
+        timeZoneOffset,
+        locale
+      );
+      return formattedDate;
+    } catch {
+      return null;
+    }
   }
 }

@@ -11,7 +11,6 @@ export const getOpportunities = async () => {
 
 export const getEventOpportunities = async (eventId) => {
   const documents = await EventOpportunity.find({ eventId }).lean();
-
   const eventOpportunities = documents.map((item) => ({
     opportunityId: item._id.toString(),
     ...item,

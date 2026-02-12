@@ -13,7 +13,7 @@ import { ButtonComponent } from '@app/shared/button/button.component';
 import { LoadingSpinnerComponent } from "@app/shared/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/modal/modal.component";
 import { OpportunityTimestampComponent } from "@app/shared/opportunity-timestamp/opportunity-timestamp.component";
-import { delay, of } from 'rxjs';
+import { delay, finalize, of } from 'rxjs';
 
 
 @Component({
@@ -41,13 +41,17 @@ export class RegistrationDialogComponent {
     this.requestSelected$()
       .pipe(
         delay(500),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.busy.set(false);
-        this.selectionService.clearSelected();
-        this.completed.set(true);
-      });
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.busy.set(false))
+      ).subscribe({
+        next: (res) => {
+          this.selectionService.clearSelected();
+          this.completed.set(true);
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
   }
 
   closeDialog() {
