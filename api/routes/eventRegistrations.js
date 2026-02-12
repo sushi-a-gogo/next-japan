@@ -1,37 +1,37 @@
 import express from "express";
 import * as registrationController from "../controllers/eventRegistrationController.js";
-import { authMiddleware } from "../middleware/auth.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get(
   "/user/:userId",
   authMiddleware,
-  registrationController.getEventRegistrationsForUser
+  registrationController.getEventRegistrationsForUser,
 );
 
 router.post(
   "/",
   authMiddleware,
-  registrationController.createEventRegistration
+  registrationController.createEventRegistration,
 );
 
 router.get(
   "/:registrationId",
   authMiddleware,
-  registrationController.getEventRegistrationById
+  registrationController.getEventRegistrationById,
 );
 
 router.put(
   "/:registrationId",
   authMiddleware,
-  registrationController.updateEventRegistration
+  registrationController.updateEventRegistration,
 );
 
 router.delete(
   "/:registrationId",
   authMiddleware,
-  registrationController.deleteEventRegistration
+  registrationController.deleteEventRegistration,
 );
 
 export default router;

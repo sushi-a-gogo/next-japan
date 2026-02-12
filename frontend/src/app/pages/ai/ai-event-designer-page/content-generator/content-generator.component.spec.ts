@@ -3,7 +3,6 @@ import {
   TestBed
 } from '@angular/core/testing';
 import {
-  FormGroupDirective,
   ReactiveFormsModule
 } from '@angular/forms';
 //import { NoopAnimationsModule } from '@angular/common/platform-browser/animations';
@@ -183,10 +182,7 @@ describe('ContentGeneratorComponent', () => {
     expect(component.error()).toBeNull();
 
     // form is re-enabled
-    const form = fixture.debugElement
-      .query(By.directive(FormGroupDirective))
-      .injector.get(FormGroupDirective);
-    expect(form.enabled).toBeTrue();
+    expect(component.aiPrompts.enabled).toBeTrue();
   });
 
   // -----------------------------------------------------------------------
@@ -206,10 +202,7 @@ describe('ContentGeneratorComponent', () => {
     expect(component.error()).toBe(err.message);
     expect(component.busy()).toBeFalse();
 
-    const form = fixture.debugElement
-      .query(By.directive(FormGroupDirective))
-      .injector.get(FormGroupDirective);
-    expect(form.enabled).toBeTrue();
+    expect(component.aiPrompts.enabled).toBeTrue();
   });
 
   // -----------------------------------------------------------------------
@@ -220,19 +213,16 @@ describe('ContentGeneratorComponent', () => {
     aiSpy.generateContent$.and.returnValue(of(resp).pipe(
       tap(() => {
         // Check intermediate state (request pending)
-        expect(form.disabled).toBeTrue();
+        expect(component.aiPrompts.disabled).toBeTrue();
         expect(component.busy()).toBeTrue();
       })
     ));
 
-    const form = fixture.debugElement
-      .query(By.directive(FormGroupDirective))
-      .injector.get(FormGroupDirective);
     const submitBtn = fixture.debugElement.query(By.css('app-button[buttonType="submit"]'));
     expect(submitBtn).toBeTruthy(); // Debug: Ensure button is found
 
     // Initial state
-    expect(form.disabled).toBeFalse();
+    expect(component.aiPrompts.disabled).toBeFalse();
     expect(component.busy()).toBeFalse();
 
     // Click the submit button
@@ -241,7 +231,7 @@ describe('ContentGeneratorComponent', () => {
     // Final state
     fixture.detectChanges(); // Update signals and DOM
     await Promise.resolve(); // Flush microtasks for click handler
-    expect(form.disabled).toBeFalse();
+    expect(component.aiPrompts.disabled).toBeFalse();
     expect(component.busy()).toBeFalse();
   });
 });

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { setXsrfCookie, validateXsrf } from "./middleware/xsrf.middleware.js";
 import aiRouter from "./routes/ai.js";
 import authRouter from "./routes/auth.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
@@ -44,8 +45,12 @@ app.use(
   cors({
     origin: process.env.ANGULAR_APP_URI, // Set in .env
     credentials: true,
-  })
+    allowedHeaders: ["Content-Type", "Authorization", "X-XSRF-TOKEN"],
+  }),
 );
+
+app.use(setXsrfCookie);
+app.use("/api", validateXsrf);
 
 // Mount routers
 app.use("/api/auth", authRouter);

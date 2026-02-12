@@ -11,13 +11,35 @@ import { catchError, map, switchMap, throwError } from 'rxjs';
 
 let isRefreshing = false;
 
+function getCookie(name: string): string | null {
+  // Only safe to access document.cookie on client (SSR/prerender has no document)
+  if (typeof document === 'undefined') {
+    return null;
+  }
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift() || null;
+  }
+  return null;
+}
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiUrl = environment.apiUrl;
   const auth = inject(AuthService);
 
   // Attach cookies for API calls
   if (req.url.startsWith(apiUrl)) {
-    req = req.clone({ withCredentials: true });
+    const token = getCookie('XSRF-TOKEN');
+
+    if (token) {
+      req = req.clone({
+        setHeaders: { 'X-XSRF-TOKEN': token },
+        withCredentials: true
+      });
+    } else {
+      req = req.clone({ withCredentials: true });
+    }
   }
 
   return next(req).pipe(
