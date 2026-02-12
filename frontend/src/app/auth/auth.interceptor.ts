@@ -30,16 +30,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Attach cookies for API calls
   if (req.url.startsWith(apiUrl)) {
-    const token = getCookie('XSRF-TOKEN');
-
-    if (token) {
-      req = req.clone({
-        setHeaders: { 'X-XSRF-TOKEN': token },
-        withCredentials: true
-      });
-    } else {
-      req = req.clone({ withCredentials: true });
-    }
+    req = req.clone({ withCredentials: true });
+    // const token = getCookie('XSRF-TOKEN');
+    // if (token) {
+    //   req = req.clone({
+    //     setHeaders: { 'X-XSRF-TOKEN': token },
+    //     withCredentials: true
+    //   });
+    // } else {
+    //   req = req.clone({ withCredentials: true });
+    // }
   }
 
   return next(req).pipe(

@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { setXsrfCookie, validateXsrf } from "./middleware/xsrf.middleware.js";
 import aiRouter from "./routes/ai.js";
 import authRouter from "./routes/auth.js";
 import eventLocationsRouter from "./routes/eventLocations.js";
@@ -49,8 +48,8 @@ app.use(
   }),
 );
 
-app.use(setXsrfCookie);
-app.use("/api", validateXsrf);
+//app.use(setXsrfCookie);
+//app.use("/api", validateXsrf);
 
 // Mount routers
 app.use("/api/auth", authRouter);
