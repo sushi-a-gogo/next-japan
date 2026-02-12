@@ -46,16 +46,18 @@ export class EventHeroComponent {
   eventDateRange = computed(() => {
     const opportunities = this.eventData().opportunities;
     if (opportunities.length) {
-      const startDate = opportunities[0].startDate;
-      const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(new Date(startDate), 'mediumDate', opportunities[0].timeZone);
+      const startDate = new Date(opportunities[0].startDate);
+      if (this.dateTimeService.isValidDate(startDate)) {
+        const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(new Date(startDate), 'mediumDate', opportunities[0].timeZone);
 
-      const endDate = opportunities.length > 1 ? opportunities[opportunities.length - 1].startDate : undefined;
-      if (endDate) {
-        const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(new Date(endDate), 'mediumDate', opportunities[0].timeZone);
-        return `${formattedStartDate} - ${formattedEndDate}`;
+        const endDate = opportunities.length > 1 ? opportunities[opportunities.length - 1].startDate : undefined;
+        if (endDate) {
+          const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(new Date(endDate), 'mediumDate', opportunities[0].timeZone);
+          return `${formattedStartDate} - ${formattedEndDate}`;
+        }
+
+        return `${formattedStartDate}`;
       }
-
-      return `${formattedStartDate}`;
     }
 
     return null;

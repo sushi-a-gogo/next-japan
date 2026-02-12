@@ -13,18 +13,18 @@
         <app-coordinator-overview />
       </div>
     </div>
-    @if(selectedIndex() === 0) {
-    <app-event-location (onGetTickets)="scrollToOpportunities()" />
-    } @if(loaded()) {
-    <div class="component-box-content pad" #opportunities>
-      <div class="page-component">
-        <h1>Upcoming Opportunities</h1>
-        <app-event-opportunities />
+
+    @if (loaded()) {
+      <app-event-location (onGetTickets)="scrollToOpportunities()" />
+      <div class="component-box-content pad" #opportunities>
+        <div class="page-component">
+          <h1>Upcoming Opportunities</h1>
+          <app-event-opportunities />
+        </div>
       </div>
-    </div>
     }
   </main>
 </article>
-@if(showRegistrationDialog()) {
-<app-registration-dialog (close)="closeRegistrationDialog()" />
+@if (showRegistrationDialog()) {
+  <app-registration-dialog (close)="closeRegistrationDialog()" />
 }

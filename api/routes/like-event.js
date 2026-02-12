@@ -1,6 +1,6 @@
 import express from "express";
 import * as eventSocialController from "../controllers/eventSocialController.js";
-import { authMiddleware } from "../middleware/auth.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get("/count/:eventId", eventSocialController.getEventLikeCount);
 router.get(
   "/:eventId/user/:userId",
   authMiddleware,
-  eventSocialController.likedByUser
+  eventSocialController.likedByUser,
 );
 
 export default router;

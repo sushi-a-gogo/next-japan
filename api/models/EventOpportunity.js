@@ -8,11 +8,6 @@ const eventOpportunitySchema = new mongoose.Schema(
       index: true,
       ref: "Event", // Reference to existing Event collection
     },
-    locationId: {
-      type: String,
-      required: true,
-      ref: "EventLocation", // Reference to existing EventLocation collection
-    },
     startDate: {
       type: Date,
       required: true,
@@ -43,7 +38,7 @@ const eventOpportunitySchema = new mongoose.Schema(
   },
   {
     timestamps: true, // Adds createdAt, updatedAt
-  }
+  },
 );
 
 // Create indexes
@@ -51,6 +46,6 @@ eventOpportunitySchema.index({ startDate: 1, endDate: 1 });
 
 const EventOpportunity = mongoose.model(
   "EventOpportunity",
-  eventOpportunitySchema
+  eventOpportunitySchema,
 );
 export default EventOpportunity;

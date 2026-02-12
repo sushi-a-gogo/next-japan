@@ -40,23 +40,6 @@ export class LocationService {
     return obs$;
   }
 
-  getEventLocations$(eventId: string): Observable<MapLocation[]> {
-    // const key = `locations:${eventId}`;
-    // if (this.eventCache.existsInCache(key)) {
-    //   const cached = this.eventCache.get(key);
-    //   if (cached) {
-    //     return cached;
-    //   }
-    // }
-
-    const obs$ = this.fetchEventLocations$(eventId).pipe(
-      shareReplay(1)
-    );
-    //this.eventCache.set(key, obs$);
-
-    return obs$;
-  }
-
   getLocation$(locationId: string): Observable<MapLocation | null> {
     return this.apiService.get<MapLocation>(`${this.apiUrl}/${locationId}`).pipe(
       map((resp) => resp.data),
@@ -68,13 +51,6 @@ export class LocationService {
     return this.apiService.get<MapLocation>(`${this.apiUrl}/${eventId}/location`).pipe(
       map((resp) => resp.data),
       catchError((e) => this.errorService.handleError(e, 'Error getting event location', true))
-    );
-  }
-
-  private fetchEventLocations$(eventId: string): Observable<MapLocation[]> {
-    return this.apiService.get<MapLocation[]>(`${this.apiUrl}/${eventId}/locations`).pipe(
-      map((resp) => resp.data || []),
-      catchError((e) => this.errorService.handleError(e, 'Error getting event locations', true))
     );
   }
 }

@@ -1,5 +1,5 @@
 import { DatePipe, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
@@ -28,6 +28,10 @@ export const sharedProviders = [
   }),
   provideHttpClient(
     withFetch(),
+    withXsrfConfiguration({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    }),
     withInterceptors([authInterceptor])
   ),
   {

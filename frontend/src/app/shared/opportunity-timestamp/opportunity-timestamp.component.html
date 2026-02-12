@@ -1,14 +1,16 @@
 <div class="nj-flex row align-center gap-5">
-  @if(showIcon()) {
-  <span class="material-symbols-outlined"> event </span>
+  @if (showIcon() && timestamp()) {
+    <span class="material-symbols-outlined"> event </span>
   }
-  <section class="date-time">
-    {{ timestamp() }}
-    <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
-  </section>
+  @if (timestamp()) {
+    <section class="date-time">
+      {{ timestamp() }}
+      <span class="tz">{{ opportunity().timeZoneAbbreviation }}</span>
+    </section>
+  }
 </div>
-@if(showNotes() && opportunity().notes) {
-<div class="notes soft">
-  {{ opportunity().notes }}
-</div>
+@if (showNotes() && opportunity().notes) {
+  <div class="notes soft">
+    {{ opportunity().notes }}
+  </div>
 }

@@ -1,6 +1,6 @@
 import express from "express";
 import * as eventController from "../controllers/eventController.js";
-import { authMiddleware } from "../middleware/auth.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 router.use(express.json());

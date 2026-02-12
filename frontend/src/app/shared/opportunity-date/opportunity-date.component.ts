@@ -16,15 +16,24 @@ export class OpportunityDateComponent {
 
   datestamp = computed(() => {
     const startDate = new Date(this.opportunity().startDate);
-    const formattedDate = this.dateTimeService.formatDateInLocaleTime(startDate, 'EEEE, MMMM d, yyyy', this.opportunity().timeZone);
-    return `${formattedDate}`;
+    if (this.dateTimeService.isValidDate(startDate)) {
+      const formattedDate = this.dateTimeService.formatDateInLocaleTime(startDate, 'EEEE, MMMM d, yyyy', this.opportunity().timeZone);
+      return `${formattedDate}`;
+    }
+
+    return null;
   });
 
   timestamp = computed(() => {
     const startDate = new Date(this.opportunity().startDate);
     const endDate = new Date(this.opportunity().endDate);
-    const formattedStartTime = this.dateTimeService.formatDateInLocaleTime(startDate, 'h:mma', this.opportunity().timeZone);
-    const formattedEndTime = this.dateTimeService.formatDateInLocaleTime(endDate, 'h:mma', this.opportunity().timeZone);
-    return `${formattedStartTime} - ${formattedEndTime}`;
+
+    if (this.dateTimeService.isValidDate(startDate) && this.dateTimeService.isValidDate(endDate)) {
+      const formattedStartTime = this.dateTimeService.formatDateInLocaleTime(startDate, 'h:mma', this.opportunity().timeZone);
+      const formattedEndTime = this.dateTimeService.formatDateInLocaleTime(endDate, 'h:mma', this.opportunity().timeZone);
+      return `${formattedStartTime} - ${formattedEndTime}`;
+    }
+
+    return null;
   });
 }
