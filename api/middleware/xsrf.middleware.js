@@ -2,6 +2,12 @@ import crypto from "crypto";
 
 export function setXsrfCookie(req, res, next) {
   if (!req.cookies["XSRF-TOKEN"]) {
+    console.log("[XSRF] APP_DOMAIN from env:", process.env.APP_DOMAIN);
+    console.log(
+      "[XSRF] Domain option being used:",
+      process.env.APP_DOMAIN || "undefined (browser default)",
+    );
+
     const xsrfToken = crypto.randomBytes(32).toString("hex");
 
     res.cookie("XSRF-TOKEN", xsrfToken, {
