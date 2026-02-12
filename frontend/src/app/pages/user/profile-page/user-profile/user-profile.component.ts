@@ -1,6 +1,6 @@
 import { Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounce, email, Field, form, required } from '@angular/forms/signals';
+import { debounce, email, form, FormField, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,7 @@ interface UserProfileForm {
 
 @Component({
   selector: 'app-user-profile',
-  imports: [Field, MatButtonModule, MatRippleModule, MatInputModule,
+  imports: [FormField, MatButtonModule, MatRippleModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
