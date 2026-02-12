@@ -9,7 +9,8 @@ export function setXsrfCookie(req, res, next) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax", // or 'strict' — 'lax' is usually safer in dev
       path: "/",
-      maxAge: 24 * 60 * 60 * 1000, // 24h
+      maxAge: 24 * 60 * 60 * 1000, // 24h,
+      domain: process.env.APP_DOMAIN || undefined,
     });
 
     if (process.env.NODE_ENV === "development") {
