@@ -40,7 +40,6 @@ export const getUser = asyncHandler(async (req, res) => {
 // POST refresh user
 export const refreshUser = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies?.refreshToken;
-  console.log("refreshUser", refreshToken);
   if (!refreshToken) {
     return res
       .status(401)
