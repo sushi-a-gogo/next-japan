@@ -15,17 +15,20 @@ export class AuthService {
 
   private apiUrl = 'api/auth';
   private userSignal = signal<User | null>(null);
+  private accessTokenSignal = signal<string | null>(null);
 
   user = this.userSignal.asReadonly();
+  accessToken = this.accessTokenSignal.asReadonly();
   loginStatus = signal<LoginStatus | null>(null);
   isAuthenticated = computed(() => !!this.user());
 
   hydrateUser$() {
-    return this.apiService.get<{ user: User }>(`${this.apiUrl}/user`).pipe(
+    return this.apiService.get<{ user: User, accessToken: string }>(`${this.apiUrl}/user`).pipe(
       map((res) => {
         if (res.success && res.data) {
           this.loginStatus.set('success');
           this.userSignal.set(res.data.user);
+          this.accessTokenSignal.set(res.data.accessToken);
           return res.data.user;
         } else {
           this.loginStatus.set('idle');
@@ -35,6 +38,7 @@ export class AuthService {
       catchError((e) => {
         this.loginStatus.set('error');
         this.userSignal.set(null);
+        this.accessTokenSignal.set(null);
         return throwError(() => e);
       })
     );
@@ -42,10 +46,11 @@ export class AuthService {
 
   login$(email: string): Observable<User | null> {
     this.loginStatus.set('pending');
-    return this.apiService.post<{ user: User; token: string }>(`${this.apiUrl}/login`, { email }).pipe(
+    return this.apiService.post<{ user: User; accessToken: string }>(`${this.apiUrl}/login`, { email }).pipe(
       map((res) => {
         if (res.success && res.data) {
           this.userSignal.set(res.data.user);
+          this.accessTokenSignal.set(res.data.accessToken);
           this.loginStatus.set('success');
           return res.data.user;
         } else {
@@ -63,13 +68,14 @@ export class AuthService {
   }
 
   refreshToken$() {
-    return this.apiService.post<{ user: User }>(
+    return this.apiService.post<{ user: User, accessToken: string }>(
       `${this.apiUrl}/refresh`,
       {}
     ).pipe(
       map((res) => {
         if (res.success && res.data) {
           this.userSignal.set(res.data.user);
+          this.accessTokenSignal.set(res.data.accessToken)
           return res.data.user;
         }
         throw new Error('Refresh failed');
@@ -84,6 +90,7 @@ export class AuthService {
         if (res.success) {
           this.loginStatus.set('idle');
           this.userSignal.set(null);
+          this.accessTokenSignal.set(null);
 
           const url = decodeURIComponent(redirectTo) || '/';
           this.router.navigateByUrl(url);

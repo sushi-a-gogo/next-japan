@@ -28,10 +28,6 @@ export const sharedProviders = [
   }),
   provideHttpClient(
     withFetch(),
-    // withXsrfConfiguration({
-    //   cookieName: 'XSRF-TOKEN',
-    //   headerName: 'X-XSRF-TOKEN'
-    // }),
     withInterceptors([authInterceptor])
   ),
   {

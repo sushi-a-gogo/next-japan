@@ -44,12 +44,8 @@ app.use(
   cors({
     origin: process.env.ANGULAR_APP_URI, // Set in .env
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization", "X-XSRF-TOKEN"],
   }),
 );
-
-//app.use(setXsrfCookie);
-//app.use("/api", validateXsrf);
 
 // Mount routers
 app.use("/api/auth", authRouter);
