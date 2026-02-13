@@ -4,7 +4,7 @@ import { uploadImageToCloudflare } from "../utils/cloudflare.js";
 import formatEvent from "../utils/formatEvent.js";
 
 export const getRecentEvents = async () => {
-  const events = await Event.find().sort({ createdAt: -1 }).limit(25);
+  const events = await Event.find().sort({ createdAt: -1 }).limit(50);
   return events.map(formatEvent);
 };
 
@@ -21,14 +21,14 @@ export const saveEvent = async (data) => {
 
   if (!eventTitle || !description || !fullDescription || !imageUrl) {
     throw new Error(
-      "Missing required fields: eventTitle, description, or imageUrl"
+      "Missing required fields: eventTitle, description, or imageUrl",
     );
   }
 
   // Upload image to Cloudflare
   const { cloudflareImageId, deliveryUrl } = await uploadImageToCloudflare(
     image.id,
-    imageUrl
+    imageUrl,
   );
 
   const eventCoordinators = coordinator.pickTwoUnique();
