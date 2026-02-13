@@ -55,6 +55,6 @@ export const refreshUser = asyncHandler(async (req, res) => {
 
 // POST logout user
 export const logout = asyncHandler(async (req, res) => {
-  res.clearCookie("refreshToken", { path: "/api/auth" });
+  res.clearCookie("refreshToken", { path: "/" });
   return res.json({ success: true, data: null, message: "Logged out" });
 });
