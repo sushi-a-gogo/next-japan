@@ -12,7 +12,7 @@
   [matTooltipShowDelay]="750"
   [matTooltipDisabled]="menuTrigger.menuOpen"
 >
-  <span class="material-symbols-outlined"> notifications </span>
+  <span class="material-symbols-outlined bell"> notifications </span>
   <span class="badge" [class.visible]="notifications().length > 0">{{
     notifications().length
   }}</span>
@@ -28,7 +28,7 @@
   <div class="nj-flex row align-center justify-space-between menu-title">
     <span>Notifications</span>
     <div class="nj-flex row align-center gap-10">
-      <button matButton (click)="markAllAsRead()">Clear Notifications</button>
+      <button matButton="tonal" (click)="markAllAsRead()">Clear All</button>
       <button class="close-button" mat-icon-button (click)="clickX()">
         <span class="material-symbols-outlined"> close </span>
       </button>
