@@ -7,28 +7,20 @@ const cookieOptions = {
   sameSite: "lax",
 };
 
-const accessCookieOptions = {
-  ...cookieOptions,
-  path: "/",
-  maxAge: 60 * 60 * 1000, // 1 hour
-};
-
 const refreshCookieOptions = {
   ...cookieOptions,
-  path: "/api/auth",
+  path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
 };
 
 // POST login user
 export const login = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken, user } = await authService.loginUser(
-    req.body
+    req.body,
   );
 
-  res.cookie("accessToken", accessToken, accessCookieOptions);
   res.cookie("refreshToken", refreshToken, refreshCookieOptions);
-
-  res.json({ success: true, data: { user } });
+  res.json({ success: true, data: { user, accessToken } });
 });
 
 // GET user
@@ -39,14 +31,16 @@ export const getUser = asyncHandler(async (req, res) => {
   }
 
   const { newAccessToken, user } = await authService.fetchUser(refreshToken);
-  res.cookie("accessToken", newAccessToken, accessCookieOptions);
-
-  return res.json({ success: true, data: { user } });
+  return res.json({
+    success: true,
+    data: { user, accessToken: newAccessToken },
+  });
 });
 
 // POST refresh user
 export const refreshUser = asyncHandler(async (req, res) => {
   const refreshToken = req.cookies?.refreshToken;
+  console.log("refreshUser", refreshToken);
   if (!refreshToken) {
     return res
       .status(401)
@@ -54,15 +48,14 @@ export const refreshUser = asyncHandler(async (req, res) => {
   }
 
   const { newAccessToken, user } = await authService.fetchUser(refreshToken);
-  res.cookie("accessToken", newAccessToken, accessCookieOptions);
-
-  return res.json({ success: true, data: { user } });
+  return res.json({
+    success: true,
+    data: { user, accessToken: newAccessToken },
+  });
 });
 
 // POST logout user
 export const logout = asyncHandler(async (req, res) => {
-  res.clearCookie("accessToken", { path: "/" });
   res.clearCookie("refreshToken", { path: "/api/auth" });
-
   return res.json({ success: true, data: null, message: "Logged out" });
 });
