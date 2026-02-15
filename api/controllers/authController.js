@@ -1,11 +1,15 @@
 import * as authService from "../services/authService.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
-const refreshCookieOptions = {
+const cookieOptions = {
   httpOnly: true,
   secure: true,
-  sameSite: "lax",
+  sameSite: "strict",
   path: "/",
+};
+
+const refreshCookieOptions = {
+  ...cookieOptions,
   maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
 };
 
@@ -56,6 +60,6 @@ export const refreshUser = asyncHandler(async (req, res) => {
 
 // POST logout user
 export const logout = asyncHandler(async (req, res) => {
-  res.clearCookie("refreshToken", { path: "/" });
+  res.clearCookie("refreshToken", cookieOptions);
   return res.json({ success: true, data: null, message: "Logged out" });
 });
