@@ -23,5 +23,6 @@ export const fetchUser = async (refreshToken) => {
 
   // refresh the access token
   const newAccessToken = generateAccessToken(user.userId, user.email);
-  return { newAccessToken, user };
+  const newRefreshToken = generateRefreshToken(user.userId, user.email);
+  return { newAccessToken, newRefreshToken, user };
 };
