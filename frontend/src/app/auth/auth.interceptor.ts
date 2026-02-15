@@ -7,10 +7,9 @@ import { inject } from '@angular/core';
 import { ApiResponse } from '@app/models/api-response.model';
 import { AuthService } from '@app/services/auth.service';
 import { environment } from '@environments/environment';
-import { catchError, map, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, map, Observable, shareReplay, switchMap, throwError } from 'rxjs';
 
-let isRefreshing = false;
-
+let refresh$: Observable<unknown> | null = null;
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiUrl = environment.apiUrl;
@@ -18,12 +17,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Attach cookies for API calls
   if (req.url.startsWith(apiUrl)) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${auth.accessToken()}`
-      },
-      withCredentials: true
-    });
+    const token = auth.accessToken();
+    if (token) {
+      req = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` },
+        withCredentials: true
+      });
+    } else {
+      req = req.clone({
+        withCredentials: true
+      });
+    }
   }
 
   return next(req).pipe(
@@ -39,34 +43,44 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       }
       return event;
     }),
-    // Handle 401 errors + refresh flow
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401 && !isRefreshing) {
-        isRefreshing = true;
-        return auth.refreshToken$().pipe(
-          switchMap(() => {
-            isRefreshing = false;
-            const retryReq = req.clone({
-              setHeaders: { Authorization: `Bearer ${auth.accessToken()}` },
-              withCredentials: true
-            });
-            return next(retryReq);
+      const isAuthEndpoint = req.url.includes('/auth/');
+      if (error.status !== 401 || isAuthEndpoint || req.headers.has('X-Retry')) {
+        const normalizedError = {
+          success: false,
+          data: null,
+          message:
+            error.error?.message || error.statusText || 'Something went wrong',
+        };
+        return throwError(() => normalizedError);
+      }
+
+      if (!refresh$) {
+        refresh$ = auth.refreshToken$().pipe(
+          finalize(() => {
+            refresh$ = null;
           }),
-          catchError((refreshErr) => {
-            isRefreshing = false;
-            auth.logout('/');
-            return throwError(() => refreshErr);
-          })
+          shareReplay(1)
         );
       }
-      // Normalize errors too
-      const normalizedError = {
-        success: false,
-        data: null,
-        message:
-          error.error?.message || error.statusText || 'Something went wrong',
-      };
-      return throwError(() => normalizedError);
-    })
-  );
+
+      // refresh, then retry request
+      return refresh$.pipe(
+        switchMap(() => {
+          const retryReq = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${auth.accessToken()}`,
+              'X-Retry': 'true'
+            },
+            withCredentials: true
+          });
+
+          return next(retryReq);
+        }),
+        catchError((refreshErr) => {
+          auth.logout('/');
+          return throwError(() => refreshErr);
+        })
+      );
+    }));
 };
