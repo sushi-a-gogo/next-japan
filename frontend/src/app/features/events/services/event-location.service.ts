@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
-import { MapLocation } from '@app/features/events/models/map-location.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
 import { ApiService } from '@core/services/api.service';
 import { ErrorService } from '@core/services/error.service';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
@@ -9,13 +9,13 @@ import { catchError, map, Observable, shareReplay } from 'rxjs';
   providedIn: 'root'
 })
 @Injectable({ providedIn: 'root' })
-export class LocationService {
+export class EventLocationService {
   private apiService = inject(ApiService);
   private errorService = inject(ErrorService);
   private apiUrl = 'api/event-locations';
-  private eventCache = new HttpClientCache<MapLocation | null>();
+  private eventCache = new HttpClientCache<EventLocation | null>();
 
-  getEventLocation$(eventId: string): Observable<MapLocation | null> {
+  getEventLocation$(eventId: string): Observable<EventLocation | null> {
     const key = `location:${eventId}`;
     if (this.eventCache.existsInCache(key)) {
       const cached = this.eventCache.get(key);
@@ -32,8 +32,8 @@ export class LocationService {
     return obs$;
   }
 
-  private fetchEventLocation$(eventId: string): Observable<MapLocation | null> {
-    return this.apiService.get<MapLocation>(`${this.apiUrl}/${eventId}/location`).pipe(
+  private fetchEventLocation$(eventId: string): Observable<EventLocation | null> {
+    return this.apiService.get<EventLocation>(`${this.apiUrl}/${eventId}/location`).pipe(
       map((resp) => resp.data),
       catchError((e) => this.errorService.handleError(e, 'Error getting event location', true))
     );

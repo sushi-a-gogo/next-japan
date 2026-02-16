@@ -2,9 +2,9 @@ import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { ApiService } from '@core/services/api.service';
 import { environment } from '@environments/environment';
-import { AiEvent } from '@events/models/ai-event.model';
 import { firstValueFrom } from 'rxjs';
 import { AiService } from './ai.service';
 

@@ -5,7 +5,7 @@ import { OpportunityTimestampComponent } from '@app/features/events/ui/opportuni
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { ImageService } from '@core/services/image.service';
-import { EventRegistration, RegistrationStatus } from '@events/models/event-registration.model';
+import { EventRegistration, RegistrationStatus } from '@features/events/models/event-registration.model';
 import { EventRegistrationStatusComponent } from './event-registration-status/event-registration-status.component';
 
 @Component({

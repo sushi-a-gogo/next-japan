@@ -8,7 +8,7 @@ import { OpportunityTimestampComponent } from '@app/features/events/ui/opportuni
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { ModalComponent } from '@app/shared/components/modal/modal.component';
-import { EventRegistration } from '@events/models/event-registration.model';
+import { EventRegistration } from '@features/events/models/event-registration.model';
 import { switchMap } from 'rxjs';
 
 @Component({

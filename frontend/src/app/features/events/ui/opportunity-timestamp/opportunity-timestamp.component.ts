@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { DateTimeService } from '@core/services/date-time.service';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 
 @Component({
   selector: 'app-opportunity-timestamp',

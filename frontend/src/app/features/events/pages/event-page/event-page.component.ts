@@ -13,7 +13,7 @@ import { DialogService } from '@core/services/dialog.service';
 import { ErrorService } from '@core/services/error.service';
 import { ImageService } from '@core/services/image.service';
 import { MetaService } from '@core/services/meta.service';
-import { EventRegistration } from '@events/models/event-registration.model';
+import { EventRegistration } from '@features/events/models/event-registration.model';
 import { filter, of, switchMap } from 'rxjs';
 import { CoordinatorOverviewComponent } from './components/coordinator-overview/coordinator-overview.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";

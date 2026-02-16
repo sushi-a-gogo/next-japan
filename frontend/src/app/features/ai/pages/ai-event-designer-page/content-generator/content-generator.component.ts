@@ -1,5 +1,3 @@
-import { AiPromptParams } from '@ai/models/ai-prompt-params.model';
-import { AiService } from '@ai/services/ai.service';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
@@ -9,8 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '@app/core/auth/auth.service';
+import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { AiEvent } from '@events/models/ai-event.model';
+import { AiPromptParams } from '@features/ai/models/ai-prompt-params.model';
+import { AiService } from '@features/ai/services/ai.service';
 import { AiPromptsForm } from './ai-prompts.form';
 
 @Component({

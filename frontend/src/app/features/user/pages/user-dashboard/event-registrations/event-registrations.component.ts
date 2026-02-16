@@ -6,7 +6,7 @@ import { AddressStripComponent } from "@app/features/events/ui/address-strip/add
 import { OpportunityTimestampComponent } from '@app/features/events/ui/opportunity-timestamp/opportunity-timestamp.component';
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ConfirmModalComponent } from '@app/shared/components/modal/confirm-modal/confirm-modal.component';
-import { EventRegistration } from '@events/models/event-registration.model';
+import { EventRegistration } from '@features/events/models/event-registration.model';
 import { interval, switchMap } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 

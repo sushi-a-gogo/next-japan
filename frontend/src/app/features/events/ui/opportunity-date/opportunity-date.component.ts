@@ -1,7 +1,7 @@
 import { LowerCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { DateTimeService } from '@core/services/date-time.service';
-import { CalendarDate } from '@events/models/calendar-date.model';
+import { CalendarDate } from '@features/events/models/calendar-date.model';
 
 @Component({
   selector: 'app-opportunity-date',

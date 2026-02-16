@@ -4,8 +4,8 @@ import { AuthService } from '@app/core/auth/auth.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventSelectionService } from '@app/features/events/services/event-selection.service';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
-import { getRegistrationContext } from '@events/models/event-registration.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
+import { getRegistrationContext } from '@features/events/models/event-registration.model';
 
 @Component({
   selector: 'app-opportunity-selector',

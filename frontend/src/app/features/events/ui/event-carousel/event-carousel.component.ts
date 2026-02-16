@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 import { CarouselModule } from 'primeng/carousel';
 import { map } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';

@@ -3,7 +3,7 @@ import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OpportunityDateComponent } from "@app/features/events/ui/opportunity-date/opportunity-date.component";
 import { ImageService } from '@core/services/image.service';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-search-card',

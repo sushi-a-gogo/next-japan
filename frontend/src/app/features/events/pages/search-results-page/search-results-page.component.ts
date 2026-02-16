@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
+import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventSearchService } from '@app/features/events/services/event-search.service';
-import { OpportunityService } from '@app/features/events/services/opportunity.service';
 import { PageLoadSpinnerComponent } from "@app/shared/components/page-load-spinner/page-load-spinner.component";
 import { DateTimeService } from '@core/services/date-time.service';
 import { MetaService } from '@core/services/meta.service';
-import { EventData } from '@events/models/event-data.model';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
+import { EventData } from '@features/events/models/event-data.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { forkJoin, of } from 'rxjs';
 import { SearchCardComponent } from "./search-card/search-card.component";
 
@@ -27,7 +27,7 @@ export class SearchResultsPageComponent implements OnInit, OnChanges {
   private title = inject(Title);
   private meta = inject(MetaService);
   private eventSearchService = inject(EventSearchService);
-  private opportunityService = inject(OpportunityService);
+  private opportunityService = inject(EventOpportunityService);
   private dateTime = inject(DateTimeService);
   private destroyRef = inject(DestroyRef);
 

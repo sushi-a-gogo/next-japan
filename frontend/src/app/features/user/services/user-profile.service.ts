@@ -7,7 +7,7 @@ import { User } from '@app/features/user/models/user.model';
 import { ApiService } from '@core/services/api.service';
 import { ErrorService } from '@core/services/error.service';
 import { ThemeService } from '@core/services/theme.service';
-import { EventRegistrationService } from '@events/services/event-registration.service';
+import { EventRegistrationService } from '@features/events/services/event-registration.service';
 import { catchError, forkJoin, Observable } from 'rxjs';
 import { NotificationService } from './notification.service';
 

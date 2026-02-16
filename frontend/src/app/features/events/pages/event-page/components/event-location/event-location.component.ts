@@ -4,7 +4,7 @@ import { EventService } from '@app/features/events/pages/event-page/event.servic
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { OpportunityDateComponent } from '@app/features/events/ui/opportunity-date/opportunity-date.component';
 import { ButtonComponent } from "@app/shared/components/button/button.component";
-import { RegistrationStatus } from '@events/models/event-registration.model';
+import { RegistrationStatus } from '@features/events/models/event-registration.model';
 
 @Component({
   selector: 'app-event-location',

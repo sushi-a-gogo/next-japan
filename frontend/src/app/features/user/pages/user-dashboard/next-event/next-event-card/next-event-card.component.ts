@@ -4,7 +4,7 @@ import { LikeButtonComponent } from "@app/features/events/ui/like-button/like-bu
 import { ShareButtonComponent } from "@app/features/events/ui/share-button/share-button.component";
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ImageService } from '@core/services/image.service';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-next-event-card',

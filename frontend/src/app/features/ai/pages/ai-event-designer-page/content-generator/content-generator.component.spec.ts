@@ -15,9 +15,9 @@ import { of, tap, throwError } from 'rxjs';
 import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '@app/core/auth/auth.service';
+import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { AiService } from '@app/features/ai/services/ai.service';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { AiEvent } from '@events/models/ai-event.model';
 import { ContentGeneratorComponent } from './content-generator.component';
 
 describe('ContentGeneratorComponent', () => {

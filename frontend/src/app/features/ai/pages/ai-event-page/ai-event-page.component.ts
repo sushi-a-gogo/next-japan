@@ -9,7 +9,7 @@ import { AiEventHeaderComponent } from "@app/features/ai/pages/ai-event-page/ai-
 import { AiService } from '@app/features/ai/services/ai.service';
 import { EventsService } from '@app/features/events/services/events.service';
 import { MetaService } from '@core/services/meta.service';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 import { filter } from 'rxjs';
 
 @Component({

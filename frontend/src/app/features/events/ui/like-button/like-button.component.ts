@@ -4,7 +4,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '@app/core/auth/auth.service';
 import { LikeService } from '@app/features/events/services/like.service';
 import { DateTimeService } from '@core/services/date-time.service';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 import { finalize, forkJoin, of } from 'rxjs';
 
 @Component({

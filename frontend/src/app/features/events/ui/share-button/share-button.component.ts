@@ -9,7 +9,7 @@ import { AuthService } from '@app/core/auth/auth.service';
 import { ShareService } from '@app/features/events/services/share.service';
 import { DateTimeService } from '@core/services/date-time.service';
 import { environment } from '@environments/environment';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 import { forkJoin } from 'rxjs';
 
 @Component({

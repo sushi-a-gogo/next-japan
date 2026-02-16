@@ -1,10 +1,10 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { MapLocation } from '@app/features/events/models/map-location.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
+import { EventLocationService } from '@app/features/events/services/event-location.service';
+import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventsService } from '@app/features/events/services/events.service';
-import { LocationService } from '@app/features/events/services/location.service';
-import { OpportunityService } from '@app/features/events/services/opportunity.service';
-import { EventInformation } from '@events/models/event-information.model';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
+import { EventInformation } from '@features/events/models/event-information.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -27,15 +27,15 @@ export class EventService {
   private eventSignal = signal<EventInformation | null>(null);
   private event = this.eventSignal.asReadonly();
 
-  private eventLocationSignal = signal<MapLocation | null>(null);
+  private eventLocationSignal = signal<EventLocation | null>(null);
   private eventLocation = this.eventLocationSignal.asReadonly();
 
   private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
   private eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
 
   private eventsService = inject(EventsService);
-  private locationService = inject(LocationService);
-  private opportunityService = inject(OpportunityService);
+  private locationService = inject(EventLocationService);
+  private opportunityService = inject(EventOpportunityService);
 
   loadEvent$(eventId: string) {
     this.eventSignal.set(null);
@@ -66,7 +66,7 @@ export class EventService {
     return this.eventsService.getEvent$(eventId);
   }
 
-  private getEventLocation$(eventId: string): Observable<MapLocation | null> {
+  private getEventLocation$(eventId: string): Observable<EventLocation | null> {
     return this.locationService.getEventLocation$(eventId);
   }
 

@@ -2,14 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
 import { ApiService } from '@core/services/api.service';
 import { ErrorService } from '@core/services/error.service';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 @Injectable({ providedIn: 'root' })
-export class OpportunityService {
+export class EventOpportunityService {
   private apiService = inject(ApiService);
   private cache = new HttpClientCache<EventOpportunity[]>(5, 1);
   private eventCache = new HttpClientCache<EventOpportunity[]>();

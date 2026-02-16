@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { EventService } from '@app/features/events/pages/event-page/event.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
-import { getRegistrationContext } from '@events/models/event-registration.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
+import { getRegistrationContext } from '@features/events/models/event-registration.model';
 import { EventOpportunityComponent } from "./event-opportunity/event-opportunity.component";
 
 @Component({

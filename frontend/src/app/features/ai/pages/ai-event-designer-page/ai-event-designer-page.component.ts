@@ -6,10 +6,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 import { AppImageData } from '@app/core/models/app-image-data.model';
+import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { ContentGeneratorComponent } from "@app/features/ai/pages/ai-event-designer-page/content-generator/content-generator.component";
 import { ImageService } from '@core/services/image.service';
 import { MetaService } from '@core/services/meta.service';
-import { AiEvent } from '@events/models/ai-event.model';
 import { filter } from 'rxjs';
 
 @Component({

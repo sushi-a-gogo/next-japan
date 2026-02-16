@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { OpportunitySelectorComponent } from "@app/features/events/ui/opportunity-selector/opportunity-selector.component";
 import { OpportunityTimestampComponent } from "@app/features/events/ui/opportunity-timestamp/opportunity-timestamp.component";
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { EventOpportunity } from '@events/models/event-opportunity.model';
+import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 
 @Component({
   selector: 'app-event-opportunity',

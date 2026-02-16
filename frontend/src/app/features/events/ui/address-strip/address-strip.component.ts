@@ -1,5 +1,5 @@
 import { Component, HostBinding, input } from '@angular/core';
-import { MapLocation } from '@app/features/events/models/map-location.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
 
 @Component({
   selector: 'app-address-strip',
@@ -13,7 +13,7 @@ import { MapLocation } from '@app/features/events/models/map-location.model';
   `]
 })
 export class AddressStripComponent {
-  location = input.required<MapLocation>()
+  location = input.required<EventLocation>()
   showAddress = input<boolean>(true);
   showDirections = input<boolean>(false);
   showIcon = input<boolean>(true);

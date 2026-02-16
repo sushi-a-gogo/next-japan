@@ -1,4 +1,4 @@
-import { CalendarDate } from '@app/features/events/models/calendar-date.model';
+import { CalendarDate } from './calendar-date.model';
 
 export interface EventOpportunity extends CalendarDate {
   opportunityId: string;

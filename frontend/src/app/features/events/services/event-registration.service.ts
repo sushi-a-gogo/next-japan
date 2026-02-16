@@ -3,7 +3,7 @@ import { HttpClientCache } from '@app/core/cache/http-client-cache';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@core/services/api.service';
 import { ErrorService } from '@core/services/error.service';
-import { EventRegistration, RegistrationStatus } from '@events/models/event-registration.model';
+import { EventRegistration, RegistrationStatus } from '@features/events/models/event-registration.model';
 import { catchError, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 
 @Injectable({

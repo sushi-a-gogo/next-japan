@@ -1,8 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { ImageService } from '@core/services/image.service';
-import { AiEvent } from '@events/models/ai-event.model';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-ai-event-header',

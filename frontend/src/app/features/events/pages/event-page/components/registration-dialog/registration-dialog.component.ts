@@ -12,7 +12,7 @@ import { AnchorComponent } from '@app/shared/components/anchor/anchor.component'
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { LoadingSpinnerComponent } from "@app/shared/components/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/components/modal/modal.component";
-import { EventRegistration } from '@events/models/event-registration.model';
+import { EventRegistration } from '@features/events/models/event-registration.model';
 import { delay, finalize, of } from 'rxjs';
 
 

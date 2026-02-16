@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { EventRegistration } from '@events/models/event-registration.model';
+import { EventRegistration } from '@features/events/models/event-registration.model';
 
 @Component({
   selector: 'app-registration-alert',

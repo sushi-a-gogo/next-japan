@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ImageService } from '@core/services/image.service';
-import { EventData } from '@events/models/event-data.model';
+import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-event-card',

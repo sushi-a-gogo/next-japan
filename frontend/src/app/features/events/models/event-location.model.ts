@@ -1,4 +1,4 @@
-export interface MapLocation {
+export interface EventLocation {
   locationId: string;
   locationName: string;
   addressLine1: string;
