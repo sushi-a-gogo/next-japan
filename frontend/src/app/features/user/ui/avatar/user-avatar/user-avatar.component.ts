@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { User } from '@app/features/user/models/user.model';
+import { User } from '@app/core/models/user.model';
 import { AvatarComponent } from "../avatar.component";
 
 @Component({

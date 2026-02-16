@@ -2,7 +2,7 @@ import { Component, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '@app/features/user/models/user.model';
+import { User } from '@app/core/models/user.model';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { NewUserForm } from './new-user.form';
 

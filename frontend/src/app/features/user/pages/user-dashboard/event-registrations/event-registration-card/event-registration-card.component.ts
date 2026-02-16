@@ -1,11 +1,11 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, OnInit, output } from '@angular/core';
+import { ImageService } from '@app/core/services/image.service';
+import { EventRegistration, RegistrationStatus } from '@app/features/events/models/event-registration.model';
 import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { ImageService } from '@core/services/image.service';
-import { EventRegistration, RegistrationStatus } from '@features/events/models/event-registration.model';
 import { EventRegistrationStatusComponent } from './event-registration-status/event-registration-status.component';
 
 @Component({

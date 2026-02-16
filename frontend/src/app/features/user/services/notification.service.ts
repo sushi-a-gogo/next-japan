@@ -1,8 +1,8 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '@app/core/models/api-response.model';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
 import { catchError, Observable, switchMap, tap } from 'rxjs';
 
 @Injectable({

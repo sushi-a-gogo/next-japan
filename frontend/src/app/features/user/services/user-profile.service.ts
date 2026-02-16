@@ -1,13 +1,13 @@
 import { effect, inject, Injectable } from '@angular/core';
 import { AuthService } from '@app/core/auth/auth.service';
 import { ApiResponse } from '@app/core/models/api-response.model';
+import { User } from '@app/core/models/user.model';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
+import { ThemeService } from '@app/core/services/theme.service';
+import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserReward } from '@app/features/user/models/user-reward.model';
-import { User } from '@app/features/user/models/user.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
-import { ThemeService } from '@core/services/theme.service';
-import { EventRegistrationService } from '@features/events/services/event-registration.service';
 import { catchError, forkJoin, Observable } from 'rxjs';
 import { NotificationService } from './notification.service';
 

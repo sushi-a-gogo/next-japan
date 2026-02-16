@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@app/features/user/models/user.model';
-import { ApiService } from '@core/services/api.service';
+import { User } from '@app/core/models/user.model';
+import { ApiService } from '@app/core/services/api.service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 type LoginStatus = 'idle' | 'pending' | 'success' | 'error';
@@ -82,7 +82,6 @@ export class AuthService {
       })
     );
   }
-
 
   logout(redirectTo: string) {
     this.apiService.post(`${this.apiUrl}/logout`, {}).subscribe({

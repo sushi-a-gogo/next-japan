@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '@app/core/models/api-response.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 

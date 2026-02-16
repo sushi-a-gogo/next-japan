@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@app/core/auth/auth.service';
+import { EventRegistration } from '@app/features/events/models/event-registration.model';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventLocationCard } from "@app/features/events/ui/event-location-card/event-location-card.component";
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ConfirmModalComponent } from '@app/shared/components/modal/confirm-modal/confirm-modal.component';
-import { EventRegistration } from '@features/events/models/event-registration.model';
 import { interval, switchMap } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 

@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { MetaService } from '@app/core/services/meta.service';
+import { EventData } from '@app/features/events/models/event-data.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventSearchService } from '@app/features/events/services/event-search.service';
 import { PageLoadSpinnerComponent } from "@app/shared/components/page-load-spinner/page-load-spinner.component";
-import { DateTimeService } from '@core/services/date-time.service';
-import { MetaService } from '@core/services/meta.service';
-import { EventData } from '@features/events/models/event-data.model';
-import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { forkJoin, of } from 'rxjs';
 import { SearchCardComponent } from "./search-card/search-card.component";
 

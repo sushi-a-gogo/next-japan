@@ -2,8 +2,8 @@ import { Component, computed, inject, OnInit, output, signal } from '@angular/co
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '@app/core/models/user.model';
 import SUBSCRIPTION_PLANS, { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
-import { User } from '@app/features/user/models/user.model';
 import { ModalComponent } from "@app/shared/components/modal/modal.component";
 import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
 import { SelectPlanComponent } from './select-plan/select-plan.component';

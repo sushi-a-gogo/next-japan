@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { RegistrationStatus } from '@features/events/models/event-registration.model';
+import { RegistrationStatus } from '@app/features/events/models/event-registration.model';
 
 @Component({
   selector: 'app-event-registration-status',

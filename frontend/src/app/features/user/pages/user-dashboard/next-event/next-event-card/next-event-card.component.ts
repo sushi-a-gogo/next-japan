@@ -1,10 +1,10 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { ImageService } from '@app/core/services/image.service';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ImageService } from '@core/services/image.service';
-import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-next-event-card',

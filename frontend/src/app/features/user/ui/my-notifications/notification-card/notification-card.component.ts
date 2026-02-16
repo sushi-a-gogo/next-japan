@@ -1,8 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { ImageService } from '@app/core/services/image.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { DateTimeService } from '@core/services/date-time.service';
-import { ImageService } from '@core/services/image.service';
 import { environment } from '@environments/environment';
 
 @Component({

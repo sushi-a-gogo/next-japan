@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { DateTimeService } from '@core/services/date-time.service';
-import { EventOpportunity } from '@features/events/models/event-opportunity.model';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 
 @Component({
   selector: 'app-event-opportunity-card',

@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '@app/core/auth/auth.service';
 import { ApiResponse } from '@app/core/models/api-response.model';
+import { EventRegistration } from '@app/features/events/models/event-registration.model';
 import { EventService } from '@app/features/events/pages/event-page/event.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventSelectionService } from '@app/features/events/services/event-selection.service';
@@ -12,7 +13,6 @@ import { AnchorComponent } from '@app/shared/components/anchor/anchor.component'
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { LoadingSpinnerComponent } from "@app/shared/components/loading-spinner/loading-spinner.component";
 import { ModalComponent } from "@app/shared/components/modal/modal.component";
-import { EventRegistration } from '@features/events/models/event-registration.model';
 import { delay, finalize, of } from 'rxjs';
 
 

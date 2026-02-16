@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
 import { ApiResponse } from '@app/core/models/api-response.model';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
-import { EventData } from '@features/events/models/event-data.model';
-import { EventInformation } from '@features/events/models/event-information.model';
+import { EventData } from '@app/features/events/models/event-data.model';
+import { EventInformation } from '@app/features/events/models/event-information.model';
 import { catchError, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 
 @Injectable({

@@ -2,10 +2,10 @@ import { Component, inject, input } from '@angular/core';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import { User } from '@app/core/models/user.model';
 import { AppLogoComponent } from "@app/core/ui/app-logo/app-logo.component";
 import { EventSearchService } from '@app/features/events/services/event-search.service';
 import { EventSearchAutocompleteComponent } from "@app/features/events/ui/event-search-autocomplete/event-search-autocomplete.component";
-import { User } from '@app/features/user/models/user.model';
 import { MyNotificationsComponent } from "@app/features/user/ui/my-notifications/my-notifications.component";
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { UserMenuComponent } from "./user-menu/user-menu.component";

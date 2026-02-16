@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
 import { ApiResponse } from '@app/core/models/api-response.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
-import { EventRegistration, RegistrationStatus } from '@features/events/models/event-registration.model';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
+import { EventRegistration, RegistrationStatus } from '@app/features/events/models/event-registration.model';
 import { catchError, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 
 @Injectable({

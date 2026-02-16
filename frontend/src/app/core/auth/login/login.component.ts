@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
-import { User } from '@app/features/user/models/user.model';
+import { User } from '@app/core/models/user.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { delay, of, switchMap } from 'rxjs';

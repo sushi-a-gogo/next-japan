@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { DialogService } from '@core/services/dialog.service';
-import { EventOpportunity } from '@features/events/models/event-opportunity.model';
+import { DialogService } from '@app/core/services/dialog.service';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 
 @Injectable({
   providedIn: 'root',

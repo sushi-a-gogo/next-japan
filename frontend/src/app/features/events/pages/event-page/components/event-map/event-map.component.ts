@@ -1,11 +1,11 @@
 import { Component, computed, inject, output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RegistrationStatus } from '@app/features/events/models/event-registration.model';
 import { EventService } from '@app/features/events/pages/event-page/event.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventDateCardComponent } from '@app/features/events/ui/event-date-card/event-date-card.component';
 import { ButtonComponent } from "@app/shared/components/button/button.component";
-import { RegistrationStatus } from '@features/events/models/event-registration.model';
 
 @Component({
   selector: 'app-event-map',

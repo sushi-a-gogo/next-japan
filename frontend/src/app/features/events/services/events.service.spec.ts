@@ -2,11 +2,11 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ApiService } from '@app/core/services/api.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
-import { ApiService } from '@core/services/api.service';
+import { EventData } from '@app/features/events/models/event-data.model';
+import { EventsService } from '@app/features/events/services/events.service';
 import { environment } from '@environments/environment';
-import { EventData } from '@features/events/models/event-data.model';
-import { EventsService } from '@features/events/services/events.service';
 import { firstValueFrom } from 'rxjs';
 
 describe('EventsService', () => {

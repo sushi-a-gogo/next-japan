@@ -2,9 +2,9 @@ import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '@app/core/auth/auth.service';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { LikeService } from '@app/features/events/services/like.service';
-import { DateTimeService } from '@core/services/date-time.service';
-import { EventData } from '@features/events/models/event-data.model';
 import { finalize, forkJoin, of } from 'rxjs';
 
 @Component({

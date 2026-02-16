@@ -3,11 +3,11 @@ import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject,
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { User } from '@app/core/models/user.model';
+import { DateTimeService } from '@app/core/services/date-time.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { UserReward } from '@app/features/user/models/user-reward.model';
-import { User } from '@app/features/user/models/user.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
-import { DateTimeService } from '@core/services/date-time.service';
 
 @Component({
   selector: 'app-profile-badges',

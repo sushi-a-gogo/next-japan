@@ -1,8 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { AppImageData } from '@app/core/models/app-image-data.model';
-import { ImageService } from '@core/services/image.service';
-import { ThemeService } from '@core/services/theme.service';
+import { ImageService } from '@app/core/services/image.service';
+import { ThemeService } from '@app/core/services/theme.service';
 
 @Component({
   selector: 'app-logo',

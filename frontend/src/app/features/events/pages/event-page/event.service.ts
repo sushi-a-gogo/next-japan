@@ -1,10 +1,10 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { EventInformation } from '@app/features/events/models/event-information.model';
 import { EventLocation } from '@app/features/events/models/event-location.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventLocationService } from '@app/features/events/services/event-location.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventsService } from '@app/features/events/services/events.service';
-import { EventInformation } from '@features/events/models/event-information.model';
-import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

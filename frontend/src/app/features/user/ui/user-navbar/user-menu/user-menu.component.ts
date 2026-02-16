@@ -5,7 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
-import { User } from '@app/features/user/models/user.model';
+import { User } from '@app/core/models/user.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { UserAvatarComponent } from "@app/features/user/ui/avatar/user-avatar/user-avatar.component";
 import { of, switchMap } from 'rxjs';

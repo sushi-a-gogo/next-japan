@@ -1,14 +1,14 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, ElementRef, inject, output, PLATFORM_ID, signal, viewChild } from '@angular/core';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { ImageService } from '@app/core/services/image.service';
 import { EventRegistration } from '@app/features/events/models/event-registration.model';
 import { EventService } from '@app/features/events/pages/event-page/event.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
+import { EventRegistrationStatusCardComponent } from "@app/features/events/ui/event-registration-status-card/event-registration-status-card.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
-import { DateTimeService } from '@core/services/date-time.service';
-import { ImageService } from '@core/services/image.service';
-import { EventRegistrationStatusCardComponent } from "@features/events/ui/event-registration-status-card/event-registration-status-card.component";
-import { RegisteredEventDialogComponent } from '@features/events/ui/registered-event-dialog/registered-event-dialog.component';
+import { RegisteredEventDialogComponent } from '@app/features/events/ui/registered-event-dialog/registered-event-dialog.component';
 
 @Component({
   selector: 'app-event-hero',

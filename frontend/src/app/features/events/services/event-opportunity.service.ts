@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
 import { EventCalendarDate } from '@app/features/events/models/event-calendar-date.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
-import { EventOpportunity } from '@features/events/models/event-opportunity.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
 
 type CalendarOnly = Pick<EventOpportunity, keyof EventCalendarDate>;

@@ -5,11 +5,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router, RouterLink } from '@angular/router';
+import { MetaService } from '@app/core/services/meta.service';
 import { AiEventHeaderComponent } from "@app/features/ai/pages/ai-event-page/ai-event-header/ai-event-header.component";
 import { AiService } from '@app/features/ai/services/ai.service';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { EventsService } from '@app/features/events/services/events.service';
-import { MetaService } from '@core/services/meta.service';
-import { EventData } from '@features/events/models/event-data.model';
 import { filter } from 'rxjs';
 
 @Component({

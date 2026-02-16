@@ -2,9 +2,9 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
+import { ImageService } from '@app/core/services/image.service';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ImageService } from '@core/services/image.service';
-import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-event-card',

@@ -8,9 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '@app/core/auth/auth.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
+import { AiPromptParams } from '@app/features/ai/models/ai-prompt-params.model';
+import { AiService } from '@app/features/ai/services/ai.service';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { AiPromptParams } from '@features/ai/models/ai-prompt-params.model';
-import { AiService } from '@features/ai/services/ai.service';
 import { AiPromptsForm } from './ai-prompts.form';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventsService } from '@app/features/events/services/events.service';
-import { EventData } from '@features/events/models/event-data.model';
 import { NextEventCardComponent } from "./next-event-card/next-event-card.component";
 
 @Component({

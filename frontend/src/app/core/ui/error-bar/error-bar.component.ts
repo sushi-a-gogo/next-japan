@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorService } from '@core/services/error.service';
+import { ErrorService } from '@app/core/services/error.service';
 
 @Component({
   selector: 'app-error-bar',

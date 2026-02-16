@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
+import { ImageService } from '@app/core/services/image.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
-import { ImageService } from '@core/services/image.service';
-import { AiPromptParams } from '@features/ai/models/ai-prompt-params.model';
+import { AiPromptParams } from '@app/features/ai/models/ai-prompt-params.model';
 import { catchError, delay, of, tap } from 'rxjs';
 
 @Injectable({

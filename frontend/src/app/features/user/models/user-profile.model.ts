@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import { User } from '@app/core/models/user.model';
 
 export interface UserProfile extends User {
   phone: string | null;

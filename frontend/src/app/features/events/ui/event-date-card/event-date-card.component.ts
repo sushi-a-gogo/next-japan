@@ -1,7 +1,7 @@
 import { LowerCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { DateTimeService } from '@app/core/services/date-time.service';
 import { EventCalendarDate } from '@app/features/events/models/event-calendar-date.model';
-import { DateTimeService } from '@core/services/date-time.service';
 
 @Component({
   selector: 'app-event-date-card',

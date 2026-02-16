@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
+import { ApiService } from '@app/core/services/api.service';
+import { ErrorService } from '@app/core/services/error.service';
 import { EventLocation } from '@app/features/events/models/event-location.model';
-import { ApiService } from '@core/services/api.service';
-import { ErrorService } from '@core/services/error.service';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
 
 @Injectable({

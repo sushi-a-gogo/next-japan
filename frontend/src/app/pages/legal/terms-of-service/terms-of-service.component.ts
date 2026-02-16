@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { MetaService } from '@core/services/meta.service';
+import { MetaService } from '@app/core/services/meta.service';
 
 @Component({
   selector: 'app-terms-of-service',

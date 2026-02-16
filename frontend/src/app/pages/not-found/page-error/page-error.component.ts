@@ -2,7 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AppImageData } from '@app/core/models/app-image-data.model';
-import { ImageService } from '@core/services/image.service';
+import { ImageService } from '@app/core/services/image.service';
 
 @Component({
   selector: 'app-page-error',

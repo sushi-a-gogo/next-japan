@@ -1,8 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { AppImageData } from '@app/core/models/app-image-data.model';
+import { ImageService } from '@app/core/services/image.service';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ImageService } from '@core/services/image.service';
 
 @Component({
   selector: 'app-ai-banner',

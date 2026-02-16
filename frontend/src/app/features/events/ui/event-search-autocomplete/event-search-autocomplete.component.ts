@@ -6,8 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { EventSearchService } from '@app/features/events/services/event-search.service';
-import { EventData } from '@features/events/models/event-data.model';
 import { debounceTime, filter, of, switchMap } from 'rxjs';
 
 @Component({

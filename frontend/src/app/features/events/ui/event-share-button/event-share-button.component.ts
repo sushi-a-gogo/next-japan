@@ -6,10 +6,10 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '@app/core/auth/auth.service';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { EventData } from '@app/features/events/models/event-data.model';
 import { ShareService } from '@app/features/events/services/share.service';
-import { DateTimeService } from '@core/services/date-time.service';
 import { environment } from '@environments/environment';
-import { EventData } from '@features/events/models/event-data.model';
 import { forkJoin } from 'rxjs';
 
 @Component({
