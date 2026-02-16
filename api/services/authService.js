@@ -4,7 +4,7 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwt.js";
-import { findUser } from "./userService.js";
+import { findUser, saveUser } from "./userService.js";
 
 export const loginUser = async (data) => {
   const { email } = data;
@@ -25,4 +25,9 @@ export const fetchUser = async (refreshToken) => {
   const newAccessToken = generateAccessToken(user.userId, user.email);
   const newRefreshToken = generateRefreshToken(user.userId, user.email);
   return { newAccessToken, newRefreshToken, user };
+};
+
+export const signUpUser = async (data) => {
+  const savedUser = await saveUser(data);
+  return savedUser;
 };

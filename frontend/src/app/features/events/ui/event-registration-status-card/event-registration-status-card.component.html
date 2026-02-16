@@ -1,0 +1,25 @@
+@if (eventRegistration()) {
+  <div class="host">
+    <div>
+      You registered for this event on
+      {{ eventRegistration()!.createdAt | date }}
+    </div>
+    <ul class="nj-flex row align-center">
+      <li>
+        <button (click)="viewRegistration.emit()">VIEW REGISTRATION</button>
+      </li>
+      <li>
+        <a routerLink="/user/dashboard" [queryParams]="{ action: 'manage' }">
+          MANAGE YOUR EVENTS
+        </a>
+      </li>
+    </ul>
+  </div>
+} @else {
+  <app-button
+    cssClass="app-button app-button-filled priority"
+    (buttonClick)="startRegistration.emit()"
+  >
+    <div class="button-text">Reserve Your Spot Now!</div>
+  </app-button>
+}

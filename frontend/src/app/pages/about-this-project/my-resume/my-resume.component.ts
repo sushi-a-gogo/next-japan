@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, output, signal } from '@angular/core';
-import { ButtonComponent } from '@app/shared/button/button.component';
-import { ModalComponent } from '@app/shared/modal/modal.component';
+import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ModalComponent } from '@app/shared/components/modal/modal.component';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({

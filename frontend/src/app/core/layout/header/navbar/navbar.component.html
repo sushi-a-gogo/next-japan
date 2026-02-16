@@ -1,0 +1,29 @@
+<nav class="component-box-content" [class.search-mode]="inSearchMode()">
+  <div class="nav-content">
+    <ul class="nj-flex row align-center justify-space-between">
+      <li class="logo">
+        <app-anchor cssClass="app-button logo" link="/" [rippleEnabled]="false">
+          <app-logo />
+        </app-anchor>
+      </li>
+      <li class="spacer"></li>
+      <li>
+        <button
+          aria-label="Search Events"
+          type="button"
+          class="app-button flex-button search strong"
+          (click)="toggleSearchPanel()"
+        >
+          <span class="material-symbols-outlined"> search </span>
+          <span class="button-text">Search</span>
+        </button>
+      </li>
+      <li class="sign-in">
+        <app-anchor link="/login" cssClass="app-button app-button-filled">
+          Sign In
+        </app-anchor>
+      </li>
+    </ul>
+    <app-event-search-autocomplete />
+  </div>
+</nav>

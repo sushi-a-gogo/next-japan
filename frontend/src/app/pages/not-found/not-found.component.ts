@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { PageErrorComponent } from '@app/components/page-error/page-error.component';
-import { ErrorService } from '@app/services/error.service';
+import { ErrorService } from '@app/core/services/error.service';
+import { PageErrorComponent } from '@app/pages/not-found/page-error/page-error.component';
 
 @Component({
   selector: 'app-not-found',

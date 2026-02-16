@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { MatButtonModule } from '@angular/material/button';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CanonicalService } from '@app/services/canonical.service';
-import { MetaService } from '@app/services/meta.service';
+import { CanonicalService } from '@app/core/services/canonical.service';
+import { MetaService } from '@app/core/services/meta.service';
 import { MyResumeComponent } from "./my-resume/my-resume.component";
 
 @Component({

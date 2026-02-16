@@ -21,15 +21,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   res.json({ success: true, data: user });
 });
 
-// POST new user
-export const createUser = asyncHandler(async (req, res) => {
-  const user = await userService.saveUser(req.body);
-  res.status(201).json({
-    success: true,
-    data: user,
-  });
-});
-
 // PUT update user
 export const updateUserProfile = asyncHandler(async (req, res) => {
   if (!authorized(req, res)) return;

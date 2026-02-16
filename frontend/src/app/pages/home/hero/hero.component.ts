@@ -2,9 +2,9 @@ import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { EventData } from '@app/models/event/event-data.model';
-import { ImageService } from '@app/services/image.service';
-import { ButtonComponent } from '@app/shared/button/button.component';
+import { ImageService } from '@app/core/services/image.service';
+import { EventData } from '@app/features/events/models/event-data.model';
+import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { interval } from 'rxjs';
 import organization from 'src/lib/organization-data';
 

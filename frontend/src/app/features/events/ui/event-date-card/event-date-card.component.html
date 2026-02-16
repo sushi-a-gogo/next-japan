@@ -1,0 +1,9 @@
+@if (datestamp() && timestamp()) {
+  {{ datestamp() }}
+  <div>
+    {{ timestamp() | lowercase }}
+    <span class="tz">{{ calendarDate().timeZoneAbbreviation }}</span>
+  </div>
+} @else {
+  <div>Error loading next opportunity date - please check back later.</div>
+}

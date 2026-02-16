@@ -1,0 +1,21 @@
+import { Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
+import { ButtonComponent } from '@app/shared/components/button/button.component';
+
+@Component({
+  selector: 'app-login-button',
+  imports: [ButtonComponent],
+  templateUrl: './login-button.component.html',
+  styleUrl: './login-button.component.scss'
+})
+export class LoginButtonComponent {
+  signup = input<boolean>(false);
+  private router = inject(Router);
+
+  login() {
+    const queryParams = this.signup() ? { signup: 'sign-up', returnTo: undefined } : { returnTo: undefined };
+    this.router.navigate(['login'], {
+      queryParams: queryParams,
+    });
+  }
+}

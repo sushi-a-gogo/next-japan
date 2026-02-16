@@ -1,0 +1,15 @@
+<app-event-opportunity-card [opportunity]="opportunity()" [showNotes]="false" />
+<div class="notes soft muted">
+  {{ opportunity().notes }}
+</div>
+<div class="nj-flex gap-10">
+  <app-event-opportunity-selector
+    class="selector"
+    [opportunity]="opportunity()"
+  />
+  <div>
+    <app-button cssClass="app-button text-button">
+      <span class="text">See details</span>
+    </app-button>
+  </div>
+</div>

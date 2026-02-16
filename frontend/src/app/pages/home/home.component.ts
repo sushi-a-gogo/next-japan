@@ -3,27 +3,26 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnIni
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { AboutComponent } from "@app/components/about/about.component";
-import { LayoutComponent } from "@app/components/layout/layout.component";
-import { FadeInOnScrollDirective } from '@app/directives/fade-in-on-scroll.directive';
-import { AppImageData } from '@app/models/app-image-data.model';
-import { EventData } from '@app/models/event/event-data.model';
-import { CanonicalService } from '@app/services/canonical.service';
-import { DateTimeService } from '@app/services/date-time.service';
-import { EventsService } from '@app/services/events.service';
-import { ImageService } from '@app/services/image.service';
-import { MetaService } from '@app/services/meta.service';
-import { OpportunityService } from '@app/services/opportunity.service';
+import { LayoutComponent } from "@app/core/layout/layout.component";
+import { AppImageData } from '@app/core/models/app-image-data.model';
+import { CanonicalService } from '@app/core/services/canonical.service';
+import { DateTimeService } from '@app/core/services/date-time.service';
+import { ImageService } from '@app/core/services/image.service';
+import { MetaService } from '@app/core/services/meta.service';
+import { EventData } from '@app/features/events/models/event-data.model';
+import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
+import { EventsService } from '@app/features/events/services/events.service';
+import { EventCarouselComponent } from "@app/features/events/ui/event-carousel/event-carousel.component";
+import { FadeInOnScrollDirective } from '@app/shared/directives/fade-in-on-scroll.directive';
 import { forkJoin, map } from 'rxjs';
 import organization from 'src/lib/organization-data';
 import { AboutSiteBannerComponent } from "./about-site-banner/about-site-banner.component";
 import { AiBannerComponent } from "./ai-banner/ai-banner.component";
-import { EventCarouselComponent } from "./event-carousel/event-carousel.component";
 import { HeroComponent } from "./hero/hero.component";
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage, FadeInOnScrollDirective, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutComponent, AboutSiteBannerComponent],
+  imports: [NgOptimizedImage, FadeInOnScrollDirective, HeroComponent, EventCarouselComponent, LayoutComponent, AiBannerComponent, AboutSiteBannerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private canonicalService = inject(CanonicalService);
   private eventsService = inject(EventsService);
-  private opportunityService = inject(OpportunityService);
+  private opportunityService = inject(EventOpportunityService);
   private imageService = inject(ImageService);
   private dateTime = inject(DateTimeService);
   private destroyRef = inject(DestroyRef);
@@ -94,7 +93,8 @@ export class HomeComponent implements OnInit {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)
             .sort(this.dateTime.sortCalendarDates);
-          event.nextOpportunityDate = eventOpportunities.length > 0 ? this.dateTime.mapToCalendarDate(eventOpportunities[0]) : undefined;
+          const nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined
+          event.nextCalendarDate = nextOpportunity ? this.opportunityService.getCleanDate(nextOpportunity) : undefined;
         });
         return events;
       })

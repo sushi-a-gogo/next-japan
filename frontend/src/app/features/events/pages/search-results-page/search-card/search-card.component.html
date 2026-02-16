@@ -1,0 +1,39 @@
+<div class="card-container nj-flex col gap-12">
+  <button type="button" (click)="goToEvent()" class="border-box">
+    <img
+      alt="Event Image"
+      class="hero"
+      [class.grok]="isGrokEvent()"
+      [ngSrc]="resizedImage().src"
+      [width]="resizedImage().image.width"
+      [height]="resizedImage().image.height"
+    />
+  </button>
+  <div class="card-body">
+    <div>
+      <div
+        class="title break-word"
+        matTooltipShowDelay="750"
+        matTooltipClass="app-tooltip"
+      >
+        {{ event().eventTitle || "Title Not Available" }}
+      </div>
+      <div class="description notes break-word">
+        {{ event().description }}
+      </div>
+    </div>
+    @if (event().nextCalendarDate) {
+      <div>
+        <strong class="subtitle">Next Opportunity</strong>
+        <div class="description">
+          <app-event-date-card [calendarDate]="event().nextCalendarDate!" />
+        </div>
+      </div>
+    } @else {
+      <div class="flex-row subtitle">
+        <span class="material-symbols-outlined">campaign</span>
+        <strong>Coming Soon</strong>
+      </div>
+    }
+  </div>
+</div>

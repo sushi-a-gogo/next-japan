@@ -1,0 +1,41 @@
+<div class="card-container">
+  <img
+    alt="Event Image"
+    class="hero"
+    [class.grok]="isGrokEvent()"
+    [ngSrc]="resizedImage().src"
+    [width]="resizedImage().image.width"
+    [height]="resizedImage().image.height"
+    placeholder
+    priority
+  />
+  <div class="card-body">
+    <div class="nj-flex col gap-10">
+      <div class="title break-word">
+        {{ event().eventTitle }}
+      </div>
+      <div class="nj-flex col gap-5">
+        <div>
+          <app-event-location-card
+            [location]="event().location"
+            [showDirections]="true"
+          />
+          <app-event-opportunity-card [opportunity]="event().opportunity" />
+        </div>
+        <app-event-registration-status [status]="event().status" />
+      </div>
+    </div>
+    <div class="actions">
+      <app-anchor [link]="routerLink" cssClass="app-button app-button-filled">
+        Open Event Details
+      </app-anchor>
+      <app-button
+        cssClass="app-button app-button-outlined"
+        (buttonClick)="confirmCancel()"
+        [disabled]="event().status === registrationStatus.Cancelled"
+      >
+        Cancel Registration
+      </app-button>
+    </div>
+  </div>
+</div>

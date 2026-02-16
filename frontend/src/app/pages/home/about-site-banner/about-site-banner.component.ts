@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { ImageService } from '@app/services/image.service';
+import { ImageService } from '@app/core/services/image.service';
 
 @Component({
   selector: 'app-about-site-banner',
