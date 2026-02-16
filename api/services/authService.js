@@ -27,7 +27,7 @@ export const fetchUser = async (refreshToken) => {
   return { newAccessToken, newRefreshToken, user };
 };
 
-export const createUser = async (data) => {
+export const signUpUser = async (data) => {
   const savedUser = await saveUser(data);
   return savedUser;
 };

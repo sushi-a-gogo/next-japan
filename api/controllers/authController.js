@@ -59,8 +59,8 @@ export const refreshUser = asyncHandler(async (req, res) => {
 });
 
 // POST new user
-export const createUser = asyncHandler(async (req, res) => {
-  const user = await authService.createUser(req.body);
+export const signUpUser = asyncHandler(async (req, res) => {
+  const user = await authService.signUpUser(req.body);
   res.status(201).json({
     success: true,
     data: user,
