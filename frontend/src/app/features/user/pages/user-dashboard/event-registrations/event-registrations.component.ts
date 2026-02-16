@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnIni
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@app/core/auth/auth.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
-import { AddressStripComponent } from "@app/features/events/ui/address-strip/address-strip.component";
-import { OpportunityTimestampComponent } from '@app/features/events/ui/opportunity-timestamp/opportunity-timestamp.component';
+import { EventLocationCard } from "@app/features/events/ui/event-location-card/event-location-card.component";
+import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ConfirmModalComponent } from '@app/shared/components/modal/confirm-modal/confirm-modal.component';
 import { EventRegistration } from '@features/events/models/event-registration.model';
@@ -12,7 +12,7 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
 
 @Component({
   selector: 'app-event-registrations',
-  imports: [EventRegistrationCardComponent, ConfirmModalComponent, OpportunityTimestampComponent, AddressStripComponent],
+  imports: [EventRegistrationCardComponent, ConfirmModalComponent, EventOpportunityCardComponent, EventLocationCard],
   templateUrl: './event-registrations.component.html',
   styleUrl: './event-registrations.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

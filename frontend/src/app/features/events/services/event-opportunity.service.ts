@@ -1,9 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClientCache } from '@app/core/cache/http-client-cache';
+import { EventCalendarDate } from '@app/features/events/models/event-calendar-date.model';
 import { ApiService } from '@core/services/api.service';
 import { ErrorService } from '@core/services/error.service';
 import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 import { catchError, map, Observable, shareReplay } from 'rxjs';
+
+type CalendarOnly = Pick<EventOpportunity, keyof EventCalendarDate>;
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +18,18 @@ export class EventOpportunityService {
   private eventCache = new HttpClientCache<EventOpportunity[]>();
   private errorService = inject(ErrorService);
   private apiUrl = 'api/event-opportunities';
+
+
+  getCleanDate(op: EventOpportunity): CalendarOnly {
+    return {
+      startDate: op.startDate,
+      endDate: op.endDate,
+      timeZone: op.timeZone,
+      timeZoneAbbreviation: op.timeZoneAbbreviation,
+      timeZoneOffset: op.timeZoneOffset,
+      timeZoneOffsetDST: op.timeZoneOffsetDST
+    };
+  }
 
   getOpportunities$(): Observable<EventOpportunity[]> {
     const key = `opportunities`;

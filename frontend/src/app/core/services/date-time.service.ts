@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { inject, Injectable } from '@angular/core';
-import { CalendarDate } from '@app/features/events/models/calendar-date.model';
+import { EventCalendarDate } from '@app/features/events/models/event-calendar-date.model';
 import { getTimezoneOffset } from 'date-fns-tz';
 
 @Injectable({
@@ -14,7 +14,9 @@ export class DateTimeService {
     return d instanceof Date && !isNaN(d.getTime());
   }
 
-  sortCalendarDates(a: CalendarDate, b: CalendarDate) {
+
+
+  sortCalendarDates(a: EventCalendarDate, b: EventCalendarDate) {
     return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
   }
 

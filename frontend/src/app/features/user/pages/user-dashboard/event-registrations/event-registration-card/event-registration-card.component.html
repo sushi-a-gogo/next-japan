@@ -16,14 +16,11 @@
       </div>
       <div class="nj-flex col gap-5">
         <div>
-          <app-address-strip
+          <app-event-location-card
             [location]="event().location"
-            [showAddress]="false"
             [showDirections]="true"
-          ></app-address-strip>
-          <app-opportunity-timestamp
-            [opportunity]="event().opportunity"
-          ></app-opportunity-timestamp>
+          />
+          <app-event-opportunity-card [opportunity]="event().opportunity" />
         </div>
         <app-event-registration-status [status]="event().status" />
       </div>

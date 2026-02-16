@@ -1,13 +1,13 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OpportunityDateComponent } from "@app/features/events/ui/opportunity-date/opportunity-date.component";
+import { EventDateCardComponent } from "@app/features/events/ui/event-date-card/event-date-card.component";
 import { ImageService } from '@core/services/image.service';
 import { EventData } from '@features/events/models/event-data.model';
 
 @Component({
   selector: 'app-search-card',
-  imports: [NgOptimizedImage, OpportunityDateComponent],
+  imports: [NgOptimizedImage, EventDateCardComponent],
   templateUrl: './search-card.component.html',
   styleUrl: './search-card.component.scss'
 })

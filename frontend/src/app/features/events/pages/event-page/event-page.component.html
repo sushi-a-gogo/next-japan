@@ -10,12 +10,14 @@
       </div>
       <div class="page-component">
         <h1>Event Coordinators</h1>
-        <app-coordinator-overview />
+        <app-event-coordinators
+          [eventCoordinators]="event()?.eventCoordinators || []"
+        />
       </div>
     </div>
 
     @if (loaded()) {
-      <app-event-location (onGetTickets)="scrollToOpportunities()" />
+      <app-event-map (onGetTickets)="scrollToOpportunities()" />
       <div class="component-box-content pad" #opportunities>
         <div class="page-component">
           <h1>Upcoming Opportunities</h1>
@@ -24,7 +26,7 @@
       </div>
     }
   </main>
+  @if (showRegistrationDialog()) {
+    <app-event-registration-dialog (close)="closeRegistrationDialog()" />
+  }
 </article>
-@if (showRegistrationDialog()) {
-  <app-registration-dialog (close)="closeRegistrationDialog()" />
-}

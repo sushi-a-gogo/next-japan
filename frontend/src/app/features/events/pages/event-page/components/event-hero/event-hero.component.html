@@ -16,63 +16,67 @@
           {{ event()?.eventTitle }}
         </div>
         <div class="nj-flex col gap-2">
-          @if(location()) {
-          <div class="nj-flex row align-center gap-10">
-            <span class="material-symbols-outlined icon-map"> map </span>
-            <span>
-              {{ location()?.locationName }}
-            </span>
-          </div>
+          @if (location()) {
+            <div class="nj-flex row align-center gap-10">
+              <span class="material-symbols-outlined icon-map"> map </span>
+              <span>
+                {{ location()?.locationName }}
+              </span>
+            </div>
           }
           <div class="nj-flex row align-center gap-24">
-            @if(eventDateRange()) {
-            <div class="nj-flex row align-center gap-10">
-              <span class="material-symbols-outlined icon-note"
-                >date_range</span
-              >
-              <span>{{ eventDateRange() }}</span>
-            </div>
-            @if(event()) {
-            <div class="nj-flex row gap-10">
-              <app-like-button [event]="event()!" color="white" />
-              <app-share-button [event]="event()!" color="white" />
-            </div>
-            } } @else {
-            <div class="nj-flex col gap-10">
-              <div class="description">
-                {{ event()?.description }}
+            @if (eventDateRange()) {
+              <div class="nj-flex row align-center gap-10">
+                <span class="material-symbols-outlined icon-note"
+                  >date_range</span
+                >
+                <span>{{ eventDateRange() }}</span>
               </div>
-              <div class="nj-flex row align-center gap-24">
-                <div class="nj-flex row align-center gap-10">
-                  <span class="material-symbols-outlined icon-campaign">
-                    campaign
-                  </span>
-                  Coming Soon
+              @if (event()) {
+                <div class="nj-flex row gap-10">
+                  <app-event-like-button [event]="event()!" color="white" />
+                  <app-event-share-button [event]="event()!" color="white" />
                 </div>
-                @if(event()) {
-                <div class="nj-flex row align-center gap-16">
-                  <app-like-button [event]="event()!" color="white" />
-                  <app-share-button [event]="event()!" color="white" />
+              }
+            } @else {
+              <div class="nj-flex col gap-10">
+                <div class="description">
+                  {{ event()?.description }}
                 </div>
-                }
+                <div class="nj-flex row align-center gap-24">
+                  <div class="nj-flex row align-center gap-10">
+                    <span class="material-symbols-outlined icon-campaign">
+                      campaign
+                    </span>
+                    Coming Soon
+                  </div>
+                  @if (event()) {
+                    <div class="nj-flex row align-center gap-16">
+                      <app-event-like-button [event]="event()!" color="white" />
+                      <app-event-share-button
+                        [event]="event()!"
+                        color="white"
+                      />
+                    </div>
+                  }
+                </div>
               </div>
-            </div>
             }
           </div>
         </div>
       </div>
-      <app-registration-alert
+      <app-event-registration-status-card
         class="alert"
-        [eventRegistration]="eventRegistration()"
+        [eventRegistration]="nextEventRegistration()"
         (viewRegistration)="viewRegistration.set(true)"
         (startRegistration)="onGetTickets.emit()"
       />
     </div>
   </div>
-  @if(viewRegistration()) {
-  <app-view-registration-dialog
-    [eventRegistration]="eventRegistration()"
-    (close)="viewRegistration.set(false)"
-  />
+  @if (viewRegistration()) {
+    <app-registered-event-dialog
+      [eventRegistration]="nextEventRegistration()"
+      (close)="viewRegistration.set(false)"
+    />
   }
 </div>

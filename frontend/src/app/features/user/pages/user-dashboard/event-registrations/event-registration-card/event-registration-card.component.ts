@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, OnInit, output } from '@angular/core';
-import { AddressStripComponent } from '@app/features/events/ui/address-strip/address-strip.component';
-import { OpportunityTimestampComponent } from '@app/features/events/ui/opportunity-timestamp/opportunity-timestamp.component';
+import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
+import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { ImageService } from '@core/services/image.service';
@@ -10,7 +10,7 @@ import { EventRegistrationStatusComponent } from './event-registration-status/ev
 
 @Component({
   selector: 'app-event-registration-card',
-  imports: [NgOptimizedImage, AddressStripComponent, OpportunityTimestampComponent, EventRegistrationStatusComponent, AnchorComponent, ButtonComponent],
+  imports: [NgOptimizedImage, EventLocationCard, EventOpportunityCardComponent, EventRegistrationStatusComponent, AnchorComponent, ButtonComponent],
   templateUrl: './event-registration-card.component.html',
   styleUrl: './event-registration-card.component.scss'
 })

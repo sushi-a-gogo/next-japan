@@ -1,17 +1,18 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, ElementRef, inject, output, PLATFORM_ID, signal, viewChild } from '@angular/core';
+import { EventRegistration } from '@app/features/events/models/event-registration.model';
 import { EventService } from '@app/features/events/pages/event-page/event.service';
 import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
-import { LikeButtonComponent } from "@app/features/events/ui/like-button/like-button.component";
-import { ShareButtonComponent } from "@app/features/events/ui/share-button/share-button.component";
+import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
+import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
 import { DateTimeService } from '@core/services/date-time.service';
 import { ImageService } from '@core/services/image.service';
-import { RegistrationAlertComponent } from "../registration-alert/registration-alert.component";
-import { ViewRegistrationDialogComponent } from '../view-registration-dialog/view-registration-dialog.component';
+import { EventRegistrationStatusCardComponent } from "@features/events/ui/event-registration-status-card/event-registration-status-card.component";
+import { RegisteredEventDialogComponent } from '@features/events/ui/registered-event-dialog/registered-event-dialog.component';
 
 @Component({
   selector: 'app-event-hero',
-  imports: [NgOptimizedImage, LikeButtonComponent, ShareButtonComponent, RegistrationAlertComponent, ViewRegistrationDialogComponent],
+  imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, EventRegistrationStatusCardComponent, RegisteredEventDialogComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
   host: {
@@ -63,9 +64,9 @@ export class EventHeroComponent {
     return null;
   });
 
-  eventRegistration = computed(() => {
+  nextEventRegistration = computed(() => {
     const eventId = this.event()?.eventId;
-    const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
+    const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId).sort(this.sortRegistrationsByDate);
     return registrations.length ? registrations[0] : null;
   });
 
@@ -83,5 +84,9 @@ export class EventHeroComponent {
 
       this.ticking = false;
     });
+  }
+
+  private sortRegistrationsByDate(a: EventRegistration, b: EventRegistration) {
+    return new Date(a.opportunity.startDate).getTime() - new Date(b.opportunity.startDate).getTime();
   }
 }

@@ -15,16 +15,16 @@ import { ImageService } from '@core/services/image.service';
 import { MetaService } from '@core/services/meta.service';
 import { EventRegistration } from '@features/events/models/event-registration.model';
 import { filter, of, switchMap } from 'rxjs';
-import { CoordinatorOverviewComponent } from './components/coordinator-overview/coordinator-overview.component';
+import { EventRegistrationDialogComponent } from "../../ui/event-registration-dialog/event-registration-dialog.component";
+import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
-import { EventLocationComponent } from "./components/event-location/event-location.component";
+import { EventMapComponent } from "./components/event-map/event-map.component";
 import { EventOpportunitiesComponent } from "./components/event-opportunities/event-opportunities.component";
-import { RegistrationDialogComponent } from "./components/registration-dialog/registration-dialog.component";
 
 @Component({
   selector: 'app-event-page',
-  imports: [CoordinatorOverviewComponent,
-    EventOpportunitiesComponent, RegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventLocationComponent],
+  imports: [EventCoordinatorsComponent,
+    EventOpportunitiesComponent, EventRegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventMapComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

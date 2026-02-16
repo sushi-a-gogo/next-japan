@@ -61,7 +61,7 @@ export class SearchResultsPageComponent implements OnInit, OnChanges {
         const events = res.events;
         events.forEach((event) => {
           const opportunities = res.opportunities.filter((o) => o.eventId === event.eventId).sort(this.dateTime.sortCalendarDates);
-          event.nextOpportunityDate = opportunities.length ? opportunities[0] : undefined;
+          event.nextCalendarDate = opportunities.length ? this.opportunityService.getCleanDate(opportunities[0]) : undefined;
         });
         this.events.set(events);
       },

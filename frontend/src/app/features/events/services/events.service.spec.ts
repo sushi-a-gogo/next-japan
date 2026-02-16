@@ -27,14 +27,7 @@ describe('EventsService', () => {
         "height": 1024
       },
       "aiProvider": "OpenAI",
-      "createdAt": "2025-07-31T02:09:39.332Z",
-      "nextOpportunityDate": {
-        "startDate": "2025-10-17T08:00:00.000Z",
-        "endDate": "2025-10-17T12:00:00.000Z",
-        "timeZone": "Asia/Tokyo",
-        "timeZoneAbbreviation": "JST",
-        "timeZoneOffset": 9,
-      }
+      "createdAt": "2025-07-31T02:09:39.332Z"
     },
     {
       "eventId": "2",

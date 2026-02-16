@@ -22,20 +22,18 @@
         {{ event().description }}
       </div>
     </div>
-    @if(event().nextOpportunityDate) {
-    <div>
-      <strong class="subtitle">Next Opportunity</strong>
-      <div class="description">
-        <app-opportunity-date
-          [opportunity]="event().nextOpportunityDate!"
-        ></app-opportunity-date>
+    @if (event().nextCalendarDate) {
+      <div>
+        <strong class="subtitle">Next Opportunity</strong>
+        <div class="description">
+          <app-event-date-card [calendarDate]="event().nextCalendarDate!" />
+        </div>
       </div>
-    </div>
     } @else {
-    <div class="flex-row subtitle">
-      <span class="material-symbols-outlined">campaign</span>
-      <strong>Coming Soon</strong>
-    </div>
+      <div class="flex-row subtitle">
+        <span class="material-symbols-outlined">campaign</span>
+        <strong>Coming Soon</strong>
+      </div>
     }
   </div>
 </div>

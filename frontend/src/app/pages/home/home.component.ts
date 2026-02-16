@@ -93,7 +93,8 @@ export class HomeComponent implements OnInit {
           const eventOpportunities = res.opportunities
             .filter((o) => o.eventId === event.eventId)
             .sort(this.dateTime.sortCalendarDates);
-          event.nextOpportunityDate = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+          const nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined
+          event.nextCalendarDate = nextOpportunity ? this.opportunityService.getCleanDate(nextOpportunity) : undefined;
         });
         return events;
       })

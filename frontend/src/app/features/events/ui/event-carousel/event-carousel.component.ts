@@ -49,8 +49,8 @@ export class EventCarouselComponent {
   ];
 
   private sortByDate(a: EventData, b: EventData) {
-    const dateA = a.nextOpportunityDate ? new Date(a.nextOpportunityDate?.startDate) : null;
-    const dateB = b.nextOpportunityDate ? new Date(b.nextOpportunityDate?.startDate) : null;
+    const dateA = a.nextCalendarDate ? new Date(a.nextCalendarDate?.startDate) : null;
+    const dateB = b.nextCalendarDate ? new Date(b.nextCalendarDate?.startDate) : null;
     if (!dateA && !dateB) {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     }

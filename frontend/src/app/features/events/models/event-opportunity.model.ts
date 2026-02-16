@@ -1,6 +1,6 @@
-import { CalendarDate } from './calendar-date.model';
+import { EventCalendarDate } from './event-calendar-date.model';
 
-export interface EventOpportunity extends CalendarDate {
+export interface EventOpportunity extends EventCalendarDate {
   opportunityId: string;
   eventId: string;
   notes?: string;

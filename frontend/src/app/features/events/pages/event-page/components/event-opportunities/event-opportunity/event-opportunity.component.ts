@@ -1,17 +1,15 @@
 import { Component, input } from '@angular/core';
-import { OpportunitySelectorComponent } from "@app/features/events/ui/opportunity-selector/opportunity-selector.component";
-import { OpportunityTimestampComponent } from "@app/features/events/ui/opportunity-timestamp/opportunity-timestamp.component";
+import { EventOpportunityCardComponent } from "@app/features/events/ui/event-opportunity-card/event-opportunity-card.component";
+import { EventOpportunitySelectorComponent } from "@app/features/events/ui/event-opportunity-selector/event-opportunity-selector.component";
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { EventOpportunity } from '@features/events/models/event-opportunity.model';
 
 @Component({
   selector: 'app-event-opportunity',
-  imports: [ButtonComponent, OpportunitySelectorComponent, OpportunityTimestampComponent],
+  imports: [ButtonComponent, EventOpportunitySelectorComponent, EventOpportunityCardComponent],
   templateUrl: './event-opportunity.component.html',
   styleUrl: './event-opportunity.component.scss'
 })
 export class EventOpportunityComponent {
-  //private eventService = inject(EventService);
   opportunity = input.required<EventOpportunity>();
-  //location = computed(() => this.eventService.eventData().locations.find((l) => l.locationId === this.opportunity().locationId));
 }

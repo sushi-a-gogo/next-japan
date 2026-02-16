@@ -4,16 +4,16 @@
   </div>
 </header>
 <main>
-  @if(eventImage()) {
-  <img
-    class="hero"
-    [class.grok]="event().aiProvider === 'Grok'"
-    [ngSrc]="eventImage()!.src"
-    [width]="eventImage()!.image.width"
-    [height]="eventImage()!.image.height"
-    placeholder
-    alt="An image of the event."
-  />
+  @if (eventImage()) {
+    <img
+      class="hero"
+      [class.grok]="event().aiProvider === 'Grok'"
+      [ngSrc]="eventImage()!.src"
+      [width]="eventImage()!.image.width"
+      [height]="eventImage()!.image.height"
+      placeholder
+      alt="An image of the event."
+    />
   }
   <p>
     {{ event().description }}
@@ -27,6 +27,6 @@
   >
     Open Event Details
   </app-anchor>
-  <app-like-button [event]="event()" />
-  <app-share-button [event]="event()" />
+  <app-event-like-button [event]="event()" />
+  <app-event-share-button [event]="event()" />
 </footer>
