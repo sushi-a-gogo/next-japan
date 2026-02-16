@@ -75,20 +75,4 @@ export class UserProfileService {
       })
     );
   }
-
-  signUpUser$(firstName: string, lastName: string, email: string, subscriptionPlan: string): Observable<ApiResponse<User>> {
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      subscriptionPlan,
-      image: { id: '', width: 0, height: 0 },
-      isEmailPreferred: true,
-    };
-    return this.apiService.post<User>(`${this.apiUri}/signup`, newUser).pipe(
-      catchError((e) => {
-        return this.errorService.handleError(e, 'Error saving user profile', true)
-      })
-    );
-  }
 }

@@ -2,7 +2,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { VisitorService } from '@core/services/visitor.service';
+import { VisitorService } from '@app/core/services/visitor.service';
 import { environment } from '@environments/environment';
 import { filter, switchMap } from 'rxjs/operators';
 

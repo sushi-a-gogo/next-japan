@@ -58,6 +58,15 @@ export const refreshUser = asyncHandler(async (req, res) => {
   });
 });
 
+// POST new user
+export const createUser = asyncHandler(async (req, res) => {
+  const user = await authService.createUser(req.body);
+  res.status(201).json({
+    success: true,
+    data: user,
+  });
+});
+
 // POST logout user
 export const logout = asyncHandler(async (req, res) => {
   res.clearCookie("refreshToken", cookieOptions);

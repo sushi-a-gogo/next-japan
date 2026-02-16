@@ -5,7 +5,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { User } from '@app/core/models/user.model';
-import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { delay, of, switchMap } from 'rxjs';
 import { LoginStepsComponent } from "./login-steps/login-steps.component";
@@ -24,7 +23,6 @@ export class LoginComponent implements OnInit {
   private spinner = inject(NgxSpinnerService);
 
   private auth = inject(AuthService);
-  private userService = inject(UserProfileService);
   private path = '/user/dashboard';
 
   showLoginSteps = signal<boolean>(false);
@@ -75,7 +73,7 @@ export class LoginComponent implements OnInit {
     this.showLoginSteps.set(false);
     this.busy.set(true);
     this.spinner.show();
-    this.userService.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
+    this.auth.signUpUser$(user.firstName, user.lastName, user.email, user.subscriptionPlan)
       .pipe(
         switchMap((res) => {
           if (res.success && res.data) {

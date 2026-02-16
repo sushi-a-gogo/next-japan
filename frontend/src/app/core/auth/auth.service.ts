@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiResponse } from '@app/core/models/api-response.model';
 import { User } from '@app/core/models/user.model';
 import { ApiService } from '@app/core/services/api.service';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -82,6 +83,25 @@ export class AuthService {
       })
     );
   }
+
+  signUpUser$(firstName: string, lastName: string, email: string, subscriptionPlan: string): Observable<ApiResponse<User>> {
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      subscriptionPlan,
+      image: { id: '', width: 0, height: 0 },
+      isEmailPreferred: true,
+    };
+    return this.apiService.post<User>(`${this.apiUrl}/signup`, newUser).pipe(
+      catchError((e) => {
+        this.loginStatus.set('error');
+        this.userSignal.set(null);
+        return throwError(() => e);
+      })
+    );
+  }
+
 
   logout(redirectTo: string) {
     this.apiService.post(`${this.apiUrl}/logout`, {}).subscribe({
