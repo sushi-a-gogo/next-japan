@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
-import { userGuard } from './guards/user.guard';
+import { LoginComponent } from './core/auth/login/login.component';
+import { LogoutComponent } from './core/auth/logout/logout.component';
+import { userGuard } from './features/user/user.guard';
 import { AboutThisProjectComponent } from './pages/about-this-project/about-this-project.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -47,17 +47,17 @@ export const routes: Routes = [
   },
   {
     path: 'event',
-    loadChildren: () => import('./pages/events/event.routes').then((mod) => mod.eventRoutes),
+    loadChildren: () => import('./features/events/event.routes').then((mod) => mod.eventRoutes),
     canActivate: [userGuard]
   },
   {
     path: 'ai',
-    loadChildren: () => import('./pages/ai/ai.routes').then((mod) => mod.aiRoutes),
+    loadChildren: () => import('./features/ai/ai.routes').then((mod) => mod.aiRoutes),
     canActivate: [userGuard]
   },
   {
     path: 'user',
-    loadChildren: () => import('./pages/user/user.routes').then((mod) => mod.userRoutes),
+    loadChildren: () => import('./features/user/user.routes').then((mod) => mod.userRoutes),
     canActivate: [userGuard]
   },
   { path: '**', component: NotFoundComponent },

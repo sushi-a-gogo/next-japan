@@ -1,0 +1,110 @@
+<div class="component-box">
+  <div class="component-box-content pad">
+    @if (user()) {
+      <header class="nj-flex row gap-10">
+        <app-user-avatar [user]="avatar()!" [size]="128" />
+        <div class="nj-flex col justify-center gap-10">
+          <div class="nj-flex col gap-5">
+            <span class="title-text">
+              {{ user()?.firstName }} {{ user()?.lastName }}
+            </span>
+            <span class="nj-flex align-center gap-2 muted">
+              <span class="material-symbols-outlined"> calendar_month </span>
+              <span class="soft"> Joined {{ user()?.createdAt | date }} </span>
+            </span>
+          </div>
+          <app-button
+            cssClass="app-button app-button-outlined softer"
+            (buttonClick)="openProfileDialog()"
+          >
+            Edit Profile
+          </app-button>
+        </div>
+      </header>
+      <mat-tab-group
+        dynamicHeight
+        [selectedIndex]="selectedIndex()"
+        (selectedTabChange)="onTabChange($event)"
+      >
+        <mat-tab label="Start">
+          <div class="tab-content banner">
+            <div
+              class="nj-flex col gap-24"
+              style="max-width: 800px; line-height: 22px"
+            >
+              <div>
+                Welcome to your personal launch pad for all things
+                <b>Next Japan</b> - A place where you can check what's coming up
+                next or set off on new adventures. From here, you'll see your
+                upcoming events, along with quick access to your profile and
+                account settings, achievements, suggested events, and more!
+              </div>
+              <div>
+                <div>
+                  <b> Where to Go Next </b>
+                </div>
+                Want to explore everything that's happening across Next Japan?
+                Head over to the
+                <b>Landing Page</b> for a full list of events. Feeling
+                adventurous? Use our <b>AI Event Designer</b> to dream up your
+                own one-of-a-kind gathering.
+              </div>
+              <div class="buttons">
+                <app-anchor link="/" cssClass="app-button app-button-filled">
+                  Open Landing Page
+                </app-anchor>
+                <app-anchor
+                  link="/ai/create"
+                  cssClass="app-button app-button-filled"
+                >
+                  Open AI Designer
+                </app-anchor>
+                <app-button
+                  cssClass="app-button app-button-filled"
+                  (buttonClick)="openSurprise()"
+                >
+                  Surprise Me!
+                </app-button>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Your Events">
+          <div class="tab-content">
+            <app-event-registrations />
+          </div>
+        </mat-tab>
+        <mat-tab label="Achievements">
+          <div class="tab-content banner">
+            <app-profile-badges [user]="user()!" />
+          </div>
+        </mat-tab>
+        <mat-tab label="Suggested for You">
+          <div class="tab-content">
+            <app-next-event />
+          </div>
+        </mat-tab>
+        <mat-tab label="Manage Subscription">
+          <div class="tab-content">
+            <app-manage-subscription
+              [user]="user()!"
+              [selectedIndex]="selectedIndex()"
+            />
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    }
+  </div>
+</div>
+<!-- My Profile -->
+@if (showProfileDialog()) {
+  <app-profile-dialog [user]="user()!" (close)="closeProfileDialog()" />
+}
+@if (showSurprise()) {
+  <app-modal (close)="closeSurprise()">
+    <app-ai-surprise
+      (ready)="surpriseReady($event)"
+      (dismiss)="closeSurprise()"
+    />
+  </app-modal>
+}

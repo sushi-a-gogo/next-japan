@@ -5,8 +5,8 @@
   >
     <header class="component-box">
       <img [ngSrc]="heroImage()" alt="Hero Image" fill priority placeholder />
-      @if(events().length) {
-      <app-hero [events]="events()" />
+      @if (events().length) {
+        <app-hero [events]="events()" />
       }
     </header>
     <main class="component-box nj-flex col align-center">
@@ -28,4 +28,3 @@
     </main>
   </article>
 </app-layout>
-<app-about />

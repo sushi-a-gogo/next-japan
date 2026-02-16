@@ -2,9 +2,9 @@ import { afterNextRender, Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { interval } from 'rxjs';
-import { ErrorBarComponent } from "./components/error-bar/error-bar.component";
-import { VisitTrackerComponent } from "./components/visit-tracker/visit-tracker.component";
-import { ThemeService } from './services/theme.service';
+import { VisitTrackerComponent } from "./core/analytics/visit-tracker/visit-tracker.component";
+import { ThemeService } from './core/services/theme.service';
+import { ErrorBarComponent } from "./core/ui/error-bar/error-bar.component";
 
 @Component({
   selector: 'app-root',

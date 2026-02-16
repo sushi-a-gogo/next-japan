@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LayoutComponent } from "@app/components/layout/layout.component";
+import { LayoutComponent } from "@app/core/layout/layout.component";
 
 @Component({
   selector: 'app-legal',

@@ -1,0 +1,90 @@
+<button
+  aria-label="Account"
+  type="button"
+  class="profile-button"
+  mat-ripple
+  matTooltip="Account"
+  [matMenuTriggerFor]="userMenu"
+  #menuTrigger="matMenuTrigger"
+  [matTooltipShowDelay]="750"
+  [matTooltipDisabled]="menuTrigger.menuOpen"
+>
+  <app-user-avatar [user]="user()" [size]="64" />
+</button>
+<mat-menu
+  #userMenu="matMenu"
+  xPosition="before"
+  [hasBackdrop]="true"
+  backdropClass="app-backdrop"
+>
+  <header>
+    <span> {{ user().firstName }} {{ user().lastName }} </span>
+  </header>
+  <a
+    type="button"
+    class="app-button"
+    mat-menu-item
+    routerLink="/user/dashboard"
+  >
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> cards </span>
+      Launch Pad
+    </div>
+  </a>
+  <button mat-menu-item [matMenuTriggerFor]="modes">
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> palette </span>
+      Appearance
+    </div>
+  </button>
+  <mat-menu #modes="matMenu">
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="changeAppearanceMode()"
+    >
+      <div class="menu-item">
+        <span class="material-symbols-outlined" [class.open]="!user().mode">
+          check
+        </span>
+        Auto
+      </div>
+    </button>
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="changeAppearanceMode('light')"
+    >
+      <div class="menu-item">
+        <span
+          class="material-symbols-outlined"
+          [class.open]="user().mode === 'light'"
+        >
+          check
+        </span>
+        Light
+      </div>
+    </button>
+    <button
+      mat-menu-item
+      class="theme-selector"
+      (click)="changeAppearanceMode('dark')"
+    >
+      <div class="menu-item">
+        <span
+          class="material-symbols-outlined"
+          [class.open]="user().mode === 'dark'"
+        >
+          check
+        </span>
+        Dark
+      </div>
+    </button>
+  </mat-menu>
+  <button mat-menu-item (click)="logout()">
+    <div class="menu-item">
+      <span class="material-symbols-outlined"> logout </span>
+      Sign Out
+    </div>
+  </button>
+</mat-menu>

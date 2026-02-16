@@ -6,8 +6,11 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
-      "@models/*": ["src/app/models/*"],
-      "@services/*": ["src/app/services/*"],
+      "@features/*": ["src/app/features/*"],
+      "@ai/*": ["src/app/features/ai/*"],
+      "@events/*": ["src/app/features/events/*"],
+      "@models/*": ["src/app/core/models/*"],
+      "@core/*": ["src/app/core/*"],
       "@shared/*": ["src/app/shared/*"],
       "@environments/*": ["src/environments/*"]
     },
