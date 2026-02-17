@@ -26,7 +26,7 @@ workflows. Built full-stack examples to strengthen modern architecture and UX pr
 
 Hands-on experience with quick website setup, customization, and deployment using WordPress.
 
-### Software Developer II | Common Forge Ventures - Remote | 2022 – 2025
+### Software Developer | Common Forge Ventures - Remote | 2022 – 2025
 
 Led front-end development of SaaS applications using Angular, integrating with .NET
 Core, SQL Server, and GCP.
@@ -36,7 +36,7 @@ Core, SQL Server, and GCP.
 - Worked with PMs and designers to define requirements and plan sprint work.
 - Contributed to feature planning, code reviews, and continuous integration workflows.
 
-### Senior Software Developer | Kantar - Austin, TX | 2000 – 2021
+### Software Developer | Kantar - Austin, TX | 2000 – 2021
 
 21-year tenure delivering enterprise web applications (Angular, .NET Core, Azure, ASP.NET
 MVC, SQL Server).

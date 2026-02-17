@@ -11,7 +11,6 @@ export function authMiddleware(req, res, next) {
     req.user = decoded; // { userId, email }
     next();
   } catch (err) {
-    console.error("Token validation failed: " + err.message);
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 }
