@@ -13,7 +13,7 @@ export class EventOpportunityCardComponent {
 
   opportunity = input.required<EventOpportunity>();
   showIcon = input<boolean>(true);
-  showNotes = input<boolean>(true);
+  showNotes = input<boolean>(false);
 
   timestamp = computed(() => {
     const startDate = new Date(this.opportunity().startDate);

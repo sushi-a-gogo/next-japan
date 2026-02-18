@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@app/core/auth/auth.service';
-import { EventRegistration } from '@app/features/events/models/event-registration.model';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventLocationCard } from "@app/features/events/ui/event-location-card/event-location-card.component";
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
+import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
+import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ConfirmModalComponent } from '@app/shared/components/modal/confirm-modal/confirm-modal.component';
 import { interval, switchMap } from 'rxjs';
@@ -19,7 +19,7 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
 
 })
 export class EventRegistrationsComponent implements OnInit {
-  private registrationService = inject(EventRegistrationService);
+  private registrationService = inject(RegistrationService);
   private notificationService = inject(NotificationService);
   private authService = inject(AuthService);
   private destroyRef = inject(DestroyRef);
@@ -46,10 +46,10 @@ export class EventRegistrationsComponent implements OnInit {
   private userId = this.authService.user()?.userId || '';
 
   ngOnInit(): void {
-    // Start polling every 60 seconds
+    // Poll every 60 seconds
     interval(60_000)
       .pipe(
-        switchMap(() => this.registrationService.getUserEventRegistrations$(this.userId!, false)),
+        switchMap(() => this.registrationService.refreshUserRegistrations$()),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();

@@ -7,12 +7,12 @@ import { EventShareButtonComponent } from "@app/features/events/ui/event-share-b
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 
 @Component({
-  selector: 'app-next-event-card',
+  selector: 'app-suggested-event-card',
   imports: [NgOptimizedImage, AnchorComponent, EventLikeButtonComponent, EventShareButtonComponent],
-  templateUrl: './next-event-card.component.html',
-  styleUrl: './next-event-card.component.scss'
+  templateUrl: './suggested-event-card.component.html',
+  styleUrl: './suggested-event-card.component.scss'
 })
-export class NextEventCardComponent {
+export class SuggestedEventCardComponent {
   private imageService = inject(ImageService);
 
   event = input.required<EventData>();

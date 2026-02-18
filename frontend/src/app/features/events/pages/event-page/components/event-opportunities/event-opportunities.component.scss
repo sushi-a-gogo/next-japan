@@ -6,12 +6,36 @@
   gap: 16px;
 }
 
+.op-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 160px;
+  border: 1px solid var(--next-border);
+  border-radius: 10px;
+  padding: 16px;
+  background-color: var(--next-surface);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.op-selector {
+  align-self: flex-end;
+  width: 100%;
+}
+
 @media screen and (min-width: 768px) {
   :host {
     grid-template-columns: repeat(3, 1fr);
   }
+  .op-selector {
+    width: auto;
+    min-width: 160px;
+  }
 }
 
 .message {
-  padding: 16px;
+  padding: 16px 0;
 }

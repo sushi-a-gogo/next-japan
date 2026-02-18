@@ -1,38 +1,19 @@
-import { effect, inject, Injectable } from '@angular/core';
-import { AuthService } from '@app/core/auth/auth.service';
+import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { User } from '@app/core/models/user.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
-import { ThemeService } from '@app/core/services/theme.service';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserReward } from '@app/features/user/models/user-reward.model';
-import { catchError, forkJoin, Observable } from 'rxjs';
-import { NotificationService } from './notification.service';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiService = inject(ApiService);
-  private auth = inject(AuthService);
-  private eventRegistrationService = inject(EventRegistrationService);
-  private notificationService = inject(NotificationService);
-  private errorService = inject(ErrorService);
-  private themeService = inject(ThemeService);
   private apiUri = 'api/user';
-
-  constructor() {
-    effect(() => {
-      const user = this.auth.user();
-      if (user) {
-        this.initGlobalUserData(user);
-      } else {
-        this.clearUserData();
-      }
-    });
-  }
+  private apiService = inject(ApiService);
+  private errorService = inject(ErrorService);
 
   getUsers$(): Observable<ApiResponse<User[]>> {
     return this.apiService.get<User[]>(`${this.apiUri}`).pipe(
@@ -44,22 +25,6 @@ export class UserProfileService {
     return this.apiService.get<UserProfile>(`${this.apiUri}/${id}`).pipe(
       catchError((e) => this.errorService.handleError(e, 'Error fetching user.', true))
     );
-  }
-
-  initGlobalUserData(user: User) {
-    this.themeService.setAppearance(user.mode);
-
-    const observables = {
-      notifications: this.notificationService.getUserNotifications$(user.userId),
-      eventRegistrations: this.eventRegistrationService.getUserEventRegistrations$(user.userId),
-    }
-    forkJoin(observables).subscribe();
-  }
-
-  clearUserData() {
-    this.eventRegistrationService.clearUserRegistrations();
-    this.notificationService.clearUserNotifications();
-    this.themeService.setAppearance();
   }
 
   getUserRewards$(id: string): Observable<ApiResponse<UserReward[]>> {

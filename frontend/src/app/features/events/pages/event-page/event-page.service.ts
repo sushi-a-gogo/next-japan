@@ -15,7 +15,7 @@ import { tap } from 'rxjs/operators';
  * into signals that are referenced by the event page components.
  */
 @Injectable()
-export class EventService {
+export class EventPageService {
   eventData = computed(() => {
     return {
       event: this.event(),
