@@ -1,38 +1,33 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { AuthService } from '@app/core/auth/auth.service';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { catchError, Observable, switchMap, tap } from 'rxjs';
+import { catchError, Observable, switchMap, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  private apiService = inject(ApiService);
   private apiUri = 'api/notifications';
+  private apiService = inject(ApiService);
+  private auth = inject(AuthService);
   private errorService = inject(ErrorService);
 
   private notificationSignal = signal<EventNotification[]>([]);
   notifications = this.notificationSignal.asReadonly();
 
-  private unreadNotificationCountSignal = signal<number>(0);
-  unreadNotificationCount = this.unreadNotificationCountSignal.asReadonly();
+  unreadNotificationCount = computed(() =>
+    this.notifications().filter((n) => !n.isRead).length
+  );
 
-  private id = 0;
-
-  constructor() {
-    effect(() => {
-      this.unreadNotificationCountSignal.set(this.notifications().filter((n) => !n.isRead).length);
-    });
-  }
+  private userEffect = effect(() => {
+    this.syncUserNotifications(this.auth.user()?.userId);
+  });
 
   getUserNotifications$(userId: string) {
     return this.fetchUserNotifications$(userId);
-  }
-
-  clearUserNotifications() {
-    return this.notificationSignal.set([]);
   }
 
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
@@ -45,6 +40,14 @@ export class NotificationService {
 
   markAllAsRead$(userId: string) {
     return this.delete$('all', userId);
+  }
+
+  private syncUserNotifications(userId?: string) {
+    if (userId) {
+      this.fetchUserNotifications$(userId).pipe(take(1)).subscribe();
+    } else {
+      this.notificationSignal.set([]);;
+    }
   }
 
   private fetchUserNotifications$(userId: string) {

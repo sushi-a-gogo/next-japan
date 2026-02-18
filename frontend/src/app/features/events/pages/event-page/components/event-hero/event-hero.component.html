@@ -65,18 +65,11 @@
           </div>
         </div>
       </div>
-      <app-event-registration-status-card
+      <app-registration-status-card
         class="alert"
         [eventRegistration]="nextEventRegistration()"
-        (viewRegistration)="viewRegistration.set(true)"
         (startRegistration)="onGetTickets.emit()"
       />
     </div>
   </div>
-  @if (viewRegistration()) {
-    <app-registered-event-dialog
-      [eventRegistration]="nextEventRegistration()"
-      (close)="viewRegistration.set(false)"
-    />
-  }
 </div>

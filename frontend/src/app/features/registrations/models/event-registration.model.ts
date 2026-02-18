@@ -1,6 +1,6 @@
 import { AppImageData } from '@app/core/models/app-image-data.model';
-import { EventLocation } from './event-location.model';
-import { EventOpportunity } from './event-opportunity.model';
+import { EventLocation } from '../../events/models/event-location.model';
+import { EventOpportunity } from '../../events/models/event-opportunity.model';
 
 export interface EventRegistration {
   eventTitle: string;
@@ -16,9 +16,7 @@ export interface EventRegistration {
 }
 
 export interface RegistrationContext {
-  registrationId?: string;
-  registrationStatus?: RegistrationStatus;
-  registrationCreatedAt?: string;
+  registration?: EventRegistration;
   conflicted?: string;
 }
 
@@ -29,9 +27,9 @@ export enum RegistrationStatus {
 }
 
 export function getRegistrationContext(opportunity: EventOpportunity, eventRegistrations: EventRegistration[]): RegistrationContext | null {
-  const reg = eventRegistrations.find((r) => r.opportunity.opportunityId === opportunity.opportunityId);
-  if (reg) {
-    return { registrationId: reg.registrationId, registrationCreatedAt: reg.createdAt, registrationStatus: reg.status };
+  const registration = eventRegistrations.find((r) => r.opportunity.opportunityId === opportunity.opportunityId);
+  if (registration) {
+    return { registration };
   }
 
   if (checkForConflict(opportunity, eventRegistrations)) {

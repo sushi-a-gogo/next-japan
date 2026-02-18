@@ -5,7 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { User } from '@app/core/models/user.model';
 import { DateTimeService } from '@app/core/services/date-time.service';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
+import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { UserReward } from '@app/features/user/models/user-reward.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 
@@ -17,7 +17,7 @@ import { UserProfileService } from '@app/features/user/services/user-profile.ser
 })
 export class ProfileBadgesComponent implements OnInit {
   private dateTime = inject(DateTimeService);
-  private registrationService = inject(EventRegistrationService);
+  private registrationService = inject(RegistrationService);
   private userService = inject(UserProfileService)
 
   private platformId = inject(PLATFORM_ID);

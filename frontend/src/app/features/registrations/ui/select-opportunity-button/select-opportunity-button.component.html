@@ -1,0 +1,51 @@
+@if (isAuthenticated()) {
+  <!-- registered -->
+  @if (context()?.registration?.status) {
+    @switch (context()?.registration?.status) {
+      @case ("requested") {
+        <app-button
+          cssClass="app-button app-button-filled grey flex-button"
+          (buttonClick)="viewOpportunity()"
+        >
+          <span class="material-symbols-outlined">pending_actions</span>
+          {{ context()!.registration?.status | titlecase }}
+        </app-button>
+      }
+      @case ("registered") {
+        <app-button
+          cssClass="app-button app-button-filled  flex-button priority"
+          (buttonClick)="viewOpportunity()"
+        >
+          <span class="material-symbols-outlined">verified</span>
+          You're registered!
+        </app-button>
+      }
+    }
+  } @else {
+    @if (context()?.conflicted) {
+      <app-button
+        cssClass="app-button inactive"
+        disabled="disabled"
+        tooltip="This event conflicts with one you've already registered for."
+      >
+        Conflict
+      </app-button>
+    } @else {
+      <app-button
+        cssClass="app-button app-button-filled"
+        (buttonClick)="selectOpportunity()"
+      >
+        Register
+      </app-button>
+    }
+  }
+  <!-- End Authenticated -->
+} @else {
+  <app-button
+    cssClass="app-button app-button-filled"
+    [disabled]="true"
+    tooltip="Please sign in to register for an event."
+  >
+    Register
+  </app-button>
+}

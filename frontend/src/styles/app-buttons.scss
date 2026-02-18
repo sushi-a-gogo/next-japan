@@ -81,9 +81,25 @@ a.app-button {
     transition: background-color 0.3s ease;
   }
 
+  &.success {
+    background-color: var(--bright-green-grass);
+    border-color: var(--bright-green-grass);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
   &.dark {
     background-color: #1a1a1a;
     border-color: #1a1a1a;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  &.grey {
+    background-color: #777;
+    border-color: #777;
     color: white;
     font-weight: 600;
     transition: background-color 0.3s ease;
@@ -124,6 +140,12 @@ a.app-button {
     &.priority {
       background-color: #ab2c2c;
       border-color: #ab2c2c;
+      opacity: 1;
+    }
+
+    &.grey {
+      background-color: #666;
+      border-color: #666;
       opacity: 1;
     }
 

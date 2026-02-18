@@ -1,19 +1,19 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/features/events/models/event-data.model';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventsService } from '@app/features/events/services/events.service';
-import { NextEventCardComponent } from "./next-event-card/next-event-card.component";
+import { RegistrationService } from '@app/features/registrations/services/registration.service';
+import { SuggestedEventCardComponent } from "./suggested-event-card/suggested-event-card.component";
 
 @Component({
-  selector: 'app-next-event',
-  imports: [NextEventCardComponent],
-  templateUrl: './next-event.component.html',
-  styleUrl: './next-event.component.scss'
+  selector: 'app-suggested-events',
+  imports: [SuggestedEventCardComponent],
+  templateUrl: './suggested-events.component.html',
+  styleUrl: './suggested-events.component.scss'
 })
-export class NextEventComponent implements OnInit {
+export class SuggestedEventsComponent implements OnInit {
   private eventsService = inject(EventsService);
-  private registrationService = inject(EventRegistrationService);
+  private registrationService = inject(RegistrationService);
   private destroyRef = inject(DestroyRef);
 
   suggestedEvents = signal<EventData[]>([]);

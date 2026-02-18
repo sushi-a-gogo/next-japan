@@ -20,21 +20,24 @@
             [location]="event().location"
             [showDirections]="true"
           />
-          <app-event-opportunity-card [opportunity]="event().opportunity" />
+          <app-event-opportunity-card
+            [opportunity]="event().opportunity"
+            [showNotes]="true"
+          />
         </div>
         <app-event-registration-status [status]="event().status" />
       </div>
     </div>
     <div class="actions">
       <app-anchor [link]="routerLink" cssClass="app-button app-button-filled">
-        Open Event Details
+        Open Event Page
       </app-anchor>
       <app-button
         cssClass="app-button app-button-outlined"
         (buttonClick)="confirmCancel()"
         [disabled]="event().status === registrationStatus.Cancelled"
       >
-        Cancel Registration
+        Manage Registration
       </app-button>
     </div>
   </div>

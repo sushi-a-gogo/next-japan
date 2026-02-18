@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { RegistrationStatus } from '@app/features/events/models/event-registration.model';
+import { RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
 
 @Component({
   selector: 'app-event-registration-status',
@@ -13,7 +13,7 @@ export class EventRegistrationStatusComponent {
   label = computed(() => {
     switch (this.status()) {
       case RegistrationStatus.Registered:
-        return "You're registered!";
+        return "Registration confirmed.";
       case RegistrationStatus.Requested:
         return "We've received your registration request! We'll notify you once your spot is confirmed.";
       default:

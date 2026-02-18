@@ -22,10 +22,6 @@ export class DialogService {
     this.showDialogSignal.set('profile');
   }
 
-  showRegistrationDialog() {
-    this.showDialogSignal.set('registration');
-  }
-
   closeDialog(key: string) {
     if (this.showDialogSignal() === key) {
       this.showDialogSignal.set('');

@@ -1,10 +1,10 @@
 import { Component, computed, inject, output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RegistrationStatus } from '@app/features/events/models/event-registration.model';
-import { EventService } from '@app/features/events/pages/event-page/event.service';
+import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
 import { EventDateCardComponent } from '@app/features/events/ui/event-date-card/event-date-card.component';
+import { RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
+import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { ButtonComponent } from "@app/shared/components/button/button.component";
 
 @Component({
@@ -15,20 +15,20 @@ import { ButtonComponent } from "@app/shared/components/button/button.component"
 })
 export class EventMapComponent {
   private sanitizer = inject(DomSanitizer);
-  private eventService = inject(EventService);
+  private eventPageService = inject(EventPageService);
   private eventOpportunityService = inject(EventOpportunityService);
-  private eventRegistrationService = inject(EventRegistrationService);
+  private registrationService = inject(RegistrationService);
 
   onGetTickets = output();
 
-  event = computed(() => this.eventService.eventData().event);
-  location = computed(() => this.eventService.eventData().location);
+  event = computed(() => this.eventPageService.eventData().event);
+  location = computed(() => this.eventPageService.eventData().location);
 
   nextOpportunity = computed(() => {
-    if (!this.eventService.eventData().opportunities?.length) {
+    if (!this.eventPageService.eventData().opportunities?.length) {
       return null;
     }
-    return this.eventService.eventData().opportunities[0];
+    return this.eventPageService.eventData().opportunities[0];
   });
 
   nextOpportunityDate = computed(() => {
@@ -37,7 +37,7 @@ export class EventMapComponent {
   });
 
   nextOpportunityRegistered = computed(() => {
-    const registered = this.eventRegistrationService.userEventRegistrations()
+    const registered = this.registrationService.userEventRegistrations()
       .find((r) => r.opportunity.opportunityId === this.nextOpportunity()?.opportunityId);
     if (registered) {
       return registered.status === RegistrationStatus.Requested ? "Registration requested." : "You're registered!"

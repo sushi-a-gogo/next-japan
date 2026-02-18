@@ -1,18 +1,17 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, ElementRef, inject, output, PLATFORM_ID, signal, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, output, PLATFORM_ID, viewChild } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
-import { EventRegistration } from '@app/features/events/models/event-registration.model';
-import { EventService } from '@app/features/events/pages/event-page/event.service';
-import { EventRegistrationService } from '@app/features/events/services/event-registration.service';
+import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
-import { EventRegistrationStatusCardComponent } from "@app/features/events/ui/event-registration-status-card/event-registration-status-card.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
-import { RegisteredEventDialogComponent } from '@app/features/events/ui/registered-event-dialog/registered-event-dialog.component';
+import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
+import { RegistrationService } from '@app/features/registrations/services/registration.service';
+import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/registration-status-card/registration-status-card.component";
 
 @Component({
   selector: 'app-event-hero',
-  imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, EventRegistrationStatusCardComponent, RegisteredEventDialogComponent],
+  imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, RegistrationStatusCardComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
   host: {
@@ -21,11 +20,11 @@ import { RegisteredEventDialogComponent } from '@app/features/events/ui/register
 })
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
-  private eventService = inject(EventService);
-  private eventRegistrationService = inject(EventRegistrationService);
+  private eventPageService = inject(EventPageService);
+  private registrationService = inject(RegistrationService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
-  private eventData = this.eventService.eventData;
+  private eventData = this.eventPageService.eventData;
   private ticking = false;
 
   heroImg = viewChild<ElementRef>('heroImg');
@@ -34,7 +33,6 @@ export class EventHeroComponent {
   event = computed(() => this.eventData().event);
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
   location = computed(() => this.eventData().location);
-  viewRegistration = signal(false);
 
   bannerImage = computed(() => {
     const image = this.event()?.image;
@@ -66,7 +64,9 @@ export class EventHeroComponent {
 
   nextEventRegistration = computed(() => {
     const eventId = this.event()?.eventId;
-    const registrations = this.eventRegistrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId).sort(this.sortRegistrationsByDate);
+    if (!eventId) return null;
+
+    const registrations = this.registrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
     return registrations.length ? registrations[0] : null;
   });
 

@@ -2,6 +2,12 @@
   color: var(--next-text);
 }
 
+.card {
+  padding: 16px 0;
+  border-top: 1px solid var(--next-border);
+  border-bottom: 1px solid var(--next-border);
+}
+
 .title {
   font-size: 16px;
   font-weight: 600;
@@ -15,6 +21,10 @@
   &.open {
     height: 24px;
   }
+}
+
+.message {
+  min-height: 48px;
 }
 
 footer.dialog {

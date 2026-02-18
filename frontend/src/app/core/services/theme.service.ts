@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
+import { effect, inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,14 @@ export class ThemeService {
   private platformId = inject(PLATFORM_ID);
   private appearance = signal<'light' | 'dark' | 'device'>('device');
   private darkMode = signal(false);
+  private auth = inject(AuthService);
 
   inDarkMode = this.darkMode.asReadonly();
+
+  private userEffect = effect(() => {
+    const user = this.auth.user();
+    this.setAppearance(user?.mode);
+  });
 
   setAppearance(theme?: 'light' | 'dark') {
     this.appearance.set(theme || 'device');

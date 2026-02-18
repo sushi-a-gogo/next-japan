@@ -1,8 +1,17 @@
-@for(opportunity of opportunities(); track opportunity.opportunityId) {
-<app-event-opportunity [opportunity]="opportunity" />
+@for (opportunity of opportunities(); track opportunity.opportunityId) {
+  <div class="op-card">
+    <app-event-opportunity-card
+      [opportunity]="opportunity"
+      [showNotes]="true"
+    />
+    <app-select-opportunity-button
+      class="op-selector"
+      [opportunity]="opportunity"
+    />
+  </div>
 } @empty {
-<div class="message">
-  There are currently no available opportunities for this event. Please check
-  back soon or contact us if you have any questions!
-</div>
+  <div class="message">
+    There are currently no opportunities available for this event. Please check
+    back soon or contact us if you have any questions!
+  </div>
 }

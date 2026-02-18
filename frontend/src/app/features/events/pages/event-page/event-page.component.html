@@ -26,7 +26,6 @@
       </div>
     }
   </main>
-  @if (showRegistrationDialog()) {
-    <app-event-registration-dialog (close)="closeRegistrationDialog()" />
-  }
+  <app-request-registration-dialog [location]="location()" />
+  <app-manage-registration-dialog />
 </article>
