@@ -1,6 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
-import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { SelectOpportunityButtonComponent } from '@app/features/registrations/ui/select-opportunity-button/select-opportunity-button.component';
 
@@ -11,12 +10,10 @@ import { SelectOpportunityButtonComponent } from '@app/features/registrations/ui
   styleUrl: './event-opportunities.component.scss'
 })
 export class EventOpportunitiesComponent implements OnInit {
-  private eventPageService = inject(EventPageService);
-
-  opportunities = signal<EventOpportunity[]>([]);
+  opportunities = input<EventOpportunity[] | null>(null);
+  slicedOpportunities = signal<EventOpportunity[]>([]);
 
   ngOnInit(): void {
-    const availableOpportunities = this.eventPageService.eventData().opportunities;
-    this.opportunities.set(availableOpportunities.slice(0, 12));
+    this.slicedOpportunities.set(this.opportunities()?.slice(0, 6) || []);
   }
 }

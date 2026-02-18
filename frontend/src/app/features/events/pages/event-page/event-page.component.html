@@ -4,6 +4,8 @@
     <header class="component-box">
       <app-event-hero
         [event]="event()!"
+        [location]="location()"
+        [opportunities]="eventOpportunities()"
         (onGetTickets)="scrollToOpportunities()"
       />
     </header>
@@ -19,11 +21,16 @@
           />
         </div>
       </div>
-      <app-event-map (onGetTickets)="scrollToOpportunities()" />
+      <app-event-map
+        [event]="event()!"
+        [location]="location()"
+        [opportunities]="eventOpportunities()"
+        (onGetTickets)="scrollToOpportunities()"
+      />
       <div class="component-box-content pad" #opportunities>
         <div class="page-component">
           <h1>Upcoming Opportunities</h1>
-          <app-event-opportunities />
+          <app-event-opportunities [opportunities]="eventOpportunities()" />
         </div>
       </div>
     </main>

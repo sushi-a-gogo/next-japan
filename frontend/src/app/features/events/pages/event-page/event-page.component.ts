@@ -41,6 +41,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   eventId = input.required<string>();
   event = computed(() => this.eventPageService.eventData().event);
   location = computed(() => this.eventPageService.eventData().location);
+  eventOpportunities = computed(() => this.eventPageService.eventData().opportunities);
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 
