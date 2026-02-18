@@ -13,7 +13,7 @@ export class ThemeService {
 
   inDarkMode = this.darkMode.asReadonly();
 
-  private userEffect = effect(() => {
+  private userChangeEffect = effect(() => {
     const user = this.auth.user();
     this.setAppearance(user?.mode);
   });

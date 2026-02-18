@@ -18,10 +18,43 @@ export class RegistrationService {
   // user event registrations sorted by date ASC
   private userEventRegistrationsSignal = signal<EventRegistration[]>([]);
   userEventRegistrations = this.userEventRegistrationsSignal.asReadonly();
+  private hasCheckedRegistrations = signal(false);
+  hasCheckedUserEventRegistrations = this.hasCheckedRegistrations.asReadonly();
 
-  private userEffect = effect(() => {
-    this.syncUserRegistrations(this.auth.user()?.userId);
+  // Optional: track last known userId to avoid redundant fetches
+  private lastProcessedUserId?: string;
+
+  //Trigger fetch when user changes (guarded effect)
+  private userChangeEffect = effect(() => {
+    const currentUser = this.auth.user();
+    const currentUserId = currentUser?.userId;
+
+    // Skip if same userId (prevents double-run on unrelated CD cycles)
+    if (currentUserId === this.lastProcessedUserId) {
+      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
+      return;
+    }
+
+    this.lastProcessedUserId = currentUserId;
+
+    if (!currentUserId) {
+      // No user - clear data, set checked based on login status
+      this.userEventRegistrationsSignal.set([]);
+      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
+      return;
+    }
+
+    // Real user - start fetch
+    this.hasCheckedRegistrations.set(false);  // loading starts
+    this.fetchUserRegistrations$(currentUserId).pipe(take(1)).subscribe({
+      next: () => this.hasCheckedRegistrations.set(true),  // done
+      error: () => this.hasCheckedRegistrations.set(true)  // or handle error state
+    });
   });
+
+  // private userEffect = effect(() => {
+  //   this.syncUserRegistrations(this.auth.user()?.userId);
+  // });
 
   getRegistration$(registrationId: string): Observable<ApiResponse<EventRegistration>> {
     return this.apiService.get<EventRegistration>(`${this.apiUri}/${registrationId}`);
@@ -46,10 +79,14 @@ export class RegistrationService {
   }
 
   private syncUserRegistrations(userId?: string) {
+    this.hasCheckedRegistrations.set(false);
     if (userId) {
-      this.fetchUserRegistrations$(userId).pipe(take(1)).subscribe();
+      this.fetchUserRegistrations$(userId).pipe(take(1)).subscribe(() => {
+        this.hasCheckedRegistrations.set(true);
+      });
     } else {
       this.userEventRegistrationsSignal.set([]);
+      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
     }
   }
 

@@ -18,7 +18,7 @@
           <span class="button-text">Search</span>
         </button>
       </li>
-      <li class="sign-in">
+      <li class="sign-in fade-in" [class.open]="authCompleted()">
         <app-anchor link="/login" cssClass="app-button app-button-filled">
           Sign In
         </app-anchor>

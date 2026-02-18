@@ -1,12 +1,12 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, ElementRef, inject, output, PLATFORM_ID, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, output, PLATFORM_ID, viewChild } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
-import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
+import { EventInformation } from '@app/features/events/models/event-information.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
-import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
-import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/registration-status-card/registration-status-card.component";
 
 @Component({
@@ -20,38 +20,36 @@ import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/
 })
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
-  private eventPageService = inject(EventPageService);
-  private registrationService = inject(RegistrationService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
-  private eventData = this.eventPageService.eventData;
   private ticking = false;
 
+  event = input.required<EventInformation>();
+  location = input<EventLocation | null>(null);
+  opportunities = input<EventOpportunity[] | null>(null);
   heroImg = viewChild<ElementRef>('heroImg');
   onGetTickets = output();
 
-  event = computed(() => this.eventData().event);
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
-  location = computed(() => this.eventData().location);
 
   bannerImage = computed(() => {
-    const image = this.event()?.image;
+    const image = this.event().image;
     if (image && isPlatformBrowser(this.platformId)) {
       return this.imageService.resizeImage(image, image.width, image.height)
     }
-    return { src: "assets/images/default-event.avif" };
+    return null;
   });
 
   eventDateRange = computed(() => {
-    const opportunities = this.eventData().opportunities;
-    if (opportunities.length) {
-      const startDate = new Date(opportunities[0].startDate);
+    const ops = this.opportunities() || [];
+    if (ops.length) {
+      const startDate = new Date(ops[0].startDate);
       if (this.dateTimeService.isValidDate(startDate)) {
-        const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(new Date(startDate), 'mediumDate', opportunities[0].timeZone);
+        const formattedStartDate = this.dateTimeService.formatDateInLocaleTime(new Date(startDate), 'mediumDate', ops[0].timeZone);
 
-        const endDate = opportunities.length > 1 ? opportunities[opportunities.length - 1].startDate : undefined;
+        const endDate = ops.length > 1 ? ops[ops.length - 1].startDate : undefined;
         if (endDate) {
-          const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(new Date(endDate), 'mediumDate', opportunities[0].timeZone);
+          const formattedEndDate = this.dateTimeService.formatDateInLocaleTime(new Date(endDate), 'mediumDate', ops[0].timeZone);
           return `${formattedStartDate} - ${formattedEndDate}`;
         }
 
@@ -60,14 +58,6 @@ export class EventHeroComponent {
     }
 
     return null;
-  });
-
-  nextEventRegistration = computed(() => {
-    const eventId = this.event()?.eventId;
-    if (!eventId) return null;
-
-    const registrations = this.registrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
-    return registrations.length ? registrations[0] : null;
   });
 
   handleScroll() {
@@ -84,9 +74,5 @@ export class EventHeroComponent {
 
       this.ticking = false;
     });
-  }
-
-  private sortRegistrationsByDate(a: EventRegistration, b: EventRegistration) {
-    return new Date(a.opportunity.startDate).getTime() - new Date(b.opportunity.startDate).getTime();
   }
 }

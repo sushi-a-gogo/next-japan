@@ -1,19 +1,21 @@
 <div class="hero-wrapper">
-  <img
-    #heroImg
-    [ngSrc]="bannerImage()!.src"
-    class="hero"
-    [class.grok]="xAi()"
-    fill
-    priority
-    placeholder
-    [alt]="event()?.eventTitle"
-  />
+  @if (bannerImage()) {
+    <img
+      #heroImg
+      [ngSrc]="bannerImage()!.src"
+      class="hero"
+      [class.grok]="xAi()"
+      fill
+      priority
+      placeholder
+      [alt]="event().eventTitle"
+    />
+  }
   <div class="hero-overlay nj-flex justify-center">
     <div class="component-box-content hero-content">
       <div class="nj-flex col gap-12">
         <div class="headline">
-          {{ event()?.eventTitle }}
+          {{ event().eventTitle }}
         </div>
         <div class="nj-flex col gap-2">
           @if (location()) {
@@ -32,16 +34,14 @@
                 >
                 <span>{{ eventDateRange() }}</span>
               </div>
-              @if (event()) {
-                <div class="nj-flex row gap-10">
-                  <app-event-like-button [event]="event()!" color="white" />
-                  <app-event-share-button [event]="event()!" color="white" />
-                </div>
-              }
+              <div class="nj-flex row gap-10">
+                <app-event-like-button [event]="event()!" color="white" />
+                <app-event-share-button [event]="event()!" color="white" />
+              </div>
             } @else {
               <div class="nj-flex col gap-10">
                 <div class="description">
-                  {{ event()?.description }}
+                  {{ event().description }}
                 </div>
                 <div class="nj-flex row align-center gap-24">
                   <div class="nj-flex row align-center gap-10">
@@ -50,15 +50,10 @@
                     </span>
                     Coming Soon
                   </div>
-                  @if (event()) {
-                    <div class="nj-flex row align-center gap-16">
-                      <app-event-like-button [event]="event()!" color="white" />
-                      <app-event-share-button
-                        [event]="event()!"
-                        color="white"
-                      />
-                    </div>
-                  }
+                  <div class="nj-flex row align-center gap-16">
+                    <app-event-like-button [event]="event()" color="white" />
+                    <app-event-share-button [event]="event()" color="white" />
+                  </div>
                 </div>
               </div>
             }
@@ -67,7 +62,7 @@
       </div>
       <app-registration-status-card
         class="alert"
-        [eventRegistration]="nextEventRegistration()"
+        [eventId]="event().eventId"
         (startRegistration)="onGetTickets.emit()"
       />
     </div>

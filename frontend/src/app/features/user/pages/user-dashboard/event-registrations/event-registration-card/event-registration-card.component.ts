@@ -4,7 +4,6 @@ import { ImageService } from '@app/core/services/image.service';
 import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { EventRegistration, RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
-import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
 import { ButtonComponent } from '@app/shared/components/button/button.component';
 import { EventRegistrationStatusComponent } from './event-registration-status/event-registration-status.component';
@@ -17,7 +16,6 @@ import { EventRegistrationStatusComponent } from './event-registration-status/ev
 })
 export class EventRegistrationCardComponent implements OnInit {
   private imageService = inject(ImageService);
-  private selectionService = inject(RegistrationSelectionService);
 
   event = input.required<EventRegistration>();
   cancelRegistration = output();
@@ -38,7 +36,7 @@ export class EventRegistrationCardComponent implements OnInit {
   }
 
   confirmCancel() {
-    this.selectionService.selectRegistration(this.event());
+    this.cancelRegistration.emit();
   }
 
 }

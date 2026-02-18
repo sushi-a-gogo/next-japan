@@ -1,4 +1,4 @@
-@for (opportunity of opportunities(); track opportunity.opportunityId) {
+@for (opportunity of slicedOpportunities(); track opportunity.opportunityId) {
   <div class="op-card">
     <app-event-opportunity-card
       [opportunity]="opportunity"

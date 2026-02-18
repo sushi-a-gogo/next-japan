@@ -20,7 +20,7 @@ export class AuthService {
 
   user = this.userSignal.asReadonly();
   accessToken = this.accessTokenSignal.asReadonly();
-  loginStatus = signal<LoginStatus | null>(null);
+  loginStatus = signal<LoginStatus | null>('pending');
   isAuthenticated = computed(() => !!this.user());
 
   hydrateUser$() {

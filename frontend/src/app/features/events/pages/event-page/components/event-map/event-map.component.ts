@@ -1,6 +1,8 @@
-import { Component, computed, inject, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
+import { EventInformation } from '@app/features/events/models/event-information.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventDateCardComponent } from '@app/features/events/ui/event-date-card/event-date-card.component';
 import { RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
@@ -15,20 +17,20 @@ import { ButtonComponent } from "@app/shared/components/button/button.component"
 })
 export class EventMapComponent {
   private sanitizer = inject(DomSanitizer);
-  private eventPageService = inject(EventPageService);
   private eventOpportunityService = inject(EventOpportunityService);
   private registrationService = inject(RegistrationService);
 
   onGetTickets = output();
 
-  event = computed(() => this.eventPageService.eventData().event);
-  location = computed(() => this.eventPageService.eventData().location);
+  event = input.required<EventInformation>();
+  location = input<EventLocation | null>(null);
+  opportunities = input<EventOpportunity[] | null>(null);
 
   nextOpportunity = computed(() => {
-    if (!this.eventPageService.eventData().opportunities?.length) {
+    if (!this.opportunities()?.length) {
       return null;
     }
-    return this.eventPageService.eventData().opportunities[0];
+    return this.opportunities()![0];
   });
 
   nextOpportunityDate = computed(() => {
