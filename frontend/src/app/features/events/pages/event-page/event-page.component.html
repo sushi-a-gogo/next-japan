@@ -1,22 +1,24 @@
 <app-page-load-spinner [remove]="loaded()" [delay]="1000" />
 <article class="nj-flex col align-center" [class.open]="loaded()">
-  <header class="component-box">
-    <app-event-hero (onGetTickets)="scrollToOpportunities()" />
-  </header>
-  <main class="component-box">
-    <div class="component-box-content pad">
-      <div class="page-component description pre-wrap">
-        <span>{{ event()?.fullDescription }}</span>
+  @if (event()) {
+    <header class="component-box">
+      <app-event-hero
+        [event]="event()!"
+        (onGetTickets)="scrollToOpportunities()"
+      />
+    </header>
+    <main class="component-box">
+      <div class="component-box-content pad">
+        <div class="page-component description pre-wrap">
+          <span>{{ event()?.fullDescription }}</span>
+        </div>
+        <div class="page-component">
+          <h1>Event Coordinators</h1>
+          <app-event-coordinators
+            [eventCoordinators]="event()?.eventCoordinators || []"
+          />
+        </div>
       </div>
-      <div class="page-component">
-        <h1>Event Coordinators</h1>
-        <app-event-coordinators
-          [eventCoordinators]="event()?.eventCoordinators || []"
-        />
-      </div>
-    </div>
-
-    @if (loaded()) {
       <app-event-map (onGetTickets)="scrollToOpportunities()" />
       <div class="component-box-content pad" #opportunities>
         <div class="page-component">
@@ -24,8 +26,8 @@
           <app-event-opportunities />
         </div>
       </div>
-    }
-  </main>
+    </main>
+  }
   <app-request-registration-dialog [location]="location()" />
   <app-manage-registration-dialog />
 </article>

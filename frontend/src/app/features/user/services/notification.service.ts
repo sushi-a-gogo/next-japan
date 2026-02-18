@@ -1,10 +1,9 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { AuthService } from '@app/core/auth/auth.service';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { catchError, Observable, switchMap, take, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +11,6 @@ import { catchError, Observable, switchMap, take, tap } from 'rxjs';
 export class NotificationService {
   private apiUri = 'api/notifications';
   private apiService = inject(ApiService);
-  private auth = inject(AuthService);
   private errorService = inject(ErrorService);
 
   private notificationSignal = signal<EventNotification[]>([]);
@@ -22,12 +20,13 @@ export class NotificationService {
     this.notifications().filter((n) => !n.isRead).length
   );
 
-  private userEffect = effect(() => {
-    this.syncUserNotifications(this.auth.user()?.userId);
-  });
-
-  getUserNotifications$(userId: string) {
-    return this.fetchUserNotifications$(userId);
+  getUserNotifications$(userId?: string) {
+    if (userId) {
+      return this.fetchUserNotifications$(userId);
+    } else {
+      this.notificationSignal.set([]);
+      return of({ succcess: true, data: [] });
+    }
   }
 
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
@@ -40,14 +39,6 @@ export class NotificationService {
 
   markAllAsRead$(userId: string) {
     return this.delete$('all', userId);
-  }
-
-  private syncUserNotifications(userId?: string) {
-    if (userId) {
-      this.fetchUserNotifications$(userId).pipe(take(1)).subscribe();
-    } else {
-      this.notificationSignal.set([]);;
-    }
   }
 
   private fetchUserNotifications$(userId: string) {

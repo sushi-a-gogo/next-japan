@@ -1,12 +1,12 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, ElementRef, inject, output, PLATFORM_ID, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, output, PLATFORM_ID, viewChild } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
+import { EventInformation } from '@app/features/events/models/event-information.model';
 import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
 import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
-import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/registration-status-card/registration-status-card.component";
 
 @Component({
@@ -21,7 +21,6 @@ import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/
 export class EventHeroComponent {
   private dateTimeService = inject(DateTimeService);
   private eventPageService = inject(EventPageService);
-  private registrationService = inject(RegistrationService);
   private imageService = inject(ImageService);
   private platformId = inject(PLATFORM_ID);
   private eventData = this.eventPageService.eventData;
@@ -30,7 +29,7 @@ export class EventHeroComponent {
   heroImg = viewChild<ElementRef>('heroImg');
   onGetTickets = output();
 
-  event = computed(() => this.eventData().event);
+  event = input.required<EventInformation>();
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
   location = computed(() => this.eventData().location);
 
@@ -39,7 +38,7 @@ export class EventHeroComponent {
     if (image && isPlatformBrowser(this.platformId)) {
       return this.imageService.resizeImage(image, image.width, image.height)
     }
-    return { src: "assets/images/default-event.avif" };
+    return null;
   });
 
   eventDateRange = computed(() => {
@@ -60,14 +59,6 @@ export class EventHeroComponent {
     }
 
     return null;
-  });
-
-  nextEventRegistration = computed(() => {
-    const eventId = this.event()?.eventId;
-    if (!eventId) return null;
-
-    const registrations = this.registrationService.userEventRegistrations().filter((r) => r.opportunity.eventId === eventId);
-    return registrations.length ? registrations[0] : null;
   });
 
   handleScroll() {

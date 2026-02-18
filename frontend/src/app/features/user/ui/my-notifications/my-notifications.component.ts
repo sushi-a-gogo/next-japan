@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
 import { NotificationService } from '@app/features/user/services/notification.service';
-import { interval, switchMap } from 'rxjs';
+import { switchMap, timer } from 'rxjs';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
 @Component({
@@ -39,7 +39,7 @@ export class MyNotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     // Start polling every 60 seconds
-    interval(60_000)
+    timer(0, 60_000)
       .pipe(
         switchMap(() => this.notificationService.getUserNotifications$(this.userId())),
         takeUntilDestroyed(this.destroyRef)

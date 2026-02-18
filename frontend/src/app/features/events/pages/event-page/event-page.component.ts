@@ -11,7 +11,7 @@ import { RegistrationSelectionService } from '@app/features/registrations/servic
 import { ManageRegistrationDialogComponent } from '@app/features/registrations/ui/manage-registration-dialog/manage-registration-dialog.component';
 import { RequestRegistrationDialogComponent } from "@app/features/registrations/ui/request-registration-dialog/request-registration-dialog.component";
 import { PageLoadSpinnerComponent } from "@app/shared/components/page-load-spinner/page-load-spinner.component";
-import { filter } from 'rxjs';
+import { filter, finalize } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventMapComponent } from "./components/event-map/event-map.component";
@@ -67,7 +67,8 @@ export class EventPageComponent implements OnInit, OnChanges {
 
     this.eventPageService.loadEvent$(id)
       .pipe(
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loaded.set(true))
       ).subscribe({
         next: (res) => {
           const event = res?.event;
@@ -88,11 +89,9 @@ export class EventPageComponent implements OnInit, OnChanges {
           }
         },
         error: (e) => {
-          this.loaded.set(true);
           this.errorService.sendError(new Error('Error fetching requested event.'));
           this.router.navigate(['./not-found']);
-        },
-        complete: () => this.loaded.set(true)
+        }
       });
   }
 
