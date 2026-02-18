@@ -4,8 +4,8 @@ import { ImageService } from '@app/core/services/image.service';
 import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { EventRegistration, RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
-import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { EventRegistrationStatusComponent } from './event-registration-status/event-registration-status.component';
 
 @Component({

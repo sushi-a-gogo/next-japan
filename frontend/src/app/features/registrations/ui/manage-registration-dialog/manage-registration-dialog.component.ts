@@ -6,8 +6,8 @@ import { EventLocationCard } from '@app/features/events/ui/event-location-card/e
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { NotificationService } from '@app/features/user/services/notification.service';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { ModalComponent } from '@app/shared/components/modal/modal.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { ModalComponent } from '@app/shared/ui/modal/modal.component';
 import { switchMap } from 'rxjs';
 import { RegistrationSelectionService } from '../../services/registration-selection.service';
 

@@ -11,7 +11,7 @@ import { User } from '@app/core/models/user.model';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { UserAvatarComponent } from "@app/features/user/ui/avatar/user-avatar/user-avatar.component";
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
+import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 
 interface UserProfileForm {
   firstName: string;

@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { User } from '@app/core/models/user.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { UserAvatarComponent } from '@app/features/user/ui/avatar/user-avatar/user-avatar.component';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-sign-in',

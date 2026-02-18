@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AiService } from '@app/features/ai/services/ai.service';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({

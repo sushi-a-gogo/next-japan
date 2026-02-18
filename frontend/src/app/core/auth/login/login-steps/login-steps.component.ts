@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@app/core/models/user.model';
 import SUBSCRIPTION_PLANS, { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
+import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
 import { SelectPlanComponent } from './select-plan/select-plan.component';
 import { SignInComponent } from './sign-in/sign-in.component';

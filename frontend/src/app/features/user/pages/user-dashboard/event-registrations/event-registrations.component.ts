@@ -6,7 +6,7 @@ import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opp
 import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { NotificationService } from '@app/features/user/services/notification.service';
-import { ConfirmModalComponent } from '@app/shared/components/modal/confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from '@app/shared/ui/modal/confirm-modal/confirm-modal.component';
 import { interval, switchMap } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
