@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-plan-card',

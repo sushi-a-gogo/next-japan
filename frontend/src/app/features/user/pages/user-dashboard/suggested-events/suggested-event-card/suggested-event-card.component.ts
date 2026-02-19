@@ -4,7 +4,7 @@ import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
-import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
+import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
 
 @Component({
   selector: 'app-suggested-event-card',

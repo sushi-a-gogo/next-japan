@@ -7,10 +7,10 @@ import { EventLocationCard } from '@app/features/events/ui/event-location-card/e
 import { EventOpportunityCardComponent } from "@app/features/events/ui/event-opportunity-card/event-opportunity-card.component";
 import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { LoadingSpinnerComponent } from "@app/shared/components/loading-spinner/loading-spinner.component";
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
+import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { LoadingSpinnerComponent } from "@app/shared/ui/loading-spinner/loading-spinner.component";
+import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 import { delay, finalize } from 'rxjs';
 
 

@@ -7,7 +7,7 @@ import { EventData } from '@app/features/events/models/event-data.model';
 import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventSearchService } from '@app/features/events/services/event-search.service';
-import { PageLoadSpinnerComponent } from "@app/shared/components/page-load-spinner/page-load-spinner.component";
+import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
 import { forkJoin, of } from 'rxjs';
 import { SearchCardComponent } from "./search-card/search-card.component";
 

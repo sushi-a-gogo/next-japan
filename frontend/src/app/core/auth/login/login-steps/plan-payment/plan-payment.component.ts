@@ -9,7 +9,7 @@ import { User } from '@app/core/models/user.model';
 import { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { delay, of, switchMap } from 'rxjs';
 import { PaymentForm } from './payment.form';
 

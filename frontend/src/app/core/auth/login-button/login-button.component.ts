@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-login-button',

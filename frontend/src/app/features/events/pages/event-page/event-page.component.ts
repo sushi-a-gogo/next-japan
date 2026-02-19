@@ -10,7 +10,7 @@ import { EventPageService } from '@app/features/events/pages/event-page/event-pa
 import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { ManageRegistrationDialogComponent } from '@app/features/registrations/ui/manage-registration-dialog/manage-registration-dialog.component';
 import { RequestRegistrationDialogComponent } from "@app/features/registrations/ui/request-registration-dialog/request-registration-dialog.component";
-import { PageLoadSpinnerComponent } from "@app/shared/components/page-load-spinner/page-load-spinner.component";
+import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
 import { filter, finalize } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";

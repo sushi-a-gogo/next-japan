@@ -5,7 +5,7 @@ import { EventOpportunity } from '@app/features/events/models/event-opportunity.
 import { getRegistrationContext } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-select-opportunity-button',

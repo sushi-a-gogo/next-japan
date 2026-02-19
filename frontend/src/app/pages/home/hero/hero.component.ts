@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { interval } from 'rxjs';
 import organization from 'src/lib/organization-data';
 

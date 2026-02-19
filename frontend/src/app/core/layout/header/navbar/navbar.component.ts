@@ -3,7 +3,7 @@ import { AuthService } from '@app/core/auth/auth.service';
 import { AppLogoComponent } from "@app/core/ui/app-logo/app-logo.component";
 import { EventSearchService } from '@app/features/events/services/event-search.service';
 import { EventSearchAutocompleteComponent } from "@app/features/events/ui/event-search-autocomplete/event-search-autocomplete.component";
-import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
+import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
 
 @Component({
   selector: 'app-navbar',

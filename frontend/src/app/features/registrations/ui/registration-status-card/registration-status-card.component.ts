@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-registration-status-card',

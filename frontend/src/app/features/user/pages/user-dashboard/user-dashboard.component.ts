@@ -8,12 +8,11 @@ import { AppImageData } from '@app/core/models/app-image-data.model';
 import { User } from '@app/core/models/user.model';
 import { MetaService } from '@app/core/services/meta.service';
 import { AiSurpriseComponent } from "@app/features/ai/ui/ai-surprise/ai-surprise.component";
-import { ManageRegistrationDialogComponent } from '@app/features/registrations/ui/manage-registration-dialog/manage-registration-dialog.component';
 import { ProfileDialogComponent } from '@app/features/user/pages/user-dashboard/profile-dialog/profile-dialog.component';
 import { UserAvatarComponent } from '@app/features/user/ui/avatar/user-avatar/user-avatar.component';
-import { AnchorComponent } from '@app/shared/components/anchor/anchor.component';
-import { ButtonComponent } from '@app/shared/components/button/button.component';
-import { ModalComponent } from "@app/shared/components/modal/modal.component";
+import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
+import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 import { EventRegistrationsComponent } from "./event-registrations/event-registrations.component";
 import { ManageSubscriptionComponent } from "./manage-subscription/manage-subscription.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
@@ -33,7 +32,6 @@ import { SuggestedEventsComponent } from "./suggested-events/suggested-events.co
     ModalComponent,
     AiSurpriseComponent,
     EventRegistrationsComponent,
-    ManageRegistrationDialogComponent,
     ManageSubscriptionComponent
   ],
   templateUrl: './user-dashboard.component.html',
