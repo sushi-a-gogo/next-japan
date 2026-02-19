@@ -23,8 +23,8 @@ import { EventOpportunitiesComponent } from "./components/event-opportunities/ev
     EventOpportunitiesComponent, RequestRegistrationDialogComponent, ManageRegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventMapComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[class.fade-in-animate]': 'true' }
 })
 export class EventPageComponent implements OnInit, OnChanges {
   private router = inject(Router);
@@ -75,8 +75,7 @@ export class EventPageComponent implements OnInit, OnChanges {
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
     this.meta.updateTag({ property: 'og:image:width', content: '384' });
     this.meta.updateTag({ property: 'og:image:height', content: '256' });
-    //this.loaded.set(true);
-    setTimeout(() => this.loaded.set(true)); // setTimeout allows fade-in animation to run smoothly
+    this.loaded.set(true);
   });
 
   ngOnInit(): void {
