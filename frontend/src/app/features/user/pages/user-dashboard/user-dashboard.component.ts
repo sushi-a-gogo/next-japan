@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -72,18 +72,13 @@ export class UserDashboardComponent implements OnInit {
     cloudflareImageId: '1815f4c9-c6c9-4856-8992-ea566c0b7400',
   };
 
-  constructor() {
-    effect(() => {
-      if (this.auth.user()) {
-        this.user.set(this.auth.user()!);
-        this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
-        const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
-        this.meta.updateTags(this.title.getTitle(), description);
-      }
-    })
-  }
-
   ngOnInit(): void {
+    if (this.auth.user()) {
+      this.user.set(this.auth.user()!);
+      this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
+      const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
+      this.meta.updateTags(this.title.getTitle(), description);
+    }
     this.selectedIndex.set(this.route.snapshot.queryParams['action'] === 'manage' ? 1 : 0);
   }
 

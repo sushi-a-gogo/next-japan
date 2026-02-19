@@ -7,7 +7,7 @@ import { EventRegistration } from '@app/features/registrations/models/event-regi
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ConfirmModalComponent } from '@app/shared/ui/modal/confirm-modal/confirm-modal.component';
-import { interval, switchMap } from 'rxjs';
+import { interval } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
 @Component({
@@ -49,10 +49,9 @@ export class EventRegistrationsComponent implements OnInit {
     // Poll every 60 seconds
     interval(60_000)
       .pipe(
-        switchMap(() => this.registrationService.refreshUserRegistrations$()),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe();
+      .subscribe(() => this.registrationService.refreshUserRegistrations());
   }
 
   confirmCancel(event: EventRegistration) {
@@ -64,9 +63,8 @@ export class EventRegistrationsComponent implements OnInit {
       const cancelledEvent = this.eventToCancel();
       this.eventToCancel.set(null);
       this.registrationService.cancelRegistration$(cancelledEvent!).pipe(
-        switchMap(() => this.notificationService.getUserNotifications$(this.userId)),
         takeUntilDestroyed(this.destroyRef)
-      ).subscribe();
+      ).subscribe(() => this.notificationService.refreshUserNotifications());
     } else {
       this.eventToCancel.set(null);
     }

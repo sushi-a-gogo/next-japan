@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
 import { NotificationService } from '@app/features/user/services/notification.service';
-import { switchMap, timer } from 'rxjs';
+import { interval } from 'rxjs';
 import { NotificationCardComponent } from "./notification-card/notification-card.component";
 
 @Component({
@@ -25,26 +25,16 @@ export class MyNotificationsComponent implements OnInit {
   userId = input.required<string>();
   notificationMenuTrigger = viewChild<MatMenuTrigger>('notificationMenuTrigger')
 
-  notifications = computed(() => {
-    const items = this.notificationService.notifications();
-    items.sort((a, b) => {
-      const t1 = new Date(a.sendAt).getTime();
-      const t2 = new Date(b.sendAt).getTime();
-      return t2 - t1;
-    });
-
-    return items;
-  });
+  notifications = this.notificationService.userNotifications;
   busy = signal<boolean>(false);
 
   ngOnInit(): void {
     // Start polling every 60 seconds
-    timer(0, 60_000)
+    interval(60_000)
       .pipe(
-        switchMap(() => this.notificationService.getUserNotifications$(this.userId())),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe();
+      .subscribe(() => this.notificationService.refreshUserNotifications());
   }
 
   menuToggle(menuOpen: boolean) {

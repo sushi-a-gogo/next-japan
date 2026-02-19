@@ -1,10 +1,11 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '@app/core/auth/auth.service';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventRegistration, RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
-import { catchError, Observable, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,54 +16,25 @@ export class RegistrationService {
   private auth = inject(AuthService);
   private errorService = inject(ErrorService);
 
-  // user event registrations sorted by date ASC
-  private userEventRegistrationsSignal = signal<EventRegistration[]>([]);
-  userEventRegistrations = this.userEventRegistrationsSignal.asReadonly();
-  private hasCheckedRegistrations = signal(false);
-  hasCheckedUserEventRegistrations = this.hasCheckedRegistrations.asReadonly();
-
-  // Optional: track last known userId to avoid redundant fetches
-  private lastProcessedUserId?: string;
-
-  //Trigger fetch when user changes (guarded effect)
-  private userChangeEffect = effect(() => {
-    const currentUser = this.auth.user();
-    const currentUserId = currentUser?.userId;
-
-    // Skip if same userId (prevents double-run on unrelated CD cycles)
-    if (currentUserId === this.lastProcessedUserId) {
-      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
-      return;
+  private lastUserId?: string;
+  private refresh$ = new BehaviorSubject<void>(undefined);
+  private refresh = effect(() => {
+    if (this.lastUserId !== this.auth.user()?.userId) {
+      this.lastUserId = this.auth.user()?.userId;
+      this.refresh$.next();
     }
-
-    this.lastProcessedUserId = currentUserId;
-
-    if (!currentUserId) {
-      // No user - clear data, set checked based on login status
-      this.userEventRegistrationsSignal.set([]);
-      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
-      return;
-    }
-
-    // Real user - start fetch
-    this.hasCheckedRegistrations.set(false);  // loading starts
-    this.fetchUserRegistrations$(currentUserId).pipe(take(1)).subscribe({
-      next: () => this.hasCheckedRegistrations.set(true),  // done
-      error: () => this.hasCheckedRegistrations.set(true)  // or handle error state
-    });
   });
 
-  // private userEffect = effect(() => {
-  //   this.syncUserRegistrations(this.auth.user()?.userId);
-  // });
+  pendingRefreshSignal = signal(false);
+  pendingRefresh = this.pendingRefreshSignal.asReadonly();
+  userEventRegistrations = toSignal(this.syncUserRegistrations$(), { initialValue: [] });
 
   getRegistration$(registrationId: string): Observable<ApiResponse<EventRegistration>> {
     return this.apiService.get<EventRegistration>(`${this.apiUri}/${registrationId}`);
   }
 
-  refreshUserRegistrations$() {
-    const userId = this.auth.user()?.userId;
-    return userId ? this.fetchUserRegistrations$(userId) : of({ success: true, data: [] });
+  refreshUserRegistrations() {
+    this.refresh$.next();
   }
 
   registerUserToOpportunity$(userId: string, opportunityId: string): Observable<ApiResponse<EventRegistration>> {
@@ -78,26 +50,30 @@ export class RegistrationService {
     return this.delete$(registration);
   }
 
-  private syncUserRegistrations(userId?: string) {
-    this.hasCheckedRegistrations.set(false);
-    if (userId) {
-      this.fetchUserRegistrations$(userId).pipe(take(1)).subscribe(() => {
-        this.hasCheckedRegistrations.set(true);
-      });
-    } else {
-      this.userEventRegistrationsSignal.set([]);
-      this.hasCheckedRegistrations.set(this.auth.loginStatus() !== 'pending');
-    }
+  private syncUserRegistrations$() {
+    this.pendingRefreshSignal.set(true);
+    return this.refresh$.pipe(
+      switchMap(() => {
+        const currentUser = this.auth.user();
+        const currentUserId = currentUser?.userId;
+        if (!currentUserId) {
+          return of({ success: true, data: [] });
+        }
+
+        return this.fetchUserRegistrations$(currentUserId)
+      }),
+      map((res) => {
+        this.pendingRefreshSignal.set(false);
+        return res.data?.sort(this.sortByDate) || []
+      }),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error retrieving Event Registrations', true)
+      })
+    )
   }
 
   private fetchUserRegistrations$(userId: string) {
-    return this.apiService.get<EventRegistration[]>(`${this.apiUri}/user/${userId}`).pipe(
-      tap((res) =>
-        this.userEventRegistrationsSignal.set(
-          [...(res.data ?? [])].sort(this.sortByDate)
-        )
-      )
-    );
+    return this.apiService.get<EventRegistration[]>(`${this.apiUri}/user/${userId}`);
   }
 
   private post$(registration: { userId: string, opportunityId: string, status: RegistrationStatus }) {
@@ -145,19 +121,7 @@ export class RegistrationService {
   }
 
   private registrationChanged(registration: EventRegistration) {
-    this.userEventRegistrationsSignal.update((prev) => {
-      let next: EventRegistration[];
-
-      if (registration.status === RegistrationStatus.Cancelled) {
-        next = prev.filter((r) => r.registrationId !== registration.registrationId);
-      } else {
-        next = prev.some(reg => reg.registrationId === registration.registrationId)
-          ? prev.map(reg => reg.registrationId === registration.registrationId ? registration : reg)
-          : [...prev, registration];
-      }
-
-      return next.sort(this.sortByDate);
-    });
+    this.refresh$.next();
   }
 
   private sortByDate = (a: EventRegistration, b: EventRegistration) =>
