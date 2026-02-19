@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, OnChanges, OnInit, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, input, OnChanges, OnInit, signal, SimpleChanges, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { RegistrationSelectionService } from '@app/features/registrations/servic
 import { ManageRegistrationDialogComponent } from '@app/features/registrations/ui/manage-registration-dialog/manage-registration-dialog.component';
 import { RequestRegistrationDialogComponent } from "@app/features/registrations/ui/request-registration-dialog/request-registration-dialog.component";
 import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
-import { filter, finalize } from 'rxjs';
+import { filter } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventMapComponent } from "./components/event-map/event-map.component";
@@ -48,6 +48,37 @@ export class EventPageComponent implements OnInit, OnChanges {
   showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
   @ViewChild('opportunities') opportunities?: ElementRef;
 
+  private errorEffect = effect(() => {
+    const data = this.eventPageService.eventData();
+    if (data?.error) {
+      this.errorService.sendError(
+        new Error('The requested event was not found.')
+      );
+      this.router.navigate(['/not-found']);
+    }
+  });
+
+  private eventEffect = effect(() => {
+    const data = this.eventPageService.eventData();
+    if (!data?.event) {
+      return;
+    }
+
+    const event = data.event;
+    const eventTitle = event?.eventTitle || 'Event Not Found';
+    const description = event?.description || 'Event Not Found';
+
+    this.title.setTitle(eventTitle);
+    this.meta.updateTags(eventTitle, description);
+
+    const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
+    this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+    this.meta.updateTag({ property: 'og:image:width', content: '384' });
+    this.meta.updateTag({ property: 'og:image:height', content: '256' });
+    //this.loaded.set(true);
+    setTimeout(() => this.loaded.set(true)); // setTimeout allows fade-in animation to run smoothly
+  });
+
   ngOnInit(): void {
     this.router.events
       .pipe(
@@ -55,6 +86,7 @@ export class EventPageComponent implements OnInit, OnChanges {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
+        this.eventPageService.setEventId(null);
         this.selectionService.clearSelected();
       });
   }
@@ -64,36 +96,7 @@ export class EventPageComponent implements OnInit, OnChanges {
     if (!changed) return;
 
     const id = this.eventId();
-    this.loaded.set(false);
-
-    this.eventPageService.loadEvent$(id)
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.loaded.set(true))
-      ).subscribe({
-        next: (res) => {
-          const event = res?.event;
-          const eventTitle = event?.eventTitle || 'Event Not Found';
-          const description = event?.description || 'Event Not Found';
-
-          this.title.setTitle(eventTitle);
-          this.meta.updateTags(eventTitle, description);
-
-          if (event) {
-            const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
-            this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
-            this.meta.updateTag({ property: 'og:image:width', content: '384' });
-            this.meta.updateTag({ property: 'og:image:height', content: '256' });
-          } else {
-            this.errorService.sendError(new Error("The requested event was not found."));
-            this.router.navigate(['./not-found']);
-          }
-        },
-        error: (e) => {
-          this.errorService.sendError(new Error('Error fetching requested event.'));
-          this.router.navigate(['./not-found']);
-        }
-      });
+    this.eventPageService.setEventId(id);
   }
 
   scrollToOpportunities() {

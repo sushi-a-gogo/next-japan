@@ -1,65 +1,71 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { EventInformation } from '@app/features/events/models/event-information.model';
+import { inject, Injectable, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { EventLocation } from '@app/features/events/models/event-location.model';
 import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventLocationService } from '@app/features/events/services/event-location.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventsService } from '@app/features/events/services/events.service';
-import { forkJoin, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
-/**
- * Service to manage event page data.
- * I wanted to explore using signals for data management in place of RXJS observables
- * This service is a wrapper over different event services, injecting their results
- * into signals that are referenced by the event page components.
- */
 @Injectable()
 export class EventPageService {
-  eventData = computed(() => {
-    return {
-      event: this.event(),
-      location: this.eventLocation(),
-      opportunities: this.eventOpportunities()
-    };
+  private eventId = signal<string | null>(null);
+
+  private eventData$ = toObservable(this.eventId).pipe(
+    switchMap((id) => {
+      if (!id) {
+        // No ID → emit reset immediately
+        return of({
+          event: null,
+          location: null,
+          opportunities: [],
+          error: null
+        });
+      }
+
+      return forkJoin({
+        event: this.getEventById$(id),
+        location: this.getEventLocation$(id),
+        opportunities: this.getEventOpportunities$(id)
+      })
+    }),
+    map((res) => {
+      console.log('wut');
+      const data = {
+        event: res.event,
+        location: res.location,
+        opportunities: res.opportunities?.sort(this.sortByDate),
+        error: null
+      };
+      return data;
+    }),
+    catchError((err) => {
+      const data = {
+        event: null,
+        location: null,
+        opportunities: null,
+        error: err
+      };
+      return of(data); // or of(null structure)
+    })
+  );
+
+  readonly eventData = toSignal(this.eventData$, {
+    initialValue: {
+      event: null,
+      location: null,
+      opportunities: [],
+      error: null
+    }
   });
-
-  private eventSignal = signal<EventInformation | null>(null);
-  private event = this.eventSignal.asReadonly();
-
-  private eventLocationSignal = signal<EventLocation | null>(null);
-  private eventLocation = this.eventLocationSignal.asReadonly();
-
-  private eventOpportunitiesSignal = signal<EventOpportunity[]>([]);
-  private eventOpportunities = this.eventOpportunitiesSignal.asReadonly();
 
   private eventsService = inject(EventsService);
   private locationService = inject(EventLocationService);
   private opportunityService = inject(EventOpportunityService);
 
-  loadEvent$(eventId: string) {
-    this.eventSignal.set(null);
-    this.eventLocationSignal.set(null);
-    this.eventOpportunitiesSignal.set([]);
-
-    const observables = {
-      event: this.getEventById$(eventId),
-      location: this.getEventLocation$(eventId),
-      opportunities: this.getEventOpportunities$(eventId)
-    };
-
-    return forkJoin(observables).pipe(
-      tap((res) => {
-
-        this.eventSignal.set(res.event);
-        this.eventLocationSignal.set(res.location);
-        this.eventOpportunitiesSignal.set(res.opportunities?.sort((a, b) => {
-          const t1 = new Date(a.startDate).getTime();
-          const t2 = new Date(b.startDate).getTime();
-          return t1 - t2;
-        }));
-      })
-    );
+  setEventId(id: string | null) {
+    this.eventId.set(id);
   }
 
   private getEventById$(eventId: string) {
@@ -73,4 +79,10 @@ export class EventPageService {
   private getEventOpportunities$(eventId: string): Observable<EventOpportunity[]> {
     return this.opportunityService.getEventOpportunities$(eventId);
   }
+
+  private sortByDate = (a: EventOpportunity, b: EventOpportunity) => {
+    const t1 = new Date(a.startDate).getTime();
+    const t2 = new Date(b.startDate).getTime();
+    return t1 - t2;
+  };
 }

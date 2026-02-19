@@ -60,5 +60,6 @@ export const routes: Routes = [
     loadChildren: () => import('./features/user/user.routes').then((mod) => mod.userRoutes),
     canActivate: [userGuard]
   },
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent },
 ];

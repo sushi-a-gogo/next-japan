@@ -1,9 +1,11 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthService } from '@app/core/auth/auth.service';
 import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { catchError, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, map, Observable, of, Subject, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,23 +13,23 @@ import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 export class NotificationService {
   private apiUri = 'api/notifications';
   private apiService = inject(ApiService);
+  private auth = inject(AuthService);
   private errorService = inject(ErrorService);
 
-  private notificationSignal = signal<EventNotification[]>([]);
-  notifications = this.notificationSignal.asReadonly();
+  private lastUserId?: string;
+  private refresh$ = new Subject<void>();
+  private refresh = effect(() => {
+    if (this.lastUserId !== this.auth.user()?.userId) {
+      this.lastUserId = this.auth.user()?.userId;
+      this.refresh$.next();
+    }
+  });
+
+  userNotifications = toSignal(this.syncUserNotifications$(), { initialValue: [] });
 
   unreadNotificationCount = computed(() =>
-    this.notifications().filter((n) => !n.isRead).length
+    this.userNotifications().filter((n) => !n.isRead).length
   );
-
-  getUserNotifications$(userId?: string) {
-    if (userId) {
-      return this.fetchUserNotifications$(userId);
-    } else {
-      this.notificationSignal.set([]);
-      return of({ succcess: true, data: [] });
-    }
-  }
 
   getNotification$(notificationId: string): Observable<ApiResponse<EventNotification>> {
     return this.apiService.get<EventNotification>(`${this.apiUri}/${notificationId}`);
@@ -41,11 +43,26 @@ export class NotificationService {
     return this.delete$('all', userId);
   }
 
+  refreshUserNotifications() {
+    this.refresh$.next();
+  }
+
+  private syncUserNotifications$() {
+    return this.refresh$.pipe(
+      switchMap(() => {
+        const currentUser = this.auth.user();
+        const currentUserId = currentUser?.userId;
+        return currentUserId ? this.fetchUserNotifications$(currentUserId) : of({ success: true, data: [] });
+      }),
+      map((res) => res.data?.sort(this.sortByDate) || []),
+      catchError((e) => {
+        return this.errorService.handleError(e, 'Error retrieving User Notifications', true)
+      })
+    )
+  }
+
   private fetchUserNotifications$(userId: string) {
-    return this.apiService.get<EventNotification[]>(`${this.apiUri}/user/${userId}`).pipe(
-      tap((res) => this.notificationSignal.set(res.data || [])),
-      catchError((e) => this.errorService.handleError(e, 'Error fetching notifications', true))
-    );
+    return this.apiService.get<EventNotification[]>(`${this.apiUri}/user/${userId}`);
   }
 
   private post$(notification: { userId: string, opportunityId: string, title: string, message: string }) {
@@ -65,4 +82,11 @@ export class NotificationService {
       })
     );
   }
+
+  private sortByDate = (a: EventNotification, b: EventNotification) => {
+    const t1 = new Date(a.sendAt).getTime();
+    const t2 = new Date(b.sendAt).getTime();
+    return t2 - t1;
+  };
 }
+

@@ -19,16 +19,15 @@ export class RegistrationStatusCardComponent {
 
   eventId = input<string>();
   startRegistration = output();
+
   loaded = computed(() =>
-    this.registrationService.hasCheckedUserEventRegistrations()
+    this.auth.loginStatus() !== 'pending' && !this.registrationService.pendingRefreshSignal()
   );
 
   eventRegistration = computed(() => {
-    if (!this.registrationService.hasCheckedUserEventRegistrations()) return null;
-
     const regs = this.registrationService.userEventRegistrations()
       .filter(r => r.opportunity.eventId === this.eventId());
-
+    ;
     return regs.length ? regs[0] : null;
   });
 

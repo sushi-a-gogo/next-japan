@@ -1,4 +1,5 @@
 <app-layout>
+  <app-page-load-spinner [remove]="eventsLoaded()" [delay]="1000" />
   <article
     class="nj-flex col align-center fade-in"
     [class.open]="eventsLoaded()"

@@ -1,29 +1,27 @@
-@if (loaded()) {
-  @if (eventRegistration()) {
-    <div class="host fade-in" [class.open]="loaded()">
-      <div>
-        You registered for this event on
-        {{ eventRegistration()!.createdAt | date }}
-      </div>
-      <ul class="nj-flex row align-center">
-        <li>
-          <button (click)="viewRegistration()">VIEW REGISTRATION</button>
-        </li>
-        <li>
-          <a routerLink="/user/dashboard" [queryParams]="{ action: 'manage' }">
-            MANAGE YOUR EVENTS
-          </a>
-        </li>
-      </ul>
+@if (eventRegistration()) {
+  <div class="host fade-in" [class.open]="loaded()">
+    <div>
+      You registered for this event on
+      {{ eventRegistration()!.createdAt | date }}
     </div>
-  } @else {
-    <div class="fade-in" [class.open]="loaded()">
-      <app-button
-        cssClass="app-button app-button-filled priority"
-        (buttonClick)="startRegistration.emit()"
-      >
-        <div class="button-text">Reserve Your Spot Now!</div>
-      </app-button>
-    </div>
-  }
+    <ul class="nj-flex row align-center">
+      <li>
+        <button (click)="viewRegistration()">VIEW REGISTRATION</button>
+      </li>
+      <li>
+        <a routerLink="/user/dashboard" [queryParams]="{ action: 'manage' }">
+          MANAGE YOUR EVENTS
+        </a>
+      </li>
+    </ul>
+  </div>
+} @else {
+  <div class="fade-in" [class.open]="loaded()">
+    <app-button
+      cssClass="app-button app-button-filled priority"
+      (buttonClick)="startRegistration.emit()"
+    >
+      <div class="button-text">Reserve Your Spot Now!</div>
+    </app-button>
+  </div>
 }
