@@ -52,7 +52,7 @@ export class EventPageComponent implements OnInit, OnChanges {
     const data = this.eventPageService.eventData();
     if (data?.error) {
       this.errorService.sendError(
-        new Error('Error fetching requested event.')
+        new Error('The requested event was not found.')
       );
       this.router.navigate(['/not-found']);
     }
@@ -76,7 +76,7 @@ export class EventPageComponent implements OnInit, OnChanges {
     this.meta.updateTag({ property: 'og:image:width', content: '384' });
     this.meta.updateTag({ property: 'og:image:height', content: '256' });
     //this.loaded.set(true);
-    setTimeout(() => this.loaded.set(true));
+    setTimeout(() => this.loaded.set(true)); // setTimeout allows fade-in animation to run smoothly
   });
 
   ngOnInit(): void {

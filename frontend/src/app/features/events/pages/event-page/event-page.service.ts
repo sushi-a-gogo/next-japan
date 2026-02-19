@@ -45,7 +45,7 @@ export class EventPageService {
         event: null,
         location: null,
         opportunities: null,
-        error: "Error"
+        error: err
       };
       return of(data); // or of(null structure)
     })

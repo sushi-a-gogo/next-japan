@@ -5,7 +5,7 @@ import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventRegistration, RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
-import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class RegistrationService {
   private errorService = inject(ErrorService);
 
   private lastUserId?: string;
-  private refresh$ = new BehaviorSubject<void>(undefined);
+  private refresh$ = new Subject<void>();
   private refresh = effect(() => {
     if (this.lastUserId !== this.auth.user()?.userId) {
       this.lastUserId = this.auth.user()?.userId;
