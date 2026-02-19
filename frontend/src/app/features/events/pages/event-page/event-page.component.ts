@@ -97,36 +97,6 @@ export class EventPageComponent implements OnInit, OnChanges {
 
     const id = this.eventId();
     this.eventPageService.setEventId(id);
-    // this.loaded.set(false);
-
-    // this.eventPageService.loadEvent$(id)
-    //   .pipe(
-    //     takeUntilDestroyed(this.destroyRef),
-    //     finalize(() => this.loaded.set(true))
-    //   ).subscribe({
-    //     next: (res) => {
-    //       const event = res?.event;
-    //       const eventTitle = event?.eventTitle || 'Event Not Found';
-    //       const description = event?.description || 'Event Not Found';
-
-    //       this.title.setTitle(eventTitle);
-    //       this.meta.updateTags(eventTitle, description);
-
-    //       if (event) {
-    //         const resizedImage = this.imageService.resizeImage(event.image, 384, 256);
-    //         this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
-    //         this.meta.updateTag({ property: 'og:image:width', content: '384' });
-    //         this.meta.updateTag({ property: 'og:image:height', content: '256' });
-    //       } else {
-    //         this.errorService.sendError(new Error("The requested event was not found."));
-    //         this.router.navigate(['./not-found']);
-    //       }
-    //     },
-    //     error: (e) => {
-    //       this.errorService.sendError(new Error('Error fetching requested event.'));
-    //       this.router.navigate(['./not-found']);
-    //     }
-    //   });
   }
 
   scrollToOpportunities() {
