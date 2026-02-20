@@ -1,56 +1,62 @@
-@if(navigatorShare()) {
-<button
-  matRipple
-  aria-label="Share event details"
-  type="button"
-  class="share-button nj-flex align-center gap-5 fade-in"
-  [class.open]="loaded()"
-  [style.color]="color()"
-  (click)="share()"
->
-  <span class="material-symbols-outlined"> send </span>
-</button>
-<span class="soft">
-  {{ count() }}
-</span>
-} @else {
-<button
-  aria-label="Share"
-  type="button"
-  class="share-button nj-flex align-center gap-2"
-  matTooltip="Share"
-  [matMenuTriggerFor]="shareMenu"
-  #menuTrigger="matMenuTrigger"
-  [matTooltipDisabled]="!userId()"
->
-  <span class="material-symbols-outlined"> send </span>
+@if (navigatorShare()) {
+  <button
+    matRipple
+    aria-label="Share event details"
+    type="button"
+    class="share-button nj-flex align-center fade-in"
+    [class.open]="loaded()"
+    [style.color]="color()"
+    (click)="share()"
+  >
+    <span class="material-symbols-outlined"> send </span>
+  </button>
   <span class="soft">
     {{ count() }}
   </span>
-</button>
-<mat-menu #shareMenu="matMenu" xPosition="before" yPosition="above">
-  <a
+} @else {
+  <button
+    aria-label="Share"
     type="button"
-    class="app-button nj-flex align-center justify-center"
-    mat-menu-item
-    [href]="twitterUrl()"
-    target="_"
+    class="share-button nj-flex align-center gap-2"
+    matTooltip="Share"
+    [matMenuTriggerFor]="shareMenu"
+    #menuTrigger="matMenuTrigger"
+    [matTooltipDisabled]="!userId()"
+    [style.color]="color()"
   >
-    <div class="nj-flex align-center justify-center">
-      <img src="/assets/images/x-logo-black.png" alt="X" class="icon-image" />
-    </div>
-  </a>
-  <button type="button" class="app-button" mat-menu-item (click)="sendEmail()">
-    <div class="menu-item">
-      <span class="material-symbols-outlined"> mail </span>
-      Email
-    </div>
+    <span class="material-symbols-outlined"> send </span>
+    <span class="soft">
+      {{ count() }}
+    </span>
   </button>
-  <button mat-menu-item class="app-button" (click)="copyLink()">
-    <div class="menu-item">
-      <span class="material-symbols-outlined"> content_copy </span>
-      Copy Link
-    </div>
-  </button>
-</mat-menu>
+  <mat-menu #shareMenu="matMenu" xPosition="before" yPosition="above">
+    <a
+      type="button"
+      class="app-button nj-flex align-center justify-center"
+      mat-menu-item
+      [href]="twitterUrl()"
+      target="_"
+    >
+      <div class="nj-flex align-center justify-center">
+        <img src="/assets/images/x-logo-black.png" alt="X" class="icon-image" />
+      </div>
+    </a>
+    <button
+      type="button"
+      class="app-button"
+      mat-menu-item
+      (click)="sendEmail()"
+    >
+      <div class="menu-item">
+        <span class="material-symbols-outlined"> mail </span>
+        Email
+      </div>
+    </button>
+    <button mat-menu-item class="app-button" (click)="copyLink()">
+      <div class="menu-item">
+        <span class="material-symbols-outlined"> content_copy </span>
+        Copy Link
+      </div>
+    </button>
+  </mat-menu>
 }

@@ -2,11 +2,12 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  min-width: 60px;
 }
 
 button {
   cursor: pointer;
-  padding: 4px;
+  padding: 2px;
   background: transparent;
   outline: none;
   color: var(--next-text);
@@ -29,11 +30,15 @@ button {
 }
 
 .material-symbols-outlined {
-  transition: 0.25s ease-in-out;
+  //transition: 0.25s ease-in-out;
 }
 
 .filled {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 48;
   color: var(--pink-cherry-blossoms);
 }
 

@@ -1,73 +1,87 @@
 <div class="hero-wrapper">
-  <img
-    #heroImg
-    [ngSrc]="bannerImage()!.src"
-    class="hero"
-    [class.grok]="xAi()"
-    fill
-    priority
-    placeholder
-    [alt]="event()!.eventTitle"
-  />
-  @if (event()) {
-    <div class="hero-overlay nj-flex justify-center">
-      <div class="component-box-content hero-content">
-        <div class="nj-flex col gap-12">
-          <div class="headline">
-            {{ event()!.eventTitle }}
-          </div>
-          <div class="nj-flex col gap-2">
-            @if (location()) {
+  @if (bannerImage()) {
+    <img
+      #heroImg
+      [ngSrc]="bannerImage()!.src"
+      class="hero"
+      [class.grok]="xAi()"
+      fill
+      priority
+      placeholder
+      [alt]="event()?.eventTitle"
+    />
+  } @else {
+    <img
+      ngSrc="assets/images/default-event.avif"
+      class="hero default"
+      fill
+      priority
+      placeholder
+      alt="A colorful landscape."
+    />
+  }
+  <div class="hero-overlay nj-flex align-center justify-center">
+    <div
+      class="component-box-content hero-content fade-in"
+      [class.open]="event()"
+    >
+      <div class="nj-flex col gap-12">
+        <div class="headline">
+          {{ event()?.eventTitle }}
+        </div>
+        <div class="nj-flex col gap-5">
+          @if (location()) {
+            <div class="nj-flex row align-center gap-10">
+              <span class="material-symbols-outlined icon-map"> map </span>
+              <span>
+                {{ location()?.locationName }}
+              </span>
+            </div>
+          }
+          <div class="nj-flex row gap-10">
+            @if (eventDateRange()) {
               <div class="nj-flex row align-center gap-10">
-                <span class="material-symbols-outlined icon-map"> map </span>
-                <span>
-                  {{ location()?.locationName }}
-                </span>
+                <span class="material-symbols-outlined icon-note"
+                  >date_range</span
+                >
+                <span>{{ eventDateRange() }}</span>
               </div>
-            }
-            <div class="nj-flex row align-center gap-24">
-              @if (eventDateRange()) {
-                <div class="nj-flex row align-center gap-10">
-                  <span class="material-symbols-outlined icon-note"
-                    >date_range</span
-                  >
-                  <span>{{ eventDateRange() }}</span>
+              <div class="nj-flex row gap-4">
+                <app-event-like-button [event]="event()!" color="white" />
+                <app-event-share-button [event]="event()!" color="white" />
+              </div>
+            } @else {
+              <div class="nj-flex col gap-10">
+                <div class="description">
+                  {{ event()?.description }}
                 </div>
-                <div class="nj-flex row gap-10">
-                  <app-event-like-button [event]="event()!" color="white" />
-                  <app-event-share-button [event]="event()!" color="white" />
-                </div>
-              } @else {
-                <div class="nj-flex col gap-10">
-                  <div class="description">
-                    {{ event()!.description }}
+                <div class="nj-flex row align-center gap-24">
+                  <div class="nj-flex row align-center gap-10">
+                    <span class="material-symbols-outlined icon-campaign">
+                      campaign
+                    </span>
+                    Coming Soon
                   </div>
-                  <div class="nj-flex row align-center gap-24">
-                    <div class="nj-flex row align-center gap-10">
-                      <span class="material-symbols-outlined icon-campaign">
-                        campaign
-                      </span>
-                      Coming Soon
-                    </div>
-                    <div class="nj-flex row align-center gap-16">
+                  <div class="nj-flex row align-center gap-4">
+                    @if (event()) {
                       <app-event-like-button [event]="event()!" color="white" />
                       <app-event-share-button
                         [event]="event()!"
                         color="white"
                       />
-                    </div>
+                    }
                   </div>
                 </div>
-              }
-            </div>
+              </div>
+            }
           </div>
         </div>
-        <app-registration-status-card
-          class="alert"
-          [eventId]="event()!.eventId"
-          (startRegistration)="onGetTickets.emit()"
-        />
       </div>
+      <app-registration-status-card
+        class="alert"
+        [eventId]="event()?.eventId"
+        (startRegistration)="onGetTickets.emit()"
+      />
     </div>
-  }
+  </div>
 </div>
