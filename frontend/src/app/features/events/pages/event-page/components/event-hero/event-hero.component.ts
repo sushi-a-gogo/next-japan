@@ -24,7 +24,7 @@ export class EventHeroComponent {
   private platformId = inject(PLATFORM_ID);
   private ticking = false;
 
-  event = input.required<EventInformation>();
+  event = input<EventInformation | null>(null);
   location = input<EventLocation | null>(null);
   opportunities = input<EventOpportunity[] | null>(null);
   heroImg = viewChild<ElementRef>('heroImg');
@@ -33,7 +33,7 @@ export class EventHeroComponent {
   xAi = computed(() => this.event()?.aiProvider === 'Grok');
 
   bannerImage = computed(() => {
-    const image = this.event().image;
+    const image = this.event()?.image;
     if (image && isPlatformBrowser(this.platformId)) {
       return this.imageService.resizeImage(image, image.width, image.height)
     }

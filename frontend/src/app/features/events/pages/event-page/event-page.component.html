@@ -1,14 +1,14 @@
 <app-page-load-spinner [remove]="loaded()" [delay]="1000" />
 <article class="nj-flex col align-center" [class.open]="loaded()">
+  <header class="component-box">
+    <app-event-hero
+      [event]="event()!"
+      [location]="location()"
+      [opportunities]="eventOpportunities()"
+      (onGetTickets)="scrollToOpportunities()"
+    />
+  </header>
   @if (event()) {
-    <header class="component-box">
-      <app-event-hero
-        [event]="event()!"
-        [location]="location()"
-        [opportunities]="eventOpportunities()"
-        (onGetTickets)="scrollToOpportunities()"
-      />
-    </header>
     <main class="component-box">
       <div class="component-box-content pad">
         <div class="page-component description pre-wrap">
