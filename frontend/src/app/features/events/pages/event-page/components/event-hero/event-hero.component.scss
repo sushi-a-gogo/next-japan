@@ -18,6 +18,10 @@
   object-fit: cover;
   transform: translateZ(0);
   will-change: transform;
+
+  &.default {
+    filter: brightness(50%) blur(15px);
+  }
 }
 
 .hero-overlay {
@@ -30,12 +34,13 @@
   color: #fff;
   font-size: 16px;
   line-height: 20px;
+  min-height: 240px;
 }
 
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .headline {
@@ -50,12 +55,20 @@
 
 .icon-map {
   color: var(--red-torii-gate);
-  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 48;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 600,
+    "GRAD" 0,
+    "opsz" 48;
 }
 
 .icon-campaign {
   color: var(--vivid-yellow-text);
-  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 700,
+    "GRAD" 0,
+    "opsz" 48;
 }
 
 @media screen and (min-width: 420px) {
@@ -66,6 +79,10 @@
 }
 
 @media (min-width: 768px) {
+  .hero-overlay {
+    min-height: 180px;
+  }
+
   .hero-content {
     flex-direction: row;
     align-items: center;

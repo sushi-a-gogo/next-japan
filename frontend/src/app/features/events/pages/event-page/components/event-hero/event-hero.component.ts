@@ -37,7 +37,7 @@ export class EventHeroComponent {
     if (image && isPlatformBrowser(this.platformId)) {
       return this.imageService.resizeImage(image, image.width, image.height)
     }
-    return { src: "assets/images/default-event.avif" };
+    return null;
   });
 
   eventDateRange = computed(() => {
