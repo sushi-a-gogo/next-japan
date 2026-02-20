@@ -1,16 +1,14 @@
 <div class="hero-wrapper">
-  @if (bannerImage()) {
-    <img
-      #heroImg
-      [ngSrc]="bannerImage()!.src"
-      class="hero"
-      [class.grok]="xAi()"
-      fill
-      priority
-      placeholder
-      [alt]="event().eventTitle"
-    />
-  }
+  <img
+    #heroImg
+    [ngSrc]="bannerImage()!.src"
+    class="hero"
+    [class.grok]="xAi()"
+    fill
+    priority
+    placeholder
+    [alt]="event().eventTitle"
+  />
   <div class="hero-overlay nj-flex justify-center">
     <div class="component-box-content hero-content">
       <div class="nj-flex col gap-12">
