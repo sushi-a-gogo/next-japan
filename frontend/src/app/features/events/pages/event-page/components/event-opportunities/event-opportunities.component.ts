@@ -1,19 +1,15 @@
-import { Component, input, OnInit, signal } from '@angular/core';
-import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
+import { Component, computed, input } from '@angular/core';
 import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
-import { SelectOpportunityButtonComponent } from '@app/features/registrations/ui/select-opportunity-button/select-opportunity-button.component';
+import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
+import { RequestRegistrationButtonComponent } from '@app/features/registrations/ui/request-registration-button/request-registration-button.component';
 
 @Component({
   selector: 'app-event-opportunities',
-  imports: [SelectOpportunityButtonComponent, EventOpportunityCardComponent],
+  imports: [RequestRegistrationButtonComponent, EventOpportunityCardComponent],
   templateUrl: './event-opportunities.component.html',
   styleUrl: './event-opportunities.component.scss'
 })
-export class EventOpportunitiesComponent implements OnInit {
-  opportunities = input<EventOpportunity[] | null>(null);
-  slicedOpportunities = signal<EventOpportunity[]>([]);
-
-  ngOnInit(): void {
-    this.slicedOpportunities.set(this.opportunities()?.slice(0, 6) || []);
-  }
+export class EventOpportunitiesComponent {
+  opportunities = input<RegistrationRequestTicket[]>([]);
+  selectedTickets = computed(() => this.opportunities()?.slice(0, 6) || []);
 }

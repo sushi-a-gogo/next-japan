@@ -21,7 +21,7 @@
   line-height: 20px;
 }
 
-.op-selector {
+.selector {
   align-self: flex-end;
   width: 100%;
 }
@@ -30,7 +30,7 @@
   :host {
     grid-template-columns: repeat(3, 1fr);
   }
-  .op-selector {
+  .selector {
     width: auto;
     min-width: 160px;
   }

@@ -1,6 +1,6 @@
 import { AppImageData } from '@app/core/models/app-image-data.model';
-import { EventLocation } from '../../events/models/event-location.model';
-import { EventOpportunity } from '../../events/models/event-opportunity.model';
+import { EventLocation } from '@app/features/events/models/event-location.model';
+import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 
 export interface EventRegistration {
   eventTitle: string;

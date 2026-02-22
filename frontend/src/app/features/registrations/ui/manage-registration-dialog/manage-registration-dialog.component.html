@@ -13,15 +13,7 @@
         </button>
       </header>
       <main class="dialog nj-flex col gap-16">
-        <div class="card nj-flex col gap-5">
-          <span class="title">
-            {{ eventRegistration()!.eventTitle }}
-          </span>
-          <app-event-location-card [location]="eventRegistration()!.location" />
-          <app-event-opportunity-card
-            [opportunity]="eventRegistration()!.opportunity"
-          />
-        </div>
+        <app-registration-card [registration]="eventRegistration()!" />
         <div class="soft xs">
           You can cancel your registration up to 48 hours before the event
           starts. Questions?

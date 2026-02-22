@@ -5,7 +5,7 @@ import { ApiResponse } from '@app/core/models/api-response.model';
 import { ApiService } from '@app/core/services/api.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
-import { catchError, map, Observable, of, Subject, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, retry, Subject, switchMap, tap, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +54,10 @@ export class NotificationService {
         const currentUserId = currentUser?.userId;
         return currentUserId ? this.fetchUserNotifications$(currentUserId) : of({ success: true, data: [] });
       }),
+      retry({
+        count: 3,
+        delay: (error, retryCount) => timer(250)
+      }),
       map((res) => res.data?.sort(this.sortByDate) || []),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error retrieving User Notifications', true)
@@ -67,7 +71,7 @@ export class NotificationService {
 
   private post$(notification: { userId: string, opportunityId: string, title: string, message: string }) {
     return this.apiService.post(`${this.apiUri}`, notification).pipe(
-      switchMap(() => this.fetchUserNotifications$(notification.userId)),
+      tap(() => this.refresh$.next()),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error saving notification', true)
       })
@@ -76,7 +80,7 @@ export class NotificationService {
 
   private delete$(id: string, userId: string) {
     return this.apiService.delete(`${this.apiUri}/${id}?userId=${userId}`).pipe(
-      switchMap(() => this.fetchUserNotifications$(userId)),
+      tap(() => this.refresh$.next()),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error deleting notification', true)
       })

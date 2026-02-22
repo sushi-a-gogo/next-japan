@@ -5,6 +5,7 @@ import { EventOpportunity } from '@app/features/events/models/event-opportunity.
 import { EventLocationService } from '@app/features/events/services/event-location.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventsService } from '@app/features/events/services/events.service';
+import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -20,6 +21,7 @@ export class EventPageService {
           event: null,
           location: null,
           opportunities: [],
+          tickets: [],
           error: null
         });
       }
@@ -31,13 +33,20 @@ export class EventPageService {
       })
     }),
     map((res) => {
-      console.log('wut');
+      const tickets: RegistrationRequestTicket[] = res.event && res.location ? res.opportunities.map((opportunity) => ({
+        eventTitle: res.event!.eventTitle || 'Event Title Missing!',
+        location: res.location! || 'Location Name Missing!',
+        opportunity
+      })) : [];
+
       const data = {
         event: res.event,
         location: res.location,
         opportunities: res.opportunities?.sort(this.sortByDate),
+        tickets,
         error: null
       };
+
       return data;
     }),
     catchError((err) => {
@@ -45,6 +54,7 @@ export class EventPageService {
         event: null,
         location: null,
         opportunities: null,
+        tickets: null,
         error: err
       };
       return of(data); // or of(null structure)
@@ -56,6 +66,7 @@ export class EventPageService {
       event: null,
       location: null,
       opportunities: [],
+      tickets: [],
       error: null
     }
   });

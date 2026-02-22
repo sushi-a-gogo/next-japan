@@ -17,22 +17,3 @@
     </ul>
   </main>
 </article>
-@if (eventToCancel()) {
-  <app-confirm-modal
-    (confirmed)="cancelEvent($event)"
-    headerText="Cancel My Registration"
-  >
-    <div class="nj-flex col gap-20">
-      <div class="card nj-flex col gap-5">
-        <div class="confirm-title">{{ eventToCancel()!.eventTitle }}</div>
-        <app-event-location-card [location]="eventToCancel()!.location" />
-        <app-event-opportunity-card
-          [opportunity]="eventToCancel()!.opportunity"
-        />
-      </div>
-      <div class="confirm">
-        Are you sure you want to cancel this event registration?
-      </div>
-    </div>
-  </app-confirm-modal>
-}

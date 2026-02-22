@@ -12,9 +12,9 @@ export class EventHomeService {
   private dateTime = inject(DateTimeService);
   private eventsService = inject(EventsService);
   private opportunityService = inject(EventOpportunityService);
+  private eventDataLoadedSignal = signal(false);
 
   eventData = toSignal(this.fetchEvents$(), { initialValue: [] });
-  private eventDataLoadedSignal = signal(false);
   eventDataLoaded = this.eventDataLoadedSignal.asReadonly();
 
   private fetchEvents$() {
