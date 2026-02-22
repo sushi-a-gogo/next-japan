@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 0;
+  border-top: 1px solid var(--next-border);
+  border-bottom: 1px solid var(--next-border);
+}
+
+.title {
+  color: var(--next-muted);
+  font-size: 16px;
+  font-weight: 600;
+}

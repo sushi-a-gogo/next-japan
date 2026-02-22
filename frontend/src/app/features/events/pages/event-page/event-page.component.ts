@@ -8,8 +8,6 @@ import { ImageService } from '@app/core/services/image.service';
 import { MetaService } from '@app/core/services/meta.service';
 import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
-import { ManageRegistrationDialogComponent } from '@app/features/registrations/ui/manage-registration-dialog/manage-registration-dialog.component';
-import { RequestRegistrationDialogComponent } from "@app/features/registrations/ui/request-registration-dialog/request-registration-dialog.component";
 import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
 import { filter } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
@@ -20,7 +18,7 @@ import { EventOpportunitiesComponent } from "./components/event-opportunities/ev
 @Component({
   selector: 'app-event-page',
   imports: [EventCoordinatorsComponent,
-    EventOpportunitiesComponent, RequestRegistrationDialogComponent, ManageRegistrationDialogComponent, EventHeroComponent, PageLoadSpinnerComponent, EventMapComponent],
+    EventOpportunitiesComponent, EventHeroComponent, PageLoadSpinnerComponent, EventMapComponent],
   templateUrl: './event-page.component.html',
   styleUrl: './event-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +40,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   event = computed(() => this.eventPageService.eventData().event);
   location = computed(() => this.eventPageService.eventData().location);
   eventOpportunities = computed(() => this.eventPageService.eventData().opportunities);
+  tickets = computed(() => this.eventPageService.eventData().tickets || []);
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 

@@ -1,0 +1,13 @@
+@if (eventToCancel()) {
+  <app-confirm-modal
+    (confirmed)="cancelEvent($event)"
+    headerText="Cancel My Registration"
+  >
+    <div class="nj-flex col gap-20">
+      <app-registration-card [registration]="eventToCancel()!" />
+      <div class="confirm">
+        Are you sure you want to cancel this event registration?
+      </div>
+    </div>
+  </app-confirm-modal>
+}

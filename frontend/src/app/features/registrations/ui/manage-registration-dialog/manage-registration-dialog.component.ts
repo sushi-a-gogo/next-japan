@@ -1,18 +1,17 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
-import { EventOpportunityCardComponent } from '@app/features/events/ui/event-opportunity-card/event-opportunity-card.component';
+import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
+import { RegistrationCardComponent } from "@app/features/registrations/ui/registration-card/registration-card.component";
 import { NotificationService } from '@app/features/user/services/notification.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { ModalComponent } from '@app/shared/ui/modal/modal.component';
 import { finalize } from 'rxjs';
-import { RegistrationSelectionService } from '../../services/registration-selection.service';
 
 @Component({
   selector: 'app-manage-registration-dialog',
-  imports: [MatButtonModule, ModalComponent, ButtonComponent, EventOpportunityCardComponent, EventLocationCard],
+  imports: [MatButtonModule, ModalComponent, ButtonComponent, RegistrationCardComponent],
   templateUrl: './manage-registration-dialog.component.html',
   styleUrl: './manage-registration-dialog.component.scss'
 })

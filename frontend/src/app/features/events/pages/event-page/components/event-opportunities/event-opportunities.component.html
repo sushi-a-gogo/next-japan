@@ -1,13 +1,10 @@
-@for (opportunity of slicedOpportunities(); track opportunity.opportunityId) {
+@for (ticket of selectedTickets(); track ticket.opportunity.opportunityId) {
   <div class="op-card">
     <app-event-opportunity-card
-      [opportunity]="opportunity"
+      [opportunity]="ticket.opportunity"
       [showNotes]="true"
     />
-    <app-select-opportunity-button
-      class="op-selector"
-      [opportunity]="opportunity"
-    />
+    <app-request-registration-button class="selector" [ticket]="ticket" />
   </div>
 } @empty {
   <div class="message">

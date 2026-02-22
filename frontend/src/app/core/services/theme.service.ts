@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { effect, inject, Injectable, isDevMode, PLATFORM_ID, signal } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '@app/core/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'

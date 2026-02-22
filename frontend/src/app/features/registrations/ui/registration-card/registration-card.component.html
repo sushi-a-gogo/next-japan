@@ -1,0 +1,9 @@
+<div class="title">
+  {{ selected()?.eventTitle }}
+</div>
+@if (location()) {
+  <app-event-location-card [location]="location()!" />
+}
+@if (opportunity()) {
+  <app-event-opportunity-card [opportunity]="opportunity()!" />
+}

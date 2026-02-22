@@ -30,11 +30,9 @@
       <div class="component-box-content pad" #opportunities>
         <div class="page-component">
           <h1>Upcoming Opportunities</h1>
-          <app-event-opportunities [opportunities]="eventOpportunities()" />
+          <app-event-opportunities [opportunities]="tickets()" />
         </div>
       </div>
     </main>
   }
-  <app-request-registration-dialog [location]="location()" />
-  <app-manage-registration-dialog />
 </article>

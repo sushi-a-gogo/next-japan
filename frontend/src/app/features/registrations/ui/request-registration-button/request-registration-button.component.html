@@ -5,7 +5,7 @@
       @case ("requested") {
         <app-button
           cssClass="app-button app-button-filled grey flex-button"
-          (buttonClick)="viewOpportunity()"
+          (buttonClick)="viewRegistration()"
         >
           <span class="material-symbols-outlined">pending_actions</span>
           {{ context()!.registration?.status | titlecase }}
@@ -14,7 +14,7 @@
       @case ("registered") {
         <app-button
           cssClass="app-button app-button-filled  flex-button priority"
-          (buttonClick)="viewOpportunity()"
+          (buttonClick)="viewRegistration()"
         >
           <span class="material-symbols-outlined">verified</span>
           You're registered!
@@ -33,9 +33,9 @@
     } @else {
       <app-button
         cssClass="app-button app-button-filled"
-        (buttonClick)="selectOpportunity()"
+        (buttonClick)="requestRegistration()"
       >
-        Register
+        Let's Go!
       </app-button>
     }
   }
@@ -46,6 +46,6 @@
     [disabled]="true"
     tooltip="Please sign in to register for an event."
   >
-    Register
+    Let's Go!
   </app-button>
 }

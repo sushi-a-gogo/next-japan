@@ -1,4 +1,4 @@
-@if (opportunity()) {
+@if (ticket()) {
   <app-modal (close)="closeDialog()">
     <div
       class="progress-spinner nj-flex row align-center justify-center"
@@ -31,14 +31,11 @@
           </p>
         </div>
       } @else {
-        <div class="card nj-flex col gap-5">
-          @if (location() && opportunity()) {
-            <app-event-location-card [location]="location()!" />
-            <app-event-opportunity-card [opportunity]="opportunity()!" />
-          } @else {
-            Oops...something went wrong. Please try again later.
-          }
-        </div>
+        @if (ticket()) {
+          <app-registration-card [ticket]="ticket()!" />
+        } @else {
+          Oops...something went wrong. Please try again later.
+        }
       }
       <div class="soft xs">
         Registration is first-come, first-served and spots are limited. You'll
@@ -71,9 +68,8 @@
           label="Register for Event"
           cssClass="app-button dialog-button app-button-filled priority"
           (buttonClick)="sendRequest()"
-          [disabled]="!opportunity()!"
         >
-          Register
+          Send Registration Request
         </app-button>
         <app-button
           label="Close dialog"
