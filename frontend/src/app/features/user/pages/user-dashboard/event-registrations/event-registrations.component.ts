@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DialogService } from '@app/core/services/dialog.service';
 import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
-import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
+import { CancelRegistrationDialogComponent } from '@app/features/registrations/ui/cancel-registration-dialog/cancel-registration-dialog.component';
 import { interval } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
@@ -15,8 +16,8 @@ import { EventRegistrationCardComponent } from './event-registration-card/event-
 
 })
 export class EventRegistrationsComponent implements OnInit {
+  private dialogService = inject(DialogService);
   private registrationService = inject(RegistrationService);
-  private selectionService = inject(RegistrationSelectionService);
   private destroyRef = inject(DestroyRef);
 
   loaded = signal(false);
@@ -47,7 +48,14 @@ export class EventRegistrationsComponent implements OnInit {
   }
 
   confirmCancel(event: EventRegistration) {
-    this.selectionService.selectCancelRegistration(event);
+    this.dialogService.open<EventRegistration>({
+      component: CancelRegistrationDialogComponent,
+      data: event,
+    }).afterClosed.subscribe(result => {
+      if (result) {
+        // handle success
+      }
+    });
   }
 
   private sortByDate(a: EventRegistration, b: EventRegistration) {

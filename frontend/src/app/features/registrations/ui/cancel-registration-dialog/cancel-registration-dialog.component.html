@@ -1,13 +1,37 @@
-@if (eventToCancel()) {
-  <app-confirm-modal
-    (confirmed)="cancelEvent($event)"
-    headerText="Cancel My Registration"
+<header class="dialog">
+  <span> Cancel Registration </span>
+  <button
+    type="button"
+    class="dialog-close"
+    mat-icon-button
+    (click)="closeDialog()"
   >
-    <div class="nj-flex col gap-20">
-      <app-registration-card [registration]="eventToCancel()!" />
-      <div class="confirm">
-        Are you sure you want to cancel this event registration?
-      </div>
-    </div>
-  </app-confirm-modal>
-}
+    <span class="material-symbols-outlined"> close </span>
+  </button>
+</header>
+<main class="dialog nj-flex col gap-16">
+  <app-registration-card [registration]="eventToCancel()!" />
+  <div class="confirm">
+    Are you sure you want to cancel this event registration?
+  </div>
+  <div class="soft xs">
+    You can cancel your registration up to 48 hours before the event starts.
+    Questions?
+    <a class="link-text" href="mailto: joe.svatek@icloud.com"> Contact us </a>
+    - we're happy to help!
+  </div>
+</main>
+<footer class="dialog nj-flex col gap-10">
+  <app-button
+    cssClass="app-button app-button-filled priority"
+    (buttonClick)="cancelEvent()"
+  >
+    Yes, I'm sure
+  </app-button>
+  <app-button
+    cssClass="app-button app-button-outlined"
+    (buttonClick)="closeDialog()"
+  >
+    No, I'll keep it.
+  </app-button>
+</footer>

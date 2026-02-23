@@ -1,5 +1,6 @@
-import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DialogService } from '@app/core/services/dialog.service';
 import { AiService } from '@app/features/ai/services/ai.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
@@ -14,9 +15,9 @@ export class AiSurpriseComponent implements OnInit {
   private spinner = inject(NgxSpinnerService);
   private destroyRef = inject(DestroyRef);
   private aiService = inject(AiService);
+  private dialogService = inject(DialogService);
 
-  ready = output<boolean>();
-  dismiss = output();
+  data = input();
   haiku = signal<string>('');
 
   ngOnInit(): void {
@@ -27,7 +28,11 @@ export class AiSurpriseComponent implements OnInit {
       if (res.success && res.data) {
         this.haiku.set(res.data);
       }
-      this.ready.emit(true);
     });
   }
+
+  closeDialog() {
+    this.dialogService.closeDialog();
+  }
+
 }

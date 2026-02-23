@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { AppImageData } from '@app/core/models/app-image-data.model';
 import { User } from '@app/core/models/user.model';
+import { DialogService } from '@app/core/services/dialog.service';
 import { MetaService } from '@app/core/services/meta.service';
 import { AiSurpriseComponent } from "@app/features/ai/ui/ai-surprise/ai-surprise.component";
 import { ProfileDialogComponent } from '@app/features/user/pages/user-dashboard/profile-dialog/profile-dialog.component';
 import { UserAvatarComponent } from '@app/features/user/ui/avatar/user-avatar/user-avatar.component';
 import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
-import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 import { EventRegistrationsComponent } from "./event-registrations/event-registrations.component";
 import { ManageSubscriptionComponent } from "./manage-subscription/manage-subscription.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
@@ -26,11 +26,8 @@ import { SuggestedEventsComponent } from "./suggested-events/suggested-events.co
     DatePipe,
     AnchorComponent,
     ButtonComponent,
-    ProfileDialogComponent,
     ProfileBadgesComponent,
     SuggestedEventsComponent,
-    ModalComponent,
-    AiSurpriseComponent,
     EventRegistrationsComponent,
     ManageSubscriptionComponent
   ],
@@ -44,6 +41,7 @@ export class UserDashboardComponent implements OnInit {
   private auth = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private dialogService = inject(DialogService);
 
   user = signal<User | null>(null);
   avatar = computed(() => {
@@ -61,9 +59,6 @@ export class UserDashboardComponent implements OnInit {
   selectedIndex = signal<number>(0);
 
   loaded = signal(false);
-  showProfileDialog = signal<boolean>(false);
-  showSurprise = signal<boolean>(false);
-  surpriseBusy = signal<boolean>(false);
 
   private defaultAvatar: AppImageData = {
     width: 1792,
@@ -92,25 +87,20 @@ export class UserDashboardComponent implements OnInit {
   }
 
   openProfileDialog() {
-    this.showProfileDialog.set(true);
-  }
+    this.dialogService.open<User>({
+      component: ProfileDialogComponent,
+      data: this.user()!,
+    }).afterClosed.subscribe(result => {
+      if (result) {
+        // handle success
+      }
+    });
 
-  closeProfileDialog() {
-    this.showProfileDialog.set(false);
   }
 
   openSurprise() {
-    this.showSurprise.set(true);
-    this.surpriseBusy.set(true);
-  }
-
-  surpriseReady(ready: boolean) {
-    this.surpriseBusy.set(!ready);
-  }
-
-  closeSurprise() {
-    if (!this.surpriseBusy()) {
-      this.showSurprise.set(false);
-    }
+    this.dialogService.open<null>({
+      component: AiSurpriseComponent,
+    });
   }
 }

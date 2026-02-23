@@ -1,30 +1,48 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { AuthService } from '@app/core/auth/auth.service';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface DialogConfig<T> {
+  title?: string;
+  size?: 'sm' | 'md' | 'lg' | 'dynamic';
+  showBackdrop?: boolean;
+  data?: T;
+  component: any;  // Type<any> or better with generics if you want
+}
+
+export interface DialogRef<T> {
+  close: (result?: T) => void;
+  afterClosed: Observable<T | undefined>;
+}
+
+@Injectable({ providedIn: 'root' })
 export class DialogService {
-  private auth = inject(AuthService);
+  private dialogRequest$ = new BehaviorSubject<DialogConfig<any> | null>(null);
+  private closeSubject$ = new BehaviorSubject<any>(null);
 
-  private showDialogSignal = signal<string>('');
-  showDialog = this.showDialogSignal.asReadonly();
+  open<T>(config: DialogConfig<T>): DialogRef<T> {
+    this.dialogRequest$.next(config);
 
-  // constructor() {
-  //   afterNextRender(() => {
-  //     if (!this.auth.user()) {
-  //       this.showDialogSignal.set('about');
-  //     }
-  //   });
-  // }
+    const afterClosed = this.closeSubject$.pipe(
+      filter(result => result !== null),
+      take(1)
+    );
 
-  showProfileDialog() {
-    this.showDialogSignal.set('profile');
+    return {
+      close: (result?: T) => {
+        this.closeDialog(result);
+      },
+      afterClosed
+    };
   }
 
-  closeDialog(key: string) {
-    if (this.showDialogSignal() === key) {
-      this.showDialogSignal.set('');
-    }
+  closeDialog<T>(result?: T) {
+    this.closeSubject$.next(result);
+    this.dialogRequest$.next(null);
+    this.closeSubject$.next(null); // reset for next open
+  }
+
+  get request$() {
+    return this.dialogRequest$.asObservable();
   }
 }

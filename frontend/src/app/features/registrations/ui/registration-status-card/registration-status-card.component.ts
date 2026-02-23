@@ -2,9 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
-import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
+import { DialogService } from '@app/core/services/dialog.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { EventRegistration } from '../../models/event-registration.model';
+import { ManageRegistrationDialogComponent } from '../manage-registration-dialog/manage-registration-dialog.component';
 
 @Component({
   selector: 'app-registration-status-card',
@@ -14,7 +16,7 @@ import { ButtonComponent } from '@app/shared/ui/button/button.component';
 })
 export class RegistrationStatusCardComponent {
   private auth = inject(AuthService);
-  private selectionService = inject(RegistrationSelectionService);
+  private dialogService = inject(DialogService);
   private registrationService = inject(RegistrationService);
 
   eventId = input<string>();
@@ -32,6 +34,13 @@ export class RegistrationStatusCardComponent {
   });
 
   viewRegistration() {
-    this.selectionService.selectRegistration(this.eventRegistration()!);
+    this.dialogService.open<EventRegistration>({
+      component: ManageRegistrationDialogComponent,
+      data: this.eventRegistration()!,
+    }).afterClosed.subscribe(result => {
+      if (result) {
+        // handle success
+      }
+    });
   }
 }

@@ -21,6 +21,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   dynamicWidth = input<boolean>(false);
   showBackdrop = input<boolean>(true);
+  size = input<'sm' | 'md' | 'lg' | 'dynamic'>();
 
   private initialized = false;
   private scrollPosition = 0;

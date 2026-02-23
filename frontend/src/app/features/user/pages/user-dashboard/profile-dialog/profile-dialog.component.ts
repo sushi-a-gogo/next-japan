@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounce, email, form, FormField, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,10 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '@app/core/auth/auth.service';
 import { User } from '@app/core/models/user.model';
+import { DialogService } from '@app/core/services/dialog.service';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
 import { UserAvatarComponent } from "@app/features/user/ui/avatar/user-avatar/user-avatar.component";
-import { ModalComponent } from "@app/shared/ui/modal/modal.component";
 
 interface UserProfileForm {
   firstName: string;
@@ -24,15 +24,17 @@ interface UserProfileForm {
 @Component({
   selector: 'app-profile-dialog',
   imports: [FormField, MatButtonModule, MatRippleModule, MatInputModule,
-    MatFormFieldModule, MatSelectModule, ModalComponent, UserAvatarComponent],
+    MatFormFieldModule, MatSelectModule, UserAvatarComponent],
   templateUrl: './profile-dialog.component.html',
   styleUrl: './profile-dialog.component.scss'
 })
 export class ProfileDialogComponent implements OnInit {
   private authService = inject(AuthService);
+  private dialogService = inject(DialogService);
   private userProfileService = inject(UserProfileService);
 
-  user = input.required<User>();
+  data = input.required<User>();
+  user = computed(() => this.data());
   userProfile?: UserProfile;
 
   private profileModel = signal<UserProfileForm>({
@@ -59,8 +61,6 @@ export class ProfileDialogComponent implements OnInit {
 
   showPhoneHint = computed(() => this.profileForm.phone().errors().find((e) => e.message === 'Phone is required'));
 
-  close = output<boolean>();
-
   contactMethods = [
     { value: 'email', viewValue: 'Email' },
     { value: 'phone', viewValue: 'Phone' },
@@ -86,6 +86,10 @@ export class ProfileDialogComponent implements OnInit {
     });
   }
 
+  closeDialog() {
+    this.dialogService.closeDialog();
+  }
+
   saveProfile() {
     const newProfile: UserProfile = {
       ...this.userProfile!,
@@ -102,13 +106,9 @@ export class ProfileDialogComponent implements OnInit {
           this.authService.updateUserData(res.data);
         }
         this.busy = false;
-        this.closeProfile();
+        this.closeDialog();
       },
       error: () => { this.busy = false; }
     });
-  }
-
-  closeProfile() {
-    this.close.emit(true);
   }
 }
