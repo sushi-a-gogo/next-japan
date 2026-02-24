@@ -1,5 +1,5 @@
 
-import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { SignInBannerComponent } from './sign-in-banner/sign-in-banner.component
 
 @Component({
   selector: 'app-layout',
-  imports: [NgComponentOutlet, AsyncPipe, HeaderComponent, FooterComponent, SignInBannerComponent, ModalComponent],
+  imports: [NgComponentOutlet, HeaderComponent, FooterComponent, SignInBannerComponent, ModalComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

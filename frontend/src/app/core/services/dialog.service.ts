@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 export interface DialogConfig<TData> {
   data?: TData;
@@ -15,14 +15,18 @@ export interface DialogRef<TData> {
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
-  private dialogRequest$ = new BehaviorSubject<DialogConfig<any> | null>(null);
   private activeClose$?: Subject<any>;
+  private dialogRequest = signal<DialogConfig<any> | null>(null);
+  request = this.dialogRequest.asReadonly();
 
   open<TData>(config: DialogConfig<TData>): DialogRef<TData> {
+    if (this.activeClose$) {
+      this.closeDialog();
+    }
     const close$ = new Subject<TData | undefined>();
     this.activeClose$ = close$;
 
-    this.dialogRequest$.next(config);
+    this.dialogRequest.set(config);
 
     return {
       close: (result?: TData) => this.closeDialog(result),
@@ -35,10 +39,6 @@ export class DialogService {
     this.activeClose$?.complete();
     this.activeClose$ = undefined;
 
-    this.dialogRequest$.next(null);
-  }
-
-  get request$() {
-    return this.dialogRequest$.asObservable();
+    this.dialogRequest.set(null);
   }
 }

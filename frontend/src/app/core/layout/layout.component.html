@@ -12,7 +12,7 @@
   </main>
 </div>
 
-@if (dialogService.request$ | async; as config) {
+@if (dialogService.request(); as config) {
   <app-modal [size]="config.size" (close)="dialogService.closeDialog()">
     <ng-container
       *ngComponentOutlet="config.component; inputs: { data: config.data }"
