@@ -3,11 +3,7 @@
   [class.backdrop]="showBackdrop()"
   (click)="onClose()"
 >
-  <div
-    class="dialog"
-    [class.dynamic]="dynamicWidth()"
-    (click)="onClick($event)"
-  >
+  <div [class]="cssClass()" (click)="onClick($event)">
     <ng-content />
   </div>
 </div>

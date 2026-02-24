@@ -22,9 +22,7 @@ export class RegistrationStatusCardComponent {
   eventId = input<string>();
   startRegistration = output();
 
-  loaded = computed(() =>
-    this.auth.loginStatus() !== 'pending' && !this.registrationService.pendingRefreshSignal()
-  );
+  loaded = computed(() => this.auth.loginStatus() !== 'pending' && !this.registrationService.pendingRefreshSignal());
 
   eventRegistration = computed(() => {
     const regs = this.registrationService.userEventRegistrations()
@@ -37,6 +35,7 @@ export class RegistrationStatusCardComponent {
     this.dialogService.open<EventRegistration>({
       component: ManageRegistrationDialogComponent,
       data: this.eventRegistration()!,
+      size: 'sm'
     });
   }
 }

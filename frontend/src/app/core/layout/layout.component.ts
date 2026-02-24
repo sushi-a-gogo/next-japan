@@ -5,7 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { EventSearchService } from '@app/features/events/services/event-search.service';
-import { ModalComponent } from "@app/shared/ui/modal/modal.component";
+import { DialogComponent } from "@app/shared/ui/dialog/dialog.component";
 import { filter } from 'rxjs';
 import { DialogService } from '../services/dialog.service';
 import { FooterComponent } from "./footer/footer.component";
@@ -14,7 +14,7 @@ import { SignInBannerComponent } from './sign-in-banner/sign-in-banner.component
 
 @Component({
   selector: 'app-layout',
-  imports: [NgComponentOutlet, HeaderComponent, FooterComponent, SignInBannerComponent, ModalComponent],
+  imports: [NgComponentOutlet, HeaderComponent, FooterComponent, SignInBannerComponent, DialogComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

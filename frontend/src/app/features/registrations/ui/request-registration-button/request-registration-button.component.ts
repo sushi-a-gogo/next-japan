@@ -29,6 +29,7 @@ export class RequestRegistrationButtonComponent {
     this.dialogService.open<RegistrationRequestTicket>({
       component: RequestRegistrationDialogComponent,
       data: this.ticket(),
+      size: 'sm'
     }).afterClosed.subscribe(result => {
       if (result) {
         // handle success
@@ -40,6 +41,7 @@ export class RequestRegistrationButtonComponent {
     this.dialogService.open<EventRegistration>({
       component: ManageRegistrationDialogComponent,
       data: this.context()!.registration!,
+      size: 'sm'
     });
   }
 }

@@ -51,6 +51,7 @@ export class EventRegistrationsComponent implements OnInit {
     this.dialogService.open<EventRegistration>({
       component: CancelRegistrationDialogComponent,
       data: event,
+      size: 'sm'
     }).afterClosed.subscribe(result => {
       if (result) {
         // handle success

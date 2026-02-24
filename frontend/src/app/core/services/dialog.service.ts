@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 export interface DialogConfig<TData> {
   data?: TData;
   component: any;
-  size?: 'sm' | 'md' | 'lg' | 'dynamic';
+  size?: 'sm' | 'md' | 'lg' | 'auto';
   showBackdrop?: boolean;
 }
 
@@ -26,7 +26,12 @@ export class DialogService {
     const close$ = new Subject<TData | undefined>();
     this.activeClose$ = close$;
 
-    this.dialogRequest.set(config);
+    const normalized: DialogConfig<TData> = {
+      size: 'sm',
+      showBackdrop: true,
+      ...config
+    };
+    this.dialogRequest.set(normalized);
 
     return {
       close: (result?: TData) => this.closeDialog(result),

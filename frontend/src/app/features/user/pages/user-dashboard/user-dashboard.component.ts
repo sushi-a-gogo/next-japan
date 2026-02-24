@@ -90,6 +90,7 @@ export class UserDashboardComponent implements OnInit {
     this.dialogService.open<User>({
       component: ProfileDialogComponent,
       data: this.user()!,
+      size: 'md'
     }).afterClosed.subscribe(result => {
       if (result) {
         // handle success
@@ -101,6 +102,7 @@ export class UserDashboardComponent implements OnInit {
   openSurprise() {
     this.dialogService.open<null>({
       component: AiSurpriseComponent,
+      size: 'sm'
     });
   }
 }

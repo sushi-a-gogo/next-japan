@@ -5,13 +5,13 @@ import { UiService } from '@app/core/services/ui.service';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-dialog',
   standalone: true,
   imports: [],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss',
+  templateUrl: './dialog.component.html',
+  styleUrl: './dialog.component.scss',
 })
-export class ModalComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private uiService = inject(UiService);
@@ -19,8 +19,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   close = output<boolean>();
 
   showBackdrop = input<boolean>(true);
-  size = input<'sm' | 'md' | 'lg' | 'dynamic'>();
-  dynamicWidth = computed((() => this.size() === 'dynamic'));
+  size = input<'sm' | 'md' | 'lg' | 'auto'>();
+  cssClass = computed(() => this.size() ? `dialog ${this.size()}` : 'dialog');
 
   ngOnInit(): void {
     this.uiService.lockWindowScroll();

@@ -1,6 +1,6 @@
 .dialog {
   position: absolute;
-  width: 95vw;
+  width: 94vw;
   height: auto;
   padding: 20px;
   z-index: 202;
@@ -35,20 +35,35 @@
   }
 }
 
-.dialog.dynamic {
+.dialog.auto {
   width: auto;
   max-width: 94vw;
   min-width: auto;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .dialog {
+    width: auto;
     animation: slide-down-fade-in 0.3s ease-out forwards;
   }
 
-  .dialog:not(.dynamic) {
+  .dialog.sm {
+    min-width: 360px;
+    max-width: 360px;
+  }
+
+  .dialog.md {
+    min-width: 500px;
+    max-width: 500px;
+  }
+
+  .dialog.lg {
+    min-width: 640px;
+    max-width: 640px;
+  }
+
+  .dialog.auto {
     width: auto;
-    max-height: calc(100lvh - 200px);
   }
 }
 
