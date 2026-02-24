@@ -56,7 +56,7 @@ export class NotificationService {
       }),
       retry({
         count: 3,
-        delay: (error, retryCount) => timer(250)
+        delay: (error, retryCount) => timer(1000)
       }),
       map((res) => res.data?.sort(this.sortByDate) || []),
       catchError((e) => {

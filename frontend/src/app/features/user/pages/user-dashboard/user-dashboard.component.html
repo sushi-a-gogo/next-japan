@@ -96,15 +96,3 @@
     }
   </div>
 </div>
-<!-- My Profile -->
-@if (showProfileDialog()) {
-  <app-profile-dialog [user]="user()!" (close)="closeProfileDialog()" />
-}
-@if (showSurprise()) {
-  <app-modal (close)="closeSurprise()">
-    <app-ai-surprise
-      (ready)="surpriseReady($event)"
-      (dismiss)="closeSurprise()"
-    />
-  </app-modal>
-}

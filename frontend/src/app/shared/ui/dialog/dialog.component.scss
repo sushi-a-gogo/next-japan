@@ -1,6 +1,6 @@
 .dialog {
   position: absolute;
-  width: 95vw;
+  width: 94vw;
   height: auto;
   padding: 20px;
   z-index: 202;
@@ -22,15 +22,10 @@
   z-index: 201;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  //transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &.backdrop {
     background: rgba(0, 0, 0, 0.32);
-  }
-
-  &.open {
-    opacity: 1;
   }
 }
 
@@ -40,16 +35,35 @@
   }
 }
 
-.dialog.dynamic {
+.dialog.auto {
   width: auto;
   max-width: 94vw;
   min-width: auto;
 }
 
-@media (min-width: 600px) {
-  .dialog:not(.dynamic) {
+@media (min-width: 768px) {
+  .dialog {
     width: auto;
-    max-height: calc(100lvh - 200px);
+    animation: slide-down-fade-in 0.3s ease-out forwards;
+  }
+
+  .dialog.sm {
+    min-width: 360px;
+    max-width: 360px;
+  }
+
+  .dialog.md {
+    min-width: 500px;
+    max-width: 500px;
+  }
+
+  .dialog.lg {
+    min-width: 640px;
+    max-width: 640px;
+  }
+
+  .dialog.auto {
+    width: auto;
   }
 }
 
@@ -74,8 +88,8 @@
     transform: translateY(-300px);
   }
   80% {
-    opacity: 1;
-    transform: translateY(96px);
+    opacity: 0.8;
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;

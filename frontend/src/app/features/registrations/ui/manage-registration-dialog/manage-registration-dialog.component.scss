@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .dialog {
   color: var(--next-text);
 }
@@ -34,12 +41,6 @@ footer.dialog {
   .cancel-text {
     font-weight: 600;
     color: var(--next-note);
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .dialog {
-    width: 320px;
   }
 }
 

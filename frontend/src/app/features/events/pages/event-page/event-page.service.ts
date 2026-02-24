@@ -33,7 +33,8 @@ export class EventPageService {
       })
     }),
     map((res) => {
-      const tickets: RegistrationRequestTicket[] = res.event && res.location ? res.opportunities.map((opportunity) => ({
+      const opportunities = res.opportunities?.sort(this.sortByDate) || [];
+      const tickets: RegistrationRequestTicket[] = res.event && res.location ? opportunities.map((opportunity) => ({
         eventTitle: res.event!.eventTitle || 'Event Title Missing!',
         location: res.location! || 'Location Name Missing!',
         opportunity
@@ -42,7 +43,7 @@ export class EventPageService {
       const data = {
         event: res.event,
         location: res.location,
-        opportunities: res.opportunities?.sort(this.sortByDate),
+        opportunities,
         tickets,
         error: null
       };

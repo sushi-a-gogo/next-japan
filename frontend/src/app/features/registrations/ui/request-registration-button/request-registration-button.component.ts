@@ -1,11 +1,13 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { AuthService } from '@app/core/auth/auth.service';
-import { getRegistrationContext } from '@app/features/registrations/models/event-registration.model';
+import { DialogService } from '@app/core/services/dialog.service';
+import { EventRegistration, getRegistrationContext } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
-import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { ManageRegistrationDialogComponent } from '../manage-registration-dialog/manage-registration-dialog.component';
+import { RequestRegistrationDialogComponent } from '../request-registration-dialog/request-registration-dialog.component';
 
 @Component({
   selector: 'app-request-registration-button',
@@ -16,7 +18,7 @@ import { ButtonComponent } from '@app/shared/ui/button/button.component';
 export class RequestRegistrationButtonComponent {
   private auth = inject(AuthService);
   private registrationService = inject(RegistrationService);
-  private selectionService = inject(RegistrationSelectionService);
+  private dialogService = inject(DialogService);
 
   ticket = input.required<RegistrationRequestTicket>();
   isAuthenticated = this.auth.isAuthenticated;
@@ -24,10 +26,22 @@ export class RequestRegistrationButtonComponent {
   context = computed(() => getRegistrationContext(this.ticket().opportunity, this.registrationService.userEventRegistrations()));
 
   requestRegistration() {
-    this.selectionService.selectRegistrationRequest(this.ticket());
+    this.dialogService.open<RegistrationRequestTicket>({
+      component: RequestRegistrationDialogComponent,
+      data: this.ticket(),
+      size: 'sm'
+    }).afterClosed.subscribe(result => {
+      if (result) {
+        // handle success
+      }
+    });
   }
 
   viewRegistration() {
-    this.selectionService.selectRegistration(this.context()?.registration!);
+    this.dialogService.open<EventRegistration>({
+      component: ManageRegistrationDialogComponent,
+      data: this.context()!.registration!,
+      size: 'sm'
+    });
   }
 }

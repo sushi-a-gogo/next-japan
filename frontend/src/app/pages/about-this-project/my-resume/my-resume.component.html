@@ -1,4 +1,4 @@
-<app-modal (close)="close.emit(true)">
+<app-dialog size="lg" (close)="close.emit(true)">
   <main class="dialog">
     <div class="resume-container">
       <markdown [data]="resumeContent()"></markdown>
@@ -15,4 +15,4 @@
       </app-button>
     </div>
   </footer>
-</app-modal>
+</app-dialog>

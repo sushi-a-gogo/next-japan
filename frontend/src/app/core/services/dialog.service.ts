@@ -1,30 +1,49 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { AuthService } from '@app/core/auth/auth.service';
+import { Injectable, signal } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface DialogConfig<TData> {
+  data?: TData;
+  component: any;
+  size?: 'sm' | 'md' | 'lg' | 'auto';
+  showBackdrop?: boolean;
+}
+
+export interface DialogRef<TData> {
+  close: (result?: TData) => void;
+  afterClosed: Observable<TData | undefined>;
+}
+
+@Injectable({ providedIn: 'root' })
 export class DialogService {
-  private auth = inject(AuthService);
+  private activeClose$?: Subject<any>;
+  private dialogRequest = signal<DialogConfig<any> | null>(null);
+  request = this.dialogRequest.asReadonly();
 
-  private showDialogSignal = signal<string>('');
-  showDialog = this.showDialogSignal.asReadonly();
+  open<TData>(config: DialogConfig<TData>): DialogRef<TData> {
+    if (this.activeClose$) {
+      this.closeDialog();
+    }
+    const close$ = new Subject<TData | undefined>();
+    this.activeClose$ = close$;
 
-  // constructor() {
-  //   afterNextRender(() => {
-  //     if (!this.auth.user()) {
-  //       this.showDialogSignal.set('about');
-  //     }
-  //   });
-  // }
+    const normalized: DialogConfig<TData> = {
+      size: 'sm',
+      showBackdrop: true,
+      ...config
+    };
+    this.dialogRequest.set(normalized);
 
-  showProfileDialog() {
-    this.showDialogSignal.set('profile');
+    return {
+      close: (result?: TData) => this.closeDialog(result),
+      afterClosed: close$.asObservable()
+    };
   }
 
-  closeDialog(key: string) {
-    if (this.showDialogSignal() === key) {
-      this.showDialogSignal.set('');
-    }
+  closeDialog<T>(result?: T) {
+    this.activeClose$?.next(result);
+    this.activeClose$?.complete();
+    this.activeClose$ = undefined;
+
+    this.dialogRequest.set(null);
   }
 }

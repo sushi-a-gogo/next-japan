@@ -51,9 +51,9 @@ export class RegistrationService {
   }
 
   private syncUserRegistrations$() {
-    this.pendingRefreshSignal.set(true);
     return this.refresh$.pipe(
       switchMap(() => {
+        this.pendingRefreshSignal.set(true);
         const currentUser = this.auth.user();
         const currentUserId = currentUser?.userId;
         if (!currentUserId) {
@@ -64,12 +64,12 @@ export class RegistrationService {
       }),
       map((res) => {
         this.pendingRefreshSignal.set(false);
-        return res.data?.sort(this.sortByDate) || []
+        return res.data?.sort(this.sortByDate) || [];
       }),
       catchError((e) => {
         return this.errorService.handleError(e, 'Error retrieving Event Registrations', true)
       })
-    )
+    );
   }
 
   private fetchUserRegistrations$(userId: string) {

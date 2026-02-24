@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, Eleme
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
-import { DialogService } from '@app/core/services/dialog.service';
 import { ErrorService } from '@app/core/services/error.service';
 import { ImageService } from '@app/core/services/image.service';
 import { MetaService } from '@app/core/services/meta.service';
 import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
-import { RegistrationSelectionService } from '@app/features/registrations/services/registration-selection.service';
 import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
 import { filter } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
@@ -30,9 +28,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   private meta = inject(MetaService);
   private destroyRef = inject(DestroyRef);
 
-  private dialogService = inject(DialogService);
   private eventPageService = inject(EventPageService);
-  private selectionService = inject(RegistrationSelectionService);
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
@@ -44,7 +40,6 @@ export class EventPageComponent implements OnInit, OnChanges {
   focusChild: string | null = null;
   loaded = signal<boolean>(false);
 
-  showRegistrationDialog = computed(() => this.dialogService.showDialog() === 'registration');
   @ViewChild('opportunities') opportunities?: ElementRef;
 
   private errorEffect = effect(() => {
@@ -85,7 +80,6 @@ export class EventPageComponent implements OnInit, OnChanges {
       )
       .subscribe(() => {
         this.eventPageService.setEventId(null);
-        this.selectionService.clearSelected();
       });
   }
 

@@ -1,14 +1,9 @@
 <div
   class="container nj-flex align-center justify-center"
-  [class.open]="open()"
   [class.backdrop]="showBackdrop()"
   (click)="onClose()"
 >
-  <div
-    class="dialog nj-flex col gap-24"
-    [class.dynamic]="dynamicWidth()"
-    (click)="onClick($event)"
-  >
+  <div [class]="cssClass()" (click)="onClick($event)">
     <ng-content />
   </div>
 </div>

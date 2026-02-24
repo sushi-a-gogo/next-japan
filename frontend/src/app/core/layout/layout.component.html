@@ -11,11 +11,17 @@
     </footer>
   </main>
 </div>
-<app-manage-registration-dialog />
-<app-request-registration-dialog />
-<app-cancel-registration-dialog />
+
+@if (dialogService.request(); as config) {
+  <app-dialog [size]="config.size" (close)="dialogService.closeDialog()">
+    <ng-container
+      *ngComponentOutlet="config.component; inputs: { data: config.data }"
+    />
+  </app-dialog>
+}
 
 <app-sign-in-banner [remove]="isAuthenticated()" />
+
 <div
   class="backdrop"
   [class.open]="inSearchMode()"

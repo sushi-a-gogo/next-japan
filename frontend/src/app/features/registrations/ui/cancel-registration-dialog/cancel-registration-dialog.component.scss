@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialog {
+  color: var(--next-text);
+}
+
+.card {
+  padding: 16px 0;
+  border-top: 1px solid var(--next-border);
+  border-bottom: 1px solid var(--next-border);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.confirm-text {
+  line-height: 24px;
+  transition: 0.25s ease-in-out;
+  height: 0;
+
+  &.open {
+    height: 24px;
+  }
+}
+
+.message {
+  min-height: 48px;
+}
+
+footer.dialog {
+  align-items: flex-start;
+  padding-top: 0;
+
+  .cancel-text {
+    font-weight: 600;
+    color: var(--next-note);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  footer.dialog {
+    button {
+      &.app-button-outlined:hover {
+        opacity: 0.75;
+      }
+
+      &.app-button.cancel:hover {
+        background-color: var(--next-surface-alt);
+      }
+    }
+  }
+}

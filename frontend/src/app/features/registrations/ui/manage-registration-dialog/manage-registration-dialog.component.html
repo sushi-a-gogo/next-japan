@@ -1,83 +1,74 @@
-@if (eventRegistration()) {
-  <app-modal (close)="closeDialog()">
-    @if (!cancelled()) {
-      <header class="dialog">
-        <span> Your Event Registration </span>
-        <button
-          type="button"
-          class="dialog-close"
-          mat-icon-button
-          (click)="closeDialog()"
-        >
-          <span class="material-symbols-outlined"> close </span>
-        </button>
-      </header>
-      <main class="dialog nj-flex col gap-16">
-        <app-registration-card [registration]="eventRegistration()!" />
-        <div class="soft xs">
-          You can cancel your registration up to 48 hours before the event
-          starts. Questions?
-          <a class="link-text" href="mailto: joe.svatek@icloud.com">
-            Contact us
-          </a>
-          - we're happy to help!
-        </div>
-      </main>
-      <footer class="dialog nj-flex col gap-10">
-        <div class="confirm-text fade-in" [class.open]="confirmCancel()">
-          Are you <span>sure</span> you want to cancel?
-        </div>
-        @if (confirmCancel()) {
-          <app-button
-            cssClass="app-button app-button-filled priority"
-            (buttonClick)="cancelEvent()"
-          >
-            Yes, I'm sure
-          </app-button>
-          <app-button
-            cssClass="app-button app-button-outlined"
-            (buttonClick)="confirmCancel.set(false)"
-          >
-            No, I'll keep it.
-          </app-button>
-        } @else {
-          <app-button
-            cssClass="app-button app-button-filled priority"
-            (buttonClick)="closeDialog()"
-          >
-            OK
-          </app-button>
-          <app-button
-            cssClass="app-button"
-            (buttonClick)="confirmCancel.set(true)"
-          >
-            <span class="cancel-text"> Cancel Registration </span>
-          </app-button>
-        }
-      </footer>
+@if (!cancelled()) {
+  <header class="dialog">
+    <span> Your Event Registration </span>
+    <button
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="closeDialog()"
+    >
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </header>
+  <main class="dialog nj-flex col gap-16">
+    <app-registration-card [registration]="eventRegistration()!" />
+    <div class="soft xs">
+      You can cancel your registration up to 48 hours before the event starts.
+      Questions?
+      <a class="link-text" href="mailto: joe.svatek@icloud.com"> Contact us </a>
+      - we're happy to help!
+    </div>
+  </main>
+  <footer class="dialog nj-flex col gap-10">
+    <div class="confirm-text fade-in" [class.open]="confirmCancel()">
+      Are you <span>sure</span> you want to cancel?
+    </div>
+    @if (confirmCancel()) {
+      <app-button
+        cssClass="app-button app-button-filled priority"
+        (buttonClick)="cancelEvent()"
+      >
+        Yes, I'm sure
+      </app-button>
+      <app-button
+        cssClass="app-button app-button-outlined"
+        (buttonClick)="confirmCancel.set(false)"
+      >
+        No, I'll keep it.
+      </app-button>
     } @else {
-      <header class="dialog">
-        <span> Event Registration </span>
-        <button
-          type="button"
-          class="dialog-close"
-          mat-icon-button
-          (click)="closeDialog()"
-        >
-          <span class="material-symbols-outlined"> close </span>
-        </button>
-      </header>
-      <main class="dialog">
-        <div class="message">Your event registration has been cancelled.</div>
-      </main>
-      <footer class="dialog">
-        <app-button
-          cssClass="app-button app-button-filled priority"
-          (buttonClick)="closeDialog()"
-        >
-          OK
-        </app-button>
-      </footer>
+      <app-button
+        cssClass="app-button app-button-filled priority"
+        (buttonClick)="closeDialog()"
+      >
+        OK
+      </app-button>
+      <app-button cssClass="app-button" (buttonClick)="confirmCancel.set(true)">
+        <span class="cancel-text"> Cancel Registration </span>
+      </app-button>
     }
-  </app-modal>
+  </footer>
+} @else {
+  <header class="dialog">
+    <span> Event Registration </span>
+    <button
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="closeDialog()"
+    >
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </header>
+  <main class="dialog">
+    <div class="message">Your event registration has been cancelled.</div>
+  </main>
+  <footer class="dialog">
+    <app-button
+      cssClass="app-button app-button-filled priority"
+      (buttonClick)="closeDialog()"
+    >
+      OK
+    </app-button>
+  </footer>
 }

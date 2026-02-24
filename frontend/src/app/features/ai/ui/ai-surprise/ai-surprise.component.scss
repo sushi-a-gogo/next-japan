@@ -16,10 +16,3 @@ main.dialog {
 button {
   width: 100%;
 }
-
-@media screen and (min-width: 768px) {
-  .dialog {
-    min-width: 320px;
-    max-width: 320px;
-  }
-}

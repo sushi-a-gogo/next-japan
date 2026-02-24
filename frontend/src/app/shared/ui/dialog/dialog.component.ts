@@ -1,55 +1,38 @@
-import { Component, DestroyRef, HostListener, inject, input, OnDestroy, OnInit, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, HostListener, inject, input, OnDestroy, OnInit, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
 import { UiService } from '@app/core/services/ui.service';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-dialog',
   standalone: true,
   imports: [],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+  templateUrl: './dialog.component.html',
+  styleUrl: './dialog.component.scss',
 })
-export class ModalComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private uiService = inject(UiService);
 
-  open = signal<boolean>(false);
   close = output<boolean>();
 
-  dynamicWidth = input<boolean>(false);
   showBackdrop = input<boolean>(true);
-
-  private initialized = false;
-  private scrollPosition = 0;
-
-  constructor() {
-    setTimeout(() => {
-      this.open.set(true);
-    }, 10);
-  }
+  size = input<'sm' | 'md' | 'lg' | 'auto'>();
+  cssClass = computed(() => this.size() ? `dialog ${this.size()}` : 'dialog');
 
   ngOnInit(): void {
-    // janky on iPad because of course it is.
     this.uiService.lockWindowScroll();
 
     this.router.events.pipe(
       filter((e) => e instanceof NavigationStart),
       takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        if (this.initialized) {
-          this.onClose();
-        }
+        this.onClose();
       });
-
-    setTimeout(() => {
-      this.initialized = true;
-    }, 250)
   }
 
   ngOnDestroy(): void {
-    // janky on iPad because of course it is.
     this.uiService.unlockWindowScroll();
   }
 
