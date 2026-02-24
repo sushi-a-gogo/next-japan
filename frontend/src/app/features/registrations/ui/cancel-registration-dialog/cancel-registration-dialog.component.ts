@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogService } from '@app/core/services/dialog.service';
@@ -22,6 +22,7 @@ export class CancelRegistrationDialogComponent {
 
   data = input<EventRegistration>();
   eventToCancel = computed(() => this.data());
+  eventCanceled = signal(false);
 
   cancelEvent() {
     const cancelledEvent = this.eventToCancel();
@@ -29,7 +30,7 @@ export class CancelRegistrationDialogComponent {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(() => {
       this.notificationService.refreshUserNotifications();
-      this.dialogService.closeDialog();
+      this.eventCanceled.set(true);
     });
   }
 

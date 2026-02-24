@@ -11,9 +11,9 @@
   </button>
 </header>
 <main class="dialog">
-  <div class="profile" [class.disabled]="busy">
+  <div class="profile nj-flex col align-center gap-10" [class.disabled]="busy">
     <app-user-avatar [user]="user()!" [size]="96" />
-    <form class="fade-in" [class.open]="userProfile">
+    <form class="nj-flex col fade-in" [class.open]="userProfile">
       <mat-form-field>
         <mat-label>First Name</mat-label>
         <input
@@ -37,6 +37,7 @@
         <mat-label>Email</mat-label>
         <input type="email" matInput [formField]="profileForm.email" />
       </mat-form-field>
+
       <div class="nj-flex row gap-5">
         <mat-form-field class="phone">
           <mat-label>Phone</mat-label>
@@ -67,24 +68,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <!-- <div
-          class="disclaimer"
-          [class.open]="
-            'phone' === profileForm.get('preferredContactMethod')?.value
-          "
-        >
-          <p>
-            By selecting <em>Phone</em> as your preferred contact method, you
-            agree to receive helpful text messages (like event updates) at the
-            number you provided. Message and data rates may apply. Message
-            frequency may vary. If you'd rather not get texts, you can always
-            choose a different contact method in your profile.
-          </p>
-          View our
-          <a routerLink="/legal/tos" target="_blank">Terms of Service</a>
-          and
-          <a routerLink="/legal/privacy" target="_blank">Privacy Policy</a>.
-        </div> -->
     </form>
   </div>
 </main>

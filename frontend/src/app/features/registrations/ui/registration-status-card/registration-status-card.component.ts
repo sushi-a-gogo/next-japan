@@ -37,10 +37,6 @@ export class RegistrationStatusCardComponent {
     this.dialogService.open<EventRegistration>({
       component: ManageRegistrationDialogComponent,
       data: this.eventRegistration()!,
-    }).afterClosed.subscribe(result => {
-      if (result) {
-        // handle success
-      }
     });
   }
 }

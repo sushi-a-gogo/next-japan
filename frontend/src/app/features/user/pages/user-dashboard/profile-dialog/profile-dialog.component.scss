@@ -5,14 +5,11 @@
   gap: 20px;
 }
 
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+main {
   width: 100%;
-  //gap: 10px;
-  flex: 1;
+}
+
+.profile {
   opacity: 1;
   transition: opacity 0.25s;
 
@@ -22,11 +19,6 @@
 }
 
 form {
-  width: 100%;
-  //padding-bottom: 10px;
-}
-
-.mat-mdc-form-field {
   width: 100%;
 }
 

@@ -1,45 +1,41 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-export interface DialogConfig<T> {
-  title?: string;
+export interface DialogConfig<TData> {
+  data?: TData;
+  component: any;
   size?: 'sm' | 'md' | 'lg' | 'dynamic';
   showBackdrop?: boolean;
-  data?: T;
-  component: any;  // Type<any> or better with generics if you want
 }
 
-export interface DialogRef<T> {
-  close: (result?: T) => void;
-  afterClosed: Observable<T | undefined>;
+export interface DialogRef<TData> {
+  close: (result?: TData) => void;
+  afterClosed: Observable<TData | undefined>;
 }
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
   private dialogRequest$ = new BehaviorSubject<DialogConfig<any> | null>(null);
-  private closeSubject$ = new BehaviorSubject<any>(null);
+  private activeClose$?: Subject<any>;
 
-  open<T>(config: DialogConfig<T>): DialogRef<T> {
+  open<TData>(config: DialogConfig<TData>): DialogRef<TData> {
+    const close$ = new Subject<TData | undefined>();
+    this.activeClose$ = close$;
+
     this.dialogRequest$.next(config);
 
-    const afterClosed = this.closeSubject$.pipe(
-      filter(result => result !== null),
-      take(1)
-    );
-
     return {
-      close: (result?: T) => {
-        this.closeDialog(result);
-      },
-      afterClosed
+      close: (result?: TData) => this.closeDialog(result),
+      afterClosed: close$.asObservable()
     };
   }
 
   closeDialog<T>(result?: T) {
-    this.closeSubject$.next(result);
+    this.activeClose$?.next(result);
+    this.activeClose$?.complete();
+    this.activeClose$ = undefined;
+
     this.dialogRequest$.next(null);
-    this.closeSubject$.next(null); // reset for next open
   }
 
   get request$() {

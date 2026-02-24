@@ -28,7 +28,6 @@ export class ManageRegistrationDialogComponent {
   busy = signal<boolean>(false);
 
   closeDialog() {
-    this.confirmCancel.set(false);
     this.dialogService.closeDialog();
   }
 

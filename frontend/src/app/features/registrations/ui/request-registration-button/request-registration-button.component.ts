@@ -40,10 +40,6 @@ export class RequestRegistrationButtonComponent {
     this.dialogService.open<EventRegistration>({
       component: ManageRegistrationDialogComponent,
       data: this.context()!.registration!,
-    }).afterClosed.subscribe(result => {
-      if (result) {
-        // handle success
-      }
     });
   }
 }

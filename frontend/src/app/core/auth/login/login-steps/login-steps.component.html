@@ -1,55 +1,58 @@
-<app-modal [dynamicWidth]="true" [showBackdrop]="false">
+<app-modal size="dynamic" [showBackdrop]="false">
   <div class="container">
-    @if(busy()) {
-    <div class="spinner">
-      <mat-spinner
-        diameter="40"
-        strokeWidth="5"
-        class="blue-spin"
-      ></mat-spinner>
-    </div>
+    @if (busy()) {
+      <div class="spinner">
+        <mat-spinner
+          diameter="40"
+          strokeWidth="5"
+          class="blue-spin"
+        ></mat-spinner>
+      </div>
     }
     <div class="content fade-in nj-flex col gap-36" [class.open]="!busy()">
       <header class="nj-flex row align-center justify-space-between">
         <span> {{ modeHeaderText() }} </span>
       </header>
       <main class="nj-flex col gap-10">
-        @switch(mode()) {
-        <!-- sign-in -->
-        @case('sign-in') {
-        <app-sign-in
-          (signIn)="signIn($event)"
-          (switchToSignUp)="switchMode('sign-up')"
-        />
+        @switch (mode()) {
+          <!-- sign-in -->
+          @case ("sign-in") {
+            <app-sign-in
+              (signIn)="signIn($event)"
+              (switchToSignUp)="switchMode('sign-up')"
+            />
+          }
+          <!-- sign-up -->
+          @case ("sign-up") {
+            <app-sign-up-form
+              (submit)="choosePlan($event)"
+              (switchToSignIn)="switchMode('sign-in')"
+            />
+          }
+          <!-- choose-plan -->
+          @case ("choose-plan") {
+            <app-select-plan [plans]="plans" (select)="selectPlan($event)" />
+          }
+          <!-- plan-payment -->
+          @case ("plan-payment") {
+            <div class="payment nj-flex col gap-10">
+              <app-plan-payment
+                [user]="newUser()!"
+                [plan]="subscriptionPlan()!"
+                (completePayment)="completeSignUp()"
+                (cancel)="choosePlan(newUser()!)"
+              />
+              <div
+                class="switchbox nj-flex row align-center justify-center gap-5"
+              >
+                Want to review your plan options?
+                <button class="text-button" (click)="choosePlan(newUser()!)">
+                  Go back
+                </button>
+              </div>
+            </div>
+          }
         }
-        <!-- sign-up -->
-        @case('sign-up') {
-        <app-sign-up-form
-          (submit)="choosePlan($event)"
-          (switchToSignIn)="switchMode('sign-in')"
-        />
-        }
-        <!-- choose-plan -->
-        @case('choose-plan') {
-        <app-select-plan [plans]="plans" (select)="selectPlan($event)" />
-        }
-        <!-- plan-payment -->
-        @case('plan-payment') {
-        <div class="payment nj-flex col gap-10">
-          <app-plan-payment
-            [user]="newUser()!"
-            [plan]="subscriptionPlan()!"
-            (completePayment)="completeSignUp()"
-            (cancel)="choosePlan(newUser()!)"
-          />
-          <div class="switchbox nj-flex row align-center justify-center gap-5">
-            Want to review your plan options?
-            <button class="text-button" (click)="choosePlan(newUser()!)">
-              Go back
-            </button>
-          </div>
-        </div>
-        } }
         <div>
           <button matButton (click)="goBack.emit()">
             ← Return to your adventure
