@@ -13,12 +13,12 @@ import { delay, finalize } from 'rxjs';
 
 
 @Component({
-  selector: 'app-request-registration-dialog',
+  selector: 'app-registration-request-dialog',
   imports: [MatButtonModule, ButtonComponent, AnchorComponent, LoadingSpinnerComponent, RegistrationCardComponent],
-  templateUrl: './request-registration-dialog.component.html',
-  styleUrl: './request-registration-dialog.component.scss',
+  templateUrl: './registration-request-dialog.component.html',
+  styleUrl: './registration-request-dialog.component.scss',
 })
-export class RequestRegistrationDialogComponent {
+export class RegistrationRequestDialogComponent {
   private authService = inject(AuthService);
   private dialogService = inject(DialogService);
   private registrationService = inject(RegistrationService);

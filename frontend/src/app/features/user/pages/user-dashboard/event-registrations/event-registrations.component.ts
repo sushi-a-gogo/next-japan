@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogService } from '@app/core/services/dialog.service';
 import { EventRegistration } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { CancelRegistrationDialogComponent } from '@app/features/registrations/ui/cancel-registration-dialog/cancel-registration-dialog.component';
+import { RegistrationCancelDialogComponent } from '@app/features/registrations/ui/registration-cancel-dialog/registration-cancel-dialog.component';
 import { interval } from 'rxjs';
 import { EventRegistrationCardComponent } from './event-registration-card/event-registration-card.component';
 
@@ -49,7 +49,7 @@ export class EventRegistrationsComponent implements OnInit {
 
   confirmCancel(event: EventRegistration) {
     this.dialogService.open<EventRegistration>({
-      component: CancelRegistrationDialogComponent,
+      component: RegistrationCancelDialogComponent,
       data: event,
       size: 'sm'
     }).afterClosed.subscribe(result => {

@@ -3,7 +3,13 @@
   [class.backdrop]="showBackdrop()"
   (click)="onClose()"
 >
-  <div [class]="cssClass()" (click)="onClick($event)">
+  <div
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dialog-title"
+    [class]="cssClass()"
+    (click)="onClick($event)"
+  >
     <ng-content />
   </div>
 </div>

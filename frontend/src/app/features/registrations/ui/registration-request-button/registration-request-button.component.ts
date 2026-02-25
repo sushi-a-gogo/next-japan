@@ -6,16 +6,16 @@ import { EventRegistration, getRegistrationContext } from '@app/features/registr
 import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
-import { ManageRegistrationDialogComponent } from '../manage-registration-dialog/manage-registration-dialog.component';
-import { RequestRegistrationDialogComponent } from '../request-registration-dialog/request-registration-dialog.component';
+import { RegistrationManageDialogComponent } from '../registration-manage-dialog/registration-manage-dialog.component';
+import { RegistrationRequestDialogComponent } from '../registration-request-dialog/registration-request-dialog.component';
 
 @Component({
-  selector: 'app-request-registration-button',
+  selector: 'app-registration-request-button',
   imports: [TitleCasePipe, ButtonComponent],
-  templateUrl: './request-registration-button.component.html',
-  styleUrl: './request-registration-button.component.scss'
+  templateUrl: './registration-request-button.component.html',
+  styleUrl: './registration-request-button.component.scss'
 })
-export class RequestRegistrationButtonComponent {
+export class RegistrationRequestButtonComponent {
   private auth = inject(AuthService);
   private registrationService = inject(RegistrationService);
   private dialogService = inject(DialogService);
@@ -27,7 +27,7 @@ export class RequestRegistrationButtonComponent {
 
   requestRegistration() {
     this.dialogService.open<RegistrationRequestTicket>({
-      component: RequestRegistrationDialogComponent,
+      component: RegistrationRequestDialogComponent,
       data: this.ticket(),
       size: 'sm'
     }).afterClosed.subscribe(result => {
@@ -39,7 +39,7 @@ export class RequestRegistrationButtonComponent {
 
   viewRegistration() {
     this.dialogService.open<EventRegistration>({
-      component: ManageRegistrationDialogComponent,
+      component: RegistrationManageDialogComponent,
       data: this.context()!.registration!,
       size: 'sm'
     });

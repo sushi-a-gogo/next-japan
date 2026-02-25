@@ -34,15 +34,28 @@ export const sharedProviders = [
     provide: IMAGE_LOADER,
     useValue: (config: ImageLoaderConfig) => {
       const { src, width } = config;
-      const baseUrl = environment.cloudfareUrl;
-      if (src.includes('oaidalleapiprodscus.blob.core.windows.net') || !src.includes('/public') || !src.includes(baseUrl)) {
+
+      // 1. Handle external/Azure images (Bypass Cloudflare)
+      if (src.startsWith('http') && !src.includes('imagedelivery.net')) {
         return src;
       }
-      const parts = src.split('/public')[0].split('/').filter(p => p);
-      const cloudflareImageId = parts.pop();
-      const cloudfareAccountHash = parts.pop();
-      const dimQuery = width ? `w=${width}&h=${width / 1.75}` : '';
-      return `${baseUrl}/${cloudfareAccountHash}/${cloudflareImageId}/public?${dimQuery}&format=auto&quality=85`;
+
+      const accountHash = environment.cloudfareAccountHash;
+
+      // 2. Extract the Image ID
+      // ngSrc="my-image-id", so this is simple.
+      const imageId = src;
+
+      // 3. Build the Optimized URL
+      // 'public' is the base variant, then layer flexible overrides
+      const params = [
+        width ? `w=${width}` : '',
+        width ? `h=${Math.round(width / 1.75)}` : '',
+        'format=auto',
+        'quality=85'
+      ].filter(Boolean).join('&');
+
+      return `https://imagedelivery.net/${accountHash}/${imageId}/public?${params}`;
     }
   },
   provideRouter(

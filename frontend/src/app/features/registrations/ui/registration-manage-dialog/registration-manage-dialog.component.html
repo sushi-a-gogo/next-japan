@@ -1,6 +1,6 @@
 @if (!cancelled()) {
   <header class="dialog">
-    <span> Your Event Registration </span>
+    <span id="dialog-title"> Your Event Registration </span>
     <button
       type="button"
       class="dialog-close"
@@ -43,7 +43,10 @@
       >
         OK
       </app-button>
-      <app-button cssClass="app-button" (buttonClick)="confirmCancel.set(true)">
+      <app-button
+        cssClass="app-button app-button-basic"
+        (buttonClick)="confirmCancel.set(true)"
+      >
         <span class="cancel-text"> Cancel Registration </span>
       </app-button>
     }

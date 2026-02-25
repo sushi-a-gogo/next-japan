@@ -6,7 +6,7 @@ import { DialogService } from '@app/core/services/dialog.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { ButtonComponent } from '@app/shared/ui/button/button.component';
 import { EventRegistration } from '../../models/event-registration.model';
-import { ManageRegistrationDialogComponent } from '../manage-registration-dialog/manage-registration-dialog.component';
+import { RegistrationManageDialogComponent } from '../registration-manage-dialog/registration-manage-dialog.component';
 
 @Component({
   selector: 'app-registration-status-card',
@@ -33,7 +33,7 @@ export class RegistrationStatusCardComponent {
 
   viewRegistration() {
     this.dialogService.open<EventRegistration>({
-      component: ManageRegistrationDialogComponent,
+      component: RegistrationManageDialogComponent,
       data: this.eventRegistration()!,
       size: 'sm'
     });
