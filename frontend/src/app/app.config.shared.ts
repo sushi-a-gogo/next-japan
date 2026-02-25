@@ -1,4 +1,4 @@
-import { DatePipe, IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth/auth.interceptor';
+import { provideAppImageLoader } from './core/providers/app-image-loader';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -30,21 +31,7 @@ export const sharedProviders = [
     withFetch(),
     withInterceptors([authInterceptor])
   ),
-  {
-    provide: IMAGE_LOADER,
-    useValue: (config: ImageLoaderConfig) => {
-      const { src, width } = config;
-      const baseUrl = environment.cloudfareUrl;
-      if (src.includes('oaidalleapiprodscus.blob.core.windows.net') || !src.includes('/public') || !src.includes(baseUrl)) {
-        return src;
-      }
-      const parts = src.split('/public')[0].split('/').filter(p => p);
-      const cloudflareImageId = parts.pop();
-      const cloudfareAccountHash = parts.pop();
-      const dimQuery = width ? `w=${width}&h=${width / 1.75}` : '';
-      return `${baseUrl}/${cloudfareAccountHash}/${cloudflareImageId}/public?${dimQuery}&format=auto&quality=85`;
-    }
-  },
+  provideAppImageLoader(environment.cloudfareAccountHash),
   provideRouter(
     routes,
     inMemoryScrollingFeature,
@@ -54,3 +41,4 @@ export const sharedProviders = [
   provideClientHydration(withEventReplay()),
   provideMarkdown()
 ];
+

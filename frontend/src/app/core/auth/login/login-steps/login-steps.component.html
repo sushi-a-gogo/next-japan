@@ -11,7 +11,7 @@
     }
     <div class="content fade-in nj-flex col gap-36" [class.open]="!busy()">
       <header class="nj-flex row align-center justify-space-between">
-        <span> {{ modeHeaderText() }} </span>
+        <span id="dialog-title"> {{ modeHeaderText() }} </span>
       </header>
       <main class="nj-flex col gap-10">
         @switch (mode()) {

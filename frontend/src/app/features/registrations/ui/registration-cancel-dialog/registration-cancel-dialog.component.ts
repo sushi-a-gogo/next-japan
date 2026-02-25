@@ -9,12 +9,12 @@ import { ButtonComponent } from "@app/shared/ui/button/button.component";
 import { EventRegistration } from '../../models/event-registration.model';
 
 @Component({
-  selector: 'app-cancel-registration-dialog',
+  selector: 'app-registration-cancel-dialog',
   imports: [MatButtonModule, RegistrationCardComponent, ButtonComponent],
-  templateUrl: './cancel-registration-dialog.component.html',
-  styleUrl: './cancel-registration-dialog.component.scss',
+  templateUrl: './registration-cancel-dialog.component.html',
+  styleUrl: './registration-cancel-dialog.component.scss',
 })
-export class CancelRegistrationDialogComponent {
+export class RegistrationCancelDialogComponent {
   private dialogService = inject(DialogService);
   private registrationService = inject(RegistrationService);
   private notificationService = inject(NotificationService);

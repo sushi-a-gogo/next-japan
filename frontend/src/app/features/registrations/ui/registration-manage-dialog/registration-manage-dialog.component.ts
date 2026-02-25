@@ -10,12 +10,12 @@ import { finalize } from 'rxjs';
 import { EventRegistration } from '../../models/event-registration.model';
 
 @Component({
-  selector: 'app-manage-registration-dialog',
+  selector: 'app-registration-manage-dialog',
   imports: [MatButtonModule, ButtonComponent, RegistrationCardComponent],
-  templateUrl: './manage-registration-dialog.component.html',
-  styleUrl: './manage-registration-dialog.component.scss'
+  templateUrl: './registration-manage-dialog.component.html',
+  styleUrl: './registration-manage-dialog.component.scss'
 })
-export class ManageRegistrationDialogComponent {
+export class RegistrationManageDialogComponent {
   private dialogService = inject(DialogService);
   private registrationService = inject(RegistrationService);
   private notificationService = inject(NotificationService);
