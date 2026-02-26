@@ -21,8 +21,7 @@ const appImageLoader = (cloudflareAccountHash: string) => {
     // 3. Build the Optimized URL
     // 'public' is the base variant, then layer flexible overrides
     const params = [
-      width ? `w=${width}` : '',
-      width ? `h=${Math.round(width / 1.75)}` : '',
+      `w=${width ?? 256}`,
       'format=auto',
       'quality=85'
     ].filter(Boolean).join('&');
@@ -31,7 +30,6 @@ const appImageLoader = (cloudflareAccountHash: string) => {
   }
 };
 
-// At bottom of file
 export const provideAppImageLoader = (cloudflareAccountHash: string) => ({
   provide: IMAGE_LOADER,
   useFactory: () => appImageLoader(cloudflareAccountHash),

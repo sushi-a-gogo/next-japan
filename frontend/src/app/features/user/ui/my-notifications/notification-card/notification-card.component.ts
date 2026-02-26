@@ -1,5 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { defaultHeroId } from '@app/core/models/app-image-data.model';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
 import { EventNotification } from '@app/features/user/models/user-notification.model';
@@ -23,7 +24,7 @@ export class NotificationCardComponent {
       return this.imageService.resizeImage(this.notification().opportunity.event.image, 168, 96);
     }
 
-    return { src: 'assets/images/default-event.avif', image: { width: 1792, height: 1024 } };
+    return { src: defaultHeroId, image: { width: 896, height: 512 } };
   });
 
   notificationDate = computed(() => {

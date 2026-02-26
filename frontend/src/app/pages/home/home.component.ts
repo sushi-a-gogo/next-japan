@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@a
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutComponent } from "@app/core/layout/layout.component";
-import { AppImageData } from '@app/core/models/app-image-data.model';
+import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { CanonicalService } from '@app/core/services/canonical.service';
 import { ImageService } from '@app/core/services/image.service';
 import { MetaService } from '@app/core/services/meta.service';
@@ -38,8 +38,7 @@ export class HomeComponent implements OnInit {
   private aiImage: AppImageData = {
     id: "ai-background.png",
     cloudflareImageId: "46a4b01c-c275-4556-aec4-ec7be2e8d500",
-    width: 1792,
-    height: 1024
+    ...appHeroDimensions
   };
 
   heroImage = computed(() => {
@@ -49,7 +48,7 @@ export class HomeComponent implements OnInit {
   });
 
   aiBackgroundImage = computed(() => {
-    return this.imageService.resizeImage(this.aiImage, this.aiImage.width, this.aiImage.height);
+    return this.imageService.resizeImage(this.aiImage, this.aiImage.width / 2, this.aiImage.height / 2);
   });
 
   org = organization;

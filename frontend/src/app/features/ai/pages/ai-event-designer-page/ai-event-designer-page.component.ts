@@ -5,7 +5,7 @@ import { MatProgressBar } from "@angular/material/progress-bar";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
-import { AppImageData } from '@app/core/models/app-image-data.model';
+import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { ImageService } from '@app/core/services/image.service';
 import { MetaService } from '@app/core/services/meta.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
@@ -24,9 +24,7 @@ export class AiEventDesignerPageComponent implements OnInit {
   private aiImage: AppImageData = {
     id: "ai-background.png",
     cloudflareImageId: "fe93cd16-79b0-411a-3584-4a52953f3d00",
-    // cloudflareImageId: "a93ea8ab-b8cd-4d31-6832-163c8d097200",
-    width: 1024,
-    height: 1792
+    ...appHeroDimensions
   };
 
   image = computed(() => {

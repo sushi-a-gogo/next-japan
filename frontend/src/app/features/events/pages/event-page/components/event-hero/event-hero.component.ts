@@ -1,5 +1,6 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { Component, computed, ElementRef, inject, input, output, PLATFORM_ID, viewChild } from '@angular/core';
+import { defaultHeroId } from '@app/core/models/app-image-data.model';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
 import { EventInformation } from '@app/features/events/models/event-information.model';
@@ -39,6 +40,7 @@ export class EventHeroComponent {
     }
     return null;
   });
+  defaultHero = defaultHeroId;
 
   eventDateRange = computed(() => {
     const ops = this.opportunities() || [];

@@ -23,7 +23,7 @@ export class EventCardComponent {
 
   resizedImage = computed(() => {
     const width = this.isGrokEvent() ? 342 : 448;
-    return this.imageService.resizeImage(this.event().image, 448, 256);
+    return this.imageService.resizeImage(this.event().image, 896, 512);
   });
 
   learnMoreLabel = computed(() => `Go to the '${this.event().eventTitle}' event page to learn more.`)

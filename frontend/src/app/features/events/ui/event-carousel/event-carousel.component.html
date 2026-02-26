@@ -1,23 +1,23 @@
-@if(ssrMode() || hideCarousel() || sortedEvents().length < 2) {
-<div class="carousel-ssr">
-  @for (event of sortedEvents(); track event.eventId) {
-  <app-event-card [event]="event"></app-event-card>
-  }
-</div>
+@if (ssrMode() || hideCarousel() || sortedEvents().length < 2) {
+  <div class="carousel-ssr">
+    @for (event of sortedEvents(); track event.eventId) {
+      <app-event-card [event]="event"></app-event-card>
+    }
+  </div>
 } @else {
-<p-carousel
-  [attr.aria-label]="'Featured events carousel'"
-  [value]="sortedEvents()"
-  [circular]="true"
-  [autoplayInterval]="6000"
-  [responsiveOptions]="responsiveOptions"
-  [showIndicators]="showIndicators()"
-  [prevButtonProps]="{ ariaLabel: 'Navigate to previous events' }"
-  [nextButtonProps]="{ ariaLabel: 'Navigate to next events' }"
-  role="region"
->
-  <ng-template let-event #item>
-    <app-event-card [event]="event" />
-  </ng-template>
-</p-carousel>
+  <p-carousel
+    [attr.aria-label]="'Featured events carousel'"
+    [value]="sortedEvents()"
+    [circular]="true"
+    [autoplayInterval]="6000"
+    [responsiveOptions]="responsiveOptions"
+    [showIndicators]="showIndicators()"
+    [prevButtonProps]="{ ariaLabel: 'Navigate to previous events' }"
+    [nextButtonProps]="{ ariaLabel: 'Navigate to next events' }"
+    role="region"
+  >
+    <ng-template let-event #item>
+      <app-event-card [event]="event" />
+    </ng-template>
+  </p-carousel>
 }
