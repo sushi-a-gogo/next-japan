@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AppImageData } from '@app/core/models/app-image-data.model';
+import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { ImageService } from '@app/core/services/image.service';
 
 @Component({
@@ -17,8 +17,7 @@ export class PageErrorComponent {
   private notFoundImage: AppImageData = {
     id: "about.png",
     cloudflareImageId: "180a8511-bc5e-46e7-8db3-7e7af379c800",
-    width: 1792,
-    height: 1024
+    ...appHeroDimensions
   };
 
   image = computed(() => {

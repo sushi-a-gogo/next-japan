@@ -4,7 +4,7 @@ import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
-import { AppImageData } from '@app/core/models/app-image-data.model';
+import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { User } from '@app/core/models/user.model';
 import { DialogService } from '@app/core/services/dialog.service';
 import { MetaService } from '@app/core/services/meta.service';
@@ -61,10 +61,9 @@ export class UserDashboardComponent implements OnInit {
   loaded = signal(false);
 
   private defaultAvatar: AppImageData = {
-    width: 1792,
-    height: 1024,
     id: 'default-image',
     cloudflareImageId: '1815f4c9-c6c9-4856-8992-ea566c0b7400',
+    ...appHeroDimensions
   };
 
   ngOnInit(): void {

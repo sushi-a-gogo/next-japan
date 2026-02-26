@@ -108,7 +108,8 @@ section {
 
 @media (min-width: 769px) {
   :host {
-    height: 640px;
+    height: auto;
+    min-height: 640px;
   }
 
   .hero-overlay {

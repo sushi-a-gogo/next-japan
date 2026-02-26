@@ -17,14 +17,14 @@ export class AppLogoComponent {
   private logo: AppImageData = {
     id: "app-logo.png",
     cloudflareImageId: "5b99a6f9-b2b3-44fe-14d5-4df135419100",
-    width: 1792,
+    width: 1536,
     height: 1024
   };
 
   private darkLogo: AppImageData = {
     id: "app-logo.png",
     cloudflareImageId: "fd884c4e-81ea-4d2d-3332-07c8ed341600",
-    width: 1792,
+    width: 1024,
     height: 1024
   };
 

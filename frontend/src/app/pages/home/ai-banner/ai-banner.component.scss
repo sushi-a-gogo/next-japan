@@ -1,7 +1,7 @@
 :host {
   position: relative;
   display: block;
-  height: 800px;
+  min-height: 800px;
   width: 100%;
   max-width: var(--max-page-width);
 }
@@ -40,7 +40,7 @@ main {
 
 @media screen and (min-width: 600px) {
   :host {
-    height: 800px;
+    min-height: 800px;
   }
 
   .banner {

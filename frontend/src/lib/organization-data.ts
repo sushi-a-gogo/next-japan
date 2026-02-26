@@ -1,3 +1,4 @@
+import { appHeroDimensions } from "@app/core/models/app-image-data.model";
 import { OrganizationInformation } from "@app/core/models/organization-information.model";
 
 const organization: OrganizationInformation = {
@@ -7,8 +8,7 @@ const organization: OrganizationInformation = {
     id: "tokyo-night.png",
     //cloudflareImageId: "723396e6-75e2-4a34-625e-3862a9539200",
     cloudflareImageId: "d3734dbe-2b91-4728-331e-f78c8284a500",
-    width: 1792,
-    height: 1024
+    ...appHeroDimensions
   },
   bannerDescription: "Prepare for your next adventure on the island of Japan. Discover hidden gems, vibrant culture, and unforgettable experiences. Let us guide you to the best that Japan has to offer. Whether you are a first-time visitor or a seasoned traveler, our curated experiences are designed to inspire and delight. Join a community of explorers and create memories that will last a lifetime.",
   bannerSubTitle: "Make Your Experience Unforgettable",
