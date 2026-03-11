@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, input, OnChanges, OnInit, signal, SimpleChanges, ViewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, input, ViewChild } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
-import { NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ErrorService } from '@app/core/services/error.service';
 import { ImageService } from '@app/core/services/image.service';
 import { MetaService } from '@app/core/services/meta.service';
 import { EventPageService } from '@app/features/events/pages/event-page/event-page.service';
 import { PageLoadSpinnerComponent } from "@app/shared/ui/page-load-spinner/page-load-spinner.component";
-import { filter } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { EventCoordinatorsComponent } from './components/event-coordinators/event-coordinators.component';
 import { EventHeroComponent } from "./components/event-hero/event-hero.component";
 import { EventMapComponent } from "./components/event-map/event-map.component";
@@ -22,29 +22,36 @@ import { EventOpportunitiesComponent } from "./components/event-opportunities/ev
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.fade-in-animate]': 'true' }
 })
-export class EventPageComponent implements OnInit, OnChanges {
+export class EventPageComponent {
+  eventId = input.required<string>(); //route param input
+  @ViewChild('opportunities') opportunities?: ElementRef;
+
   private router = inject(Router);
   private title = inject(Title);
   private meta = inject(MetaService);
-  private destroyRef = inject(DestroyRef);
 
   private eventPageService = inject(EventPageService);
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
-  eventId = input.required<string>();
-  event = computed(() => this.eventPageService.eventData().event);
-  location = computed(() => this.eventPageService.eventData().location);
-  eventOpportunities = computed(() => this.eventPageService.eventData().opportunities);
-  tickets = computed(() => this.eventPageService.eventData().tickets || []);
-  focusChild: string | null = null;
-  loaded = signal<boolean>(false);
+  private eventIdTrigger = computed(() => this.eventId());
 
-  @ViewChild('opportunities') opportunities?: ElementRef;
+  private eventData$ = toObservable(this.eventIdTrigger).pipe(
+    switchMap((id) => this.eventPageService.loadEventData$(id))
+  );
+
+  private eventData = toSignal(this.eventData$, {
+    initialValue: null
+  });
+
+  ogImage = computed(() => {
+    const event = this.eventData()?.event;
+    if (!event) return null;
+    return this.imageService.resizeImage(event.image, 384, 256);
+  });
 
   private errorEffect = effect(() => {
-    const data = this.eventPageService.eventData();
-    if (data?.error) {
+    if (this.eventData()?.error) {
       this.errorService.sendError(
         new Error('The requested event was not found.')
       );
@@ -53,7 +60,7 @@ export class EventPageComponent implements OnInit, OnChanges {
   });
 
   private eventEffect = effect(() => {
-    const data = this.eventPageService.eventData();
+    const data = this.eventData();
     if (!data?.event) {
       return;
     }
@@ -69,27 +76,21 @@ export class EventPageComponent implements OnInit, OnChanges {
     this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
     this.meta.updateTag({ property: 'og:image:width', content: '384' });
     this.meta.updateTag({ property: 'og:image:height', content: '256' });
-    this.loaded.set(true);
   });
 
-  ngOnInit(): void {
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationStart),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.eventPageService.setEventId(null);
-      });
-  }
+  private metaEffect = effect(() => {
+    const image = this.ogImage();
+    if (image) {
+      this.meta.updateTag({ property: 'og:image', content: image.src });
+    }
+  });
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const changed = changes['eventId'];
-    if (!changed) return;
-
-    const id = this.eventId();
-    this.eventPageService.setEventId(id);
-  }
+  event = computed(() => this.eventData()?.event ?? null);
+  location = computed(() => this.eventData()?.location ?? null);
+  eventOpportunities = computed(() => this.eventData()?.opportunities ?? []);
+  tickets = computed(() => this.eventData()?.tickets || []);
+  focusChild: string | null = null;
+  loaded = computed(() => !!this.eventData());
 
   scrollToOpportunities() {
     this.opportunities?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });

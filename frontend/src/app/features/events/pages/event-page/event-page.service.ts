@@ -1,5 +1,5 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { inject, Injectable } from '@angular/core';
+import { EventInformation } from '@app/features/events/models/event-information.model';
 import { EventLocation } from '@app/features/events/models/event-location.model';
 import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 import { EventLocationService } from '@app/features/events/services/event-location.service';
@@ -7,77 +7,69 @@ import { EventOpportunityService } from '@app/features/events/services/event-opp
 import { EventsService } from '@app/features/events/services/events.service';
 import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+
+interface EventPageData {
+  event: EventInformation | null,
+  location: EventLocation | null,
+  opportunities: EventOpportunity[],
+  tickets: RegistrationRequestTicket[],
+  error: unknown | null
+};
 
 @Injectable()
 export class EventPageService {
-  private eventId = signal<string | null>(null);
-
-  private eventData$ = toObservable(this.eventId).pipe(
-    switchMap((id) => {
-      if (!id) {
-        // No ID → emit reset immediately
-        return of({
-          event: null,
-          location: null,
-          opportunities: [],
-          tickets: [],
-          error: null
-        });
-      }
-
-      return forkJoin({
-        event: this.getEventById$(id),
-        location: this.getEventLocation$(id),
-        opportunities: this.getEventOpportunities$(id)
-      })
-    }),
-    map((res) => {
-      const opportunities = res.opportunities?.sort(this.sortByDate) || [];
-      const tickets: RegistrationRequestTicket[] = res.event && res.location ? opportunities.map((opportunity) => ({
-        eventTitle: res.event!.eventTitle || 'Event Title Missing!',
-        location: res.location! || 'Location Name Missing!',
-        opportunity
-      })) : [];
-
-      const data = {
-        event: res.event,
-        location: res.location,
-        opportunities,
-        tickets,
-        error: null
-      };
-
-      return data;
-    }),
-    catchError((err) => {
-      const data = {
-        event: null,
-        location: null,
-        opportunities: null,
-        tickets: null,
-        error: err
-      };
-      return of(data); // or of(null structure)
-    })
-  );
-
-  readonly eventData = toSignal(this.eventData$, {
-    initialValue: {
-      event: null,
-      location: null,
-      opportunities: [],
-      tickets: [],
-      error: null
-    }
-  });
-
   private eventsService = inject(EventsService);
   private locationService = inject(EventLocationService);
   private opportunityService = inject(EventOpportunityService);
 
-  setEventId(id: string | null) {
-    this.eventId.set(id);
+  loadEventData$(eventId: string | null): Observable<EventPageData> {
+    if (!eventId) {
+      const noData: EventPageData = {
+        event: null,
+        location: null,
+        opportunities: [],
+        tickets: [],
+        error: null
+      };
+      return of(noData);
+    }
+
+    return forkJoin({
+      event: this.getEventById$(eventId),
+      location: this.getEventLocation$(eventId),
+      opportunities: this.getEventOpportunities$(eventId)
+    }).pipe(
+      map((res) => this.mapEventData(res)),
+      catchError((err) => {
+        const errorData: EventPageData = {
+          event: null,
+          location: null,
+          opportunities: [],
+          tickets: [],
+          error: err
+        };
+        return of(errorData); // or of(null structure)
+      }));
+  }
+
+  private mapEventData(res: { event: EventInformation | null, location: EventLocation | null, opportunities: EventOpportunity[] }) {
+    const opportunities = [...(res.opportunities ?? [])].sort(this.sortByDate);
+    const tickets: RegistrationRequestTicket[] = res.event && res.location ? opportunities.map((opportunity) => ({
+      eventTitle: res.event!.eventTitle || 'Event Title Missing!',
+      location: res.location! || 'Location Name Missing!',
+      opportunity
+    })) : [];
+
+    const data: EventPageData = {
+      event: res.event,
+      location: res.location,
+      opportunities,
+      tickets,
+      error: null
+    };
+
+    return data;
   }
 
   private getEventById$(eventId: string) {
