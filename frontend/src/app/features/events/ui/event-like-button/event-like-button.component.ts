@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '@app/core/auth/auth.service';
@@ -13,34 +13,42 @@ import { finalize, forkJoin, of } from 'rxjs';
   templateUrl: './event-like-button.component.html',
   styleUrl: './event-like-button.component.scss'
 })
-export class EventLikeButtonComponent implements OnInit {
+export class EventLikeButtonComponent implements OnChanges {
+  event = input.required<EventData>();
+  color = input<string>();
+
   private destroyRef = inject(DestroyRef);
   private auth = inject(AuthService);
   private dateTime = inject(DateTimeService);
   private likeService = inject(LikeService);
 
-  event = input.required<EventData>();
-  likeCount = signal<number>(0);
-  likedByCurrent = signal<boolean>(false);
-  color = input<string>();
-  loaded = signal<boolean>(false);
+  private userId = computed(() => this.auth.user()?.userId);
 
-  count = computed(() => this.likeCount() + this.uniqueNum());
-  userId = computed(() => this.auth.user()?.userId);
-  disabled = computed(() => !this.userId());
+  private likeCount = signal<number>(0);
+  private simulatedLikeCount = signal<number>(0);
+
   busy = signal<boolean>(false);
+  loaded = signal<boolean>(false);
+  likedByCurrent = signal<boolean>(false);
 
-  private uniqueNum = signal<number>(0);
+  count = computed(() => this.likeCount() + this.simulatedLikeCount());
+  disabled = computed(() => !this.userId());
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['eventId']) {
+      return;
+    }
+
     const eventId = this.event().eventId;
+    const userId = this.userId();
+
     const observables = {
       likeCount: this.likeService.getLikeCount$(eventId),
-      uniqueNum: this.getUniqueNumberFromString(eventId, this.event().createdAt),
-      likedByUser: this.userId() ? this.likeService.isLikedByUser$(this.userId()!, eventId) : of(null)
+      simulatedLikeCount: this.computeSimulatedLikes(eventId, this.event().createdAt),
+      likedByUser: userId ? this.likeService.isLikedByUser$(userId, eventId) : of(null)
     };
     forkJoin(observables).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      this.uniqueNum.set(res.uniqueNum);
+      this.simulatedLikeCount.set(res.simulatedLikeCount);
       this.likeCount.set(res.likeCount.data?.likeCount || 0);
       this.likedByCurrent.set(!!res.likedByUser?.data?.likedByUser);
       this.loaded.set(true);
@@ -48,7 +56,9 @@ export class EventLikeButtonComponent implements OnInit {
   }
 
   like() {
-    if (this.disabled() || this.busy()) return;
+    if (this.disabled() || this.busy()) {
+      return;
+    }
 
     this.busy.set(true);
 
@@ -74,7 +84,15 @@ export class EventLikeButtonComponent implements OnInit {
       });
   }
 
-  private async getUniqueNumberFromString(inputString: string, createdAt: string) {
+  /*
+  Simulates a real world like count for an event.
+  Each count is unique to the event - derived from the event id.
+  */
+  private async computeSimulatedLikes(eventId: string | null, createdAt: string | null) {
+    if (!eventId || !createdAt) {
+      return 0;
+    }
+
     const days = this.dateTime.getDaysSince(createdAt);
     if (days === 0) {
       return 0;
@@ -82,7 +100,7 @@ export class EventLikeButtonComponent implements OnInit {
 
     // Encode the input string to an array of UTF-8 bytes.
     const encoder = new TextEncoder();
-    const data = encoder.encode(inputString);
+    const data = encoder.encode(eventId);
 
     // Compute the SHA-256 hash.
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -93,9 +111,8 @@ export class EventLikeButtonComponent implements OnInit {
 
     // Convert the hexadecimal string to a BigInt.
     const bigInt = BigInt(`0x${hexHash}`);
-    if (days < 4) {
-      return Number(bigInt.toString().substring(0, 2));
-    }
-    return Number(bigInt.toString().substring(0, 3));
+    const max = days < 4 ? 100 : 1000;
+    return Number(bigInt % BigInt(max));
   }
 }
+

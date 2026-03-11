@@ -1,5 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { inject, Injectable } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { EventOpportunityService } from '@app/features/events/services/event-opportunity.service';
 import { EventsService } from '@app/features/events/services/events.service';
@@ -12,12 +11,8 @@ export class EventHomeService {
   private dateTime = inject(DateTimeService);
   private eventsService = inject(EventsService);
   private opportunityService = inject(EventOpportunityService);
-  private eventDataLoadedSignal = signal(false);
 
-  eventData = toSignal(this.fetchEvents$(), { initialValue: [] });
-  eventDataLoaded = this.eventDataLoadedSignal.asReadonly();
-
-  private fetchEvents$() {
+  fetchEvents$() {
     const observables = {
       events: this.eventsService.get$(),
       opportunities: this.opportunityService.getOpportunities$(),
@@ -33,7 +28,6 @@ export class EventHomeService {
           const nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined
           event.nextCalendarDate = nextOpportunity ? this.opportunityService.getCleanDate(nextOpportunity) : undefined;
         });
-        this.eventDataLoadedSignal.set(true);
         return events;
       })
     );

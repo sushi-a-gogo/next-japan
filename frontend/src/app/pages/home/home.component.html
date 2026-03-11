@@ -1,13 +1,13 @@
 <app-layout>
-  <app-page-load-spinner [remove]="eventsLoaded()" [delay]="1000" />
+  <app-page-load-spinner [remove]="loadedEvents()" [delay]="1000" />
   <article
     class="nj-flex col align-center fade-in"
-    [class.open]="eventsLoaded()"
+    [class.open]="loadedEvents()"
   >
     <header class="component-box">
       <img [ngSrc]="heroImage()" alt="Hero Image" fill priority placeholder />
-      @if (events().length) {
-        <app-hero [events]="events()" />
+      @if (events()?.length) {
+        <app-hero [events]="events()!" />
       }
     </header>
     <main class="component-box nj-flex col align-center">
@@ -19,7 +19,7 @@
           {{ org.infoDescription }}
         </div>
       </div>
-      <app-event-carousel [events]="events()" />
+      <app-event-carousel [events]="events() || []" />
       <div class="ai-banner">
         <app-ai-banner [fadeInOnScroll]="{}" />
       </div>

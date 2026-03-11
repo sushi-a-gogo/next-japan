@@ -58,6 +58,7 @@
 
 img.hero {
   height: auto;
+  max-height: 198px;
   filter: brightness(103%) contrast(96%) saturate(81%) blur(0px)
     hue-rotate(336deg);
   transition: filter 0.3s ease;
