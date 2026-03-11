@@ -10,7 +10,9 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventPageData } from './event-page-data.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EventPageService {
   private eventsService = inject(EventsService);
   private locationService = inject(EventLocationService);

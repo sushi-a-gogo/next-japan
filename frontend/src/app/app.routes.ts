@@ -48,7 +48,7 @@ export const routes: Routes = [
   {
     path: 'event',
     loadChildren: () => import('./features/events/event.routes').then((mod) => mod.eventRoutes),
-    canActivate: [userGuard]
+    canActivate: [userGuard],
   },
   {
     path: 'ai',
