@@ -34,9 +34,7 @@ export class EventPageComponent {
   private errorService = inject(ErrorService);
   private imageService = inject(ImageService);
 
-  private eventIdTrigger = computed(() => this.eventId());
-
-  private eventData$ = toObservable(this.eventIdTrigger).pipe(
+  private eventData$ = toObservable(this.eventId).pipe(
     switchMap((id) => this.eventPageService.loadEventData$(id))
   );
 

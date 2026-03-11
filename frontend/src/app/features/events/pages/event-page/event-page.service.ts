@@ -8,14 +8,7 @@ import { EventsService } from '@app/features/events/services/events.service';
 import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-interface EventPageData {
-  event: EventInformation | null,
-  location: EventLocation | null,
-  opportunities: EventOpportunity[],
-  tickets: RegistrationRequestTicket[],
-  error: unknown | null
-};
+import { EventPageData } from './event-page-data.model';
 
 @Injectable()
 export class EventPageService {
