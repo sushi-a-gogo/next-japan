@@ -5,7 +5,7 @@
     [class.open]="loadedEvents()"
   >
     <header class="component-box">
-      <img [ngSrc]="heroImage()" alt="Hero Image" fill priority placeholder />
+      <img [ngSrc]="heroImage.src" alt="Hero Image" fill priority placeholder />
       @if (events()?.length) {
         <app-hero [events]="events()!" />
       }

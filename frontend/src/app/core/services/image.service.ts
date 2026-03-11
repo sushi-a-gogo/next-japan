@@ -36,6 +36,10 @@ export class ImageService {
     const src = `${image.cloudflareImageId}`;
 
     return { image: resizedImage, src }
+  }
 
+  cloudflareImageUrl(image: AppImageData, width: number, height: number) {
+    return `https://imagedelivery.net/${environment.cloudfareAccountHash}/${image.cloudflareImageId}` +
+      `/public?w=${width}&h=${height}&format=auto&quality=85`
   }
 }

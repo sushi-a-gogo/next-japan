@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -39,17 +39,10 @@ export class HomeComponent implements OnInit {
     ...appHeroDimensions
   };
 
+  heroImage = this.imageService.resizeImage(organization.image, 384, 256);
+
   events = toSignal(this.eventHomeService.fetchEvents$(), { initialValue: null });
-  loadedEvents = computed((() => this.events() !== null));
-
-  heroImage = computed(() => {
-    const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
-    return resizedImage.src;
-  });
-
-  private heroImageEffect = effect(() => {
-    this.meta.updateTag({ property: 'og:image', content: this.heroImage() });
-  });
+  loadedEvents = computed((() => !!this.events()));
 
   aiBackgroundImage = computed(() => {
     return this.imageService.resizeImage(this.aiImage, this.aiImage.width / 2, this.aiImage.height / 2);
@@ -64,6 +57,6 @@ export class HomeComponent implements OnInit {
     // Set meta tags
     this.meta.updateTags(this.title.getTitle(), organization.description);
     const resizedImage = this.imageService.resizeImage(organization.image, 384, 256);
-    this.meta.updateTag({ property: 'og:image', content: resizedImage.src });
+    this.meta.updateTag({ property: 'og:image', content: this.imageService.cloudflareImageUrl(organization.image, 384, 256) });
   }
 }

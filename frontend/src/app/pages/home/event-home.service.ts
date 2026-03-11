@@ -21,14 +21,19 @@ export class EventHomeService {
     return forkJoin(observables).pipe(
       map((res) => {
         const events = res.events;
-        events.forEach((event) => {
-          const eventOpportunities = res.opportunities
-            .filter((o) => o.eventId === event.eventId)
-            .sort(this.dateTime.sortCalendarDates);
-          const nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined
-          event.nextCalendarDate = nextOpportunity ? this.opportunityService.getCleanDate(nextOpportunity) : undefined;
+        const opportunities = res.opportunities.sort(this.dateTime.sortCalendarDates);
+        return events.map((event) => {
+          const eventOpportunities = opportunities.filter((o) => o.eventId === event.eventId);
+          const nextOpportunity = eventOpportunities.length > 0 ? eventOpportunities[0] : undefined;
+          const nextCalendarDate = nextOpportunity
+            ? this.opportunityService.getCleanDate(nextOpportunity)
+            : undefined
+
+          return {
+            ...event,
+            nextCalendarDate
+          };
         });
-        return events;
       })
     );
   }
