@@ -35,7 +35,7 @@ export class EventLikeButtonComponent implements OnChanges {
   disabled = computed(() => !this.userId());
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes['eventId']) {
+    if (!changes['event']) {
       return;
     }
 
