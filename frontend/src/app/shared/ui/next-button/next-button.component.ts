@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRipple, MatRippleModule } from '@angular/material/core';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -7,10 +7,12 @@ import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
   standalone: true,
   imports: [MatRippleModule, MatTooltipModule],
   template: `<ng-content />`,
-  hostDirectives: [{
-    directive: MatTooltip,
-    inputs: ['matTooltip: tooltip'] // Maps 'tooltip' input to matTooltip
-  }],
+  hostDirectives: [
+    MatRipple,
+    {
+      directive: MatTooltip,
+      inputs: ['matTooltip: tooltip'] // Maps 'tooltip' input to matTooltip
+    }],
   host: {
     'matRipple': '',
     'class': 'app-button',
