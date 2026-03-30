@@ -2,47 +2,51 @@
   class="content fade-in nj-flex col align-center gap-5"
   [class.open]="loaded()"
 >
-  @if(selectedUser()) {
-  <button class="avatar-button" (click)="switchUser()">
-    <app-user-avatar [user]="selectedUser()!" [size]="96" />
-  </button>
-  <form
-    class="nj-flex col gap-24"
-    #signInForm="ngForm"
-    (ngSubmit)="signIn.emit(selectedUser()!.email)"
-  >
-    <mat-form-field subscriptSizing="dynamic">
-      <mat-label>Email Address</mat-label>
-      <input
-        matInput
-        name="email"
-        [(ngModel)]="selectedUser()!.email"
-        readonly=""
-      />
-    </mat-form-field>
-    <div class="nj-flex col gap-10">
-      <app-button
-        buttonType="submit"
-        cssClass="app-button dialog-button app-button-filled priority"
-      >
-        <span class="button-text">Continue</span>
-      </app-button>
-      <div class="switchbox nj-flex row align-center gap-5">
-        Feeling adventurous?
-        <div>
-          <app-button
-            cssClass="text-button"
-            (buttonClick)="switchToSignUp.emit()"
+  @if (selectedUser()) {
+    <button class="avatar-button" (click)="switchUser()">
+      <app-user-avatar [user]="selectedUser()!" [size]="96" />
+    </button>
+    <form
+      class="nj-flex col gap-24"
+      #signInForm="ngForm"
+      (ngSubmit)="signIn.emit(selectedUser()!.email)"
+    >
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Email Address</mat-label>
+        <input
+          matInput
+          name="email"
+          [(ngModel)]="selectedUser()!.email"
+          readonly=""
+        />
+      </mat-form-field>
+      <div class="nj-flex col gap-10">
+        <button
+          nextButton
+          type="submit"
+          class="dialog-button"
+          variant="priority"
+        >
+          <span class="button-text">Continue</span>
+        </button>
+        <div
+          class="switchbox nj-flex row align-center justify-space-between gap-5"
+        >
+          <span>Feeling adventurous?</span>
+          <button
+            type="button"
+            nextButton
+            class="text-button"
+            (click)="switchToSignUp.emit()"
           >
             Create an account
-          </app-button>
+          </button>
         </div>
       </div>
-    </div>
-  </form>
-  <p class="soft xs">
-    This is a demo app. Use the pre-filled sample account to try out features
-    instantly.
-  </p>
+    </form>
+    <p class="soft xs">
+      This is a demo app. Use the pre-filled sample account to try out features
+      instantly.
+    </p>
   }
 </div>

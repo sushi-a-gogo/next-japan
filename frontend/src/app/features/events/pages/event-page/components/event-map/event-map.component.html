@@ -39,12 +39,9 @@
         }
       </div>
       <div class="button">
-        <app-button
-          cssClass="app-button app-button-filled priority"
-          (buttonClick)="onGetTickets.emit()"
-        >
-          <div class="button-text">Get Tickets</div>
-        </app-button>
+        <button nextButton variant="priority" (click)="onGetTickets.emit()">
+          Get Tickets
+        </button>
       </div>
     </div>
 

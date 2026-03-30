@@ -3,49 +3,55 @@
   @if (context()?.registration?.status) {
     @switch (context()?.registration?.status) {
       @case ("requested") {
-        <app-button
-          cssClass="app-button app-button-filled grey flex-button"
-          (buttonClick)="viewRegistration()"
+        <button
+          nextButton
+          class="app-button-filled grey flex-button"
+          (click)="viewRegistration()"
         >
           <span class="material-symbols-outlined">pending_actions</span>
           {{ context()!.registration?.status | titlecase }}
-        </app-button>
+        </button>
       }
       @case ("registered") {
-        <app-button
-          cssClass="app-button app-button-filled  flex-button priority"
-          (buttonClick)="viewRegistration()"
+        <button
+          nextButton
+          class="flex-button"
+          variant="priority"
+          (click)="viewRegistration()"
         >
           <span class="material-symbols-outlined">verified</span>
           Registered
-        </app-button>
+        </button>
       }
     }
   } @else {
     @if (context()?.conflicted) {
-      <app-button
-        cssClass="app-button inactive"
+      <button
+        nextButton
+        class="inactive"
         disabled="disabled"
         tooltip="This event conflicts with one you've already registered for."
       >
         Conflict
-      </app-button>
+      </button>
     } @else {
-      <app-button
-        cssClass="app-button app-button-filled"
-        (buttonClick)="requestRegistration()"
+      <button
+        nextButton
+        class="app-button-filled"
+        (click)="requestRegistration()"
       >
         Let's Go!
-      </app-button>
+      </button>
     }
   }
   <!-- End Authenticated -->
 } @else {
-  <app-button
-    cssClass="app-button app-button-filled"
+  <button
+    nextButton
+    class="app-button-filled"
     [disabled]="true"
     tooltip="Please sign in to register for an event."
   >
     Let's Go!
-  </app-button>
+  </button>
 }

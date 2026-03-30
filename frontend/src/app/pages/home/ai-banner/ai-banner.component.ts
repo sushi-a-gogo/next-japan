@@ -1,12 +1,13 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from "@angular/router";
 import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { ImageService } from '@app/core/services/image.service';
-import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 
 @Component({
   selector: 'app-ai-banner',
-  imports: [NgOptimizedImage, AnchorComponent],
+  imports: [NgOptimizedImage, NextButtonComponent, RouterLink],
   templateUrl: './ai-banner.component.html',
   styleUrl: './ai-banner.component.scss',
 })

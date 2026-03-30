@@ -7,12 +7,13 @@
   <footer class="dialog">
     <a href="/assets/resume.md" download> Download Resume (Markdown) </a>
     <div class="button">
-      <app-button
-        cssClass="app-button app-button-filled dialog"
-        (buttonClick)="closeResume()"
+      <button
+        nextButton
+        class="app-button-filled dialog"
+        (click)="closeResume()"
       >
         Close
-      </app-button>
+      </button>
     </div>
   </footer>
 </app-dialog>

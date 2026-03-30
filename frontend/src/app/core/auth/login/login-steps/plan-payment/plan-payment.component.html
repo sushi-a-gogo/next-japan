@@ -55,25 +55,27 @@
     </p>
   </div>
   <div class="nj-flex col gap-10">
-    @if(user().userId) {
-    <app-button
-      cssClass="app-button dialog-button app-button-filled dark"
-      (buttonClick)="updateSubscription()"
-      [disabled]="paymentForm.invalid || busy()"
-    >
-      Update Subscription
-    </app-button>
-    <app-button cssClass="app-button dialog-button app-button-outlined">
-      Cancel Subscription
-    </app-button>
+    @if (user().userId) {
+      <button
+        nextButton
+        class="dialog-button app-button-filled dark"
+        (click)="updateSubscription()"
+        [disabled]="paymentForm.invalid || busy()"
+      >
+        Update Subscription
+      </button>
+      <button nextButton class="dialog-button app-button-outlined">
+        Cancel Subscription
+      </button>
     } @else {
-    <app-button
-      cssClass="app-button dialog-button app-button-filled dark"
-      (buttonClick)="createSubscription()"
-      [disabled]="paymentForm.invalid"
-    >
-      Submit Pretend Payment
-    </app-button>
+      <button
+        nextButton
+        class="dialog-button app-button-filled dark"
+        (click)="createSubscription()"
+        [disabled]="paymentForm.invalid"
+      >
+        Submit Pretend Payment
+      </button>
     }
   </div>
 </div>

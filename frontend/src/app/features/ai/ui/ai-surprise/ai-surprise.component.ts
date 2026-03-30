@@ -2,12 +2,12 @@ import { Component, DestroyRef, inject, input, OnInit, signal } from '@angular/c
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogService } from '@app/core/services/dialog.service';
 import { AiService } from '@app/features/ai/services/ai.service';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-ai-surprise',
-  imports: [NgxSpinnerComponent, ButtonComponent],
+  imports: [NgxSpinnerComponent, NextButtonComponent],
   templateUrl: './ai-surprise.component.html',
   styleUrl: './ai-surprise.component.scss'
 })

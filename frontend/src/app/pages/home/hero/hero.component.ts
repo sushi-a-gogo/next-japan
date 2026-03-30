@@ -4,13 +4,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { interval } from 'rxjs';
 import organization from 'src/lib/organization-data';
 
 @Component({
   selector: 'app-hero',
-  imports: [NgOptimizedImage, ButtonComponent],
+  imports: [NgOptimizedImage, NextButtonComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

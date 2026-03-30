@@ -38,6 +38,10 @@ footer.dialog {
   align-items: flex-start;
   padding-top: 0;
 
+  button {
+    width: 100%;
+  }
+
   .cancel-text {
     font-weight: 600;
     color: var(--next-note);

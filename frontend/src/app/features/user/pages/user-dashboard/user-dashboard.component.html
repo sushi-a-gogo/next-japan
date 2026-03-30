@@ -13,12 +13,13 @@
               <span class="soft"> Joined {{ user()?.createdAt | date }} </span>
             </span>
           </div>
-          <app-button
-            cssClass="app-button app-button-outlined softer"
-            (buttonClick)="openProfileDialog()"
+          <button
+            nextButton
+            class="app-button-outlined softer"
+            (click)="openProfileDialog()"
           >
             Edit Profile
-          </app-button>
+          </button>
         </div>
       </header>
       <mat-tab-group
@@ -50,21 +51,23 @@
                 own one-of-a-kind gathering.
               </div>
               <div class="buttons">
-                <app-anchor link="/" cssClass="app-button app-button-filled">
+                <a nextButton routerLink="/" class="app-button-filled">
                   Open Landing Page
-                </app-anchor>
-                <app-anchor
-                  link="/ai/create"
-                  cssClass="app-button app-button-filled"
+                </a>
+                <a
+                  nextButton
+                  routerLink="/ai/create"
+                  class="app-button app-button-filled"
                 >
                   Open AI Designer
-                </app-anchor>
-                <app-button
-                  cssClass="app-button app-button-filled"
-                  (buttonClick)="openSurprise()"
+                </a>
+                <button
+                  nextButton
+                  class="app-button-filled"
+                  (click)="openSurprise()"
                 >
                   Surprise Me!
-                </app-button>
+                </button>
               </div>
             </div>
           </div>

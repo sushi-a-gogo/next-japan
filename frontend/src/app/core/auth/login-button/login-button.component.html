@@ -1,17 +1,14 @@
-@if(signup()) {
-<app-button
-  cssClass="app-button app-button-outlined transparent"
-  [touchAware]="true"
-  (buttonClick)="login()"
->
-  <span class="button-text"> Get Started </span>
-</app-button>
+@if (signup()) {
+  <button
+    nextButton
+    class="app-button-outlined transparent"
+    [touchAware]="true"
+    (click)="login()"
+  >
+    <span class="button-text"> Get Started </span>
+  </button>
 } @else {
-<app-button
-  cssClass="app-button app-button-filled priority"
-  [touchAware]="true"
-  (buttonClick)="login()"
->
-  <span class="button-text">Try Demo</span>
-</app-button>
+  <button nextButton variant="priority" [touchAware]="true" (click)="login()">
+    <span class="button-text">Try Demo</span>
+  </button>
 }

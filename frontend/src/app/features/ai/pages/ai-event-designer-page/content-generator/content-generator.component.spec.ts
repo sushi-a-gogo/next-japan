@@ -98,7 +98,7 @@ describe('ContentGeneratorComponent', () => {
     fixture.detectChanges();
     await Promise.resolve(); // flush microtasks
 
-    const btn = fixture.debugElement.query(By.css('app-button'));
+    const btn = fixture.debugElement.query(By.css('ai-theme'));
     expect(component.disabled()).toBeTrue();
     authSignal.set(true);
   });
@@ -168,7 +168,7 @@ describe('ContentGeneratorComponent', () => {
 
     // click the submit button
     const submitBtn = fixture.debugElement.query(
-      By.css('.app-button[type="submit"]')
+      By.css('.ai-theme[type="submit"]')
     );
     submitBtn.nativeElement.click();
     fixture.detectChanges();
@@ -193,7 +193,7 @@ describe('ContentGeneratorComponent', () => {
     aiSpy.generateContent$.and.returnValue(throwError(() => err));
 
     const submitBtn = fixture.debugElement.query(
-      By.css('.app-button[type="submit"]')
+      By.css('.ai-theme[type="submit"]')
     );
     submitBtn.nativeElement.click();
     fixture.detectChanges();
@@ -218,7 +218,7 @@ describe('ContentGeneratorComponent', () => {
       })
     ));
 
-    const submitBtn = fixture.debugElement.query(By.css('app-button[buttonType="submit"]'));
+    const submitBtn = fixture.debugElement.query(By.css('.ai-theme[type="submit"]'));
     expect(submitBtn).toBeTruthy(); // Debug: Ensure button is found
 
     // Initial state

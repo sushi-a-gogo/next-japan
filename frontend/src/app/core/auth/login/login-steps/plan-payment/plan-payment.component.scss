@@ -53,7 +53,8 @@
   flex: 1;
 }
 
-.app-button {
+button {
+  width: 100%;
   transition: background-color 0.3s ease;
   padding: 12px 24px;
 }

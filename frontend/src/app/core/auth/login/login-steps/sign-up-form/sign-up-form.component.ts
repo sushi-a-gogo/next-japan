@@ -3,12 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '@app/core/models/user.model';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { NewUserForm } from './new-user.form';
 
 @Component({
   selector: 'app-sign-up-form',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, ButtonComponent],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './sign-up-form.component.html',
   styleUrl: './sign-up-form.component.scss'
 })

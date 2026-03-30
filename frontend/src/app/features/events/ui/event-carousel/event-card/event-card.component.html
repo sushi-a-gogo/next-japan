@@ -23,27 +23,31 @@
       </div>
     </div>
     <div class="nj-flex row align-center justify-center gap-12">
-      <app-anchor
-        class="anchor"
-        cssClass="app-button app-button-filled"
-        [link]="routerLink()"
-        [label]="learnMoreLabel()"
-      >
-        <span>
-          Learn More<i class="link-text">{{ learnMoreLabel() }}</i>
-        </span>
-      </app-anchor>
-      <app-anchor
-        class="anchor"
-        cssClass="app-button app-button-outlined"
-        [link]="registerLink()"
-        [queryParams]="registerQueryParams()"
-        [label]="registerLabel()"
-      >
-        <span>
-          Register<i class="link-text">{{ registerLabel() }}</i>
-        </span>
-      </app-anchor>
+      <div class="anchor">
+        <a
+          nextButton
+          class="app-button-filled"
+          [routerLink]="routerLink()"
+          [aria-label]="learnMoreLabel()"
+        >
+          <span>
+            Learn More<i class="link-text">{{ learnMoreLabel() }}</i>
+          </span>
+        </a>
+      </div>
+      <div class="anchor">
+        <a
+          nextButton
+          class="app-button-outlined"
+          [routerLink]="registerLink()"
+          [queryParams]="registerQueryParams()"
+          [aria-label]="registerLabel()"
+        >
+          <span>
+            Register<i class="link-text">{{ registerLabel() }}</i>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </div>

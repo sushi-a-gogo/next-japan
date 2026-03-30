@@ -3,12 +3,12 @@ import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyR
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@app/core/auth/auth.service';
 import { LoginButtonComponent } from '@app/core/auth/login-button/login-button.component';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in-banner',
-  imports: [LoginButtonComponent, ButtonComponent],
+  imports: [LoginButtonComponent, NextButtonComponent],
   templateUrl: './sign-in-banner.component.html',
   styleUrl: './sign-in-banner.component.scss',
   host: {

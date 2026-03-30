@@ -5,12 +5,12 @@ import { DialogService } from '@app/core/services/dialog.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
 import { RegistrationCardComponent } from "@app/features/registrations/ui/registration-card/registration-card.component";
 import { NotificationService } from '@app/features/user/services/notification.service';
-import { ButtonComponent } from "@app/shared/ui/button/button.component";
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { EventRegistration } from '../../models/event-registration.model';
 
 @Component({
   selector: 'app-registration-cancel-dialog',
-  imports: [MatButtonModule, RegistrationCardComponent, ButtonComponent],
+  imports: [MatButtonModule, RegistrationCardComponent, NextButtonComponent],
   templateUrl: './registration-cancel-dialog.component.html',
   styleUrl: './registration-cancel-dialog.component.scss',
 })

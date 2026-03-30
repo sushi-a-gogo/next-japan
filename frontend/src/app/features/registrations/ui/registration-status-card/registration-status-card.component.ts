@@ -4,13 +4,13 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { DialogService } from '@app/core/services/dialog.service';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { EventRegistration } from '../../models/event-registration.model';
 import { RegistrationManageDialogComponent } from '../registration-manage-dialog/registration-manage-dialog.component';
 
 @Component({
   selector: 'app-registration-status-card',
-  imports: [DatePipe, RouterLink, ButtonComponent],
+  imports: [DatePipe, RouterLink, NextButtonComponent],
   templateUrl: './registration-status-card.component.html',
   styleUrl: './registration-status-card.component.scss',
 })

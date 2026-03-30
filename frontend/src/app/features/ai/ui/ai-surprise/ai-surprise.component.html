@@ -13,10 +13,7 @@
   }
 </main>
 <footer class="dialog fade-in" [class.open]="haiku()">
-  <app-button
-    cssClass="app-button app-button-filled priority"
-    (buttonClick)="closeDialog()"
-  >
+  <button nextButton variant="priority" (click)="closeDialog()">
     If you say so
-  </app-button>
+  </button>
 </footer>

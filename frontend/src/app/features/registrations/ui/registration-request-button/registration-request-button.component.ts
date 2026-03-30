@@ -5,13 +5,13 @@ import { DialogService } from '@app/core/services/dialog.service';
 import { EventRegistration, getRegistrationContext } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationRequestTicket } from '@app/features/registrations/models/registration-request-ticket.model';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { RegistrationManageDialogComponent } from '../registration-manage-dialog/registration-manage-dialog.component';
 import { RegistrationRequestDialogComponent } from '../registration-request-dialog/registration-request-dialog.component';
 
 @Component({
   selector: 'app-registration-request-button',
-  imports: [TitleCasePipe, ButtonComponent],
+  imports: [TitleCasePipe, NextButtonComponent],
   templateUrl: './registration-request-button.component.html',
   styleUrl: './registration-request-button.component.scss'
 })

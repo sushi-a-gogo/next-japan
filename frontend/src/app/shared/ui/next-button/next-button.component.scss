@@ -1,0 +1,18 @@
+:host {
+  //width: 100%;
+  touch-action: manipulation;
+
+  &[data-variant="priority"] {
+    background-color: var(--red-torii-gate);
+    border-color: var(--red-torii-gate);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #ab2c2c;
+      border-color: #ab2c2c;
+      opacity: 1;
+    }
+  }
+}

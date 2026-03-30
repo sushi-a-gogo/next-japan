@@ -27,24 +27,13 @@
 </main>
 <footer class="dialog nj-flex col gap-10">
   @if (eventCanceled()) {
-    <app-button
-      cssClass="app-button app-button-filled priority"
-      (buttonClick)="closeDialog()"
-    >
-      OK
-    </app-button>
+    <button nextButton variant="priority" (click)="closeDialog()">OK</button>
   } @else {
-    <app-button
-      cssClass="app-button app-button-filled priority"
-      (buttonClick)="cancelEvent()"
-    >
+    <button nextButton variant="priority" (click)="cancelEvent()">
       Yes, I'm sure
-    </app-button>
-    <app-button
-      cssClass="app-button app-button-outlined"
-      (buttonClick)="closeDialog()"
-    >
+    </button>
+    <button nextButton class="app-button-outlined" (click)="closeDialog()">
       No, I'll keep it.
-    </app-button>
+    </button>
   }
 </footer>

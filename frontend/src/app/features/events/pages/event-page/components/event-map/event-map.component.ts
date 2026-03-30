@@ -7,11 +7,11 @@ import { EventOpportunityService } from '@app/features/events/services/event-opp
 import { EventDateCardComponent } from '@app/features/events/ui/event-date-card/event-date-card.component';
 import { RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
 import { RegistrationService } from '@app/features/registrations/services/registration.service';
-import { ButtonComponent } from "@app/shared/ui/button/button.component";
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 
 @Component({
   selector: 'app-event-map',
-  imports: [ButtonComponent, EventDateCardComponent],
+  imports: [EventDateCardComponent, NextButtonComponent],
   templateUrl: './event-map.component.html',
   styleUrl: './event-map.component.scss'
 })

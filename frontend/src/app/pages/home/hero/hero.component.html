@@ -28,14 +28,15 @@
         the future while owning the classics.
       </p> -->
       <div class="cta">
-        <app-button
-          class="button"
-          cssClass="app-button app-button-filled priority"
-          (buttonClick)="navigateToAboutPage()"
+        <button
+          nextButton
+          type="button"
+          variant="priority"
+          (click)="navigateToAboutPage()"
           [touchAware]="true"
         >
           About This Project
-        </app-button>
+        </button>
       </div>
     </section>
   </div>

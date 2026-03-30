@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { appHeroDimensions, AppImageData } from '@app/core/models/app-image-data.model';
 import { User } from '@app/core/models/user.model';
@@ -11,8 +11,7 @@ import { MetaService } from '@app/core/services/meta.service';
 import { AiSurpriseComponent } from "@app/features/ai/ui/ai-surprise/ai-surprise.component";
 import { ProfileDialogComponent } from '@app/features/user/pages/user-dashboard/profile-dialog/profile-dialog.component';
 import { UserAvatarComponent } from '@app/features/user/ui/avatar/user-avatar/user-avatar.component';
-import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { EventRegistrationsComponent } from "./event-registrations/event-registrations.component";
 import { ManageSubscriptionComponent } from "./manage-subscription/manage-subscription.component";
 import { ProfileBadgesComponent } from "./profile-badges/profile-badges.component";
@@ -24,12 +23,12 @@ import { SuggestedEventsComponent } from "./suggested-events/suggested-events.co
     MatTabsModule,
     UserAvatarComponent,
     DatePipe,
-    AnchorComponent,
-    ButtonComponent,
     ProfileBadgesComponent,
     SuggestedEventsComponent,
     EventRegistrationsComponent,
-    ManageSubscriptionComponent
+    ManageSubscriptionComponent,
+    NextButtonComponent,
+    RouterLink
   ],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.scss',
