@@ -24,31 +24,25 @@
       Are you <span>sure</span> you want to cancel?
     </div>
     @if (confirmCancel()) {
-      <app-button
-        cssClass="app-button app-button-filled priority"
-        (buttonClick)="cancelEvent()"
-      >
+      <button nextButton variant="priority" (click)="cancelEvent()">
         Yes, I'm sure
-      </app-button>
-      <app-button
-        cssClass="app-button app-button-outlined"
-        (buttonClick)="confirmCancel.set(false)"
+      </button>
+      <button
+        nextButton
+        class="app-button-outlined"
+        (click)="confirmCancel.set(false)"
       >
         No, I'll keep it.
-      </app-button>
+      </button>
     } @else {
-      <app-button
-        cssClass="app-button app-button-filled priority"
-        (buttonClick)="closeDialog()"
-      >
-        OK
-      </app-button>
-      <app-button
-        cssClass="app-button app-button-basic"
-        (buttonClick)="confirmCancel.set(true)"
+      <button nextButton variant="priority" (click)="closeDialog()">OK</button>
+      <button
+        nextButton
+        class="app-button-basic"
+        (click)="confirmCancel.set(true)"
       >
         <span class="cancel-text"> Cancel Registration </span>
-      </app-button>
+      </button>
     }
   </footer>
 } @else {
@@ -67,11 +61,6 @@
     <div class="message">Your event registration has been cancelled.</div>
   </main>
   <footer class="dialog">
-    <app-button
-      cssClass="app-button app-button-filled priority"
-      (buttonClick)="closeDialog()"
-    >
-      OK
-    </app-button>
+    <button nextButton variant="priority" (click)="closeDialog()">OK</button>
   </footer>
 }

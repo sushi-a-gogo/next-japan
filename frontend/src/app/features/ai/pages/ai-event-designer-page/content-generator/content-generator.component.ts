@@ -10,12 +10,12 @@ import { AuthService } from '@app/core/auth/auth.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { AiPromptParams } from '@app/features/ai/models/ai-prompt-params.model';
 import { AiService } from '@app/features/ai/services/ai.service';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { AiPromptsForm } from './ai-prompts.form';
 
 @Component({
   selector: 'app-content-generator',
-  imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ButtonComponent, ReactiveFormsModule],
+  imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ReactiveFormsModule, NextButtonComponent],
   templateUrl: './content-generator.component.html',
   styleUrl: './content-generator.component.scss'
 })

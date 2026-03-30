@@ -2,9 +2,9 @@
   <div class="nav-content">
     <ul class="nj-flex row align-center justify-space-between">
       <li class="logo">
-        <app-anchor cssClass="app-button logo" link="/" [rippleEnabled]="false">
+        <a nextButton class="logo" routerLink="/">
           <app-logo />
-        </app-anchor>
+        </a>
       </li>
       <li class="spacer"></li>
       <li>
@@ -19,9 +19,9 @@
         </button>
       </li>
       <li class="sign-in fade-in" [class.open]="authCompleted()">
-        <app-anchor link="/login" cssClass="app-button app-button-filled">
+        <a nextButton routerLink="/login" class="app-button-filled">
           Sign In
-        </app-anchor>
+        </a>
       </li>
     </ul>
     <app-event-search-autocomplete />

@@ -9,14 +9,14 @@ import { User } from '@app/core/models/user.model';
 import { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
 import { UserProfile } from '@app/features/user/models/user-profile.model';
 import { UserProfileService } from '@app/features/user/services/user-profile.service';
-import { ButtonComponent } from '@app/shared/ui/button/button.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { delay, of, switchMap } from 'rxjs';
 import { PaymentForm } from './payment.form';
 
 
 @Component({
   selector: 'app-plan-payment',
-  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, ButtonComponent],
+  imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './plan-payment.component.html',
   styleUrl: './plan-payment.component.scss'
 })

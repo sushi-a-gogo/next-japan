@@ -20,13 +20,9 @@
   </p>
 </main>
 <footer class="nj-flex row align-center gap-10">
-  <app-anchor
-    class="anchor"
-    cssClass="app-button app-button-filled"
-    [link]="routerLink()"
-  >
+  <a nextButton class="anchor app-button-filled" [routerLink]="routerLink()">
     Open Event Details
-  </app-anchor>
+  </a>
   <app-event-like-button [event]="event()" />
   <app-event-share-button [event]="event()" />
 </footer>

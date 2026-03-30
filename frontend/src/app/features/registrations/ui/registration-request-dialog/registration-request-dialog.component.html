@@ -40,35 +40,41 @@
   </div>
 </main>
 <footer class="dialog">
-  @if (completed()) {
-    <app-anchor
-      cssClass="app-button dialog-button app-button-filled priority"
-      link="/user/dashboard"
+  @if (!completed()) {
+    <a
+      nextButton
+      cssClass="dialog-button"
+      variant="priority"
+      routerLink="/user/dashboard"
       [queryParams]="{ action: 'manage' }"
     >
       Manage Your Events
-    </app-anchor>
-    <app-button
-      label="Close dialog"
-      cssClass="app-button dialog-button app-button-outlined"
-      (buttonClick)="closeDialog()"
+    </a>
+    <button
+      nextButton
+      aria-label="Close dialog"
+      class="dialog-button app-button-outlined"
+      (click)="closeDialog()"
     >
       Done
-    </app-button>
+    </button>
   } @else {
-    <app-button
-      label="Register for Event"
-      cssClass="app-button dialog-button app-button-filled priority"
-      (buttonClick)="sendRequest()"
+    <button
+      nextButton
+      aria-label="Register for Event"
+      class="dialog-button"
+      variant="priority"
+      (click)="sendRequest()"
     >
       Send Registration Request
-    </app-button>
-    <app-button
-      label="Close dialog"
-      cssClass="app-button dialog-button app-button-outlined"
-      (buttonClick)="closeDialog()"
+    </button>
+    <button
+      nextButton
+      aria-label="Close dialog"
+      class="dialog-button app-button-outlined"
+      (click)="closeDialog()"
     >
       Maybe Later
-    </app-button>
+    </button>
   }
 </footer>

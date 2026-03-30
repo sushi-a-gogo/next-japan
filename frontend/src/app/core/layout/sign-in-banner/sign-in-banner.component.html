@@ -13,13 +13,14 @@
     </section>
     <section class="buttons">
       <app-login-button></app-login-button>
-      <app-button
-        cssClass="app-button app-button-outlined transparent"
+      <button
+        nextButton
+        class="app-button-outlined transparent"
         [touchAware]="true"
-        (buttonClick)="removeBanner()"
+        (click)="removeBanner()"
       >
         <span class="button-text"> I'm Good </span>
-      </app-button>
+      </button>
     </section>
   </div>
 </div>

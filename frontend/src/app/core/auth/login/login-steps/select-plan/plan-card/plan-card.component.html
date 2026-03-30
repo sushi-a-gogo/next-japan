@@ -3,30 +3,31 @@
     <span class="plan-icon">{{ plan().icon }}</span> {{ plan().title }}
   </div>
   <div class="nj-flex col gap-5">
-    @if(plan().mostPopular){
-    <div class="showcase nj-flex row align-center gap-5">
-      <span class="material-symbols-outlined"> star_shine </span>
-      Most Popular
-    </div>
-    } @if(plan().subscribed){
-    <div class="showcase subscribed nj-flex row align-center gap-5">
-      <span class="material-symbols-outlined"> check </span>
-      Subscribed
-    </div>
+    @if (plan().mostPopular) {
+      <div class="showcase nj-flex row align-center gap-5">
+        <span class="material-symbols-outlined"> star_shine </span>
+        Most Popular
+      </div>
+    }
+    @if (plan().subscribed) {
+      <div class="showcase subscribed nj-flex row align-center gap-5">
+        <span class="material-symbols-outlined"> check </span>
+        Subscribed
+      </div>
     }
   </div>
 </header>
 <main class="nj-flex col gap-10">
-  <div class="price">{{ plan().price | currency : "¥" }}/month</div>
+  <div class="price">{{ plan().price | currency: "¥" }}/month</div>
   <div class="description">{{ plan().description }}</div>
   <ul>
-    @for(benefit of plan().benefits; track $index) {
-    <li>{{ benefit }}</li>
+    @for (benefit of plan().benefits; track $index) {
+      <li>{{ benefit }}</li>
     }
   </ul>
 </main>
 <footer>
-  <app-button cssClass="app-button app-button-filled" (buttonClick)="select()">
+  <button nextButton class="app-button-filled" (click)="select()">
     Select Plan
-  </app-button>
+  </button>
 </footer>

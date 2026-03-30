@@ -89,21 +89,24 @@
     </mat-form-field>
     <div class="button">
       @if (disabled()) {
-        <app-button
-          cssClass="app-button app-button-filled ai-theme square"
+        <button
+          nextButton
+          type="button"
+          class="app-button-filled ai-theme square"
           disabled="disabled"
           tooltip="Sign in or create an account to use the content generator."
         >
           <span class="button-text">Generate</span>
-        </app-button>
+        </button>
       } @else {
-        <app-button
-          cssClass="app-button app-button-filled ai-theme square"
-          buttonType="submit"
+        <button
+          nextButton
+          type="submit"
+          class="app-button-filled ai-theme square"
           [disabled]="busy()"
         >
           <span class="button-text">Generate</span>
-        </app-button>
+        </button>
       }
     </div>
   </form>

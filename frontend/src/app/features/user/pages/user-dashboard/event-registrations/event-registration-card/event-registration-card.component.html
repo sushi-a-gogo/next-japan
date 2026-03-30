@@ -29,16 +29,17 @@
       </div>
     </div>
     <div class="actions">
-      <app-anchor [link]="routerLink" cssClass="app-button app-button-filled">
+      <a nextButton [routerLink]="routerLink" class="app-button-filled">
         Open Event Page
-      </app-anchor>
-      <app-button
-        cssClass="app-button app-button-outlined"
-        (buttonClick)="confirmCancel()"
+      </a>
+      <button
+        nextButton
+        class="app-button-outlined"
+        (click)="confirmCancel()"
         [disabled]="event().status === registrationStatus.Cancelled"
       >
         Cancel Registration
-      </app-button>
+      </button>
     </div>
   </div>
 </div>

@@ -17,11 +17,8 @@
   </div>
 } @else {
   <div class="fade-in" [class.open]="loaded()">
-    <app-button
-      cssClass="app-button app-button-filled priority"
-      (buttonClick)="startRegistration.emit()"
-    >
-      <div class="button-text">Reserve Your Spot Now!</div>
-    </app-button>
+    <button nextButton variant="priority" (click)="startRegistration.emit()">
+      <span class="button-text">Reserve Your Spot Now!</span>
+    </button>
   </div>
 }

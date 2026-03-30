@@ -1,14 +1,15 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { RouterLink } from "@angular/router";
 import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
 import { EventLikeButtonComponent } from "@app/features/events/ui/event-like-button/event-like-button.component";
 import { EventShareButtonComponent } from "@app/features/events/ui/event-share-button/event-share-button.component";
-import { AnchorComponent } from '@app/shared/ui/anchor/anchor.component';
+import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 
 @Component({
   selector: 'app-suggested-event-card',
-  imports: [NgOptimizedImage, AnchorComponent, EventLikeButtonComponent, EventShareButtonComponent],
+  imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, NextButtonComponent, RouterLink],
   templateUrl: './suggested-event-card.component.html',
   styleUrl: './suggested-event-card.component.scss'
 })

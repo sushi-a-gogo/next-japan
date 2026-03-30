@@ -31,23 +31,20 @@
     </mat-form-field>
   </form>
   <div class="nj-flex col gap-10">
-    <app-button
-      cssClass="app-button dialog-button app-button-filled priority"
-      (buttonClick)="createUser()"
+    <button
+      nextButton
+      class="dialog-button"
+      variant="priority"
+      (click)="createUser()"
       [disabled]="newUserForm.invalid"
     >
       <span class="button-text">Next</span>
-    </app-button>
-    <div class="switchbox nj-flex row align-center gap-5">
-      Not sure?
-      <div>
-        <app-button
-          cssClass="text-button"
-          (buttonClick)="switchToSignIn.emit()"
-        >
-          Return to the demo sign-in
-        </app-button>
-      </div>
+    </button>
+    <div class="switchbox nj-flex row align-center justify-space-between gap-5">
+      <span>Not sure?</span>
+      <button nextButton class="text-button" (click)="switchToSignIn.emit()">
+        Return to the demo sign-in
+      </button>
     </div>
   </div>
   <p class="soft xs">
