@@ -48,7 +48,7 @@ app.use((req, res, next) => {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' data: https://imagedelivery.net https://*.x.ai https://*.oaiusercontent.com https://cdn.openai.com https://fonts.gstatic.com https://*.google.com https://*.gstatic.com",
+      "img-src 'self' data: https://imagedelivery.net https://oaidalleapiprodscus.blob.core.windows.net https://*.x.ai https://*.oaiusercontent.com https://cdn.openai.com https://fonts.gstatic.com https://*.google.com https://*.gstatic.com",
       "font-src 'self' data: https://fonts.gstatic.com https://fonts.googleapis.com",
       "connect-src 'self' https://nextjapan-api.jotek.dev http://localhost:3000 ws://localhost:* https://*.google.com https://*.gstatic.com",
       "frame-src 'self' https://www.google.com https://*.google.com",
