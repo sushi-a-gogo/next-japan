@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import * as aiPrompts from "../utils/aiPrompts.js";
 import getProviders from "../utils/aiProviders.js";
+import { uploadImageToCloudflare } from "../utils/cloudflare.js";
 
 dotenv.config();
 
@@ -37,12 +38,13 @@ export async function fetchGeneratedContent(promptParams) {
 
   // Text generation
   const textResponse = await fetchTextResultFromAI(provider, textPrompt);
+  console.log(textResponse);
 
   let aiGeneratedEvent = null,
     aiTextResponse = null;
 
   try {
-    aiTextResponse = textResponse.choices[0].message.content;
+    aiTextResponse = textResponse.output_text;
     const content = aiTextResponse.trim();
     // Optional: strip code block if present
     const jsonString = content.replace(/^```json\n?|\n?```$/g, "").trim();
@@ -60,14 +62,30 @@ export async function fetchGeneratedContent(promptParams) {
     throw new Error("AI returned incomplete event data");
   }
 
+  // Inside fetchGeneratedContent, after text generation...
+
   // Image generation
-  let imageUrl = null;
+  let imageUrlForSave = null;
+  let base64Image = null;
+
   try {
     const imageResponse = await fetchImageResultFromAI(provider, imagePrompt);
-    if (!imageResponse?.data?.[0]?.url) {
-      throw new Error("No image URL returned");
+
+    if (!imageResponse?.data?.[0]) {
+      throw new Error("No image data returned");
     }
-    imageUrl = imageResponse.data[0].url;
+
+    const imageData = imageResponse.data[0];
+
+    // Handle both old url and new b64_json (works for OpenAI gpt-image-1 and Grok)
+    if (imageData.b64_json) {
+      base64Image = imageData.b64_json;
+    } else if (imageData.url) {
+      // fallback for older models or Grok when response_format=url
+      imageUrlForSave = imageData.url;
+    } else {
+      throw new Error("Image response missing both url and b64_json");
+    }
   } catch (imgError) {
     console.warn(
       `Image generation failed for ${provider.name}:`,
@@ -78,12 +96,42 @@ export async function fetchGeneratedContent(promptParams) {
 
   const imageName = `event-image-${Date.now()}.png`;
 
+  // === NEW: Upload to Cloudflare immediately ===
+  let finalDeliveryUrl = null;
+  let cloudflareImageId = null;
+
+  if (base64Image) {
+    // Convert base64 → data URL for the upload function (or modify uploadImageToCloudflare to accept raw base64)
+    const dataUrl = `data:image/png;base64,${base64Image}`;
+
+    const uploadResult = await uploadImageToCloudflare(
+      { id: imageName, width: 1536, height: 1024 }, // or extract real dimensions if available
+      dataUrl,
+    );
+
+    cloudflareImageId = uploadResult.cloudflareImageId;
+    finalDeliveryUrl = uploadResult.deliveryUrl;
+  } else if (imageUrlForSave) {
+    // If we got a temporary URL (rare now), you could still upload it
+    const uploadResult = await uploadImageToCloudflare(
+      { id: imageName, width: 1536, height: 1024 },
+      imageUrlForSave,
+    );
+    cloudflareImageId = uploadResult.cloudflareImageId;
+    finalDeliveryUrl = uploadResult.deliveryUrl;
+  }
+
   return {
     ...aiGeneratedEvent,
-    image: imageUrl ? { id: imageName, width: 1792, height: 1024 } : null,
-    imageUrl,
+    image:
+      base64Image || imageUrlForSave
+        ? { id: imageName, width: 1536, height: 1024 }
+        : null,
+    imageUrl: finalDeliveryUrl, // ← This is the key change
     aiProvider: provider.name,
     prompt: { text: textPrompt, image: imagePrompt },
+    // Optional: you can still return base64Image if you want it for debugging
+    // base64Image
   };
 }
 
@@ -98,11 +146,9 @@ async function isPromptSafe(userPrompt) {
 async function fetchHaikuResultFromAI(provider, prompt) {
   const response = await provider.client.chat.completions.create({
     model: provider.model,
-    messages: [
-      { role: "system", content: "You are a wildly creative assistant..." },
-      { role: "user", content: prompt },
-    ],
-    max_tokens: 512,
+    instructions: "You are a creative assistant generating engaging text.",
+    input: prompt,
+    max_output_tokens: 512,
     temperature: 1.1,
     top_p: 0.85,
     n: 4,
@@ -112,16 +158,11 @@ async function fetchHaikuResultFromAI(provider, prompt) {
 }
 
 async function fetchTextResultFromAI(provider, prompt) {
-  return provider.client.chat.completions.create({
+  return provider.client.responses.create({
     model: provider.model,
-    messages: [
-      {
-        role: "system",
-        content: "You are a creative assistant generating engaging text.",
-      },
-      { role: "user", content: prompt },
-    ],
-    max_tokens: 512,
+    instructions: "You are a creative assistant generating engaging text.",
+    input: prompt,
+    max_output_tokens: 512,
     temperature: 0.7,
   });
 }
@@ -133,11 +174,12 @@ async function fetchImageResultFromAI(provider, prompt) {
     n: 1,
   };
   if (provider.name === "OpenAI") {
-    params.size = "1792x1024";
+    params.size = "1536x1024";
   }
 
   if (provider.name === "Grok") {
     params.aspect_ratio = "16:9";
+    params.response_format = "b64_json";
   }
 
   console.log("Sending image request:", params);
