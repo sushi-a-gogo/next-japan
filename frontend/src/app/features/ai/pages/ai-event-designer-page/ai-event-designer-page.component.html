@@ -1,6 +1,9 @@
 <div class="snackbar" [class.open]="busy()">
-  Generating your event content with AI.
-  <div>Please wait a moment while we craft something special for you!</div>
+  <div>Generating your event content…</div>
+  <div>
+    Our AI is designing something special for you. This can take 1-2 minutes —
+    thank you for your patience.
+  </div>
 </div>
 <div class="backdrop" [class.open]="busy()"></div>
 <header class="component-box nj-flex col align-center blurred-slide-up">
@@ -37,9 +40,12 @@
     (eventCreating)="onEventCreating()"
     (eventCreated)="onEventCreated($event)"
   />
-  @if(busy()) {
-  <div class="progress">
-    <mat-progress-bar mode="indeterminate" class="blue-spin"></mat-progress-bar>
-  </div>
+  @if (busy()) {
+    <div class="progress">
+      <mat-progress-bar
+        mode="indeterminate"
+        class="blue-spin"
+      ></mat-progress-bar>
+    </div>
   }
 </main>
