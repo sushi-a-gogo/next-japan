@@ -12,9 +12,12 @@ const keys = {
 const providers = getProviders(keys);
 
 export async function fetchHaiku() {
+  console.log("fetchHaiku called.");
   const prompt = aiPrompts.haikuPrompt;
-  const result = await fetchHaikuResultFromAI(providers.grok, prompt);
-  return result.choices[0].message.content;
+  const result = await fetchTextResultFromAI(providers.grok, prompt);
+  console.log(result);
+  const aiTextResponse = result.output_text;
+  return aiTextResponse || "Something went wrong. Please try again later.";
 }
 
 export async function fetchGeneratedContent(promptParams) {
@@ -144,7 +147,7 @@ async function isPromptSafe(userPrompt) {
 }
 
 async function fetchHaikuResultFromAI(provider, prompt) {
-  const response = await provider.client.chat.completions.create({
+  const response = await provider.client.responses.create({
     model: provider.model,
     instructions: "You are a creative assistant generating engaging text.",
     input: prompt,
