@@ -35,27 +35,34 @@
     background: color-mix(in srgb, var(--pink-cherry-blossoms) 30%, transparent);
   }
 
+  // color: transparent hides the original SVG but doesn't remove it from
+  // the button's own flex layout (display:flex; justify-content:center is
+  // set internally by Swiper) - it's still an invisible flex item sharing
+  // center stage with our own pseudo-element, pushing the visible one off
+  // to one side. Taking ::before out of flow with absolute positioning +
+  // inset:0 + margin:auto centers it against the button box directly,
+  // independent of whatever the hidden sibling is doing.
   &::part(button-prev)::before,
   &::part(button-next)::before {
     content: '';
-    display: block;
-    width: 9px;
-    height: 9px;
-    border-top: 3px solid var(--pink-cherry-blossoms);
-    border-right: 3px solid var(--pink-cherry-blossoms);
-    border-radius: 1px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    background-color: var(--pink-cherry-blossoms);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 L15 12 L9 18'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 L15 12 L9 18'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
   }
 
-  // Only two of the box's four sides are drawn, so rotating it shifts the
-  // visible corner's centroid off the box's own (flex-centered) middle -
-  // by exactly half the box size over root 2. These translate the rotated
-  // shape back to center rather than guessing at an offset.
   &::part(button-prev)::before {
-    transform: translate(3.18px, 0) rotate(-135deg);
-  }
-
-  &::part(button-next)::before {
-    transform: translate(-3.18px, 0) rotate(45deg);
+    transform: scaleX(-1);
   }
 
   // `.swiper-pagination` lives inside `.swiper`, which clips overflow, and
