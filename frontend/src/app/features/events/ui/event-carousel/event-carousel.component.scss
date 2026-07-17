@@ -6,6 +6,11 @@
   margin: 0 auto;
 }
 
+.event-swiper {
+  --swiper-theme-color: var(--pink-cherry-blossoms);
+  padding-bottom: 32px;
+}
+
 .carousel-ssr {
   height: auto;
   display: grid;
