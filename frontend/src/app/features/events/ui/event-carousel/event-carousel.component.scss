@@ -46,12 +46,16 @@
     border-radius: 1px;
   }
 
+  // Only two of the box's four sides are drawn, so rotating it shifts the
+  // visible corner's centroid off the box's own (flex-centered) middle -
+  // by exactly half the box size over root 2. These translate the rotated
+  // shape back to center rather than guessing at an offset.
   &::part(button-prev)::before {
-    transform: rotate(-135deg) translate(1px, -1px);
+    transform: translate(3.18px, 0) rotate(-135deg);
   }
 
   &::part(button-next)::before {
-    transform: rotate(45deg) translate(-1px, -1px);
+    transform: translate(-3.18px, 0) rotate(45deg);
   }
 
   // `.swiper-pagination` lives inside `.swiper`, which clips overflow, and
