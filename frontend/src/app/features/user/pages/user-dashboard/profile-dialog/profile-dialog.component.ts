@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounce, email, form, FormField, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,7 @@ interface UserProfileForm {
   imports: [FormField, MatButtonModule, MatRippleModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, UserAvatarComponent],
   templateUrl: './profile-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './profile-dialog.component.scss'
 })
 export class ProfileDialogComponent implements OnInit {

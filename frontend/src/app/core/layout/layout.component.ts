@@ -1,6 +1,6 @@
 
 import { NgComponentOutlet } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
@@ -16,6 +16,7 @@ import { SignInBannerComponent } from './sign-in-banner/sign-in-banner.component
   selector: 'app-layout',
   imports: [NgComponentOutlet, HeaderComponent, FooterComponent, SignInBannerComponent, DialogComponent],
   templateUrl: './layout.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {

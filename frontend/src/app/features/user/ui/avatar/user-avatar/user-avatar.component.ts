@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '@app/core/models/user.model';
 import { AvatarComponent } from "../avatar.component";
 
@@ -6,6 +6,7 @@ import { AvatarComponent } from "../avatar.component";
   selector: 'app-user-avatar',
   imports: [AvatarComponent],
   templateUrl: './user-avatar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-avatar.component.scss',
 })
 export class UserAvatarComponent {

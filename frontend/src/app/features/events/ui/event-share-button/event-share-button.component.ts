@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, computed, DestroyRef, inject, input, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, PLATFORM_ID, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
@@ -16,6 +16,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-event-share-button',
   imports: [MatButtonModule, MatRippleModule, MatMenuModule, MatTooltipModule],
   templateUrl: './event-share-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-share-button.component.scss'
 })
 export class EventShareButtonComponent implements OnInit {

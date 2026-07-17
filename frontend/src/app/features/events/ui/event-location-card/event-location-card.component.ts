@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, HostBinding, input, ChangeDetectionStrategy } from '@angular/core';
 import { EventLocation } from '@app/features/events/models/event-location.model';
 
 @Component({
@@ -6,6 +6,7 @@ import { EventLocation } from '@app/features/events/models/event-location.model'
   imports: [],
   templateUrl: './event-location-card.component.html',
   styleUrl: './event-location-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
   .centered {
     align-items: center;

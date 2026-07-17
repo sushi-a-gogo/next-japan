@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { AuthService } from '@app/core/auth/auth.service';
 import { AppLogoComponent } from "@app/core/ui/app-logo/app-logo.component";
@@ -10,6 +10,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-navbar',
   imports: [AppLogoComponent, EventSearchAutocompleteComponent, NextButtonComponent, RouterLink],
   templateUrl: './navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {

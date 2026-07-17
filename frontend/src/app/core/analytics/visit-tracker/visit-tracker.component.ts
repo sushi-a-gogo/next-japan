@@ -1,6 +1,6 @@
 // src/app/shared/visit-tracker/visit-tracker.component.ts
 import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { VisitorService } from '@app/core/services/visitor.service';
 import { environment } from '@environments/environment';
@@ -9,6 +9,7 @@ import { filter, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-visit-tracker',
   template: '', // invisible
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class VisitTrackerComponent implements OnInit {

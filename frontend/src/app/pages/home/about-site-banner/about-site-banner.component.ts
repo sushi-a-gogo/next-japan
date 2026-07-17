@@ -1,11 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ImageService } from '@app/core/services/image.service';
 
 @Component({
   selector: 'app-about-site-banner',
   imports: [NgOptimizedImage],
   templateUrl: './about-site-banner.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './about-site-banner.component.scss'
 })
 export class AboutSiteBannerComponent {

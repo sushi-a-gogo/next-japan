@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { MatRipple, MatRippleModule } from '@angular/material/core';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 
@@ -18,6 +18,7 @@ import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
     'class': 'app-button',
     '[attr.data-variant]': 'variant()', // This "links" the TS to the CSS
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./next-button.component.scss']
 })
 export class NextButtonComponent {

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, HostListener, inject, input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, computed, DestroyRef, HostListener, inject, input, OnDestroy, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
 import { UiService } from '@app/core/services/ui.service';
@@ -9,6 +9,7 @@ import { filter } from 'rxjs';
   standalone: true,
   imports: [],
   templateUrl: './dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dialog.component.scss',
 })
 export class DialogComponent implements OnInit, OnDestroy {

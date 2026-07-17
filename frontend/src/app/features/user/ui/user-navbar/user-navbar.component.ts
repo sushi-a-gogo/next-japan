@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
@@ -14,6 +14,7 @@ import { UserMenuComponent } from "./user-menu/user-menu.component";
   selector: 'app-user-navbar',
   imports: [MatMenuModule, MyNotificationsComponent, AppLogoComponent, UserMenuComponent, EventSearchAutocompleteComponent, NextButtonComponent, RouterLink],
   templateUrl: './user-navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-navbar.component.scss'
 })
 export class UserNavbarComponent {

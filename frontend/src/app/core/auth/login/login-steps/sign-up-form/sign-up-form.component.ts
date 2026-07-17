@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +10,7 @@ import { NewUserForm } from './new-user.form';
   selector: 'app-sign-up-form',
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './sign-up-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {

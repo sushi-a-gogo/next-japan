@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '@app/core/auth/auth.service';
 import { DialogService } from '@app/core/services/dialog.service';
 import { EventRegistration, getRegistrationContext } from '@app/features/registrations/models/event-registration.model';
@@ -13,6 +13,7 @@ import { RegistrationRequestDialogComponent } from '../registration-request-dial
   selector: 'app-registration-request-button',
   imports: [TitleCasePipe, NextButtonComponent],
   templateUrl: './registration-request-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './registration-request-button.component.scss'
 })
 export class RegistrationRequestButtonComponent {

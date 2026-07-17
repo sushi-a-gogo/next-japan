@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogService } from '@app/core/services/dialog.service';
@@ -12,6 +12,7 @@ import { EventRegistration } from '../../models/event-registration.model';
   selector: 'app-registration-cancel-dialog',
   imports: [MatButtonModule, RegistrationCardComponent, NextButtonComponent],
   templateUrl: './registration-cancel-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './registration-cancel-dialog.component.scss',
 })
 export class RegistrationCancelDialogComponent {

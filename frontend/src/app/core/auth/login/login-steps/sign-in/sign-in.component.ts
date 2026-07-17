@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +12,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-sign-in',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, UserAvatarComponent, NextButtonComponent],
   templateUrl: './sign-in.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent implements OnInit {

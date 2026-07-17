@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, output, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -22,6 +22,7 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
     PlanPaymentComponent
   ],
   templateUrl: './login-steps.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './login-steps.component.scss'
 })
 export class LoginStepsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, input, OnChanges, OnInit, signal, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -6,6 +6,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
   imports: [NgxSpinnerComponent],
   templateUrl: './page-load-spinner.component.html',
   styleUrl: './page-load-spinner.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.removed]': 'remove()'
   }

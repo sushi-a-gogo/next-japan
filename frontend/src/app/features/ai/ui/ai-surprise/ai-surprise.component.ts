@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogService } from '@app/core/services/dialog.service';
 import { AiService } from '@app/features/ai/services/ai.service';
@@ -9,6 +9,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
   selector: 'app-ai-surprise',
   imports: [NgxSpinnerComponent, NextButtonComponent],
   templateUrl: './ai-surprise.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ai-surprise.component.scss'
 })
 export class AiSurpriseComponent implements OnInit {

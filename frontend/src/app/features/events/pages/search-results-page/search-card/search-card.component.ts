@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
@@ -9,6 +9,7 @@ import { EventDateCardComponent } from "@app/features/events/ui/event-date-card/
   selector: 'app-search-card',
   imports: [NgOptimizedImage, EventDateCardComponent],
   templateUrl: './search-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './search-card.component.scss'
 })
 export class SearchCardComponent implements OnInit {

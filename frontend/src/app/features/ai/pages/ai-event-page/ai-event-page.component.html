@@ -37,7 +37,7 @@
       type="button"
       class="app-button app-button-filled fade-in"
       [class.open]="savedEvent()"
-      [routerLink]="'/event/' + savedEvent()?.eventId"
+      [routerLink]="'/event/' + $safeNavigationMigration(savedEvent()?.eventId)"
     >
       Visit the Event Page
     </a>

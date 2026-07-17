@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { EventLocationCard } from "@app/features/events/ui/event-location-card/event-location-card.component";
 import { EventOpportunityCardComponent } from "@app/features/events/ui/event-opportunity-card/event-opportunity-card.component";
 import { EventRegistration } from '../../models/event-registration.model';
@@ -8,6 +8,7 @@ import { RegistrationRequestTicket } from '../../models/registration-request-tic
   selector: 'app-registration-card',
   imports: [EventLocationCard, EventOpportunityCardComponent],
   templateUrl: './registration-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './registration-card.component.scss',
 })
 export class RegistrationCardComponent {

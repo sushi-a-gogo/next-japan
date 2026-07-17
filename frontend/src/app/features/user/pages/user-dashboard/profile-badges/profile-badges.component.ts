@@ -1,5 +1,5 @@
 import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,6 +13,7 @@ import { UserProfileService } from '@app/features/user/services/user-profile.ser
   selector: 'app-profile-badges',
   imports: [DatePipe, MatTableModule, MatTooltipModule],
   templateUrl: './profile-badges.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './profile-badges.component.scss'
 })
 export class ProfileBadgesComponent implements OnInit {

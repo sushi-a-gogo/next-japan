@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, output, signal } from '@angular/core';
+import { Component, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { DialogComponent } from '@app/shared/ui/dialog/dialog.component';
 import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { MarkdownModule } from 'ngx-markdown';
@@ -8,6 +8,7 @@ import { MarkdownModule } from 'ngx-markdown';
   selector: 'app-my-resume',
   imports: [MarkdownModule, DialogComponent, NextButtonComponent],
   templateUrl: './my-resume.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './my-resume.component.scss'
 })
 export class MyResumeComponent {

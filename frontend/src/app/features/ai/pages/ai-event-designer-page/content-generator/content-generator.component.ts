@@ -1,6 +1,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { AiPromptsForm } from './ai-prompts.form';
   selector: 'app-content-generator',
   imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ReactiveFormsModule, NextButtonComponent],
   templateUrl: './content-generator.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent implements OnInit {

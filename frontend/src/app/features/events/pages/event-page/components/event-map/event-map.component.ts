@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EventInformation } from '@app/features/events/models/event-information.model';
 import { EventLocation } from '@app/features/events/models/event-location.model';
@@ -13,6 +13,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-event-map',
   imports: [EventDateCardComponent, NextButtonComponent],
   templateUrl: './event-map.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-map.component.scss'
 })
 export class EventMapComponent {
