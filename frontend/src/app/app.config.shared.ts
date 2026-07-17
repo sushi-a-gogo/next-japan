@@ -4,10 +4,7 @@ import { provideClientHydration, withEventReplay, withNoIncrementalHydration } f
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { environment } from '@environments/environment';
-import Material from '@primeuix/themes/material';
 import { provideMarkdown } from 'ngx-markdown';
-import { MessageService } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth/auth.interceptor';
 import { provideAppImageLoader } from './core/providers/app-image-loader';
@@ -21,18 +18,6 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling
 export const sharedProviders = [
   DatePipe,
   provideAnimations(), // <- deprecated but needed by NgxSpinner :(
-  MessageService,
-  providePrimeNG({
-    theme: {
-      preset: Material
-    },
-    translation: {
-      aria: {
-        prevPageLabel: 'Navigate to previous events',
-        nextPageLabel: 'Navigate to next events'
-      }
-    }
-  }),
   provideHttpClient(
     withFetch(),
     withInterceptors([authInterceptor])

@@ -1,20 +1,19 @@
 import { Component, computed, inject, input, OnChanges, signal, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanPaymentComponent } from "@app/core/auth/login/login-steps/plan-payment/plan-payment.component";
 import { SelectPlanComponent } from "@app/core/auth/login/login-steps/select-plan/select-plan.component";
 import { User } from '@app/core/models/user.model';
 import SUBSCRIPTION_PLANS, { SubscriptionPlan } from '@app/features/user/models/subscription-plan.interface';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-manage-subscription',
-  imports: [ToastModule, SelectPlanComponent, PlanPaymentComponent],
+  imports: [SelectPlanComponent, PlanPaymentComponent],
   templateUrl: './manage-subscription.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './manage-subscription.component.scss'
 })
 export class ManageSubscriptionComponent implements OnChanges {
-  private messageService = inject(MessageService);
+  private snackBar = inject(MatSnackBar);
 
   user = input.required<User>();
   selectedIndex = input.required<number>();
@@ -51,10 +50,10 @@ export class ManageSubscriptionComponent implements OnChanges {
 
   update(subscriptionPlanName: string) {
     this.selectedPlanName.set(subscriptionPlanName);
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Subscription Updated!',
-      detail: 'Your subscription was updated successfully.'
+    this.snackBar.open('Your subscription was updated successfully.', 'OK', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 }
