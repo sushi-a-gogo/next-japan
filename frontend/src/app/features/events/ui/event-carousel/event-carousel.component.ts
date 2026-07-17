@@ -38,11 +38,11 @@ export class EventCarouselComponent {
     { initialValue: isPlatformBrowser(this.platformId) ? this.breakpointObserver.isMatched('(min-width: 2500px)') : false }
   );
 
-  autoplayConfig = { delay: 6000, disableOnInteraction: false };
-  paginationConfig = { clickable: true };
+  autoplayConfig = { delay: 6000, disableOnInteraction: true };
+  paginationConfig = { clickable: true, dynamicBullets: true };
   breakpoints = {
-    740: { slidesPerView: 2, slidesPerGroup: 2 },
-    1024: { slidesPerView: 3, slidesPerGroup: 3 },
+    740: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
   };
 
   private sortByDate(a: EventData, b: EventData) {
