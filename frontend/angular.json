@@ -41,6 +41,9 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
+            },
+            "security": {
+              "allowedHosts": ["nextjapan.jotek.dev"]
             }
           },
           "configurations": {
