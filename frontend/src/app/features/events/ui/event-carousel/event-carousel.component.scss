@@ -8,12 +8,51 @@
 
 .event-swiper {
   --swiper-theme-color: var(--pink-cherry-blossoms);
-  --swiper-navigation-size: 28px;
+  --swiper-navigation-size: 36px;
   --swiper-pagination-bullet-size: 20px;
   --swiper-pagination-bullet-horizontal-gap: 0.5rem;
   --swiper-pagination-bullet-inactive-color: var(--next-border);
   --swiper-pagination-bullet-inactive-opacity: 1;
   padding: 0 44px;
+
+  // The default arrow is a fixed-size SVG with no CSS hook to resize, and it
+  // lives inside the shadow root with no part of its own to target directly.
+  // It renders via `currentColor`, though, so setting color: transparent
+  // hides it - then a small, thick CSS-border chevron is drawn instead via
+  // ::before, fully independent of Swiper's icon.
+  &::part(button-prev),
+  &::part(button-next) {
+    color: transparent;
+    background: color-mix(in srgb, var(--pink-cherry-blossoms) 18%, transparent);
+    border-radius: 50%;
+    transition:
+      background-color 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  &::part(button-prev):hover,
+  &::part(button-next):hover {
+    background: color-mix(in srgb, var(--pink-cherry-blossoms) 30%, transparent);
+  }
+
+  &::part(button-prev)::before,
+  &::part(button-next)::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-top: 3px solid var(--pink-cherry-blossoms);
+    border-right: 3px solid var(--pink-cherry-blossoms);
+    border-radius: 1px;
+  }
+
+  &::part(button-prev)::before {
+    transform: rotate(-135deg) translate(1px, -1px);
+  }
+
+  &::part(button-next)::before {
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
 
   // `.swiper-pagination` lives inside `.swiper`, which clips overflow, and
   // `.swiper`'s height is auto-sized to the slide content - not to any
