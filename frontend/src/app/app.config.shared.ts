@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { environment } from '@environments/environment';
@@ -25,6 +25,12 @@ export const sharedProviders = [
   providePrimeNG({
     theme: {
       preset: Material
+    },
+    translation: {
+      aria: {
+        prevPageLabel: 'Navigate to previous events',
+        nextPageLabel: 'Navigate to next events'
+      }
     }
   }),
   provideHttpClient(
@@ -38,7 +44,7 @@ export const sharedProviders = [
     withComponentInputBinding(),
     withRouterConfig({ paramsInheritanceStrategy: 'always' })
   ),
-  provideClientHydration(withEventReplay()),
+  provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
   provideMarkdown()
 ];
 

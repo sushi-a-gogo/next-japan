@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { Avatar } from '@app/core/models/avatar.model';
 import { ImageService } from '@app/core/services/image.service';
 
@@ -7,6 +7,7 @@ import { ImageService } from '@app/core/services/image.service';
   selector: 'app-avatar',
   imports: [NgOptimizedImage],
   templateUrl: './avatar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './avatar.component.scss'
 })
 export class AvatarComponent {

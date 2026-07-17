@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnChanges, signal, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatRippleModule } from '@angular/material/core';
 import { AuthService } from '@app/core/auth/auth.service';
@@ -11,6 +11,7 @@ import { finalize, forkJoin, of } from 'rxjs';
   selector: 'app-event-like-button',
   imports: [MatRippleModule],
   templateUrl: './event-like-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-like-button.component.scss'
 })
 export class EventLikeButtonComponent implements OnChanges {

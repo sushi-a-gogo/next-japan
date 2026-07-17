@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MetaService } from '@app/core/services/meta.service';
 
@@ -6,6 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-acceptable-use',
   imports: [],
   templateUrl: './acceptable-use.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './acceptable-use.component.scss'
 })
 export class AcceptableUseComponent {

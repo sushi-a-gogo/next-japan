@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, effect, inject, PLATFORM_ID } from '@angular/core';
+import { Component, effect, inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorService } from '@app/core/services/error.service';
 
@@ -7,6 +7,7 @@ import { ErrorService } from '@app/core/services/error.service';
   selector: 'app-error-bar',
   imports: [],
   templateUrl: './error-bar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './error-bar.component.scss'
 })
 export class ErrorBarComponent {

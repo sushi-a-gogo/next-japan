@@ -1,10 +1,11 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { RegistrationStatus } from '@app/features/registrations/models/event-registration.model';
 
 @Component({
   selector: 'app-event-registration-status',
   imports: [],
   templateUrl: './event-registration-status.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-registration-status.component.scss'
 })
 export class EventRegistrationStatusComponent {

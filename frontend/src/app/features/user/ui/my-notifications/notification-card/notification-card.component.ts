@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { defaultHeroId } from '@app/core/models/app-image-data.model';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
@@ -10,6 +10,7 @@ import { environment } from '@environments/environment';
   selector: 'app-notification-card',
   imports: [NgOptimizedImage],
   templateUrl: './notification-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './notification-card.component.scss'
 })
 export class NotificationCardComponent {

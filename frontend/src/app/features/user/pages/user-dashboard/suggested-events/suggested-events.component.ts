@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/features/events/models/event-data.model';
 import { EventsService } from '@app/features/events/services/events.service';
@@ -9,6 +9,7 @@ import { SuggestedEventCardComponent } from "./suggested-event-card/suggested-ev
   selector: 'app-suggested-events',
   imports: [SuggestedEventCardComponent],
   templateUrl: './suggested-events.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './suggested-events.component.scss'
 })
 export class SuggestedEventsComponent implements OnInit {

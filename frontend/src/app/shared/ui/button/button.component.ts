@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-button',
   imports: [MatRippleModule, MatTooltipModule],
   templateUrl: './button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './button.component.scss'
 })
 export class ButtonComponent {

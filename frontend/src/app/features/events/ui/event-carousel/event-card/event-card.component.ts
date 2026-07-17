@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
+import { Component, computed, inject, input, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { ImageService } from '@app/core/services/image.service';
@@ -11,6 +11,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, NextButtonComponent],
   templateUrl: './event-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-card.component.scss'
 })
 export class EventCardComponent {

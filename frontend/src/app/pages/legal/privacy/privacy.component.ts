@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MetaService } from '@app/core/services/meta.service';
 
@@ -6,6 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-privacy',
   imports: [],
   templateUrl: './privacy.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './privacy.component.scss'
 })
 export class PrivacyComponent {

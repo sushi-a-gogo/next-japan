@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, output } from '@angular/core';
+import { Component, DestroyRef, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,6 +14,7 @@ import { of, switchMap } from 'rxjs';
   selector: 'app-user-menu',
   imports: [RouterLink, MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {

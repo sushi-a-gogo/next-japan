@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { AppImageData } from '@app/core/models/app-image-data.model';
 import { ImageService } from '@app/core/services/image.service';
 import { ThemeService } from '@app/core/services/theme.service';
@@ -8,6 +8,7 @@ import { ThemeService } from '@app/core/services/theme.service';
   selector: 'app-logo',
   imports: [NgOptimizedImage],
   templateUrl: './app-logo.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app-logo.component.scss'
 })
 export class AppLogoComponent {

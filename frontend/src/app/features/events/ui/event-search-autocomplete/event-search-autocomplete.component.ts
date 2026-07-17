@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -15,6 +15,7 @@ import { debounceTime, filter, of, switchMap } from 'rxjs';
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './event-search-autocomplete.component.html',
   styleUrl: './event-search-autocomplete.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '[class.show]': 'isComponentActive()',
     '[class.open]': 'isOpen()'

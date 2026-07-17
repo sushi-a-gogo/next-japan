@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
@@ -11,6 +11,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-suggested-event-card',
   imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, NextButtonComponent, RouterLink],
   templateUrl: './suggested-event-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './suggested-event-card.component.scss'
 })
 export class SuggestedEventCardComponent {

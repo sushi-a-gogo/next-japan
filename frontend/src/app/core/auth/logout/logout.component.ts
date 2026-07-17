@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { delay } from 'rxjs';
   imports: [MatProgressSpinnerModule, NgxSpinnerComponent],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: { '[class.fade-in-animate]': 'true' }
 })
 export class LogoutComponent implements OnInit {

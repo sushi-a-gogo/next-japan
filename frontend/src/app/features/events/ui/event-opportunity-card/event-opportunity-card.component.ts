@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { EventOpportunity } from '@app/features/events/models/event-opportunity.model';
 
@@ -6,6 +6,7 @@ import { EventOpportunity } from '@app/features/events/models/event-opportunity.
   selector: 'app-event-opportunity-card',
   imports: [],
   templateUrl: './event-opportunity-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-opportunity-card.component.scss'
 })
 export class EventOpportunityCardComponent {

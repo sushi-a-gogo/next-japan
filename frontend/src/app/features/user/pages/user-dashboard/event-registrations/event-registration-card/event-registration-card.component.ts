@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input, OnInit, output } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { ImageService } from '@app/core/services/image.service';
 import { EventLocationCard } from '@app/features/events/ui/event-location-card/event-location-card.component';
@@ -12,6 +12,7 @@ import { EventRegistrationStatusComponent } from './event-registration-status/ev
   selector: 'app-event-registration-card',
   imports: [NgOptimizedImage, EventLocationCard, EventOpportunityCardComponent, EventRegistrationStatusComponent, NextButtonComponent, RouterLink],
   templateUrl: './event-registration-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-registration-card.component.scss'
 })
 export class EventRegistrationCardComponent implements OnInit {

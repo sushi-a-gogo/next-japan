@@ -10,7 +10,7 @@
             </span>
             <span class="nj-flex align-center gap-2 muted">
               <span class="material-symbols-outlined"> calendar_month </span>
-              <span class="soft"> Joined {{ user()?.createdAt | date }} </span>
+              <span class="soft"> Joined {{ $safeNavigationMigration(user()?.createdAt) | date }} </span>
             </span>
           </div>
           <button

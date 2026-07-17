@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { ImageService } from '@app/core/services/image.service';
 import { AiEvent } from '@app/features/ai/models/ai-event.model';
 import { EventData } from '@app/features/events/models/event-data.model';
@@ -8,6 +8,7 @@ import { EventData } from '@app/features/events/models/event-data.model';
   selector: 'app-ai-event-header',
   imports: [NgOptimizedImage],
   templateUrl: './ai-event-header.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './ai-event-header.component.scss'
 })
 export class AiEventHeaderComponent {

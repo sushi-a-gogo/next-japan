@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 
@@ -6,6 +6,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-login-button',
   imports: [NextButtonComponent],
   templateUrl: './login-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './login-button.component.scss'
 })
 export class LoginButtonComponent {

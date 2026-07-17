@@ -8,7 +8,7 @@
       fill
       priority
       placeholder
-      [alt]="event()?.eventTitle"
+      [alt]="$safeNavigationMigration(event()?.eventTitle)"
     />
   } @else {
     <img
@@ -80,7 +80,7 @@
       </div>
       <app-registration-status-card
         class="alert"
-        [eventId]="event()?.eventId"
+        [eventId]="$safeNavigationMigration(event()?.eventId)"
         (startRegistration)="onGetTickets.emit()"
       />
     </div>

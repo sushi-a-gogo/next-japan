@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/auth/auth.service';
 import { DialogService } from '@app/core/services/dialog.service';
@@ -12,6 +12,7 @@ import { RegistrationManageDialogComponent } from '../registration-manage-dialog
   selector: 'app-registration-status-card',
   imports: [DatePipe, RouterLink, NextButtonComponent],
   templateUrl: './registration-status-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './registration-status-card.component.scss',
 })
 export class RegistrationStatusCardComponent {

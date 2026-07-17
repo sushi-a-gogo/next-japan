@@ -1,5 +1,5 @@
 import { LowerCasePipe } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { EventCalendarDate } from '@app/features/events/models/event-calendar-date.model';
 
@@ -7,6 +7,7 @@ import { EventCalendarDate } from '@app/features/events/models/event-calendar-da
   selector: 'app-event-date-card',
   imports: [LowerCasePipe],
   templateUrl: './event-date-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './event-date-card.component.scss'
 })
 export class EventDateCardComponent {

@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from "@angular/router";
@@ -16,6 +16,7 @@ import { delay, finalize } from 'rxjs';
   selector: 'app-registration-request-dialog',
   imports: [MatButtonModule, LoadingSpinnerComponent, RegistrationCardComponent, NextButtonComponent, RouterLink],
   templateUrl: './registration-request-dialog.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './registration-request-dialog.component.scss',
 })
 export class RegistrationRequestDialogComponent {

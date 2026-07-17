@@ -9,7 +9,7 @@
           (click)="viewRegistration()"
         >
           <span class="material-symbols-outlined">pending_actions</span>
-          {{ context()!.registration?.status | titlecase }}
+          {{ $safeNavigationMigration(context()!.registration?.status) | titlecase }}
         </button>
       }
       @case ("registered") {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MetaService } from '@app/core/services/meta.service';
 
@@ -6,6 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-terms-of-service',
   imports: [],
   templateUrl: './terms-of-service.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './terms-of-service.component.scss'
 })
 export class TermsOfServiceComponent {

@@ -6,7 +6,7 @@ import { ImageService } from '@app/core/services/image.service';
 import { EventData } from '@app/features/events/models/event-data.model';
 import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.component";
 import { interval } from 'rxjs';
-import organization from 'src/lib/organization-data';
+import organization from '@lib/organization-data';
 
 @Component({
   selector: 'app-hero',

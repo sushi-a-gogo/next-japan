@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +18,7 @@ import { PaymentForm } from './payment.form';
   selector: 'app-plan-payment',
   imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './plan-payment.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './plan-payment.component.scss'
 })
 export class PlanPaymentComponent implements OnInit {

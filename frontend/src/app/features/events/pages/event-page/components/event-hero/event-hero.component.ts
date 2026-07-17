@@ -1,5 +1,5 @@
 import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
-import { Component, computed, ElementRef, inject, input, output, PLATFORM_ID, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, output, PLATFORM_ID, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { defaultHeroId } from '@app/core/models/app-image-data.model';
 import { DateTimeService } from '@app/core/services/date-time.service';
 import { ImageService } from '@app/core/services/image.service';
@@ -15,6 +15,7 @@ import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/
   imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, RegistrationStatusCardComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     '(window:scroll)': 'handleScroll()'
   }
