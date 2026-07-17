@@ -25,6 +25,12 @@ export const sharedProviders = [
   providePrimeNG({
     theme: {
       preset: Material
+    },
+    translation: {
+      aria: {
+        prevPageLabel: 'Navigate to previous events',
+        nextPageLabel: 'Navigate to next events'
+      }
     }
   }),
   provideHttpClient(
