@@ -39,10 +39,10 @@ export class EventCarouselComponent {
   );
 
   autoplayConfig = { delay: 6000, disableOnInteraction: true };
-  paginationConfig = { clickable: true, dynamicBullets: true };
+  paginationConfig = { clickable: true };
   breakpoints = {
-    740: { slidesPerView: 2 },
-    1024: { slidesPerView: 3 },
+    740: { slidesPerView: 2, slidesPerGroup: 2 },
+    1024: { slidesPerView: 3, slidesPerGroup: 3 },
   };
 
   private sortByDate(a: EventData, b: EventData) {

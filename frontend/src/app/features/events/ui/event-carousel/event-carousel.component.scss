@@ -9,7 +9,35 @@
 .event-swiper {
   --swiper-theme-color: var(--pink-cherry-blossoms);
   --swiper-navigation-size: 28px;
-  padding: 0 44px 32px;
+  --swiper-pagination-bullet-size: 20px;
+  --swiper-pagination-bullet-horizontal-gap: 0.5rem;
+  --swiper-pagination-bullet-inactive-color: var(--next-border);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  padding: 0 44px;
+
+  // `.swiper-pagination` lives inside `.swiper`, which clips overflow, and
+  // `.swiper`'s height is auto-sized to the slide content - not to any
+  // padding on the host. Padding the slides grows that auto-sized box,
+  // creating real room below the cards for the pagination row without it
+  // being clipped or overlapping the card art.
+  swiper-slide {
+    padding-bottom: 48px;
+    box-sizing: border-box;
+  }
+
+  // Individual bullets only expose a single `bullet` shadow part with no way
+  // to distinguish active vs. inactive from outside the shadow root, so the
+  // hover halo has to stay one neutral color for both states.
+  &::part(bullet) {
+    transition:
+      box-shadow 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  &::part(bullet):hover {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--next-muted) 25%, transparent);
+    transform: scale(1.1);
+  }
 }
 
 .carousel-ssr {
