@@ -5,17 +5,22 @@
     }
   </div>
 } @else {
-  <p-carousel
-    [attr.aria-label]="'Featured events carousel'"
-    [value]="sortedEvents()"
-    [circular]="true"
-    [autoplayInterval]="6000"
-    [responsiveOptions]="responsiveOptions"
-    [showIndicators]="showIndicators()"
+  <swiper-container
+    class="event-swiper"
     role="region"
+    aria-label="Featured events carousel"
+    [rewind]="true"
+    [slidesPerView]="1"
+    [spaceBetween]="16"
+    [autoplay]="autoplayConfig"
+    [breakpoints]="breakpoints"
+    [pagination]="showIndicators() ? paginationConfig : false"
+    [navigation]="true"
   >
-    <ng-template let-event #item>
-      <app-event-card [event]="event" />
-    </ng-template>
-  </p-carousel>
+    @for (event of sortedEvents(); track event.eventId) {
+      <swiper-slide>
+        <app-event-card [event]="event" />
+      </swiper-slide>
+    }
+  </swiper-container>
 }

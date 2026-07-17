@@ -6,6 +6,95 @@
   margin: 0 auto;
 }
 
+.event-swiper {
+  --swiper-theme-color: var(--pink-cherry-blossoms);
+  --swiper-navigation-size: 36px;
+  --swiper-pagination-bullet-size: 20px;
+  --swiper-pagination-bullet-horizontal-gap: 0.5rem;
+  --swiper-pagination-bullet-inactive-color: var(--next-border);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  padding: 0 44px;
+
+  // The default arrow is a fixed-size SVG with no CSS hook to resize, and it
+  // lives inside the shadow root with no part of its own to target directly.
+  // It renders via `currentColor`, though, so setting color: transparent
+  // hides it - then a small, thick CSS-border chevron is drawn instead via
+  // ::before, fully independent of Swiper's icon.
+  &::part(button-prev),
+  &::part(button-next) {
+    color: transparent;
+    background: color-mix(in srgb, var(--pink-cherry-blossoms) 18%, transparent);
+    border-radius: 50%;
+    transition:
+      background-color 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  &::part(button-prev):hover,
+  &::part(button-next):hover {
+    background: color-mix(in srgb, var(--pink-cherry-blossoms) 30%, transparent);
+  }
+
+  // color: transparent hides the original SVG but doesn't remove it from
+  // the button's own flex layout (display:flex; justify-content:center is
+  // set internally by Swiper) - it's still an invisible flex item sharing
+  // center stage with our own pseudo-element, pushing the visible one off
+  // to one side. Taking ::before out of flow with absolute positioning +
+  // inset:0 + margin:auto centers it against the button box directly,
+  // independent of whatever the hidden sibling is doing.
+  &::part(button-prev)::before,
+  &::part(button-next)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    background-color: var(--pink-cherry-blossoms);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 L15 12 L9 18'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 L15 12 L9 18'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+  }
+
+  &::part(button-prev)::before {
+    transform: scaleX(-1);
+  }
+
+  // `.swiper-pagination` lives inside `.swiper`, which clips overflow, and
+  // `.swiper`'s height is auto-sized to the slide content - not to any
+  // padding on the host. Padding the slides grows that auto-sized box,
+  // creating real room below the cards for the pagination row without it
+  // being clipped or overlapping the card art.
+  swiper-slide {
+    padding-bottom: 48px;
+    box-sizing: border-box;
+  }
+
+  // Individual bullets only expose a single `bullet` shadow part with no way
+  // to distinguish active vs. inactive from outside the shadow root, so the
+  // hover halo has to stay one neutral color for both states. `brightness()`
+  // sidesteps that same limitation for the "darken on hover" effect - it
+  // darkens whatever color is already there instead of needing to target
+  // pink vs. gray specifically.
+  &::part(bullet) {
+    transition:
+      box-shadow 0.15s ease,
+      transform 0.15s ease,
+      filter 0.15s ease;
+  }
+
+  &::part(bullet):hover {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--next-border) 32%, transparent);
+    transform: scale(1.1);
+    filter: brightness(0.85);
+  }
+}
+
 .carousel-ssr {
   height: auto;
   display: grid;

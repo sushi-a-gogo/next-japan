@@ -1,19 +1,19 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, PLATFORM_ID } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { EventData } from '@app/features/events/models/event-data.model';
-import { CarouselModule } from 'primeng/carousel';
 import { map } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 
 @Component({
   selector: 'app-event-carousel',
   standalone: true,
-  imports: [EventCardComponent, CarouselModule],
+  imports: [EventCardComponent],
   templateUrl: './event-carousel.component.html',
   styleUrl: './event-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EventCarouselComponent {
   private platformId = inject(PLATFORM_ID);
@@ -38,15 +38,12 @@ export class EventCarouselComponent {
     { initialValue: isPlatformBrowser(this.platformId) ? this.breakpointObserver.isMatched('(min-width: 2500px)') : false }
   );
 
-  responsiveOptions = [
-    { breakpoint: '739.98px', numVisible: 1, numScroll: 1 },
-    { breakpoint: '1023.98px', numVisible: 2, numScroll: 2 },
-    { breakpoint: '1339.98px', numVisible: 3, numScroll: 3 },
-    { breakpoint: '1664.98px', numVisible: 3, numScroll: 3 },
-    { breakpoint: '1989.98px', numVisible: 3, numScroll: 3 },
-    { breakpoint: '2314.98px', numVisible: 3, numScroll: 3 },
-    { breakpoint: '2500px', numVisible: 3, numScroll: 3 },
-  ];
+  autoplayConfig = { delay: 6000, disableOnInteraction: true };
+  paginationConfig = { clickable: true };
+  breakpoints = {
+    740: { slidesPerView: 2, slidesPerGroup: 2 },
+    1024: { slidesPerView: 3, slidesPerGroup: 3 },
+  };
 
   private sortByDate(a: EventData, b: EventData) {
     const dateA = a.nextCalendarDate ? new Date(a.nextCalendarDate?.startDate) : null;
