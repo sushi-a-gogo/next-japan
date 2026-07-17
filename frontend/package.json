@@ -30,7 +30,7 @@
     "express": "^5.1.0",
     "jwt-decode": "^4.0.0",
     "marked": "^17.0.1",
-    "ngx-markdown": "^21.0.0",
+    "ngx-markdown": "^22.0.0",
     "ngx-spinner": "^21.0.0",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
