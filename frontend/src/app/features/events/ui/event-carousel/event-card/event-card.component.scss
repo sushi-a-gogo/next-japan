@@ -4,8 +4,14 @@
   width: 96%;
   padding: 0;
   margin: 0 auto;
-  border: 2px solid var(--next-border);
-  border-radius: 20px;
+  border: 1px solid var(--next-border);
+  // Rounded corners here ran into a WebKit bug where a child with `filter`
+  // applied (img.hero below) breaks the parent's border-radius +
+  // overflow:hidden clipping - real Safari still showed the image escaping
+  // the card even after isolation:isolate + a forced compositing layer
+  // (translateZ), despite those appearing to fix it in Playwright's WebKit,
+  // which isn't a faithful proxy for this specific bug. Plain rectangular
+  // clipping doesn't hit it at all, so that's the trade being made here.
 
   background-color: var(--next-surface);
   color: var(--next-text);
@@ -14,13 +20,6 @@
 
   position: relative;
   overflow: hidden;
-  // WebKit has a long-standing bug where a child with `filter` applied
-  // (img.hero below) breaks the parent's border-radius + overflow:hidden
-  // clipping. isolation:isolate alone wasn't enough to stop it - pairing it
-  // with a forced GPU compositing layer (translateZ) on this element was
-  // needed too.
-  isolation: isolate;
-  transform: translateZ(0);
 
   &:hover {
     img.hero {
@@ -61,7 +60,6 @@
   justify-content: stretch;
   overflow: hidden;
   height: 100%;
-  isolation: isolate;
 }
 
 img.hero {
