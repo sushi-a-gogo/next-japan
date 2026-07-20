@@ -4,8 +4,14 @@
   width: 96%;
   padding: 0;
   margin: 0 auto;
-  border: 2px solid var(--next-border);
-  border-radius: 20px;
+  border: 1px solid var(--next-border);
+  // Rounded corners here ran into a WebKit bug where a child with `filter`
+  // applied (img.hero below) breaks the parent's border-radius +
+  // overflow:hidden clipping - real Safari still showed the image escaping
+  // the card even after isolation:isolate + a forced compositing layer
+  // (translateZ), despite those appearing to fix it in Playwright's WebKit,
+  // which isn't a faithful proxy for this specific bug. Plain rectangular
+  // clipping doesn't hit it at all, so that's the trade being made here.
 
   background-color: var(--next-surface);
   color: var(--next-text);
@@ -57,8 +63,15 @@
 }
 
 img.hero {
-  height: auto;
-  max-height: 198px;
+  // A fixed height (not max-height) means object-fit:cover always crops to
+  // fill this exact box, regardless of the source image's own aspect ratio
+  // or any width-dependent variance in what's actually returned for a given
+  // srcset candidate - some images render taller than others below certain
+  // card widths, image-specific and not fully explained (Cloudflare only
+  // constrains width in the request, so height reflects whatever aspect
+  // ratio comes back), but this makes the card's layout immune to it either
+  // way rather than chasing the exact cause further.
+  height: 198px;
   filter: brightness(103%) contrast(96%) saturate(81%) blur(0px)
     hue-rotate(336deg);
   transition: filter 0.3s ease;

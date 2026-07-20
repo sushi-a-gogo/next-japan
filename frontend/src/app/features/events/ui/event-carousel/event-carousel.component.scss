@@ -71,6 +71,14 @@
   // creating real room below the cards for the pagination row without it
   // being clipped or overlapping the card art.
   swiper-slide {
+    // Swiper computes and inline-sets an equal height across slides via its
+    // own JS measurement, which has proven inconsistent under WebKit -
+    // seen a 21px gap between the first (already-visible) slide and the
+    // rest. Every card already has fully fixed-height content constraints
+    // (title/description clamps, image max-height), so overriding Swiper's
+    // inline height and letting each slide size to its own content gets a
+    // uniform result from plain CSS instead, independent of that mechanism.
+    height: auto !important;
     padding-bottom: 48px;
     box-sizing: border-box;
   }
