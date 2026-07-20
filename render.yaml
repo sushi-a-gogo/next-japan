@@ -3,7 +3,7 @@ services:
     name: next-japan-web
     env: node
     rootDir: frontend
-    plan: free
+    plan: starter
     buildCommand: npm ci --include=dev && npx ng build
     startCommand: npm run serve:ssr:next-japan-web
     autoDeploy: true
