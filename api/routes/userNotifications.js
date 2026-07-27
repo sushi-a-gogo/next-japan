@@ -10,7 +10,11 @@ router.get(
   notificationController.getUserNotifications,
 );
 router.post("/", authMiddleware, notificationController.createNotification);
-router.get("/:notificationId", notificationController.getNotification);
+router.get(
+  "/:notificationId",
+  authMiddleware,
+  notificationController.getNotification,
+);
 router.put(
   "/:notificationId",
   authMiddleware,

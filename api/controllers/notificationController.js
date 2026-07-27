@@ -14,8 +14,11 @@ export const getUserNotifications = asyncHandler(async (req, res) => {
 
 // GET single notification
 export const getNotification = asyncHandler(async (req, res) => {
+  if (!authorized(req, res)) return;
+
   const notification = await notificationService.fetchNotification(
-    req.params.notificationId
+    req.params.notificationId,
+    req.user.userId
   );
   if (!notification) {
     return res
@@ -27,7 +30,7 @@ export const getNotification = asyncHandler(async (req, res) => {
 
 // POST new notification
 export const createNotification = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.body.userId)) return;
 
   const notificationId = await notificationService.createUserNotification(
     req.body
@@ -37,11 +40,12 @@ export const createNotification = asyncHandler(async (req, res) => {
 
 // PUT update notification
 export const updateNotification = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.body.userId)) return;
 
   const notificationId = await notificationService.updateUserNotification(
     req.params.notificationId,
-    req.body
+    req.body,
+    req.user.userId
   );
   if (!notificationId) {
     return res
@@ -53,7 +57,7 @@ export const updateNotification = asyncHandler(async (req, res) => {
 
 // DELETE notification(s)
 export const deleteNotification = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.query.userId)) return;
 
   const { notificationId } = req.params;
   const { userId } = req.query;

@@ -23,7 +23,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 
 // PUT update user
 export const updateUserProfile = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.body.userId)) return;
 
   const user = await userService.findUserByIdAndUpdate(req.body);
   if (!user) {
