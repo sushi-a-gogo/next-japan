@@ -95,12 +95,15 @@ export const createEventRegistration = async (data) => {
   return registration;
 };
 
-export const getEventRegistrationById = async (registrationId) => {
+export const getEventRegistrationById = async (registrationId, requestingUserId) => {
   if (!mongoose.Types.ObjectId.isValid(registrationId)) {
     throw new ValidationError("Invalid registrationId format");
   }
 
-  const registration = await EventRegistration.findById(registrationId)
+  const registration = await EventRegistration.findOne({
+    _id: registrationId,
+    userId: requestingUserId,
+  })
     .populate({
       path: "opportunityId",
       select:
@@ -120,7 +123,7 @@ export const getEventRegistrationById = async (registrationId) => {
   return registration ? formatRegistration(registration) : null;
 };
 
-export const updateEventRegistration = async (registrationId, data) => {
+export const updateEventRegistration = async (registrationId, data, requestingUserId) => {
   const { userId, status, opportunityId } = data;
 
   if (!mongoose.Types.ObjectId.isValid(registrationId))
@@ -139,8 +142,8 @@ export const updateEventRegistration = async (registrationId, data) => {
   const opportunity = await EventOpportunity.findById(opportunityId);
   if (!opportunity) throw new NotFoundError("Event opportunity not found");
 
-  const updated = await EventRegistration.findByIdAndUpdate(
-    registrationId,
+  const updated = await EventRegistration.findOneAndUpdate(
+    { _id: registrationId, userId: requestingUserId },
     { userId, opportunityId, status },
     { new: true },
   );
@@ -148,12 +151,15 @@ export const updateEventRegistration = async (registrationId, data) => {
   return updated ? formatRegistration(updated.toObject()) : null;
 };
 
-export const deleteEventRegistration = async (registrationId) => {
+export const deleteEventRegistration = async (registrationId, requestingUserId) => {
   if (!mongoose.Types.ObjectId.isValid(registrationId)) {
     throw new ValidationError("Invalid registrationId");
   }
 
-  const deleted = await EventRegistration.findByIdAndDelete(registrationId);
+  const deleted = await EventRegistration.findOneAndDelete({
+    _id: registrationId,
+    userId: requestingUserId,
+  });
   if (deleted) {
     await UserNotification.create({
       userId: deleted.userId,

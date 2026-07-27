@@ -4,9 +4,8 @@ import { authorized } from "../utils/authHelpers.js";
 
 // POST like by user
 export const likeEvent = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
-
   const { userId, eventId, liked } = req.body;
+  if (!authorized(req, res, userId)) return;
   const likeCount = await eventSocial.updateEventLikeCount(
     userId,
     eventId,

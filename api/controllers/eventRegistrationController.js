@@ -21,7 +21,8 @@ export const getEventRegistrationById = asyncHandler(async (req, res) => {
 
   const { registrationId } = req.params;
   const registration = await registrationService.getEventRegistrationById(
-    registrationId
+    registrationId,
+    req.user.userId
   );
 
   if (!registration) throw new NotFoundError("Registration not found");
@@ -31,7 +32,7 @@ export const getEventRegistrationById = asyncHandler(async (req, res) => {
 
 // POST new event registration
 export const createEventRegistration = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.body.userId)) return;
 
   const registration = await registrationService.createEventRegistration(
     req.body
@@ -44,13 +45,14 @@ export const createEventRegistration = asyncHandler(async (req, res) => {
 
 // PUT update event registration
 export const updateEventRegistration = asyncHandler(async (req, res) => {
-  if (!authorized(req, res)) return;
+  if (!authorized(req, res, req.body.userId)) return;
 
   const { registrationId } = req.params;
 
   const registration = await registrationService.updateEventRegistration(
     registrationId,
-    req.body
+    req.body,
+    req.user.userId
   );
 
   if (!registration) throw new NotFoundError("Event Registration not found");
@@ -66,7 +68,8 @@ export const deleteEventRegistration = asyncHandler(async (req, res) => {
 
   const { registrationId } = req.params;
   const deleted = await registrationService.deleteEventRegistration(
-    registrationId
+    registrationId,
+    req.user.userId
   );
 
   if (!deleted) throw new NotFoundError("Event Registration not found");

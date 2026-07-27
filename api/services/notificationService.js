@@ -28,10 +28,13 @@ export const fetchUserNotifications = async (userId) => {
   return notifications.map(formatNotification);
 };
 
-export const fetchNotification = async (notificationId) => {
+export const fetchNotification = async (notificationId, requestingUserId) => {
   validateObjectId(notificationId, "notificationId");
 
-  const notification = await UserNotification.findById(notificationId)
+  const notification = await UserNotification.findOne({
+    _id: notificationId,
+    userId: requestingUserId,
+  })
     .populate({
       path: "opportunityId",
       select: "startDate endDate timeZone timeZoneAbbreviation",
@@ -74,7 +77,7 @@ export const createUserNotification = async (data) => {
   return saved._id;
 };
 
-export const updateUserNotification = async (notificationId, data) => {
+export const updateUserNotification = async (notificationId, data, requestingUserId) => {
   const { userId, title, message, opportunityId } = data;
 
   if (!userId || !title || !message || !opportunityId) {
@@ -91,8 +94,8 @@ export const updateUserNotification = async (notificationId, data) => {
   const opportunity = await EventOpportunity.findById(opportunityId);
   if (!opportunity) throw new NotFoundError("Opportunity not found");
 
-  const updated = await UserNotification.findByIdAndUpdate(
-    notificationId,
+  const updated = await UserNotification.findOneAndUpdate(
+    { _id: notificationId, userId: requestingUserId },
     { userId, opportunityId, title, message },
     { new: true }
   );
@@ -111,7 +114,10 @@ export const deleteUserNotification = async (notificationId, userId) => {
 
   validateObjectId(notificationId, "notificationId");
 
-  const deleted = await UserNotification.findByIdAndDelete(notificationId);
+  const deleted = await UserNotification.findOneAndDelete({
+    _id: notificationId,
+    userId,
+  });
   if (!deleted) throw new NotFoundError("Notification not found");
 
   return { notificationId: deleted._id };

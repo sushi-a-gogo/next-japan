@@ -1,50 +1,59 @@
 # Joe Svatek
 
-**Software Professional | Full-Stack Web Developer | Angular Specialist**  
+**Senior Angular Developer | Full-Stack Web Developer | Angular Specialist**\
 Austin, TX | joe.svatek@icloud.com | [github.com/sushi-a-gogo](https://github.com/sushi-a-gogo)
 
 ## Profile
 
-Software developer with deep experience in modern front-end development and
-responsive UI/UX. Skilled at integrating front-end features with .NET and SQL Server
-backends, with additional work in Node.js, AI-driven services, and WordPress.
+Senior software developer with 25+ years of experience building enterprise web applications with a focus on Angular, TypeScript, and modern front-end architecture. Experienced delivering complex UI features, integrating with .NET and REST APIs, and collaborating across product and engineering teams. Combines modern AI-assisted development workflows with deep engineering judgment to deliver maintainable, production-ready software.
 
 ## Technical Skills
 
-**Front-End:** TypeScript, JavaScript, Angular (v21+), HTML5, CSS3, Material Design,
-Responsive Design, Signals, SSR\
+**Front-End:** TypeScript, JavaScript, Angular (v21+), HTML5, CSS3, Angular Material, Responsive Design, Signals, SSR\
 **Back-End:** .NET Core, ASP.NET MVC, C#, Node.js, REST APIs, MongoDB, SQL Server\
-**DevOps / Tools:** Git, CI/CD, Azure DevOps, GCP\
-**Other:** OpenAI API integrations, Agile/Scrum, Performance Optimization, WordPress
+**Cloud / DevOps:** Git, Azure DevOps, CI/CD, Google Cloud Platform (GCP)\
+**Other:** AI-assisted Development, OpenAI API Integration, Agile/Scrum, Performance Optimization
 
 ## Experience
 
-### Software Developer - Self-Employed | 2025
+### Senior Angular Developer | File & ServeXpress (Remote) | March 2026 – Present
 
-Continued development with Angular v21+ (signals, zoneless), Node.js, and AI-assisted
-workflows. Built full-stack examples to strengthen modern architecture and UX practices.
+Develop enterprise Angular applications supporting legal workflow and document management solutions.
 
-Hands-on experience with quick website setup, customization, and deployment using WordPress.
+- Develop and enhance Angular UI features within a large enterprise application.
+- Build responsive user interfaces while collaborating with product managers and backend developers.
+- Integrate frontend functionality with REST APIs and backend services.
+- Diagnose and resolve complex Angular, TypeScript, and application architecture issues.
+- Perform root-cause analysis of frontend defects and development tooling problems.
+- Leverage AI-assisted development tools to accelerate implementation while reviewing, simplifying, and validating generated code for maintainability and correctness.
 
-### Software Developer | Common Forge Ventures - Remote | 2022 – 2025
+### Software Developer | Self Employed | 2025 – 2026
 
-Led front-end development of SaaS applications using Angular, integrating with .NET
-Core, SQL Server, and GCP.
+Maintained and expanded modern full-stack development skills while building production-quality applications and websites.
 
-- Built responsive web components from Figma wireframes.
-- Support and maintenance of RESTful Web APIs with .NET Core and SQL Server.
-- Worked with PMs and designers to define requirements and plan sprint work.
-- Contributed to feature planning, code reviews, and continuous integration workflows.
+- Built a full-stack Angular/Node.js application featuring SSR, MongoDB, REST APIs, and AI integration.
+- Developed modern Angular applications using Signals, standalone components, SSR, and current Angular architecture.
+- Reduced Angular bundle size through modern build optimization and frontend performance improvements.
+- Built and deployed applications using Render, Cloudflare, GitHub, and MongoDB Atlas.
+- Explored AI-assisted software development workflows and modern frontend engineering practices.
 
-### Software Developer | Kantar - Austin, TX | 2000 – 2021
+### Software Developer | Common Forge Ventures (Remote) | 2022 – 2025
 
-21-year tenure delivering enterprise web applications (Angular, .NET Core, Azure, ASP.NET
-MVC, SQL Server).
+Developed SaaS applications using Angular, .NET Core, SQL Server, and Google Cloud Platform.
 
-- Designed front-end and full-stack features for global market-research platforms.
-- Built and supported RESTful Web APIs and EF migrations.
-- Collaborated with international teams to deliver releases, support, and enhancements.
+- Built responsive Angular components from Figma designs.
+- Developed and maintained REST APIs with .NET Core and SQL Server.
+- Collaborated with product managers, designers, and engineers throughout Agile development cycles.
+- Participated in code reviews, sprint planning, and CI/CD workflows.
+
+### Software Developer | Kantar | Austin, TX | 2000 – 2021
+
+Delivered enterprise web applications and full-stack solutions across a 21-year career supporting global market research platforms.
+
+- Developed Angular and ASP.NET MVC applications backed by SQL Server.
+- Built and maintained REST APIs, Entity Framework data layers, and enterprise web applications.
+- Collaborated with distributed international engineering teams on long-term product development and support.
 
 ## Education
 
-**B.S.** University of Houston | 1996
+**Bachelor of Science**, University of Houston
