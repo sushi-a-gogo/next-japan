@@ -8,7 +8,7 @@ import { MarkdownModule } from 'ngx-markdown';
   selector: 'app-my-resume',
   imports: [MarkdownModule, DialogComponent, NextButtonComponent],
   templateUrl: './my-resume.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './my-resume.component.scss'
 })
 export class MyResumeComponent {

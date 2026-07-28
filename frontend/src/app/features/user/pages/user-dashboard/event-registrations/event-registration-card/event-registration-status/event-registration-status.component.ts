@@ -5,7 +5,7 @@ import { RegistrationStatus } from '@app/features/registrations/models/event-reg
   selector: 'app-event-registration-status',
   imports: [],
   templateUrl: './event-registration-status.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-registration-status.component.scss'
 })
 export class EventRegistrationStatusComponent {

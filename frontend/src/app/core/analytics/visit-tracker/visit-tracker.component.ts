@@ -9,7 +9,7 @@ import { filter, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-visit-tracker',
   template: '', // invisible
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class VisitTrackerComponent implements OnInit {

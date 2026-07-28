@@ -7,7 +7,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-plan-card',
   imports: [CurrencyPipe, NextButtonComponent],
   templateUrl: './plan-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './plan-card.component.scss'
 })
 export class PlanCardComponent {

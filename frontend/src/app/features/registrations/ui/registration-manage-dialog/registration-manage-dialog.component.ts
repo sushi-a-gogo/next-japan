@@ -13,7 +13,7 @@ import { EventRegistration } from '../../models/event-registration.model';
   selector: 'app-registration-manage-dialog',
   imports: [MatButtonModule, RegistrationCardComponent, NextButtonComponent],
   templateUrl: './registration-manage-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-manage-dialog.component.scss'
 })
 export class RegistrationManageDialogComponent {

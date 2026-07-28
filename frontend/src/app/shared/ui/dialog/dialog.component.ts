@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
   standalone: true,
   imports: [],
   templateUrl: './dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './dialog.component.scss',
 })
 export class DialogComponent implements OnInit, OnDestroy {

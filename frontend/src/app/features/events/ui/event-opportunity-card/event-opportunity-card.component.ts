@@ -6,7 +6,7 @@ import { EventOpportunity } from '@app/features/events/models/event-opportunity.
   selector: 'app-event-opportunity-card',
   imports: [],
   templateUrl: './event-opportunity-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-opportunity-card.component.scss'
 })
 export class EventOpportunityCardComponent {

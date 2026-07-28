@@ -18,7 +18,7 @@ import { PaymentForm } from './payment.form';
   selector: 'app-plan-payment',
   imports: [RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './plan-payment.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './plan-payment.component.scss'
 })
 export class PlanPaymentComponent implements OnInit {
@@ -68,7 +68,6 @@ export class PlanPaymentComponent implements OnInit {
     ).subscribe({
       next: (res) => {
         if (res.success && res.data) {
-          this.user().subscriptionPlan = res.data.subscriptionPlan;
           this.authService.updateUserData(res.data);
           this.updatePayment.emit(res.data.subscriptionPlan);
         }

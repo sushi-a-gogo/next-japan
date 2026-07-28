@@ -11,7 +11,7 @@ import { delay } from 'rxjs';
   imports: [MatProgressSpinnerModule, NgxSpinnerComponent],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.fade-in-animate]': 'true' }
 })
 export class LogoutComponent implements OnInit {

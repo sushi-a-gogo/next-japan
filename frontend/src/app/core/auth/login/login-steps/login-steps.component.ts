@@ -22,7 +22,7 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
     PlanPaymentComponent
   ],
   templateUrl: './login-steps.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './login-steps.component.scss'
 })
 export class LoginStepsComponent implements OnInit {

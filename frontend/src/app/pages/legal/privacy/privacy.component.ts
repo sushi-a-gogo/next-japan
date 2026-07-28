@@ -6,7 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-privacy',
   imports: [],
   templateUrl: './privacy.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './privacy.component.scss'
 })
 export class PrivacyComponent {

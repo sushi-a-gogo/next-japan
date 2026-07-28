@@ -18,7 +18,7 @@ import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
     'class': 'app-button',
     '[attr.data-variant]': 'variant()', // This "links" the TS to the CSS
   },
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./next-button.component.scss']
 })
 export class NextButtonComponent {

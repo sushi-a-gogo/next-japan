@@ -12,7 +12,7 @@ import { RegistrationManageDialogComponent } from '../registration-manage-dialog
   selector: 'app-registration-status-card',
   imports: [DatePipe, RouterLink, NextButtonComponent],
   templateUrl: './registration-status-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-status-card.component.scss',
 })
 export class RegistrationStatusCardComponent {

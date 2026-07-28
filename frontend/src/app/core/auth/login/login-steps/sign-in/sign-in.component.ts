@@ -12,7 +12,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-sign-in',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, UserAvatarComponent, NextButtonComponent],
   templateUrl: './sign-in.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent implements OnInit {

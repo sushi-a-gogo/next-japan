@@ -9,7 +9,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-ai-banner',
   imports: [NgOptimizedImage, NextButtonComponent, RouterLink],
   templateUrl: './ai-banner.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './ai-banner.component.scss',
 })
 export class AiBannerComponent {

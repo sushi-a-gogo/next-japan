@@ -7,7 +7,7 @@ import { RegistrationRequestButtonComponent } from '@app/features/registrations/
   selector: 'app-event-opportunities',
   imports: [RegistrationRequestButtonComponent, EventOpportunityCardComponent],
   templateUrl: './event-opportunities.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-opportunities.component.scss'
 })
 export class EventOpportunitiesComponent {

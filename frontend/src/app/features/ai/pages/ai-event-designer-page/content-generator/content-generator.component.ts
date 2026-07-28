@@ -17,7 +17,7 @@ import { AiPromptsForm } from './ai-prompts.form';
   selector: 'app-content-generator',
   imports: [TitleCasePipe, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, TextFieldModule, ReactiveFormsModule, NextButtonComponent],
   templateUrl: './content-generator.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './content-generator.component.scss'
 })
 export class ContentGeneratorComponent implements OnInit {

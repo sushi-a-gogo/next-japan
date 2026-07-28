@@ -6,7 +6,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-login-button',
   imports: [NextButtonComponent],
   templateUrl: './login-button.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './login-button.component.scss'
 })
 export class LoginButtonComponent {

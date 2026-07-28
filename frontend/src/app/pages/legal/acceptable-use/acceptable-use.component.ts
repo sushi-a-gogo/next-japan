@@ -6,7 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-acceptable-use',
   imports: [],
   templateUrl: './acceptable-use.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './acceptable-use.component.scss'
 })
 export class AcceptableUseComponent {

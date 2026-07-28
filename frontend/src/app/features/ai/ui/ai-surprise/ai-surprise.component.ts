@@ -9,7 +9,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
   selector: 'app-ai-surprise',
   imports: [NgxSpinnerComponent, NextButtonComponent],
   templateUrl: './ai-surprise.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './ai-surprise.component.scss'
 })
 export class AiSurpriseComponent implements OnInit {

@@ -16,7 +16,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-event-share-button',
   imports: [MatButtonModule, MatRippleModule, MatMenuModule, MatTooltipModule],
   templateUrl: './event-share-button.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-share-button.component.scss'
 })
 export class EventShareButtonComponent implements OnInit {

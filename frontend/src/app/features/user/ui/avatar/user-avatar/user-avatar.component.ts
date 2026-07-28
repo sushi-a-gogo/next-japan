@@ -6,7 +6,7 @@ import { AvatarComponent } from "../avatar.component";
   selector: 'app-user-avatar',
   imports: [AvatarComponent],
   templateUrl: './user-avatar.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './user-avatar.component.scss',
 })
 export class UserAvatarComponent {

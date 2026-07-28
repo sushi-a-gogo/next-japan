@@ -12,7 +12,7 @@ import { EventRegistrationStatusComponent } from './event-registration-status/ev
   selector: 'app-event-registration-card',
   imports: [NgOptimizedImage, EventLocationCard, EventOpportunityCardComponent, EventRegistrationStatusComponent, NextButtonComponent, RouterLink],
   templateUrl: './event-registration-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-registration-card.component.scss'
 })
 export class EventRegistrationCardComponent implements OnInit {

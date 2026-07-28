@@ -15,7 +15,7 @@ import { RegistrationStatusCardComponent } from "@app/features/registrations/ui/
   imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, RegistrationStatusCardComponent],
   templateUrl: './event-hero.component.html',
   styleUrl: './event-hero.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(window:scroll)': 'handleScroll()'
   }

@@ -10,7 +10,7 @@ import { NewUserForm } from './new-user.form';
   selector: 'app-sign-up-form',
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NextButtonComponent],
   templateUrl: './sign-up-form.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {

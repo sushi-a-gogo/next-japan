@@ -9,7 +9,7 @@ import SUBSCRIPTION_PLANS, { SubscriptionPlan } from '@app/features/user/models/
   selector: 'app-manage-subscription',
   imports: [SelectPlanComponent, PlanPaymentComponent],
   templateUrl: './manage-subscription.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './manage-subscription.component.scss'
 })
 export class ManageSubscriptionComponent implements OnChanges {

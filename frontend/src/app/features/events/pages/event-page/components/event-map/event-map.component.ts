@@ -13,7 +13,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-event-map',
   imports: [EventDateCardComponent, NextButtonComponent],
   templateUrl: './event-map.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-map.component.scss'
 })
 export class EventMapComponent {
