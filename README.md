@@ -1,6 +1,6 @@
 # Next Japan
 
-Next Japan is a full-stack demo app built with **Angular v21** and **Node.js/Express**, deployed on **Render** as two web services (SSR-enabled Angular frontend + REST API backend).
+Next Japan is a full-stack demo app built with **Angular v22** and **Node.js/Express**, deployed on **Render** as two web services (SSR-enabled Angular frontend + REST API backend).
 
 Inspired by Japanese Anime, the app simulates a Japanese travel planning web site, allowing imaginary users to register for imaginary special events hosted at various locales in Japan. It was designed as a portfolio project to showcase modern front-end architecture, real-world API design, AI integration, and cloud deployment — all wrapped in a playful, visually engaging concept.
 
@@ -10,7 +10,7 @@ Inspired by Japanese Anime, the app simulates a Japanese travel planning web sit
 
 ## Goals
 
-- Demonstrate Angular v21 component-driven development
+- Demonstrate Angular v22 component-driven development
 - Explore modern reactive Angular programming with **signals, `computed()`, and `effect()`**
 - Implement a **zoneless architecture** (removed Zone.js in favor of `provideZonelessChangeDetection()` for performance)
 - Build and expose a real-world **REST API** with Node.js/Express
@@ -26,7 +26,7 @@ Inspired by Japanese Anime, the app simulates a Japanese travel planning web sit
 
 | Layer          | Tools & Details                                                           |
 | -------------- | ------------------------------------------------------------------------- |
-| Frontend       | Angular v21 (SSR-enabled), Angular Material                               |
+| Frontend       | Angular v22 (SSR-enabled), Angular Material                               |
 | Backend API    | Node.js, Express, MongoDB                                                 |
 | Hosting        | Render (two web services: Angular SSR frontend + Node.js/Express backend) |
 | Database       | MongoDB Atlas (event storage & dynamic content)                           |
