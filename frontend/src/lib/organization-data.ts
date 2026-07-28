@@ -2,8 +2,8 @@ import { appHeroDimensions } from "@app/core/models/app-image-data.model";
 import { OrganizationInformation } from "@app/core/models/organization-information.model";
 
 const organization: OrganizationInformation = {
-  title: "Next Japan - Zoneless Angular v21 Demo",
-  description: 'Discover Next Japan: a zoneless, 100% signal-driven Angular v21 demo app with SSR and AI-enabled features, built from scratch to showcase the future of Angular performance and modern web development.',
+  title: "Next Japan - Zoneless Angular v22 Demo",
+  description: 'Discover Next Japan: a zoneless, 100% signal-driven Angular v22 demo app with SSR and AI-enabled features, built from scratch to showcase the future of Angular performance and modern web development.',
   image: {
     id: "tokyo-night.png",
     //cloudflareImageId: "723396e6-75e2-4a34-625e-3862a9539200",

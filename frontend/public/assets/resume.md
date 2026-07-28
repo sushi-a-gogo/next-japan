@@ -9,7 +9,7 @@ Senior software developer with 25+ years of experience building enterprise web a
 
 ## Technical Skills
 
-**Front-End:** TypeScript, JavaScript, Angular (v21+), HTML5, CSS3, Angular Material, Responsive Design, Signals, SSR\
+**Front-End:** TypeScript, JavaScript, Angular (v22+), HTML5, CSS3, Angular Material, Responsive Design, Signals, SSR\
 **Back-End:** .NET Core, ASP.NET MVC, C#, Node.js, REST APIs, MongoDB, SQL Server\
 **Cloud / DevOps:** Git, Azure DevOps, CI/CD, Google Cloud Platform (GCP)\
 **Other:** AI-assisted Development, OpenAI API Integration, Agile/Scrum, Performance Optimization
