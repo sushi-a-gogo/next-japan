@@ -11,7 +11,7 @@ import { finalize, forkJoin, of } from 'rxjs';
   selector: 'app-event-like-button',
   imports: [MatRippleModule],
   templateUrl: './event-like-button.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-like-button.component.scss'
 })
 export class EventLikeButtonComponent implements OnChanges {

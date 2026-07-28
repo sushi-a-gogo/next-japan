@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-button',
   imports: [MatRippleModule, MatTooltipModule],
   templateUrl: './button.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './button.component.scss'
 })
 export class ButtonComponent {

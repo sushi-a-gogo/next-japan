@@ -11,7 +11,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-suggested-event-card',
   imports: [NgOptimizedImage, EventLikeButtonComponent, EventShareButtonComponent, NextButtonComponent, RouterLink],
   templateUrl: './suggested-event-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './suggested-event-card.component.scss'
 })
 export class SuggestedEventCardComponent {

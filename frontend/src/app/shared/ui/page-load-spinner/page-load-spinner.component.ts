@@ -6,7 +6,7 @@ import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
   imports: [NgxSpinnerComponent],
   templateUrl: './page-load-spinner.component.html',
   styleUrl: './page-load-spinner.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.removed]': 'remove()'
   }

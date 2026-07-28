@@ -42,7 +42,7 @@ export class UserDashboardComponent implements OnInit {
   private router = inject(Router);
   private dialogService = inject(DialogService);
 
-  user = signal<User | null>(null);
+  user = computed(() => this.auth.user());
   avatar = computed(() => {
     const user = this.user();
     if (user && !user!.image.id) {
@@ -66,8 +66,7 @@ export class UserDashboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    if (this.auth.user()) {
-      this.user.set(this.auth.user()!);
+    if (this.user()) {
       this.title.setTitle(`${this.user()?.firstName} ${this.user()?.lastName}`);
       const description = "View and manage your user setting in Next Japan. See your next event and achievements!";
       this.meta.updateTags(this.title.getTitle(), description);

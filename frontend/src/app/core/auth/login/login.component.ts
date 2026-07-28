@@ -13,7 +13,7 @@ import { LoginStepsComponent } from "./login-steps/login-steps.component";
   selector: 'app-login',
   imports: [MatProgressSpinnerModule, LoginStepsComponent, NgxSpinnerComponent],
   templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {

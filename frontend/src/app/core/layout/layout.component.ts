@@ -16,7 +16,7 @@ import { SignInBannerComponent } from './sign-in-banner/sign-in-banner.component
   selector: 'app-layout',
   imports: [NgComponentOutlet, HeaderComponent, FooterComponent, SignInBannerComponent, DialogComponent],
   templateUrl: './layout.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {

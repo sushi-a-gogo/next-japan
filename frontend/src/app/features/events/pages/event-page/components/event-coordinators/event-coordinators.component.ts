@@ -6,7 +6,7 @@ import { AvatarComponent } from "@app/features/user/ui/avatar/avatar.component";
   selector: 'app-event-coordinators',
   imports: [AvatarComponent],
   templateUrl: './event-coordinators.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-coordinators.component.scss'
 })
 export class EventCoordinatorsComponent {

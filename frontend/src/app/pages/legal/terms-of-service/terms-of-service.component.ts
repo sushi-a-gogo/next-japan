@@ -6,7 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-terms-of-service',
   imports: [],
   templateUrl: './terms-of-service.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './terms-of-service.component.scss'
 })
 export class TermsOfServiceComponent {

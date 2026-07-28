@@ -16,7 +16,7 @@ import { delay, finalize } from 'rxjs';
   selector: 'app-registration-request-dialog',
   imports: [MatButtonModule, LoadingSpinnerComponent, RegistrationCardComponent, NextButtonComponent, RouterLink],
   templateUrl: './registration-request-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-request-dialog.component.scss',
 })
 export class RegistrationRequestDialogComponent {

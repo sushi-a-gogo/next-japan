@@ -8,7 +8,7 @@ import { RegistrationRequestTicket } from '../../models/registration-request-tic
   selector: 'app-registration-card',
   imports: [EventLocationCard, EventOpportunityCardComponent],
   templateUrl: './registration-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-card.component.scss',
 })
 export class RegistrationCardComponent {

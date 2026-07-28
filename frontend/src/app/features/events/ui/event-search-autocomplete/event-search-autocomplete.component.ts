@@ -15,7 +15,7 @@ import { debounceTime, filter, of, switchMap } from 'rxjs';
   imports: [ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './event-search-autocomplete.component.html',
   styleUrl: './event-search-autocomplete.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.show]': 'isComponentActive()',
     '[class.open]': 'isOpen()'

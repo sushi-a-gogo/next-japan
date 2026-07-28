@@ -6,7 +6,7 @@ import { PlanCardComponent } from './plan-card/plan-card.component';
   selector: 'app-select-plan',
   imports: [PlanCardComponent],
   templateUrl: './select-plan.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './select-plan.component.scss'
 })
 export class SelectPlanComponent implements OnChanges {

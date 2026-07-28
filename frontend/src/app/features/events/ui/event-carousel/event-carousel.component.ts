@@ -21,8 +21,7 @@ export class EventCarouselComponent {
 
   events = input<EventData[]>([]);
   sortedEvents = computed(() => {
-    const sorted = [...this.events().sort(this.sortByDate)];
-    return sorted
+    return [...this.events()].sort(this.sortByDate);
   });
   ssrMode = computed(() => !isPlatformBrowser(this.platformId));
   showIndicators = toSignal(

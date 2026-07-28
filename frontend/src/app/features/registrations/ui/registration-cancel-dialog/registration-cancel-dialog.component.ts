@@ -12,7 +12,7 @@ import { EventRegistration } from '../../models/event-registration.model';
   selector: 'app-registration-cancel-dialog',
   imports: [MatButtonModule, RegistrationCardComponent, NextButtonComponent],
   templateUrl: './registration-cancel-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-cancel-dialog.component.scss',
 })
 export class RegistrationCancelDialogComponent {

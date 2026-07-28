@@ -9,7 +9,7 @@ import { EventDateCardComponent } from "@app/features/events/ui/event-date-card/
   selector: 'app-search-card',
   imports: [NgOptimizedImage, EventDateCardComponent],
   templateUrl: './search-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './search-card.component.scss'
 })
 export class SearchCardComponent implements OnInit {

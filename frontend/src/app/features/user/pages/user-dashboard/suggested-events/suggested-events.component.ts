@@ -9,7 +9,7 @@ import { SuggestedEventCardComponent } from "./suggested-event-card/suggested-ev
   selector: 'app-suggested-events',
   imports: [SuggestedEventCardComponent],
   templateUrl: './suggested-events.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './suggested-events.component.scss'
 })
 export class SuggestedEventsComponent implements OnInit {

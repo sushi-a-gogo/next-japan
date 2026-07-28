@@ -6,7 +6,7 @@ import { EventLocation } from '@app/features/events/models/event-location.model'
   imports: [],
   templateUrl: './event-location-card.component.html',
   styleUrl: './event-location-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
   .centered {
     align-items: center;

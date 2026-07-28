@@ -14,7 +14,7 @@ import { of, switchMap } from 'rxjs';
   selector: 'app-user-menu',
   imports: [RouterLink, MatButtonModule, MatMenuModule, MatTooltipModule, UserAvatarComponent],
   templateUrl: './user-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {

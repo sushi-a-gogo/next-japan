@@ -10,7 +10,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   selector: 'app-navbar',
   imports: [AppLogoComponent, EventSearchAutocompleteComponent, NextButtonComponent, RouterLink],
   templateUrl: './navbar.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {

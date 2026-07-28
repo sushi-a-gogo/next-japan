@@ -6,7 +6,7 @@ import { ImageService } from '@app/core/services/image.service';
   selector: 'app-about-site-banner',
   imports: [NgOptimizedImage],
   templateUrl: './about-site-banner.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './about-site-banner.component.scss'
 })
 export class AboutSiteBannerComponent {

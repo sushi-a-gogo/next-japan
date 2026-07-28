@@ -7,7 +7,7 @@ import { EventCalendarDate } from '@app/features/events/models/event-calendar-da
   selector: 'app-event-date-card',
   imports: [LowerCasePipe],
   templateUrl: './event-date-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-date-card.component.scss'
 })
 export class EventDateCardComponent {

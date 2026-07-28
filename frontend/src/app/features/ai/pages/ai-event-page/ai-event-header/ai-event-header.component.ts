@@ -8,7 +8,7 @@ import { EventData } from '@app/features/events/models/event-data.model';
   selector: 'app-ai-event-header',
   imports: [NgOptimizedImage],
   templateUrl: './ai-event-header.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './ai-event-header.component.scss'
 })
 export class AiEventHeaderComponent {

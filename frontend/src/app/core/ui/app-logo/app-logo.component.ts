@@ -8,7 +8,7 @@ import { ThemeService } from '@app/core/services/theme.service';
   selector: 'app-logo',
   imports: [NgOptimizedImage],
   templateUrl: './app-logo.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-logo.component.scss'
 })
 export class AppLogoComponent {

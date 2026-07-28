@@ -7,7 +7,7 @@ import { ErrorService } from '@app/core/services/error.service';
   selector: 'app-error-bar',
   imports: [],
   templateUrl: './error-bar.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './error-bar.component.scss'
 })
 export class ErrorBarComponent {

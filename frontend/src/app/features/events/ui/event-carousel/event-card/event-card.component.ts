@@ -11,7 +11,7 @@ import { NextButtonComponent } from "@app/shared/ui/next-button/next-button.comp
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, NextButtonComponent],
   templateUrl: './event-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './event-card.component.scss'
 })
 export class EventCardComponent {

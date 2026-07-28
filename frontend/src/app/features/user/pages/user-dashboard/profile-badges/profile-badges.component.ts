@@ -13,7 +13,7 @@ import { UserProfileService } from '@app/features/user/services/user-profile.ser
   selector: 'app-profile-badges',
   imports: [DatePipe, MatTableModule, MatTooltipModule],
   templateUrl: './profile-badges.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './profile-badges.component.scss'
 })
 export class ProfileBadgesComponent implements OnInit {

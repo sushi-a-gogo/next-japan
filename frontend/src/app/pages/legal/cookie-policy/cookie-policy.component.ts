@@ -6,7 +6,7 @@ import { MetaService } from '@app/core/services/meta.service';
   selector: 'app-cookie-policy',
   imports: [],
   templateUrl: './cookie-policy.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './cookie-policy.component.scss'
 })
 export class CookiePolicyComponent {

@@ -26,7 +26,7 @@ interface UserProfileForm {
   imports: [FormField, MatButtonModule, MatRippleModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, UserAvatarComponent],
   templateUrl: './profile-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './profile-dialog.component.scss'
 })
 export class ProfileDialogComponent implements OnInit {

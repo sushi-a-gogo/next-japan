@@ -10,7 +10,7 @@ import { environment } from '@environments/environment';
   selector: 'app-notification-card',
   imports: [NgOptimizedImage],
   templateUrl: './notification-card.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './notification-card.component.scss'
 })
 export class NotificationCardComponent {

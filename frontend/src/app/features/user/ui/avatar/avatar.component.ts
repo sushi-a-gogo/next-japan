@@ -7,7 +7,7 @@ import { ImageService } from '@app/core/services/image.service';
   selector: 'app-avatar',
   imports: [NgOptimizedImage],
   templateUrl: './avatar.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './avatar.component.scss'
 })
 export class AvatarComponent {

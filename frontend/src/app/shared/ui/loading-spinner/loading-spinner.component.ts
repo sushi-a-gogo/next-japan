@@ -5,7 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-loading-spinner',
   imports: [MatProgressSpinnerModule],
   templateUrl: './loading-spinner.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './loading-spinner.component.scss',
 })
 export class LoadingSpinnerComponent implements OnInit {

@@ -14,7 +14,7 @@ import { UserMenuComponent } from "./user-menu/user-menu.component";
   selector: 'app-user-navbar',
   imports: [MatMenuModule, MyNotificationsComponent, AppLogoComponent, UserMenuComponent, EventSearchAutocompleteComponent, NextButtonComponent, RouterLink],
   templateUrl: './user-navbar.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './user-navbar.component.scss'
 })
 export class UserNavbarComponent {

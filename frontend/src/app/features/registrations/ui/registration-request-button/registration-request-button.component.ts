@@ -13,7 +13,7 @@ import { RegistrationRequestDialogComponent } from '../registration-request-dial
   selector: 'app-registration-request-button',
   imports: [TitleCasePipe, NextButtonComponent],
   templateUrl: './registration-request-button.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './registration-request-button.component.scss'
 })
 export class RegistrationRequestButtonComponent {
