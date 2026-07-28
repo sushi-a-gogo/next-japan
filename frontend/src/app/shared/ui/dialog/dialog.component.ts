@@ -20,6 +20,7 @@ export class DialogComponent implements OnInit, OnDestroy {
   close = output<boolean>();
 
   showBackdrop = input<boolean>(true);
+  disableBackdropClose = input<boolean>(false);
   size = input<'sm' | 'md' | 'lg' | 'auto'>();
   cssClass = computed(() => this.size() ? `dialog ${this.size()}` : 'dialog');
 
@@ -46,6 +47,12 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   onClick($event: any) {
     $event.stopPropagation()
+  }
+
+  onBackdropClick() {
+    if (!this.disableBackdropClose()) {
+      this.onClose();
+    }
   }
 
   onClose() {

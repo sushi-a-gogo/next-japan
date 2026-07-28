@@ -6,6 +6,7 @@ export interface DialogConfig<TData> {
   component: any;
   size?: 'sm' | 'md' | 'lg' | 'auto';
   showBackdrop?: boolean;
+  disableBackdropClose?: boolean;
 }
 
 export interface DialogRef<TData> {

@@ -13,7 +13,7 @@
 </div>
 
 @if (dialogService.request(); as config) {
-  <app-dialog [size]="config.size" (close)="dialogService.closeDialog()">
+  <app-dialog [size]="config.size" [disableBackdropClose]="!!config.disableBackdropClose" (close)="dialogService.closeDialog()">
     <ng-container
       *ngComponentOutlet="config.component; inputs: { data: config.data }"
     />
