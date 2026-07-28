@@ -6,13 +6,42 @@
   transition: 0.25s ease-in-out;
 }
 
+header.dialog {
+  .dialog-close {
+    position: relative;
+    z-index: 100000;
+  }
+}
+
 main.dialog {
   .pre-wrap {
     font-weight: 500;
     line-height: 24px;
   }
+
+  .loading-ticker {
+    overflow: hidden;
+  }
+
+  .loading {
+    display: inline-block;
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+
+    &.exit {
+      transform: translateX(-24px);
+      opacity: 0;
+    }
+
+    &.jump {
+      transform: translateX(24px);
+      opacity: 0;
+      transition: none;
+    }
+  }
 }
 
-button {
+footer.dialog button {
   width: 100%;
 }

@@ -99,7 +99,8 @@ export class UserDashboardComponent implements OnInit {
   openSurprise() {
     this.dialogService.open<null>({
       component: AiSurpriseComponent,
-      size: 'sm'
+      size: 'sm',
+      disableBackdropClose: true
     });
   }
 }

@@ -1,3 +1,17 @@
+<header class="dialog">
+  <span id="dialog-title"
+    >AI Surprise <span class="fade-in" [class.open]="haiku()">🎂</span></span
+  >
+  <button
+    aria-label="Close dialog"
+    type="button"
+    class="dialog-close"
+    mat-icon-button
+    (click)="closeDialog()"
+  >
+    <span class="material-symbols-outlined"> close </span>
+  </button>
+</header>
 <main class="dialog">
   @if (haiku()) {
     <div class="pre-wrap">{{ haiku() }}</div>
@@ -8,7 +22,14 @@
       type="ball-scale-multiple"
       size="medium"
     >
-      <p class="loading">Hold on a minute...</p>
+      <p class="loading-ticker">
+        <span
+          class="loading"
+          [class.exit]="messageState() === 'exit'"
+          [class.jump]="messageState() === 'jump'"
+          >{{ message() }}</span
+        >
+      </p>
     </ngx-spinner>
   }
 </main>
