@@ -1,17 +1,17 @@
-<header class="dialog">
-  <span id="dialog-title"
-    >AI Surprise <span class="fade-in" [class.open]="haiku()">🎂</span></span
-  >
-  <button
-    aria-label="Close dialog"
-    type="button"
-    class="dialog-close"
-    mat-icon-button
-    (click)="closeDialog()"
-  >
-    <span class="material-symbols-outlined"> close </span>
-  </button>
-</header>
+@if (!haiku()) {
+  <header class="dialog">
+    <span id="dialog-title"></span>
+    <button
+      aria-label="Close dialog"
+      type="button"
+      class="dialog-close"
+      mat-icon-button
+      (click)="closeDialog()"
+    >
+      <span class="material-symbols-outlined"> close </span>
+    </button>
+  </header>
+}
 <main class="dialog">
   @if (haiku()) {
     <div class="pre-wrap">{{ haiku() }}</div>
