@@ -11,4 +11,15 @@ services:
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
-        value: 24.18.0
+        value: 24.22.1
+  - type: web
+    name: next-japan-api
+    env: node
+    rootDir: api
+    plan: starter
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.1

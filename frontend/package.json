@@ -1,6 +1,9 @@
 {
   "name": "next-japan",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
